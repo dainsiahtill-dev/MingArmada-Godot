@@ -1,0 +1,638 @@
+{
+  "version": 1,
+  "description": "Git base plus exact singleplayer source patches; generated artifacts remain outer-repository assets.",
+  "npmRegistry": "https://registry.npmjs.org/",
+  "rootLockFile": "package-lock.json",
+  "rootLockSha256": "db62846bc3b72dd4dba64cfe77e8704736afbcf6a17ad387cb7fc4b6ba15f5f1",
+  "packages": [
+    {
+      "id": "physics-core",
+      "path": "packages/physics-core",
+      "packageName": "@ming-armada/physics-core",
+      "packageVersion": "0.0.0",
+      "remote": "https://github.com/dainsiahtill-dev/SailingEngine.git",
+      "baseSha": "16fe1d3d7e13cca370bbad7c92f3865c4bf2fa19",
+      "baseTree": "d01a150102dc30d3ee1f998b60cf666dd17ecd9f",
+      "resolvedHead": "c21948e1897151fbc7bd4e76aaf0f31e95f3c297",
+      "resolvedHeadTree": "a4d9a62a9cb1af6d1206fe270d3e6aeb280a1b9f",
+      "sourceTree": "a4d9a62a9cb1af6d1206fe270d3e6aeb280a1b9f",
+      "sourceSha256": "3641fee25671675c23debcdfcea26f9f1036edd2ab6024feafa342a9a5805bdd",
+      "patch": "tools/workspace/patches/physics-core-singleplayer.patch",
+      "patchSha256": "acf71820a2d32b3b42d70a6e1c8f6b48280453d005ca7fc4f04778c1df6c4a97",
+      "patchBytes": 137531,
+      "sourceFiles": [
+        {
+          "path": ".gitignore",
+          "mode": "100644",
+          "blob": "fb2efc25426686ec93783a20922af05c7ee4dd30"
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "blob": "ba3c6bd8b52b4568e9c1fd200c37e206e640190e"
+        },
+        {
+          "path": "docs/cannon-api.md",
+          "mode": "100644",
+          "blob": "1fb63b92c3de3891ee62ce63563886fea6bbb6e1"
+        },
+        {
+          "path": "package-lock.json",
+          "mode": "100644",
+          "blob": "45954340ad2e6bde67ef4b7b7f8452a414278e2f"
+        },
+        {
+          "path": "package.json",
+          "mode": "100644",
+          "blob": "cdc7180ace49e699d61f4d7ab15c3c1f738960f6"
+        },
+        {
+          "path": "src/DescribedOcean.ts",
+          "mode": "100644",
+          "blob": "83b2c46aa6c56a0297645075cae54d9f63db3aaf"
+        },
+        {
+          "path": "src/cannon.ts",
+          "mode": "100644",
+          "blob": "489888f34b49de70d9573ab3f3b7c368b5c1c1f7"
+        },
+        {
+          "path": "src/collision.ts",
+          "mode": "100644",
+          "blob": "7ac3cc6d2676af009e775491c3ee81e7a1510e52"
+        },
+        {
+          "path": "src/dynamics/articulated.ts",
+          "mode": "100644",
+          "blob": "15534806075ae0b7a4034700c9aafd0d8cf0617b"
+        },
+        {
+          "path": "src/events.ts",
+          "mode": "100644",
+          "blob": "196fa9899069434b9ac0c7863dfa5067bc2b1398"
+        },
+        {
+          "path": "src/index.ts",
+          "mode": "100644",
+          "blob": "61ad30ce793d0f0c4ebe299338bcef2a2deebe0a"
+        },
+        {
+          "path": "src/manualHandling.ts",
+          "mode": "100644",
+          "blob": "918cb691f87e31236ce64f55490aecb8c82c34e1"
+        },
+        {
+          "path": "src/math.ts",
+          "mode": "100644",
+          "blob": "6a3c8f30d6347fb1eaa26fd732fddddda8cae83a"
+        },
+        {
+          "path": "src/ocean.ts",
+          "mode": "100644",
+          "blob": "1368aa788dc1a749f4b1c624c52567d92d4321d1"
+        },
+        {
+          "path": "src/projectile.ts",
+          "mode": "100644",
+          "blob": "e96bd49071bb20112ea7ad8e512988e2c4640665"
+        },
+        {
+          "path": "src/shipParams.ts",
+          "mode": "100644",
+          "blob": "7a2abb236b225eb23820177eba62e929df5e9b6d"
+        },
+        {
+          "path": "src/terrain.ts",
+          "mode": "100644",
+          "blob": "67fced98d7a5df36e817837b74915b9a9b619d96"
+        },
+        {
+          "path": "src/types.ts",
+          "mode": "100644",
+          "blob": "6f44de8c5619858aca5c4f9f99e407607fc05893"
+        },
+        {
+          "path": "test/articulated.test.ts",
+          "mode": "100644",
+          "blob": "11efdeb581b04fc218ef48ff26773808a6c5ebf7"
+        },
+        {
+          "path": "test/cannon-system.test.ts",
+          "mode": "100644",
+          "blob": "4a8ece600d2cdaa09c64c4e70b23a20ae8bbeba4"
+        },
+        {
+          "path": "test/cardinal-reset.test.ts",
+          "mode": "100644",
+          "blob": "aa746e055ca17d1f0354991919e9b0bfbd9a7990"
+        },
+        {
+          "path": "test/collision.test.ts",
+          "mode": "100644",
+          "blob": "7ddd805cd615f13b64dbc809a37c3653db6aa6c3"
+        },
+        {
+          "path": "test/described-ocean.test.ts",
+          "mode": "100644",
+          "blob": "4cebaf0bd67febc1a8c4ddf9a9286abd73aed068"
+        },
+        {
+          "path": "test/draft-update.test.ts",
+          "mode": "100644",
+          "blob": "36faa9f37ab5cc24309bfb155e3dd7ec70f56fe2"
+        },
+        {
+          "path": "test/heave-travel.test.ts",
+          "mode": "100644",
+          "blob": "bf1a3024be9c5c20484bd020fccb724d75c584ff"
+        },
+        {
+          "path": "test/horizontal-anchor.test.ts",
+          "mode": "100644",
+          "blob": "41447e03571b4696fae6c66b1b7326eef61a7473"
+        },
+        {
+          "path": "test/impact-effects.test.ts",
+          "mode": "100644",
+          "blob": "a369e4c844add906145046987a59a7301e880375"
+        },
+        {
+          "path": "test/low-speed-steering.test.ts",
+          "mode": "100644",
+          "blob": "bfdaea8c108c97e956b7b6dc353207117c728533"
+        },
+        {
+          "path": "test/manual-handling.test.ts",
+          "mode": "100644",
+          "blob": "80236816ea851d2576f85abb365b7fb2f69b8746"
+        },
+        {
+          "path": "test/merge-contract.test.ts",
+          "mode": "100644",
+          "blob": "76cdf743b5c5f31e3faa34eba15c8ccdc49ff920"
+        },
+        {
+          "path": "test/physics.test.ts",
+          "mode": "100644",
+          "blob": "b9be55a2d6daa3689f16859a943aa53cc9606f36"
+        },
+        {
+          "path": "test/projectile-trajectory.test.ts",
+          "mode": "100644",
+          "blob": "75438385bfe77a58a36713bec5c4833ef42101eb"
+        },
+        {
+          "path": "test/sailing-contract.test.ts",
+          "mode": "100644",
+          "blob": "210db6f995e6b724c7b2c5024d31b5644d27f028"
+        },
+        {
+          "path": "test/ship-variants.test.ts",
+          "mode": "100644",
+          "blob": "a2292a5e8160e0845d8653b7fb96bd1934a4adc1"
+        },
+        {
+          "path": "test/turning-sizes.test.ts",
+          "mode": "100644",
+          "blob": "b97e0aa2ac14707e6d3460b2210aabf0910cf95b"
+        },
+        {
+          "path": "test/utils/authored-articulated.ts",
+          "mode": "100644",
+          "blob": "2790c31ff792bc312fc4a479fc384d5f1ea2eeda"
+        },
+        {
+          "path": "test/utils/frozen-sailor-impact.README.md",
+          "mode": "100644",
+          "blob": "7c3420df0b144c3a2f6094216b1a20e9197dda10"
+        },
+        {
+          "path": "test/utils/frozen-sailor-impact.ts",
+          "mode": "100644",
+          "blob": "93be9e0e040c4d66fdae134f2c25c27463d46f2a"
+        },
+        {
+          "path": "test/utils/trace.ts",
+          "mode": "100644",
+          "blob": "d3a3cb961235f6038b624f079d2dc29ffdc9635f"
+        },
+        {
+          "path": "test/utils/verify-merge-parity.mjs",
+          "mode": "100644",
+          "blob": "6cedd4a5a050ecad8b4364e02efb8d01238e5b1e"
+        },
+        {
+          "path": "test/visual-dynamics.test.ts",
+          "mode": "100644",
+          "blob": "7f27907eab79b1fbf39140bed30e079e2a9425c7"
+        },
+        {
+          "path": "test/wind-direction-speed.test.ts",
+          "mode": "100644",
+          "blob": "8f0895bf606ec155245b4dc669f019783dc721e3"
+        },
+        {
+          "path": "test/wind-speed.test.ts",
+          "mode": "100644",
+          "blob": "0fe1aef58e8075a00f1e69e89b1f6a9da5bedb11"
+        },
+        {
+          "path": "tools/visualizer/README.md",
+          "mode": "100644",
+          "blob": "ad15e334bc57372156fcde84a16295751f77f10d"
+        },
+        {
+          "path": "tools/visualizer/index.html",
+          "mode": "100644",
+          "blob": "93a0b397c8a4faf7166cad45da842178b677f7ad"
+        },
+        {
+          "path": "tools/visualizer/package-lock.json",
+          "mode": "100644",
+          "blob": "5c05fb3dc6a48ba10e59cb892a6d9499d7091179"
+        },
+        {
+          "path": "tools/visualizer/package.json",
+          "mode": "100644",
+          "blob": "ac3fa27f7ef7d90e8903a64ba7257ca885146aa0"
+        },
+        {
+          "path": "tools/visualizer/src/main.js",
+          "mode": "100644",
+          "blob": "487b2d66e73371a2f87f77b9c0d7216ba80e0777"
+        },
+        {
+          "path": "tools/visualizer/src/style.css",
+          "mode": "100644",
+          "blob": "38b536f3d61eb512e6c92685dd082f8dc1f258a7"
+        },
+        {
+          "path": "tsconfig.json",
+          "mode": "100644",
+          "blob": "081569da0fb73c62b878ce9e19568bce7c6e5e01"
+        }
+      ]
+    },
+    {
+      "id": "scene-engine",
+      "path": "packages/scene-engine",
+      "packageName": "@ming-armada/scene-engine",
+      "packageVersion": "0.0.0",
+      "remote": "https://github.com/dainsiahtill-dev/SeaBattleEra.git",
+      "baseSha": "fc6df9d141e7c6e8e6071f057131102d4323e3d2",
+      "baseTree": "f8d5b26dbf5841908e643b8acc66dc5553e68c57",
+      "resolvedHead": "ce66b50c8a0c62c88920b5b6f796dc6dba03a752",
+      "resolvedHeadTree": "fa368aef6698f44862726210728d71c46aa23509",
+      "sourceTree": "fa368aef6698f44862726210728d71c46aa23509",
+      "sourceSha256": "b5fc031ff35320db317460be9cbda10972cb8090a4361c6004245ad11f78689c",
+      "patch": "tools/workspace/patches/scene-engine-singleplayer.patch",
+      "patchSha256": "b217f8b46933f9bd2152972fd7c994aac8834d7827ad00b8cb8ea2e6faca3c58",
+      "patchBytes": 84903,
+      "sourceFiles": [
+        {
+          "path": "package.json",
+          "mode": "100644",
+          "blob": "4555ae72fcc7932c2692b81a72deafaff6c4b4e9"
+        },
+        {
+          "path": "src/config/constants.js",
+          "mode": "100644",
+          "blob": "ed7515120f9d950a651bd1a16daff05688e92e27"
+        },
+        {
+          "path": "src/engine/assets/Assets.js",
+          "mode": "100644",
+          "blob": "a1f96318edc4e5cefd4703a466bf3e3d74766a57"
+        },
+        {
+          "path": "src/engine/controls/CameraController.js",
+          "mode": "100644",
+          "blob": "a2f606deea8b0fdee464a5f2f3ed6ea2634840f5"
+        },
+        {
+          "path": "src/engine/controls/InputController.js",
+          "mode": "100644",
+          "blob": "3d7575dae6b14948f0b37367d5e9545d11671ade"
+        },
+        {
+          "path": "src/engine/environment/WindSystem.js",
+          "mode": "100644",
+          "blob": "1b47d41e0b92fb082f57a5166d311acb7131a17b"
+        },
+        {
+          "path": "src/engine/terrain/terrainHeight.js",
+          "mode": "100644",
+          "blob": "1fef76200c54a156dac4889cd9cc7f0d2d2f5ac5"
+        },
+        {
+          "path": "src/engine/vehicles/Boat.js",
+          "mode": "100644",
+          "blob": "da71356c0e4754a111d037e9c31e7e25dc2dff47"
+        },
+        {
+          "path": "src/engine/vehicles/SailBoat.js",
+          "mode": "100644",
+          "blob": "de763c0e1dbd5458fc96e35f88b4a528b4786e34"
+        },
+        {
+          "path": "src/engine/water/FFTOceanSurface.js",
+          "mode": "100644",
+          "blob": "f86fb3094fc76137d509fceb4cd1d455c95e2f76"
+        },
+        {
+          "path": "src/engine/water/LODWaterSurface.js",
+          "mode": "100644",
+          "blob": "bbe9980bf38cebb139d4e9d59cdc3bccc3ea1423"
+        },
+        {
+          "path": "src/engine/water/OriginalWaterSurface.js",
+          "mode": "100644",
+          "blob": "be5250a51539e1b327ddc425c210a250d2956968"
+        },
+        {
+          "path": "src/engine/water/ProjectedWaterShader.js",
+          "mode": "100644",
+          "blob": "4812f42477cbdc7c60839c0353bbed749c81c9e4"
+        },
+        {
+          "path": "src/engine/water/ProjectedWaterSurface.js",
+          "mode": "100644",
+          "blob": "07b25d9c8c08ac49d15998b11a68568484a7789e"
+        },
+        {
+          "path": "src/engine/water/WaterSurface.js",
+          "mode": "100644",
+          "blob": "413c1de325cfd203deb5353d35cddcc9980fb3b8"
+        },
+        {
+          "path": "src/engine/water/oceanWaves.js",
+          "mode": "100644",
+          "blob": "b71f83002e9451e3513c9fa7f03da5d99406743b"
+        },
+        {
+          "path": "src/engine/world/BeachDecorationManager.js",
+          "mode": "100644",
+          "blob": "ff2bec0a016f49ba133af291f342b483570c9d88"
+        },
+        {
+          "path": "src/engine/world/Chunk.js",
+          "mode": "100644",
+          "blob": "16f1799c47884e31463a3d0384b27306a5093b1e"
+        },
+        {
+          "path": "src/engine/world/IslandMesh.js",
+          "mode": "100644",
+          "blob": "5f6dc8bb90dbe913843a972454a52ed03ba64d6c"
+        },
+        {
+          "path": "src/engine/world/IslandRegistry.js",
+          "mode": "100644",
+          "blob": "32d27e4691ff41f15e8f574cdf1710d650abe695"
+        },
+        {
+          "path": "src/engine/world/IslandVegetationManager.js",
+          "mode": "100644",
+          "blob": "22c45e8287bd247eec6bad22c2b1879985209fdb"
+        },
+        {
+          "path": "src/engine/world/World.js",
+          "mode": "100644",
+          "blob": "f17cd30940080c96c8b7e6ddc39cbb768e8b8ecd"
+        },
+        {
+          "path": "src/engine/world/vegetationExclusions.js",
+          "mode": "100644",
+          "blob": "c6042b7ba08ede78948539e876ef6f7f60b7a778"
+        },
+        {
+          "path": "src/index.js",
+          "mode": "100644",
+          "blob": "7d837616e93b8842fd001f787d5c6a58f72ab341"
+        },
+        {
+          "path": "src/utils/QuadTree.js",
+          "mode": "100644",
+          "blob": "e09255d235967af24a832631f785b8754d3665cd"
+        },
+        {
+          "path": "src/utils/math.js",
+          "mode": "100644",
+          "blob": "28cd127d128e7f568f67843c91da9597cdf2952b"
+        },
+        {
+          "path": "src/utils/physicsPose.js",
+          "mode": "100644",
+          "blob": "1776babeea6c758e4aa3f05cd72b53532c8c1c3c"
+        },
+        {
+          "path": "test/physics-scene.test.js",
+          "mode": "100644",
+          "blob": "9fdeaaa03b58babebb32e8729e30c2e76dc410d7"
+        },
+        {
+          "path": "test/scene-baseline-loader.mjs",
+          "mode": "100644",
+          "blob": "3f6b8b646493b2a1f1d096c135733a78402ff810"
+        },
+        {
+          "path": "test/scene-sync.test.js",
+          "mode": "100644",
+          "blob": "22ee8ed09aa9e6b0af66e47580136f404e9155c5"
+        },
+        {
+          "path": "test/shore-engine-seams.test.js",
+          "mode": "100644",
+          "blob": "2ddd4a3b7a5be8b8e27934e4586c1ed01964fcc2"
+        }
+      ]
+    },
+    {
+      "id": "realtime-client",
+      "path": "packages/realtime-client",
+      "packageName": "@ming-armada/realtime-client",
+      "packageVersion": "0.0.0",
+      "remote": "https://github.com/dainsiahtill-dev/ArmadaClient.git",
+      "baseSha": "40703bc4c76120a076acc87de3f38400d975a689",
+      "baseTree": "3c6905a43c4d3434632e5f26332732307d9585f8",
+      "resolvedHead": "471bb61a32d08ca62e3abb3d72ccc2d859e351c7",
+      "resolvedHeadTree": "e704da4237b1fab92a510078be744d00d1786a4e",
+      "sourceTree": "e704da4237b1fab92a510078be744d00d1786a4e",
+      "sourceSha256": "17c75c5af29aa1c36de2c5a80ef799f872a798f9b31a62f258069b8fbfa3c229",
+      "patch": "tools/workspace/patches/realtime-client-singleplayer.patch",
+      "patchSha256": "454c9ae5fd05cc5e8f32efd9d706e7a37e4bce0ed4c016c70425d46cdec778f5",
+      "patchBytes": 61502,
+      "sourceFiles": [
+        {
+          "path": ".gitignore",
+          "mode": "100644",
+          "blob": "c2658d7d1b31848c3b71960543cb0368e56cd4c7"
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "blob": "87ce43c6df7f2770ad2b5d5a34a0865762390c4e"
+        },
+        {
+          "path": "dist/controlSend.d.ts",
+          "mode": "100644",
+          "blob": "7f039c22d3ea79443b26331134e33a8166f57d6b"
+        },
+        {
+          "path": "dist/controlSend.d.ts.map",
+          "mode": "100644",
+          "blob": "8fa31bdd31689ee290a8c3bdffb90e97ae9d32d8"
+        },
+        {
+          "path": "dist/controlSend.js",
+          "mode": "100644",
+          "blob": "254b975f944166123f2c8efd3d20fd6b0a271c67"
+        },
+        {
+          "path": "dist/index.d.ts",
+          "mode": "100644",
+          "blob": "98c7129a6a3279045ac07a320ddc456a1beba188"
+        },
+        {
+          "path": "dist/index.d.ts.map",
+          "mode": "100644",
+          "blob": "34dd7211329bf00d1c2fff4a180bbe111620bf64"
+        },
+        {
+          "path": "dist/index.js",
+          "mode": "100644",
+          "blob": "5198719fb5d66b83fdb5d98f41806160a2de78aa"
+        },
+        {
+          "path": "dist/interpolation.d.ts",
+          "mode": "100644",
+          "blob": "6e0be7fa74b2b947892d70723718729d15715fb4"
+        },
+        {
+          "path": "dist/interpolation.d.ts.map",
+          "mode": "100644",
+          "blob": "240f337d15f0779db6c35f233eb6a68710883680"
+        },
+        {
+          "path": "dist/interpolation.js",
+          "mode": "100644",
+          "blob": "038c1df9dbbd4b99cebbe202a9ca211fca4122f4"
+        },
+        {
+          "path": "dist/physicsClient.d.ts",
+          "mode": "100644",
+          "blob": "34c7aaac7941b951fda15e1c0283adee68edf23f"
+        },
+        {
+          "path": "dist/physicsClient.d.ts.map",
+          "mode": "100644",
+          "blob": "d2eba47a766330277bd4af23bc1831bf7bf71da2"
+        },
+        {
+          "path": "dist/physicsClient.js",
+          "mode": "100644",
+          "blob": "a72f77d4921cc04adb8b0344c7f6eebe400c60b9"
+        },
+        {
+          "path": "dist/protocol.d.ts",
+          "mode": "100644",
+          "blob": "c93f848b743ae3a0f66fa879fbf1e25844ba0682"
+        },
+        {
+          "path": "dist/protocol.d.ts.map",
+          "mode": "100644",
+          "blob": "08efb7c41826137900cae9a7f87794ce3a4b045e"
+        },
+        {
+          "path": "dist/protocol.js",
+          "mode": "100644",
+          "blob": "cb0ff5c3b541f646105198ee23ac0fc3d805023e"
+        },
+        {
+          "path": "dist/serverClock.d.ts",
+          "mode": "100644",
+          "blob": "2cedf0806ac29b0ad5befcf459984eb375c98808"
+        },
+        {
+          "path": "dist/serverClock.d.ts.map",
+          "mode": "100644",
+          "blob": "eaf1222e8f1fdb85be0aeab58b17653de1f4fde4"
+        },
+        {
+          "path": "dist/serverClock.js",
+          "mode": "100644",
+          "blob": "22f9c8d777e9da2b7b6481d05e40b79cc1500d9a"
+        },
+        {
+          "path": "package.json",
+          "mode": "100644",
+          "blob": "14647df7fb9f8164157cee13c72c60b72c2006b1"
+        },
+        {
+          "path": "src/controlSend.ts",
+          "mode": "100644",
+          "blob": "4d3258cccd1fe046a84f304e43b5f4682cd20b01"
+        },
+        {
+          "path": "src/index.ts",
+          "mode": "100644",
+          "blob": "56628924f98135300dc6e1be461bbebd5ffffb0f"
+        },
+        {
+          "path": "src/interpolation.ts",
+          "mode": "100644",
+          "blob": "7c348a9b62cf8270d9f266da6ea4e1b46d0de6bc"
+        },
+        {
+          "path": "src/physicsClient.ts",
+          "mode": "100644",
+          "blob": "22072980bff59fc3d0d691cace62e29c74bf5bd7"
+        },
+        {
+          "path": "src/protocol.ts",
+          "mode": "100644",
+          "blob": "f9fb0520bf9b539c6b77916a86222518a57c4683"
+        },
+        {
+          "path": "src/serverClock.ts",
+          "mode": "100644",
+          "blob": "7d309b745b75a0ef24185db742ca10986017b57c"
+        },
+        {
+          "path": "tests/controlSend.test.ts",
+          "mode": "100644",
+          "blob": "e4b5c6fbdc4a24a8c737cda055159c4491da082a"
+        },
+        {
+          "path": "tests/interpolation.test.ts",
+          "mode": "100644",
+          "blob": "686e20d4dde5a5e45b8d9913422557fff2c69e63"
+        },
+        {
+          "path": "tests/physicsClient.test.ts",
+          "mode": "100644",
+          "blob": "70b43dd227176ec913e822705906ec1bb93bc99c"
+        },
+        {
+          "path": "tests/physicsClientTransport.test.ts",
+          "mode": "100644",
+          "blob": "ca91133314190f7f75703be8ca95a40d1f53cb99"
+        },
+        {
+          "path": "tests/serverClock.test.ts",
+          "mode": "100644",
+          "blob": "f9b7893fb475dd8afc54650987918495b0af0e95"
+        },
+        {
+          "path": "tsconfig.json",
+          "mode": "100644",
+          "blob": "56a7cf368d3cac584b9fc902deaf0d4ce3d1ab17"
+        },
+        {
+          "path": "vitest.config.ts",
+          "mode": "100644",
+          "blob": "471d943d41188b3d230a83da138779532cd7fad4"
+        }
+      ]
+    }
+  ]
+}

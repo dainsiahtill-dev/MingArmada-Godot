@@ -1,0 +1,1886 @@
+diff --git a/package.json b/package.json
+index e6309f5ddd163f919f3ad86117fb4069741dd73f..4555ae72fcc7932c2692b81a72deafaff6c4b4e9 100644
+--- a/package.json
++++ b/package.json
+@@ -4,6 +4,9 @@
+   "version": "0.0.0",
+   "type": "module",
+   "main": "./src/index.js",
++  "scripts": {
++    "test": "node --test test/*.test.js"
++  },
+   "dependencies": {
+     "three": "^0.181.2"
+   }
+diff --git a/src/engine/controls/CameraController.js b/src/engine/controls/CameraController.js
+index da5a0eeed9a0393fec84aa38b8f37123ecdd39e7..a2f606deea8b0fdee464a5f2f3ed6ea2634840f5 100644
+--- a/src/engine/controls/CameraController.js
++++ b/src/engine/controls/CameraController.js
+@@ -53,6 +53,7 @@ export class CameraController {
+         this.editCameraOffset = new THREE.Vector3(-90, 65, -90);
+         this.tempTarget = new THREE.Vector3();
+         this.flightEnabled = false;
++        this.inputEnabled = true;
+         this.followTargetEnabled = false;
+         this.followTarget = null;
+         this.hasFollowTarget = false;
+@@ -62,7 +63,7 @@ export class CameraController {
+ 
+     setEnabled(enabled) {
+         this.flightEnabled = enabled;
+-        this.controls.enabled = enabled || this.followTargetEnabled;
++        this.controls.enabled = this.inputEnabled && (enabled || this.followTargetEnabled);
+         if (!enabled) {
+             this.velocity.set(0, 0, 0);
+         }
+@@ -71,7 +72,7 @@ export class CameraController {
+     setFollowTargetEnabled(enabled, target) {
+         this.followTargetEnabled = !!enabled;
+         this.followTarget = this.followTargetEnabled ? target : null;
+-        this.controls.enabled = this.flightEnabled || this.followTargetEnabled;
++        this.controls.enabled = this.inputEnabled && (this.flightEnabled || this.followTargetEnabled);
+         if (!this.followTargetEnabled) {
+             this.hasFollowTarget = false;
+             return;
+@@ -84,6 +85,12 @@ export class CameraController {
+         this.setFollowTargetEnabled(true, boat);
+     }
+ 
++    setInputEnabled(enabled) {
++        this.inputEnabled = !!enabled;
++        this.controls.enabled = this.inputEnabled && (this.flightEnabled || this.followTargetEnabled);
++        if (!this.inputEnabled) this.velocity.set(0, 0, 0);
++    }
++
+     enterFlightMode(boat) {
+         this.setFollowTargetEnabled(false);
+         this.setEnabled(true);
+@@ -111,7 +118,7 @@ export class CameraController {
+             this.syncToBoat(followTarget);
+         }
+ 
+-        if (this.flightEnabled) {
++        if (this.flightEnabled && this.inputEnabled) {
+             this._handleMovement(dt, input);
+         }
+ 
+@@ -243,4 +250,9 @@ export class CameraController {
+         this.camera.lookAt(target);
+         this.controls.update();
+     }
++
++    dispose() {
++        this.controls.dispose();
++        this.followTarget = null;
++    }
+ }
+diff --git a/src/engine/controls/InputController.js b/src/engine/controls/InputController.js
+index 3361843db4bdf1345954988c51ac262ec3b88537..3d7575dae6b14948f0b37367d5e9545d11671ade 100644
+--- a/src/engine/controls/InputController.js
++++ b/src/engine/controls/InputController.js
+@@ -37,6 +37,10 @@ export class InputController {
+         Object.keys(this.keys).forEach(key => this.keys[key] = false);
+     }
+ 
++    dispose() {
++        this.setEnabled(false);
++    }
++
+     getState() {
+         return this.keys;
+     }
+diff --git a/src/engine/environment/WindSystem.js b/src/engine/environment/WindSystem.js
+index 2f30315a3604224e1903afe08037ae7a602936bf..1b47d41e0b92fb082f57a5166d311acb7131a17b 100644
+--- a/src/engine/environment/WindSystem.js
++++ b/src/engine/environment/WindSystem.js
+@@ -25,6 +25,8 @@ export class WindSystem {
+         this.direction = new THREE.Vector3(0, 0, 1);
+         this.currentSpeed = WIND_PARAMS.baseSpeed;
+         this.time = 0;
++        this.external = false;
++        this.flowDirection = new THREE.Vector3();
+         this.override = null;
+         
+         this.initTexture();
+@@ -169,17 +171,20 @@ export class WindSystem {
+ 
+     // ... update 和 getWindData 方法保持不变 ...
+     setWind(direction, speed) {
++        const y = direction?.y ?? 0;
++        const z = direction?.z ?? 0;
++        if (direction != null && (!Number.isFinite(direction.x) || !Number.isFinite(y) || !Number.isFinite(z))) return false;
++        if (speed != null && !Number.isFinite(speed)) return false;
+         if (!this.override) {
+             this.override = { direction: new THREE.Vector3(0, 0, 1), speed: this.currentSpeed };
+         }
+-        if (direction && typeof direction.x === 'number') {
+-            const y = typeof direction.y === 'number' ? direction.y : 0;
+-            const z = typeof direction.z === 'number' ? direction.z : 0;
++        if (direction != null) {
+             this.override.direction.set(direction.x, y, z);
++            if (this.override.direction.lengthSq() < 1e-12) this.override.direction.set(1, 0, 0);
++            this.override.direction.normalize();
+         }
+-        if (Number.isFinite(speed)) {
+-            this.override.speed = speed;
+-        }
++        if (speed != null) this.override.speed = Math.max(0, speed);
++        return true;
+     }
+ 
+     clearWindOverride() {
+@@ -187,23 +192,24 @@ export class WindSystem {
+     }
+ 
+     update(dt, time) {
+-        if (this.override) {
+-            this.direction.copy(this.override.direction).normalize();
+-            if (Number.isFinite(this.override.speed)) {
++        if (!this.external) {
++            if (this.override) {
++                this.direction.copy(this.override.direction).normalize();
+                 this.currentSpeed = this.override.speed;
++            } else {
++                const angleNoise = this.simplex.noise(time * WIND_PARAMS.changeSpeed * 0.1, 0);
++                const currentAngle = (Math.PI / 4) + angleNoise * 0.35;
++                this.direction.set(Math.sin(currentAngle), 0, Math.cos(currentAngle)).normalize();
++                const speedNoise = this.simplex.noise(time * WIND_PARAMS.changeSpeed * 0.2, 100);
++                this.currentSpeed = WIND_PARAMS.baseSpeed + speedNoise * WIND_PARAMS.gustiness;
+             }
+-        } else {
+-            const angleNoise = this.simplex.noise(time * WIND_PARAMS.changeSpeed * 0.1, 0);
+-            const currentAngle = (Math.PI / 4) + angleNoise * 0.35;
+-            this.direction.set(Math.sin(currentAngle), 0, Math.cos(currentAngle)).normalize();
+-            const speedNoise = this.simplex.noise(time * WIND_PARAMS.changeSpeed * 0.2, 100);
+-            this.currentSpeed = WIND_PARAMS.baseSpeed + speedNoise * WIND_PARAMS.gustiness;
+         }
+ 
+-        this.time += dt;
++        this.time = Number.isFinite(time) ? time : this.time + dt;
+         this.mesh.position.copy(this.camera.position);
+         this.mesh.position.y = 0; 
+-        const lookTarget = this.mesh.position.clone().add(this.direction);
++        this.flowDirection.copy(this.direction).multiplyScalar(this.external ? -1 : 1);
++        const lookTarget = this.mesh.position.clone().add(this.flowDirection);
+         this.mesh.lookAt(lookTarget);
+         
+         this.material.uniforms.uTime.value = this.time;
+@@ -216,4 +222,25 @@ export class WindSystem {
+             direction: this.direction
+         };
+     }
+-}
+\ No newline at end of file
++
++    setWindFromPhysics(direction, speed) {
++        const z = direction?.z ?? direction?.y;
++        if (!Number.isFinite(direction?.x) || !Number.isFinite(z) || !Number.isFinite(speed)) return false;
++        this.external = true;
++        this.direction.set(direction.x, 0, z);
++        if (this.direction.lengthSq() < 1e-12) this.direction.set(1, 0, 0);
++        this.direction.normalize();
++        this.currentSpeed = Math.max(0, speed);
++        return true;
++    }
++
++    dispose() {
++        if (this.disposed) return;
++        this.disposed = true;
++        this.mesh.removeFromParent();
++        this.mesh.dispose();
++        this.mesh.geometry.dispose();
++        this.material.dispose();
++        this.texture.dispose();
++    }
++}
+diff --git a/src/engine/vehicles/Boat.js b/src/engine/vehicles/Boat.js
+index afaef5cc32bab7a4678438776f1eec5a5ff37591..da71356c0e4754a111d037e9c31e7e25dc2dff47 100644
+--- a/src/engine/vehicles/Boat.js
++++ b/src/engine/vehicles/Boat.js
+@@ -1,5 +1,7 @@
+ import * as THREE from 'three';
+ import { getWaterHeightAt } from '../../utils/math.js';
++import { physicsVisualToPose } from '../../utils/physicsPose.js';
++export { physicsVisualToPose } from '../../utils/physicsPose.js';
+ 
+ // --- 船体参数 (Tuning) ---
+ // 用于调整船体操控手感
+@@ -14,15 +16,11 @@ const TUNING = {
+ 
+ const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+ const clamp01 = (value) => clamp(value, 0, 1);
+-const normalizeAngle = (value) => {
+-    let v = value;
+-    while (v > Math.PI) v -= Math.PI * 2;
+-    while (v < -Math.PI) v += Math.PI * 2;
+-    return v;
+-};
++const normalizeAngle = (value) => Math.atan2(Math.sin(value), Math.cos(value));
+ const lerpAngle = (a, b, t) => {
+-    const delta = normalizeAngle(b - a);
+-    return normalizeAngle(a + delta * t);
++    const start = normalizeAngle(a);
++    const delta = normalizeAngle(normalizeAngle(b) - start);
++    return normalizeAngle(start + delta * t);
+ };
+ 
+ export class Boat {
+@@ -155,7 +153,7 @@ export class Boat {
+     }
+ 
+     handleKey(e, isDown) {
+-        if (!this.controlsEnabled) return;
++        if (!this.controlsEnabled || this.physicsDriven) return;
+         switch(e.code) {
+             case 'ArrowUp': case 'KeyW': this.inputs.forward = isDown; break;
+             case 'ArrowDown': case 'KeyS': this.inputs.backward = isDown; break;
+@@ -279,14 +277,10 @@ export class Boat {
+             this.heading = lerpAngle(this.heading, state.heading, smoothing);
+         }
+ 
+-        const forwardX = Math.sin(this.heading);
+-        const forwardZ = Math.cos(this.heading);
+-        this.speed = this.velocity.x * forwardX + this.velocity.z * forwardZ;
++        this.speed = Math.hypot(this.velocity.x, this.velocity.z);
+ 
+         this.mesh.position.copy(this.position);
+-        this.mesh.rotation.y = this.heading;
+-        this.mesh.rotation.x = -state.pitch;
+-        this.mesh.rotation.z = -state.heel;
++        this.mesh.rotation.set(state.pitch, this.heading, state.heel, 'YXZ');
+ 
+         if (this.cameraFollowEnabled) {
+             this.updateCamera();
+@@ -325,8 +319,8 @@ export class Boat {
+     }
+ 
+     setInputEnabled(enabled) {
+-        this.controlsEnabled = enabled;
+-        if (!enabled) {
++        this.controlsEnabled = !!enabled && !this.physicsDriven;
++        if (!this.controlsEnabled) {
+             Object.keys(this.inputs).forEach(key => this.inputs[key] = false);
+         }
+     }
+@@ -335,27 +329,40 @@ export class Boat {
+         const next = !!enabled;
+         if (this.physicsDriven === next) return;
+         this.physicsDriven = next;
++        this.angularVel = 0;
++        this.setInputEnabled(!next);
+         if (next) {
+-            this.setInputEnabled(false);
+-            this.speed = 0;
+-            this.angularVel = 0;
++            this.hasPhysicsState = false;
+         }
+     }
+ 
+-    applyPhysicsState(state) {
+-        if (!state || !state.position || !state.velocity) return;
++    applyPhysicsState(visual, dimensions) {
++        if (!isFinitePhysicsState(visual)) return false;
++        const pose = physicsVisualToPose({ ...visual, heading: visual.heading ?? 0, pitch: visual.pitch ?? 0, heel: visual.heel ?? 0 });
+         const wasMissing = !this.hasPhysicsState;
+-        this.physicsState.position.set(state.position.x, state.position.y, state.position.z);
+-        this.physicsState.velocity.set(state.velocity.x, state.velocity.y, state.velocity.z);
+-        this.physicsState.heading = state.heading || 0;
+-        this.physicsState.heel = state.heel || 0;
+-        this.physicsState.pitch = state.pitch || 0;
++        this.physicsState.position.copy(pose.position);
++        this.physicsState.velocity.copy(visual.velocity);
++        this.physicsState.heading = pose.yaw;
++        this.physicsState.heel = pose.heel;
++        this.physicsState.pitch = pose.pitch;
+         this.hasPhysicsState = true;
+-        if (wasMissing) {
++        if (dimensions) {
++            for (const key of ['length', 'width', 'draft']) {
++                if (Number.isFinite(dimensions[key]) && dimensions[key] > 0) this.dimensions[key] = dimensions[key];
++            }
++            this.applyShipScale(this.dimensions.length, this.dimensions.width);
++        }
++        // Gameplay supplies interpolated authoritative poses already. Remote callers
++        // may explicitly opt into visual smoothing; neither path integrates forces.
++        if (wasMissing || this.physicsSmoothing >= 1) {
+             this.position.copy(this.physicsState.position);
+             this.velocity.copy(this.physicsState.velocity);
+             this.heading = this.physicsState.heading;
++            this.speed = pose.speed;
++            this.mesh.position.copy(this.position);
++            this.mesh.rotation.set(pose.pitch, pose.yaw, pose.heel, 'YXZ');
+         }
++        return true;
+     }
+ 
+     setPhysicsSmoothing(value) {
+@@ -365,7 +372,7 @@ export class Boat {
+ 
+     applyShipScale(length, width) {
+         if (!this.mesh) return;
+-        if (!Number.isFinite(length) || !Number.isFinite(width)) return;
++        if (!Number.isFinite(length) || !Number.isFinite(width) || length <= 0 || width <= 0) return;
+         const scaleX = width / this.baseDimensions.width;
+         const scaleZ = length / this.baseDimensions.length;
+         if (!Number.isFinite(scaleX) || !Number.isFinite(scaleZ)) return;
+@@ -373,15 +380,21 @@ export class Boat {
+     }
+ 
+     dispose() {
++        if (this.disposed) return;
++        this.disposed = true;
+         if (this._onKeyDown) {
+             window.removeEventListener('keydown', this._onKeyDown);
+         }
+         if (this._onKeyUp) {
+             window.removeEventListener('keyup', this._onKeyUp);
+         }
+-        if (this.mesh && this.scene) {
+-            this.scene.remove(this.mesh);
+-        }
++        this.setInputEnabled(false);
++        this.mesh.removeFromParent();
++        this.mesh.traverse(object => {
++            object.geometry?.dispose();
++            const materials = Array.isArray(object.material) ? object.material : [object.material];
++            materials.forEach(material => material?.dispose());
++        });
+     }
+ 
+     snapCameraToFollow() {
+@@ -391,3 +404,9 @@ export class Boat {
+         this.camera.lookAt(look);
+     }
+ }
++
++export function isFinitePhysicsState(state) {
++    return !!state?.position && !!state?.velocity &&
++        ['x', 'y', 'z'].every(key => Number.isFinite(state.position[key]) && Number.isFinite(state.velocity[key])) &&
++        ['heading', 'pitch', 'heel'].every(key => Number.isFinite(state[key] ?? 0));
++}
+diff --git a/src/engine/water/OriginalWaterSurface.js b/src/engine/water/OriginalWaterSurface.js
+index eda700f993d49f0cc543b7a641becbf7958b2aae..be5250a51539e1b327ddc425c210a250d2956968 100644
+--- a/src/engine/water/OriginalWaterSurface.js
++++ b/src/engine/water/OriginalWaterSurface.js
+@@ -102,11 +102,14 @@ export class OriginalWaterSurface extends THREE.Group {
+             this.parent.remove(this);
+         }
+         if (this.water) {
++            this.water.material.uniforms.mirrorSampler.value.renderTarget?.dispose();
+             this.water.geometry.dispose();
+             this.water.material.dispose();
++            this.water = null;
+         }
+         if (this.waterNormals) {
+             this.waterNormals.dispose();
++            this.waterNormals = null;
+         }
+     }
+ }
+diff --git a/src/engine/water/ProjectedWaterSurface.js b/src/engine/water/ProjectedWaterSurface.js
+index 125d1c5273cf25400169bb5044c8e65df78c19ba..07b25d9c8c08ac49d15998b11a68568484a7789e 100644
+--- a/src/engine/water/ProjectedWaterSurface.js
++++ b/src/engine/water/ProjectedWaterSurface.js
+@@ -2,6 +2,7 @@ import * as THREE from 'three';
+ import { CONFIG, globalUniforms, waterUniforms } from '../../config/constants.js';
+ import { Assets } from '../assets/Assets.js';
+ import { ProjectedWaterShader } from './ProjectedWaterShader.js';
++import { sampleOriginalProjectedOcean } from './oceanWaves.js';
+ 
+ const DEFAULT_RESOLUTION = 80;
+ const DEFAULT_MAX_DISTANCE = CONFIG.chunkSize * 12;
+@@ -101,6 +102,7 @@ export class ProjectedWaterSurface extends THREE.Mesh {
+     }
+ 
+     update(activeCamera, timeSeconds) {
++        if (Number.isFinite(timeSeconds)) this.material.uniforms.uTime.value = timeSeconds;
+         const cam = activeCamera || this.camera;
+         if (!cam) return;
+         this.camera = cam;
+@@ -168,4 +170,8 @@ export class ProjectedWaterSurface extends THREE.Mesh {
+         this.geometry.dispose();
+         this.material.dispose();
+     }
++
++    sampleOcean(x, z, time = this.material.uniforms.uTime.value) {
++        return sampleOriginalProjectedOcean(x, z, time);
++    }
+ }
+diff --git a/src/engine/water/oceanWaves.js b/src/engine/water/oceanWaves.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..b71f83002e9451e3513c9fa7f03da5d99406743b
+--- /dev/null
++++ b/src/engine/water/oceanWaves.js
+@@ -0,0 +1,96 @@
++import * as THREE from 'three';
++
++export const MAX_OCEAN_WAVES = 8;
++
++// Exact sin(a)cos(b) expansion of the original ProjectedWaterShader. Keep the
++// renderer intact; physics and wakes adapt to its existing world-space waves.
++const originalWave = (amplitude, x, z, speed) => {
++    const k = Math.hypot(x, z);
++    return Object.freeze({ amplitude, direction: Object.freeze({ x: x / k, y: z / k }), wavelength: 2 * Math.PI / k, speed });
++};
++export const ORIGINAL_PROJECTED_WAVES = Object.freeze([
++    originalWave(1, .02, .015, .9),
++    originalWave(1, .02, -.015, .1),
++    originalWave(1, .05, 0, -.6),
++    originalWave(.25, .1, .11, 2.05),
++    originalWave(.25, .1, -.11, -.05)
++]);
++
++export function sampleOriginalProjectedOcean(x, z, time) {
++    let height = 0, gradX = 0, gradZ = 0;
++    for (const wave of ORIGINAL_PROJECTED_WAVES) {
++        const k = 2 * Math.PI / wave.wavelength;
++        const phase = k * (wave.direction.x * x + wave.direction.y * z) + wave.speed * time;
++        height += wave.amplitude * Math.sin(phase);
++        const slope = wave.amplitude * k * Math.cos(phase);
++        gradX += wave.direction.x * slope;
++        gradZ += wave.direction.y * slope;
++    }
++    const normal = new THREE.Vector3(-gradX, 1, -gradZ).normalize();
++    return { height, gradient: { x: gradX, z: gradZ }, normal: { x: normal.x, y: normal.y, z: normal.z } };
++}
++
++export function createOceanWaveUniforms() {
++    return {
++        uWaveCount: { value: 0 },
++        uWaveDirections: { value: Array.from({ length: MAX_OCEAN_WAVES }, () => new THREE.Vector2()) },
++        uWaveAmplitudes: { value: Array(MAX_OCEAN_WAVES).fill(0) },
++        uWaveNumbers: { value: Array(MAX_OCEAN_WAVES).fill(0) },
++        uWaveSpeeds: { value: Array(MAX_OCEAN_WAVES).fill(0) }
++    };
++}
++
++export function packOceanWaves(uniforms, waves) {
++    if (waves.length > MAX_OCEAN_WAVES) throw new RangeError('At most eight ocean waves are supported');
++    for (const wave of waves) {
++        if (!Number.isFinite(wave.wavelength) || wave.wavelength <= 0 ||
++            ![wave.direction.x, wave.direction.y, wave.amplitude, wave.speed].every(Number.isFinite)) {
++            throw new TypeError('Ocean waves need finite direction, amplitude, speed and positive wavelength');
++        }
++    }
++    uniforms.uWaveCount.value = waves.length;
++    for (let i = 0; i < MAX_OCEAN_WAVES; i++) {
++        const wave = waves[i];
++        uniforms.uWaveDirections.value[i].set(wave?.direction.x ?? 0, wave?.direction.y ?? 0);
++        uniforms.uWaveAmplitudes.value[i] = wave?.amplitude ?? 0;
++        uniforms.uWaveNumbers.value[i] = wave ? 2 * Math.PI / wave.wavelength : 0;
++        uniforms.uWaveSpeeds.value[i] = wave?.speed ?? 0;
++    }
++}
++
++/** CPU probe of the actual packed GPU contract, useful to consumers and diagnostics. */
++export function sampleOceanUniforms(uniforms, x, z, time) {
++    let height = 0, gradX = 0, gradZ = 0;
++    for (let i = 0; i < uniforms.uWaveCount.value; i++) {
++        const direction = uniforms.uWaveDirections.value[i];
++        const amplitude = uniforms.uWaveAmplitudes.value[i];
++        const k = uniforms.uWaveNumbers.value[i];
++        const phase = k * (direction.x * x + direction.y * z) + uniforms.uWaveSpeeds.value[i] * time;
++        height += amplitude * Math.sin(phase);
++        const derivative = amplitude * k * Math.cos(phase);
++        gradX += direction.x * derivative;
++        gradZ += direction.y * derivative;
++    }
++    const normal = new THREE.Vector3(-gradX, 1, -gradZ).normalize();
++    return { height, gradient: { x: gradX, z: gradZ }, normal: { x: normal.x, y: normal.y, z: normal.z } };
++}
++
++// Shared verbatim by both shader stages. Return (height, dHeight/dX, dHeight/dZ).
++export const OCEAN_WAVE_GLSL = `
++    uniform int uWaveCount;
++    uniform vec2 uWaveDirections[8];
++    uniform float uWaveAmplitudes[8];
++    uniform float uWaveNumbers[8];
++    uniform float uWaveSpeeds[8];
++    vec3 sampleOceanWaves(vec2 worldXZ) {
++        vec3 sampleValue = vec3(0.0);
++        for (int i = 0; i < 8; i++) {
++            if (i >= uWaveCount) break;
++            float phase = uWaveNumbers[i] * dot(uWaveDirections[i], worldXZ) + uWaveSpeeds[i] * uTime;
++            float gradient = uWaveAmplitudes[i] * uWaveNumbers[i] * cos(phase);
++            sampleValue.x += uWaveAmplitudes[i] * sin(phase);
++            sampleValue.yz += gradient * uWaveDirections[i];
++        }
++        return sampleValue;
++    }
++`;
+diff --git a/src/engine/world/BeachDecorationManager.js b/src/engine/world/BeachDecorationManager.js
+index dd5e5ea674b7b61935ef78b92905b18f66f9b6e2..ff2bec0a016f49ba133af291f342b483570c9d88 100644
+--- a/src/engine/world/BeachDecorationManager.js
++++ b/src/engine/world/BeachDecorationManager.js
+@@ -149,6 +149,7 @@ export class BeachDecorationManager {
+ 
+     dispose(parent) {
+         this.meshes.forEach(mesh => {
++            mesh.dispose();
+             if (parent) parent.remove(mesh);
+             if (mesh.geometry !== mesh.userData.geometry) {
+                 mesh.geometry.dispose();
+diff --git a/src/engine/world/Chunk.js b/src/engine/world/Chunk.js
+index 6a77d0390f84c807f8627e9ee5e611e3dbb401f7..16f1799c47884e31463a3d0384b27306a5093b1e 100644
+--- a/src/engine/world/Chunk.js
++++ b/src/engine/world/Chunk.js
+@@ -3,11 +3,6 @@ import { CONFIG } from '../../config/constants.js';
+ import { IslandMesh } from './IslandMesh.js';
+ import { WaterSurface } from '../water/WaterSurface.js';
+ 
+-const LOD_LEVELS = [
+-    { resolution: CONFIG.resolution, distance: 0, vegetation: true },
+-    { resolution: Math.max(24, Math.floor(CONFIG.resolution / 3)), distance: CONFIG.chunkSize * 2.5, vegetation: false }
+-];
+-
+ export class TerrainChunk {
+     constructor(x, z, scene, options = {}) {
+         this.x = x;
+@@ -22,12 +17,19 @@ export class TerrainChunk {
+         this.worldOffset = options.worldOffset || 0;
+         this.chunkSize = CONFIG.chunkSize;
+ 
+-        LOD_LEVELS.forEach(level => {
++        const resolution = options.resolution ?? CONFIG.resolution;
++        const lodLevels = [
++            { resolution, distance: 0, vegetation: true },
++            { resolution: Math.max(24, Math.floor(resolution / 3)), distance: CONFIG.chunkSize * 2.5, vegetation: false }
++        ];
++        lodLevels.forEach(level => {
+             const island = new IslandMesh({
+                 x: this.x,
+                 z: this.z,
+                 resolution: level.resolution,
+-                enableVegetation: level.vegetation
++                enableVegetation: level.vegetation,
++                vegetationExclusions: options.vegetationExclusions,
++                worldOffset: this.worldOffset
+             });
+             this.islandLevels.push(island);
+             this.lod.addLevel(island, level.distance);
+@@ -91,4 +93,4 @@ export class TerrainChunk {
+             height: this.chunkSize
+         };
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/engine/world/IslandMesh.js b/src/engine/world/IslandMesh.js
+index 2aeb4a03483115c7cf4f74b89085c2eda9832f83..5f6dc8bb90dbe913843a972454a52ed03ba64d6c 100644
+--- a/src/engine/world/IslandMesh.js
++++ b/src/engine/world/IslandMesh.js
+@@ -51,7 +51,7 @@ function applyProceduralTexture(color, height, x, z) {
+ }
+ 
+ export class IslandMesh extends THREE.Group {
+-    constructor({ x, z, resolution = CONFIG.resolution, enableVegetation = true, enableDecorations } = {}) {
++    constructor({ x, z, resolution = CONFIG.resolution, enableVegetation = true, enableDecorations, vegetationExclusions, worldOffset = 0 } = {}) {
+         super();
+         this.position.set(0, 0, 0);
+         this.chunkX = x;
+@@ -66,7 +66,9 @@ export class IslandMesh extends THREE.Group {
+         this.vegetationMeshes = [];
+         this.vegetationManager = new IslandVegetationManager({
+             seaLevel: this.seaLevel,
+-            enabled: this.enableVegetation
++            enabled: this.enableVegetation,
++            vegetationExclusions,
++            worldOffset
+         });
+         this.decorationData = [];
+         this.decorationMeshes = [];
+@@ -154,7 +156,7 @@ export class IslandMesh extends THREE.Group {
+     }
+ 
+     createVegetation() {
+-        if (!this.vegetationData.length) return;
++        // Ghost-only candidates still consume legacy build-time tilt RNG.
+         const meshes = this.vegetationManager.attach(this);
+         this.vegetationMeshes = meshes || [];
+     }
+diff --git a/src/engine/world/IslandVegetationManager.js b/src/engine/world/IslandVegetationManager.js
+index f0ad4a1dfb8a2dce10ec3d509e28e27b014927fc..22c45e8287bd247eec6bad22c2b1879985209fdb 100644
+--- a/src/engine/world/IslandVegetationManager.js
++++ b/src/engine/world/IslandVegetationManager.js
+@@ -1,6 +1,7 @@
+ import * as THREE from 'three';
+ import { CONFIG } from '../../config/constants.js';
+ import { simplex } from '../../utils/math.js';
++import { copyVegetationExclusions, vegetationIntersects } from './vegetationExclusions.js';
+ import {
+     Assets,
+     createPalmTreeGeometry,
+@@ -9,13 +10,16 @@ import {
+ } from '../assets/Assets.js';
+ 
+ export class IslandVegetationManager {
+-    constructor({ seaLevel = CONFIG.waterLevel, enabled = true, random = Math.random, maxInstances = 200 } = {}) {
++    constructor({ seaLevel = CONFIG.waterLevel, enabled = true, random = Math.random, maxInstances = 200, vegetationExclusions, worldOffset = 0 } = {}) {
+         this.seaLevel = seaLevel;
+         this.enabled = enabled;
+         this.random = random;
+         this.instances = [];
+         this.vegetationMeshes = [];
+         this.maxInstances = maxInstances;
++        this.vegetationExclusions = copyVegetationExclusions(vegetationExclusions);
++        this.worldOffset = worldOffset;
++        this.candidates = [];
+ 
+         if (!Assets.palmGeo) {
+             Assets.palmGeo = createPalmTreeGeometry();
+@@ -61,6 +65,7 @@ export class IslandVegetationManager {
+     reset(enabled = this.enabled) {
+         this.enabled = enabled;
+         this.instances = [];
++        this.candidates = [];
+     }
+ 
+     tryAddInstance(wx, wz, sample) {
+@@ -73,7 +78,7 @@ export class IslandVegetationManager {
+         const clusterDensity = (clusterNoise + 1) * 0.5; // 0..1
+         const spawnChance = 0.012 + clusterDensity * 0.08; // further reduced density
+         if (this.random() > spawnChance) return;
+-        if (this.instances.length >= this.maxInstances) return;
++        if (this.candidates.length >= this.maxInstances) return;
+ 
+         const candidates = this.types.filter(t => sample.height >= t.minHeight && sample.normalized <= t.maxNormalized);
+         if (!candidates.length) return;
+@@ -89,7 +94,9 @@ export class IslandVegetationManager {
+             typeId: chosen.id,
+             rotY: this.random() * Math.PI * 2
+         };
+-        this.instances.push(instance);
++        const excluded = vegetationIntersects(instance, chosen, this.vegetationExclusions, this.worldOffset);
++        this.candidates.push({ instance, excluded });
++        if (!excluded) this.instances.push(instance);
+     }
+ 
+     getInstances() {
+@@ -114,14 +121,15 @@ export class IslandVegetationManager {
+     }
+ 
+     buildMeshes() {
+-        if (!this.instances.length) return [];
++        if (!this.candidates.length) return [];
+ 
+         const grouped = new Map();
+-        this.instances.forEach(instance => {
++        this.candidates.forEach(candidate => {
++            const { instance } = candidate;
+             if (!grouped.has(instance.typeId)) {
+                 grouped.set(instance.typeId, []);
+             }
+-            grouped.get(instance.typeId).push(instance);
++            grouped.get(instance.typeId).push(candidate);
+         });
+ 
+         const meshes = [];
+@@ -130,13 +138,18 @@ export class IslandVegetationManager {
+             const type = this.types.find(t => t.id === typeId);
+             if (!type) return;
+ 
+-            const mesh = new THREE.InstancedMesh(
++            const count = instances.filter(candidate => !candidate.excluded).length;
++            const mesh = count ? new THREE.InstancedMesh(
+                 type.geometry,
+                 type.material,
+-                instances.length
+-            );
+-
+-            instances.forEach((instance, index) => {
++                count
++            ) : null;
++            // Three's Object3D constructor draws UUID randomness from Math.random.
++            // Preserve that shared stream for later chunks without allocating a ghost mesh.
++            if (!mesh) THREE.MathUtils.generateUUID();
++
++            let index = 0;
++            instances.forEach(({ instance, excluded }) => {
+                 dummy.position.set(instance.x, instance.y, instance.z);
+                 dummy.scale.set(instance.scale, instance.scale, instance.scale);
+                 dummy.rotation.set(
+@@ -145,9 +158,10 @@ export class IslandVegetationManager {
+                     (typeId === 'grass' ? (this.random() - 0.5) * 0.35 : (this.random() - 0.5) * 0.2)
+                 );
+                 dummy.updateMatrix();
+-                mesh.setMatrixAt(index, dummy.matrix);
++                if (!excluded) mesh.setMatrixAt(index++, dummy.matrix);
+             });
+ 
++            if (!mesh) return;
+             mesh.castShadow = true;
+             mesh.receiveShadow = true;
+             mesh.userData.typeId = typeId;
+@@ -170,6 +184,7 @@ export class IslandVegetationManager {
+ 
+     dispose(parent) {
+         this.vegetationMeshes.forEach(mesh => {
++            mesh.dispose();
+             if (parent) {
+                 parent.remove(mesh);
+             }
+@@ -182,5 +197,6 @@ export class IslandVegetationManager {
+         });
+         this.vegetationMeshes = [];
+         this.instances = [];
++        this.candidates = [];
+     }
+ }
+diff --git a/src/engine/world/World.js b/src/engine/world/World.js
+index 662af842e2f46db17bdb272b233130d4a70a145a..f17cd30940080c96c8b7e6ddc39cbb768e8b8ecd 100644
+--- a/src/engine/world/World.js
++++ b/src/engine/world/World.js
+@@ -6,7 +6,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
+ import { CONFIG, globalUniforms, FFT_PARAM_DEFAULTS, ORIGINAL_WATER_PARAM_DEFAULTS } from '../../config/constants.js';
+ import { TerrainChunk } from './Chunk.js';
+ import { WindSystem } from '../environment/WindSystem.js';
+-import { Boat } from '../vehicles/Boat.js';
++import { Boat, isFinitePhysicsState } from '../vehicles/Boat.js';
+ import { InputController } from '../controls/InputController.js';
+ import { CameraController } from '../controls/CameraController.js';
+ import { ProjectedWaterSurface } from '../water/ProjectedWaterSurface.js';
+@@ -14,6 +14,7 @@ import { LODWaterSurface } from '../water/LODWaterSurface.js';
+ import { FFTOceanSurface } from '../water/FFTOceanSurface.js';
+ import { OriginalWaterSurface } from '../water/OriginalWaterSurface.js';
+ import { IslandRegistry } from './IslandRegistry.js';
++import { copyVegetationExclusions } from './vegetationExclusions.js';
+ 
+ const INTERACTIVE_TAGS = new Set(['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON']);
+ const CHUNK_LOAD_RADIUS = 5;
+@@ -21,10 +22,23 @@ const MAX_CHUNK_CREATES_PER_TICK = 3;
+ const MAX_CHUNK_DISPOSES_PER_TICK = 2;
+ const WATER_MODES = ['projected', 'original', 'fft'];
+ const FFT_PARAM_KEYS = Object.keys(FFT_PARAM_DEFAULTS);
++const QUALITY_PRESETS = Object.freeze({
++    legacy: { radius: CHUNK_LOAD_RADIUS, resolution: CONFIG.resolution, shadowSize: 2048, shadows: true, bloom: true },
++    balanced: { radius: 3, resolution: 64, shadowSize: 1024, shadows: true, bloom: false },
++    low: { radius: 2, resolution: 40, shadowSize: 0, shadows: false, bloom: false },
++    high: { radius: 4, resolution: 96, shadowSize: 2048, shadows: true, bloom: true }
++});
+ 
+ export class World {
+     constructor(renderer, callbacks = {}) {
+         this.renderer = renderer;
++        this.quality = QUALITY_PRESETS[callbacks.quality] ? callbacks.quality : 'legacy';
++        this.qualitySettings = { ...QUALITY_PRESETS[this.quality] };
++        this.physicsDriven = false;
++        this.physicsState = null;
++        this.physicsDimensions = null;
++        this.physicsWind = null;
++        this.disposed = false;
+         this.callbacks = {
+             onFlightModeChange: callbacks.onFlightModeChange || (() => {}),
+             onWaterModeChange: callbacks.onWaterModeChange || (() => {})
+@@ -40,12 +54,14 @@ export class World {
+         this.boat = null;
+         this.inputController = null;
+         this.cameraController = null;
++        this.cameraInputEnabled = true;
++        this.keyboardInputEnabled = true;
++        this.vegetationExclusions = copyVegetationExclusions(callbacks.vegetationExclusions);
+         this.waterSurface = null;
+         this.waterMode = getValidWaterMode(CONFIG.defaultWaterMode);
+         this.islandRegistry = new IslandRegistry();
+         this.fftParams = { ...FFT_PARAM_DEFAULTS };
+         this.originalWaterParams = { ...ORIGINAL_WATER_PARAM_DEFAULTS };
+-        this.physicsDriven = false;
+         this.remoteBoats = new Map();
+ 
+         this.isFlightMode = false;
+@@ -71,11 +87,18 @@ export class World {
+         this.camera.position.set(-90, 65, -90);
+ 
+         this.inputController = new InputController();
++        if (!this.keyboardInputEnabled) this.inputController.setEnabled(false);
+         this.cameraController = new CameraController(this.camera, this.renderer.domElement);
+ 
+         this.windSystem = new WindSystem(this.scene, this.camera);
+         this.boat = new Boat(this.scene, this.camera, { enableInput: true });
++        this.boat.setPhysicsDriven(this.physicsDriven);
++        if (!this.keyboardInputEnabled) this.boat.setInputEnabled(false);
++        if (this.physicsState) this.boat.applyPhysicsState(this.physicsState, this.physicsDimensions);
++        if (this.physicsWind) this.windSystem.setWindFromPhysics(this.physicsWind.direction, this.physicsWind.speed);
++        else this.windSystem.external = this.physicsDriven;
+         this.cameraController.positionEditCamera(this.boat);
++        this.setCameraInputEnabled(this.cameraInputEnabled);
+         this.syncWaterSystem();
+ 
+         const ambient = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+@@ -83,8 +106,8 @@ export class World {
+ 
+         this.sunLight = new THREE.DirectionalLight(0xfff5e6, 3.5);
+         this.sunLight.position.set(300, 150, 100);
+-        this.sunLight.castShadow = true;
+-        this.sunLight.shadow.mapSize.set(2048, 2048);
++        this.sunLight.castShadow = this.qualitySettings.shadows;
++        this.sunLight.shadow.mapSize.set(this.qualitySettings.shadowSize || 1024, this.qualitySettings.shadowSize || 1024);
+         const d = 500;
+         this.sunLight.shadow.camera.left = -d; this.sunLight.shadow.camera.right = d;
+         this.sunLight.shadow.camera.top = d; this.sunLight.shadow.camera.bottom = -d;
+@@ -99,12 +122,15 @@ export class World {
+         bloomPass.radius = 0.5;
+         this.composer.addPass(renderScene);
+         this.composer.addPass(bloomPass);
++        this.bloomPass = bloomPass;
++        this.bloomPass.enabled = this.qualitySettings.bloom;
+ 
+         this.callbacks.onWaterModeChange(this.waterMode);
+         this.updateChunks(true);
+     }
+ 
+     update(dt, time) {
++        if (this.disposed) return;
+         globalUniforms.uTime.value = time;
+ 
+         if (this.windSystem) {
+@@ -113,7 +139,7 @@ export class World {
+         }
+ 
+         if (this.boat) {
+-            this.boat.update(dt, time, this.windDataCache);
++            if (!this.physicsDriven) this.boat.update(dt, time, this.windDataCache);
+             this.telemetry.heading = this.boat.heading || 0;
+         } else {
+             this.telemetry.heading = 0;
+@@ -124,7 +150,6 @@ export class World {
+             }
+         }
+ 
+-
+         if (this.windDataCache) {
+             this.telemetry.windDirection = this.windDataCache.direction;
+             this.telemetry.windSpeed = this.windDataCache.speed;
+@@ -151,10 +176,6 @@ export class World {
+         }
+     }
+ 
+-    getCamera() {
+-        return this.camera;
+-    }
+-
+     resize(width, height) {
+         if (this.camera) {
+             this.camera.aspect = width / height;
+@@ -200,49 +221,9 @@ export class World {
+             this.setFlightMode(false);
+         }
+     }
+-    setPhysicsDriven(enabled) {
+-        this.physicsDriven = !!enabled;
+-        if (this.boat) {
+-            this.boat.setPhysicsDriven(this.physicsDriven);
+-            const allowInput = this.currentMode === 'play' && !this.isFlightMode && !this.physicsDriven;
+-            this.boat.setInputEnabled(allowInput);
+-            if (this.physicsDriven && typeof this.boat.setPhysicsSmoothing === 'function') {
+-                this.boat.setPhysicsSmoothing(0.25);
+-            }
+-            if (!this.physicsDriven && typeof this.boat.setPhysicsSmoothing === 'function') {
+-                this.boat.setPhysicsSmoothing(1);
+-            }
+-        }
+-    }
+-
+-    applyPhysicsState(state, ship) {
+-        if (!this.boat || !state) return;
+-        this.setPhysicsDriven(true);
+-        const heading = convertPhysicsHeading(state.heading || 0);
+-        this.boat.applyPhysicsState({
+-            position: state.position,
+-            velocity: state.velocity,
+-            heading,
+-            heel: state.heel || 0,
+-            pitch: state.pitch || 0
+-        });
+-        if (ship) {
+-            this.boat.applyShipScale(ship.length, ship.width);
+-        }
+-    }
+-
+-    setWindFromPhysics(direction, speed) {
+-        if (!this.windSystem || !direction) return;
+-        const windVec = new THREE.Vector3(direction.x, 0, direction.y);
+-        this.windSystem.setWind(windVec, speed);
+-        if (this.waterSurface && typeof this.waterSurface.setParams === 'function') {
+-            const windDirDeg = (Math.atan2(direction.x, direction.y) * 180) / Math.PI;
+-            this.waterSurface.setParams({ windDirection: windDirDeg, windSpeed: speed });
+-        }
+-    }
+ 
+     getOrCreateRemoteBoat(id) {
+-        if (!id || !this.scene) return null;
++        if (!id || !this.scene || this.disposed) return null;
+         const existing = this.remoteBoats.get(id);
+         if (existing) return existing;
+         const remote = new Boat(this.scene, this.camera, { enableInput: false });
+@@ -257,23 +238,13 @@ export class World {
+     }
+ 
+     syncRemoteBoats(remotes) {
+-        if (!Array.isArray(remotes)) return;
++        if (!Array.isArray(remotes) || this.disposed) return;
+         const seen = new Set();
+         for (const remote of remotes) {
+-            if (!remote || !remote.id || !remote.state) continue;
++            if (!remote || !remote.id || !isFinitePhysicsState(remote.state)) continue;
+             const boat = this.getOrCreateRemoteBoat(remote.id);
+             if (!boat) continue;
+-            const heading = convertPhysicsHeading(remote.state.heading || 0);
+-            boat.applyPhysicsState({
+-                position: remote.state.position,
+-                velocity: remote.state.velocity,
+-                heading,
+-                heel: remote.state.heel || 0,
+-                pitch: remote.state.pitch || 0
+-            });
+-            if (remote.ship) {
+-                boat.applyShipScale(remote.ship.length, remote.ship.width);
+-            }
++            boat.applyPhysicsState(remote.state, remote.ship);
+             seen.add(remote.id);
+         }
+         for (const [id, boat] of this.remoteBoats) {
+@@ -290,6 +261,25 @@ export class World {
+         this.remoteBoats.clear();
+     }
+ 
++    setCameraInputEnabled(enabled) {
++        this.cameraInputEnabled = !!enabled;
++        this.cameraController?.setInputEnabled(this.cameraInputEnabled);
++        if (this.cameraController?.controls) {
++            this.cameraController.controls.enabled = this.cameraInputEnabled &&
++                (this.cameraController.flightEnabled || this.cameraController.followTargetEnabled);
++        }
++    }
++
++    setKeyboardInputEnabled(enabled) {
++        this.keyboardInputEnabled = !!enabled;
++        this.inputController?.setEnabled(this.keyboardInputEnabled && this.isFlightMode);
++        if (!this.keyboardInputEnabled) this.inputController?.reset();
++        this.boat?.setInputEnabled(this.keyboardInputEnabled && this.currentMode === 'play' && !this.isFlightMode && !this.physicsDriven);
++    }
++
++    getKeyboardInputEnabled() {
++        return this.keyboardInputEnabled;
++    }
+ 
+     setFlightMode(enabled) {
+         enabled = !!enabled;
+@@ -303,7 +293,7 @@ export class World {
+ 
+         if (this.boat) {
+             this.boat.setCameraFollowEnabled(!enabled && !followWithOrbit);
+-            this.boat.setInputEnabled(this.currentMode === 'play' && !enabled && !this.physicsDriven);
++            this.boat.setInputEnabled(this.keyboardInputEnabled && this.currentMode === 'play' && !enabled && !this.physicsDriven);
+             if (!enabled && wasFlight && this.currentMode === 'play') {
+                 this.boat.snapCameraToFollow();
+             }
+@@ -320,13 +310,15 @@ export class World {
+         }
+ 
+         if (this.inputController) {
+-            this.inputController.setEnabled(enabled);
++            this.inputController.setEnabled(this.keyboardInputEnabled && enabled);
+         }
+ 
+         this.callbacks.onFlightModeChange(enabled);
++        this.setCameraInputEnabled(this.cameraInputEnabled);
+     }
+ 
+     handleKeydown(event) {
++        if (!this.keyboardInputEnabled) return;
+         if (event.repeat) return;
+         if (this.shouldIgnoreKeyEvent(event.target)) return;
+ 
+@@ -367,8 +359,9 @@ export class World {
+             this.chunkCenter.x = cx;
+             this.chunkCenter.z = cz;
+             this.requiredChunkKeys.clear();
+-            for (let x = cx - CHUNK_LOAD_RADIUS; x <= cx + CHUNK_LOAD_RADIUS; x++) {
+-                for (let z = cz - CHUNK_LOAD_RADIUS; z <= cz + CHUNK_LOAD_RADIUS; z++) {
++            const radius = this.qualitySettings.radius;
++            for (let x = cx - radius; x <= cx + radius; x++) {
++                for (let z = cz - radius; z <= cz + radius; z++) {
+                     const key = `${x},${z}`;
+                     this.requiredChunkKeys.add(key);
+                     this.cancelPendingDispose(key);
+@@ -406,7 +399,9 @@ export class World {
+             const chunk = new TerrainChunk(job.chunkX, job.chunkZ, this.scene, {
+                 includeWater: this.waterMode === 'tiled',
+                 camera: this.camera,
+-                worldOffset: job.offset
++                resolution: this.qualitySettings.resolution,
++                worldOffset: job.offset,
++                vegetationExclusions: this.vegetationExclusions
+             });
+             chunk.group.position.set(-job.offset * CONFIG.chunkSize, 0, -job.offset * CONFIG.chunkSize);
+             this.chunks.set(job.key, chunk);
+@@ -533,6 +528,84 @@ export class World {
+     queryIslands(range) {
+         return this.islandRegistry.query(range);
+     }
++
++    setPhysicsDriven(enabled) {
++        this.physicsDriven = !!enabled;
++        this.boat?.setPhysicsDriven(this.physicsDriven);
++        if (this.boat) this.boat.setInputEnabled(this.keyboardInputEnabled && !this.physicsDriven && this.currentMode === 'play' && !this.isFlightMode);
++        if (this.windSystem) this.windSystem.external = this.physicsDriven;
++    }
++
++    applyPhysicsState(visual, dimensions) {
++        if (!isFinitePhysicsState(visual) || this.disposed) return;
++        this.physicsState = visual;
++        this.physicsDimensions = dimensions ?? this.physicsDimensions;
++        this.boat?.applyPhysicsState(visual, this.physicsDimensions);
++    }
++
++    setWindFromPhysics(direction, speed) {
++        if (!Number.isFinite(direction?.x) || !Number.isFinite(direction?.z ?? direction?.y) || !Number.isFinite(speed) || this.disposed) return;
++        this.physicsWind = { direction: { ...direction }, speed };
++        this.windSystem?.setWindFromPhysics(direction, speed);
++    }
++
++    getCamera() {
++        return this.camera;
++    }
++
++    setQuality(name) {
++        if (!(name in QUALITY_PRESETS)) throw new RangeError(`Unknown scene quality: ${name}`);
++        if (name === this.quality) return;
++        this.quality = name;
++        this.qualitySettings = { ...QUALITY_PRESETS[name] };
++        if (this.sunLight) {
++            this.sunLight.castShadow = this.qualitySettings.shadows;
++            this.sunLight.shadow.mapSize.set(this.qualitySettings.shadowSize || 1024, this.qualitySettings.shadowSize || 1024);
++            this.sunLight.shadow.map?.dispose();
++            this.sunLight.shadow.map = null;
++        }
++        if (this.bloomPass) this.bloomPass.enabled = this.qualitySettings.bloom;
++        this.chunks.forEach(chunk => chunk.dispose());
++        this.chunks.clear();
++        this.islandRegistry.clear();
++        this.clearChunkQueues();
++        this.updateChunks(true);
++    }
++
++    clearChunkQueues() {
++        this.requiredChunkKeys.clear();
++        this.pendingChunkCreates = [];
++        this.pendingChunkDisposes = [];
++        this.pendingChunkCreateKeys.clear();
++        this.pendingChunkDisposeKeys.clear();
++        this.chunkCenter = { x: null, z: null };
++    }
++
++    dispose() {
++        if (this.disposed) return;
++        this.disposed = true;
++        this.inputController?.dispose();
++        this.cameraController?.dispose();
++        this.boat?.dispose();
++        this.clearRemoteBoats();
++        this.windSystem?.dispose();
++        this.waterSurface?.dispose();
++        this.chunks.forEach(chunk => chunk.dispose());
++        this.chunks.clear();
++        this.islandRegistry.clear();
++        this.clearChunkQueues();
++        this.composer?.passes.forEach(pass => pass.dispose?.());
++        this.composer?.dispose();
++        this.sunLight?.shadow.dispose();
++        this.scene?.clear();
++        this.waterSurface = null;
++        this.boat = null;
++        this.windSystem = null;
++        this.inputController = null;
++        this.cameraController = null;
++        this.composer = null;
++        this.bloomPass = null;
++    }
+ }
+ 
+ function getValidWaterMode(mode, fallback = 'projected') {
+@@ -544,7 +617,3 @@ function getValidWaterMode(mode, fallback = 'projected') {
+     }
+     return fallback;
+ }
+-
+-function convertPhysicsHeading(headingRad) {
+-    return Math.PI * 0.5 - headingRad;
+-}
+diff --git a/src/engine/world/vegetationExclusions.js b/src/engine/world/vegetationExclusions.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..c6042b7ba08ede78948539e876ef6f7f60b7a778
+--- /dev/null
++++ b/src/engine/world/vegetationExclusions.js
+@@ -0,0 +1,46 @@
++import { CONFIG } from '../../config/constants.js';
++
++// Constructor-only world-space AABBs. Missing y endpoints mean a vertical corridor.
++export function copyVegetationExclusions(volumes = []) {
++    if (!Array.isArray(volumes)) throw new TypeError('vegetationExclusions must be an array');
++    return Object.freeze(volumes.map(volume => {
++        const min = {}, max = {};
++        for (const axis of ['x', 'y', 'z']) {
++            min[axis] = volume?.min?.[axis] ?? (axis === 'y' ? -Infinity : NaN);
++            max[axis] = volume?.max?.[axis] ?? (axis === 'y' ? Infinity : NaN);
++            if ((axis !== 'y' && (!Number.isFinite(min[axis]) || !Number.isFinite(max[axis]))) ||
++                Number.isNaN(min[axis]) || Number.isNaN(max[axis]) || min[axis] > max[axis]) {
++                throw new TypeError(`Invalid vegetation exclusion ${axis} bounds`);
++            }
++        }
++        return Object.freeze({ min: Object.freeze(min), max: Object.freeze(max) });
++    }));
++}
++
++// Swept extent covers every existing build-time yaw and tilt without moving RNG draws.
++// Derived from actual geometry vertices; no geometry/material allocations per candidate.
++export function vegetationIntersects(instance, type, volumes, worldOffset = 0) {
++    if (!volumes.length) return false;
++    if (!type.exclusionExtent) {
++        const positions = type.geometry.attributes.position;
++        let radius = 0, minY = Infinity, maxY = -Infinity;
++        for (let i = 0; i < positions.count; i++) {
++            radius = Math.max(radius, Math.hypot(positions.getX(i), positions.getZ(i)));
++            minY = Math.min(minY, positions.getY(i));
++            maxY = Math.max(maxY, positions.getY(i));
++        }
++        const tilt = type.id === 'grass' ? .125 + .175 : .125 + .1;
++        const vertical = Math.max(Math.abs(minY), Math.abs(maxY));
++        const expansion = radius * Math.sin(tilt) + vertical * (1 - Math.cos(tilt));
++        type.exclusionExtent = { radius: radius + vertical * Math.sin(tilt), minY: minY - expansion, maxY: maxY + expansion };
++    }
++    const extent = type.exclusionExtent;
++    const x = instance.x - worldOffset * CONFIG.chunkSize;
++    const z = instance.z - worldOffset * CONFIG.chunkSize;
++    const radius = extent.radius * instance.scale;
++    const minY = instance.y + extent.minY * instance.scale;
++    const maxY = instance.y + extent.maxY * instance.scale;
++    return volumes.some(volume => x + radius >= volume.min.x && x - radius <= volume.max.x &&
++        z + radius >= volume.min.z && z - radius <= volume.max.z &&
++        maxY >= volume.min.y && minY <= volume.max.y);
++}
+diff --git a/src/index.js b/src/index.js
+index 151beaefbef64971e0d17054459fa28c95f0cd6c..7d837616e93b8842fd001f787d5c6a58f72ab341 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -2,3 +2,5 @@
+ export * from './engine/assets/Assets.js';
+ export * from './engine/terrain/terrainHeight.js';
+ export { World } from './engine/world/World.js';
++export { physicsVisualToPose } from './utils/physicsPose.js';
++export { ORIGINAL_PROJECTED_WAVES } from './engine/water/oceanWaves.js';
+diff --git a/src/utils/physicsPose.js b/src/utils/physicsPose.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..1776babeea6c758e4aa3f05cd72b53532c8c1c3c
+--- /dev/null
++++ b/src/utils/physicsPose.js
+@@ -0,0 +1,10 @@
++/** Core heading is +X toward +Z; ship bow is +Z and starboard is -X. */
++export function physicsVisualToPose(visual) {
++    return {
++        position: { ...visual.position },
++        yaw: Math.PI / 2 - visual.heading,
++        pitch: -visual.pitch,
++        heel: visual.heel,
++        speed: Math.hypot(visual.velocity.x, visual.velocity.z)
++    };
++}
+diff --git a/test/physics-scene.test.js b/test/physics-scene.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..9fdeaaa03b58babebb32e8729e30c2e76dc410d7
+--- /dev/null
++++ b/test/physics-scene.test.js
+@@ -0,0 +1,203 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import * as boatModule from '../src/engine/vehicles/Boat.js';
++import { World } from '../src/engine/world/World.js';
++import { WindSystem } from '../src/engine/environment/WindSystem.js';
++import { ProjectedWaterSurface } from '../src/engine/water/ProjectedWaterSurface.js';
++import { OriginalWaterSurface } from '../src/engine/water/OriginalWaterSurface.js';
++import { TerrainChunk } from '../src/engine/world/Chunk.js';
++import { IslandVegetationManager } from '../src/engine/world/IslandVegetationManager.js';
++import { BeachDecorationManager } from '../src/engine/world/BeachDecorationManager.js';
++import { Assets } from '../src/engine/assets/Assets.js';
++import { globalUniforms } from '../src/config/constants.js';
++import { createOceanWaveUniforms, packOceanWaves, sampleOceanUniforms } from '../src/engine/water/oceanWaves.js';
++
++globalThis.window = new EventTarget();
++globalThis.document = { createElement: () => ({
++    getContext: () => ({ createLinearGradient: () => ({ addColorStop() {} }), fillRect() {} })
++}), createElementNS: () => new EventTarget() };
++const near = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-10, `${actual} != ${expected}`);
++const visual = (heading = 0) => ({ position: { x: 31, y: 2, z: -17 }, velocity: { x: 3, y: 99, z: 4 }, heading, pitch: 0, heel: 0 });
++const camera = () => new THREE.PerspectiveCamera(55, 1, 1, 5000);
++
++test('projected surface samples the unchanged original long-wave shader', () => {
++    const water = new ProjectedWaterSurface({ camera: camera(), resolution: 16 });
++    for (const [x, z, time] of [[0, 0, 1], [895, 337, 0], [-451, 216, 37], [671, 110, 2736.883333], [3000, -2000, 7200]]) {
++        const speed = time * 0.5;
++        const expected = Math.sin(x * .02 + speed) * Math.cos(z * .015 + speed * .8) * 2
++            + Math.sin(x * .05 - speed * 1.2)
++            + Math.sin(x * .1 + speed * 2) * Math.cos(z * .11 + speed * 2.1) * .5;
++        near(water.sampleOcean(x, z, time).height, expected);
++    }
++    water.dispose();
++});
++
++for (const [heading, forward, starboard] of [
++    [0, [1, 0, 0], [0, 0, 1]],
++    [Math.PI / 2, [0, 0, 1], [-1, 0, 0]],
++    [Math.PI, [-1, 0, 0], [0, 0, -1]],
++    [-Math.PI / 2, [0, 0, -1], [1, 0, 0]],
++]) {
++    test(`physics pose transforms ship +Z bow and -X starboard at heading ${heading}`, () => {
++        assert.equal(typeof boatModule.physicsVisualToPose, 'function');
++        const pose = boatModule.physicsVisualToPose(visual(heading));
++        const ship = new THREE.Object3D();
++        ship.rotation.set(pose.pitch, pose.yaw, pose.heel, 'YXZ');
++        const bow = new THREE.Vector3(0, 0, 1).applyQuaternion(ship.quaternion);
++        const side = new THREE.Vector3(-1, 0, 0).applyQuaternion(ship.quaternion);
++        bow.toArray().forEach((value, index) => near(value, forward[index]));
++        side.toArray().forEach((value, index) => near(value, starboard[index]));
++    });
++}
++
++test('positive physics pitch lifts bow and positive heel lowers starboard', () => {
++    assert.equal(typeof boatModule.physicsVisualToPose, 'function');
++    const pose = boatModule.physicsVisualToPose({ ...visual(), pitch: 0.2, heel: 0.3 });
++    const ship = new THREE.Object3D();
++    ship.rotation.set(pose.pitch, pose.yaw, pose.heel, 'YXZ');
++    assert.ok(new THREE.Vector3(0, 0, 1).applyQuaternion(ship.quaternion).y > 0);
++    assert.ok(new THREE.Vector3(-1, 0, 0).applyQuaternion(ship.quaternion).y < 0);
++});
++
++test('external drive keeps authoritative pose and camera proxy despite engine keys', () => {
++    const boat = new boatModule.Boat(new THREE.Scene(), camera());
++    const world = new World({});
++    world.boat = boat;
++    world.setMode('play');
++    assert.equal(typeof world.setPhysicsDriven, 'function');
++    world.setPhysicsDriven(true);
++    world.applyPhysicsState(visual(), { length: 42, width: 10, draft: 3 });
++    boat.handleKey({ code: 'KeyW' }, true);
++    boat.setInputEnabled(true);
++    world.update(0.1, 8);
++    boat.update(0.1, 8);
++    assert.deepEqual(boat.position.toArray(), [31, 2, -17]);
++    near(boat.speed, 5);
++    near(boat.heading, Math.PI / 2);
++    assert.equal(boat.dimensions.length, 42);
++    assert.equal(boat.dimensions.width, 10);
++    assert.equal(boat.dimensions.draft, 3);
++    assert.equal(boat.inputs.forward, false);
++    assert.ok(boat.getCameraFollowPose().eye.x < boat.position.x);
++    world.dispose();
++});
++
++test('external incoming wind remains authoritative while visual flow moves oppositely', () => {
++    const wind = new WindSystem(new THREE.Scene(), camera());
++    assert.equal(typeof wind.setWindFromPhysics, 'function');
++    wind.setWindFromPhysics({ x: 3, y: 4 }, 12);
++    wind.update(0.1, 65);
++    wind.update(0.1, 120);
++    near(wind.getWindData().direction.x, 0.6);
++    near(wind.getWindData().direction.z, 0.8);
++    near(wind.getWindData().speed, 12);
++    const flow = new THREE.Vector3(0, 0, 1).applyQuaternion(wind.mesh.quaternion);
++    near(flow.x, -0.6);
++    near(flow.z, -0.8);
++    near(wind.material.uniforms.uTime.value, 120);
++    wind.dispose();
++});
++
++test('wave descriptor helper reproduces independent height and gradient', () => {
++    const uniforms = createOceanWaveUniforms();
++    packOceanWaves(uniforms, [
++        { direction: { x: 1, y: 0 }, amplitude: 2, wavelength: 8, speed: 3 },
++        { direction: { x: 0, y: 1 }, amplitude: 0.5, wavelength: 4, speed: -2 },
++    ]);
++    assert.equal(uniforms.uWaveCount.value, 2);
++    const sample = sampleOceanUniforms(uniforms, 0, 0, Math.PI / 6);
++    near(sample.height, 2 - Math.sqrt(3) / 4);
++    near(sample.gradient.x, 0);
++    near(sample.gradient.z, Math.PI / 8);
++    const normal = new THREE.Vector3(0, 1, -Math.PI / 8).normalize();
++    near(sample.normal.y, normal.y);
++    near(sample.normal.z, normal.z);
++    packOceanWaves(uniforms, []);
++    assert.equal(uniforms.uWaveCount.value, 0);
++});
++
++test('wave slots clear when shrinking and reject more than eight authoritative waves', () => {
++    const uniforms = createOceanWaveUniforms();
++    const wave = { direction: { x: 1, y: 0 }, amplitude: 1, wavelength: 8, speed: 3 };
++    packOceanWaves(uniforms, Array.from({ length: 8 }, () => wave));
++    packOceanWaves(uniforms, [wave]);
++    assert.equal(uniforms.uWaveAmplitudes.value[1], 0);
++    assert.throws(() => packOceanWaves(uniforms, Array.from({ length: 9 }, () => wave)), /eight/i);
++});
++
++test('quality chunk resolution is chosen at construction and teardown preserves cached textures', () => {
++    const texture = new THREE.Texture();
++    let disposed = false;
++    texture.addEventListener('dispose', () => disposed = true);
++    Assets.waterTexture = texture;
++    const chunk = new TerrainChunk(0, 0, new THREE.Scene(), { resolution: 40 });
++    assert.equal(chunk.islandLevels[0].resolution, 40);
++    assert.equal(chunk.islandLevels[1].resolution, 24);
++    chunk.dispose();
++    const water = new ProjectedWaterSurface({ resolution: 16 });
++    water.dispose();
++    assert.equal(disposed, false);
++    Assets.waterTexture = null;
++});
++
++test('World quality changes clear stale queues, select radius, and teardown releases keyboard listeners', () => {
++    const scene = new THREE.Scene();
++    const world = new World({}, { quality: 'balanced' });
++    world.boat = new boatModule.Boat(scene, camera());
++    world.scene = scene;
++    world.camera = camera();
++    world.sunLight = new THREE.DirectionalLight();
++    assert.equal(typeof world.setQuality, 'function');
++    world.setQuality('low');
++    world.updateChunks();
++    assert.equal(world.requiredChunkKeys.size, 25);
++    assert.equal(world.chunks.values().next().value.islandLevels[0].resolution, 40);
++    assert.equal(world.sunLight.castShadow, false);
++    const boat = world.boat;
++    world.dispose();
++    const event = new Event('keydown');
++    event.code = 'KeyW';
++    window.dispatchEvent(event);
++    assert.equal(boat.inputs.forward, false);
++    assert.equal(scene.children.length, 0);
++    assert.equal(world.chunks.size, 0);
++    assert.equal(world.pendingChunkCreates.length, 0);
++    world.dispose();
++});
++
++test('wind teardown releases InstancedMesh GPU resources', () => {
++    const wind = new WindSystem(new THREE.Scene(), camera());
++    let released = 0;
++    wind.mesh.addEventListener('dispose', () => released++);
++    wind.dispose();
++    assert.equal(released, 1);
++});
++
++test('original water teardown releases reflection framebuffer', () => {
++    const water = new OriginalWaterSurface({ size: 20 });
++    const reflectionTarget = water.water.material.uniforms.mirrorSampler.value.renderTarget;
++    let released = 0;
++    reflectionTarget.addEventListener('dispose', () => released++);
++    water.dispose();
++    assert.equal(released, 1);
++});
++
++for (const [Manager, typeId] of [[IslandVegetationManager, 'palm'], [BeachDecorationManager, 'shell']]) {
++    test(`${typeId} teardown releases instances while preserving shared geometry and materials`, () => {
++        const manager = new Manager({ random: () => 0 });
++        manager.tryAddInstance(1, 3, { height: 2, normalized: 0.6, isUnderwater: false });
++        const parent = new THREE.Group();
++        const [mesh] = manager.attach(parent);
++        assert.equal(mesh.count, 1);
++        assert.equal(mesh.userData.typeId, typeId);
++        let instanceReleased = 0, sharedReleased = 0;
++        mesh.addEventListener('dispose', () => instanceReleased++);
++        mesh.geometry.addEventListener('dispose', () => sharedReleased++);
++        mesh.material.addEventListener('dispose', () => sharedReleased++);
++        manager.dispose(parent);
++        assert.equal(instanceReleased, 1);
++        assert.equal(sharedReleased, 0);
++        assert.equal(parent.children.length, 0);
++    });
++}
+diff --git a/test/scene-baseline-loader.mjs b/test/scene-baseline-loader.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..3f6b8b646493b2a1f1d096c135733a78402ff810
+--- /dev/null
++++ b/test/scene-baseline-loader.mjs
+@@ -0,0 +1,16 @@
++// Replay saved pre-merge sources at their real URLs, keeping relative imports real.
++import { registerHooks } from 'node:module';
++import { readFileSync } from 'node:fs';
++import { fileURLToPath } from 'node:url';
++
++const packageRoot = new URL('../', import.meta.url);
++const baseline = new URL('../../.superpowers/sdd/2026-10-11-physics-foundation-sync-refactor/task2-scene-threeway/', packageRoot);
++const affected = new Set(['src/engine/world/World.js', 'src/engine/vehicles/Boat.js', 'src/engine/environment/WindSystem.js']);
++registerHooks({
++    load(url, context, nextLoad) {
++        const relative = url.startsWith(packageRoot.href) ? url.slice(packageRoot.href.length) : '';
++        if (!affected.has(relative)) return nextLoad(url, context);
++        const side = process.env.SCENE_BASELINE_SIDE === 'theirs' ? 'theirs' : 'ours';
++        return { format: 'module', source: readFileSync(fileURLToPath(new URL(`${relative}.${side}`, baseline)), 'utf8'), shortCircuit: true };
++    }
++});
+diff --git a/test/scene-sync.test.js b/test/scene-sync.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..22ee8ed09aa9e6b0af66e47580136f404e9155c5
+--- /dev/null
++++ b/test/scene-sync.test.js
+@@ -0,0 +1,231 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import { World } from '../src/index.js';
++import { Boat } from '../src/engine/vehicles/Boat.js';
++import { WindSystem } from '../src/engine/environment/WindSystem.js';
++import { CameraController } from '../src/engine/controls/CameraController.js';
++import { OriginalWaterSurface } from '../src/engine/water/OriginalWaterSurface.js';
++import { ProjectedWaterSurface } from '../src/engine/water/ProjectedWaterSurface.js';
++
++globalThis.window = new EventTarget();
++globalThis.document = { createElement: () => ({ getContext: () => ({
++    createLinearGradient: () => ({ addColorStop() {} }), fillRect() {}
++}) }), createElementNS: () => new EventTarget() };
++const near = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-10, `${actual} != ${expected}`);
++const state = (x = 31, heading = 0) => ({ position: { x, y: 2, z: -17 }, velocity: { x: 3, y: 99, z: 4 }, heading, pitch: .2, heel: .3 });
++function worldFixture() {
++    const world = new World({});
++    world.scene = new THREE.Scene();
++    world.camera = new THREE.PerspectiveCamera();
++    world.boat = new Boat(world.scene, world.camera);
++    return world;
++}
++
++test('remote snapshots smooth render poses without local forces, keys, or camera ownership', () => {
++    const world = worldFixture();
++    world.setMode('play');
++    const localPosition = world.boat.position.clone();
++    assert.equal(typeof world.syncRemoteBoats, 'function');
++    world.syncRemoteBoats([{ id: 'peer', state: state(), ship: { length: 42, width: 10, draft: 3 } }]);
++    const remote = world.remoteBoats.get('peer');
++    assert.deepEqual(remote.mesh.position.toArray(), [31, 2, -17]);
++    near(remote.mesh.rotation.y, Math.PI / 2);
++    near(remote.mesh.rotation.x, -.2);
++    near(remote.mesh.rotation.z, .3);
++    near(remote.mesh.scale.x, 10 / 6.2);
++    near(remote.mesh.scale.z, 42 / 12);
++    assert.equal(remote.dimensions.draft, 3);
++    remote.setInputEnabled(true);
++    remote.handleKey({ code: 'KeyW' }, true);
++    assert.equal(remote.inputs.forward, false);
++    assert.equal(remote.cameraFollowEnabled, false);
++    const eye = world.camera.position.clone();
++    world.syncRemoteBoats([{ id: 'peer', state: state(71) }]);
++    // Both boats remain externally owned; only remote render interpolation advances.
++    world.setPhysicsDriven(true);
++    world.update(.1, 8);
++    near(remote.position.x, 41);
++    near(remote.position.y, 2);
++    near(remote.position.z, -17);
++    near(remote.speed, 5);
++    assert.deepEqual(world.boat.position.toArray(), localPosition.toArray());
++    assert.deepEqual(world.camera.position.toArray(), eye.toArray());
++    world.dispose();
++});
++
++test('remote removal, clear, reset and world disposal release owned meshes once', () => {
++    const world = worldFixture();
++    assert.equal(typeof world.syncRemoteBoats, 'function');
++    world.syncRemoteBoats([{ id: 'peer', state: state() }]);
++    const remote = world.remoteBoats.get('peer');
++    let released = 0;
++    remote.mesh.children[0].geometry.addEventListener('dispose', () => released++);
++    world.syncRemoteBoats([]);
++    assert.equal(released, 1);
++    assert.equal(remote.mesh.parent, null);
++    world.clearRemoteBoats();
++    world.syncRemoteBoats([{ id: 'next', state: state() }]);
++    world.resetWorld();
++    assert.equal(world.remoteBoats.size, 0);
++    world.syncRemoteBoats([{ id: 'last', state: state() }]);
++    const last = world.remoteBoats.get('last');
++    let lastReleased = 0;
++    last.mesh.children[0].geometry.addEventListener('dispose', () => lastReleased++);
++    world.dispose();
++    world.dispose();
++    assert.equal(lastReleased, 1);
++    assert.equal(world.remoteBoats.size, 0);
++    assert.equal(world.scene.children.length, 0);
++});
++
++test('external local owner toggles preserve immediate pose, draft, and standalone demo input', () => {
++    const world = worldFixture();
++    world.setMode('play');
++    world.boat.handleKey({ code: 'KeyW' }, true);
++    assert.equal(world.boat.inputs.forward, true);
++    world.setPhysicsDriven(true);
++    world.applyPhysicsState(state(), { length: 42, width: 10, draft: 3 });
++    world.applyPhysicsState(state(71));
++    world.update(.1, 8);
++    assert.deepEqual(world.boat.position.toArray(), [71, 2, -17]);
++    assert.equal(world.boat.dimensions.draft, 3);
++    assert.equal(world.boat.inputs.forward, false);
++    world.setPhysicsDriven(false);
++    world.boat.handleKey({ code: 'KeyW' }, true);
++    assert.equal(world.boat.inputs.forward, true);
++    world.update(.1, 8);
++    assert.notEqual(world.boat.position.x, 71);
++    world.dispose();
++});
++
++test('optional wind override clears to ambient while physics wind retains incoming convention and phase', () => {
++    const world = worldFixture();
++    const wind = world.windSystem = new WindSystem(world.scene, world.camera);
++    assert.equal(typeof wind.setWind, 'function');
++    assert.equal(typeof wind.clearWindOverride, 'function');
++    wind.setWind(new THREE.Vector3(3, 0, 4), 12);
++    wind.update(.1, 65);
++    near(wind.getWindData().direction.x, .6);
++    near(wind.getWindData().direction.z, .8);
++    near(wind.getWindData().speed, 12);
++    wind.clearWindOverride();
++    wind.update(.1, 65);
++    assert.ok(wind.getWindData().speed >= 25 && wind.getWindData().speed <= 35);
++    world.setPhysicsDriven(true);
++    world.setWindFromPhysics({ x: 3, y: 4 }, 7);
++    world.update(.1, 120);
++    near(wind.getWindData().speed, 7);
++    const flow = new THREE.Vector3(0, 0, 1).applyQuaternion(wind.mesh.quaternion);
++    near(flow.x, -.6);
++    near(flow.z, -.8);
++    near(wind.material.uniforms.uTime.value, 120);
++    world.setPhysicsDriven(false);
++    world.update(.1, 120);
++    assert.ok(wind.getWindData().speed >= 25 && wind.getWindData().speed <= 35);
++    world.dispose();
++});
++
++test('manual wind override accepts upstream partial direction and speed updates', () => {
++    const world = worldFixture();
++    const wind = world.windSystem = new WindSystem(world.scene, world.camera);
++    wind.setWind(new THREE.Vector3(3, 0, 4), 12);
++    wind.setWind(undefined, 18);
++    wind.update(.1, 10);
++    near(wind.currentSpeed, 18);
++    near(wind.direction.x, .6);
++    wind.setWind(new THREE.Vector3(-1, 0, 0));
++    wind.update(.1, 10);
++    near(wind.currentSpeed, 18);
++    near(wind.direction.x, -1);
++    wind.setWind(new THREE.Vector3(Infinity, 0, 0), NaN);
++    wind.update(.1, 10);
++    near(wind.currentSpeed, 18);
++    near(wind.direction.x, -1);
++    world.dispose();
++});
++
++test('nonfinite external snapshots and wind leave render state finite and unmodified', () => {
++    const world = worldFixture();
++    world.setPhysicsDriven(true);
++    world.applyPhysicsState(state());
++    world.applyPhysicsState({ ...state(), heading: Infinity });
++    world.update(.1, 8);
++    near(world.boat.mesh.rotation.y, Math.PI / 2);
++    world.applyPhysicsState({ ...state(), position: { x: NaN, y: 2, z: 0 } });
++    assert.deepEqual(world.boat.position.toArray(), [31, 2, -17]);
++    const wind = world.windSystem = new WindSystem(world.scene, world.camera);
++    world.setWindFromPhysics({ x: 3, y: 4 }, 7);
++    world.setWindFromPhysics({ x: Infinity, y: 0 }, NaN);
++    world.update(.1, 8);
++    near(wind.direction.x, .6);
++    near(wind.currentSpeed, 7);
++    assert.equal(typeof world.syncRemoteBoats, 'function');
++    world.syncRemoteBoats([{ id: 'bad', state: { ...state(), heading: Infinity } }]);
++    assert.equal(world.remoteBoats.size, 0);
++    world.dispose();
++});
++
++test('finite extreme remote headings render in bounded time without overflow', () => {
++    const world = worldFixture();
++    world.syncRemoteBoats([{ id: 'peer', state: state(31, Number.MAX_VALUE) }]);
++    world.syncRemoteBoats([{ id: 'peer', state: state(71, -Number.MAX_VALUE) }]);
++    world.setPhysicsDriven(true);
++    world.update(.1, 8);
++    const remote = world.remoteBoats.get('peer');
++    assert.ok(Number.isFinite(remote.heading));
++    assert.ok(remote.mesh.quaternion.toArray().every(Number.isFinite));
++    near(remote.position.x, 41);
++    world.dispose();
++});
++
++test('supplied physics wind leaves original water parameters, green color, transparency and waves unchanged', () => {
++    const world = worldFixture();
++    world.windSystem = new WindSystem(world.scene, world.camera);
++    const original = world.waterSurface = new OriginalWaterSurface({ scene: world.scene, camera: world.camera, size: 20 });
++    const params = { ...original.params };
++    const color = original.water.material.uniforms.waterColor.value.clone();
++    const alpha = original.water.material.uniforms.alpha.value;
++    world.setWindFromPhysics({ x: 1, y: 0 }, 7);
++    world.setWindFromPhysics({ x: 0, y: -1 }, 30);
++    assert.deepEqual(original.params, params);
++    assert.deepEqual(original.water.material.uniforms.waterColor.value, color);
++    assert.equal(original.water.material.uniforms.alpha.value, alpha);
++    original.dispose();
++    const projected = world.waterSurface = new ProjectedWaterSurface({ scene: world.scene, camera: world.camera, resolution: 16 });
++    const sample = projected.sampleOcean(895, 337, 65);
++    world.setWindFromPhysics({ x: -3, y: 4 }, 45);
++    assert.deepEqual(projected.sampleOcean(895, 337, 65), sample);
++    assert.equal(projected.material.transparent, true);
++    world.dispose();
++});
++
++test('camera input lock blocks flight keys through mode switches while follow tracks real boat', () => {
++    const world = worldFixture();
++    const dom = new EventTarget();
++    dom.style = {};
++    dom.getRootNode = () => ({ addEventListener() {}, removeEventListener() {} });
++    world.cameraController = new CameraController(world.camera, dom);
++    world.inputController = { getState: () => ({ moveForward: true }), setEnabled() {}, dispose() {} };
++    world.setMode('play');
++    world.setPhysicsDriven(true);
++    world.setCameraInputEnabled(false);
++    world.setFlightMode(true);
++    const eye = world.camera.position.clone();
++    world.update(.1, 8);
++    assert.deepEqual(world.camera.position.toArray(), eye.toArray());
++    assert.equal(world.cameraController.controls.enabled, false);
++    world.setFlightMode(false);
++    const followEye = world.camera.position.clone();
++    world.applyPhysicsState(state());
++    world.update(.1, 8);
++    assert.deepEqual(world.camera.position.toArray(), followEye.add(new THREE.Vector3(31, 2, -17)).toArray());
++    assert.equal(world.cameraController.controls.enabled, false);
++    world.setCameraInputEnabled(true);
++    world.setFlightMode(true);
++    const unlockedEye = world.camera.position.clone();
++    world.update(.1, 8);
++    assert.notDeepEqual(world.camera.position.toArray(), unlockedEye.toArray());
++    assert.equal(world.getCamera(), world.camera);
++    world.dispose();
++});
+diff --git a/test/shore-engine-seams.test.js b/test/shore-engine-seams.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..2ddd4a3b7a5be8b8e27934e4586c1ed01964fcc2
+--- /dev/null
++++ b/test/shore-engine-seams.test.js
+@@ -0,0 +1,225 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import { CONFIG } from '../src/config/constants.js';
++import { World } from '../src/engine/world/World.js';
++import { InputController } from '../src/engine/controls/InputController.js';
++import { Boat } from '../src/engine/vehicles/Boat.js';
++import { IslandVegetationManager } from '../src/engine/world/IslandVegetationManager.js';
++import { IslandMesh } from '../src/engine/world/IslandMesh.js';
++import { registerHeightSampler, getHeightmapState } from '../src/engine/terrain/terrainHeight.js';
++
++globalThis.window = new EventTarget();
++const sample = { height: 4, normalized: .2, isUnderwater: false };
++const corridor = [{ min: { x: -1, z: -1 }, max: { x: 1, z: 1 } }];
++function manager(options = {}) {
++    return new IslandVegetationManager({ random: () => 0, ...options });
++}
++function matrices(m) {
++    return m.buildMeshes().flatMap(mesh => {
++        const rows = [];
++        for (let i = 0; i < mesh.count; i++) {
++            const matrix = new THREE.Matrix4();
++            mesh.getMatrixAt(i, matrix);
++            rows.push({ type: mesh.userData.typeId, matrix: matrix.toArray() });
++        }
++        return rows;
++    });
++}
++
++test('World keyboard switch clears real controller keys and survives flight mode changes', () => {
++    const listeners = new Set();
++    globalThis.window = {
++        addEventListener: (name, fn) => listeners.add(fn),
++        removeEventListener: (name, fn) => listeners.delete(fn)
++    };
++    const world = new World({});
++    world.inputController = new InputController();
++    world.setFlightMode(true);
++    assert.equal(listeners.size, 2);
++    world.inputController._onKeyDown({ code: 'KeyW', preventDefault() {} });
++    assert.equal(world.inputController.getState().moveForward, true);
++    assert.equal(world.getKeyboardInputEnabled(), true);
++    world.setKeyboardInputEnabled(false);
++    assert.equal(listeners.size, 0);
++    assert.equal(world.inputController.getState().moveForward, false);
++    world.setFlightMode(true);
++    assert.equal(world.getKeyboardInputEnabled(), false);
++    assert.equal(listeners.size, 0);
++    let dispatches = 0;
++    world.cycleWaterMode = () => dispatches++;
++    world.handleKeydown({ code: 'KeyG', preventDefault() {} });
++    assert.equal(dispatches, 0);
++    world.setKeyboardInputEnabled(true);
++    assert.equal(listeners.size, 2);
++    world.setMode('play');
++    assert.equal(listeners.size, 0);
++    world.dispose();
++});
++
++test('outside-centre canopy candidate is excluded before public instances/meshes', () => {
++    const m = manager({ vegetationExclusions: corridor });
++    m.tryAddInstance(2, 0, sample);
++    assert.equal(m.getInstances().length, 0);
++    assert.equal(m.buildMeshes().length, 0);
++});
++
++test('exclusion keeps later candidate attributes, matrices, RNG and cap identical to legacy', () => {
++    function rng() { let i = 0; return () => (++i % 5) * .001; }
++    const legacy = manager({ random: rng(), maxInstances: 2 });
++    const cleared = manager({ random: rng(), maxInstances: 2, vegetationExclusions: corridor });
++    const empty = manager({ random: rng(), maxInstances: 2, vegetationExclusions: [] });
++    for (const x of [2, 100, 200]) {
++        for (const m of [legacy, cleared, empty]) m.tryAddInstance(x, 0, sample);
++    }
++    assert.deepEqual(empty.getInstances(), legacy.getInstances());
++    assert.deepEqual(cleared.getInstances(), legacy.getInstances().slice(1));
++    const original = matrices(legacy);
++    assert.deepEqual(matrices(empty), original);
++    assert.deepEqual(matrices(cleared), original.slice(1));
++    for (const m of [legacy, cleared, empty]) m.dispose();
++});
++
++test('World snapshots config and sends exclusions/world offset through initial and streamed chunks', () => {
++    const config = [{ min: { x: -100000, z: -100000 }, max: { x: 100000, z: 100000 } }];
++    const world = new World({}, { vegetationExclusions: config });
++    config[0].min.x = 100000;
++    world.scene = new THREE.Scene();
++    world.camera = new THREE.PerspectiveCamera();
++    for (const [key, offset] of [['0,0', 0], ['1,0', 1]]) {
++        world.pendingChunkCreates.push({ key, chunkX: 0, chunkZ: 0, offset });
++        world.processChunkQueues();
++        const chunk = world.chunks.get(key);
++        const m = chunk.islandLevels[0].vegetationManager;
++        assert.equal(m.vegetationExclusions[0].min.x, -100000);
++        assert.equal(m.worldOffset, offset);
++        m.reset();
++        m.random = () => 0;
++        m.tryAddInstance(0, 0, sample);
++        assert.equal(m.getInstances().length, 0);
++    }
++    world.dispose();
++    assert.equal(world.scene.children.length, 0);
++});
++
++test('disabled keyboard keeps real boat disabled across physics mode changes', () => {
++    globalThis.document = { createElement: () => ({ getContext: () => ({
++        createLinearGradient: () => ({ addColorStop() {} }), fillRect() {}
++    }) }) };
++    const world = new World({});
++    world.scene = new THREE.Scene();
++    world.camera = new THREE.PerspectiveCamera();
++    world.boat = new Boat(world.scene, world.camera);
++    world.setMode('play');
++    world.setKeyboardInputEnabled(false);
++    world.setPhysicsDriven(true);
++    world.setPhysicsDriven(false);
++    world.boat.handleKey({ code: 'KeyW' }, true);
++    assert.equal(world.boat.inputs.forward, false);
++    world.dispose();
++});
++
++test('world offset, finite height and empty config retain nonintersecting trees', () => {
++    const m = manager({ vegetationExclusions: corridor, worldOffset: 1 });
++    m.tryAddInstance(CONFIG.chunkSize + 2, CONFIG.chunkSize, sample);
++    assert.equal(m.getInstances().length, 0);
++    const above = manager({ vegetationExclusions: [{ min: { x: -1, y: 100, z: -1 }, max: { x: 1, y: 110, z: 1 } }] });
++    above.tryAddInstance(0, 0, sample);
++    assert.equal(above.getInstances().length, 1);
++    assert.throws(() => manager({ vegetationExclusions: [{ min: { x: 2, z: 0 }, max: { x: 1, z: 1 } }] }), /bounds/);
++    m.dispose(); above.dispose();
++});
++
++test('excluded trees allocate no meshes; retained instances release without disposing shared assets', () => {
++    const m = manager({ vegetationExclusions: corridor });
++    m.tryAddInstance(2, 0, sample);
++    m.tryAddInstance(100, 0, sample);
++    const parent = new THREE.Group();
++    const [mesh] = m.attach(parent);
++    assert.equal(mesh.count, 1);
++    let released = 0, sharedReleased = 0;
++    mesh.addEventListener('dispose', () => released++);
++    const geometry = mesh.geometry;
++    const onShared = () => sharedReleased++;
++    geometry.addEventListener('dispose', onShared);
++    m.dispose(parent);
++    m.dispose(parent);
++    geometry.removeEventListener('dispose', onShared);
++    assert.equal(released, 1);
++    assert.equal(sharedReleased, 0);
++    assert.equal(parent.children.length, 0);
++});
++
++test('full real palm, broadleaf and grass geometry extents stay outside exclusion volume', () => {
++    for (const typeId of ['palm', 'broadleaf', 'grass']) {
++        const m = manager({ vegetationExclusions: corridor });
++        m.types = m.types.filter(type => type.id === typeId);
++        // All fixture trunks/patch centres are outside the corridor.
++        m.tryAddInstance(1.01, 0, sample);
++        m.tryAddInstance(100, 0, sample);
++        assert.equal(m.getInstances().length, 1, typeId);
++        const [mesh] = m.buildMeshes();
++        const matrix = new THREE.Matrix4();
++        mesh.getMatrixAt(0, matrix);
++        const extent = new THREE.Box3().setFromBufferAttribute(mesh.geometry.attributes.position).applyMatrix4(matrix);
++        assert.ok(extent.min.x > 1, typeId);
++        m.dispose();
++    }
++});
++
++test('all-excluded actual IslandMesh consumes ghost tilts before decorations and later chunk', () => {
++    const originalRandom = Math.random;
++    const originalSampler = getHeightmapState().customSampler;
++    const volume = [{ min: { x: -200, z: -200 }, max: { x: 200, z: 200 } }];
++    const meshMatrices = meshes => meshes.map(mesh => ({
++        type: mesh.userData.typeId,
++        count: mesh.count,
++        matrices: Array.from(mesh.instanceMatrix.array)
++    }));
++    function run(vegetationExclusions) {
++        let draws = 0;
++        Math.random = () => (++draws % 997) * .000001;
++        const islands = [];
++        try {
++            const first = new IslandMesh({ x: 0, z: 0, resolution: 2, vegetationExclusions });
++            islands.push(first);
++            const firstDraws = draws;
++            const later = new IslandMesh({ x: 10, z: 0, resolution: 2, vegetationExclusions });
++            islands.push(later);
++            return {
++                firstInstances: first.vegetationData.length,
++                firstMeshes: first.vegetationMeshes.length,
++                firstDraws,
++                decorations: structuredClone(first.decorationData),
++                decorationMatrices: meshMatrices(first.decorationMeshes),
++                laterInstances: structuredClone(later.vegetationData),
++                laterMatrices: meshMatrices(later.vegetationMeshes),
++                totalDraws: draws
++            };
++        } finally {
++            islands.forEach(island => island.dispose());
++            Math.random = originalRandom;
++        }
++    }
++    try {
++        registerHeightSampler(() => ({ height: 4, normalized: .61, isUnderwater: false }));
++        // Warm shared procedural assets before measuring the common deterministic stream.
++        new IslandMesh({ x: 0, z: 0, resolution: 1 }).dispose();
++        const legacy = run(undefined);
++        const cleared = run(volume);
++        assert.ok(legacy.firstInstances > 0);
++        assert.ok(legacy.decorations.length > 0);
++        assert.ok(legacy.laterInstances.length > 0);
++        assert.equal(cleared.firstInstances, 0);
++        assert.equal(cleared.firstMeshes, 0);
++        assert.equal(cleared.firstDraws, legacy.firstDraws, 'ghost tilts consume original first-chunk draws');
++        assert.deepEqual(cleared.decorations, legacy.decorations);
++        assert.deepEqual(cleared.decorationMatrices, legacy.decorationMatrices);
++        assert.deepEqual(cleared.laterInstances, legacy.laterInstances);
++        assert.deepEqual(cleared.laterMatrices, legacy.laterMatrices);
++        assert.equal(cleared.totalDraws, legacy.totalDraws);
++    } finally {
++        Math.random = originalRandom;
++        registerHeightSampler(originalSampler);
++    }
++});

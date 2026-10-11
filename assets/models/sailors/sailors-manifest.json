@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "units": "metres",
+  "axes": {
+    "up": "+Y",
+    "forward": "+Z",
+    "feetY": 0
+  },
+  "authoring": "Original procedural late-Ming maritime cotton tunic, trousers, puttees and tied headcloth; no external mesh or texture assets",
+  "rig": {
+    "mesh": "sailor_body",
+    "rootBone": "sailor_root",
+    "hipsBone": "sailor_hips",
+    "bones": 18,
+    "skin": "normalized linear blend skinning",
+    "rootMotion": false
+  },
+  "material": {
+    "name": "sailor_worn_cotton",
+    "vertexColors": true,
+    "textures": 0,
+    "roughness": 0.91
+  },
+  "variants": {
+    "indigo": {
+      "cloth": 4940390,
+      "lining": 10129009,
+      "pants": 5327682,
+      "headcloth": 7958877,
+      "skin": 11370328
+    },
+    "ochre": {
+      "cloth": 9859399,
+      "lining": 12036741,
+      "pants": 4740434,
+      "headcloth": 5790803,
+      "skin": 12027745
+    },
+    "umber": {
+      "cloth": 7427911,
+      "lining": 11049591,
+      "pants": 5790290,
+      "headcloth": 8878947,
+      "skin": 10185804
+    }
+  },
+  "animation": {
+    "clock": "accepted simulation delta only",
+    "loop": true,
+    "clips": {
+      "idle": "small breathing and head scan",
+      "helm": "hands forward, alternate wheel/tiller work",
+      "haul": "both arms reach and pull sheet/line",
+      "load-cannon": "crouch and two-handed rammer reach; triggered by actual fire/cooldown",
+      "walk": "alternating legs and arms in place; bounded deck patrol assigned by renderer",
+      "lookout": "raise right hand to brow and scan"
+    }
+  },
+  "assets": [
+    {
+      "lod": 0,
+      "variant": "indigo",
+      "file": "sailor-lod0.glb",
+      "url": "/models/sailors/sailor-lod0.glb",
+      "dimensions": {
+        "width": 0.7120000123977661,
+        "height": 1.7059999718368053,
+        "depth": 0.30771947318851955
+      },
+      "triangles": 2892,
+      "vertices": 1949,
+      "meshes": 1,
+      "materials": 1,
+      "bones": 18,
+      "nodes": 19,
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 4,
+          "tracks": 7
+        },
+        {
+          "name": "helm",
+          "duration": 3,
+          "tracks": 9
+        },
+        {
+          "name": "haul",
+          "duration": 2.4,
+          "tracks": 7
+        },
+        {
+          "name": "load-cannon",
+          "duration": 3.2,
+          "tracks": 15
+        },
+        {
+          "name": "walk",
+          "duration": 1.15,
+          "tracks": 13
+        },
+        {
+          "name": "lookout",
+          "duration": 5,
+          "tracks": 8
+        }
+      ],
+      "bytes": 188176,
+      "sha256": "0d7d05cb8d209cdff55f00a897606a07229b414f403cae3e5ae525bd73148dcf"
+    },
+    {
+      "lod": 1,
+      "variant": "indigo",
+      "file": "sailor-lod1.glb",
+      "url": "/models/sailors/sailor-lod1.glb",
+      "dimensions": {
+        "width": 0.7120000123977661,
+        "height": 1.7059999718368053,
+        "depth": 0.30518000239670284
+      },
+      "triangles": 1508,
+      "vertices": 1057,
+      "meshes": 1,
+      "materials": 1,
+      "bones": 18,
+      "nodes": 19,
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 4,
+          "tracks": 7
+        },
+        {
+          "name": "helm",
+          "duration": 3,
+          "tracks": 9
+        },
+        {
+          "name": "haul",
+          "duration": 2.4,
+          "tracks": 7
+        },
+        {
+          "name": "load-cannon",
+          "duration": 3.2,
+          "tracks": 15
+        },
+        {
+          "name": "walk",
+          "duration": 1.15,
+          "tracks": 13
+        },
+        {
+          "name": "lookout",
+          "duration": 5,
+          "tracks": 8
+        }
+      ],
+      "bytes": 126232,
+      "sha256": "6ca7bb22f2090aa5ef8bc402c19620aa2b6c4b4067d291f1f079532922b3a8f6"
+    },
+    {
+      "lod": 2,
+      "variant": "indigo",
+      "file": "sailor-lod2.glb",
+      "url": "/models/sailors/sailor-lod2.glb",
+      "dimensions": {
+        "width": 0.7003500461578369,
+        "height": 1.7059999718368053,
+        "depth": 0.2893725969908427
+      },
+      "triangles": 738,
+      "vertices": 531,
+      "meshes": 1,
+      "materials": 1,
+      "bones": 18,
+      "nodes": 19,
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 4,
+          "tracks": 7
+        },
+        {
+          "name": "helm",
+          "duration": 3,
+          "tracks": 9
+        },
+        {
+          "name": "haul",
+          "duration": 2.4,
+          "tracks": 7
+        },
+        {
+          "name": "load-cannon",
+          "duration": 3.2,
+          "tracks": 15
+        },
+        {
+          "name": "walk",
+          "duration": 1.15,
+          "tracks": 13
+        },
+        {
+          "name": "lookout",
+          "duration": 5,
+          "tracks": 8
+        }
+      ],
+      "bytes": 90104,
+      "sha256": "6f52ae24627dd304566b9ed4afa6c7da9be0504fdb247edeb2854047843164e7"
+    }
+  ]
+}

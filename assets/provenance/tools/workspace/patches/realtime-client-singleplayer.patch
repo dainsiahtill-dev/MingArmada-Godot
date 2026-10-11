@@ -1,0 +1,1416 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000000000000000000000000000000000000..c2658d7d1b31848c3b71960543cb0368e56cd4c7
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++node_modules/
+diff --git a/dist/controlSend.d.ts b/dist/controlSend.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..7f039c22d3ea79443b26331134e33a8166f57d6b
+--- /dev/null
++++ b/dist/controlSend.d.ts
+@@ -0,0 +1,11 @@
++import type { PhysicsControlInput } from './protocol.js';
++export type ShouldSendControl = (lastSent: PhysicsControlInput | null) => boolean;
++export declare class ControlSender {
++    private readonly intervalMs;
++    private lastSentControl;
++    private lastSentAtMs;
++    constructor(intervalMs?: number);
++    shouldSend(nowMs: number, shouldSendDelta: ShouldSendControl): boolean;
++    commit(nowMs: number, input: PhysicsControlInput): void;
++}
++//# sourceMappingURL=controlSend.d.ts.map
+\ No newline at end of file
+diff --git a/dist/controlSend.d.ts.map b/dist/controlSend.d.ts.map
+new file mode 100644
+index 0000000000000000000000000000000000000000..8fa31bdd31689ee290a8c3bdffb90e97ae9d32d8
+--- /dev/null
++++ b/dist/controlSend.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"controlSend.d.ts","sourceRoot":"","sources":["../src/controlSend.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,mBAAmB,EAAE,MAAM,eAAe,CAAA;AAExD,MAAM,MAAM,iBAAiB,GAAG,CAAC,QAAQ,EAAE,mBAAmB,GAAG,IAAI,KAAK,OAAO,CAAA;AAEjF,qBAAa,aAAa;IAIZ,OAAO,CAAC,QAAQ,CAAC,UAAU;IAHvC,OAAO,CAAC,eAAe,CAAmC;IAC1D,OAAO,CAAC,YAAY,CAAI;gBAEK,UAAU,SAAM;IAE7C,UAAU,CAAC,KAAK,EAAE,MAAM,EAAE,eAAe,EAAE,iBAAiB;IAK5D,MAAM,CAAC,KAAK,EAAE,MAAM,EAAE,KAAK,EAAE,mBAAmB;CAIjD"}
+\ No newline at end of file
+diff --git a/dist/controlSend.js b/dist/controlSend.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..254b975f944166123f2c8efd3d20fd6b0a271c67
+--- /dev/null
++++ b/dist/controlSend.js
+@@ -0,0 +1,15 @@
++export class ControlSender {
++    constructor(intervalMs = 100) {
++        this.intervalMs = intervalMs;
++        this.lastSentControl = null;
++        this.lastSentAtMs = 0;
++    }
++    shouldSend(nowMs, shouldSendDelta) {
++        const forceSend = nowMs - this.lastSentAtMs >= this.intervalMs;
++        return forceSend || shouldSendDelta(this.lastSentControl);
++    }
++    commit(nowMs, input) {
++        this.lastSentAtMs = nowMs;
++        this.lastSentControl = { ...input };
++    }
++}
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 28d8c8d0240820774e0cdf230717f5589b26c38e..98c7129a6a3279045ac07a320ddc456a1beba188 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,3 +1,4 @@
+ export * from './physicsClient.js';
+ export * from './protocol.js';
++export * from './controlSend.js';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/dist/index.d.ts.map b/dist/index.d.ts.map
+index 9513691eeee5492a4fb8b81a223769e9309e63b5..34dd7211329bf00d1c2fff4a180bbe111620bf64 100644
+--- a/dist/index.d.ts.map
++++ b/dist/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,oBAAoB,CAAA;AAClC,cAAc,eAAe,CAAA"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,oBAAoB,CAAA;AAClC,cAAc,eAAe,CAAA;AAC7B,cAAc,kBAAkB,CAAA"}
+\ No newline at end of file
+diff --git a/dist/index.js b/dist/index.js
+index 0633a4898fb85b2b0b391f080b2b5a2d0023cbe8..5198719fb5d66b83fdb5d98f41806160a2de78aa 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,2 +1,3 @@
+ export * from './physicsClient.js';
+ export * from './protocol.js';
++export * from './controlSend.js';
+diff --git a/dist/physicsClient.d.ts b/dist/physicsClient.d.ts
+index 31d45db3501260085b56275cc8d56dc30ff37e79..34c7aaac7941b951fda15e1c0283adee68edf23f 100644
+--- a/dist/physicsClient.d.ts
++++ b/dist/physicsClient.d.ts
+@@ -12,6 +12,10 @@ export type PhysicsClientOptions = {
+     roomFullDelayMs?: number;
+     auditTimeoutMs?: number;
+     fetchTimeoutMs?: number;
++    worldRoomCacheMs?: number;
++    staleTimeoutMs?: number;
++    staleCheckIntervalMs?: number;
++    renderMode?: 'smooth' | 'raw';
+ };
+ export declare class PhysicsClient {
+     private readonly url;
+@@ -33,8 +37,11 @@ export declare class PhysicsClient {
+     private currentSpawn?;
+     private joining;
+     private joinQueued;
++    private connectionGeneration;
++    private roomCleanup;
+     private controlSeq;
+     private auditRequestId;
++    private lastMessageAtMs;
+     private readonly statusListeners;
+     private readonly history;
+     private readonly clock;
+@@ -42,18 +49,30 @@ export declare class PhysicsClient {
+     private readonly maxExtrapolationMs;
+     private readonly maxSelfExtrapolationMs;
+     private readonly maxHistory;
++    private readonly renderMode;
+     private readonly roomFullDelayMs;
+     private readonly reconnectDelayMs;
+     private readonly reconnectMaxDelayMs;
+     private readonly reconnectJitterMs;
+     private readonly auditTimeoutMs;
+     private readonly fetchTimeoutMs;
++    private readonly worldRoomCacheMs;
++    private readonly staleTimeoutMs;
++    private readonly staleCheckIntervalMs;
++    private staleTimer;
++    private cachedWorldRoom;
+     private readonly pendingAudit;
+     constructor(url: string, options?: number | PhysicsClientOptions);
+     connect(): void;
+     disconnect(): void;
+     onStatusChange(listener: StatusListener): () => boolean;
+     isConnected(): boolean;
++    getConnectionInfo(): {
++        connected: boolean;
++        roomId: string | null;
++        roomName: string | null;
++        lastMessageAtMs: number;
++    };
+     getLatestState(): PhysicsServerState | null;
+     getRenderState(): {
+         time: number;
+@@ -72,6 +91,9 @@ export declare class PhysicsClient {
+     requestAudit(limit?: number, sinceId?: number): Promise<AuditEvent[]>;
+     sendHello(clientId: string, token?: string, name?: string, spawn?: SpawnOverride): void;
+     private setConnected;
++    private ensureStaleMonitor;
++    private clearStaleMonitor;
++    private checkStaleConnection;
+     private clearReconnectTimer;
+     private scheduleReconnect;
+     private resolveReconnectDelay;
+@@ -82,6 +104,8 @@ export declare class PhysicsClient {
+     private joinIfReady;
+     private joinRoom;
+     private attachRoomHandlers;
++    private isCurrentGeneration;
++    private leaveRoom;
+     private handleRoomLeave;
+     private handleRoomError;
+     private applySnapshot;
+diff --git a/dist/physicsClient.d.ts.map b/dist/physicsClient.d.ts.map
+index 4e7d2ff6adce48e531193694c472c47f8c594560..d2eba47a766330277bd4af23bc1831bf7bf71da2 100644
+--- a/dist/physicsClient.d.ts.map
++++ b/dist/physicsClient.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"physicsClient.d.ts","sourceRoot":"","sources":["../src/physicsClient.ts"],"names":[],"mappings":"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"}
+\ No newline at end of file
++{"version":3,"file":"physicsClient.d.ts","sourceRoot":"","sources":["../src/physicsClient.ts"],"names":[],"mappings":"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"}
+\ No newline at end of file
+diff --git a/dist/physicsClient.js b/dist/physicsClient.js
+index dc2dd0154b9b86595816b34f3d88bff94cc45ad2..a72f77d4921cc04adb8b0344c7f6eebe400c60b9 100644
+--- a/dist/physicsClient.js
++++ b/dist/physicsClient.js
+@@ -2,6 +2,8 @@ import { Client } from 'colyseus.js';
+ import { lerpAngle, lerpNumber, lerpVec3, normalizeAngle } from './interpolation.js';
+ import { ServerClock } from './serverClock.js';
+ const isRecord = (value) => typeof value === 'object' && value !== null;
++const MAX_PENDING_AUDITS = 32;
++const NORMAL_LEAVE_GRACE_MS = 1000;
+ export class PhysicsClient {
+     constructor(url, options = {}) {
+         this.url = url;
+@@ -16,37 +18,51 @@ export class PhysicsClient {
+         this.currentClientId = null;
+         this.joining = false;
+         this.joinQueued = false;
++        this.connectionGeneration = 0;
++        this.roomCleanup = null;
+         this.controlSeq = 0;
+         this.auditRequestId = 1;
++        this.lastMessageAtMs = 0;
+         this.statusListeners = new Set();
+         this.history = new Map();
+         this.clock = new ServerClock();
++        this.staleTimer = null;
++        this.cachedWorldRoom = null;
+         this.pendingAudit = new Map();
+         const resolved = typeof options === 'number' ? { reconnectDelayMs: options } : options;
+         this.reconnectDelayMs = resolved.reconnectDelayMs ?? 1000;
+         this.reconnectMaxDelayMs = resolved.reconnectMaxDelayMs ?? 15000;
+         this.reconnectJitterMs = resolved.reconnectJitterMs ?? 250;
+-        this.interpolationDelayMs = resolved.interpolationDelayMs ?? 120;
+-        this.maxExtrapolationMs = resolved.maxExtrapolationMs ?? 200;
+-        this.maxSelfExtrapolationMs = resolved.maxSelfExtrapolationMs ?? 250;
+-        this.maxHistory = resolved.maxHistory ?? 32;
++        this.interpolationDelayMs = resolved.interpolationDelayMs ?? 220;
++        this.maxExtrapolationMs = resolved.maxExtrapolationMs ?? 300;
++        this.maxSelfExtrapolationMs = resolved.maxSelfExtrapolationMs ?? 300;
++        this.maxHistory = Number.isFinite(resolved.maxHistory)
++            ? Math.max(1, Math.min(1024, Math.floor(resolved.maxHistory)))
++            : 32;
++        this.renderMode = resolved.renderMode ?? 'smooth';
+         this.roomFullDelayMs = resolved.roomFullDelayMs ?? 5000;
+         this.auditTimeoutMs = resolved.auditTimeoutMs ?? 4000;
+         this.fetchTimeoutMs = resolved.fetchTimeoutMs ?? 2000;
++        this.worldRoomCacheMs = resolved.worldRoomCacheMs ?? 5000;
++        this.staleTimeoutMs = resolved.staleTimeoutMs ?? 15000;
++        this.staleCheckIntervalMs = resolved.staleCheckIntervalMs ?? 1000;
+         this.client = new Client(this.url);
+     }
+     connect() {
+         this.shouldReconnect = true;
++        this.ensureStaleMonitor();
+         this.joinIfReady();
+     }
+     disconnect() {
+         this.shouldReconnect = false;
++        this.connectionGeneration += 1;
+         this.joinQueued = false;
+         this.clearReconnectTimer();
+-        if (this.room) {
+-            void this.room.leave();
+-        }
++        this.clearStaleMonitor();
++        const room = this.room;
+         this.resetRoomState();
++        if (room)
++            void this.leaveRoom(room, true);
+     }
+     onStatusChange(listener) {
+         this.statusListeners.add(listener);
+@@ -55,12 +71,27 @@ export class PhysicsClient {
+     isConnected() {
+         return this.connected;
+     }
++    getConnectionInfo() {
++        return {
++            connected: this.connected,
++            roomId: this.room?.roomId ?? null,
++            roomName: this.room?.name ?? null,
++            lastMessageAtMs: this.lastMessageAtMs,
++        };
++    }
+     getLatestState() {
+         return this.latestState;
+     }
+     getRenderState() {
+         if (!this.latestState)
+             return null;
++        if (this.renderMode === 'raw') {
++            return {
++                ...this.latestState,
++                time: this.latestState.time ?? 0,
++                players: Array.from(this.players.values()),
++            };
++        }
+         const nowMs = performance.now();
+         const estimatedServerTime = this.clock.estimate(nowMs);
+         const scale = this.clock.getScale();
+@@ -109,7 +140,7 @@ export class PhysicsClient {
+         this.send('reset', {});
+     }
+     requestAudit(limit = 200, sinceId) {
+-        if (!this.room || !this.connected) {
++        if (!this.room || !this.connected || this.pendingAudit.size >= MAX_PENDING_AUDITS) {
+             return Promise.resolve([]);
+         }
+         const requestId = this.auditRequestId++;
+@@ -134,6 +165,11 @@ export class PhysicsClient {
+     }
+     sendHello(clientId, token, name, spawn) {
+         this.shouldReconnect = true;
++        this.ensureStaleMonitor();
++        if (clientId !== this.desiredClientId || token !== this.desiredToken ||
++            name !== this.desiredName || !this.sameSpawn(spawn, this.desiredSpawn)) {
++            this.connectionGeneration += 1;
++        }
+         this.desiredClientId = clientId;
+         this.desiredToken = token;
+         this.desiredName = name;
+@@ -147,9 +183,41 @@ export class PhysicsClient {
+         if (value) {
+             this.reconnectAttempts = 0;
+             this.clearReconnectTimer();
++            this.lastMessageAtMs = performance.now();
+         }
+         this.statusListeners.forEach((listener) => listener(value));
+     }
++    ensureStaleMonitor() {
++        if (this.staleTimer !== null)
++            return;
++        if (this.staleTimeoutMs <= 0 || this.staleCheckIntervalMs <= 0)
++            return;
++        this.staleTimer = globalThis.setInterval(() => {
++            this.checkStaleConnection();
++        }, this.staleCheckIntervalMs);
++    }
++    clearStaleMonitor() {
++        if (this.staleTimer === null)
++            return;
++        clearInterval(this.staleTimer);
++        this.staleTimer = null;
++    }
++    checkStaleConnection() {
++        if (!this.shouldReconnect)
++            return;
++        if (!this.connected)
++            return;
++        if (!this.room)
++            return;
++        const nowMs = performance.now();
++        const ageMs = nowMs - this.lastMessageAtMs;
++        if (!Number.isFinite(ageMs) || ageMs < this.staleTimeoutMs)
++            return;
++        const room = this.room;
++        this.resetRoomState();
++        void this.leaveRoom(room);
++        this.scheduleReconnect(0);
++    }
+     clearReconnectTimer() {
+         if (this.reconnectTimer === null)
+             return;
+@@ -169,7 +237,7 @@ export class PhysicsClient {
+         }, delayMs);
+     }
+     resolveReconnectDelay(delayOverrideMs) {
+-        if (Number.isFinite(delayOverrideMs) && delayOverrideMs > 0) {
++        if (Number.isFinite(delayOverrideMs) && delayOverrideMs >= 0) {
+             return delayOverrideMs;
+         }
+         const baseDelay = Math.max(0, this.reconnectDelayMs);
+@@ -190,10 +258,13 @@ export class PhysicsClient {
+         this.pendingAudit.clear();
+     }
+     resetRoomState() {
++        this.roomCleanup?.();
++        this.roomCleanup = null;
+         this.room = null;
+         this.latestState = null;
+         this.players.clear();
+         this.history.clear();
++        this.lastMessageAtMs = 0;
+         this.resolvePendingAudit();
+         this.clock.reset();
+         this.setConnected(false);
+@@ -206,6 +277,7 @@ export class PhysicsClient {
+     handleMessage(msg) {
+         if (!isRecord(msg) || typeof msg.type !== 'string')
+             return;
++        this.lastMessageAtMs = performance.now();
+         const message = msg;
+         if (message.type === 'spawn') {
+             this.applySpawn(message);
+@@ -255,12 +327,21 @@ export class PhysicsClient {
+     }
+     async joinRoom(clientId, token, name, spawn) {
+         this.joining = true;
++        const generation = this.connectionGeneration;
+         try {
+             if (this.room) {
+-                await this.room.leave();
++                const oldRoom = this.room;
+                 this.resetRoomState();
++                await this.leaveRoom(oldRoom);
++            }
++            if (!this.isCurrentGeneration(generation))
++                return;
++            const room = await this.joinPreferredRoom(clientId, token, name, spawn, generation);
++            if (!this.isCurrentGeneration(generation)) {
++                if (room)
++                    void this.leaveRoom(room);
++                return;
+             }
+-            const room = await this.joinPreferredRoom(clientId, token, name, spawn);
+             if (!room) {
+                 throw new Error('world_room_unavailable');
+             }
+@@ -274,6 +355,8 @@ export class PhysicsClient {
+             this.setConnected(true);
+         }
+         catch (err) {
++            if (!this.isCurrentGeneration(generation))
++                return;
+             this.setConnected(false);
+             console.warn('[PhysicsClient] join failed', err);
+             const code = this.getErrorCode(err);
+@@ -295,25 +378,74 @@ export class PhysicsClient {
+     }
+     attachRoomHandlers(room) {
+         const handler = (message) => {
++            if (this.room !== room)
++                return;
+             this.handleMessage(message);
+         };
+         const types = ['snapshot', 'spawn', 'despawn', 'world', 'audit'];
+-        for (const type of types) {
+-            room.onMessage(type, handler);
+-        }
+-        room.onLeave(() => {
++        const unsubscribe = types.map((type) => room.onMessage(type, handler));
++        const onLeave = () => {
++            if (this.room !== room)
++                return;
+             this.handleRoomLeave();
+-        });
+-        room.onError((code, message) => {
++        };
++        const onError = (code, message) => {
++            if (this.room !== room)
++                return;
+             this.handleRoomError(code, message);
+-        });
++        };
++        room.onLeave(onLeave);
++        room.onError(onError);
++        this.roomCleanup = () => {
++            unsubscribe.forEach((remove) => remove());
++            room.onLeave.remove(onLeave);
++            room.onError.remove(onError);
++        };
++    }
++    isCurrentGeneration(generation) {
++        return this.shouldReconnect && generation === this.connectionGeneration;
++    }
++    async leaveRoom(room, consented = false) {
++        let graceTimer = null;
++        try {
++            if (!consented) {
++                // Real Room.leave(false) closes the transport, but its promise still
++                // waits for onLeave. Terminal retirement must not await that peer event.
++                void room.leave(false).catch((err) => console.warn('[PhysicsClient] leave failed', err));
++                return;
++            }
++            const code = await Promise.race([
++                room.leave(true),
++                new Promise((resolve) => {
++                    graceTimer = globalThis.setTimeout(() => resolve(undefined), NORMAL_LEAVE_GRACE_MS);
++                }),
++            ]);
++            if (code === undefined)
++                await this.leaveRoom(room);
++        }
++        catch (err) {
++            console.warn('[PhysicsClient] leave failed', err);
++            if (consented)
++                await this.leaveRoom(room);
++        }
++        finally {
++            if (graceTimer !== null)
++                clearTimeout(graceTimer);
++            // Release SDK leave resolvers/listeners even if the closed transport never
++            // reports a peer event. No synthetic leave or acknowledgment is emitted.
++            if (!consented)
++                room.removeAllListeners();
++        }
+     }
+     handleRoomLeave() {
+         this.resetRoomState();
+         this.scheduleReconnect();
+     }
+     handleRoomError(code, message) {
++        const room = this.room;
+         this.resetRoomState();
++        if (room)
++            void this.leaveRoom(room);
+         console.warn('[PhysicsClient] room error', { code, message });
+         this.scheduleReconnect();
+     }
+@@ -374,20 +506,25 @@ export class PhysicsClient {
+             return;
+         this.latestState.players = Array.from(this.players.values());
+     }
+-    async joinPreferredRoom(clientId, token, name, spawn) {
++    async joinPreferredRoom(clientId, token, name, spawn, generation = this.connectionGeneration) {
+         const worldRoomId = await this.fetchWorldRoomId();
++        if (!this.isCurrentGeneration(generation))
++            return null;
+         if (worldRoomId) {
+             try {
+                 return (await this.client.joinById(worldRoomId, { clientId, token, name, spawn }));
+             }
+             catch (err) {
+                 const code = this.getErrorCode(err);
+-                if (code && code !== 404) {
++                if (code && code !== 404 && code !== 403 && code !== 421 && code !== 4212) {
+                     throw err;
+                 }
++                this.cachedWorldRoom = null;
+             }
+         }
+         const roomId = await this.findPreferredRoomId();
++        if (!this.isCurrentGeneration(generation))
++            return null;
+         if (!roomId)
+             return null;
+         return (await this.client.joinById(roomId, { clientId, token, name, spawn }));
+@@ -430,6 +567,10 @@ export class PhysicsClient {
+         }
+     }
+     async fetchWorldRoomId() {
++        const nowMs = performance.now();
++        if (this.cachedWorldRoom && nowMs < this.cachedWorldRoom.expiresAtMs) {
++            return this.cachedWorldRoom.roomId;
++        }
+         const url = this.buildWorldUrl();
+         if (!url)
+             return null;
+@@ -438,7 +579,13 @@ export class PhysicsClient {
+             if (!response.ok)
+                 return null;
+             const data = (await response.json());
+-            return typeof data?.roomId === 'string' && data.roomId.length > 0 ? data.roomId : null;
++            const roomId = typeof data?.roomId === 'string' && data.roomId.length > 0 ? data.roomId : null;
++            if (!roomId)
++                return null;
++            if (this.worldRoomCacheMs > 0) {
++                this.cachedWorldRoom = { roomId, expiresAtMs: nowMs + this.worldRoomCacheMs };
++            }
++            return roomId;
+         }
+         catch {
+             return null;
+diff --git a/src/controlSend.ts b/src/controlSend.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d3258cccd1fe046a84f304e43b5f4682cd20b01
+--- /dev/null
++++ b/src/controlSend.ts
+@@ -0,0 +1,20 @@
++import type { PhysicsControlInput } from './protocol.js'
++
++export type ShouldSendControl = (lastSent: PhysicsControlInput | null) => boolean
++
++export class ControlSender {
++  private lastSentControl: PhysicsControlInput | null = null
++  private lastSentAtMs = 0
++
++  constructor(private readonly intervalMs = 100) {}
++
++  shouldSend(nowMs: number, shouldSendDelta: ShouldSendControl) {
++    const forceSend = nowMs - this.lastSentAtMs >= this.intervalMs
++    return forceSend || shouldSendDelta(this.lastSentControl)
++  }
++
++  commit(nowMs: number, input: PhysicsControlInput) {
++    this.lastSentAtMs = nowMs
++    this.lastSentControl = { ...input }
++  }
++}
+diff --git a/src/index.ts b/src/index.ts
+index 145fca5f8b5fc6609bb6a491b4c78c47b045618f..56628924f98135300dc6e1be461bbebd5ffffb0f 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,2 +1,3 @@
+ export * from './physicsClient.js'
+ export * from './protocol.js'
++export * from './controlSend.js'
+diff --git a/src/physicsClient.ts b/src/physicsClient.ts
+index 9a3133e50c0749dc20c344c98a69c9312b0956e8..22072980bff59fc3d0d691cace62e29c74bf5bd7 100644
+--- a/src/physicsClient.ts
++++ b/src/physicsClient.ts
+@@ -40,11 +40,18 @@ export type PhysicsClientOptions = {
+   roomFullDelayMs?: number
+   auditTimeoutMs?: number
+   fetchTimeoutMs?: number
++  worldRoomCacheMs?: number
++  staleTimeoutMs?: number
++  staleCheckIntervalMs?: number
++  renderMode?: 'smooth' | 'raw'
+ }
+ 
+ const isRecord = (value: unknown): value is Record<string, unknown> =>
+   typeof value === 'object' && value !== null
+ 
++const MAX_PENDING_AUDITS = 32
++const NORMAL_LEAVE_GRACE_MS = 1000
++
+ export class PhysicsClient {
+   private client: Client
+   private room: Room | null = null
+@@ -64,8 +71,11 @@ export class PhysicsClient {
+   private currentSpawn?: SpawnOverride
+   private joining = false
+   private joinQueued = false
++  private connectionGeneration = 0
++  private roomCleanup: (() => void) | null = null
+   private controlSeq = 0
+   private auditRequestId = 1
++  private lastMessageAtMs = 0
+   private readonly statusListeners = new Set<StatusListener>()
+   private readonly history = new Map<string, TimedPlayerSample[]>()
+   private readonly clock = new ServerClock()
+@@ -73,12 +83,18 @@ export class PhysicsClient {
+   private readonly maxExtrapolationMs: number
+   private readonly maxSelfExtrapolationMs: number
+   private readonly maxHistory: number
++  private readonly renderMode: 'smooth' | 'raw'
+   private readonly roomFullDelayMs: number
+   private readonly reconnectDelayMs: number
+   private readonly reconnectMaxDelayMs: number
+   private readonly reconnectJitterMs: number
+   private readonly auditTimeoutMs: number
+   private readonly fetchTimeoutMs: number
++  private readonly worldRoomCacheMs: number
++  private readonly staleTimeoutMs: number
++  private readonly staleCheckIntervalMs: number
++  private staleTimer: ReturnType<typeof setInterval> | null = null
++  private cachedWorldRoom: { roomId: string; expiresAtMs: number } | null = null
+   private readonly pendingAudit = new Map<number, PendingAudit>()
+ 
+   constructor(
+@@ -89,29 +105,37 @@ export class PhysicsClient {
+     this.reconnectDelayMs = resolved.reconnectDelayMs ?? 1000
+     this.reconnectMaxDelayMs = resolved.reconnectMaxDelayMs ?? 15000
+     this.reconnectJitterMs = resolved.reconnectJitterMs ?? 250
+-    this.interpolationDelayMs = resolved.interpolationDelayMs ?? 120
+-    this.maxExtrapolationMs = resolved.maxExtrapolationMs ?? 200
+-    this.maxSelfExtrapolationMs = resolved.maxSelfExtrapolationMs ?? 250
+-    this.maxHistory = resolved.maxHistory ?? 32
++    this.interpolationDelayMs = resolved.interpolationDelayMs ?? 220
++    this.maxExtrapolationMs = resolved.maxExtrapolationMs ?? 300
++    this.maxSelfExtrapolationMs = resolved.maxSelfExtrapolationMs ?? 300
++    this.maxHistory = Number.isFinite(resolved.maxHistory)
++      ? Math.max(1, Math.min(1024, Math.floor(resolved.maxHistory as number)))
++      : 32
++    this.renderMode = resolved.renderMode ?? 'smooth'
+     this.roomFullDelayMs = resolved.roomFullDelayMs ?? 5000
+     this.auditTimeoutMs = resolved.auditTimeoutMs ?? 4000
+     this.fetchTimeoutMs = resolved.fetchTimeoutMs ?? 2000
++    this.worldRoomCacheMs = resolved.worldRoomCacheMs ?? 5000
++    this.staleTimeoutMs = resolved.staleTimeoutMs ?? 15000
++    this.staleCheckIntervalMs = resolved.staleCheckIntervalMs ?? 1000
+     this.client = new Client(this.url)
+   }
+ 
+   connect() {
+     this.shouldReconnect = true
++    this.ensureStaleMonitor()
+     this.joinIfReady()
+   }
+ 
+   disconnect() {
+     this.shouldReconnect = false
++    this.connectionGeneration += 1
+     this.joinQueued = false
+     this.clearReconnectTimer()
+-    if (this.room) {
+-      void this.room.leave()
+-    }
++    this.clearStaleMonitor()
++    const room = this.room
+     this.resetRoomState()
++    if (room) void this.leaveRoom(room, true)
+   }
+ 
+   onStatusChange(listener: StatusListener) {
+@@ -123,12 +147,28 @@ export class PhysicsClient {
+     return this.connected
+   }
+ 
++  getConnectionInfo() {
++    return {
++      connected: this.connected,
++      roomId: this.room?.roomId ?? null,
++      roomName: this.room?.name ?? null,
++      lastMessageAtMs: this.lastMessageAtMs,
++    }
++  }
++
+   getLatestState() {
+     return this.latestState
+   }
+ 
+   getRenderState() {
+     if (!this.latestState) return null
++    if (this.renderMode === 'raw') {
++      return {
++        ...this.latestState,
++        time: this.latestState.time ?? 0,
++        players: Array.from(this.players.values()),
++      }
++    }
+     const nowMs = performance.now()
+     const estimatedServerTime = this.clock.estimate(nowMs)
+     const scale = this.clock.getScale()
+@@ -190,7 +230,7 @@ export class PhysicsClient {
+   }
+ 
+   requestAudit(limit = 200, sinceId?: number) {
+-    if (!this.room || !this.connected) {
++    if (!this.room || !this.connected || this.pendingAudit.size >= MAX_PENDING_AUDITS) {
+       return Promise.resolve<AuditEvent[]>([])
+     }
+     const requestId = this.auditRequestId++
+@@ -217,6 +257,13 @@ export class PhysicsClient {
+ 
+   sendHello(clientId: string, token?: string, name?: string, spawn?: SpawnOverride) {
+     this.shouldReconnect = true
++    this.ensureStaleMonitor()
++    if (
++      clientId !== this.desiredClientId || token !== this.desiredToken ||
++      name !== this.desiredName || !this.sameSpawn(spawn, this.desiredSpawn)
++    ) {
++      this.connectionGeneration += 1
++    }
+     this.desiredClientId = clientId
+     this.desiredToken = token
+     this.desiredName = name
+@@ -230,10 +277,38 @@ export class PhysicsClient {
+     if (value) {
+       this.reconnectAttempts = 0
+       this.clearReconnectTimer()
++      this.lastMessageAtMs = performance.now()
+     }
+     this.statusListeners.forEach((listener) => listener(value))
+   }
+ 
++  private ensureStaleMonitor() {
++    if (this.staleTimer !== null) return
++    if (this.staleTimeoutMs <= 0 || this.staleCheckIntervalMs <= 0) return
++    this.staleTimer = globalThis.setInterval(() => {
++      this.checkStaleConnection()
++    }, this.staleCheckIntervalMs)
++  }
++
++  private clearStaleMonitor() {
++    if (this.staleTimer === null) return
++    clearInterval(this.staleTimer)
++    this.staleTimer = null
++  }
++
++  private checkStaleConnection() {
++    if (!this.shouldReconnect) return
++    if (!this.connected) return
++    if (!this.room) return
++    const nowMs = performance.now()
++    const ageMs = nowMs - this.lastMessageAtMs
++    if (!Number.isFinite(ageMs) || ageMs < this.staleTimeoutMs) return
++    const room = this.room
++    this.resetRoomState()
++    void this.leaveRoom(room)
++    this.scheduleReconnect(0)
++  }
++
+   private clearReconnectTimer() {
+     if (this.reconnectTimer === null) return
+     clearTimeout(this.reconnectTimer)
+@@ -252,7 +327,7 @@ export class PhysicsClient {
+   }
+ 
+   private resolveReconnectDelay(delayOverrideMs?: number) {
+-    if (Number.isFinite(delayOverrideMs) && (delayOverrideMs as number) > 0) {
++    if (Number.isFinite(delayOverrideMs) && (delayOverrideMs as number) >= 0) {
+       return delayOverrideMs as number
+     }
+     const baseDelay = Math.max(0, this.reconnectDelayMs)
+@@ -274,10 +349,13 @@ export class PhysicsClient {
+   }
+ 
+   private resetRoomState() {
++    this.roomCleanup?.()
++    this.roomCleanup = null
+     this.room = null
+     this.latestState = null
+     this.players.clear()
+     this.history.clear()
++    this.lastMessageAtMs = 0
+     this.resolvePendingAudit()
+     this.clock.reset()
+     this.setConnected(false)
+@@ -290,6 +368,7 @@ export class PhysicsClient {
+ 
+   private handleMessage(msg: unknown) {
+     if (!isRecord(msg) || typeof msg.type !== 'string') return
++    this.lastMessageAtMs = performance.now()
+     const message = msg as ServerMessage
+     if (message.type === 'spawn') {
+       this.applySpawn(message)
+@@ -341,12 +420,19 @@ export class PhysicsClient {
+ 
+   private async joinRoom(clientId: string, token?: string, name?: string, spawn?: SpawnOverride) {
+     this.joining = true
++    const generation = this.connectionGeneration
+     try {
+       if (this.room) {
+-        await this.room.leave()
++        const oldRoom = this.room
+         this.resetRoomState()
++        await this.leaveRoom(oldRoom)
++      }
++      if (!this.isCurrentGeneration(generation)) return
++      const room = await this.joinPreferredRoom(clientId, token, name, spawn, generation)
++      if (!this.isCurrentGeneration(generation)) {
++        if (room) void this.leaveRoom(room)
++        return
+       }
+-      const room = await this.joinPreferredRoom(clientId, token, name, spawn)
+       if (!room) {
+         throw new Error('world_room_unavailable')
+       }
+@@ -359,6 +445,7 @@ export class PhysicsClient {
+       this.attachRoomHandlers(room)
+       this.setConnected(true)
+     } catch (err) {
++      if (!this.isCurrentGeneration(generation)) return
+       this.setConnected(false)
+       console.warn('[PhysicsClient] join failed', err)
+       const code = this.getErrorCode(err)
+@@ -380,18 +467,57 @@ export class PhysicsClient {
+ 
+   private attachRoomHandlers(room: Room) {
+     const handler = (message: unknown) => {
++      if (this.room !== room) return
+       this.handleMessage(message)
+     }
+     const types: ServerMessage['type'][] = ['snapshot', 'spawn', 'despawn', 'world', 'audit']
+-    for (const type of types) {
+-      room.onMessage(type, handler)
+-    }
+-    room.onLeave(() => {
++    const unsubscribe = types.map((type) => room.onMessage(type, handler) as () => void)
++    const onLeave = () => {
++      if (this.room !== room) return
+       this.handleRoomLeave()
+-    })
+-    room.onError((code, message) => {
++    }
++    const onError = (code: number, message?: string) => {
++      if (this.room !== room) return
+       this.handleRoomError(code, message)
+-    })
++    }
++    room.onLeave(onLeave)
++    room.onError(onError)
++    this.roomCleanup = () => {
++      unsubscribe.forEach((remove) => remove())
++      room.onLeave.remove(onLeave)
++      room.onError.remove(onError)
++    }
++  }
++
++  private isCurrentGeneration(generation: number) {
++    return this.shouldReconnect && generation === this.connectionGeneration
++  }
++
++  private async leaveRoom(room: Room, consented = false) {
++    let graceTimer: ReturnType<typeof setTimeout> | null = null
++    try {
++      if (!consented) {
++        // Real Room.leave(false) closes the transport, but its promise still
++        // waits for onLeave. Terminal retirement must not await that peer event.
++        void room.leave(false).catch((err) => console.warn('[PhysicsClient] leave failed', err))
++        return
++      }
++      const code = await Promise.race([
++        room.leave(true),
++        new Promise<undefined>((resolve) => {
++          graceTimer = globalThis.setTimeout(() => resolve(undefined), NORMAL_LEAVE_GRACE_MS)
++        }),
++      ])
++      if (code === undefined) await this.leaveRoom(room)
++    } catch (err) {
++      console.warn('[PhysicsClient] leave failed', err)
++      if (consented) await this.leaveRoom(room)
++    } finally {
++      if (graceTimer !== null) clearTimeout(graceTimer)
++      // Release SDK leave resolvers/listeners even if the closed transport never
++      // reports a peer event. No synthetic leave or acknowledgment is emitted.
++      if (!consented) room.removeAllListeners()
++    }
+   }
+ 
+   private handleRoomLeave() {
+@@ -400,7 +526,9 @@ export class PhysicsClient {
+   }
+ 
+   private handleRoomError(code?: number, message?: string) {
++    const room = this.room
+     this.resetRoomState()
++    if (room) void this.leaveRoom(room)
+     console.warn('[PhysicsClient] room error', { code, message })
+     this.scheduleReconnect()
+   }
+@@ -469,19 +597,23 @@ export class PhysicsClient {
+     token?: string,
+     name?: string,
+     spawn?: SpawnOverride,
++    generation = this.connectionGeneration,
+   ) {
+     const worldRoomId = await this.fetchWorldRoomId()
++    if (!this.isCurrentGeneration(generation)) return null
+     if (worldRoomId) {
+       try {
+         return (await this.client.joinById(worldRoomId, { clientId, token, name, spawn })) as Room
+       } catch (err) {
+         const code = this.getErrorCode(err)
+-        if (code && code !== 404) {
++        if (code && code !== 404 && code !== 403 && code !== 421 && code !== 4212) {
+           throw err
+         }
++        this.cachedWorldRoom = null
+       }
+     }
+     const roomId = await this.findPreferredRoomId()
++    if (!this.isCurrentGeneration(generation)) return null
+     if (!roomId) return null
+     return (await this.client.joinById(roomId, { clientId, token, name, spawn })) as Room
+   }
+@@ -524,13 +656,22 @@ export class PhysicsClient {
+   }
+ 
+   private async fetchWorldRoomId() {
++    const nowMs = performance.now()
++    if (this.cachedWorldRoom && nowMs < this.cachedWorldRoom.expiresAtMs) {
++      return this.cachedWorldRoom.roomId
++    }
+     const url = this.buildWorldUrl()
+     if (!url) return null
+     try {
+       const response = await this.fetchWithTimeout(url)
+       if (!response.ok) return null
+       const data = (await response.json()) as { roomId?: unknown }
+-      return typeof data?.roomId === 'string' && data.roomId.length > 0 ? data.roomId : null
++      const roomId = typeof data?.roomId === 'string' && data.roomId.length > 0 ? data.roomId : null
++      if (!roomId) return null
++      if (this.worldRoomCacheMs > 0) {
++        this.cachedWorldRoom = { roomId, expiresAtMs: nowMs + this.worldRoomCacheMs }
++      }
++      return roomId
+     } catch {
+       return null
+     }
+diff --git a/tests/controlSend.test.ts b/tests/controlSend.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..e4b5c6fbdc4a24a8c737cda055159c4491da082a
+--- /dev/null
++++ b/tests/controlSend.test.ts
+@@ -0,0 +1,15 @@
++import { describe, expect, it } from 'vitest'
++import { ControlSender } from '../src/controlSend.js'
++
++describe('ControlSender', () => {
++  it('uses detached last control and forces heartbeat at interval boundary', () => {
++    const sender = new ControlSender(100)
++    const input = { throttle: 0.5, rudderAngleDeg: 3, driveEnabled: true, sailAngleRad: 0.2 }
++    expect(sender.shouldSend(0, (last) => last === null)).toBe(true)
++    sender.commit(0, input)
++    input.throttle = 1
++    expect(sender.shouldSend(99, (last) => last?.throttle !== 0.5)).toBe(false)
++    expect(sender.shouldSend(100, () => false)).toBe(true)
++    expect(sender.shouldSend(1, (last) => last?.rudderAngleDeg !== 4)).toBe(true)
++  })
++})
+diff --git a/tests/physicsClient.test.ts b/tests/physicsClient.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..70b43dd227176ec913e822705906ec1bb93bc99c
+--- /dev/null
++++ b/tests/physicsClient.test.ts
+@@ -0,0 +1,290 @@
++import { Client, Room } from 'colyseus.js'
++import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
++import { PhysicsClient, type PhysicsClientOptions } from '../src/physicsClient.js'
++import type { SnapshotMessage } from '../src/protocol.js'
++
++// Keep Colyseus subscriptions real; replace only external join/send/close transport.
++class TransportRoom extends Room {
++  readonly sent: { type: string | number; payload: unknown }[] = []
++  leaveCalls = 0
++
++  constructor(id: string) {
++    super('sailing')
++    this.roomId = id
++  }
++
++  override send<T>(type: string | number, payload?: T) {
++    this.sent.push({ type, payload })
++  }
++
++  override async leave() {
++    this.leaveCalls += 1
++    return 1000
++  }
++
++  message(type: string, payload: unknown) {
++    this.onMessageHandlers.emit(type, payload)
++  }
++}
++
++function deferred<T>() {
++  let resolve!: (value: T) => void
++  const promise = new Promise<T>((done) => { resolve = done })
++  return { promise, resolve }
++}
++
++const snapshot: SnapshotMessage = {
++  type: 'snapshot', selfId: 'captain', role: 'player', time: 10,
++  windDirection: { x: 1, y: 0 }, windSpeed: 5,
++  players: [{
++    id: 'captain', name: 'Captain', rudderAngleDeg: 0, sailAngleRad: 0,
++    ship: { length: 10, width: 3 },
++    state: { position: { x: 0, y: 0, z: 0 }, velocity: { x: 2, y: 0, z: 0 }, heading: 0, heel: 0, pitch: 0 },
++  }],
++}
++
++describe('PhysicsClient transport lifecycle', () => {
++  const clients: PhysicsClient[] = []
++  let nowMs = 100
++
++  function client(options: PhysicsClientOptions = {}) {
++    const value = new PhysicsClient('ws://localhost:2567', {
++      reconnectDelayMs: 1000, reconnectJitterMs: 0, ...options,
++    })
++    clients.push(value)
++    return value
++  }
++
++  async function join(value: PhysicsClient, room: TransportRoom, name = 'Captain') {
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(room)
++    value.connect()
++    value.sendHello('captain', undefined, name)
++    await vi.waitFor(() => expect(value.getConnectionInfo().roomId).toBe(room.roomId))
++  }
++
++  beforeEach(() => {
++    nowMs = 100
++    vi.useFakeTimers()
++    vi.spyOn(performance, 'now').mockImplementation(() => nowMs)
++    vi.spyOn(console, 'log').mockImplementation(() => {})
++    vi.spyOn(console, 'warn').mockImplementation(() => {})
++    vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response(JSON.stringify({ roomId: 'world' }))))
++    vi.spyOn(Client.prototype, 'joinById').mockRejectedValue(new Error('unplanned transport join'))
++    vi.spyOn(Client.prototype, 'getAvailableRooms').mockResolvedValue([])
++  })
++
++  afterEach(() => {
++    clients.forEach((value) => value.disconnect())
++    clients.length = 0
++    vi.restoreAllMocks()
++    vi.unstubAllGlobals()
++    vi.useRealTimers()
++  })
++
++  it('leaves an in-flight join completed after disconnect without reconnecting', async () => {
++    const pending = deferred<Room>()
++    const room = new TransportRoom('late')
++    const joinTransport = vi.spyOn(Client.prototype, 'joinById').mockReturnValue(pending.promise)
++    const value = client()
++    value.connect()
++    value.sendHello('captain')
++    await vi.waitFor(() => expect(joinTransport).toHaveBeenCalledTimes(1))
++    value.disconnect()
++    pending.resolve(room)
++    await vi.waitFor(() => expect(room.leaveCalls).toBe(1))
++    expect(value.isConnected()).toBe(false)
++    expect(value.getConnectionInfo().roomId).toBeNull()
++    expect(vi.getTimerCount()).toBe(0)
++  })
++
++  it('ignores messages, errors, and close from a previous room after identity change', async () => {
++    const value = client()
++    const old = new TransportRoom('old')
++    await join(value, old)
++    const next = new TransportRoom('next')
++    await join(value, next, 'New Captain')
++    old.message('snapshot', snapshot)
++    expect(value.getLatestState()).toBeNull()
++    old.onError.invoke(1006, 'late error')
++    old.onLeave.invoke(1006)
++    expect(value.getLatestState()).toBeNull()
++    expect(value.isConnected()).toBe(true)
++    expect(value.getConnectionInfo().roomId).toBe('next')
++    expect(vi.getTimerCount()).toBe(1)
++  })
++
++  it('detects stale silence when connection starts at monotonic clock zero', async () => {
++    nowMs = 0
++    const value = client({ staleTimeoutMs: 100, staleCheckIntervalMs: 100 })
++    const room = new TransportRoom('silent')
++    await join(value, room)
++    nowMs = 100
++    await vi.advanceTimersByTimeAsync(100)
++    expect(value.isConnected()).toBe(false)
++    expect(room.leaveCalls).toBe(1)
++  })
++
++  it('rejoins immediately after stale disconnect instead of waiting base backoff', async () => {
++    const value = client({ staleTimeoutMs: 100, staleCheckIntervalMs: 100 })
++    await join(value, new TransportRoom('silent'))
++    const next = new TransportRoom('rejoined')
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(next)
++    nowMs += 100
++    await vi.advanceTimersByTimeAsync(101)
++    expect(value.getConnectionInfo().roomId).toBe('rejoined')
++  })
++
++  it('settles audit requests on disconnect and preserves control packet sequence', async () => {
++    const value = client()
++    const room = new TransportRoom('active')
++    await join(value, room)
++    const input = { throttle: 0.5, rudderAngleDeg: 3, driveEnabled: true, sailAngleRad: 0.2 }
++    value.sendControl(input)
++    value.sendControl(input)
++    expect(room.sent.slice(0, 2)).toEqual([
++      { type: 'control', payload: { ...input, seq: 1, clientTime: Date.now() } },
++      { type: 'control', payload: { ...input, seq: 2, clientTime: Date.now() } },
++    ])
++    const pending = value.requestAudit()
++    value.disconnect()
++    expect(await pending).toEqual([])
++    room.message('snapshot', snapshot)
++    value.sendControl(input)
++    expect(room.sent).toHaveLength(3)
++    expect(value.getLatestState()).toBeNull()
++    await vi.advanceTimersByTimeAsync(0)
++    expect(vi.getTimerCount()).toBe(0)
++  })
++
++  it('keeps extrapolation finite for repeated and invalid snapshot times', async () => {
++    const value = client()
++    const room = new TransportRoom('active')
++    await join(value, room)
++    room.message('snapshot', snapshot)
++    room.message('snapshot', { ...snapshot, time: 10 })
++    room.message('snapshot', { ...snapshot, time: Number.NaN })
++    nowMs += 10000
++    const state = value.getRenderState()?.players[0].state
++    expect(state?.position.x).toBeCloseTo(0.6)
++    expect(state?.heading).toBe(0)
++  })
++
++  it('closes errored transport before reconnect and ignores its late messages', async () => {
++    const value = client()
++    const room = new TransportRoom('failed')
++    await join(value, room)
++    room.onError.invoke(1006, 'transport error')
++    room.message('snapshot', snapshot)
++    expect(room.leaveCalls).toBe(1)
++    expect(value.isConnected()).toBe(false)
++    expect(value.getLatestState()).toBeNull()
++  })
++
++  it('starts stale monitoring when sendHello is used as join entry point', async () => {
++    const value = client({ staleTimeoutMs: 100, staleCheckIntervalMs: 100 })
++    const room = new TransportRoom('hello-only')
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(room)
++    value.sendHello('captain')
++    await vi.waitFor(() => expect(value.isConnected()).toBe(true))
++    nowMs += 100
++    await vi.advanceTimersByTimeAsync(100)
++    expect(room.leaveCalls).toBe(1)
++  })
++
++  it('bounds outstanding audits when audit timeout is disabled', async () => {
++    const value = client({ auditTimeoutMs: 0 })
++    const room = new TransportRoom('active')
++    await join(value, room)
++    let settled = 0
++    const requests = Array.from({ length: 1000 }, () => value.requestAudit().then(() => { settled += 1 }))
++    await Promise.resolve()
++    expect(settled).toBeGreaterThan(0)
++    expect(room.sent.length).toBeLessThan(1000)
++    value.disconnect()
++    await Promise.all(requests)
++    expect(settled).toBe(1000)
++  })
++
++  it('falls back to bounded sample history for invalid configured capacity', async () => {
++    const value = client({ maxHistory: Number.NaN, interpolationDelayMs: 33000 })
++    const room = new TransportRoom('history')
++    await join(value, room)
++    for (let time = 1; time <= 40; time += 1) {
++      room.message('snapshot', {
++        ...snapshot, selfId: 'other', time,
++        players: [{ ...snapshot.players[0], state: { ...snapshot.players[0].state, position: { x: time, y: 0, z: 0 } } }],
++      })
++    }
++    expect(value.getRenderState()?.players[0].state.position.x).toBe(9)
++  })
++
++  it('cancels discovery before starting transport join after disconnect', async () => {
++    const discovery = deferred<Response>()
++    vi.stubGlobal('fetch', vi.fn().mockReturnValue(discovery.promise))
++    const joinTransport = vi.spyOn(Client.prototype, 'joinById')
++    const value = client()
++    value.sendHello('captain')
++    value.disconnect()
++    discovery.resolve(new Response(JSON.stringify({ roomId: 'world' })))
++    await vi.waitFor(() => expect(vi.getTimerCount()).toBe(0))
++    expect(joinTransport).not.toHaveBeenCalled()
++    expect(value.isConnected()).toBe(false)
++  })
++
++  it('discards an old identity join and connects queued identity only', async () => {
++    const pending = deferred<Room>()
++    const old = new TransportRoom('old-join')
++    const next = new TransportRoom('new-join')
++    const joinTransport = vi.spyOn(Client.prototype, 'joinById')
++      .mockReturnValueOnce(pending.promise).mockResolvedValueOnce(next)
++    const value = client()
++    const statuses: boolean[] = []
++    value.onStatusChange((connected) => statuses.push(connected))
++    value.sendHello('captain', undefined, 'Old Captain')
++    await vi.waitFor(() => expect(joinTransport).toHaveBeenCalledTimes(1))
++    value.sendHello('captain', undefined, 'New Captain')
++    pending.resolve(old)
++    await vi.waitFor(() => expect(value.getConnectionInfo().roomId).toBe('new-join'))
++    expect(old.leaveCalls).toBe(1)
++    expect(statuses).toEqual([true])
++    value.sendControl({ throttle: 1, rudderAngleDeg: 0, driveEnabled: true, sailAngleRad: 0 })
++    expect(old.sent).toHaveLength(0)
++    expect(next.sent).toHaveLength(1)
++  })
++
++  it('renders raw snapshots without prediction and unsubscribes status callbacks', async () => {
++    const value = client({ renderMode: 'raw' })
++    const statuses: boolean[] = []
++    const unsubscribe = value.onStatusChange((connected) => statuses.push(connected))
++    const room = new TransportRoom('raw')
++    await join(value, room)
++    room.message('snapshot', snapshot)
++    nowMs += 500
++    expect(value.getRenderState()?.players[0].state.position.x).toBe(0)
++    expect(value.getRenderState()?.time).toBe(10)
++    expect(value.getConnectionInfo().lastMessageAtMs).toBe(100)
++    unsubscribe()
++    value.disconnect()
++    expect(statuses).toEqual([true])
++  })
++
++  it('reconnects after current room close with one status change per transition', async () => {
++    const value = client()
++    const statuses: boolean[] = []
++    value.onStatusChange((connected) => statuses.push(connected))
++    const room = new TransportRoom('closed')
++    await join(value, room)
++    room.onLeave.invoke(1006)
++    expect(value.isConnected()).toBe(false)
++    const next = new TransportRoom('reconnected')
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(next)
++    nowMs += 1000
++    await vi.advanceTimersByTimeAsync(1000)
++    expect(value.getConnectionInfo().roomId).toBe('reconnected')
++    expect(statuses).toEqual([true, false, true])
++    value.disconnect()
++    expect(statuses).toEqual([true, false, true, false])
++    await vi.advanceTimersByTimeAsync(0)
++    expect(vi.getTimerCount()).toBe(0)
++  })
++})
+diff --git a/tests/physicsClientTransport.test.ts b/tests/physicsClientTransport.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca91133314190f7f75703be8ca95a40d1f53cb99
+--- /dev/null
++++ b/tests/physicsClientTransport.test.ts
+@@ -0,0 +1,154 @@
++import { Client, Room } from 'colyseus.js'
++import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
++import { PhysicsClient } from '../src/physicsClient.js'
++import { PhysicsClient as CompiledPhysicsClient } from '../dist/index.js'
++
++// Real Room.leave and subscriptions; only external connection I/O is replaced.
++class ConnectionRoom extends Room {
++  closeRequests = 0
++  readonly sentBytes: (ArrayBuffer | number[])[] = []
++
++  constructor(id: string) {
++    super('sailing')
++    this.roomId = id
++    const transport: Room['connection']['transport'] = {
++      isOpen: true,
++      send: (data) => { this.sentBytes.push(data) },
++      connect: () => {},
++      // Deliberately no peer onLeave: closing must not wait for remote response.
++      close: () => { this.closeRequests += 1; transport.isOpen = false },
++    }
++    this.connection = {
++      transport, events: {},
++      get isOpen() { return transport.isOpen },
++      send: (data) => transport.send(data),
++      connect: (url, options) => transport.connect(url, options),
++      close: (code, reason) => transport.close(code, reason),
++    }
++  }
++
++  snapshot() {
++    this.onMessageHandlers.emit('snapshot', {
++      type: 'snapshot', time: 1, selfId: 'captain', role: 'player',
++      windDirection: { x: 1, y: 0 }, windSpeed: 1, players: [],
++    })
++  }
++}
++
++describe.each([
++  ['source', PhysicsClient], ['compiled', CompiledPhysicsClient],
++])('PhysicsClient real Room retirement (%s)', (_name, ClientType) => {
++  const clients: PhysicsClient[] = []
++  let nowMs = 100
++
++  function client() {
++    const value = new ClientType('ws://localhost:2567', {
++      staleTimeoutMs: 100, staleCheckIntervalMs: 100,
++      reconnectDelayMs: 1000, reconnectJitterMs: 0,
++    })
++    clients.push(value)
++    return value
++  }
++
++  async function join(value: PhysicsClient, room: ConnectionRoom, name = 'Captain') {
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(room)
++    value.sendHello('captain', undefined, name)
++    await vi.waitFor(() => expect(value.getConnectionInfo().roomId).toBe(room.roomId))
++  }
++
++  beforeEach(() => {
++    nowMs = 100
++    vi.useFakeTimers()
++    vi.spyOn(performance, 'now').mockImplementation(() => nowMs)
++    vi.spyOn(console, 'log').mockImplementation(() => {})
++    vi.spyOn(console, 'warn').mockImplementation(() => {})
++    vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response(JSON.stringify({ roomId: 'world' }))))
++    vi.spyOn(Client.prototype, 'joinById').mockRejectedValue(new Error('unplanned join'))
++    vi.spyOn(Client.prototype, 'getAvailableRooms').mockResolvedValue([])
++  })
++
++  afterEach(async () => {
++    clients.forEach((value) => value.disconnect())
++    clients.length = 0
++    await vi.advanceTimersByTimeAsync(1000)
++    vi.restoreAllMocks()
++    vi.unstubAllGlobals()
++    vi.useRealTimers()
++  })
++
++  it('force closes errored transport and isolates late packets', async () => {
++    const value = client()
++    const room = new ConnectionRoom('error')
++    await join(value, room)
++    room.onError.invoke(1006, 'error')
++    expect(room.closeRequests).toBe(1)
++    expect(room.sentBytes).toHaveLength(0)
++    room.snapshot()
++    room.onLeave.invoke(1006)
++    expect(value.getLatestState()).toBeNull()
++    expect(value.isConnected()).toBe(false)
++  })
++
++  it('closes stale transport before immediate replacement without peer close', async () => {
++    const value = client()
++    const room = new ConnectionRoom('stale')
++    await join(value, room)
++    const next = new ConnectionRoom('replacement')
++    vi.spyOn(Client.prototype, 'joinById').mockResolvedValueOnce(next)
++    nowMs += 100
++    await vi.advanceTimersByTimeAsync(101)
++    expect(room.closeRequests).toBe(1)
++    expect(value.getConnectionInfo().roomId).toBe('replacement')
++    room.snapshot()
++    expect(value.getLatestState()).toBeNull()
++  })
++
++  it('replaces hello identity without waiting for retired peer close', async () => {
++    const value = client()
++    const room = new ConnectionRoom('old')
++    await join(value, room)
++    await join(value, new ConnectionRoom('next'), 'New Captain')
++    expect(room.closeRequests).toBe(1)
++    expect(value.getConnectionInfo().roomId).toBe('next')
++  })
++
++  it('force closes a canceled late join without awaiting peer close', async () => {
++    let resolve!: (room: Room) => void
++    const pending = new Promise<Room>((done) => { resolve = done })
++    const joining = vi.spyOn(Client.prototype, 'joinById').mockReturnValueOnce(pending)
++    const value = client()
++    value.sendHello('captain')
++    await vi.waitFor(() => expect(joining).toHaveBeenCalledTimes(1))
++    value.disconnect()
++    const room = new ConnectionRoom('canceled')
++    resolve(room)
++    await vi.waitFor(() => expect(room.closeRequests).toBe(1))
++    expect(value.isConnected()).toBe(false)
++    expect(vi.getTimerCount()).toBe(0)
++  })
++
++  it('preserves consented disconnect then force closes unresponsive peer within grace', async () => {
++    const value = client()
++    const room = new ConnectionRoom('normal')
++    await join(value, room)
++    value.disconnect()
++    expect(room.sentBytes).toHaveLength(1)
++    expect(room.closeRequests).toBe(0)
++    expect(value.isConnected()).toBe(false)
++    await vi.advanceTimersByTimeAsync(1000)
++    expect(room.closeRequests).toBe(1)
++    expect(vi.getTimerCount()).toBe(0)
++  })
++
++  it('finishes consented disconnect without forced close when peer closes', async () => {
++    const value = client()
++    const room = new ConnectionRoom('normal')
++    await join(value, room)
++    value.disconnect()
++    room.onLeave.invoke(1000)
++    await vi.advanceTimersByTimeAsync(1000)
++    expect(room.sentBytes).toHaveLength(1)
++    expect(room.closeRequests).toBe(0)
++    expect(vi.getTimerCount()).toBe(0)
++  })
++})

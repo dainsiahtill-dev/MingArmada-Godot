@@ -1,0 +1,146 @@
+diff --git a/src/engine/controls/CameraController.js b/src/engine/controls/CameraController.js
+index b6d2c6e..da5a0ee 100644
+--- a/src/engine/controls/CameraController.js
++++ b/src/engine/controls/CameraController.js
+@@ -52,21 +52,46 @@ export class CameraController {
+         this.worldUp = new THREE.Vector3(0, 1, 0);
+         this.editCameraOffset = new THREE.Vector3(-90, 65, -90);
+         this.tempTarget = new THREE.Vector3();
++        this.flightEnabled = false;
++        this.followTargetEnabled = false;
++        this.followTarget = null;
++        this.hasFollowTarget = false;
++        this.tempFollowDelta = new THREE.Vector3();
++        this.lastFollowTarget = new THREE.Vector3();
+     }
+ 
+     setEnabled(enabled) {
+-        this.controls.enabled = enabled;
++        this.flightEnabled = enabled;
++        this.controls.enabled = enabled || this.followTargetEnabled;
+         if (!enabled) {
+             this.velocity.set(0, 0, 0);
+         }
+     }
+ 
++    setFollowTargetEnabled(enabled, target) {
++        this.followTargetEnabled = !!enabled;
++        this.followTarget = this.followTargetEnabled ? target : null;
++        this.controls.enabled = this.flightEnabled || this.followTargetEnabled;
++        if (!this.followTargetEnabled) {
++            this.hasFollowTarget = false;
++            return;
++        }
++        this._syncFollowTarget(this.followTarget, true);
++    }
++
++    enterFollowMode(boat) {
++        this.setEnabled(false);
++        this.setFollowTargetEnabled(true, boat);
++    }
++
+     enterFlightMode(boat) {
++        this.setFollowTargetEnabled(false);
+         this.setEnabled(true);
+         this.positionEditCamera(boat);
+     }
+ 
+     exitFlightMode(boat) {
++        this.setFollowTargetEnabled(false);
+         this.setEnabled(false);
+         this.syncToBoat(boat);
+     }
+@@ -79,14 +104,65 @@ export class CameraController {
+ 
+     update(dt, inputState, boat) {
+         const input = inputState || EMPTY_INPUT_STATE;
+-        if (this.controls.enabled) {
++        const followTarget = boat || this.followTarget;
++        if (this.followTargetEnabled) {
++            this._syncFollowTarget(followTarget);
++        } else if (!this.flightEnabled) {
++            this.syncToBoat(followTarget);
++        }
++
++        if (this.flightEnabled) {
+             this._handleMovement(dt, input);
++        }
++
++        if (this.controls.enabled) {
+             this.controls.update();
+-        } else {
+-            this.syncToBoat(boat);
+         }
+     }
+ 
++    _syncFollowTarget(targetObject, force = false) {
++        if (!targetObject) return;
++
++        let eye = null;
++        let hasTarget = false;
++
++        if (typeof targetObject.getCameraFollowPose === 'function') {
++            const pose = targetObject.getCameraFollowPose();
++            if (pose && pose.look) {
++                this.tempTarget.copy(pose.look);
++                hasTarget = true;
++            }
++            if (pose && pose.eye) {
++                eye = pose.eye;
++            }
++        }
++
++        if (!hasTarget && typeof targetObject.getPosition === 'function') {
++            const target = targetObject.getPosition(this.tempTarget) || this.tempTarget;
++            this.tempTarget.copy(target);
++            hasTarget = true;
++        }
++
++        if (!hasTarget) return;
++
++        if (force || !this.hasFollowTarget) {
++            if (eye) {
++                this.camera.position.copy(eye);
++            }
++            this.controls.target.copy(this.tempTarget);
++            this.lastFollowTarget.copy(this.tempTarget);
++            this.hasFollowTarget = true;
++            return;
++        }
++
++        this.tempFollowDelta.subVectors(this.tempTarget, this.lastFollowTarget);
++        if (this.tempFollowDelta.lengthSq() > 0) {
++            this.camera.position.add(this.tempFollowDelta);
++        }
++        this.controls.target.copy(this.tempTarget);
++        this.lastFollowTarget.copy(this.tempTarget);
++    }
++
+     _handleMovement(dt, input) {
+         const boost = input.fast ? this.config.boostMultiplier : 1;
+         
+diff --git a/src/engine/world/World.js b/src/engine/world/World.js
+index 2c90e15..c0f1da2 100644
+--- a/src/engine/world/World.js
++++ b/src/engine/world/World.js
+@@ -196,9 +196,10 @@ export class World {
+ 
+         const wasFlight = this.isFlightMode;
+         this.isFlightMode = enabled;
++        const followWithOrbit = this.currentMode === 'play' && !enabled;
+ 
+         if (this.boat) {
+-            this.boat.setCameraFollowEnabled(!enabled);
++            this.boat.setCameraFollowEnabled(!enabled && !followWithOrbit);
+             this.boat.setInputEnabled(this.currentMode === 'play' && !enabled);
+             if (!enabled && wasFlight && this.currentMode === 'play') {
+                 this.boat.snapCameraToFollow();
+@@ -208,6 +209,8 @@ export class World {
+         if (this.cameraController) {
+             if (enabled) {
+                 this.cameraController.enterFlightMode(this.boat);
++            } else if (followWithOrbit) {
++                this.cameraController.enterFollowMode(this.boat);
+             } else {
+                 this.cameraController.exitFlightMode(this.boat);
+             }

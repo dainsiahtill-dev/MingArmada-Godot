@@ -1,0 +1,2607 @@
+diff --git a/README.md b/README.md
+index bde7e81a577ad25e5fec0d569e24c158d29818bd..ba3c6bd8b52b4568e9c1fd200c37e206e640190e 100644
+--- a/README.md
++++ b/README.md
+@@ -3,9 +3,11 @@
+ ## 参数说明
+ - `ShipParams.rhoAir`：空气密度（kg/m^3），不传则使用构造函数参数或默认值 `1.225`。
+ - `ShipParams.rhoWater`：水密度（kg/m^3），不传则使用默认值 `1025`。
++- `ShipParams.GMt`：正且有限时覆盖横稳心高；否则使用解析后的船宽（`width ?? beam ?? 6`）乘 `0.25`。仅传 `width: 9` 时为 `2.25m`，这是上游新增参数语义，旧实现对此输入使用 `1.5m`。
++- `ShipParams.sailCEHeight`：正且有限时覆盖帆力臂高度；否则使用有限 `height` 的 `0.6` 倍，缺省为 `8m`。
+ 
+ ## Trace 环境变量
+ - `TRACE_RUDDER_WOBBLE`：仅影响 trace 录制时的舵面“摆动”效果；默认关闭。开启时建议配合 `RECORD_TRACE=1` 与 `TRACE_DYNAMICS=1`。
+ 
+ ## 火炮系统文档
+-- 参见 [cannon-api.md](file:///c:/Users/dains/Documents/Git/MingArmada/packages/physics-core/docs/cannon-api.md)
++- 参见 [cannon-api.md](docs/cannon-api.md)
+diff --git a/src/DescribedOcean.ts b/src/DescribedOcean.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..83b2c46aa6c56a0297645075cae54d9f63db3aaf
+--- /dev/null
++++ b/src/DescribedOcean.ts
+@@ -0,0 +1,32 @@
++import type { Ocean, OceanSample, OceanWave } from './ocean.js'
++
++/** Fixed renderer-authored waves. Wind changes do not rotate these world-space descriptors. */
++export class DescribedOcean implements Ocean {
++  private readonly waves: readonly OceanWave[]
++  /** Maximum crest-to-trough displacement, independent of spawn phase. */
++  readonly heaveExcursion: number
++  constructor(waves: readonly OceanWave[]) {
++    if (!Array.isArray(waves) || waves.length > 8) throw new RangeError('At most eight ocean waves are supported')
++    for (const wave of waves) {
++      if (!wave?.direction || ![wave.direction.x, wave.direction.y, wave.amplitude, wave.speed, wave.wavelength].every(Number.isFinite) || wave.wavelength <= 0 || !Number.isFinite(2 * Math.PI / wave.wavelength)) {
++        throw new TypeError('Ocean waves need finite values and a positive wavelength')
++      }
++    }
++    this.heaveExcursion = 2 * waves.reduce((sum, wave) => sum + Math.abs(wave.amplitude), 0)
++    if (!Number.isFinite(this.heaveExcursion)) throw new RangeError('Ocean wave travel envelope must be finite')
++    this.waves = waves.map(wave => ({ ...wave, direction: { ...wave.direction } }))
++  }
++  getWaves(): OceanWave[] { return this.waves.map(wave => ({ ...wave, direction: { ...wave.direction } })) }
++  sample(x: number, z: number, time: number): OceanSample {
++    let height = 0, dx = 0, dz = 0
++    for (const wave of this.waves) {
++      const k = 2 * Math.PI / wave.wavelength
++      const phase = k * (wave.direction.x * x + wave.direction.y * z) + wave.speed * time
++      height += wave.amplitude * Math.sin(phase)
++      const derivative = wave.amplitude * k * Math.cos(phase)
++      dx += derivative * wave.direction.x; dz += derivative * wave.direction.y
++    }
++    const length = Math.hypot(dx, 1, dz)
++    return { height, normal: { x: -dx / length, y: 1 / length, z: -dz / length } }
++  }
++}
+diff --git a/src/dynamics/articulated.ts b/src/dynamics/articulated.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..15534806075ae0b7a4034700c9aafd0d8cf0617b
+--- /dev/null
++++ b/src/dynamics/articulated.ts
+@@ -0,0 +1,192 @@
++/** Detached numeric world-space data; renderer resources belong to the adapter. */
++export type ArticulatedVector = {x:number;y:number;z:number}
++export type ArticulatedQuaternion = {x:number;y:number;z:number;w:number}
++export type ArticulatedNodeDefinition = {
++  position:ArticulatedVector;velocity:ArticulatedVector;orientation?:ArticulatedQuaternion
++  radius:number;parentIndex:number;childAxis?:ArticulatedVector
++}
++export type ArticulatedLink = {a:number;b:number;min:number;max:number;hard?:boolean}
++export type ArticulatedHinge = {a:number;b:number;c:number;sign:number}
++export type ArticulatedFrame = {left:number;right:number;top:number;bottom:number}
++export type ArticulatedBodyDefinition = {
++  bodyId:string;nodes:ArticulatedNodeDefinition[];links:ArticulatedLink[]
++  hinges:ArticulatedHinge[];frame?:ArticulatedFrame;lifetime:number;wetLifetime?:number
++}
++export type ArticulatedContact = 'air'|'deck'|'water'
++export type ArticulatedSnapshot = {
++  bodyId:string;age:number;wet:number;contact:ArticulatedContact
++  nodes:{position:ArticulatedVector;velocity:ArticulatedVector;orientation:ArticulatedQuaternion;radius:number}[]
++}
++export type ArticulatedSurface = {point:ArticulatedVector;normal:ArticulatedVector}
++export type ArticulatedEnvironment = {
++  water:(x:number,z:number,phase:number)=>number
++  contact:(bodyId:string,position:ArticulatedVector,previous:ArticulatedVector,phase:number,previousPhase:number)=>ArticulatedSurface|undefined
++}
++
++const STEP=1/120,CAP=12
++const copy=(v:ArticulatedVector):ArticulatedVector=>({x:v.x,y:v.y,z:v.z})
++const sub=(a:ArticulatedVector,b:ArticulatedVector):ArticulatedVector=>({x:a.x-b.x,y:a.y-b.y,z:a.z-b.z})
++const dot=(a:ArticulatedVector,b:ArticulatedVector)=>a.x*b.x+a.y*b.y+a.z*b.z
++const cross=(a:ArticulatedVector,b:ArticulatedVector):ArticulatedVector=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x})
++const length=(v:ArticulatedVector)=>Math.sqrt(v.x*v.x+v.y*v.y+v.z*v.z)
++const scale=(v:ArticulatedVector,s:number)=>{v.x*=s;v.y*=s;v.z*=s;return v}
++const addScaled=(a:ArticulatedVector,b:ArticulatedVector,s:number)=>{a.x+=b.x*s;a.y+=b.y*s;a.z+=b.z*s;return a}
++const normalize=(v:ArticulatedVector)=>scale(v,1/(length(v)||1))
++const finite=(v:ArticulatedVector)=>Number.isFinite(v.x)&&Number.isFinite(v.y)&&Number.isFinite(v.z)
++function rotation(a:ArticulatedVector,b:ArticulatedVector):ArticulatedQuaternion {
++  let w=dot(a,b)+1,v:ArticulatedVector
++  if(w<1e-6){w=0;v=Math.abs(a.x)>Math.abs(a.z)?{x:-a.y,y:a.x,z:0}:{x:0,y:-a.z,z:a.y}}
++  else v=cross(a,b)
++  const inv=1/(Math.sqrt(dot(v,v)+w*w)||1)
++  return {x:v.x*inv,y:v.y*inv,z:v.z*inv,w:w*inv}
++}
++function multiply(a:ArticulatedQuaternion,b:ArticulatedQuaternion):ArticulatedQuaternion {
++  return {x:a.x*b.w+a.w*b.x+a.y*b.z-a.z*b.y,y:a.y*b.w+a.w*b.y+a.z*b.x-a.x*b.z,z:a.z*b.w+a.w*b.z+a.x*b.y-a.y*b.x,w:a.w*b.w-a.x*b.x-a.y*b.y-a.z*b.z}
++}
++type Node=ArticulatedNodeDefinition & {previous:ArticulatedVector;orientation:ArticulatedQuaternion;child:number;axis?:ArticulatedVector;waterSupported:boolean}
++type Body=Omit<ArticulatedBodyDefinition,'nodes'> & {nodes:Node[];hardLinks:ArticulatedLink[];wetLifetime:number;age:number;wet:number;contact:ArticulatedContact}
++
++/** Original 120 Hz position solver; initial node velocities already contain the impulse. */
++export class ArticulatedPhysics {
++  private bodies:Body[]=[]
++  private remainder=0
++  private spawned=0
++  private expired=0
++  get available(){return CAP-this.bodies.length}
++  spawn(definition:ArticulatedBodyDefinition):boolean {
++    const {nodes,links,hinges,frame}=definition,n=nodes.length,index=(i:number)=>Number.isInteger(i)&&i>=0&&i<n
++    if(!this.available||this.bodies.some(b=>b.bodyId===definition.bodyId))return false
++    if(!definition.bodyId||!n||!Number.isFinite(definition.lifetime)||definition.lifetime<=0||
++      (definition.wetLifetime!==undefined&&(!Number.isFinite(definition.wetLifetime)||definition.wetLifetime<=0)))return false
++    if(nodes.some(p=>!finite(p.position)||!finite(p.velocity)||!Number.isFinite(p.radius)||p.radius<0||
++      (p.parentIndex!==-1&&(!index(p.parentIndex)||p.parentIndex===nodes.indexOf(p)))||
++      (p.orientation&&![p.orientation.x,p.orientation.y,p.orientation.z,p.orientation.w].every(Number.isFinite))||
++      (p.childAxis&&!finite(p.childAxis))))return false
++    if(links.some(l=>!index(l.a)||!index(l.b)||l.a===l.b||!Number.isFinite(l.min)||!Number.isFinite(l.max)||l.min<0||l.max<l.min)||
++      hinges.some(h=>!index(h.a)||!index(h.b)||!index(h.c)||!Number.isFinite(h.sign))||
++      (frame&&Object.values(frame).some(i=>!index(i))))return false
++    const depth=(i:number):number=>{
++      const visited=new Set<number>();let d=0
++      while(nodes[i].parentIndex>=0){if(visited.has(i))return -1;visited.add(i);i=nodes[i].parentIndex;d++}
++      return d
++    }
++    const depths=nodes.map((_,i)=>depth(i));if(depths.some(d=>d<0))return false
++    const hardLinks:ArticulatedLink[]=[]
++    for(let b=0;b<n;b++)if(nodes[b].parentIndex>=0){
++      const a=nodes[b].parentIndex,l=links.find(l=>(l.a===a&&l.b===b)||(l.a===b&&l.b===a))
++      const max=l?.max??length(sub(nodes[b].position,nodes[a].position))
++      hardLinks.push({a,b,min:max,max,hard:true})
++    }
++    hardLinks.sort((a,b)=>depths[a.b]-depths[b.b])
++    const particles:Node[]=nodes.map((p,i)=>{
++      const child=nodes.findIndex(q=>q.parentIndex===i)
++      return {...p,position:copy(p.position),velocity:copy(p.velocity),previous:copy(p.position),
++        orientation:p.orientation?{...p.orientation}:{x:0,y:0,z:0,w:1},child,waterSupported:false,
++        axis:child<0?undefined:normalize(p.childAxis?copy(p.childAxis):sub(nodes[child].position,p.position))}
++    })
++    this.bodies.push({bodyId:definition.bodyId,nodes:particles,links:links.map(l=>({...l})),hinges:hinges.map(h=>({...h})),
++      frame:frame?{...frame}:undefined,lifetime:definition.lifetime,wetLifetime:definition.wetLifetime??1.2,
++      hardLinks,age:0,wet:0,contact:'air'})
++    this.spawned++;return true
++  }
++  advance(acceptedSeconds:number,phase:number,environment:ArticulatedEnvironment):ArticulatedSnapshot[] {
++    if(!Number.isFinite(acceptedSeconds)||acceptedSeconds<=0||!Number.isFinite(phase))return []
++    if(!this.bodies.length){this.remainder=0;return []}
++    const oldRemainder=this.remainder
++    // Query the actual beginning of the accepted interval, even if all bodies
++    // expire long before a very large batch ends. Bound work by their lifetimes.
++    const duration=Math.min(acceptedSeconds,Math.max(...this.bodies.map(b=>b.lifetime-b.age))+STEP)
++    const total=oldRemainder+duration,steps=Math.floor((total+1e-10)/STEP)
++    this.remainder=Math.max(0,total-steps*STEP)
++    const start=phase-acceptedSeconds-oldRemainder,removed:ArticulatedSnapshot[]=[]
++    for(let step=0;step<steps&&this.bodies.length;step++){
++      const time=start+(step+1)*STEP
++      for(const body of this.bodies)this.integrate(body,time,time-STEP,environment)
++      for(let i=this.bodies.length-1;i>=0;i--){
++        const body=this.bodies[i]
++        if(body.age>=body.lifetime-1e-8||body.wet>=body.wetLifetime){removed.push(this.read(body));this.bodies.splice(i,1);this.expired++}
++      }
++    }
++    if(!this.bodies.length)this.remainder=0
++    return removed
++  }
++  snapshot(bodyId?:string):ArticulatedSnapshot[]{return this.bodies.filter(b=>bodyId===undefined||b.bodyId===bodyId).map(b=>this.read(b))}
++  remove(bodyId:string):ArticulatedSnapshot|undefined {
++    const index=this.bodies.findIndex(b=>b.bodyId===bodyId);if(index<0)return undefined
++    const [body]=this.bodies.splice(index,1);this.expired++
++    if(!this.bodies.length)this.remainder=0
++    return this.read(body)
++  }
++  reset():ArticulatedSnapshot[]{const removed=this.snapshot();this.expired+=this.bodies.length;this.bodies=[];this.remainder=0;return removed}
++  diagnostics(){return {active:this.bodies.length,cap:CAP,spawned:this.spawned,expired:this.expired,bodies:this.snapshot()}}
++  private read(body:Body):ArticulatedSnapshot {
++    return {bodyId:body.bodyId,age:body.age,wet:body.wet,contact:body.contact,nodes:body.nodes.map(p=>({
++      position:copy(p.position),velocity:copy(p.velocity),radius:p.radius,
++      orientation:p.child<0?{...p.orientation}:multiply(rotation(p.axis!,normalize(sub(body.nodes[p.child].position,p.position))),p.orientation),
++    }))}
++  }
++  private integrate(body:Body,time:number,previousTime:number,environment:ArticulatedEnvironment) {
++    body.age+=STEP
++    if(body.contact==='water')body.wet+=STEP
++    else body.contact='air'
++    for(const p of body.nodes){
++      p.previous=copy(p.position)
++      // Surface support is unilateral: first observe the node on/above the
++      // actual preceding-phase water surface. Nodes spawned below it sink;
++      // projecting them to the surface would manufacture a launch impulse.
++      const previousWater=environment.water(p.previous.x,p.previous.z,previousTime)
++      if(Number.isFinite(previousWater)&&p.previous.y-p.radius>=previousWater)p.waterSupported=true
++      p.velocity.y-=9.81*STEP;addScaled(p.position,p.velocity,STEP)
++    }
++    const surfaces=body.nodes.map(p=>{
++      const surface=environment.contact(body.bodyId,copy(p.position),copy(p.previous),time,previousTime)
++      if(!surface||!finite(surface.point)||!finite(surface.normal)||length(surface.normal)<1e-8)return undefined
++      return {point:copy(surface.point),normal:normalize(copy(surface.normal))}
++    })
++    for(let iteration=0;iteration<12;iteration++){
++      for(const link of body.links){
++        const a=body.nodes[link.a].position,b=body.nodes[link.b].position,dx=b.x-a.x,dy=b.y-a.y,dz=b.z-a.z,len=Math.hypot(dx,dy,dz)
++        if(len<1e-8)continue
++        const target=Math.min(link.max,Math.max(link.min,len)),correction=(len-target)/len*.5
++        a.x+=dx*correction;a.y+=dy*correction;a.z+=dz*correction
++        b.x-=dx*correction;b.y-=dy*correction;b.z-=dz*correction
++      }
++      this.hinges(body)
++      for(let index=0;index<body.nodes.length;index++){
++        const p=body.nodes[index],surface=surfaces[index]
++        if(surface){const depth=dot(sub(p.position,surface.point),surface.normal)-p.radius;if(depth<0){addScaled(p.position,surface.normal,-depth);body.contact='deck'}}
++      }
++    }
++    // Exact tree lengths, followed only by whole-body translations. Contact
++    // correction therefore cannot stretch the authored bones.
++    for(const link of body.hardLinks){
++      const a=body.nodes[link.a].position,b=body.nodes[link.b].position,axis=sub(b,a)
++      if(dot(axis,axis)>1e-12){const target=addScaled(copy(a),normalize(axis),link.max);b.x=target.x;b.y=target.y;b.z=target.z}
++    }
++    for(let index=0;index<body.nodes.length;index++){
++      const p=body.nodes[index],surface=surfaces[index]
++      if(surface){const depth=dot(sub(p.position,surface.point),surface.normal)-p.radius;if(depth<0)for(const joint of body.nodes)addScaled(joint.position,surface.normal,-depth)}
++      const water=environment.water(p.position.x,p.position.z,time)
++      if(Number.isFinite(water)&&p.position.y-p.radius<=water){
++        body.contact='water';const lift=p.waterSupported?Math.max(0,water+p.radius-body.wet*.45-p.position.y):0
++        for(const joint of body.nodes)joint.position.y+=lift
++      }
++    }
++    for(const p of body.nodes){
++      p.velocity=scale(sub(p.position,p.previous),1/STEP)
++      if(body.contact==='water')scale(p.velocity,.94)
++      else if(body.contact==='deck')scale(p.velocity,.985)
++    }
++  }
++  private hinges(body:Body) {
++    if(!body.frame)return
++    const f=body.frame,n=body.nodes
++    const forward=normalize(cross(sub(n[f.left].position,n[f.right].position),sub(n[f.top].position,n[f.bottom].position)))
++    for(const h of body.hinges){
++      const a=n[h.a].position,b=n[h.b].position,c=n[h.c].position,axis=normalize(sub(c,a))
++      const pole=scale(normalize(addScaled(copy(forward),axis,-dot(forward,axis))),h.sign)
++      const bend=dot(sub(b,a),pole)
++      if(bend<-.002){const correction=(-.002-bend)*2/3;addScaled(b,pole,correction);addScaled(a,pole,-correction/2);addScaled(c,pole,-correction/2)}
++    }
++  }
++}
+diff --git a/src/index.ts b/src/index.ts
+index dd383f43455188aa3b1b3708c25fefccb6818ee6..61ad30ce793d0f0c4ebe299338bcef2a2deebe0a 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -25,8 +25,11 @@ import type { Target } from './projectile.js'
+ import type { TerrainHeightField } from './terrain.js'
+ import { EventBus } from './events.js'
+ import type { Sphere, Aabb } from './collision.js'
++import type { ManualHandlingAssist } from './manualHandling.js'
++import { manualHandlingTorque, sanitizeManualHandlingAssist } from './manualHandling.js'
+ 
+ export type { PhysicsEngine, PhysicsTickContext }
++export type { ManualHandlingAssist } from './manualHandling.js'
+ 
+ export class NullPhysicsEngine implements PhysicsEngine {
+   step() {
+@@ -42,6 +45,12 @@ export class NullPhysicsEngine implements PhysicsEngine {
+ const DYNAMIC_PRESSURE_COEFF = 0.5
+ // 海水密度 (kg/m^3)
+ const RHO_WATER_SEA = 1025
++// Opt-in crew manoeuvring bounds; normal sailing retains hydraulic rudder forces.
++const CREW_STEERING_SPEED_LIMIT = 1.2
++const CREW_STEERING_FORCE_LIMIT = 40000
++const CREW_STEERING_YAW_ACCEL_LIMIT = .012
++const CREW_STEERING_YAW_RATE_LIMIT = .035
++const smoothstep01 = (x: number) => x * x * (3 - 2 * x)
+ // 顺风鼓帆/降落伞式阻力系数
+ const DEFAULT_SAIL_RUN_CD = 1.4
+ // 升力斜率（小攻角 Cl ≈ slope * aoa(rad)）
+@@ -63,6 +72,8 @@ const TWO_PI = Math.PI * 2
+ 
+ const normalizeAngleRad = (angle: number) => {
+   if (!Number.isFinite(angle)) return 0
++  // Preserve ordinary control values bit-for-bit; modulo adds rounding drift.
++  if (angle >= -Math.PI && angle < Math.PI) return angle
+   let wrapped = (angle + Math.PI) % TWO_PI
+   if (wrapped < 0) wrapped += TWO_PI
+   return wrapped - Math.PI
+@@ -121,10 +132,10 @@ const computeNoGoEfficiency = (
+   const relCos = clamp(dot2(windFromDir, forwardDir), -1, 1)
+   const relAngle = Math.acos(relCos)
+   const zoneRad = (zone * Math.PI) / 180
+-  if (fade <= 1e-4) {
++  const fadeRad = (fade * Math.PI) / 180
++  if (fadeRad <= 1e-4) {
+     return relAngle >= zoneRad ? 1 : 0
+   }
+-  const fadeRad = (fade * Math.PI) / 180
+   const t = (relAngle - zoneRad) / fadeRad
+   const t01 = clamp01(t)
+   return t01 * t01
+@@ -200,6 +211,8 @@ type ShipLikeParams = Partial<ShipParams> & {
+ 
+ // 可调参数（UI 可覆盖）
+ export type NormPhysicsConfig = {
++  /** Optional spawn-relative heave travel in metres; absent retains twice draft. */
++  heaveTravelLimit?: number
+   waterCd: number // 水下二次阻力系数 Cd（用于 F ~ v^2）
+   waterAreaFactor: number // 水下迎流面积系数：A ≈ beam * draft * factor
+   rudderLiftSlope: number // 舵升力斜率（小角度近似：Cl ≈ slope * angle）
+@@ -284,6 +297,10 @@ export type PhysicsControls = {
+   throttle: number
+   /** 舵角（度）。可选：不传则按 0 处理。 */
+   rudderAngleDeg?: number
++  /** Optional stern manoeuvring force in newtons; disabled above 1.2 m/s. */
++  crewSteeringForce?: number
++  /** Optional bounded manual forces; omitted or invalid requests retain legacy handling. */
++  manualAssist?: ManualHandlingAssist
+ }
+ 
+ /** 水面采样器：输入世界坐标 x/z，返回该点的水面高度 worldY（m）。 */
+@@ -311,6 +328,25 @@ export const defaultNormConfig: NormPhysicsConfig = {
+   heaveDamp: 2.5,
+ }
+ 
++/** Draft floor for the existing 50ms capped semi-implicit buoyancy step. */
++export const MIN_DRAFT_METERS = .05
++
++/** Non-mutating validation shared with native encounter batch preparation. */
++export function validateDraftMeters(draftMeters: number, beam: number, mass: number,
++  heaveDamp = defaultNormConfig.heaveDamp ?? 2.5, waterAreaFactor = defaultNormConfig.waterAreaFactor): void {
++  const immersedArea = beam * draftMeters
++  const stiffness = mass * 9.81 / draftMeters
++  const damping = mass * heaveDamp / 4
++  if (!Number.isFinite(draftMeters) || draftMeters < MIN_DRAFT_METERS ||
++    !Number.isFinite(immersedArea) || immersedArea <= 0 ||
++    !Number.isFinite(mass) || mass < 0 || !Number.isFinite(stiffness) || stiffness < 0 ||
++    !Number.isFinite(heaveDamp) || heaveDamp < 0 || !Number.isFinite(damping) ||
++    !Number.isFinite(waterAreaFactor) || waterAreaFactor < 0 || !Number.isFinite(immersedArea * waterAreaFactor) ||
++    !Number.isFinite(draftMeters * 2)) {
++    throw new RangeError('Draft must be at least 0.05m with finite immersed area, buoyancy stiffness and damping')
++  }
++}
++
+ export class NormPhysicsEngine implements PhysicsEngine {
+   /**
+    * 坐标/角度约定（非常重要，避免搞混）：
+@@ -325,8 +361,12 @@ export class NormPhysicsEngine implements PhysicsEngine {
+   public readonly waterDensity: number
+   public readonly dragCoeff = 0.2 // 船体空气阻力 Cd
+   public readonly frontalArea: number // 空气正面迎风面积
+-  private readonly baseWaterFrontalArea: number // 水下迎流参考面积：beam * draft（未乘 waterAreaFactor）
+-  public readonly mass: number
++  private readonly hullBeam: number // 与当前吃水共同决定水下迎流面积
++  private readonly dryMass: number
++  private cargoMass = 0
++  public get mass(): number {
++    return this.dryMass + this.cargoMass
++  }
+   public readonly sailArea: number
+   public readonly sailRunCd: number
+   private readonly sailLiftSlope: number
+@@ -338,7 +378,11 @@ export class NormPhysicsEngine implements PhysicsEngine {
+   public readonly rollGyrationRadius: number // 横摇转动惯量半径 k，对应 I_roll = m * k^2 (m)
+   private rollDamp = 0.6 // 横摇阻尼系数，用于抑制左右晃动（经验值）
+   public readonly turnRollHeight: number // 转向导致横倾的等效作用高（质心到水线高度近似）
+-  private buoyancyStiffness: number // 浮力“弹簧刚度”k（N/m），近似取 k ≈ m*g/draft，让 depth=draft 时浮力≈mg
++  private buoyancyDraft: number
++  private get buoyancyStiffness(): number {
++    // Fixed draft model: spring, weight, damping and inertias use the same live mass.
++    return (this.mass * 9.81) / this.buoyancyDraft
++  }
+   /**
+    * 键盘推进（main.ts 里按 F 进入 Drive mode）使用的“最大推进加速度”（m/s^2）。
+    *
+@@ -387,6 +431,9 @@ export class NormPhysicsEngine implements PhysicsEngine {
+   private windSpeed = 0
+   private windDirection: Vec2 = vec2(1, 0) // 风从该方向吹来（气象来向）
+   private sailAngleRad = 0
++  private sailDeployment = 1
++  private sailCondition = 1
++  private sailPowerScale = 1
+   private waveSampler: WaveSampler | null = null // 输入 worldX/worldZ，返回 worldY 水面高度（m）
+   /**
+    * 四点波面采样点（世界坐标）。
+@@ -438,9 +485,10 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     const beam = shipParams?.width ?? shipParams?.beam ?? 6
+     const height = shipParams?.height ?? 4.5
+     const draft = shipParams?.draft ?? 2
+-    this.mass = shipParams?.massOverride ?? shipParams?.mass ?? shipParams?.massKg ?? 120000 // kg
++    this.dryMass = shipParams?.massOverride ?? shipParams?.mass ?? shipParams?.massKg ?? 120000 // kg
++    validateDraftMeters(draft, beam, this.dryMass, this.config.heaveDamp, this.config.waterAreaFactor)
+     this.frontalArea = beam * height * 0.6
+-    this.baseWaterFrontalArea = beam * draft
++    this.hullBeam = beam
+ 
+     const summedSailArea =
+       (shipParams?.mainSailArea ?? 0) +
+@@ -465,8 +513,7 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     const hullHeight = shipParams?.height ?? height
+     this.turnRollHeight = hullHeight * 0.35
+     // 简化浮力刚度：k ≈ m * g / draft，heave=0 时与重力平衡
+-    const draftForBuoy = draft > 0 ? draft : 2
+-    this.buoyancyStiffness = (this.mass * 9.81) / draftForBuoy
++    this.buoyancyDraft = draft > 0 ? draft : 2
+   }
+ 
+   /**
+@@ -608,9 +655,8 @@ export class NormPhysicsEngine implements PhysicsEngine {
+       this.waveSampleForward > 0 ? this.waveSampleForward : Math.max(0.5, length * 0.35)
+     const sampleSide = this.waveSampleSide > 0 ? this.waveSampleSide : Math.max(0.25, beam * 0.45)
+ 
+-    const draft = this.shipParams?.draft ?? 2
+-    // pointDepth：浮力点“平衡时的等效入水深度”。这里用 draft 做一个足够稳定的近似（不是严格几何）。
+-    const pointDepth = draft > 0 ? draft : 2
++    // 与水阻和弹簧刚度使用同一个实时吃水，保留原四点浮力积分。
++    const pointDepth = this.buoyancyDraft
+ 
+     const kPoint = this.buoyancyStiffness / 4
+     const heaveDamp = this.config.heaveDamp ?? 2.5
+@@ -666,7 +712,7 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     const heaveAcc = (buoyForce - weight) / this.mass
+     this.heaveRate += heaveAcc * deltaSeconds
+     this.heaveY += this.heaveRate * deltaSeconds
+-    const maxHeave = pointDepth * 2
++    const maxHeave = this.config.heaveTravelLimit ?? pointDepth * 2
+     this.heaveY = Math.max(Math.min(this.heaveY, maxHeave), -maxHeave)
+ 
+     // 2) 纵倾（pitch）：这里用一个很粗的长方体转动惯量近似（只求“看起来合理”的惯性与阻尼）
+@@ -695,7 +741,7 @@ export class NormPhysicsEngine implements PhysicsEngine {
+   }
+ 
+   get waterFrontalArea(): number {
+-    return this.baseWaterFrontalArea * this.config.waterAreaFactor
++    return this.hullBeam * this.buoyancyDraft * this.config.waterAreaFactor
+   }
+ 
+   setBaseY(y: number) {
+@@ -709,6 +755,40 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     this.buoyancyOffsetY = null
+   }
+ 
++  /** Vec2.y is world Z. Optional swept heading correction preserves buoyancy and yaw momentum. */
++  correctHorizontalMotion(position: Vec2, velocity: Vec2, heading?: number): void {
++    this.position = clone2(position)
++    this.velocity = clone2(velocity)
++    if (heading !== undefined) this.heading = heading
++  }
++
++  /** Detached actual planar speed (m/s) and yaw rate (rad/s). */
++  getHorizontalMotion(): { speed: number; yawRate: number } {
++    return { speed: Math.hypot(this.velocity.x, this.velocity.y), yawRate: this.yawRate }
++  }
++
++  /** Anchor impulse removes planar momentum while retaining pose and floating dynamics. */
++  stopHorizontalMotion(): void {
++    this.velocity.x = 0
++    this.velocity.y = 0
++    this.yawRate = 0
++  }
++
++  /** Inelastic shore impulse at a hull point; unit normal points into shore. Returns yaw rate. */
++  resolveHorizontalContact(normal: Vec2, offset: Vec2): number {
++    const length = this.shipParams?.length ?? 30
++    const beam = this.shipParams?.width ?? this.shipParams?.beam ?? 6
++    const inertia = this.mass * (length * length + beam * beam) / 12
++    const lever = offset.x * normal.y - offset.y * normal.x
++    const inward = dot2(this.velocity, normal) + this.yawRate * lever
++    if (inward > 0 && this.mass > 0 && inertia > 0) {
++      const impulse = inward / (1 / this.mass + lever * lever / inertia)
++      addScaled2InPlace(this.velocity, normal, -impulse / this.mass)
++      this.yawRate -= impulse * lever / inertia
++    }
++    return this.yawRate
++  }
++
+   setSpeed(speed: number) {
+     this.velocity = vec2(Math.cos(this.heading) * speed, Math.sin(this.heading) * speed)
+   }
+@@ -717,6 +797,9 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     this.control = {
+       throttle: Number.isFinite(ctrl.throttle) ? clamp(ctrl.throttle, -1, 1) : 0,
+       rudderAngleDeg: Number.isFinite(ctrl.rudderAngleDeg) ? ctrl.rudderAngleDeg : 0,
++      crewSteeringForce: Number.isFinite(ctrl.crewSteeringForce)
++        ? Math.max(0, Math.min(CREW_STEERING_FORCE_LIMIT, ctrl.crewSteeringForce!)) : 0,
++      manualAssist: sanitizeManualHandlingAssist(ctrl.manualAssist),
+     }
+   }
+ 
+@@ -729,6 +812,35 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     this.sailAngleRad = normalizeAngleRad(angleRad)
+   }
+ 
++  /** Fraction of sail area deployed; nonfinite inputs furl the sail. */
++  setSailDeployment(scale: number): void {
++    this.sailDeployment = Number.isFinite(scale) ? Math.max(0, Math.min(1, scale)) : 0
++  }
++
++  /** Remaining aerodynamic effectiveness, independent of ship mass and buoyancy. */
++  setSailCondition(scale: number): void {
++    this.sailCondition = Number.isFinite(scale) ? Math.max(0, Math.min(1, scale)) : 0
++  }
++
++  /** Upgrade/morale multiplier; changing it retains the current rigid-body state. */
++  setSailPowerScale(scale: number): void {
++    this.sailPowerScale = Number.isFinite(scale) ? Math.max(0, Math.min(4, scale)) : 0
++  }
++
++  /** Payload is bounded to dry mass; invalid updates leave all dynamics intact. */
++  setCargoMass(cargoKg: number): void {
++    if (!Number.isFinite(cargoKg) || cargoKg < 0 || cargoKg > this.dryMass) {
++      throw new RangeError('Cargo mass must be finite and between zero and dry ship mass')
++    }
++    this.cargoMass = cargoKg
++  }
++
++  /** Live draft updates hydrodynamics and buoyancy without resetting rigid-body or wave state. */
++  setDraftMeters(draftMeters: number): void {
++    validateDraftMeters(draftMeters, this.hullBeam, this.mass, this.config.heaveDamp, this.config.waterAreaFactor)
++    this.buoyancyDraft = draftMeters
++  }
++
+   // 设置波面采样器：输入 x,z 返回水面高度（米），用于浮力/随波起伏
+   setWaveSampler(sampler: WaveSampler) {
+     this.waveSampler = sampler
+@@ -737,6 +849,9 @@ export class NormPhysicsEngine implements PhysicsEngine {
+ 
+   // 更新可调参数（例如从 UI 传入）
+   setConfig(partial: Partial<NormPhysicsConfig>) {
++    if (partial.heaveTravelLimit !== undefined && (!Number.isFinite(partial.heaveTravelLimit) || partial.heaveTravelLimit <= 0)) {
++      throw new RangeError('Heave travel limit must be finite and positive')
++    }
+     this.config = { ...this.config, ...partial }
+   }
+ 
+@@ -871,7 +986,7 @@ export class NormPhysicsEngine implements PhysicsEngine {
+   }
+ 
+   stepBuoyancy({ deltaSeconds }: PhysicsTickContext) {
+-    if (deltaSeconds <= 0) return
++    if (!Number.isFinite(deltaSeconds) || deltaSeconds <= 0) return
+     // 防止切后台/卡顿导致单帧 dt 过大，引起数值爆炸/抖动
+     const dt = Math.min(deltaSeconds, 0.05)
+ 
+@@ -879,13 +994,14 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     const sideDir: Vec2 = { x: -forwardDir.y, y: forwardDir.x }
+     const hasWaveSample = this.updateWaveSample(forwardDir, sideDir)
+     this.stepBuoyancyForces(dt, hasWaveSample, 0)
++    this.stepWeapons(dt)
+   }
+ 
+   step({ deltaSeconds }: PhysicsTickContext) {
+-    if (deltaSeconds <= 0) return
++    if (!Number.isFinite(deltaSeconds) || deltaSeconds <= 0) return
+     // 防止切后台/卡顿导致单帧 dt 过大，引起数值爆炸/抖动
+     const dt = Math.min(deltaSeconds, 0.05)
+-    const { throttle, rudderAngleDeg = 0 } = this.control
++    const { throttle, rudderAngleDeg = 0, manualAssist } = this.control
+ 
+     const forwardDir: Vec2 = { x: Math.cos(this.heading), y: Math.sin(this.heading) }
+     const sideDir: Vec2 = { x: -forwardDir.y, y: forwardDir.x }
+@@ -908,7 +1024,8 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     // - 避免旧模型在顺风时力方向不自然、以及“禁航区”依然能直顶风上去的情况
+     this.sailDebug.valid = false
+     let sailSideForce = 0
+-    if (this.sailArea > 0 && this.windSpeed > 0 && this.mass > 0) {
++    const sailFactor = this.sailDeployment * this.sailCondition * this.sailPowerScale
++    if (this.sailArea > 0 && sailFactor > 0 && this.windSpeed > 0 && this.mass > 0) {
+       const windDir: Vec2 = lenSq2(this.windDirection) < 1e-8 ? { x: 1, y: 0 } : normalize2(this.windDirection)
+       const trueWind = scale2(windDir, -this.windSpeed) // 来向风（空气流向）
+       const apparent = sub2(trueWind, this.velocity)
+@@ -971,7 +1088,9 @@ export class NormPhysicsEngine implements PhysicsEngine {
+         }
+ 
+         const cd = this.sailCd0 + this.sailInducedDrag * (cl * cl)
+-        const liftDir: Vec2 = { x: -awDir.y, y: awDir.x } // 表观风左法向（Cl 为负时方向会反过来）
++        // aoa = cross(airflow, chord); positive Cl acts along airflow's right normal.
++        // The opposite normal reverses propulsion on correctly trimmed close reaches.
++        const liftDir: Vec2 = { x: awDir.y, y: -awDir.x }
+         const liftForce = scale2(liftDir, qAir * cl * this.sailArea)
+         const dragForce = scale2(awDir, qAir * cd * this.sailArea)
+ 
+@@ -988,7 +1107,7 @@ export class NormPhysicsEngine implements PhysicsEngine {
+         // runBlend：这里不再表示“顺风混合”，而是“帆压占比”（0~1），用于 HUD 参考
+         const runBlend = incidence2
+ 
+-        const totalForce = scale2(add2(add2(pressureForce, wingForce), parasiticForce), noGoEff)
++        const totalForce = scale2(add2(add2(pressureForce, wingForce), parasiticForce), noGoEff * sailFactor)
+         const forwardForce = dot2(totalForce, forwardDir)
+         sailSideForce = dot2(totalForce, sideDir)
+ 
+@@ -1023,7 +1142,10 @@ export class NormPhysicsEngine implements PhysicsEngine {
+         DYNAMIC_PRESSURE_COEFF * this.airDensity * this.dragCoeff * this.frontalArea * speedAbs * speedAbs
+       const waterDragForce =
+         DYNAMIC_PRESSURE_COEFF * this.waterDensity * this.config.waterCd * this.waterFrontalArea * speedAbs * speedAbs
+-      const totalDragAccel = (airDragForce + waterDragForce) / this.mass
++      // Crew braking dissipates existing momentum through the ordinary drag path.
++      // The fixed dry hull force budget retains cargo response and cannot reverse motion.
++      const brakeForce = manualAssist ? this.dryMass * manualAssist.brakeDeceleration * manualAssist.powerFraction : 0
++      const totalDragAccel = (airDragForce + waterDragForce + brakeForce) / this.mass
+       const deltaV = totalDragAccel * dt
+       const newSpeed = speedAbs - deltaV
+       if (newSpeed <= 0) {
+@@ -1090,13 +1212,38 @@ export class NormPhysicsEngine implements PhysicsEngine {
+       addScaled2InPlace(this.velocity, sideDir, nextLateralSpeed - lateralSpeed)
+     }
+ 
++    // Hard no-go applies only to active sails; furled ships retain coasting inertia.
++    const noGoZoneRad = (Math.max(0, this.config.noGoZoneDeg) * Math.PI) / 180
++    if (!manualAssist?.coastInNoGo && this.sailArea > 0 && sailFactor > 0 && noGoZoneRad > 0 && Math.abs(throttle) < 1e-3 && this.windSpeed > 0) {
++      const windDir = lenSq2(this.windDirection) < 1e-12 ? { x: 1, y: 0 } : normalize2(this.windDirection)
++      // windDir is "From".
++      const windFromDir = { x: windDir.x, y: windDir.y }
++      const dot = dot2(windFromDir, forwardDir)
++      
++      // Only apply no-go if wind is from the front (dot > 0)
++      if (dot > 0) {
++        const relCos = Math.min(1, dot)
++        const relAngle = Math.acos(relCos)
++        if (relAngle < noGoZoneRad) {
++          const vForward = dot2(this.velocity, forwardDir)
++          if (vForward > 0) {
++            addScaled2InPlace(this.velocity, forwardDir, -vForward)
++          }
++        }
++      }
++    }
+ 
+     // 4) 舵力：同时产生侧向力 + 偏航力矩（更像真实“舵推船尾”）
+     const flowForward = dot2(this.velocity, forwardDir) // >0 前进，<0 倒车
+     const flowSpeed = Math.abs(flowForward)
+-    if (flowSpeed > 1e-3 && this.waterFrontalArea > 0) {
+-      const rudderStallRad = (this.config.rudderStallDeg * Math.PI) / 180
+-      const rudderRad = Math.max(Math.min((rudderAngleDeg * Math.PI) / 180, rudderStallRad), -rudderStallRad)
++    const length = this.shipParams?.length ?? 30
++    const beam = this.shipParams?.width ?? this.shipParams?.beam ?? 6
++    const I_yaw = (1 / 12) * this.mass * (length * length + beam * beam)
++    const rudderStallRad = (this.config.rudderStallDeg * Math.PI) / 180
++    const rudderRad = Math.max(Math.min((rudderAngleDeg * Math.PI) / 180, rudderStallRad), -rudderStallRad)
++    const hydraulicRudder = flowSpeed > 1e-3 && this.waterFrontalArea > 0
++    let momentYaw = 0
++    if (hydraulicRudder) {
+       const cl = this.config.rudderLiftSlope * rudderRad
+       const qWater = DYNAMIC_PRESSURE_COEFF * this.waterDensity * flowSpeed * flowSpeed
+       const rudderArea = this.waterFrontalArea * this.config.rudderAreaFactor
+@@ -1109,11 +1256,33 @@ export class NormPhysicsEngine implements PhysicsEngine {
+         addScaled2InPlace(this.velocity, sideDir, (lift * dt) / this.mass)
+       }
+ 
+-      const length = this.shipParams?.length ?? 30
+-      const beam = this.shipParams?.width ?? this.shipParams?.beam ?? 6
+       const rudderArm = length * this.config.rudderArmFactor
+-      const momentYaw = lift * rudderArm
+-      const I_yaw = (1 / 12) * this.mass * (length * length + beam * beam)
++      momentYaw = lift * rudderArm
++    }
++
++    // Crew push the stern, supplying a bounded force rather than a pose correction.
++    // Both speed and same-direction yaw taper smoothly; normal sailing uses only the rudder.
++    const waterSpeed = Math.hypot(this.velocity.x, this.velocity.y)
++    const speedRatio = Math.min(1, waterSpeed / CREW_STEERING_SPEED_LIMIT)
++    const yawRatio = Math.max(0, Math.min(1, Math.sign(rudderRad) * this.yawRate / CREW_STEERING_YAW_RATE_LIMIT))
++    const crewArm = -length / 2
++    const crewForce = this.control.crewSteeringForce ?? 0
++    let crewLift = crewForce > 0 && Number.isFinite(rudderRad)
++      ? -crewForce * (rudderRad / (Math.PI / 6)) * (1 - smoothstep01(speedRatio)) * (1 - smoothstep01(yawRatio)) : 0
++    if (I_yaw > 0 && crewArm !== 0) {
++      const forceLimit = CREW_STEERING_YAW_ACCEL_LIMIT * I_yaw / Math.abs(crewArm)
++      crewLift = Math.max(-forceLimit, Math.min(forceLimit, crewLift))
++    } else {
++      crewLift = 0
++    }
++    if (crewLift !== 0) {
++      addScaled2InPlace(this.velocity, sideDir, (crewLift * dt) / this.mass)
++      momentYaw += crewLift * crewArm
++    }
++    const dryYawInertia = (1 / 12) * this.dryMass * (length * length + beam * beam)
++    const assistMoment = manualHandlingTorque(manualAssist, this.yawRate, dryYawInertia)
++    momentYaw += assistMoment
++    if (hydraulicRudder || crewLift !== 0 || assistMoment !== 0) {
+       if (I_yaw > 0) {
+         const yawAcc = momentYaw / I_yaw - this.config.yawDamp * this.yawRate
+         this.yawRate += yawAcc * dt
+@@ -1131,14 +1300,21 @@ export class NormPhysicsEngine implements PhysicsEngine {
+     this.stepBuoyancyForces(dt, hasWaveSample, torqueHeel + torqueTurn)
+ 
+     // 5) 积分航向和位置
+-    this.heading = normalizeAngleRad(this.heading + this.yawRate * dt)
++    // Heading is continuous for existing marine consumers and trajectory parity.
++    this.heading += this.yawRate * dt
+     this.position.x += this.velocity.x * dt
+     this.position.y += this.velocity.y * dt
+ 
++    this.stepWeapons(dt)
++  }
++
++  /** Both marine paths consume weapons once, using the same accepted tick. */
++  private stepWeapons(dt: number) {
+     for (const e of this.cannons) e.cannon.tick(dt)
+     const env = {
+       airDensity: this.airDensity,
+-      windDir2: this.windDirection,
++      // Match marine airflow without mutating the stored control direction.
++      windDir2: lenSq2(this.windDirection) < 1e-8 ? { x: 1, y: 0 } : normalize2(this.windDirection),
+       windSpeed: this.windSpeed,
+     }
+     const nextProjectiles: Projectile[] = []
+@@ -1182,8 +1358,9 @@ export class NormPhysicsEngine implements PhysicsEngine {
+ }
+ 
+ export type { ShipParams } from './shipParams.js'
+-export type { Ocean, OceanSample } from './ocean.js'
++export type { Ocean, OceanSample, OceanWave } from './ocean.js'
+ export { GerstnerOcean } from './ocean.js'
++export { DescribedOcean } from './DescribedOcean.js'
+ export type { Vec2, Vec3 } from './math.js'
+ export type { CannonConfig, ShellConfig, AmmoType } from './cannon.js'
+ export { Cannon } from './cannon.js'
+@@ -1191,3 +1368,17 @@ export type { Target } from './projectile.js'
+ export type { TerrainHeightField } from './terrain.js'
+ export { Projectile } from './projectile.js'
+ export type { FireEvent } from './events.js'
++export { ArticulatedPhysics } from './dynamics/articulated.js'
++export type {
++  ArticulatedVector,
++  ArticulatedQuaternion,
++  ArticulatedNodeDefinition,
++  ArticulatedLink,
++  ArticulatedHinge,
++  ArticulatedFrame,
++  ArticulatedBodyDefinition,
++  ArticulatedContact,
++  ArticulatedSnapshot,
++  ArticulatedSurface,
++  ArticulatedEnvironment,
++} from './dynamics/articulated.js'
+diff --git a/src/manualHandling.ts b/src/manualHandling.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..918cb691f87e31236ce64f55490aecb8c82c34e1
+--- /dev/null
++++ b/src/manualHandling.ts
+@@ -0,0 +1,47 @@
++/** Opt-in manual handling request. Rates use radians and accepted physics time. */
++export type ManualHandlingAssist = {
++  targetYawRateRad: number
++  maxYawAccelerationRad: number
++  powerFraction: number
++  neutralYawDamping: number
++  brakeDeceleration: number
++  coastInNoGo: boolean
++}
++
++const MAX_YAW_RATE = 12 * Math.PI / 180
++const MAX_YAW_ACCELERATION = 16 * Math.PI / 180
++const YAW_TRACKING_GAIN = 4
++
++const within = (value: unknown, low: number, high: number): value is number =>
++  typeof value === 'number' && Number.isFinite(value) && value >= low && value <= high
++
++/** Invalid requests clear the whole assist; accepted data is detached from callers. */
++export function sanitizeManualHandlingAssist(value: unknown): ManualHandlingAssist | undefined {
++  if (!value || typeof value !== 'object') return undefined
++  const request = value as Partial<ManualHandlingAssist>
++  if (!within(request.targetYawRateRad, -MAX_YAW_RATE, MAX_YAW_RATE) ||
++    !within(request.maxYawAccelerationRad, 0, MAX_YAW_ACCELERATION) ||
++    !within(request.powerFraction, 0, 1) ||
++    !within(request.neutralYawDamping, 0, 3) ||
++    !within(request.brakeDeceleration, 0, .2) ||
++    typeof request.coastInNoGo !== 'boolean') return undefined
++  return {
++    targetYawRateRad: request.targetYawRateRad,
++    maxYawAccelerationRad: request.maxYawAccelerationRad,
++    powerFraction: request.powerFraction,
++    neutralYawDamping: request.neutralYawDamping,
++    brakeDeceleration: request.brakeDeceleration,
++    coastInNoGo: request.coastInNoGo,
++  }
++}
++
++/** Dry hull torque budget remains fixed while cargo contributes to live inertia. */
++export function manualHandlingTorque(request: ManualHandlingAssist | undefined, yawRate: number, dryYawInertia: number): number {
++  if (!request || request.powerFraction === 0 || !Number.isFinite(yawRate) ||
++    !Number.isFinite(dryYawInertia) || dryYawInertia <= 0) return 0
++  const desiredAcceleration = (request.targetYawRateRad - yawRate) * YAW_TRACKING_GAIN -
++    request.neutralYawDamping * yawRate
++  const boundedAcceleration = Math.max(-request.maxYawAccelerationRad,
++    Math.min(request.maxYawAccelerationRad, desiredAcceleration))
++  return dryYawInertia * boundedAcceleration * request.powerFraction
++}
+diff --git a/src/ocean.ts b/src/ocean.ts
+index bfa25ddddbf18842726a1c484df0afaf9480bea8..1368aa788dc1a749f4b1c624c52567d92d4321d1 100644
+--- a/src/ocean.ts
++++ b/src/ocean.ts
+@@ -6,6 +6,14 @@ export type OceanSample = {
+   normal: Vec3
+ }
+ 
++/** Pure wave descriptor. speed is phase angular speed in radians per second. */
++export type OceanWave = {
++  direction: Vec2
++  amplitude: number
++  wavelength: number
++  speed: number
++}
++
+ /**
+  * 纯数学波场接口（与任何渲染引擎无关）。
+  * - 服务端可以用它来给物理提供水面高度/法线
+@@ -25,7 +33,7 @@ export interface Ocean {
+  *   - `normal`：高度场的近似法线（由梯度估算），可用于浮力/光照/网格法线
+  */
+ export class GerstnerOcean implements Ocean {
+-  private waves: Array<{ direction: Vec2; amplitude: number; wavelength: number; speed: number }> = []
++  private waves: OceanWave[] = []
+ 
+   private readonly baseWaves = [
+     { offset: 0, amplitude: 1.1, wavelength: 28, speed: 5 },
+@@ -39,6 +47,11 @@ export class GerstnerOcean implements Ocean {
+     this.setHeading({ x: 1, y: 0 })
+   }
+ 
++  /** A detached snapshot; repacking descriptors for the GPU cannot alter sampling. */
++  getWaves(): readonly OceanWave[] {
++    return this.waves.map((wave) => ({ ...wave, direction: { ...wave.direction } }))
++  }
++
+   setHeading(dir: Vec2) {
+     const ls = dir.x * dir.x + dir.y * dir.y
+     const heading = ls > 1e-12 ? { x: dir.x / Math.sqrt(ls), y: dir.y / Math.sqrt(ls) } : { x: 1, y: 0 }
+diff --git a/test/articulated.test.ts b/test/articulated.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..11efdeb581b04fc218ef48ff26773808a6c5ebf7
+--- /dev/null
++++ b/test/articulated.test.ts
+@@ -0,0 +1,252 @@
++import {expect,test} from 'vitest'
++import {ArticulatedPhysics,type ArticulatedEnvironment,type ArticulatedSnapshot} from '../src/dynamics/articulated.js'
++import {authoredBody,authoredNodes} from './utils/authored-articulated.js'
++import {DescribedOcean} from '../src/DescribedOcean.js'
++import {ORIGINAL_PROJECTED_WAVES} from '../../scene-engine/src/engine/water/oceanWaves.js'
++
++const air:ArticulatedEnvironment={water:()=>-1000,contact:()=>undefined}
++function verify(body:ArticulatedSnapshot,definition=authoredBody()) {
++  expect(body.nodes).toHaveLength(18)
++  for(const node of body.nodes)expect([...Object.values(node.position),...Object.values(node.velocity),...Object.values(node.orientation)].every(Number.isFinite)).toBe(true)
++  for(const link of definition.links.filter(l=>l.hard)){
++    const a=body.nodes[link.a].position,b=body.nodes[link.b].position
++    expect(Math.abs(Math.hypot(b.x-a.x,b.y-a.y,b.z-a.z)-link.max)).toBeLessThanOrEqual(1e-5)
++  }
++}
++
++test('authored 18-node initial impulse advances once, freezes invalid time and detaches input/output',()=>{
++  const solver=new ArticulatedPhysics(),definition=authoredBody()
++  expect(solver.spawn(definition)).toBe(true)
++  definition.nodes[1].position.x=999;definition.nodes[1].velocity.x=999
++  const original=solver.snapshot()
++  for(const dt of [0,-1,NaN,Infinity])expect(solver.advance(dt,800,air)).toEqual([])
++  expect(solver.snapshot()).toEqual(original)
++  solver.advance(1/120,1/120,air)
++  expect(solver.snapshot()[0].nodes[1].position.x).toBeGreaterThan(.05)
++  expect(solver.snapshot()[0].nodes[1].velocity.x).toBeLessThan(8)
++  const detached=solver.snapshot();detached[0].nodes[1].position.x=888
++  expect(solver.snapshot()[0].nodes[1].position.x).toBeLessThan(1)
++  verify(solver.snapshot()[0])
++})
++
++test('reversed parent link endpoints enforce the same explicit hard length as forward endpoints',()=>{
++  const outcomes:ArticulatedSnapshot[]=[]
++  for(const [a,b] of [[0,1],[1,0]]){
++    const solver=new ArticulatedPhysics()
++    expect(solver.spawn({bodyId:'pair',nodes:[
++      {position:{x:0,y:8,z:0},velocity:{x:0,y:0,z:0},radius:.075,parentIndex:-1},
++      {position:{x:2,y:8,z:0},velocity:{x:0,y:0,z:0},radius:.075,parentIndex:0},
++    ],links:[{a,b,min:1,max:1,hard:true}],hinges:[],lifetime:7})).toBe(true)
++    solver.advance(1/120,1/120,air)
++    const body=solver.snapshot()[0],p=body.nodes[0].position,q=body.nodes[1].position
++    expect(Math.hypot(q.x-p.x,q.y-p.y,q.z-p.z)).toBeCloseTo(1,12)
++    outcomes.push(body)
++  }
++  expect(outcomes[1]).toEqual(outcomes[0])
++})
++
++test('fixed substep phase includes prior fractional remainder and large batches start at actual accepted time',()=>{
++  const solver=new ArticulatedPhysics();solver.spawn(authoredBody())
++  const queries:number[][]=[]
++  const environment:ArticulatedEnvironment={water:()=>-1000,contact:(_id,_p,_previous,phase,before)=>{queries.push([phase,before]);return undefined}}
++  solver.advance(.004,.004,environment);expect(queries).toHaveLength(0)
++  solver.advance(.006,.010,environment)
++  expect(queries[0][0]).toBeCloseTo(1/120,12);expect(queries[0][1]).toBeCloseTo(0,12)
++  const fresh=new ArticulatedPhysics();fresh.spawn(authoredBody());queries.length=0
++  const removed=fresh.advance(100000,100000,environment)
++  expect(queries[0][0]).toBeCloseTo(1/120,12);expect(removed).toHaveLength(1)
++  expect(fresh.snapshot()).toEqual([])
++})
++
++function movingEnvironment(touched:Set<string>):ArticulatedEnvironment {
++  return {
++    water:(x,z,t)=>.09*Math.sin(.8*x+.5*z-1.1*t),
++    contact:(_id,p,previous,t,before)=>{
++      // Moving, rotating and heaving local rectangular support, queried at both phases.
++      const local=(q:typeof p,phase:number)=>{
++        const yaw=.1+.08*Math.sin(phase),dx=q.x-.25*phase,dz=q.z-.1*phase
++        const x=Math.cos(yaw)*dx-Math.sin(yaw)*dz,z=Math.sin(yaw)*dx+Math.cos(yaw)*dz
++        const roll=.04+.02*Math.sin(phase*1.3),heave=1+.1*Math.sin(phase*.9)
++        return {x,z,above:q.y-(heave+Math.tan(roll)*x),roll,heave}
++      }
++      const q=local(p,t),old=local(previous,before)
++      if(Math.abs(q.x)>12||Math.abs(q.z)>6||old.above<-.2||q.above>.4)return undefined
++      touched.add('deck')
++      const yaw=.1+.08*Math.sin(t),sin=Math.sin(q.roll),cos=Math.cos(q.roll)
++      return {point:{x:p.x,y:p.y-q.above,z:p.z},normal:{x:-sin*Math.cos(yaw),y:cos,z:sin*Math.sin(yaw)}}
++    },
++  }
++}
++
++test('equal accepted Native time has matching deck/wave outcomes at 30/60/120 Hz and 24 ticks per batch',()=>{
++  const outcomes:ArticulatedSnapshot[]=[]
++  for(const fps of [30,60,120,2.5]){
++    const solver=new ArticulatedPhysics(),definition=authoredBody('body',3,.02)
++    definition.nodes.forEach(n=>n.velocity={x:.02,y:.7,z:0});solver.spawn(definition)
++    const environment=movingEnvironment(new Set())
++    for(let n=0;n<4*fps;n++)solver.advance(1/fps,(n+1)/fps,environment)
++    outcomes.push(solver.snapshot()[0])
++  }
++  for(const current of outcomes.slice(1)){
++    expect(current.contact).toBe(outcomes[0].contact);expect(current.age).toBeCloseTo(outcomes[0].age,12)
++    for(let n=0;n<18;n++){
++      const a=current.nodes[n],b=outcomes[0].nodes[n]
++      for(const axis of ['x','y','z'] as const){expect(a.position[axis]).toBeCloseTo(b.position[axis],8);expect(a.velocity[axis]).toBeCloseTo(b.velocity[axis],8)}
++    }
++  }
++})
++
++test('numeric world quaternion tracks the simulated child axis while the authored body tumbles',()=>{
++  const solver=new ArticulatedPhysics(),definition=authoredBody();solver.spawn(definition)
++  for(let n=0;n<240;n++){
++    solver.advance(1/120,(n+1)/120,air);const body=solver.snapshot()[0]
++    for(let i=0;i<18;i++){
++      const child=definition.nodes.findIndex(p=>p.parentIndex===i);if(child<0)continue
++      const initial=definition.nodes[i].position,initialChild=definition.nodes[child].position
++      const a={x:initialChild.x-initial.x,y:initialChild.y-initial.y,z:initialChild.z-initial.z},len=Math.hypot(a.x,a.y,a.z)
++      a.x/=len;a.y/=len;a.z/=len
++      const q=body.nodes[i].orientation,t={x:2*(q.y*a.z-q.z*a.y),y:2*(q.z*a.x-q.x*a.z),z:2*(q.x*a.y-q.y*a.x)}
++      const drawn={x:a.x+q.w*t.x+q.y*t.z-q.z*t.y,y:a.y+q.w*t.y+q.z*t.x-q.x*t.z,z:a.z+q.w*t.z+q.x*t.y-q.y*t.x}
++      const p=body.nodes[i].position,c=body.nodes[child].position,l=Math.hypot(c.x-p.x,c.y-p.y,c.z-p.z)
++      expect(Math.hypot(drawn.x-(c.x-p.x)/l,drawn.y-(c.y-p.y)/l,drawn.z-(c.z-p.z)/l)).toBeLessThan(1e-10)
++    }
++  }
++})
++
++test.each([30,60,120,2.5])('moving rotating heaving deck/waves keep every hard bone exact for %s batches per second',fps=>{
++  const solver=new ArticulatedPhysics(),definition=authoredBody('body',3,.02)
++  definition.nodes.forEach(n=>n.velocity={x:.02,y:.7,z:0})
++  solver.spawn(definition);const touched=new Set<string>(),environment=movingEnvironment(touched)
++  for(let i=0;i<Math.round(4*fps);i++){
++    solver.advance(1/fps,(i+1)/fps,environment)
++    const body=solver.snapshot()[0];expect(body).toBeDefined();verify(body,definition)
++    for(const n of body.nodes)expect(n.position.y).toBeGreaterThan(.5)
++    if(body.contact==='deck'){
++      const phase=(i+1)/fps,yaw=.1+.08*Math.sin(phase),roll=.04+.02*Math.sin(phase*1.3)
++      for(const n of body.nodes){
++        const localX=Math.cos(yaw)*(n.position.x-.25*phase)-Math.sin(yaw)*(n.position.z-.1*phase)
++        const height=1+.1*Math.sin(phase*.9)+Math.tan(roll)*localX
++        expect((n.position.y-height)*Math.cos(roll)-n.radius).toBeGreaterThanOrEqual(-1e-5)
++      }
++    }
++  }
++  expect(touched.has('deck')).toBe(true)
++})
++
++test('waves catch freefall, preserve hard lengths through first impact and expire submerged bodies',()=>{
++  const solver=new ArticulatedPhysics();solver.spawn(authoredBody('body',2,.01))
++  let water=false,removed:ArticulatedSnapshot[]=[]
++  for(let n=0;n<720&&solver.available<12;n++){
++    removed.push(...solver.advance(1/120,(n+1)/120,{...air,water:(x,z,t)=>.1*Math.sin(x+z-t)}))
++    for(const body of solver.snapshot()){verify(body,authoredBody('body',2,.01));water ||= body.contact==='water'}
++  }
++  expect(water).toBe(true);expect(removed).toHaveLength(1);expect(removed[0].wet).toBeGreaterThanOrEqual(1.2-1e-8)
++})
++
++test('contact never snaps bodies from below bounded support',()=>{
++  const solver=new ArticulatedPhysics(),definition=authoredBody('below',-3,.02)
++  definition.nodes.forEach(n=>n.velocity={x:0,y:0,z:0});solver.spawn(definition)
++  // Isolate the deck's forbidden upward snap from the intentionally buoyant
++  // water contact response, exercised separately on falling bodies above.
++  const environment={...movingEnvironment(new Set()),water:()=>-1000}
++  for(let n=0;n<120;n++)solver.advance(1/120,(n+1)/120,environment)
++  const body=solver.snapshot()[0];verify(body,definition)
++  expect(Math.max(...body.nodes.map(n=>n.position.y))).toBeLessThan(.5)
++})
++
++test.each([30,60,120,2.5])('initially submerged authored body sinks without wave teleport or hull crossing at %s batches per second',fps=>{
++  const solver=new ArticulatedPhysics(),definition=authoredBody('submerged',-8,0)
++  definition.nodes.forEach(n=>n.velocity={x:0,y:0,z:0});solver.spawn(definition)
++  const ocean=new DescribedOcean(ORIGINAL_PROJECTED_WAVES),environment={...movingEnvironment(new Set()),water:(x:number,z:number,t:number)=>ocean.sample(x,z,t).height}
++  let removed:ArticulatedSnapshot[]=[]
++  const initialTop=Math.max(...definition.nodes.map(n=>n.position.y))
++  for(let n=0;n<Math.ceil(2*fps)&&!removed.length;n++){
++    removed=solver.advance(1/fps,(n+1)/fps,environment)
++    for(const body of [...solver.snapshot(),...removed]){
++      verify(body,definition);expect(body.contact).toBe('water')
++      for(const node of body.nodes){
++        expect(node.position.y).toBeLessThanOrEqual(initialTop+1e-5)
++        expect(node.velocity.y).toBeLessThanOrEqual(1e-5)
++        expect(Math.abs(node.velocity.y)).toBeLessThan(2)
++      }
++    }
++  }
++  expect(removed).toHaveLength(1)
++  // The frozen original compares accumulated wet time directly to 1.2;
++  // binary accumulation reaches it on the 145th wet substep.
++  expect(removed[0].wet).toBeCloseTo(145/120,10)
++  expect(removed[0].age).toBeCloseTo(146/120,10)
++})
++
++test('capacity, duplicate ID, lifetime expiry, remove and reset return detached ownership receipts',()=>{
++  const solver=new ArticulatedPhysics()
++  for(let n=0;n<13;n++)expect(solver.spawn(authoredBody(`b${n}`,8,7,n===0?1.25:7))).toBe(n<12)
++  expect(solver.spawn(authoredBody('b0'))).toBe(false)
++  const expired=solver.advance(1.3,1.3,air);expect(expired.map(b=>b.bodyId)).toEqual(['b0'])
++  expect(expired[0].age).toBeCloseTo(1.25,10)
++  expect(solver.remove('b1')?.bodyId).toBe('b1');expect(solver.remove('b1')).toBeUndefined()
++  const reset=solver.reset();expect(reset).toHaveLength(10);expect(solver.available).toBe(12)
++  solver.spawn(authoredBody('new'));solver.advance(1/120,1/120,air);expect(solver.snapshot()[0].age).toBe(1/120)
++})
++
++async function frozenBaseline(){
++  const THREE=await import('three')
++  const {SailorImpactPhysics}=await import('./utils/frozen-sailor-impact.js')
++  const scene=new THREE.Scene(),root=new THREE.Group(),bones=authoredNodes.map(([name])=>{const b=new THREE.Bone();b.name=`sailor_${name}`;return b})
++  authoredNodes.forEach(([,parent,x,y,z],i)=>{
++    const p=parent<0?[0,0,0]:authoredNodes[parent].slice(2) as number[]
++    bones[i].position.set(x-p[0],y-p[1],z-p[2]);(parent<0?root:bones[parent]).add(bones[i])
++  })
++  const skin=new THREE.SkinnedMesh(new THREE.BufferGeometry(),new THREE.MeshBasicMaterial());skin.name='sailor_body';root.add(skin);skin.bind(new THREE.Skeleton(bones));root.position.y=8;scene.add(root)
++  const baseline=new SailorImpactPhysics(scene)
++  baseline.spawn({root,targetId:'ship',eventId:'hit',slot:0,velocity:new THREE.Vector3(7,0,0),release:()=>{}})
++  return baseline
++}
++
++test('freeflight matches frozen original numeric positions and velocities on the authored topology',async()=>{
++  const baseline=await frozenBaseline(),solver=new ArticulatedPhysics();solver.spawn(authoredBody())
++  for(let n=0;n<120;n++){
++    baseline.update(1/120,(n+1)/120,{water:()=>-1000,deck:()=>undefined});solver.advance(1/120,(n+1)/120,air)
++    const old=baseline.diagnostics().bodies[0],current=solver.snapshot()[0]
++    for(let i=0;i<18;i++){
++      const p=current.nodes[i].position
++      expect(Math.hypot(p.x-old.joints[i].position[0],p.y-old.joints[i].position[1],p.z-old.joints[i].position[2])).toBeLessThan(1e-9)
++    }
++    expect(current.nodes[1].velocity.x).toBeCloseTo(old.velocity[0],9)
++  }
++  baseline.dispose()
++})
++
++test('genuine above-water entry preserves frozen original wave buoyancy, sinking and expiry',async()=>{
++  const baseline=await frozenBaseline(),solver=new ArticulatedPhysics();solver.spawn(authoredBody())
++  const ocean=new DescribedOcean(ORIGINAL_PROJECTED_WAVES),water=(x:number,z:number,t:number)=>ocean.sample(x,z,t).height
++  let entered=false
++  for(let n=0;n<720&&baseline.diagnostics().active;n++){
++    const phase=(n+1)/120
++    baseline.update(1/120,phase,{water,deck:()=>undefined});solver.advance(1/120,phase,{water,contact:()=>undefined})
++    const old=baseline.diagnostics().bodies[0],current=solver.snapshot()[0]
++    expect(Boolean(current)).toBe(Boolean(old))
++    if(!old)break
++    expect(current.contact).toBe(old.contact);expect(current.age).toBe(old.age)
++    entered ||= current.contact==='water'
++    for(let i=0;i<18;i++){
++      const p=current.nodes[i].position
++      expect(Math.hypot(p.x-old.joints[i].position[0],p.y-old.joints[i].position[1],p.z-old.joints[i].position[2])).toBeLessThan(1e-8)
++    }
++    for(const [i,axis] of ['x','y','z'].entries())expect(current.nodes[1].velocity[axis as 'x'|'y'|'z']).toBeCloseTo(old.velocity[i],7)
++  }
++  expect(entered).toBe(true);expect(solver.snapshot()).toHaveLength(0);baseline.dispose()
++})
++
++test('frozen original reproduces fractional remainder and seven-second batch phase defects',async()=>{
++  const original=await frozenBaseline(),times:number[]=[]
++  const environment={water:(_x:number,_z:number,t:number)=>{times.push(t);return -1000},deck:()=>undefined}
++  original.update(.004,.004,environment);original.update(.006,.010,environment)
++  expect(times[0]).toBeCloseTo(.004+1/120,12)
++  expect(times[0]).toBeGreaterThan(.010)
++  original.dispose()
++  const large=await frozenBaseline();times.length=0
++  large.update(100000,100000,environment)
++  expect(times[0]).toBeCloseTo(99993+1/120,10)
++  large.dispose()
++})
+diff --git a/test/described-ocean.test.ts b/test/described-ocean.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..4cebaf0bd67febc1a8c4ddf9a9286abd73aed068
+--- /dev/null
++++ b/test/described-ocean.test.ts
+@@ -0,0 +1,73 @@
++import { expect, test } from 'vitest'
++import * as physics from '../src/index.js'
++import type { OceanWave } from '../src/ocean.js'
++
++const descriptors = (): OceanWave[] => [[.02,.015,.9,1],[.02,-.015,.1,1],[.05,0,-.6,1],[.1,.11,2.05,.25],[.1,-.11,-.05,.25]].map(([kx,kz,speed,amplitude]) => {
++  const k = Math.hypot(kx,kz)
++  return { direction: { x:kx/k,y:kz/k }, wavelength:2*Math.PI/k, speed, amplitude }
++})
++
++// Retained pre-extraction evaluator, including its operation order.
++const savedImplementation = (waves: readonly OceanWave[], x: number, z: number, time: number) => {
++  let height = 0, dx = 0, dz = 0
++  for (const wave of waves) {
++    const k = 2 * Math.PI / wave.wavelength
++    const phase = k * (wave.direction.x * x + wave.direction.y * z) + wave.speed * time
++    height += wave.amplitude * Math.sin(phase)
++    const derivative = wave.amplitude * k * Math.cos(phase)
++    dx += derivative * wave.direction.x; dz += derivative * wave.direction.y
++  }
++  const length = Math.hypot(dx, 1, dz)
++  return { height, normal: { x: -dx / length, y: 1 / length, z: -dz / length } }
++}
++
++test('physics-core publicly exports DescribedOcean', () => {
++  expect(physics.DescribedOcean).toBeTypeOf('function')
++  expect(new physics.DescribedOcean([]).heaveExcursion).toBe(0)
++})
++
++test('physics-core publicly exports the articulated solver', () => {
++  expect(physics.ArticulatedPhysics).toBeTypeOf('function')
++})
++
++test('samples match the saved described-wave implementation exactly', () => {
++  const waves = descriptors()
++  const ocean = new physics.DescribedOcean(waves)
++  for (const [x, z, time] of [[0,0,0],[894.671,337.14,0],[23,-15,12.5],[-333,639,150],[1287,-750,1000]]) {
++    expect(ocean.sample(x, z, time)).toEqual(savedImplementation(waves, x, z, time))
++  }
++  expect(ocean.heaveExcursion).toBe(7)
++})
++
++test('validates wave limits and numeric fields while keeping detached descriptors', () => {
++  const wave = descriptors()[0]
++  for (const invalid of [
++    Array(9).fill(wave),
++    [{ ...wave, wavelength: 0 }],
++    [{ ...wave, wavelength: -1 }],
++    [{ ...wave, wavelength: Number.MIN_VALUE }],
++    [{ ...wave, speed: Infinity }],
++    [{ ...wave, amplitude: NaN }],
++    [{ ...wave, direction: { x: NaN, y: 0 } }],
++    Array.from({ length: 2 }, () => ({ ...wave, amplitude: Number.MAX_VALUE })),
++  ]) {
++    expect(() => new physics.DescribedOcean(invalid)).toThrow()
++  }
++
++  const input = descriptors()
++  const ocean = new physics.DescribedOcean(input)
++  const before = ocean.sample(23, -15, 12.5)
++  input[0].amplitude = 99
++  input[1].direction.x = 99
++  const output = ocean.getWaves()
++  output[0].direction.y = 99
++  expect(ocean.sample(23, -15, 12.5)).toEqual(before)
++  expect(ocean.getWaves()).toEqual(descriptors())
++})
++
++test('empty wave set samples a flat surface', () => {
++  expect(new physics.DescribedOcean([]).sample(1, 2, 3)).toEqual({
++    height: 0,
++    normal: { x: -0, y: 1, z: -0 },
++  })
++})
+diff --git a/test/draft-update.test.ts b/test/draft-update.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..36faa9f37ab5cc24309bfb155e3dd7ec70f56fe2
+--- /dev/null
++++ b/test/draft-update.test.ts
+@@ -0,0 +1,78 @@
++import { expect, test } from 'vitest'
++import { NormPhysicsEngine } from '../src/index.js'
++import { ORIGINAL_PROJECTED_WAVES } from '../../scene-engine/src/engine/water/oceanWaves.js'
++import { DescribedOcean } from '../../naval-core/src/DescribedOcean.js'
++
++const params = { length: 36, beam: 10, height: 4.3, mass: 150000, sailArea: 450 }
++function engine(draft: number) {
++  const value = new NormPhysicsEngine(1.225, { ...params, draft })
++  value.setState({ x: 12, y: 15 }, .1)
++  value.setSpeed(8)
++  value.setSailDeployment(0)
++  value.setWaveSampler(() => 0)
++  return value
++}
++function change(value: NormPhysicsEngine, draft: number) {
++  expect(value.setDraftMeters, 'public setter keeps cached hydrodynamics and buoyancy consistent').toBeTypeOf('function')
++  value.setDraftMeters(draft)
++}
++function advance(value: NormPhysicsEngine, ticks: number) {
++  for (let i = 0; i < ticks; i++) value.step({ deltaSeconds: 1 / 60 })
++}
++test('updated draft has constructor-equivalent real drag without resetting movement', () => {
++  const changed = engine(2.8), expected = engine(1.6)
++  changed.setConfig({ buoyancyEnabled: false }); expected.setConfig({ buoyancyEnabled: false })
++  const before = changed.getVisualState()
++  change(changed, 1.6)
++  expect(changed.getVisualState()).toEqual(before)
++  expect(changed.waterFrontalArea).toBeCloseTo(12.8)
++  advance(changed, 120); advance(expected, 120)
++  expect(changed.getVisualState()).toEqual(expected.getVisualState())
++})
++test('draft change preserves current floating state and converges without moving flat-water equilibrium', () => {
++  const value = engine(2.8)
++  value.setSpeed(0); advance(value, 30)
++  const before = value.getVisualState()
++  change(value, 1.2)
++  expect(value.getVisualState()).toEqual(before)
++  advance(value, 600)
++  const visual = value.getVisualState()
++  expect(Object.values(visual.position).every(Number.isFinite)).toBe(true)
++  expect(visual.position.y).toBeCloseTo(0, 8)
++  expect(visual.pitch).toBeCloseTo(0, 8); expect(visual.heel).toBeCloseTo(0, 8)
++})
++test.each([0, -1, NaN, Infinity, Number.MAX_VALUE, 1e-320, 1e-100, .001])('invalid draft %s leaves state and subsequent dynamics intact', draft => {
++  const value = engine(2.8), expected = engine(2.8)
++  expect(value.setDraftMeters).toBeTypeOf('function')
++  expect(() => value.setDraftMeters(draft)).toThrow(RangeError)
++  expect(value.waterFrontalArea).toBeCloseTo(22.4)
++  advance(value, 60); advance(expected, 60)
++  expect(value.getVisualState()).toEqual(expected.getVisualState())
++})
++test.each([1e-320, 1e-100, .001])('constructor rejects numerically unsafe draft %s before creating a live engine', draft => {
++  expect(() => engine(draft)).toThrow(RangeError)
++})
++test('minimum supported draft retains finite floating dynamics at the largest supported timestep', () => {
++  const value = engine(1.2)
++  value.setSpeed(0)
++  change(value, .05)
++  value.setWaveSampler((x, z) => .03 * Math.sin(x * .1) + .02 * Math.sin(z * .1))
++  for(let i=0;i<600;i++) {
++    value.step({deltaSeconds:.05})
++    const visual=value.getVisualState()
++    expect([...Object.values(visual.position),...Object.values(visual.velocity),visual.heading,visual.heel,visual.pitch].every(Number.isFinite)).toBe(true)
++  }
++})
++test('repeated unchanged draft retains original-wave floating trajectory', () => {
++  const value = engine(1.6), expected = engine(1.6), ocean = new DescribedOcean(ORIGINAL_PROJECTED_WAVES)
++  let time = 0
++  for (const ship of [value, expected]) {
++    ship.setWaveSampler((x, z) => ocean.sample(x, z, time).height)
++    ship.setConfig({ heaveTravelLimit: ocean.heaveExcursion + 3.2 })
++  }
++  for (let i = 0; i < 600; i++) {
++    time = i / 60; change(value, 1.6)
++    value.step({ deltaSeconds: 1 / 60 }); expected.step({ deltaSeconds: 1 / 60 })
++    expect(value.getVisualState()).toEqual(expected.getVisualState())
++  }
++})
+diff --git a/test/heave-travel.test.ts b/test/heave-travel.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf1a3024be9c5c20484bd020fccb724d75c584ff
+--- /dev/null
++++ b/test/heave-travel.test.ts
+@@ -0,0 +1,60 @@
++import { createHash } from 'node:crypto'
++import { expect, test } from 'vitest'
++import { NormPhysicsEngine } from '../src/index.js'
++
++const ship = { length: 14, beam: 4.2, draft: 1, height: 3.15, mass: 18000, sailArea: 110 }
++
++test('optional travel bound permits buoyancy to follow a crest above the spawn-relative draft cap', () => {
++  const defaultEngine = new NormPhysicsEngine(1.225, ship), expanded = new NormPhysicsEngine(1.225, ship)
++  let level = 0
++  for (const engine of [defaultEngine, expanded]) {
++    engine.setBaseY(-1)
++    engine.setWaveSampler(() => level)
++    engine.stepBuoyancy({ deltaSeconds: 1 / 60 })
++  }
++  expanded.setConfig({ heaveTravelLimit: 9 })
++  level = 4
++  for (let i = 0; i < 600; i++) for (const engine of [defaultEngine, expanded]) engine.stepBuoyancy({ deltaSeconds: 1 / 60 })
++  expect(defaultEngine.getVisualState().position.y).toBe(1)
++  expect(expanded.getVisualState().position.y).toBeGreaterThan(2.8)
++  expect(expanded.getVisualState().position.y).toBeLessThan(3.2)
++})
++
++test.each([-1, 0, NaN, Infinity, -Infinity, null, '9'])('invalid travel bound %s rejects the whole config update before mutation', heaveTravelLimit => {
++  const engine = new NormPhysicsEngine(1.225, ship)
++  engine.setConfig({ heaveTravelLimit: 9 })
++  const before = { ...engine.getConfig() }
++  // Deliberately malformed external input; not a type-safe client call.
++  expect(() => engine.setConfig({ waterCd: .99, heaveTravelLimit } as never)).toThrow(RangeError)
++  expect(engine.getConfig()).toEqual(before)
++})
++
++test.each([-1, 1])('explicit travel limit bounds heave in direction %s and undefined restores draft default', sign => {
++  const engine = new NormPhysicsEngine(1.225, ship)
++  let level = 0
++  engine.setWaveSampler(() => level)
++  engine.stepBuoyancy({ deltaSeconds: 1 / 60 })
++  engine.setConfig({ heaveTravelLimit: .75 })
++  level = 100 * sign
++  for (let i = 0; i < 600; i++) engine.stepBuoyancy({ deltaSeconds: 1 / 60 })
++  expect(engine.getVisualState().position.y).toBe(.75 * sign)
++  engine.setConfig({ heaveTravelLimit: undefined })
++  for (let i = 0; i < 600; i++) engine.stepBuoyancy({ deltaSeconds: 1 / 60 })
++  expect(engine.getVisualState().position.y).toBe(2 * sign)
++})
++
++test('absent heave bound retains exact pre-repair 60-second moving/turning/wave trajectory', () => {
++  const engine = new NormPhysicsEngine(1.225, ship)
++  engine.setState({ x: 13, y: -27 }, .4); engine.setBaseY(-1); engine.setSpeed(3)
++  engine.setWind({ x: -1, y: .3 }, 9); engine.setSailAngle(.8)
++  engine.setControls({ throttle: .1, rudderAngleDeg: 12 })
++  let time = 0
++  engine.setWaveSampler((x, z) => 3 * Math.sin(time * .7 + x * .03) * Math.cos(z * .02))
++  const hash = createHash('sha256')
++  for (let i = 0; i < 3600; i++) {
++    time = (i + 1) / 60; engine.step({ deltaSeconds: 1 / 60 })
++    hash.update(JSON.stringify(engine.getVisualState()))
++  }
++  // Captured before production repair; covers position, velocity, heading, pitch and heel every tick.
++  expect(hash.digest('hex')).toBe('5bea87de40610bed5eab7aa2d08c2a916449f0c7f4c600821e3ee1119316bd17')
++})
+diff --git a/test/horizontal-anchor.test.ts b/test/horizontal-anchor.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..41447e03571b4696fae6c66b1b7326eef61a7473
+--- /dev/null
++++ b/test/horizontal-anchor.test.ts
+@@ -0,0 +1,107 @@
++import { expect, test } from 'vitest'
++import { NormPhysicsEngine } from '../src/index.js'
++import { GerstnerOcean } from '../src/ocean.js'
++
++const dt = 1 / 60
++function movingEngine() {
++  const engine = new NormPhysicsEngine(1.225, {
++    length: 32, beam: 9, width: 9, height: 3.9, draft: 2, mass: 95000, sailArea: 430,
++  })
++  engine.setState({ x: 12, y: -7 }, .3)
++  engine.setBaseY(2)
++  engine.setSpeed(3)
++  engine.setCargoMass(12000)
++  engine.setWind({ x: 0, y: 1 }, 8)
++  engine.setSailAngle(.6)
++  engine.setSailDeployment(.7)
++  engine.setSailCondition(.8)
++  engine.setSailPowerScale(1.4)
++  engine.setControls({ throttle: .2, rudderAngleDeg: 30, crewSteeringForce: 7400 })
++  return engine
++}
++function expectMotionApi(engine: NormPhysicsEngine) {
++  expect(engine.getHorizontalMotion, 'actual horizontal speed and yaw rate must be public').toBeTypeOf('function')
++  expect(engine.stopHorizontalMotion, 'anchor must stop both actual linear and angular motion').toBeTypeOf('function')
++}
++
++test('stop removes real steering momentum without altering pose, buoyancy rates or continuing waves', () => {
++  const engine = movingEngine(), reference = movingEngine(), ocean = new GerstnerOcean()
++  let time = 0
++  for (const body of [engine, reference]) body.setWaveSampler((x, z) => ocean.sample(x, z, time).height)
++  for (let frame = 0; frame < 120; frame++) {
++    time += dt
++    engine.step({ deltaSeconds: dt }); reference.step({ deltaSeconds: dt })
++  }
++  expectMotionApi(engine)
++  const before = engine.getVisualState(), motion = engine.getHorizontalMotion()
++  expect(motion.speed).toBeGreaterThan(0)
++  expect(Math.abs(motion.yawRate)).toBeGreaterThan(.00001)
++  expect(Math.abs(before.position.y - 2)).toBeGreaterThan(.001)
++  expect(Math.abs(before.heel)).toBeGreaterThan(.001)
++  expect(Math.abs(before.pitch)).toBeGreaterThan(.001)
++  const config = { ...engine.getConfig() }, sail = engine.getSailDebugInfo(), wave = engine.getWaveSampleDebugInfo()
++  engine.stopHorizontalMotion()
++  expect(engine.getHorizontalMotion()).toEqual({ speed: 0, yawRate: 0 })
++  expect(engine.resolveHorizontalContact({ x: 0, y: 0 }, { x: 0, y: 0 })).toBe(0)
++  expect(engine.getVisualState()).toEqual({ ...before, velocity: { x: 0, y: 0, z: 0 } })
++  expect(engine.mass).toBe(107000)
++  expect(engine.getConfig()).toEqual(config)
++  expect(engine.getSailDebugInfo()).toEqual(sail)
++  expect(engine.getWaveSampleDebugInfo()).toEqual(wave)
++  // Matching subsequent floating trajectories also protects hidden vertical rates/offset.
++  for (let frame = 0; frame < 90; frame++) {
++    time += dt
++    engine.stepBuoyancy({ deltaSeconds: dt }); reference.stepBuoyancy({ deltaSeconds: dt })
++    const actual = engine.getVisualState(), expected = reference.getVisualState()
++    expect(actual.position).toEqual(expected.position)
++    expect(actual.heading).toBe(before.heading)
++    expect(actual.heel).toBe(expected.heel)
++    expect(actual.pitch).toBe(expected.pitch)
++    expect(engine.getHorizontalMotion()).toEqual({ speed: 0, yawRate: 0 })
++  }
++  expect(Math.abs(engine.getVisualState().position.y - before.position.y)).toBeGreaterThan(.001)
++  engine.stopHorizontalMotion()
++  expect(engine.getHorizontalMotion()).toEqual({ speed: 0, yawRate: 0 })
++  // Stopping momentum does not erase drive, wind, sails, steering or their live configuration.
++  engine.step({ deltaSeconds: dt })
++  expect(engine.getHorizontalMotion().speed).toBeGreaterThan(0)
++  expect(Math.abs(engine.getHorizontalMotion().yawRate)).toBeGreaterThan(0)
++  expect(Math.abs(engine.getSailDebugInfo().forwardForce)).toBeGreaterThan(1)
++})
++
++test('horizontal motion getter returns detached actual values and leaves normal sailing trajectory untouched', () => {
++  const engine = movingEngine(), reference = movingEngine()
++  expectMotionApi(engine)
++  for (let frame = 0; frame < 120; frame++) {
++    engine.step({ deltaSeconds: dt }); reference.step({ deltaSeconds: dt })
++    const before = engine.getVisualState(), motion = engine.getHorizontalMotion()
++    expect(motion.speed).toBe(Math.hypot(before.velocity.x, before.velocity.z))
++    // A zero contact normal is inert and exposes the existing actual yaw rate directly.
++    expect(motion.yawRate).toBe(engine.resolveHorizontalContact({ x: 0, y: 0 }, { x: 0, y: 0 }))
++    const next = engine.getHorizontalMotion()
++    expect(next).not.toBe(motion)
++    motion.speed = 999; motion.yawRate = 999
++    expect(engine.getHorizontalMotion()).toEqual(next)
++    expect(engine.getVisualState()).toEqual(before)
++    expect(engine.getVisualState()).toEqual(reference.getVisualState())
++  }
++  expect(Math.abs(engine.getHorizontalMotion().yawRate)).toBeGreaterThan(.00001)
++})
++
++test('existing horizontal collision correction retains yaw momentum and reports corrected actual speed', () => {
++  const engine = movingEngine()
++  for (let frame = 0; frame < 60; frame++) engine.step({ deltaSeconds: dt })
++  expectMotionApi(engine)
++  const before = engine.getVisualState(), yaw = engine.getHorizontalMotion().yawRate
++  expect(Math.abs(yaw)).toBeGreaterThan(.00001)
++  engine.correctHorizontalMotion({ x: 14, y: -10 }, { x: -3, y: 4 }, .7)
++  expect(engine.getHorizontalMotion()).toEqual({ speed: 5, yawRate: yaw })
++  const corrected = engine.getVisualState()
++  expect(corrected.position).toEqual({ x: 14, y: before.position.y, z: -10 })
++  expect(corrected.heading).toBe(.7)
++  expect(corrected.heel).toBe(before.heel)
++  expect(corrected.pitch).toBe(before.pitch)
++  engine.stopHorizontalMotion()
++  expect(engine.getHorizontalMotion()).toEqual({ speed: 0, yawRate: 0 })
++  expect(engine.getVisualState()).toEqual({ ...corrected, velocity: { x: 0, y: 0, z: 0 } })
++})
+diff --git a/test/low-speed-steering.test.ts b/test/low-speed-steering.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..bfdaea8c108c97e956b7b6dc353207117c728533
+--- /dev/null
++++ b/test/low-speed-steering.test.ts
+@@ -0,0 +1,60 @@
++import {expect,test} from 'vitest'
++import {NormPhysicsEngine} from '../src/index.js'
++
++function engine(force=7400,mass=95000,speed=0,rudder=30) {
++  const body=new NormPhysicsEngine(1.225,{length:32,width:9,beam:9,draft:2,height:3.9,massOverride:mass,sailArea:430})
++  body.setState({x:0,y:0},0);body.setSpeed(speed);body.setWind({x:1,y:0},0);body.setSailDeployment(0)
++  body.setControls({throttle:0,rudderAngleDeg:rudder,crewSteeringForce:force})
++  return body
++}
++function run(body:NormPhysicsEngine,seconds=5){for(let i=0;i<seconds*60;i++)body.step({deltaSeconds:1/60});return body.getVisualState()}
++
++test('opt-in crew steering from rest integrates bounded stern force and yaw without teleport',()=>{
++  const body=engine(),before=body.getVisualState()
++  body.step({deltaSeconds:1/60});const first=body.getVisualState()
++  expect(first.heading).toBeGreaterThan(before.heading);expect(first.heading).toBeLessThan(.012/3600+.000001)
++  expect(Math.hypot(first.position.x,first.position.z)).toBeLessThan(.00003)
++  const state=run(body)
++  expect(state.heading).toBeGreaterThan(.025);expect(state.heading).toBeLessThan(.035*5.1)
++})
++
++test('zero crew zero rudder and legacy default have no auxiliary motion or spin',()=>{
++  const legacy=engine()
++  legacy.setControls({throttle:0,rudderAngleDeg:30})
++  for(const body of[legacy,engine(0),engine(7400,95000,0,0),engine(Infinity),engine(-7400)]){
++    const state=run(body)
++    expect(state.heading).toBe(0);expect(state.velocity).toEqual({x:0,y:0,z:0});expect(state.position.x).toBe(0);expect(state.position.z).toBe(0)
++  }
++})
++
++test('normal water speed disables helper exactly while low-speed crew and inertia determine response',()=>{
++  const assisted=engine(7400,95000,3),normal=engine(0,95000,3)
++  for(let i=0;i<60;i++) {
++    assisted.step({deltaSeconds:1/60});normal.step({deltaSeconds:1/60})
++    expect(assisted.getVisualState()).toEqual(normal.getVisualState())
++  }
++  const full=run(engine()),low=run(engine(2000)),heavy=run(engine(7400,190000))
++  expect(full.heading).toBeGreaterThan(low.heading);expect(full.heading).toBeGreaterThan(heavy.heading)
++})
++
++test('crew helper does not change sail no-go force or generate direct forward thrust',()=>{
++  const assisted=engine(),normal=engine(0)
++  for(const body of[assisted,normal]){body.setWind({x:1,y:0},9);body.setSailDeployment(1);body.setSailAngle(0)}
++  assisted.step({deltaSeconds:1/60});normal.step({deltaSeconds:1/60})
++  expect(assisted.getSailDebugInfo()).toEqual(normal.getSailDebugInfo())
++  expect(assisted.getSailDebugInfo().forwardForce).toBe(0)
++  expect(assisted.getVisualState().velocity.x).toBe(0)
++})
++
++test('a bow contact impulse constrains contact-point velocity and leaves stern steering free to pivot',()=>{
++  const body=engine()
++  run(body,1)
++  const before=body.getVisualState(),offset={x:16,y:-4.5},normal={x:0,y:1}
++  const yaw=body.resolveHorizontalContact(normal,offset)
++  const after=body.getVisualState()
++  expect(after.position).toEqual(before.position)
++  expect(after.pitch).toBe(before.pitch);expect(after.heel).toBe(before.heel)
++  expect(after.velocity.z+offset.x*yaw).toBeCloseTo(0,10)
++  expect(yaw).toBeGreaterThan(0)
++  expect(after.velocity.z).toBeLessThan(0)
++})
+diff --git a/test/manual-handling.test.ts b/test/manual-handling.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..80236816ea851d2576f85abb365b7fb2f69b8746
+--- /dev/null
++++ b/test/manual-handling.test.ts
+@@ -0,0 +1,277 @@
++import { describe, expect, it } from 'vitest'
++import { NormPhysicsEngine, type ManualHandlingAssist as Assist } from '../src/index.js'
++const dt = 1 / 60
++const radians = (degrees: number) => degrees * Math.PI / 180
++const ship = { length: 32, width: 9, beam: 9, draft: 2, height: 3.9, massOverride: 95000, sailArea: 430 }
++const assist = (partial: Partial<Assist> = {}): Assist => ({
++  targetYawRateRad: radians(8), maxYawAccelerationRad: radians(11),
++  powerFraction: 1, neutralYawDamping: 0, brakeDeceleration: 0, coastInNoGo: false,
++  ...partial,
++})
++
++function body(cargo = 0, params = ship) {
++  const engine = new NormPhysicsEngine(1.225, params)
++  engine.setState({ x: 0, y: 0 }, 0)
++  engine.setWind({ x: 1, y: 0 }, 0)
++  engine.setSailDeployment(0)
++  engine.setConfig({ buoyancyEnabled: false })
++  engine.setCargoMass(cargo)
++  return engine
++}
++
++function controls(engine: NormPhysicsEngine, manualAssist?: Assist, rudderAngleDeg = 0) {
++  engine.setControls({ throttle: 0, rudderAngleDeg, manualAssist })
++}
++
++function run(engine: NormPhysicsEngine, seconds: number) {
++  for (let frame = 0; frame < seconds * 60; frame++) engine.step({ deltaSeconds: dt })
++  return engine.getVisualState()
++}
++
++describe('optional manual force integration', () => {
++  it('preserves the captured original sailing trajectory without a request', () => {
++    const engine = body()
++    engine.setWind({ x: 0, y: 1 }, 8)
++    engine.setSailDeployment(1)
++    engine.setSailAngle(Math.PI / 4)
++    controls(engine, undefined, 15)
++    const result = run(engine, 4)
++    // Captured before adding assistance; exact equality detects default-path drift.
++    expect(result).toEqual({
++      heading: .007133665685521487, heel: -.03500724070736211, pitch: 0,
++      position: { x: 3.41046206508643, y: 0, z: -3.3777166197911366 },
++      velocity: { x: 1.45708832331003, y: 0, z: -1.3009671272929952 },
++    })
++    expect(engine.getHorizontalMotion()).toEqual({ speed: 1.953361678804881, yawRate: .00535287391061237 })
++  })
++
++  it.each([-1, 1])('tracks a bounded yaw intent %s from rest without positional or velocity overrides', direction => {
++    const engine = body()
++    controls(engine, assist({ targetYawRateRad: direction * radians(8) }))
++    engine.step({ deltaSeconds: dt })
++    const first = engine.getVisualState()
++    expect(direction * first.heading).toBeGreaterThan(0)
++    expect(Math.abs(engine.getHorizontalMotion().yawRate)).toBeLessThanOrEqual(radians(11) * dt)
++    expect(first.position).toEqual({ x: 0, y: 0, z: 0 })
++    expect(first.velocity).toEqual({ x: 0, y: 0, z: 0 })
++    run(engine, 3)
++    expect(direction * engine.getVisualState().heading).toBeGreaterThan(radians(10))
++    expect(Math.abs(engine.getHorizontalMotion().yawRate)).toBeLessThan(radians(8))
++  })
++
++  it('neutral and reverse requests decelerate accumulated yaw smoothly through the torque budget', () => {
++    const neutral = body(), reverse = body(), legacy = body()
++    for (const engine of [neutral, reverse, legacy]) {
++      controls(engine, assist())
++      run(engine, 2)
++    }
++    const before = neutral.getVisualState()
++    const yawBefore = neutral.getHorizontalMotion().yawRate
++    expect(yawBefore).toBeGreaterThan(radians(1))
++    controls(neutral, assist({ targetYawRateRad: 0, neutralYawDamping: 3 }))
++    controls(reverse, assist({ targetYawRateRad: -radians(8), neutralYawDamping: 1 }))
++    controls(legacy)
++    expect(neutral.getVisualState()).toEqual(before)
++    neutral.step({ deltaSeconds: dt })
++    expect(neutral.getHorizontalMotion().yawRate).toBeGreaterThan(0)
++    expect(neutral.getHorizontalMotion().yawRate).toBeLessThan(yawBefore)
++    const released = run(neutral, 5)
++    expect(released.heading - before.heading).toBeLessThan(radians(4))
++    expect(run(legacy, 5).heading - before.heading).toBeGreaterThan(radians(10))
++    run(reverse, 2)
++    expect(reverse.getHorizontalMotion().yawRate).toBeLessThan(-radians(1))
++  })
++
++  it('live cargo and reduced crew power each reduce the acceleration delivered by a fixed hull budget', () => {
++    const light = body(), heavy = body(95000), weak = body(), zero = body()
++    controls(light, assist())
++    controls(heavy, assist())
++    controls(weak, assist({ powerFraction: .25 }))
++    controls(zero, assist({ powerFraction: 0 }))
++    for (const engine of [light, heavy, weak, zero]) engine.step({ deltaSeconds: dt })
++    const yaw = light.getHorizontalMotion().yawRate
++    expect(yaw).toBeGreaterThan(0)
++    expect(heavy.getHorizontalMotion().yawRate).toBeCloseTo(yaw * .5, 12)
++    expect(weak.getHorizontalMotion().yawRate).toBeCloseTo(yaw * .25, 12)
++    expect(zero.getHorizontalMotion().yawRate).toBe(0)
++  })
++
++  it.each([ship, { ...ship, length: 52, width: 14, beam: 14, massOverride: 480000 }])('uses each hull inertia with a finite requested angular acceleration', params => {
++    const engine = body(0, params)
++    controls(engine, assist({ targetYawRateRad: radians(12), maxYawAccelerationRad: radians(16) }))
++    engine.step({ deltaSeconds: dt })
++    expect(engine.getHorizontalMotion().yawRate).toBeCloseTo(radians(16) * dt, 12)
++  })
++
++  it('contact impulses remain authoritative and the next assist tick adds only bounded torque', () => {
++    const engine = body()
++    controls(engine, assist())
++    run(engine, 2)
++    const before = engine.getVisualState()
++    const yawBefore = engine.getHorizontalMotion().yawRate
++    const offset = { x: 16, y: -4.5 }, normal = { x: 0, y: 1 }
++    const contactYaw = engine.resolveHorizontalContact(normal, offset)
++    const contacted = engine.getVisualState()
++    expect(contacted.position).toEqual(before.position)
++    expect(contacted.velocity.z + offset.x * contactYaw).toBeCloseTo(0, 12)
++    expect(contactYaw).toBeGreaterThan(0)
++    expect(contactYaw).toBeLessThan(yawBefore)
++    engine.step({ deltaSeconds: dt })
++    expect(Math.abs(engine.getHorizontalMotion().yawRate - contactYaw)).toBeLessThanOrEqual(radians(11) * dt)
++    expect(engine.getVisualState().velocity.z).toBeLessThan(0)
++  })
++})
++
++describe('no-go coasting and finite braking', () => {
++  it('opt-in headwind coasting retains momentum while the original active-sail rule stops forward travel', () => {
++    const assisted = body(), old = body(), calm = body()
++    for (const engine of [assisted, old, calm]) {
++      engine.setSpeed(5)
++      engine.setSailDeployment(1)
++      engine.setWind({ x: 1, y: 0 }, engine === calm ? 0 : 9)
++    }
++    controls(assisted, assist({ targetYawRateRad: 0, coastInNoGo: true }))
++    controls(old)
++    controls(calm)
++    const coasting = run(assisted, 1)
++    expect(coasting.velocity.x).toBeGreaterThan(1)
++    expect(coasting).toEqual(run(calm, 1))
++    expect(assisted.getSailDebugInfo().forwardForce).toBe(0)
++    expect(run(old, 1).velocity.x).toBe(0)
++  })
++
++  it.each([0, 1])('coasting policy with power %s adds no persistent headwind propulsion', powerFraction => {
++    const moving = body(), stopped = body()
++    for (const engine of [moving, stopped]) {
++      engine.setWind({ x: 1, y: 0 }, 9)
++      engine.setSailDeployment(1)
++      controls(engine, assist({ targetYawRateRad: 0, powerFraction, coastInNoGo: true }))
++    }
++    moving.setSpeed(2)
++    run(moving, 20)
++    expect(moving.getHorizontalMotion().speed).toBeGreaterThan(0)
++    expect(moving.getHorizontalMotion().speed).toBeLessThan(2)
++    expect(moving.getSailDebugInfo().forwardForce).toBe(0)
++    expect(run(stopped, 20).velocity).toEqual({ x: 0, y: 0, z: 0 })
++  })
++
++  it.each([1, -1])('braking opposes existing velocity %s and stops without reversing', direction => {
++    const braking = body(), free = body()
++    for (const engine of [braking, free]) {
++      engine.setSpeed(direction * .03)
++      engine.setConfig({ waterCd: 0, keelAreaFactor: 0 })
++    }
++    controls(braking, assist({ targetYawRateRad: 0, brakeDeceleration: .2 }))
++    controls(free)
++    braking.step({ deltaSeconds: dt })
++    free.step({ deltaSeconds: dt })
++    const signed = direction * braking.getVisualState().velocity.x
++    expect(signed).toBeGreaterThan(0)
++    expect(signed).toBeLessThan(direction * free.getVisualState().velocity.x)
++    expect(free.getHorizontalMotion().speed - braking.getHorizontalMotion().speed).toBeCloseTo(.2 * dt, 12)
++    expect(run(braking, 1).velocity).toEqual({ x: 0, y: 0, z: 0 })
++    expect(run(braking, 5).velocity).toEqual({ x: 0, y: 0, z: 0 })
++  })
++
++  it('braking respects cargo and power, including exact zero-force legacy dynamics', () => {
++    const full = body(), heavy = body(95000), weak = body(), zero = body(), old = body()
++    for (const engine of [full, heavy, weak, zero, old]) {
++      engine.setSpeed(4)
++      engine.setConfig({ keelAreaFactor: 0 })
++    }
++    controls(full, assist({ targetYawRateRad: 0, brakeDeceleration: .2 }))
++    controls(heavy, assist({ targetYawRateRad: 0, brakeDeceleration: .2 }))
++    controls(weak, assist({ targetYawRateRad: 0, powerFraction: .25, brakeDeceleration: .2 }))
++    controls(zero, assist({ targetYawRateRad: 0, powerFraction: 0, brakeDeceleration: .2 }))
++    controls(old)
++    for (const engine of [full, heavy, weak, zero, old]) engine.step({ deltaSeconds: dt })
++    expect(full.getHorizontalMotion().speed).toBeLessThan(weak.getHorizontalMotion().speed)
++    expect(zero.getVisualState()).toEqual(old.getVisualState())
++    const heavyFree = body(95000)
++    heavyFree.setSpeed(4)
++    heavyFree.setConfig({ keelAreaFactor: 0 })
++    controls(heavyFree)
++    heavyFree.step({ deltaSeconds: dt })
++    expect(heavyFree.getHorizontalMotion().speed - heavy.getHorizontalMotion().speed).toBeCloseTo(.1 * dt, 12)
++  })
++})
++
++describe('request boundary and accepted physics time', () => {
++  it.each([
++    { targetYawRateRad: NaN }, { targetYawRateRad: Infinity }, { targetYawRateRad: radians(12) + .001 },
++    { targetYawRateRad: -radians(12) - .001 }, { maxYawAccelerationRad: -1 },
++    { maxYawAccelerationRad: radians(16) + .001 }, { maxYawAccelerationRad: Infinity },
++    { powerFraction: -.01 }, { powerFraction: 1.01 }, { powerFraction: NaN },
++    { neutralYawDamping: -1 }, { neutralYawDamping: 3.01 }, { neutralYawDamping: Infinity },
++    { brakeDeceleration: -.01 }, { brakeDeceleration: .201 }, { brakeDeceleration: NaN },
++    { coastInNoGo: 1 },
++  ])('invalid request %j clears the entire previous assist before the next tick', malformed => {
++    const engine = body(), reference = body()
++    for (const item of [engine, reference]) {
++      controls(item, assist())
++      run(item, 1)
++    }
++    expect(engine.getVisualState().heading).toBeGreaterThan(0)
++    controls(engine, { ...assist(), ...malformed } as Assist)
++    controls(reference)
++    expect(run(engine, 1)).toEqual(run(reference, 1))
++    expect(Object.values(engine.getVisualState().velocity).every(Number.isFinite)).toBe(true)
++  })
++
++  it('copies accepted numeric controls and clears them when the optional request is omitted', () => {
++    const engine = body(), reference = body()
++    const request = assist()
++    controls(engine, request)
++    controls(reference, assist())
++    request.targetYawRateRad = NaN
++    request.powerFraction = 0
++    expect(run(engine, 1)).toEqual(run(reference, 1))
++    expect(engine.getVisualState().heading).toBeGreaterThan(0)
++    controls(engine)
++    controls(reference)
++    expect(run(engine, 1)).toEqual(run(reference, 1))
++  })
++
++  it('30/60/120 caller batches produce the same fixed 60 Hz force trajectory', () => {
++    const sample = (batchHz: number) => {
++      const engine = body()
++      let pending = 0
++      for (let batch = 0; batch < batchHz * 4; batch++) {
++        pending += 1 / batchHz
++        controls(engine, assist())
++        while (pending + 1e-10 >= dt) {
++          engine.step({ deltaSeconds: dt })
++          pending -= dt
++        }
++      }
++      return engine.getVisualState()
++    }
++    expect(sample(30)).toEqual(sample(60))
++    expect(sample(120)).toEqual(sample(60))
++    expect(sample(60).heading).toBeGreaterThan(radians(10))
++  })
++
++  it('large dt retains the original .05 second cap and invalid ticks add no force or travel', () => {
++    const engine = body(), reference = body()
++    for (const item of [engine, reference]) {
++      item.setSpeed(2)
++      controls(item, assist({ brakeDeceleration: .2 }))
++    }
++    const before = engine.getVisualState()
++    for (const deltaSeconds of [0, -1, NaN, Infinity, -Infinity]) engine.step({ deltaSeconds })
++    expect(engine.getVisualState()).toEqual(before)
++    engine.step({ deltaSeconds: 20 })
++    reference.step({ deltaSeconds: .05 })
++    expect(engine.getVisualState()).toEqual(reference.getVisualState())
++    expect(engine.getHorizontalMotion().yawRate).toBeGreaterThan(0)
++    expect(engine.getHorizontalMotion().yawRate).toBeLessThanOrEqual(radians(11) * .05)
++  })
++
++  it('wave-only anchored ticks do not consume assisted steering or braking', () => {
++    const engine = body()
++    engine.setSpeed(2)
++    controls(engine, assist({ brakeDeceleration: .2 }))
++    engine.stepBuoyancy({ deltaSeconds: dt })
++    expect(engine.getHorizontalMotion()).toEqual({ speed: 2, yawRate: 0 })
++  })
++})
+diff --git a/test/merge-contract.test.ts b/test/merge-contract.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..76cdf743b5c5f31e3faa34eba15c8ccdc49ff920
+--- /dev/null
++++ b/test/merge-contract.test.ts
+@@ -0,0 +1,105 @@
++import { expect, test } from 'vitest'
++import { NormPhysicsEngine, type CannonConfig } from '../src/index.js'
++
++test('ordinary sail angles keep their exact value while malformed and wrapped inputs are sanitized', () => {
++  const engine = new NormPhysicsEngine(1.225, { sailArea: 100 })
++  engine.setWind({ x: -1, y: 0 }, 8)
++  for (const [angle, expected] of [[.8, .8], [-.4, -.4], [NaN, 0], [Infinity, 0], [5 * Math.PI, -Math.PI]]) {
++    engine.setSailAngle(angle)
++    engine.step({ deltaSeconds: 1 / 60 })
++    expect(engine.getSailDebugInfo().sailAngleRad).toBe(expected)
++  }
++})
++
++test('continuous heading survives the pi boundary without resetting the marine trajectory', () => {
++  const engine = new NormPhysicsEngine()
++  engine.setState({ x: 0, y: 0 }, Math.PI + .2)
++  engine.step({ deltaSeconds: 1 / 60 })
++  expect(engine.getVisualState().heading).toBe(Math.PI + .2)
++})
++
++test('tiny no-go fades retain the existing radian cutoff for full sail force outside the zone', () => {
++  const sharp = new NormPhysicsEngine(1.225, { sailArea: 100 })
++  const tiny = new NormPhysicsEngine(1.225, { sailArea: 100 })
++  const windAngle = (35 + .0005) * Math.PI / 180
++  for (const engine of [sharp, tiny]) {
++    engine.setWind({ x: Math.cos(windAngle), y: Math.sin(windAngle) }, 8)
++    engine.setSailAngle(Math.PI / 4)
++  }
++  sharp.setConfig({ noGoFadeDeg: 0 })
++  tiny.setConfig({ noGoFadeDeg: .001 })
++  for (const engine of [sharp, tiny]) engine.step({ deltaSeconds: 1 / 60 })
++  expect(Math.abs(sharp.getSailDebugInfo().forwardForce)).toBeGreaterThan(1)
++  expect(tiny.getVisualState()).toEqual(sharp.getVisualState())
++})
++
++const cannon: CannonConfig = {
++  barrelLength: 0, elevationRad: 0, azimuthRad: 0, muzzleVelocity: 100,
++  reloadSeconds: .15,
++  ammo: { massKg: 8, dragCd: 0, crossSectionArea: .01, explosionRadius: 0, baseDamage: 60, damageType: 'AP' },
++}
++
++test.each(['step', 'stepBuoyancy'] as const)('%s advances reload and real projectile impacts once per accepted tick', method => {
++  const engine = new NormPhysicsEngine()
++  engine.stopHorizontalMotion()
++  const gun = engine.addCannon(cannon, { x: 0, y: 2, z: 0 })
++  engine.addTarget({ id: 'target', material: 'metal', shape: {
++    kind: 'sphere', center: { x: 10, y: 2, z: 0 }, radius: .5,
++  } })
++  const hits: string[] = []
++  engine.onImpact(event => hits.push(event.targetId!))
++  expect(engine.fireCannon(0)).toBe(true)
++  const before = engine.getVisualState()
++  for (const deltaSeconds of [0, -1, NaN, Infinity, -Infinity]) engine[method]({ deltaSeconds })
++  expect(engine.getVisualState()).toEqual(before)
++  expect(hits).toEqual([])
++  expect(gun.canFire()).toBe(false)
++  engine[method]({ deltaSeconds: 1 }) // Existing marine cap consumes 0.05 seconds.
++  expect(hits).toEqual([])
++  expect(gun.canFire()).toBe(false)
++  engine[method]({ deltaSeconds: .05 })
++  expect(hits).toEqual(['target'])
++  expect(gun.canFire()).toBe(false)
++  engine[method]({ deltaSeconds: .05 })
++  expect(gun.canFire()).toBe(true)
++  expect(hits).toEqual(['target'])
++  expect(engine.getHorizontalMotion()).toEqual({ speed: 0, yawRate: 0 })
++})
++
++test('explicit water density changes real drag while constructor density defaults stay compatible', () => {
++  const standard = new NormPhysicsEngine(), vacuum = new NormPhysicsEngine(0, { rhoWater: 0 })
++  for (const engine of [standard, vacuum]) {
++    engine.setSpeed(4)
++    engine.step({ deltaSeconds: .05 })
++  }
++  expect(standard.getHorizontalMotion().speed).toBeLessThan(4)
++  expect(vacuum.getHorizontalMotion().speed).toBe(4)
++  const explicit = new NormPhysicsEngine(9, { rhoAir: 1.1, rhoWater: 1000, sailCEHeight: 7, GMt: 2 })
++  expect([explicit.airDensity, explicit.waterDensity, explicit.sailCEHeight, explicit.rollGM]).toEqual([1.1, 1000, 7, 2])
++  const fallback = new NormPhysicsEngine(NaN, { rhoAir: NaN, rhoWater: Infinity })
++  expect([fallback.airDensity, fallback.waterDensity]).toEqual([1.225, 1025])
++})
++
++test.each(['step', 'stepBuoyancy'] as const)('%s uses wind speed independently of direction magnitude for actual cannon impacts', method => {
++  const fire = (direction: { x: number; y: number }) => {
++    const engine = new NormPhysicsEngine()
++    engine.setWind(direction, 10)
++    engine.addCannon({ ...cannon, ammo: { ...cannon.ammo, dragCd: .3, crossSectionArea: .1 } }, { x: 0, y: 2, z: 0 })
++    const impacts: { point: { x: number; y: number; z: number }; targetId: string | null }[] = []
++    engine.onImpact(event => impacts.push(event))
++    engine.addTarget({ id: 'wall', material: 'metal', shape: {
++      kind: 'aabb', min: { x: 20, y: -50, z: -50 }, max: { x: 21, y: 50, z: 50 },
++    } })
++    expect(engine.fireCannon(0)).toBe(true)
++    for (let i = 0; i < 60; i++) engine[method]({ deltaSeconds: 1 / 60 })
++    expect(impacts).toHaveLength(1)
++    expect(impacts[0].targetId).toBe('wall')
++    expect(Object.values(impacts[0].point).every(Number.isFinite)).toBe(true)
++    return impacts[0]
++  }
++  expect(fire({ x: 2, y: 0 })).toEqual(fire({ x: 1, y: 0 }))
++  expect(fire({ x: 6, y: 8 })).toEqual(fire({ x: 3, y: 4 }))
++  expect(fire({ x: 0, y: 0 })).toEqual(fire({ x: 1, y: 0 }))
++  // Match the marine near-zero fallback even above setWind's validation floor.
++  expect(fire({ x: 0, y: .00001 })).toEqual(fire({ x: 1, y: 0 }))
++})
+diff --git a/test/physics.test.ts b/test/physics.test.ts
+index a27431eb52ab4d37ea69433f9d03e442992d8e9e..b9be55a2d6daa3689f16859a943aa53cc9606f36 100644
+--- a/test/physics.test.ts
++++ b/test/physics.test.ts
+@@ -506,15 +506,20 @@ describe('边界条件测试', () => {
+     const engine = new NormPhysicsEngine(1.225, {
+       length: 0.1,
+       beam: 0.1,
+-      draft: 0.01,
++      draft: 0.05,
+       height: 0.1,
+       mass: 1,
+       sailArea: 0.1,
+     })
++    engine.setWaveSampler(() => 0)
+     engine.setState({ x: 0, y: 0 }, 0)
+     engine.setWind({ x: -1, y: 0 }, 10)
+     expect(() => {
+       simulateFrames(engine, 120)
+     }).not.toThrow()
++    const before = engine.getVisualState()
++    expect([...Object.values(before.position), ...Object.values(before.velocity), before.heading, before.heel, before.pitch].every(Number.isFinite)).toBe(true)
++    expect(() => engine.setDraftMeters(0.01)).toThrow(RangeError)
++    expect(engine.getVisualState()).toEqual(before)
+   })
+ })
+diff --git a/test/sailing-contract.test.ts b/test/sailing-contract.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..210db6f995e6b724c7b2c5024d31b5644d27f028
+--- /dev/null
++++ b/test/sailing-contract.test.ts
+@@ -0,0 +1,389 @@
++import { describe, expect, it } from 'vitest'
++import { GerstnerOcean, NormPhysicsEngine, type OceanWave } from '../src/index.js'
++
++// Existing physics-lab BoatParams: preserve massKg and summed sail-area semantics.
++const ship = {
++  length: 30, width: 6, draft: 2, height: 4.5, massKg: 120000,
++  foreSailArea: 30, mainSailArea: 80, aftSailArea: 40,
++}
++const dt = 1 / 60
++
++function sailingEngine(windSide = 1) {
++  const engine = new NormPhysicsEngine(1.225, ship)
++  engine.setState({ x: 0, y: 0 }, 0)
++  engine.setControls({ throttle: 0, rudderAngleDeg: 0 })
++  engine.setWind({ x: 0, y: windSide }, 10)
++  engine.setSailAngle(windSide * Math.PI / 4)
++  engine.setConfig({ buoyancyEnabled: false })
++  return engine
++}
++
++function run(engine: NormPhysicsEngine, seconds = 5) {
++  for (let frame = 0; frame < seconds / dt; frame++) engine.step({ deltaSeconds: dt })
++  return engine.getVisualState()
++}
++
++describe('sail deployment and damage', () => {
++  it('keeps zero-wind ships still without throttle', () => {
++    const engine = sailingEngine()
++    engine.setWind({ x: 0, y: 1 }, 0)
++    expect(run(engine).velocity).toEqual({ x: 0, y: 0, z: 0 })
++    expect(engine.getSailDebugInfo().forwardForce).toBe(0)
++  })
++
++  it.each(['deployment', 'condition'] as const)('zero %s removes every sail force and heel', (kind) => {
++    const engine = sailingEngine()
++    if (kind === 'deployment') engine.setSailDeployment(0)
++    else engine.setSailCondition(0)
++    const state = run(engine)
++    expect(state.velocity).toEqual({ x: 0, y: 0, z: 0 })
++    expect(state.position).toEqual({ x: 0, y: 0, z: 0 })
++    expect(state.heel).toBe(0)
++    expect(engine.getSailDebugInfo().forwardForce).toBe(0)
++  })
++
++  it.each(['setSailDeployment', 'setSailCondition'] as const)('%s zero lets a ship coast through the sail no-go zone', (setter) => {
++    const furled = sailingEngine()
++    const calm = sailingEngine()
++    furled[setter](0)
++    furled.setWind({ x: 1, y: 0 }, 10)
++    calm.setWind({ x: 1, y: 0 }, 0)
++    for (const engine of [furled, calm]) engine.setSpeed(5)
++    const coasting = run(furled, 1)
++    expect(coasting.velocity.x).toBeGreaterThan(1)
++    expect(coasting).toEqual(run(calm, 1))
++  })
++
++  it.each([0, 5])('half deployment halves total force and heeling, pressure scale %s', (pressureScale) => {
++    const full = sailingEngine()
++    const half = sailingEngine()
++    full.setConfig({ sailPressureScale: pressureScale })
++    half.setConfig({ sailPressureScale: pressureScale })
++    half.setSailDeployment(0.5)
++    full.step({ deltaSeconds: dt })
++    half.step({ deltaSeconds: dt })
++    const force = full.getSailDebugInfo().forwardForce
++    expect(Math.abs(force)).toBeGreaterThan(1)
++    expect(half.getSailDebugInfo().forwardForce).toBeCloseTo(force * 0.5, 10)
++    expect(Math.abs(full.getVisualState().heel)).toBeGreaterThan(0)
++    expect(half.getVisualState().heel).toBeCloseTo(full.getVisualState().heel * 0.5, 12)
++  })
++
++  it('combines deployment and condition while retaining full-sail defaults', () => {
++    const full = sailingEngine()
++    const explicit = sailingEngine()
++    const reduced = sailingEngine()
++    explicit.setSailDeployment(1)
++    explicit.setSailCondition(1)
++    reduced.setSailDeployment(0.5)
++    reduced.setSailCondition(0.4)
++    for (const engine of [full, explicit, reduced]) engine.step({ deltaSeconds: dt })
++    expect(explicit.getVisualState()).toEqual(full.getVisualState())
++    expect(reduced.getSailDebugInfo().forwardForce).toBeCloseTo(full.getSailDebugInfo().forwardForce * 0.2, 10)
++    expect(reduced.mass).toBe(120000)
++    expect(reduced.sailArea).toBe(150)
++  })
++
++  it.each([-1, 2, NaN, Infinity, -Infinity])('clamps unsafe sail scale %s to a finite force', (scale) => {
++    for (const setter of ['setSailDeployment', 'setSailCondition'] as const) {
++      const engine = sailingEngine()
++      const reference = sailingEngine()
++      engine[setter](scale)
++      reference[setter](Number.isFinite(scale) ? Math.max(0, Math.min(1, scale)) : 0)
++      engine.step({ deltaSeconds: dt })
++      reference.step({ deltaSeconds: dt })
++      expect(engine.getVisualState()).toEqual(reference.getVisualState())
++      expect(Number.isFinite(engine.getSailDebugInfo().forwardForce)).toBe(true)
++    }
++  })
++
++  it('sails forward on both mirrored beam reaches with mirrored leeway and heel', () => {
++    const starboardWind = sailingEngine(1)
++    const portWind = sailingEngine(-1)
++    const starboard = run(starboardWind, 20)
++    const port = run(portWind, 20)
++    expect(starboard.velocity.x).toBeGreaterThan(0.5)
++    expect(port.velocity.x).toBeGreaterThan(0.5)
++    expect(starboard.velocity.x).toBeCloseTo(port.velocity.x, 10)
++    expect(starboard.velocity.z).toBeLessThan(0)
++    expect(port.velocity.z).toBeGreaterThan(0)
++    expect(starboard.velocity.z).toBeCloseTo(-port.velocity.z, 10)
++    expect(starboard.heel).toBeCloseTo(-port.heel, 10)
++  })
++
++  it('rotates forward and starboard with heading instead of using fixed world axes', () => {
++    const original = sailingEngine()
++    const rotated = sailingEngine()
++    rotated.setState({ x: 0, y: 0 }, Math.PI / 2)
++    rotated.setWind({ x: -1, y: 0 }, 10)
++    const east = run(original, 20)
++    const south = run(rotated, 20)
++    expect(south.velocity.z).toBeGreaterThan(0.5)
++    expect(south.velocity.z).toBeCloseTo(east.velocity.x, 10)
++    expect(south.velocity.x).toBeCloseTo(-east.velocity.z, 10)
++    expect(south.heel).toBeCloseTo(east.heel, 10)
++  })
++
++  it.each([60, 90, 120, 180, -60, -90, -120])('auto trim at wind bearing %s sails forward at 8 m/s wind', (bearing) => {
++    const engine = sailingEngine()
++    const angle = bearing * Math.PI / 180
++    engine.setWind({ x: Math.cos(angle), y: Math.sin(angle) }, 8)
++    engine.setSailAngle(Math.sign(bearing) * Math.min(Math.PI / 2, Math.abs(angle) * 0.5))
++    engine.step({ deltaSeconds: dt })
++    expect(engine.getSailDebugInfo().forwardForce).toBeGreaterThan(0)
++    // Re-trim from apparent wind each tick, matching the naval simulation contract.
++    for (let frame = 1; frame < 30 / dt; frame++) {
++      const state = engine.getVisualState()
++      const fromAngle = Math.atan2(Math.sin(angle) * 8 + state.velocity.z, Math.cos(angle) * 8 + state.velocity.x)
++      let relative = fromAngle - state.heading
++      while (relative > Math.PI) relative -= Math.PI * 2
++      while (relative < -Math.PI) relative += Math.PI * 2
++      engine.setSailAngle(relative * 0.5)
++      engine.step({ deltaSeconds: dt })
++    }
++    const state = engine.getVisualState()
++    expect(state.velocity.x).toBeGreaterThan(0.2)
++    expect(state.position.x).toBeGreaterThan(3)
++  })
++})
++
++describe('sail power upgrades', () => {
++  it.each([0, 5])('doubles total sail force and heeling at power 2, pressure scale %s', (pressureScale) => {
++    const normal = sailingEngine()
++    const upgraded = sailingEngine()
++    for (const engine of [normal, upgraded]) engine.setConfig({ sailPressureScale: pressureScale })
++    upgraded.setSailPowerScale(2)
++    normal.step({ deltaSeconds: dt })
++    upgraded.step({ deltaSeconds: dt })
++    expect(Math.abs(normal.getSailDebugInfo().forwardForce)).toBeGreaterThan(1)
++    expect(upgraded.getSailDebugInfo().forwardForce).toBeCloseTo(normal.getSailDebugInfo().forwardForce * 2, 10)
++    expect(upgraded.getVisualState().heel).toBeCloseTo(normal.getVisualState().heel * 2, 12)
++    expect(Math.abs(upgraded.getVisualState().velocity.z)).toBeGreaterThan(Math.abs(normal.getVisualState().velocity.z))
++  })
++
++  it('default power remains one and composes with deployment and condition', () => {
++    const normal = sailingEngine()
++    const explicit = sailingEngine()
++    const combined = sailingEngine()
++    explicit.setSailPowerScale(1)
++    combined.setSailDeployment(0.5)
++    combined.setSailCondition(0.4)
++    combined.setSailPowerScale(2.5)
++    for (const engine of [normal, explicit, combined]) engine.step({ deltaSeconds: dt })
++    expect(explicit.getVisualState()).toEqual(normal.getVisualState())
++    expect(combined.getSailDebugInfo().forwardForce).toBeCloseTo(normal.getSailDebugInfo().forwardForce * 0.5, 10)
++  })
++
++  it('zero power removes sail force and permits inertial coasting through headwind', () => {
++    const zero = sailingEngine()
++    zero.setSailPowerScale(0)
++    expect(run(zero).velocity).toEqual({ x: 0, y: 0, z: 0 })
++    expect(zero.getVisualState().heel).toBe(0)
++    expect(zero.getSailDebugInfo().forwardForce).toBe(0)
++    zero.setSpeed(5)
++    zero.setWind({ x: 1, y: 0 }, 10)
++    const calm = sailingEngine()
++    calm.setWind({ x: 1, y: 0 }, 0)
++    calm.setSpeed(5)
++    const coasting = run(zero, 1)
++    expect(coasting.velocity.x).toBeGreaterThan(1)
++    expect(coasting.velocity).toEqual(run(calm, 1).velocity)
++  })
++
++  it.each([
++    { input: -1, expected: 0 }, { input: 5, expected: 4 },
++    { input: NaN, expected: 0 }, { input: Infinity, expected: 0 }, { input: -Infinity, expected: 0 },
++  ])('sanitizes power $input without changing nominal ship properties or current motion', ({ input, expected }) => {
++    const engine = sailingEngine()
++    const reference = sailingEngine()
++    for (const item of [engine, reference]) {
++      item.setState({ x: 12, y: -4 }, 0.25)
++      item.setSpeed(3)
++    }
++    const before = engine.getVisualState()
++    const area = engine.sailArea
++    const coefficient = engine.sailRunCd
++    engine.setSailPowerScale(input)
++    reference.setSailPowerScale(expected)
++    expect(engine.getVisualState()).toEqual(before)
++    expect(engine.sailArea).toBe(area)
++    expect(engine.sailRunCd).toBe(coefficient)
++    expect(engine.mass).toBe(120000)
++    engine.step({ deltaSeconds: dt })
++    reference.step({ deltaSeconds: dt })
++    expect(engine.getVisualState()).toEqual(reference.getVisualState())
++    expect(Number.isFinite(engine.getSailDebugInfo().forwardForce)).toBe(true)
++  })
++})
++
++describe('live cargo mass', () => {
++  it('reduces sail acceleration, travel and heeling through larger live mass/inertia', () => {
++    const unloaded = sailingEngine()
++    const loaded = sailingEngine()
++    loaded.setCargoMass(120000)
++    expect(loaded.mass).toBe(240000)
++    expect(loaded.sailArea).toBe(unloaded.sailArea)
++    for (const engine of [unloaded, loaded]) engine.step({ deltaSeconds: dt })
++    expect(loaded.getSailDebugInfo().forwardForce).toBe(unloaded.getSailDebugInfo().forwardForce)
++    const light = unloaded.getVisualState()
++    const heavy = loaded.getVisualState()
++    expect(light.velocity.x).toBeGreaterThan(0)
++    expect(heavy.velocity.x).toBeGreaterThan(0)
++    expect(heavy.velocity.x).toBeLessThan(light.velocity.x * 0.51)
++    expect(heavy.position.x).toBeLessThan(light.position.x * 0.51)
++    expect(Math.abs(light.heel)).toBeGreaterThan(0)
++    expect(heavy.heel).toBeCloseTo(light.heel * 0.5, 12)
++    expect(run(loaded, 5).position.x).toBeLessThan(run(unloaded, 5).position.x)
++  })
++
++  it('preserves exact pose/motion and all vertical rates while recalculating mass-dependent buoyancy', () => {
++    const loaded = sailingEngine()
++    const unloaded = sailingEngine()
++    let level = 0
++    for (const engine of [loaded, unloaded]) {
++      engine.setState({ x: 4, y: -3 }, 0.4)
++      engine.setWind({ x: 0, y: 1 }, 0)
++      engine.setSpeed(3)
++      engine.setConfig({ buoyancyEnabled: true })
++      engine.setBaseY(2)
++      engine.setWaveSampler((x, z) => level + x * 0.03 - z * 0.05)
++      engine.step({ deltaSeconds: dt })
++    }
++    level = 0.8
++    for (let frame = 0; frame < 20; frame++) {
++      loaded.step({ deltaSeconds: dt })
++      unloaded.step({ deltaSeconds: dt })
++    }
++    const before = loaded.getVisualState()
++    expect(Math.abs(before.position.y - 2)).toBeGreaterThan(0.01)
++    expect(Math.abs(before.pitch)).toBeGreaterThan(0.001)
++    expect(Math.abs(before.heel)).toBeGreaterThan(0.001)
++    loaded.setCargoMass(60000)
++    expect(loaded.mass).toBe(180000)
++    expect(loaded.getVisualState()).toEqual(before)
++    // Fixed draft model scales spring/weight/damping/inertia equally. Same subsequent
++    // wave-only pose proves retained rates/reference and correctly updated spring.
++    loaded.stepBuoyancy({ deltaSeconds: dt })
++    unloaded.stepBuoyancy({ deltaSeconds: dt })
++    expect(loaded.getVisualState().position.y).toBeCloseTo(unloaded.getVisualState().position.y, 12)
++    expect(loaded.getVisualState().pitch).toBeCloseTo(unloaded.getVisualState().pitch, 12)
++    expect(loaded.getVisualState().heel).toBeCloseTo(unloaded.getVisualState().heel, 12)
++  })
++
++  it('replaces cargo rather than accumulating and restores exact dry mass at zero', () => {
++    const restored = sailingEngine()
++    const dry = sailingEngine()
++    restored.setCargoMass(30000)
++    expect(restored.mass).toBe(150000)
++    restored.setCargoMass(10000)
++    expect(restored.mass).toBe(130000)
++    restored.setCargoMass(0)
++    expect(restored.mass).toBe(120000)
++    expect(run(restored)).toEqual(run(dry))
++  })
++
++  it.each([-1, NaN, Infinity, -Infinity, 120001])('rejects cargo %s before modifying mass or motion', (cargo) => {
++    const engine = sailingEngine()
++    engine.setCargoMass(1000)
++    run(engine, 1)
++    const before = engine.getVisualState()
++    expect(() => engine.setCargoMass(cargo)).toThrow(RangeError)
++    expect(engine.mass).toBe(121000)
++    expect(engine.getVisualState()).toEqual(before)
++  })
++
++  it('retains massOverride as dry mass and keeps public mass read-only', () => {
++    const engine = new NormPhysicsEngine(1.225, { ...ship, massOverride: 90000 })
++    engine.setCargoMass(10000)
++    expect(engine.mass).toBe(100000)
++    expect(() => Reflect.set(engine, 'mass', 1)).not.toThrow()
++    expect(Reflect.set(engine, 'mass', 1)).toBe(false)
++    expect(engine.mass).toBe(100000)
++    engine.setCargoMass(0)
++    expect(engine.mass).toBe(90000)
++  })
++})
++
++describe('ocean descriptor contract', () => {
++  it.each([{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -3, y: 4 }])('descriptors reproduce height and normal after heading %j', (heading) => {
++    const ocean = new GerstnerOcean()
++    ocean.setHeading(heading)
++    const waves: readonly OceanWave[] = ocean.getWaves()
++    expect(waves).toHaveLength(5)
++    for (const [x, z, time] of [[0, 0, 0], [17, -9, 1.5], [-31, 40, 12]]) {
++      let height = 0
++      let slopeX = 0
++      let slopeZ = 0
++      for (const wave of waves) {
++        const k = 2 * Math.PI / wave.wavelength
++        const phase = k * (wave.direction.x * x + wave.direction.y * z) + wave.speed * time
++        height += wave.amplitude * Math.sin(phase)
++        slopeX += wave.amplitude * k * wave.direction.x * Math.cos(phase)
++        slopeZ += wave.amplitude * k * wave.direction.y * Math.cos(phase)
++      }
++      const sampled = ocean.sample(x, z, time)
++      const magnitude = Math.hypot(slopeX, 1, slopeZ)
++      expect(sampled.height).toBeCloseTo(height, 12)
++      expect(sampled.normal.x).toBeCloseTo(-slopeX / magnitude, 12)
++      expect(sampled.normal.y).toBeCloseTo(1 / magnitude, 12)
++      expect(sampled.normal.z).toBeCloseTo(-slopeZ / magnitude, 12)
++    }
++  })
++
++  it('returned descriptors cannot corrupt sampler or later heading updates', () => {
++    const ocean = new GerstnerOcean()
++    const before = ocean.sample(5, 8, 2)
++    const waves = ocean.getWaves()
++    // A GPU consumer may repack/mutate its copy; the ocean remains authoritative.
++    const writable = waves as Array<{ direction: { x: number; y: number }; amplitude: number; wavelength: number; speed: number }>
++    writable[0].amplitude = 999
++    writable[0].direction.x = 999
++    writable.splice(1)
++    expect(ocean.sample(5, 8, 2)).toEqual(before)
++    ocean.setHeading({ x: 0, y: 1 })
++    expect(ocean.getWaves()).toHaveLength(5)
++    expect(ocean.getWaves()[0].direction.y).toBeCloseTo(1, 12)
++  })
++})
++
++describe('collision correction', () => {
++  it('changes only planar state and preserves vertical rates and buoyancy reference', () => {
++    const engine = sailingEngine()
++    const reference = sailingEngine()
++    let waterLevel = 0
++    for (const item of [engine, reference]) {
++      item.setState({ x: 0, y: 0 }, 0.35)
++      item.setWind({ x: 0, y: 1 }, 0)
++      item.setConfig({ buoyancyEnabled: true })
++      item.setBaseY(2)
++      item.setWaveSampler((x, z) => waterLevel + x * 0.03 - z * 0.05)
++      item.step({ deltaSeconds: dt })
++    }
++    waterLevel = 0.8
++    for (let frame = 0; frame < 20; frame++) {
++      engine.step({ deltaSeconds: dt })
++      reference.step({ deltaSeconds: dt })
++    }
++    const before = engine.getVisualState()
++    expect(Math.abs(before.position.y - 2)).toBeGreaterThan(0.01)
++    expect(Math.abs(before.pitch)).toBeGreaterThan(0.001)
++    expect(Math.abs(before.heel)).toBeGreaterThan(0.001)
++    const position = { x: 10, y: 6 } // Same water height: .03 * 10 - .05 * 6 = 0.
++    const velocity = { x: 3, y: -2 }
++    engine.correctHorizontalMotion(position, velocity)
++    position.x = 999
++    velocity.y = 999
++    const corrected = engine.getVisualState()
++    expect(corrected.position).toEqual({ x: 10, y: before.position.y, z: 6 })
++    expect(corrected.velocity).toEqual({ x: 3, y: 0, z: -2 })
++    expect(corrected.heading).toBe(before.heading)
++    expect(corrected.pitch).toBe(before.pitch)
++    expect(corrected.heel).toBe(before.heel)
++    // Equal local water profiles isolate retained heave/pitch/heel rates and offset.
++    engine.stepBuoyancy({ deltaSeconds: dt })
++    reference.stepBuoyancy({ deltaSeconds: dt })
++    expect(engine.getVisualState().position.y).toBeCloseTo(reference.getVisualState().position.y, 12)
++    expect(engine.getVisualState().pitch).toBeCloseTo(reference.getVisualState().pitch, 12)
++    expect(engine.getVisualState().heel).toBeCloseTo(reference.getVisualState().heel, 12)
++  })
++})
+diff --git a/test/utils/authored-articulated.ts b/test/utils/authored-articulated.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..2790c31ff792bc312fc4a479fc384d5f1ea2eeda
+--- /dev/null
++++ b/test/utils/authored-articulated.ts
+@@ -0,0 +1,32 @@
++import type {ArticulatedBodyDefinition} from '../../src/dynamics/articulated.js'
++
++// Exact rest topology/coordinates from tools/sailor-models/build-sailor.mjs rig().
++// Numeric extraction keeps this headless fixture independent of GLB/Three.
++export const authoredNodes = [
++  ['root',-1,0,0,0],['hips',0,0,.87,0],['spine',1,0,1.05,0],
++  ['chest',2,0,1.27,0],['neck',3,0,1.425,0],['head',4,0,1.49,0],
++  ['arm_L',3,.205,1.355,0],['elbow_L',6,.265,1.115,0],['wrist_L',7,.3,.895,.015],
++  ['thigh_L',1,.115,.86,0],['knee_L',9,.13,.455,0],['ankle_L',10,.13,.095,0],
++  ['arm_R',3,-.205,1.355,0],['elbow_R',12,-.265,1.115,0],['wrist_R',13,-.3,.895,.015],
++  ['thigh_R',1,-.115,.86,0],['knee_R',15,-.13,.455,0],['ankle_R',16,-.13,.095,0],
++] as const
++
++export function authoredBody(bodyId='body',height=8,speed=7,lifetime=7): ArticulatedBodyDefinition {
++  const nodes=authoredNodes.map(([name,parentIndex,x,y,z])=>({
++    position:{x,y:y+height,z},velocity:{x:speed+2.3*(y-.87),y:5.5-2.3*x,z:0},
++    radius:name.includes('head')?.16:name.includes('chest')?.17:.075,
++    orientation:{x:0,y:0,z:0,w:1},parentIndex,
++  }))
++  const links:ArticulatedBodyDefinition['links']=[]
++  const link=(a:number,b:number,range=0,hard=false)=>{
++    const p=nodes[a].position,q=nodes[b].position,max=Math.hypot(q.x-p.x,q.y-p.y,q.z-p.z)
++    links.push({a,b,min:max*(1-range),max,hard})
++  }
++  for(let b=1;b<nodes.length;b++){
++    const a=nodes[b].parentIndex;link(a,b,0,true)
++    const grand=nodes[a].parentIndex
++    if(grand>=0)link(grand,b,/elbow|wrist|knee|ankle/.test(authoredNodes[b][0])?.35:.04)
++  }
++  for(const [a,b] of [[6,12],[9,15],[6,15],[12,9]])link(a,b,.02)
++  return {bodyId,nodes,links,hinges:[{a:9,b:10,c:11,sign:1},{a:6,b:7,c:8,sign:-1},{a:15,b:16,c:17,sign:1},{a:12,b:13,c:14,sign:-1}],frame:{left:6,right:12,top:3,bottom:1},lifetime}
++}
+diff --git a/test/utils/frozen-sailor-impact.README.md b/test/utils/frozen-sailor-impact.README.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..7c3420df0b144c3a2f6094216b1a20e9197dda10
+--- /dev/null
++++ b/test/utils/frozen-sailor-impact.README.md
+@@ -0,0 +1,18 @@
++# Frozen historical test reference
++
++`frozen-sailor-impact.ts` is a byte-exact test-only historical copy of
++`apps/game-client/src/simulation/SailorImpactPhysics.ts` from outer commit
++`c331ffed29b4074c620c14517f18c5f78e310586`, captured before Task3 extraction.
++
++Original/copy: 12,236 bytes; SHA256
++`6228963c55ea245312fa713b6293ec7f5e1783902cc0ae2cf8e3d44881f9be9c`.
++
++Do not modernize this reference or copy new numeric-kernel logic into it. It
++provides an independent original-algorithm oracle for authored18-node
++freeflight, genuine above-water wave entry/buoyancy/sinking/expiry, and timing
++defect reproduction. The numeric production solver does not import this file.
++The existing root Three dependency is used only by this headless historical
++test fixture. No renderer dependency is added to physics-core production.
++
++The versioned helper makes those comparisons reproducible in a fresh checkout
++without private ignored `.superpowers` captures or workstation paths.
+diff --git a/test/utils/frozen-sailor-impact.ts b/test/utils/frozen-sailor-impact.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..93be9e0e040c4d66fdae134f2c25c27463d46f2a
+--- /dev/null
++++ b/test/utils/frozen-sailor-impact.ts
+@@ -0,0 +1,157 @@
++import * as THREE from 'three'
++
++const STEP=1/120,LIFETIME=7,CAP=12
++type Particle={bone:THREE.Bone;p:THREE.Vector3;previous:THREE.Vector3;v:THREE.Vector3;orientation:THREE.Quaternion;radius:number}
++type Link={a:number;b:number;min:number;max:number}
++type Hinge={a:number;b:number;c:number;sign:number}
++type Body={root:THREE.Object3D;targetId:string;eventId:string;slot:number;casualty:boolean;age:number;wet:number;contact:'air'|'deck'|'water';particles:Particle[];links:Link[];hinges:Hinge[];materials:THREE.Material[];originals:Map<THREE.Mesh,THREE.Material|THREE.Material[]>;release:(recover:boolean)=>void}
++export type ImpactSource={root:THREE.Object3D;targetId:string;eventId:string;slot:number;casualty?:boolean;velocity:THREE.Vector3;release:(recover:boolean)=>void}
++export type ImpactSurface={point:THREE.Vector3;normal:THREE.Vector3}
++export type ImpactEnvironment={water:(x:number,z:number,time:number)=>number;deck:(targetId:string,point:THREE.Vector3,previous:THREE.Vector3)=>ImpactSurface|undefined}
++
++/** Actual loaded walkable deck/hull triangles, expressed in the moving vessel frame. */
++export function loadedDeckCollider(prototype:THREE.Object3D,matrix:THREE.Matrix4){
++  const inverse=matrix.clone().invert(),normalMatrix=new THREE.Matrix3().getNormalMatrix(matrix)
++  const surfaces=['hull','deck'].map(name=>prototype.getObjectByName(name)!).filter(Boolean)
++  const bounds=new THREE.Box3().setFromObject(surfaces.find(s=>s.name==='deck')!)
++  return (point:THREE.Vector3,previous:THREE.Vector3):ImpactSurface|undefined=>{
++    const p=point.clone().applyMatrix4(inverse),before=previous.clone().applyMatrix4(inverse)
++    if(p.x<bounds.min.x||p.x>bounds.max.x||p.z<bounds.min.z||p.z>bounds.max.z||p.y>bounds.max.y+.4||before.y<bounds.min.y-.3)return
++    const hit=new THREE.Raycaster(new THREE.Vector3(p.x,Math.max(p.y,before.y)+1,p.z),new THREE.Vector3(0,-1,0)).intersectObjects(surfaces,false)[0]
++    if(!hit?.face||before.y<hit.point.y-.2||p.y>hit.point.y+.4)return
++    return {point:hit.point.clone().applyMatrix4(matrix),normal:hit.face.normal.clone().applyNormalMatrix(new THREE.Matrix3().getNormalMatrix(hit.object.matrixWorld)).applyNormalMatrix(normalMatrix).normalize()}
++  }
++}
++
++/** World-space position solver. Only accepted Native time advances its fixed substeps. */
++export class SailorImpactPhysics {
++  readonly group=new THREE.Group()
++  private bodies:Body[]=[]
++  private remainder=0
++  private spawned=0
++  private expired=0
++  private disposed=false
++  constructor(parent:THREE.Object3D){this.group.name='sailor_impacts';parent.add(this.group)}
++  get available(){return this.disposed?0:CAP-this.bodies.length}
++  occupied(targetId:string){return new Set(this.bodies.filter(b=>b.targetId===targetId).map(b=>b.slot))}
++  recovering(targetId:string){return this.bodies.filter(b=>b.targetId===targetId&&!b.casualty).length}
++  spawn(source:ImpactSource,reducedMotion=false){
++    if(!this.available)return false
++    source.root.updateWorldMatrix(true,true)
++    const skin=source.root.getObjectByName('sailor_body')
++    if(!(skin instanceof THREE.SkinnedMesh))return false
++    const centre=skin.skeleton.bones[1].getWorldPosition(new THREE.Vector3())
++    const forward=source.velocity.clone();forward.y=0
++    if(forward.lengthSq()<1e-8)return false
++    forward.normalize()
++    const casualty=source.casualty!==false,speed=casualty?source.velocity.length():.4,impulse=forward.clone().multiplyScalar(speed*(reducedMotion?.65:1))
++    impulse.y=(casualty?(speed>8?6:5.5):.7)*(reducedMotion?.7:1)
++    const spin=new THREE.Vector3().crossVectors(new THREE.Vector3(0,1,0),forward).multiplyScalar((reducedMotion?.7:2.3)*(casualty?1:.15))
++    const particles=skin.skeleton.bones.map(bone=>{
++      const p=bone.getWorldPosition(new THREE.Vector3()),v=impulse.clone().add(new THREE.Vector3().crossVectors(spin,p.clone().sub(centre)))
++      return {bone,p,previous:p.clone(),v,orientation:bone.getWorldQuaternion(new THREE.Quaternion()),radius:bone.name.includes('head')?.16:bone.name.includes('chest')?.17:.075}
++    })
++    const links:Link[]=[]
++    const link=(a:number,b:number,range=0)=>{const length=particles[a].p.distanceTo(particles[b].p);links.push({a,b,min:length*(1-range),max:length})}
++    for(let b=1;b<particles.length;b++){
++      const a=particles.findIndex(p=>p.bone===particles[b].bone.parent)
++      if(a>=0){link(a,b);const grand=particles.findIndex(p=>p.bone===particles[a].bone.parent);if(grand>=0)link(grand,b,/elbow|wrist|knee|ankle/.test(particles[b].bone.name)?.35:.04)}
++    }
++    // Shoulder/hip braces stop torso collapse and left/right limb inversion.
++    for(const names of [['arm_L','arm_R'],['thigh_L','thigh_R'],['arm_L','thigh_R'],['arm_R','thigh_L']]){
++      const [a,b]=names.map(name=>particles.findIndex(p=>p.bone.name==='sailor_'+name));if(a>=0&&b>=0)link(a,b,.02)
++    }
++    const hinges:Hinge[]=[]
++    for(const side of ['L','R'])for(const [upper,middle,end,sign] of [['thigh','knee','ankle',1],['arm','elbow','wrist',-1]] as const){
++      const [a,b,c]=[upper,middle,end].map(name=>particles.findIndex(p=>p.bone.name===`sailor_${name}_${side}`));hinges.push({a,b,c,sign})
++    }
++    this.group.attach(source.root)
++    const materials:THREE.Material[]=[],copies=new Map<THREE.Material,THREE.Material>(),originals=new Map<THREE.Mesh,THREE.Material|THREE.Material[]>()
++    source.root.traverse(o=>{if(o instanceof THREE.Mesh){originals.set(o,o.material);const own=(material:THREE.Material)=>{let copy=copies.get(material);if(!copy){copy=material.clone();copy.transparent=true;copies.set(material,copy);materials.push(copy)}return copy};o.material=Array.isArray(o.material)?o.material.map(own):own(o.material)}})
++    this.bodies.push({...source,casualty,particles,links,hinges,materials,originals,age:0,wet:0,contact:'air'})
++    this.spawned++;return true
++  }
++  update(acceptedSeconds:number,phase:number,environment:ImpactEnvironment){
++    if(this.disposed||!Number.isFinite(acceptedSeconds)||acceptedSeconds<=0)return
++    // Every body expires by 7s, so an arbitrarily large accepted batch is bounded.
++    const seconds=Math.min(acceptedSeconds,LIFETIME),total=this.remainder+seconds
++    const steps=Math.floor((total+1e-10)/STEP);this.remainder=Math.max(0,total-steps*STEP)
++    for(let step=0;step<steps;step++){
++      const time=phase-seconds+(step+1)*STEP
++      for(const body of this.bodies){
++        body.age+=STEP
++        if(body.contact==='water')body.wet+=STEP
++        else body.contact='air'
++        for(const p of body.particles){p.previous.copy(p.p);p.v.y-=9.81*STEP;p.p.addScaledVector(p.v,STEP)}
++        const surfaces=body.particles.map(p=>environment.deck(body.targetId,p.p,p.previous))
++        for(let iteration=0;iteration<12;iteration++){
++          for(const link of body.links){
++            const a=body.particles[link.a].p,b=body.particles[link.b].p,dx=b.x-a.x,dy=b.y-a.y,dz=b.z-a.z,length=Math.hypot(dx,dy,dz)
++            if(length<1e-8)continue
++            const target=THREE.MathUtils.clamp(length,link.min,link.max)
++            const correction=(length-target)/length*.5
++            a.x+=dx*correction;a.y+=dy*correction;a.z+=dz*correction
++            b.x-=dx*correction;b.y-=dy*correction;b.z-=dz*correction
++          }
++          this.hinges(body)
++          // Resolve the same loaded moving deck plane each iteration; underwater
++          // bodies cannot snap through a hull onto its deck.
++          for(let index=0;index<body.particles.length;index++){
++            const p=body.particles[index],surface=surfaces[index]
++            if(surface){const depth=(p.p.x-surface.point.x)*surface.normal.x+(p.p.y-surface.point.y)*surface.normal.y+(p.p.z-surface.point.z)*surface.normal.z-p.radius;if(depth<0){p.p.addScaledVector(surface.normal,-depth);body.contact='deck'}}
++          }
++        }
++        // Rendered bone lengths are hard constraints, not a tolerated solver
++        // residual. A tree pass restores them exactly; whole-body contact
++        // correction then preserves every length, including first water impact.
++        for(const link of body.links)if(body.particles[link.b].bone.parent===body.particles[link.a].bone){
++          const a=body.particles[link.a].p,b=body.particles[link.b].p,axis=b.clone().sub(a)
++          if(axis.lengthSq()>1e-12)b.copy(a).addScaledVector(axis.normalize(),link.max)
++        }
++        for(let index=0;index<body.particles.length;index++){
++          const p=body.particles[index],surface=surfaces[index]
++          if(surface){const depth=p.p.clone().sub(surface.point).dot(surface.normal)-p.radius;if(depth<0)for(const joint of body.particles)joint.p.addScaledVector(surface.normal,-depth)}
++          const water=environment.water(p.p.x,p.p.z,time)
++          if(p.p.y-p.radius<=water){body.contact='water';const lift=Math.max(0,water+p.radius-body.wet*.45-p.p.y);for(const joint of body.particles)joint.p.y+=lift}
++        }
++        for(const p of body.particles){
++          p.v.copy(p.p).sub(p.previous).multiplyScalar(1/STEP)
++          if(body.contact==='water')p.v.multiplyScalar(.94)
++          else if(body.contact==='deck')p.v.multiplyScalar(.985)
++        }
++      }
++      for(let i=this.bodies.length-1;i>=0;i--)if(this.bodies[i].age>=(this.bodies[i].casualty?LIFETIME:1.25)-1e-8||this.bodies[i].wet>=1.2)this.remove(i,true)
++    }
++    for(const body of this.bodies){this.pose(body);const opacity=Math.min(1,(LIFETIME-body.age)/.7,body.wet?1-body.wet/1.2:1);body.materials.forEach(m=>m.opacity=Math.max(0,opacity))}
++  }
++  private hinges(body:Body){
++    const named=(name:string)=>body.particles.find(p=>p.bone.name==='sailor_'+name)!.p
++    const forward=new THREE.Vector3().crossVectors(named('arm_L').clone().sub(named('arm_R')),named('chest').clone().sub(named('hips'))).normalize()
++    for(const hinge of body.hinges){
++      const a=body.particles[hinge.a].p,b=body.particles[hinge.b].p,c=body.particles[hinge.c].p,axis=c.clone().sub(a).normalize()
++      const pole=forward.clone().addScaledVector(axis,-forward.dot(axis)).normalize().multiplyScalar(hinge.sign)
++      const bend=b.clone().sub(a).dot(pole)
++      // Knees cannot bend backward; elbows flex oppositely in this authored rig.
++      // Torso-derived poles rotate with the body, never with the ship or camera.
++      if(bend<-.002){const correction=(-.002-bend)*2/3;b.addScaledVector(pole,correction);a.addScaledVector(pole,-correction/2);c.addScaledVector(pole,-correction/2)}
++    }
++  }
++  private pose(body:Body){
++    // Set bone world orientation from its simulated child axis, then convert into
++    // its current parent frame. The flying root is independent of vessel motion.
++    for(const p of body.particles){
++      const child=body.particles.find(q=>q.bone.parent===p.bone),world=p.orientation.clone()
++      if(child){const local=child.bone.position.clone().applyQuaternion(p.orientation).normalize(),axis=child.p.clone().sub(p.p).normalize();world.premultiply(new THREE.Quaternion().setFromUnitVectors(local,axis))}
++      const parent=p.bone.parent!;parent.updateWorldMatrix(true,false)
++      p.bone.position.copy(parent.worldToLocal(p.p.clone()))
++      p.bone.quaternion.copy(parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(world))
++      p.bone.updateWorldMatrix(false,false)
++    }
++    body.root.updateMatrixWorld(true);body.root.traverse(o=>{if(o instanceof THREE.SkinnedMesh)o.skeleton.update()})
++  }
++  diagnostics(){return {active:this.bodies.length,cap:CAP,lifetime:LIFETIME,spawned:this.spawned,expired:this.expired,bodies:this.bodies.map(b=>({eventId:b.eventId,targetId:b.targetId,slot:b.slot,casualty:b.casualty,age:b.age,contact:b.contact,position:b.particles[1].p.toArray(),velocity:b.particles[1].v.toArray(),joints:b.particles.map(p=>({name:p.bone.name,position:p.p.toArray()}))}))}}
++  private remove(index:number,finish=false){const [body]=this.bodies.splice(index,1);body.originals.forEach((material,mesh)=>mesh.material=material);body.release(finish&&!body.casualty);body.materials.forEach(m=>m.dispose());this.expired++}
++  removeShip(id:string){for(let i=this.bodies.length-1;i>=0;i--)if(this.bodies[i].targetId===id)this.remove(i)}
++  reset(){while(this.bodies.length)this.remove(this.bodies.length-1);this.remainder=0}
++  dispose(){if(this.disposed)return;this.reset();this.disposed=true;this.group.removeFromParent()}
++}
+diff --git a/test/utils/verify-merge-parity.mjs b/test/utils/verify-merge-parity.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..6cedd4a5a050ecad8b4364e02efb8d01238e5b1e
+--- /dev/null
++++ b/test/utils/verify-merge-parity.mjs
+@@ -0,0 +1,63 @@
++// Run after package build, against the saved pre-merge source supplied as argv[2].
++// Both engines execute real code; no state injection, mocks, or golden-only result.
++import assert from 'node:assert/strict'
++import { readFile } from 'node:fs/promises'
++import { createHash } from 'node:crypto'
++import { pathToFileURL } from 'node:url'
++import { resolve } from 'node:path'
++import ts from 'typescript'
++import { NormPhysicsEngine } from '../../dist/index.js'
++import { GerstnerOcean } from '../../dist/ocean.js'
++
++const baselinePath = resolve(process.argv[2])
++const baselineSource = await readFile(baselinePath, 'utf8')
++const baselineJs = ts.transpileModule(baselineSource, {
++  compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 },
++}).outputText.replaceAll("'./math.js'", JSON.stringify(new URL('../../dist/math.js', import.meta.url).href))
++  .replaceAll("'./ocean.js'", JSON.stringify(new URL('../../dist/ocean.js', import.meta.url).href))
++const { NormPhysicsEngine: BaselineEngine } = await import(`data:text/javascript;base64,${Buffer.from(baselineJs).toString('base64')}`)
++const originalWaves = [[1, .02, .015, .9], [1, .02, -.015, .1], [1, .05, 0, -.6], [.25, .1, .11, 2.05], [.25, .1, -.11, -.05]]
++const originalHeight = (x, z, time) => originalWaves.reduce((height, [a, kx, kz, speed]) => {
++  const k = Math.hypot(kx, kz), wavelength = 2 * Math.PI / k
++  return height + a * Math.sin(2 * Math.PI / wavelength * (kx / k * x + kz / k * z) + speed * time)
++}, 0)
++let comparedTicks = 0
++for (const scenario of ['default', 'original-waves', 'cargo-draft-anchor-shore']) {
++  for (const steps of [[1 / 60], [1 / 30], [1 / 120], [0, 1 / 120, 1 / 60, .2, 1 / 30]]) {
++    const ship = scenario === 'default' ? undefined : { length: 14, beam: 4.2, draft: 1, height: 3.15, mass: 18000, sailArea: 110 }
++    const actual = new NormPhysicsEngine(1.225, ship), baseline = new BaselineEngine(1.225, ship)
++    let time = 0
++    const ocean = new GerstnerOcean()
++    for (const engine of [actual, baseline]) {
++      engine.setState({ x: 13, y: -27 }, .4)
++      engine.setBaseY(-1)
++      engine.setSpeed(3)
++      engine.setWind({ x: -1, y: .3 }, 9)
++      engine.setSailAngle(.8)
++      engine.setControls({ throttle: .1, rudderAngleDeg: 12 })
++      engine.setWaveSampler((x, z) => scenario === 'default' ? ocean.sample(x, z, time).height : originalHeight(x, z, time))
++    }
++    for (let tick = 0; tick < 3600; tick++) {
++      const deltaSeconds = steps[tick % steps.length]
++      time += Math.min(deltaSeconds, .05)
++      for (const engine of [actual, baseline]) {
++        if (scenario === 'cargo-draft-anchor-shore') {
++          if (tick === 300) { engine.setCargoMass(6000); engine.setDraftMeters(1.3) }
++          if (tick === 600) engine.setSailDeployment(0)
++          if (tick === 700) engine.resolveHorizontalContact({ x: 1, y: 0 }, { x: 4, y: 2 })
++          if (tick === 800) engine.stopHorizontalMotion()
++          if (tick === 1200) engine.setControls({ throttle: 0, rudderAngleDeg: 30, crewSteeringForce: 7000 })
++          if (tick === 1600) { engine.setSailDeployment(.7); engine.setSailCondition(.8); engine.setSailPowerScale(1.2) }
++        }
++        const anchored = scenario === 'cargo-draft-anchor-shore' && tick >= 800 && tick < 1200
++        engine[anchored ? 'stepBuoyancy' : 'step']({ deltaSeconds })
++      }
++      const label = `${scenario}; steps=${steps}; tick=${tick}`
++      assert.deepStrictEqual(actual.getVisualState(), baseline.getVisualState(), label)
++      assert.deepStrictEqual(actual.getHorizontalMotion(), baseline.getHorizontalMotion(), label)
++      assert.deepStrictEqual(actual.getWaveSampleDebugInfo(), baseline.getWaveSampleDebugInfo(), label)
++      comparedTicks++
++    }
++  }
++}
++console.log(JSON.stringify({ baselinePath: pathToFileURL(baselinePath).href, baselineSha256: createHash('sha256').update(baselineSource).digest('hex'), scenarios: 3, stepSequences: 4, comparedTicks, result: 'exact state/motion/wave parity at every tick' }, null, 2))
