@@ -9,7 +9,7 @@ var _length := 0.0
 var _ux := 0.0
 var _uz := 0.0
 
-func configure_ports(ports: Array) -> bool:
+func configure_ports(ports: Array, include_shoal_shelf: bool = true) -> bool:
 	for port in ports:
 		if not port is Dictionary:
 			return false
@@ -20,7 +20,7 @@ func configure_ports(ports: Array) -> bool:
 			return false
 	_ports = ports.duplicate(true)
 	_length = 0.0
-	if _ports.size() >= 2:
+	if include_shoal_shelf and _ports.size() >= 2:
 		_home_x = float(_ports[0].x)
 		_home_z = float(_ports[0].z)
 		var dx := float(_ports[1].x) - _home_x

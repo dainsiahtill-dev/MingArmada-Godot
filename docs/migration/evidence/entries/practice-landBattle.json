@@ -1,0 +1,172 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"generation": 8,
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"mode": "native-entry",
+	"scene": "res://game/scenes/practice/practice.gd",
+	"scope": "actual native menu route and GPU viewport",
+	"state": {
+		"acceptedSeconds": 0.0,
+		"context": {
+			"playerName": "沈沧海"
+		},
+		"difficulty": "normal",
+		"generation": 3,
+		"id": "practice-3",
+		"kind": "landBattle",
+		"paused": false,
+		"practice": true,
+		"result": null,
+		"revision": 3,
+		"seed": 1661,
+		"settled": false,
+		"started": true,
+		"state": {
+			"height": 7,
+			"kind": "landBattle",
+			"lastEvent": "ready",
+			"phase": "active",
+			"result": null,
+			"seed": 1661,
+			"selectedUnitId": "player-melee",
+			"terrain": [
+				[
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall"
+				],
+				[
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall"
+				],
+				[
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall"
+				],
+				[
+					"wall",
+					"ground",
+					"ground",
+					"cover",
+					"ground",
+					"cover",
+					"ground",
+					"ground",
+					"wall"
+				],
+				[
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall",
+					"ground",
+					"cover",
+					"ground",
+					"wall"
+				],
+				[
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall",
+					"ground",
+					"ground",
+					"ground",
+					"wall"
+				],
+				[
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall",
+					"wall"
+				]
+			],
+			"turn": 1,
+			"units": [
+				{
+					"attacksLeft": 1,
+					"health": 90,
+					"id": "player-melee",
+					"movesLeft": 3,
+					"role": "melee",
+					"side": "player",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"attacksLeft": 1,
+					"health": 70,
+					"id": "player-musketeer",
+					"movesLeft": 2,
+					"role": "musketeer",
+					"side": "player",
+					"x": 1,
+					"y": 4
+				},
+				{
+					"attacksLeft": 1,
+					"health": 80,
+					"id": "enemy-melee",
+					"movesLeft": 3,
+					"role": "melee",
+					"side": "enemy",
+					"x": 7,
+					"y": 2
+				},
+				{
+					"attacksLeft": 1,
+					"health": 65,
+					"id": "enemy-musketeer",
+					"movesLeft": 2,
+					"role": "musketeer",
+					"side": "enemy",
+					"x": 7,
+					"y": 4
+				}
+			],
+			"width": 9
+		},
+		"targetId": "taiwan-fort"
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

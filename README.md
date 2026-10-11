@@ -1,20 +1,26 @@
 # 海上明旗 · Godot
 
-明郑背景的海商舰队冒险游戏，独立 Godot 迁移仓库。原网页版保留不变。当前已能运行单船航行；完整战斗、经营与历史任务迁移仍在进行。
+明郑背景的海商舰队冒险游戏，独立 Godot 迁移仓库。原网页版保留不变。原生菜单已连接两个生涯、海战练习和船舶图鉴；完整迁移与整机验收仍在进行。
 
 使用 Godot 4.7 打开 [project.godot](project.godot)，按 **F5**。已验证版本为 4.7.2，Windows D3D12 / Forward+，Jolt Physics。
 
-- W / S：升帆、收帆。
-- A / D：左右转舵；默认开启均衡操船辅助。
-- Q / E：调整帆角。
-- Space：暂停、恢复，船只/海面/水手共用暂停后的模拟时间。
-- 1 / 2：船长镜头、高位海图镜头。
-- M / 点击右上小地图：展开试航海图；M / Esc / 关闭按钮返回，保留先前暂停状态。
-- F12：保存实际 viewport PNG 与状态 JSON 到 `docs/migration/evidence/sailing-trial/`。
+默认进入真实主菜单，可选择1650护粮生涯、1661生涯、新建或继续、海战单挑、舰队交战、航行练习、船舶图鉴及航海设置。继续读取原始存档而不旋转备份；无效1650存档进入恢复界面，可导出原文、读取已验证备份或导入v2 JSON。导入先建立实际原生场景，再提交磁盘事务。
 
-海面实验场景另位于 `game/scenes/water_probe/water_probe.tscn`，可单独按 F6 运行。默认航行场景已接入原船模、水手和原物理，不是静态截图。
+海战与航行练习操作：
 
-明代古航图已接入默认试航与两套生涯场景。1650场景为`game/scenes/mingqi/mingqi_scene.tscn`，1661为`game/scenes/legacy/legacy_scene.tscn`，均可单独F6运行；完整主菜单路由仍在迁移。小图读取真实地形与船位；默认试航海图仅显示航位，两个生涯继续使用各自原有导航命令。原生截图和边界说明见[古航图验收](docs/migration/native-nautical-chart-integration.md)。
+- W / S、上下方向键：升帆、收帆；A / D、左右方向键：左右转舵。
+- Q / E：左、右舷开火；Space：朝最近敌船所在一侧开火。
+- 1 / 2 / 3：实心弹、链弹、霰弹；R：自动调帆；[ / ]：调整帆角。
+- Esc：暂停菜单；M / 点击小地图：展开海图。恢复、重启、投降及镜头切换均有可见按钮。
+- 窗口失去焦点后保持暂停；回到窗口后需点击继续，避免意外恢复交战。
+
+两个生涯保留各自的命令与快捷键，详见游戏内操作提示。1661完整海图可点图下达航向；1650点图填入目标后由按钮确认。航行练习展开图显示真实航位，不发经营或舰队命令。
+
+独立航行实验位于`game/scenes/sailing_trial/sailing_trial.tscn`，可F6运行；其旧操作为W/S帆速、A/D转舵、Q/E帆角、Space暂停、1/2镜头、M海图、F12原生截图。水面实验位于`game/scenes/water_probe/water_probe.tscn`。两者继续保留，默认F5入口现在为主菜单。
+
+明代古航图使用纸纹、金色云纹边框和墨绘岸线，并叠加真实浅滩、港口、船位及航向。1650场景为`game/scenes/mingqi/mingqi_scene.tscn`，1661为`game/scenes/legacy/legacy_scene.tscn`。古航图截图见[航图验收](docs/migration/native-nautical-chart-integration.md)，菜单与新增入口见[原生入口验收](docs/migration/native-entry-integration.md)。
+
+使用Godot用户参数`--dev`可显示四小游戏练习及船舶LOD检查。决斗和宴会需点击开始；陆战和寻宝直接进入。原网页QA的十五个场景尚未全部迁移，QA入口会明确报告未就绪。船舶图鉴展示六类真实GLB、三档LOD、帆装及炮组动画；鼠标拖拽旋转、滚轮缩放。
 
 运行独立检查（Node.js + RTK + 本机 Godot 可执行文件）：
 

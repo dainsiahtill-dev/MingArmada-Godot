@@ -2,6 +2,7 @@ extends Node3D
 ## Native opening composition; all game authority remains in MingqiRuntime.
 signal main_menu_requested
 const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
+const Campaign = preload("res://game/domain/mingqi/campaign.gd")
 const Storage = preload("res://game/persistence/save_coordinator.gd")
 const HeightField = preload("res://modules/scene_engine/terrain/height_field.gd")
 const NavalWorldView = preload("res://game/presentation/world/naval_world_view.gd")
@@ -15,6 +16,9 @@ var sea: Node3D
 var services: Node
 var minimap: CanvasLayer
 var settings_storage: RefCounted
+var startup_options: Dictionary = {}
+var initial_save: String = ""
+var startup_receipt: Dictionary = {}
 var library: RefCounted
 var world: Node3D
 var camera: Camera3D
@@ -25,29 +29,70 @@ var sailors: Dictionary = {}
 var tactical := false
 var _capture_mode := false
 var _disposed := false
+var _activated := false
 var _zoom := 1.0
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 func _ready() -> void:
-	DisplayServer.window_set_title("海上明旗 · 1650 厦金护粮")
-	Engine.physics_ticks_per_second = 60; get_viewport().msaa_3d = Viewport.MSAA_4X
 	_capture_mode = "--capture-mingqi" in OS.get_cmdline_user_args()
+	var options := _validate_startup_options()
+	if not options.ok: startup_receipt = options; return
 	var geography: Array = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
-	if not heights.configure_ports(geography) or not runtime.configure(heights.sample_height).ok: push_error("Mingqi native startup failed"); get_tree().quit(1); return
+	if not heights.configure_ports(geography): startup_receipt = {"ok":false,"reason":"geography-invalid"}; return
+	startup_receipt = runtime.configure(heights.sample_height,Campaign.new(options.seed,options.captainName,options.campaignId))
+	if not startup_receipt.ok: return
+	if not initial_save.is_empty():
+		# Continue reads a confirmed slot. Only explicit import/save may rotate disk.
+		startup_receipt = runtime.adopt_save(initial_save,null,_utc())
+		if not startup_receipt.ok: return
+	if startup_options.get("staged",false): runtime.set_pause("loading",true)
 	sea = NavalWorldView.new(); add_child(sea)
-	if not sea.configure(heights.sample_height,geography,runtime.sample_water_height,runtime.snapshot().naval): push_error("Mingqi world failed"); get_tree().quit(1); return
+	if not sea.configure(heights.sample_height,geography,runtime.sample_water_height,runtime.snapshot().naval): _reject_startup("world-startup-failed"); return
 	_sync_view_handles()
 	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
 	interface = Interface.new(); add_child(interface); interface.command_requested.connect(_command); interface.view_requested.connect(func(value: bool): tactical = value)
-	if not interface.configure_chart(heights.sample_height): push_error("Mingqi fleet chart failed"); return
+	if not interface.configure_chart(heights.sample_height): _reject_startup("fleet-chart-startup-failed"); return
 	minimap = SeaChart.new(); add_child(minimap)
-	if not minimap.configure(geography,heights.sample_height,{"bounds":Rect2(-850,-350,1550,1000)}): push_error("Mingqi minimap failed"); return
+	if not minimap.configure(geography,heights.sample_height,{"bounds":Rect2(-850,-350,1550,1000)}): _reject_startup("minimap-startup-failed"); return
 	minimap.chart_requested.connect(func(): interface.open_panel("convoy"); _present(0.0))
 	_present(0)
+	if not initial_save.is_empty(): interface.open_menu()
+	startup_receipt = {"ok":true}
+	if not startup_options.get("staged",false): activate_entry()
 	if _capture_mode: _capture_run.call_deferred()
+func activate_entry() -> Dictionary:
+	if _disposed or not startup_receipt.get("ok",false): return {"ok":false,"reason":"entry-startup-unconfirmed"}
+	if _activated: return {"ok":true}
+	_activated = true
+	get_window().title = "海上明旗 · 1650 厦金护粮"
+	Engine.physics_ticks_per_second = 60; get_viewport().msaa_3d = Viewport.MSAA_4X
+	if initial_save.is_empty(): runtime.set_pause("loading",false)
+	_present(0.0)
+	return {"ok":true}
+func _validate_startup_options() -> Dictionary:
+	var seed: Variant = startup_options.get("seed",1650)
+	var captain: Variant = startup_options.get("captainName","林船长")
+	var id: Variant = startup_options.get("campaignId","mingqi-1650")
+	if not startup_options.get("staged",false) is bool: return {"ok":false,"reason":"invalid-options"}
+	if not seed is int or seed < 0 or seed > 4294967295: return {"ok":false,"reason":"invalid-options"}
+	if not captain is String or Campaign._has_controls(captain): return {"ok":false,"reason":"invalid-options"}
+	captain = captain.strip_edges()
+	if captain.is_empty() or captain.length() > 24 or not Campaign._valid_id(id): return {"ok":false,"reason":"invalid-options"}
+	return {"ok":true,"seed":seed,"captainName":captain,"campaignId":id}
+func _reject_startup(reason: String) -> void:
+	startup_receipt = {"ok":false,"reason":reason}
+	if services: services.dispose(); services.free(); services = null
+	if minimap: minimap.dispose(); minimap.free(); minimap = null
+	if interface: interface.free(); interface = null
+	if sea: sea.dispose(); sea.free(); sea = null
+	world = null; camera = null; effects = null; ships.clear(); sailors.clear()
+
 func _utc() -> String: return Time.get_datetime_string_from_system(true)+".000Z"
 func _command(intent: Dictionary) -> void:
 	var result: Dictionary
 	match intent.get("type"):
+		"menu":
+			result = runtime.command(intent)
+			if result.ok and intent.get("value") == false: runtime.set_pause("loading",false)
 		"open-settings": services.open_settings(); result = {"ok":true}
 		"settings": result = services.change_settings(intent.get("value",{}))
 		"save","save-and-menu":
@@ -58,7 +103,7 @@ func _command(intent: Dictionary) -> void:
 			if result.ok: DisplayServer.clipboard_set(result.json)
 		"import-save":
 			result = runtime.adopt_save(intent.get("json",""),storage,_utc())
-			if result.ok: runtime.set_pause("loading",false); runtime.set_pause("menu",true)
+			if result.ok: interface.open_menu()
 		_: result = runtime.command(intent)
 	if not result.ok: runtime._notify(result.get("reason","command-rejected"))
 	_present(0)
@@ -96,7 +141,7 @@ func _input(event: InputEvent) -> void:
 	if code == KEY_SPACE and not interface.captures_keyboard():
 		runtime.command({"type":"pause"}); get_viewport().set_input_as_handled()
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not event is InputEventKey or event.echo: return
+	if not interface or not event is InputEventKey or event.echo: return
 	if KEYS.has(event.physical_keycode):
 		if not event.pressed or not interface.captures_keyboard(): runtime.set_held(KEYS[event.physical_keycode],event.pressed)
 		return

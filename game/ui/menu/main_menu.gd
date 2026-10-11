@@ -163,6 +163,7 @@ func _theme() -> Theme:
 	for type in ["Label","Button","LineEdit"]: result.set_color("font_color",type,INK)
 	result.set_color("font_disabled_color","Button",Color("82908a"))
 	result.set_color("font_hover_color","Button",INK); result.set_color("font_pressed_color","Button",INK)
+	result.set_color("font_focus_color","Button",INK)
 	result.set_color("font_selected_color","LineEdit",PAPER); result.set_color("selection_color","LineEdit",INK)
 	for state in ["normal","hover","pressed","disabled"]:
 		var color: Color = {"normal":Color("e7ddc4"),"hover":Color("f9edcc"),"pressed":Color("ccb789"),"disabled":Color("ded6c4")}[state]

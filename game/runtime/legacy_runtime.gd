@@ -442,7 +442,7 @@ func save_checkpoint(storage: RefCounted=null) -> Dictionary:
 	_last_receipt = written.duplicate(true)
 	if written.ok: _last_verified = exported.json; _last_receipt.bytes = exported.json.to_utf8_buffer().size()
 	return _last_receipt.duplicate(true)
-func adopt_save(raw: String,storage: RefCounted=null) -> Dictionary:
+func adopt_save(raw: String,storage: RefCounted=null,persist: bool=true) -> Dictionary:
 	var safe := _safe_checkpoint()
 	if not safe.ok: return safe
 	var candidate = Session.new()
@@ -451,7 +451,7 @@ func adopt_save(raw: String,storage: RefCounted=null) -> Dictionary:
 	if candidate.flagship().hull<=0: return _no("旗舰已经沉没")
 	var checkpoint: String = candidate.serialize(); var setups := _adapt(candidate); var bundle := _build(candidate,setups,{})
 	if not bundle.ok: return bundle
-	var adapter: RefCounted = storage if storage else _storage
+	var adapter: RefCounted = (storage if storage else _storage) if persist else null
 	if adapter:
 		if adapter is SaveCoordinator: adapter.validator = validate_save
 		var written: Dictionary = adapter.write_checkpoint(checkpoint)

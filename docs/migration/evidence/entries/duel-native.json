@@ -1,0 +1,284 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"generation": 4,
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"mode": "native-entry",
+	"scene": "res://game/scenes/naval_practice/naval_practice.gd",
+	"scope": "actual native menu route and GPU viewport",
+	"state": {
+		"naval": {
+			"battleId": "practice-duel-24184-1",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [
+				{
+					"age": 1.05,
+					"ammo": "solid",
+					"id": "shot-1",
+					"position": {
+						"x": -1.25165486401738,
+						"y": 5.14960855094236,
+						"z": 31.7963746670066
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": 2.5412810818882,
+						"y": -3.16677656063241,
+						"z": -64.5573534181309
+					}
+				},
+				{
+					"age": 0.966666666666668,
+					"ammo": "solid",
+					"id": "shot-3",
+					"position": {
+						"x": 0.000816896011564166,
+						"y": 5.35271743819246,
+						"z": 36.9157704959563
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": 0.246486463096397,
+						"y": -2.37669564394384,
+						"z": -64.6099039066195
+					}
+				},
+				{
+					"age": 0.883333333333334,
+					"ammo": "solid",
+					"id": "shot-5",
+					"position": {
+						"x": 1.61860236706354,
+						"y": 5.51803750491568,
+						"z": 42.3313171155959
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -2.07099967251302,
+						"y": -1.55640763933197,
+						"z": -64.5768671132623
+					}
+				},
+				{
+					"age": 0.800000000000001,
+					"ammo": "solid",
+					"id": "shot-7",
+					"position": {
+						"x": 3.63929418345542,
+						"y": 5.63779940249859,
+						"z": 48.0215488069047
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -4.37140277152866,
+						"y": -0.705326134216107,
+						"z": -64.4583047237214
+					}
+				}
+			],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 63,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 100.0,
+					"dimensions": {
+						"draft": 2.0,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 100.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "逐浪号",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": -1.23551951102985,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 2.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.0,
+						"heel": 0.017809523635475,
+						"pitch": 0.0928960869887537,
+						"position": {
+							"x": 0.469508082436948,
+							"y": 0.261289112439002,
+							"z": 0.137393594014223
+						},
+						"velocity": {
+							"x": 0.849626638432736,
+							"y": 0.0,
+							"z": 0.180385929269011
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 39
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 64,
+					"cooldownSeconds": {
+						"port": 5.96666666666667,
+						"starboard": 0.0
+					},
+					"crew": 100.0,
+					"dimensions": {
+						"draft": 3.2,
+						"length": 40.0,
+						"width": 11.0
+					},
+					"hull": 100.0,
+					"id": "enemy-1",
+					"kind": "voc",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "VOC武装商船",
+					"rudder": -0.0181291271690011,
+					"sail": 100.0,
+					"sailAngle": -1.24307409896832,
+					"sailDeployment": 0.65,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 3.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "hostile",
+					"visual": {
+						"heading": -0.000150688038984041,
+						"heel": 0.0084158451369051,
+						"pitch": 0.0362819098635156,
+						"position": {
+							"x": 1.83702831805403,
+							"y": -0.128847300926677,
+							"z": 105.080086431636
+						},
+						"velocity": {
+							"x": 0.434776897171643,
+							"y": 0.0,
+							"z": 0.121399183723466
+						}
+					}
+				}
+			],
+			"status": "active",
+			"tick": 63,
+			"time": 1.05,
+			"wind": {
+				"direction": {
+					"x": -0.8,
+					"y": -0.6
+				},
+				"speed": 14.0
+			}
+		},
+		"runtime": {
+			"generation": 1,
+			"handlingMode": "assisted",
+			"mode": "duel",
+			"notice": "",
+			"pauseReasons": [],
+			"paused": false,
+			"surrenderQuote": {}
+		}
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

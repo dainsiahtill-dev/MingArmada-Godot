@@ -32,16 +32,16 @@ var _disposed := false
 var _capture_mode := false
 
 func _ready() -> void:
-	DisplayServer.window_set_title("海上明旗 · 1661 航海生涯")
-	Engine.physics_ticks_per_second = 60; get_viewport().msaa_3d = Viewport.MSAA_4X
 	_capture_mode = "--capture-legacy" in OS.get_cmdline_user_args()
-	if not heights.configure_ports(Catalog.DATA.PORTS): push_error("Legacy geography failed"); return
-	var options := startup_options.duplicate(true); options.storage = storage
+	if not heights.configure_ports(Catalog.DATA.PORTS,false): push_error("Legacy geography failed"); return
+	var options := startup_options.duplicate(true); options.erase("staged"); options.storage = storage
 	startup_receipt = runtime.configure(heights.sample_height,options)
 	if not startup_receipt.ok: push_error("Legacy runtime startup: "+startup_receipt.get("reason","")); return
 	if not initial_save.is_empty():
-		startup_receipt = runtime.adopt_save(initial_save,storage)
+		startup_receipt = runtime.adopt_save(initial_save,null,false)
 		if not startup_receipt.ok: return
+		runtime.set_pause("loading",true)
+	if startup_options.get("staged",false): runtime.set_pause("loading",true)
 	sea = Sea.new(); add_child(sea)
 	if not sea.configure(heights.sample_height,Catalog.DATA.PORTS,runtime.sample_water_height,runtime.snapshot().naval): push_error("Legacy world startup failed"); return
 	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
@@ -57,7 +57,15 @@ func _ready() -> void:
 	minimap.chart_requested.connect(func(): interface.open_panel("chart"); _present(0.0))
 	_present(0.0)
 	if not initial_save.is_empty(): interface.open_menu()
+	if not startup_options.get("staged",false): activate_entry()
 	if _capture_mode: _capture_run.call_deferred()
+
+func activate_entry() -> void:
+	if not startup_receipt.get("ok",false) or not sea: return
+	get_window().title = "海上明旗 · 1661 航海生涯"
+	Engine.physics_ticks_per_second = 60; get_viewport().msaa_3d = Viewport.MSAA_4X
+	if initial_save.is_empty(): runtime.set_pause("loading",false)
+	_present(0.0)
 
 func _command(intent: Dictionary) -> Dictionary:
 	var receipt: Dictionary

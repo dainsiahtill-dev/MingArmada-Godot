@@ -13,6 +13,7 @@ func _run() -> void:
 	root.size = Vector2i(1600,900)
 	var scene := Scene.new(); root.add_child(scene)
 	await process_frame; scene.set_physics_process(false)
+	check(scene.get("startup_receipt") is Dictionary and scene.get("startup_receipt").get("ok") == true,"default scene exposes completed startup receipt")
 	check(scene.ships.size() == 5 and scene.sailors.size() == 5,"actual opening composes five imported models and crew adapters")
 	check(scene.get("services") != null,"native Mingqi scene owns settings and actual audio presentation")
 	var crew := 0
