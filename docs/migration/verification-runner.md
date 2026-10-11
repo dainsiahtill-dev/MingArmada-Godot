@@ -19,9 +19,9 @@ Godot may print a `SCRIPT ERROR` and still exit zero. A passing run therefore re
 
 - Process exits zero without a timeout or launch error.
 - Full stdout and stderr contain no `SCRIPT ERROR:`, `ERROR:`, parse/compile error, or failed script/resource load.
-- Exactly one completion line starts with that test's own printed marker and reports `failures=0` or `PASS (0)`.
+- Exactly one completion line starts with that test's own printed marker and reports `failures=0`, `PASS (0)`, or an explicit `_PASS assertions=N [cases=N]`.
 
-The marker comes from the script's completion `print` containing `failures` or `PASS`. A new test without a supported completion print fails verification. Engine startup alone, another test's marker, duplicated completions, and a nonzero failure count all fail. Eleven built-in assertions exercise these acceptance cases before any suite run, including errors after a printed pass. These self-tests were first run against exit-code-only acceptance and failed on the zero-exit script-error case.
+The marker comes from the script's completion `print`, with an explicit quoted `_PASS` preferred over failure branches. A variable named `failures` cannot make a later diagnostic `_FAIL` into the success marker. A new test without a supported completion print fails verification. Engine startup alone, another test's marker, duplicated completions, and a nonzero failure count all fail. Sixteen built-in assertions exercise these acceptance cases before any suite run, including errors after a printed pass and completion discovery with later failure branches. These self-tests were first run against exit-code-only acceptance and failed on the zero-exit script-error case; the later discovery tests reproduced a false failure despite both naval scripts printing their correct PASS markers.
 
 `docs/migration/evidence/verification.json` records actual version output, discovered tests, each invocation, complete stdout/stderr, exit code, duration, timeout state, completion identity, rejection reasons, and aggregate status. Each invocation overwrites this file with its own scope. The runner returns nonzero if version probing or any selected test fails. Console output shows one concise verdict per test; exact diagnostics remain in JSON.
 

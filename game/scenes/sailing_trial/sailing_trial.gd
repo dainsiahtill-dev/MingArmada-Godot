@@ -26,12 +26,12 @@ func _ready() -> void:
 	Engine.physics_ticks_per_second = 120
 	get_viewport().msaa_3d = Viewport.MSAA_4X
 	capture_mode = "--capture" in OS.get_cmdline_user_args()
-	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/water-probe-terrain.json"))
-	if not parsed is Dictionary or not parsed.get("ports") is Array:
-		push_error("Invalid source geography fixture")
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
+	if not parsed is Array:
+		push_error("Invalid sailing geography")
 		get_tree().quit(1)
 		return
-	heights.configure_ports(parsed.ports)
+	heights.configure_ports(parsed)
 	if not runtime.configure(heights.sample_height):
 		push_error("Native ship solver configuration failed")
 		get_tree().quit(1)
@@ -61,9 +61,7 @@ func _ready() -> void:
 	_update_camera(runtime.snapshot())
 	world = WorldView.new()
 	add_child(world)
-	var image := Image.load_from_file(ProjectSettings.globalize_path("res://assets/textures/waternormals.jpg"))
-	image.generate_mipmaps()
-	if not world.configure(heights.sample_height, WaveDescriptor.original_descriptors(), {"camera": camera, "normal_texture": ImageTexture.create_from_image(image), "ports": parsed.ports, "resolution": 64, "chunk_radius": 2, "collision": false, "visual_style": 1}):
+	if not world.configure(heights.sample_height, WaveDescriptor.original_descriptors(), {"camera": camera, "ports": parsed, "resolution": 64, "chunk_radius": 2, "collision": false, "visual_style": 1}):
 		push_error("World composition failed")
 		get_tree().quit(1)
 		return

@@ -14,7 +14,7 @@
 
 - 原网页目录只读；所有Godot产品文件写入用户指定独立目录。
 - `modules/physics_engine`不得引用scene、game、UI；`modules/scene_engine`不得调用naval或domain；低层不得反引game。
-- 同一五分量原波场、明确heading/GLB坐标适配、120Hz物理/60Hz战斗经营、已消耗时间；不得暗改海面或船高。
+- 同一五分量原波场、明确heading/GLB坐标适配、已消耗时间；不得暗改海面或船高。来源 Encounter 直接以 60 Hz 调用船只物理，迁移保留该步长；独立航行实验为 120 Hz，不能据此改变来源 Encounter。
 - 保存、命令、伤亡、货物及receipt保持校验和守恒；不得以截图样机替代完整迁移。
 - 所有shell/subprocess以rtk开头；Root负责Git、主项目设置、导入/导出、组合验证及真实画面验收。
 
@@ -58,17 +58,17 @@
 **Files:** `modules/physics_engine/ships/ship_physics.gd`, `ship_parameters.gd`, `manual_handling.gd`, `tests/test_ship_physics.gd`, `tests/fixtures/ship-reference.json`。
 **Interfaces:** configure(spec:Dictionary,terrain:Callable,waves:RefCounted)；step(delta:float,controls:Dictionary)->Dictionary；get_snapshot()->Dictionary，波四点浮力、前进/低速舵/均衡与真实模式保留。
 
-- [ ] 原source导出120Hz四方位、顺逆风、低速转舵、帆速、吃水/搁浅及水线RED黄金轨迹。
-- [ ] 逐函数移植原核心参数/受力/积分，Jolt适配不改变浮力合同；非法输入全拒绝不污染状态。
-- [ ] 数值/稳定性/原生画面GREEN；Root真实W/S/A/D手感及原波水线截图，独立review。
+- [x] 原source导出120Hz四方位、顺逆风、低速转舵、帆速、吃水/搁浅及水线RED黄金轨迹。
+- [x] 逐函数移植原核心参数/受力/积分，Jolt适配不改变浮力合同；非法输入全拒绝不污染状态。
+- [x] 数值/稳定性/原生画面GREEN；Root真实W/S/A/D手感及原波水线截图，独立review。
 
 ## Task5: 海战、导航与舰队
 
 **Files:** `modules/naval_simulation/encounter.gd`, `navigation/wet_route_planner.gd`, `tactics/order_controller.gd`, `combat/cannon_system.gd`, `combat/projectiles.gd`, `tests/test_naval_simulation.gd`。
-**Interfaces:** command(Dictionary)->Dictionary；step(1/60)；snapshot()->Dictionary；drain_events()->Array；reconcile(Array,policy:Dictionary)->Dictionary，原5+1舰身份、六战术、120/60协调。
+**Interfaces:** command(Dictionary)->Dictionary；step(1/60)；snapshot()->Dictionary；drain_events()->Array；reconcile(Array,policy:Dictionary)->Dictionary，原5+1舰身份、六战术、保留来源 Encounter 的直接 60 Hz 船只积分。
 
-- [ ] 炮数/弹药/装填、真实/均衡、六命令、AI、路径失败/有界采样、禁航AI漏炮及惯性黄金反例RED。
-- [ ] 移植弹道/碰撞/伤害/沉没、wet route、tack/避碰/重试、原子reconcile，不用电影动画代替实弹。
+- [x] 炮数/弹药/装填、真实/均衡、六命令、AI、路径失败/有界采样、禁航AI漏炮及惯性黄金反例RED。
+- [x] 移植弹道/碰撞/伤害/沉没、wet route、tack/避碰/重试、原子reconcile，不用电影动画代替实弹。
 - [ ] 规则/守恒GREEN；Root三船/六船实际交战/绕障及性能，独立review。
 
 ## Task6: 水手与击飞
@@ -85,8 +85,8 @@
 **Files:** `game/domain/mingqi/campaign.gd`, `convoy.gd`, `port_work.gd`, `boarding.gd`, `prizes.gd`, `traffic.gd`, `navigation.gd`, `game/runtime/mingqi_runtime.gd`, `near_field_bridge.gd`, `tests/test_mingqi_rules.gd`。
 **Interfaces:** 原v2 canonical状态、command/advance/serialize/restore和nativePolicy；Runtime唯一时间，命令与桥接原子拒绝。
 
-- [ ] 原原子拒绝、幂等、两合同货物/人员、近远场交接、八方位水深、治疗时间、损伤保留、卖船立即退役RED。
-- [ ] 逐模块迁移，不将状态写进Node/UI，不用随机任务替代原合同；UI全语义另接Task10。
+- [x] 原原子拒绝、幂等、两合同货物/人员、近远场交接、八方位水深、治疗时间、损伤保留、卖船立即退役RED。
+- [x] 逐模块迁移，不将状态写进Node/UI，不用随机任务替代原合同；UI全语义另接Task10。
 - [ ] 黄金规则/实际救治俘获/护航循环GREEN；独立review。
 
 ## Task8: 1661生涯与四类遭遇
@@ -94,9 +94,9 @@
 **Files:** `game/domain/legacy/adventure_session.gd`, `encounters/{duel,land_battle,treasure,banquet}.gd`, `tests/test_legacy_adventure.gd`。
 **Interfaces:** 保留原六港/六主线、经营/装备/退休/投降、四遭遇规则和v1状态。
 
-- [ ] 原已实现选择、收益/损失、任务解锁、退休和四遭遇真实样本RED。
-- [ ] 原生移植全部现有规则；不把未实现历史规划编成新玩法以代替迁移。
-- [ ] 状态机/真实流程GREEN，独立review。
+- [x] 原已实现选择、收益/损失、任务解锁、退休和四遭遇真实样本RED。
+- [x] 原生移植全部现有规则；不把未实现历史规划编成新玩法以代替迁移。
+- [x] 状态机/真实流程GREEN，独立review。
 
 ## Task9: 原生保存及网页兼容
 

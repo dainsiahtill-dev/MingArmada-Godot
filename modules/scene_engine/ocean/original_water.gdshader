@@ -24,6 +24,7 @@ uniform sampler2D coast_distance_texture : repeat_disable, filter_linear;
 uniform bool has_coast_distance = false;
 #include "res://modules/scene_engine/ocean/wave_functions.gdshaderinc"
 #include "res://modules/scene_engine/ocean/coastal_wave_functions.gdshaderinc"
+#include "res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc"
 
 varying vec3 world_position;
 varying float wave_height;
@@ -101,29 +102,30 @@ void fragment() {
 				if (has_coast_distance) { coast_distance = texture(coast_distance_texture, shore_uv).r; }
 			}
 		}
-		float shallow_mix = 1.0 - smoothstep(1.0, 18.0, shore_depth);
-		vec3 azure = vec3(0.15, 0.50, 0.68);
-		vec3 turquoise = vec3(0.24, 0.78, 0.80);
+		float shallow_mix = 1.0 - smoothstep(1.5, 17.0, shore_depth);
+		float bottom_visibility = (1.0 - smoothstep(0.4, 10.0, shore_depth)) * (1.0 - smoothstep(0.0, 0.7, dry_height));
+		vec3 azure = vec3(0.12, 0.48, 0.66);
+		vec3 turquoise = vec3(0.18, 0.73, 0.73);
 		vec3 bright_water = mix(azure, turquoise, shallow_mix);
 		bright_water *= 0.94 + height_factor * 0.13;
 		bright_water *= 0.92 + max(dot(normal, light_direction), 0.0) * 0.18;
-		bright_water = mix(bright_water, vec3(0.40, 0.78, 0.83), fresnel * 0.25);
-		bright_water += vec3(specular * 0.50);
-		bright_water = mix(bright_water, vec3(0.75, 0.93, 0.97), clamp(debris * 0.28, 0.0, 0.3));
-		// Contours progress from deep water toward the beach. They are bounded by
-		// injected terrain depth, so no sea-wide white rectangle or foam plane.
-		float wet_edge = 1.0 - smoothstep(0.0, 1.2, dry_height);
-		float breaking_zone = (1.0 - smoothstep(17.0, 28.0, coast_distance)) * wet_edge;
+		if (bottom_visibility > 0.001) {
+			vec3 sand_bottom = coastal_sand_bottom(world_xz, normal.xz);
+			float caustic = coastal_caustic_network(world_xz, simulation_time, normal.xz);
+			bright_water = mix(bright_water, sand_bottom, bottom_visibility * 0.20);
+			bright_water += vec3(0.035, 0.050, 0.038) * caustic * bottom_visibility;
+		}
+		bright_water = mix(bright_water, vec3(0.34, 0.72, 0.79), fresnel * 0.21);
+		bright_water += vec3(specular * 0.32);
+		bright_water = mix(bright_water, vec3(0.71, 0.89, 0.93), clamp(debris * 0.12, 0.0, 0.16));
 		float shore_noise = texture(normal_texture, world_xz * 0.06 + vec2(simulation_time * 0.012, -simulation_time * 0.009)).g;
-		float breaker_phase = coast_distance * 0.36 + simulation_time * 1.05 + (shore_noise - 0.5) * 2.5;
-		float breakup = smoothstep(0.20, 0.73, foam_noise);
-		float breaker = smoothstep(0.20, 0.88, cos(breaker_phase)) * (0.35 + breakup * 0.65);
-		float edge_froth = (1.0 - smoothstep(1.0, 6.0, coast_distance)) * (0.40 + foam_noise * 0.5);
-		float shore_foam = clamp((breaker * 0.82 + edge_froth) * breaking_zone, 0.0, 1.0);
-		float rolling_crest = smoothstep(1.95, 2.6, foam_factor) * 0.38;
-		bright_water = mix(bright_water, vec3(0.92, 0.99, 1.0), max(shore_foam, rolling_crest));
+		float shore_foam = coastal_breaker_foam(coast_distance, shore_depth, dry_height, world_xz, simulation_time, foam_noise, shore_noise);
+		float rolling_crest = smoothstep(2.05, 2.65, foam_factor) * 0.18;
+		bright_water = mix(bright_water, vec3(0.91, 0.97, 0.95), max(shore_foam, rolling_crest));
 		final_color = bright_water;
-		output_alpha = clamp(0.87 + shallow_mix * 0.06 + fresnel * 0.10 + shore_foam * 0.25, 0.0, 1.0);
+		// Deep water must hide the edge of the streamed seabed. Keep the same
+		// 0.78 base opacity at the shallowest visible bottom.
+		output_alpha = clamp(1.0 - bottom_visibility * 0.22 + fresnel * 0.07 + shore_foam * 0.22, 0.0, 1.0);
 	}
 
 	float distance_xz = length(camera_position.xz - world_xz);

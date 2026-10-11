@@ -1,0 +1,38 @@
+extends SceneTree
+const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
+var failures := 0
+var assertions := 0
+func check(ok: bool, detail: String) -> void:
+	assertions += 1
+	if not ok: failures += 1; printerr("FAIL: ",detail)
+func _initialize() -> void:
+	var runtime := Runtime.new()
+	check(runtime.configure(func(_x: float,_z: float)->float: return -24.0).ok,"runtime builds native opening without browser/JS")
+	var packet: Dictionary = runtime.snapshot()
+	check(packet.campaign.currentPortId == "xiamen" and packet.naval.battleId.contains(":native:"),"business and native identities projected together")
+	var result: Dictionary = runtime.command({"type":"accept-convoy","commandId":"runtime-accept","expectedRevision":packet.campaign.revision})
+	check(result.ok,"actual acceptance loads convoy through live native fence")
+	packet = runtime.snapshot()
+	check(packet.runtime.controllableShipIds.has(packet.campaign.flagshipId),"live permission reaches UI")
+	check(runtime.set_time_scale(0.25).ok,"quarter-speed tactical scheduler allowed")
+	var before: Dictionary = runtime.snapshot()
+	for i in 240: runtime.advance(1.0/60)
+	packet = runtime.snapshot()
+	check(packet.naval.tick-before.naval.tick == 60 and absf(packet.campaign.simulationSeconds-before.campaign.simulationSeconds-1)<1e-10,"business/physics clocks consume same quarter-speed time")
+	runtime.set_pause("player",true)
+	before = runtime.snapshot()
+	runtime.advance(10)
+	check(before.campaign == runtime.snapshot().campaign and before.naval == runtime.snapshot().naval,"pause freezes both authorities without catch-up")
+	check(not runtime.command({"type":"depart","commandId":"paused-depart","expectedRevision":before.campaign.revision}).ok,"paused runtime rejects voyage start")
+	runtime.set_pause("tactical",true); runtime.set_pause("player",false)
+	check(runtime.snapshot().runtime.paused,"independent pause reasons do not resume each other")
+	runtime.set_pause("tactical",false); runtime.set_time_scale(1)
+	before = runtime.snapshot()
+	var accepted: float = runtime.advance(5)
+	packet = runtime.snapshot()
+	check(accepted <= 24.0/60+1e-10 and packet.naval.tick-before.naval.tick <= 24,"large wall-time frame obeys finite native tick budget")
+	check(packet.runtime.rejectedSeconds >= 3 and packet.runtime.notice != "","discarded wall-time is reported rather than silently accelerated")
+	check(not runtime.set_time_scale(2).ok,"unsupported rate rejected")
+	runtime.dispose()
+	print("MINGQI_RUNTIME_TESTS assertions=",assertions," failures=",failures)
+	quit(1 if failures else 0)

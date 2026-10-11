@@ -62,7 +62,7 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 
 func _configure_shore(wave_descriptors: Array = []) -> void:
 	var path := "res://modules/scene_engine/ocean/shore_field.gd"
-	if _visual_style == 0 or _ports.is_empty() or not FileAccess.file_exists(path) or not _ocean.has_method("set_shore_field"):
+	if _visual_style == 0 or _ports.is_empty() or not ResourceLoader.exists(path) or not _ocean.has_method("set_shore_field"):
 		return
 	var minimum := Vector2(INF, INF)
 	var maximum := Vector2(-INF, -INF)
@@ -76,7 +76,7 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 	if _shore_field.configure(_height_sampler, Rect2(minimum, maximum - minimum), 512):
 		_ocean.set_shore_field(_shore_field.get_texture(), _shore_field.get_bounds(), _shore_field.get_coast_texture())
 	var spray_path := "res://modules/scene_engine/ocean/shore_spray.gd"
-	if FileAccess.file_exists(spray_path):
+	if ResourceLoader.exists(spray_path):
 		var spray_script = load(spray_path)
 		_shore_spray = spray_script.new()
 		if _shore_spray.configure(_height_sampler, Rect2(minimum, maximum - minimum), 160):

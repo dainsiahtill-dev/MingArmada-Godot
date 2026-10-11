@@ -1,0 +1,441 @@
+{
+	"assertions": 97,
+	"engine": "4.7.2-stable (official)",
+	"engineArguments": [
+		"--script",
+		"C:/Users/dains/Documents/Git/ming-armada/tools/migration/verify_pack.gd"
+	],
+	"entrypoint": {
+		"crew": {
+			"accepted_time": 0.183333333333333,
+			"impact_count": 0,
+			"lod": 0,
+			"roles": [
+				{
+					"clip": "idle",
+					"role": "helm",
+					"side": "",
+					"slot": 0
+				},
+				{
+					"clip": "idle",
+					"role": "haul",
+					"side": "",
+					"slot": 1
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "port",
+					"slot": 2
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "starboard",
+					"slot": 3
+				},
+				{
+					"clip": "idle",
+					"role": "lookout",
+					"side": "",
+					"slot": 4
+				},
+				{
+					"clip": "idle",
+					"role": "haul",
+					"side": "",
+					"slot": 5
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "port",
+					"slot": 6
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "port",
+					"slot": 7
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "port",
+					"slot": 8
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "port",
+					"slot": 9
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "starboard",
+					"slot": 10
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "starboard",
+					"slot": 11
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "starboard",
+					"slot": 12
+				},
+				{
+					"clip": "idle",
+					"role": "cannon",
+					"side": "starboard",
+					"slot": 13
+				},
+				{
+					"clip": "idle",
+					"role": "walk",
+					"side": "",
+					"slot": 14
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 15
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 16
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 17
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 18
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 19
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 20
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 21
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 22
+				},
+				{
+					"clip": "idle",
+					"role": "idle",
+					"side": "",
+					"slot": 23
+				}
+			],
+			"visible": 24
+		},
+		"disposed": true,
+		"excludedTerrainFixturePresent": false,
+		"mainScene": "res://game/scenes/sailing_trial/sailing_trial.tscn",
+		"processFrames": 8,
+		"readyExecuted": true,
+		"runtime": {
+			"acceptedTime": 0.183333333333333,
+			"configured": true,
+			"pose": {
+				"baseY": 1.43474106602091,
+				"buoyancyOffsetY": -0.00487297141905962,
+				"crew": 100,
+				"dimensions": {
+					"draft": 2.0,
+					"length": 32.0,
+					"width": 9.0
+				},
+				"heading": 0.4,
+				"heave": 0.00243665539267957,
+				"heaveRate": 0.0357919559976635,
+				"heel": -0.00149315165394994,
+				"heelRate": -0.0127719017277749,
+				"hull": 100.0,
+				"id": "flagship",
+				"kind": "fuchuan",
+				"mass": 95000.0,
+				"maxCrew": 100,
+				"maxHull": 100.0,
+				"maxSail": 100.0,
+				"pitch": 0.00296716734268059,
+				"pitchRate": 0.026257349871145,
+				"position": {
+					"x": -219.990698092054,
+					"y": 1.43717772141359,
+					"z": -80.0033724110583
+				},
+				"rig": {
+					"sailAngle": 0.8,
+					"sailCondition": 1.0,
+					"sailDeployment": 0.75,
+					"sailPowerScale": 1.0
+				},
+				"rudder": 0.0,
+				"sail": 100.0,
+				"sailAngle": 0.8,
+				"sailDebug": {
+					"aoaRad": 1.49100575047298,
+					"apparentWindSpeed": 11.9020190651841,
+					"cd": 0.080009962986576,
+					"cl": 0.0111596295726755,
+					"forwardForce": 38826.7900305393,
+					"relativeWindDirDotForward": -0.770317893084743,
+					"runBlend": 0.993646963393567,
+					"sailAngleRad": 0.8,
+					"trueWindSpeed": 12.0,
+					"valid": true
+				},
+				"sailDeployment": 0.75,
+				"time": 0.183333333333333,
+				"velocity": {
+					"x": 0.096635445077031,
+					"y": 0.0,
+					"z": -0.034818496101974
+				},
+				"yawRate": 0.0
+			}
+		},
+		"ship": {
+			"modelPresent": true,
+			"position": {
+				"x": -219.990692138672,
+				"y": 1.43717777729034,
+				"z": -80.0033721923828
+			}
+		},
+		"world": {
+			"hasCoastDistance": true,
+			"hasShoreField": true,
+			"normalTextureHeight": 1024,
+			"normalTextureWidth": 1024,
+			"oceanPresent": true,
+			"shoreSprayMounted": true,
+			"terrainChunks": 25
+		}
+	},
+	"failures": [],
+	"generatedAtUtc": "2026-10-11T06:30:58",
+	"models": [
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod2.glb",
+			"rawGlbPresent": false
+		}
+	],
+	"packPath": "C:/Users/dains/Documents/Git/ming-armada/build/verification/mingarmada.pck",
+	"packSha256": "bed489236e443c9beb4781d3cdca2969777f5067384e9ab7f8bf6e76334bf208",
+	"resourceRoot": "",
+	"resources": [
+		{
+			"byteLength": 439,
+			"parseError": 0,
+			"path": "res://game/data/mingqi_geography.json",
+			"sha256": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d"
+		},
+		{
+			"byteLength": 239841,
+			"parseError": 0,
+			"path": "res://assets/reference/vegetation-geometry.json",
+			"sha256": "14430501f5ee6a08f280fdd8a61af408d59595cf9640cb9543069ef3f0a5cd24"
+		},
+		{
+			"byteLength": 9778,
+			"parseError": 0,
+			"path": "res://game/domain/mingqi/catalog.json",
+			"sha256": "7f11e7d513c824c607063df7a7a336a0542c2e3b6bc3d19714b18969a3a0f113"
+		},
+		{
+			"byteLength": 60959,
+			"parseError": 0,
+			"path": "res://modules/naval_simulation/id-collation.json",
+			"sha256": "10f0ebcde0f3bf4922bafff7b5603ed127b52e427e576767eda81dbd4d5e097b"
+		},
+		{
+			"byteLength": 34855,
+			"parseError": 0,
+			"path": "res://assets/models/ships/ships-manifest.json",
+			"sha256": "59a62d7cc24c7a7ec3c384260e0828f91413575a789f8bf06dabac782ba68f1d"
+		},
+		{
+			"byteLength": 4920,
+			"parseError": 0,
+			"path": "res://assets/models/sailors/sailors-manifest.json",
+			"sha256": "cd2b9379108b0e0b694699f82240ccacebec0da173cd59ea8ecaf79f43b98a65"
+		}
+	],
+	"scope": "Native PCK resource reads, imported-model instantiation, one deterministic naval tick and configured default-scene initialization over eight process frames. Full PASS also requires engine log without SCRIPT ERROR/ERROR. Not a Windows EXE launch or GPU/performance acceptance.",
+	"simulation": {
+		"lastError": "",
+		"pose": {
+			"heading": 0.0000025400700789349,
+			"heel": -0.0000000000368120550917692,
+			"pitch": 0.0,
+			"position": {
+				"x": 0.000105349582975194,
+				"y": 0.0,
+				"z": -0.0000146187493712868
+			},
+			"velocity": {
+				"x": 0.00632097497851161,
+				"y": 0.0,
+				"z": -0.000877124962277206
+			}
+		},
+		"shipId": "pack-player",
+		"tick": 1,
+		"time": 0.0166666666666667
+	},
+	"status": "PASS",
+	"workingDirectory": "C:/Users/dains/AppData/Local/Temp/MingArmada-Pack-Probe-33a754a9dcef49d680b144ab3b18bf42"
+}

@@ -1,7 +1,7 @@
 extends SceneTree
 ## Architecture acceptance: injected callbacks are allowed; concrete reverse imports are not.
 
-const ROOTS := ["res://modules/contracts", "res://modules/physics_engine", "res://modules/scene_engine", "res://game/domain"]
+const ROOTS := ["res://modules/contracts", "res://modules/physics_engine", "res://modules/scene_engine", "res://modules/naval_simulation", "res://game/domain"]
 var failures: Array[String] = []
 var assertions := 0
 var scanned := 0
@@ -34,6 +34,8 @@ func _self_test() -> void:
 	_check(_violations("res://modules/physics_engine/impacts/fixture.gd", 'extends RigidBody3D\nvar sampler: Callable\nfunc _integrate_forces(state: PhysicsDirectBodyState3D):\n\tvar scale = state.step').is_empty(), "Jolt body adapter and injected sampler are allowed")
 	_check(_violations("res://modules/scene_engine/fixture.gd", 'extends Node3D\nconst Contract = preload("res://modules/contracts/wave_descriptor.gd")\nvar sampler: Callable\n# TIME and res://game/ are comments').is_empty(), "Injected renderer and contract dependencies are allowed")
 	_check(not _violations("res://modules/physics_engine/ships/fixture.gd", 'extends RefCounted\nconst Bad = preload("../../scene_engine/world/world_view.gd")').is_empty(), "Relative imports cannot bypass layer guard")
+	_check(not _violations("res://modules/naval_simulation/fixture.gd", 'extends RefCounted\nconst Bad = preload("res://game/runtime/mingqi_runtime.gd")').is_empty(), "Naval simulation cannot import gameplay runtime")
+	_check(not _violations("res://modules/naval_simulation/fixture.gd", 'extends RefCounted\nvar bad = Node3D.new()').is_empty(), "Naval simulation cannot construct render nodes")
 
 func _violations(file: String, source: String) -> Array[String]:
 	var result: Array[String] = []
@@ -55,7 +57,7 @@ func _violations(file: String, source: String) -> Array[String]:
 		if project_classes.has(word) and not _dependency_allowed(file, project_classes[word]):
 			result.append("forbidden project class " + word + " from " + project_classes[word])
 		var numerical := file.begins_with("res://modules/physics_engine/") and not file.begins_with("res://modules/physics_engine/impacts/")
-		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/")
+		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/") or file.begins_with("res://modules/naval_simulation/")
 		if ClassDB.class_exists(word):
 			if pure and (word == "SceneTree" or ClassDB.is_parent_class(word, "Node")):
 				result.append("pure code uses native scene type " + word)
@@ -76,6 +78,7 @@ func _violations(file: String, source: String) -> Array[String]:
 func _dependency_allowed(file: String, dependency: String) -> bool:
 	var allowed: Array[String] = ["res://modules/contracts/"]
 	if file.begins_with("res://modules/physics_engine/"): allowed.append("res://modules/physics_engine/")
+	elif file.begins_with("res://modules/naval_simulation/"): allowed.append_array(["res://modules/naval_simulation/", "res://modules/physics_engine/"])
 	elif file.begins_with("res://modules/scene_engine/"): allowed.append_array(["res://modules/scene_engine/", "res://assets/"])
 	elif file.begins_with("res://game/domain/"): allowed.append("res://game/domain/")
 	for prefix in allowed:

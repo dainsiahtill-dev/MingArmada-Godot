@@ -24,7 +24,8 @@ function assess(result, marker) {
       else {
         const line = completions[0];
         const failures = line.match(/\bfailures\s*=\s*(\d+)\b/);
-        if (failures ? Number(failures[1]) !== 0 : !/\bPASS\s*\(\s*0\s*\)\s*$/.test(line)) reasons.push(`unsuccessful completion: ${line}`);
+        const success = failures ? Number(failures[1]) === 0 : /\bPASS\s*\(\s*0\s*\)\s*$/.test(line) || /_PASS\s+assertions=\d+(?:\s+cases=\d+)?\s*$/.test(line);
+        if (!success) reasons.push(`unsuccessful completion: ${line}`);
       }
     }
   }
@@ -44,7 +45,12 @@ function selfTest() {
   assert.equal(assess({ ...success, stdout: 'save compatibility v2: PASS (1)\n' }, 'save compatibility v2: ').passed, false);
   assert.equal(assess({ ...success, exitCode: 1 }, 'EXAMPLE_TESTS').passed, false);
   assert.equal(assess({ ...success, timedOut: true }, 'EXAMPLE_TESTS').passed, false);
-  console.log('VERIFICATION_RUNNER_SELF_TEST assertions=11 failures=0');
+  assert.equal(assess({ ...success, stdout: 'NAVAL_SIMULATION_PASS assertions=51559 cases=72\n' }, 'NAVAL_SIMULATION_PASS assertions=').passed, true);
+  assert.equal(assess({ ...success, stdout: 'NAVAL_SIMULATION_FAIL count=1\n' }, 'NAVAL_SIMULATION_PASS assertions=').passed, false);
+  assert.equal(assess({ ...success, stdout: 'NAVAL_INVARIANTS_PASS assertions=72\n', stderr: 'SCRIPT ERROR: broken\n' }, 'NAVAL_INVARIANTS_PASS assertions=').passed, false);
+  assert.equal(completionMarker('print("NAVAL_SIMULATION_PASS assertions=", assertions)\nprint("NAVAL_SIMULATION_FAIL count=", failures.size())'), 'NAVAL_SIMULATION_PASS assertions=', 'completion discovery must not choose a later failure branch');
+  assert.equal(completionMarker('print("NAVAL_INVARIANTS_PASS assertions=", assertions)\nfor failure in failures: print("NAVAL_INVARIANT_FAIL ", failure)'), 'NAVAL_INVARIANTS_PASS assertions=', 'failure-variable names must not turn diagnostic prints into success markers');
+  console.log('VERIFICATION_RUNNER_SELF_TEST assertions=16 failures=0');
 }
 
 async function discover(directory) {
@@ -59,8 +65,12 @@ async function discover(directory) {
 
 // Source supplies only each test's identity; success still comes from actual output.
 function completionMarker(source) {
-  const prints = source.split(/\r?\n/).filter(line => /\bprint\s*\(/.test(line) && /failures|["']PASS["']/.test(line));
-  return prints.at(-1)?.match(/\bprint\s*\(\s*["']([^"']+)["']/)?.[1] ?? '';
+  const prints = source.split(/\r?\n/).filter(line => /\bprint\s*\(/.test(line) && /failures|["']PASS["']|_PASS\b/.test(line));
+  const literals = prints.map(line => line.match(/\bprint\s*\(\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
+  const explicitPass = [...new Set(literals.filter(literal => /_PASS\b/.test(literal)))];
+  if (explicitPass.length > 1) return '';
+  if (explicitPass.length === 1) return explicitPass[0];
+  return literals.filter(literal => !/_FAIL\b/.test(literal)).at(-1) ?? '';
 }
 
 async function runGodot(godot, arguments_, timeoutMs) {
@@ -103,7 +113,7 @@ async function main() {
   const allTests = await discover(path.join(root, 'tests'));
   const tests = allTests.filter(file => !filter || path.basename(file).includes(filter));
   if (!tests.length) throw new Error('No tests discovered or selected');
-  const evidence = { schemaVersion: 1, startedAtUtc: new Date().toISOString(), projectRoot: root, godot, timeoutMs, mode: 'headless', filter: filter ?? null, discoveredTests: allTests.map(file => path.relative(root, file).replaceAll('\\', '/')), runnerSelfTest: '11 assertions, failures=0', runs: [] };
+  const evidence = { schemaVersion: 1, startedAtUtc: new Date().toISOString(), projectRoot: root, godot, timeoutMs, mode: 'headless', filter: filter ?? null, discoveredTests: allTests.map(file => path.relative(root, file).replaceAll('\\', '/')), runnerSelfTest: '16 assertions, failures=0', runs: [] };
   const version = await runGodot(godot, ['--headless', '--version'], timeoutMs);
   evidence.version = { ...version, ...assess(version, null) };
   for (const file of tests) {
