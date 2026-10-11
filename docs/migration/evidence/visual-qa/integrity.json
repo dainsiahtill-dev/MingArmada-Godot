@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-11T09:14:29.151Z",
+  "scope": "Saved native GPU capture integrity and metadata checks. Visual judgment belongs to separate review. Fixed capture ticks exclude FPS/performance claims.",
+  "sources": [
+    {
+      "path": "tools/capture-native-qa.gd",
+      "sha256": "5fe70f9dd1c70ff6a88d93d8050392532e0b560d69b6efc9977e0f2e8a6973ad"
+    },
+    {
+      "path": "tools/capture-ship-book-orbit.gd",
+      "sha256": "08f710b0279e26eba2f59f518bf64f17995f2908b7d8a4a55cb876884c4189a5"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "492f9ce1ce56d88a9c6ea77474a35ac6680db114a02266847036aa6b4c374a6b"
+    }
+  ],
+  "verification": {
+    "path": "docs/migration/evidence/verification.json",
+    "sha256": "5ce9660e316837705dcf51b3540044d85f022ca061e83ef49073a5748aaa3fcf",
+    "summary": {
+      "selected": 53,
+      "passed": 53,
+      "failed": 0,
+      "passedAll": true
+    },
+    "godotWarningsAndErrors": []
+  },
+  "tool": "tools/capture-native-qa.gd",
+  "captures": [
+    {
+      "label": "fleet",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "fleet",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 895782,
+      "metadataBytes": 21667,
+      "pngSha256": "aa54bb83cc9cfac93d1115a5aa06e087fe79132079a0daed5a57dd3f3da41aee",
+      "metadataSha256": "aa739320d57bfe510799c0acc585b72afd084f8c878b173cc1c027204f3d7430"
+    },
+    {
+      "label": "damage",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "damage",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 966337,
+      "metadataBytes": 12214,
+      "pngSha256": "f46d43a5b2148e349983b7085ee8f066e5d3afa273af894919b73e94c3e13210",
+      "metadataSha256": "29ef484a2b0a8dd1e27fb24cd2948425dcbb154d40a70d583dde954566684e76"
+    },
+    {
+      "label": "sink",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "sink",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 962479,
+      "metadataBytes": 12211,
+      "pngSha256": "85e4da8a7ffb9484e3cff226a01d133d826eff7d76b973034aeba053b5187cd9",
+      "metadataSha256": "ebc569d8793b62bfadb9c667582f2c4007124e86582f1bea988e98407b6e6751"
+    },
+    {
+      "label": "impact",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "impact",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 996982,
+      "metadataBytes": 13865,
+      "pngSha256": "40d6239f2b48967f9c488f1f56f3c5a17ca35bcd954b592d912634d1ea7e20a1",
+      "metadataSha256": "e0a24072accf3f1c135ebed57a2b87cd67a050f276320086afd4dcf1c1a3bd0c"
+    },
+    {
+      "label": "impact-weak",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "impact-weak",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 999913,
+      "metadataBytes": 14868,
+      "pngSha256": "f5edd624e68c6466c5c479e9fe1a28a6863766ae6c639558f73c5695973c2dc9",
+      "metadataSha256": "90f91869d7904d0009504bfb92308b6982f75967cc74e9059a321eaf0330520d"
+    },
+    {
+      "label": "benchmark",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "benchmark",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 962992,
+      "metadataBytes": 18037,
+      "pngSha256": "ea37942f7fed3a1c7b32a1f5f145d54b814d957f86b2ec863ed3aa3882145087",
+      "metadataSha256": "6556f6d514381e3915cc62bf686d57129d9aebab79b49b7baf8896e112d75fd5"
+    },
+    {
+      "label": "shore-escape",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "shore-escape",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 948962,
+      "metadataBytes": 9964,
+      "pngSha256": "befbd144c29b73a53d0697228aa2fe930bf4b993f98cea4db0f6de00098c093b",
+      "metadataSha256": "ddc3829693aa0b756bdab354556144f1ed35a62c44f216ae14f7faa625e463fa"
+    },
+    {
+      "label": "wave-fisherman",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "wave-fisherman",
+      "acceptedTime": 4.6,
+      "acceptedTick": 276,
+      "activeJoltBodies": 0,
+      "pngBytes": 1011478,
+      "metadataBytes": 13576,
+      "pngSha256": "619c8d3b1980af165cbca2f78f3d7d4977f398047627abe729a1a1b4406f4bcf",
+      "metadataSha256": "c35edb31e6f3e309339694543e20c5f77aa51f164bccea761761c9eee5a69545"
+    },
+    {
+      "label": "wave-patrol",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "wave-patrol",
+      "acceptedTime": 4.6,
+      "acceptedTick": 276,
+      "activeJoltBodies": 0,
+      "pngBytes": 1025382,
+      "metadataBytes": 15865,
+      "pngSha256": "667cf4b8eecc5d3bba6b1c3c4b4f5bf262ccae8dd48e709a56d9cd0a1e9611b1",
+      "metadataSha256": "b22dcbe79e7adb1fe0b77b01e7ecf76a8568b00296fa4008463e3c51d68f6cb2"
+    },
+    {
+      "label": "crew-fuchuan",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-fuchuan",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 890115,
+      "metadataBytes": 9849,
+      "pngSha256": "e08237386047a2e723695324ec5695cc6860a937129ca703d16d153502f53f9d",
+      "metadataSha256": "5890c270e24e83d955828abb0b3137b0db07a6c7e8c9944a8603eb809099387b"
+    },
+    {
+      "label": "crew-fisherman",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-fisherman",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 865959,
+      "metadataBytes": 8258,
+      "pngSha256": "8f14571585b4e269aec26bc8e402d6b5630c356c2068cc491713479e9059c2b2",
+      "metadataSha256": "6d19620518eb4b0ca1d8f20c6266991af0954dc95aefc4023224ab4e87fdbb20"
+    },
+    {
+      "label": "crew-merchant",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-merchant",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 899014,
+      "metadataBytes": 8776,
+      "pngSha256": "ce21089e443886fb3a32f1b1cc21f2cd9dd81918231881bb67fdd951d5d7d2e0",
+      "metadataSha256": "e4f0e5cda0879b7e0a1a43b494775d9fc0740ec5ab2612fd7e8aebb2527a52ed"
+    },
+    {
+      "label": "crew-voc",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-voc",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 904781,
+      "metadataBytes": 9831,
+      "pngSha256": "66ff979b979d9fa4b72369feaea42d9857b94d1c8a598e539933951fb24e5715",
+      "metadataSha256": "39fb49989df1b8d2f6ac0591e89cda95705f0dc7590a0c656b6ca7ba40bf571d"
+    },
+    {
+      "label": "crew-patrol",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-patrol",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 881871,
+      "metadataBytes": 9584,
+      "pngSha256": "592ec7f89f575d05cfe54a6a696e7a26b15e0a3c607ad453c7dd0019802af2b0",
+      "metadataSha256": "284d309f75330b219f7ba827ba30df38aa8fc380ec820f0e13cdf3d24b02feac"
+    },
+    {
+      "label": "crew-heavy",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "crew-heavy",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 922507,
+      "metadataBytes": 8898,
+      "pngSha256": "696e6212d32f5d7ceee621e8bc51048404dd1104e26d46aa79c3206df4891d70",
+      "metadataSha256": "4fffc521b25803dc3f2dcf71123698eb3a9012e8a97d36a487be5e03a4b371bd"
+    },
+    {
+      "label": "sink-real-hit",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "sink",
+      "acceptedTime": 1.06666666666667,
+      "acceptedTick": 64,
+      "activeJoltBodies": 1,
+      "pngBytes": 986907,
+      "metadataBytes": 20077,
+      "pngSha256": "a24f3694ff9f8a854a4cdd9b5cfc44362b349056918ab36495da62c3d855e5ad",
+      "metadataSha256": "6d5855ffef73821d58364583b1835974ace7c778f37768da4ba1d0bef357219c"
+    },
+    {
+      "label": "impact-real-hit",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "impact",
+      "acceptedTime": 0.533333333333333,
+      "acceptedTick": 32,
+      "activeJoltBodies": 2,
+      "pngBytes": 998524,
+      "metadataBytes": 24305,
+      "pngSha256": "e086207d621e443d731bcafad8d2e1cd324171df350020f2c6cca9b38d00848a",
+      "metadataSha256": "563ad9236e9d19c534b1c8c508feef7c72e0582fb9adf597e10f4df88325719e"
+    },
+    {
+      "label": "impact-weak-real-hit",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "impact-weak",
+      "acceptedTime": 0.533333333333333,
+      "acceptedTick": 32,
+      "activeJoltBodies": 2,
+      "pngBytes": 1001232,
+      "metadataBytes": 25313,
+      "pngSha256": "c86ce171891b11d803dacf7e40b77073ac9ae55c3104b633323398ee15409504",
+      "metadataSha256": "b54a7b2b339d96626fe2471d5bcfbc40d2d741ba24475aef545da222ff7179de"
+    },
+    {
+      "label": "impact-weak-recovered",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "impact-weak",
+      "acceptedTime": 2.76666666666667,
+      "acceptedTick": 166,
+      "activeJoltBodies": 1,
+      "pngBytes": 1051372,
+      "metadataBytes": 22368,
+      "pngSha256": "c4459bf5a344733d971553be635b9b0c2dce83b8fff2ed58da382051988f0058",
+      "metadataSha256": "a45c4386d36fb13151c3efa118bbf1816fc7fd95340d363def6dc0360787b55f"
+    },
+    {
+      "label": "fleet-narrow",
+      "viewport": [
+        320,
+        480
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "quality": "balanced",
+      "scenario": "fleet",
+      "acceptedTime": 0.0666666666666667,
+      "acceptedTick": 4,
+      "activeJoltBodies": 0,
+      "pngBytes": 72589,
+      "metadataBytes": 21682,
+      "pngSha256": "7e215ce748c6c2bffd6c41ab4c3c19c5d6e4d778bd37b94885f7487b12f61a94",
+      "metadataSha256": "a9c840f24bc5425bb40ee51f0b830914b462f621f3a0cb8fe3b3bd510400a9b0"
+    }
+  ],
+  "checks": {
+    "realHits": [
+      {
+        "label": "impact-real-hit",
+        "activeJoltBodies": 2,
+        "bodies": [
+          {
+            "id": "impact_886843642736_1",
+            "eventId": "event-9",
+            "targetId": "inspection-voc",
+            "boneCount": 18,
+            "jointCount": 17,
+            "casualty": true,
+            "slot": 9
+          },
+          {
+            "id": "impact_886843642736_2",
+            "eventId": "event-10",
+            "targetId": "inspection-voc",
+            "boneCount": 18,
+            "jointCount": 17,
+            "casualty": true,
+            "slot": 5
+          }
+        ]
+      },
+      {
+        "label": "impact-weak-real-hit",
+        "activeJoltBodies": 2,
+        "bodies": [
+          {
+            "id": "impact_1007505378987_1",
+            "eventId": "event-9",
+            "targetId": "inspection-voc",
+            "boneCount": 18,
+            "jointCount": 17,
+            "casualty": true,
+            "slot": 9
+          },
+          {
+            "id": "impact_1007505378987_2",
+            "eventId": "event-10",
+            "targetId": "inspection-voc",
+            "boneCount": 18,
+            "jointCount": 17,
+            "casualty": false,
+            "slot": 5
+          }
+        ]
+      },
+      {
+        "label": "sink-real-hit",
+        "activeJoltBodies": 1,
+        "bodies": [
+          {
+            "id": "impact_756669224741_1",
+            "eventId": "event-9",
+            "targetId": "inspection-voc",
+            "boneCount": 18,
+            "jointCount": 17,
+            "casualty": true,
+            "slot": 5
+          }
+        ]
+      }
+    ],
+    "weakRecovery": {
+      "label": "impact-weak-recovered",
+      "releasedBodyIds": [
+        "impact_1007505378987_2"
+      ],
+      "activeBodiesBefore": 2,
+      "activeBodiesAfter": 1,
+      "targetVisibleBefore": 22,
+      "targetVisibleAfter": 23,
+      "acceptedTime": 2.76666666666667
+    },
+    "waveHolds": [
+      {
+        "label": "wave-fisherman",
+        "acceptedTime": 4.6,
+        "acceptedTick": 276,
+        "pauseReasons": [
+          "wave"
+        ]
+      },
+      {
+        "label": "wave-patrol",
+        "acceptedTime": 4.6,
+        "acceptedTick": 276,
+        "pauseReasons": [
+          "wave"
+        ]
+      }
+    ]
+  },
+  "isolatedQuality": {
+    "quality": "balanced",
+    "qualityVerifiedInAllCaptureMetadata": true,
+    "sourceVerifiedStoragePrefix": "user://tests/native-qa-capture-%d",
+    "settingsSuffix": "-settings.json",
+    "processIdIsolationVerifiedInCurrentCaptureSource": true,
+    "captureMetadataContainsStoragePath": false
+  }
+}

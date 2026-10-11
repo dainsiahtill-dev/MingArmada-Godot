@@ -100,8 +100,66 @@ func run():
 	await verify_legacy_wrapper()
 	await verify_expanded_container()
 	await verify_mesh_projection_budget()
+	await verify_chart_materials()
+	await verify_port_label_layout()
 	chart.free(); await process_frame
 	finish()
+func verify_chart_materials():
+	var chart = load("res://game/ui/charts/nautical_chart.gd").new(); root.add_child(chart)
+	chart.size=Vector2(600,420); chart.configure([],height,{"compact":true,"span":600})
+	var native = {"playerId":"actual","ships":[{"id":"actual","visual":{"position":{"x":0,"z":0},"heading":0}}]}
+	chart.apply_naval_snapshot(native); await process_frame
+	var polygon = PackedVector2Array([Vector2(-120,-60),Vector2(90,-60),Vector2(90,120)])
+	var mesh = chart._terrain_mesh([polygon])
+	var arrays: Array = mesh.surface_get_arrays(0)
+	var original_uvs = arrays[Mesh.ARRAY_TEX_UV]
+	check(original_uvs is PackedVector2Array and original_uvs.size()==3, "terrain mesh provides one material UV for every actual clipped vertex")
+	if original_uvs is PackedVector2Array and original_uvs.size()==3:
+		check(original_uvs[0].x<0 and original_uvs[0].y<0 and original_uvs[2].x>0 and original_uvs[2].y>0, "land grain spans world origin instead of restarting in each polygon")
+		chart.size=Vector2(900,500); await process_frame
+		var resized_uvs = chart._terrain_mesh([polygon]).surface_get_arrays(0)[Mesh.ARRAY_TEX_UV]
+		check(original_uvs==resized_uvs, "resizing chart preserves texture coordinates on same real world points")
+		native.ships[0].visual.position={"x":23.5,"z":-17.25}; chart.apply_naval_snapshot(native)
+		var moved_uvs = chart._terrain_mesh([polygon]).surface_get_arrays(0)[Mesh.ARRAY_TEX_UV]
+		check(original_uvs==moved_uvs, "compact follow camera preserves world paper grain without swimming")
+		chart.apply_naval_snapshot({"playerId":"actual","ships":[{"id":"actual","visual":{"position":{"x":0,"z":0}}}]})
+		var crossing = chart._terrain_mesh([PackedVector2Array([Vector2(-360,-120),Vector2(-180,-120),Vector2(-180,120),Vector2(-360,120)])])
+		var reference = chart._terrain_mesh([PackedVector2Array([Vector2(-300,-120),Vector2(-180,-120),Vector2(-180,120)])])
+		var crossing_arrays: Array = crossing.surface_get_arrays(0); var reference_uvs = reference.surface_get_arrays(0)[Mesh.ARRAY_TEX_UV]
+		var edge_pixel: Vector2 = chart.projected({"x":-300,"z":-120}); var same_grain := false
+		for i in crossing_arrays[Mesh.ARRAY_VERTEX].size():
+			if crossing_arrays[Mesh.ARRAY_VERTEX][i].is_equal_approx(edge_pixel): same_grain=crossing_arrays[Mesh.ARRAY_TEX_UV][i].is_equal_approx(reference_uvs[0])
+		check(same_grain, "new boundary intersections keep same world UV as adjacent interior geometry")
+	check(chart.has_method("_load_texture"), "chart material loader supports missing-resource fallback")
+	if chart.has_method("_load_texture"):
+		check(chart._load_texture("res://assets/art/maps/missing-chart-material.png")==null, "absent material yields native fallback without load error")
+		check(chart._load_texture("res://game/ui/charts/nautical_chart.gd")==null, "non-texture resource cannot become chart material")
+		check(chart._background is Texture2D and chart._background==chart._load_texture(chart.BACKGROUND), "imported v2 ornament plate loads through guarded resource path")
+		check(chart._land_paper is Texture2D, "imported land paper loads separately from sea ornament")
+		check(chart._fallback_land_paper is Texture2D, "native land material stays available when generated paper is missing")
+		await process_frame
+		var stable_samples := samples; var stable_mesh = chart._land_mesh
+		chart._land_paper=null; chart.queue_redraw(); await process_frame
+		check(samples==stable_samples and chart._land_mesh==stable_mesh, "native land fallback reuses same terrain and mesh without sampling")
+	chart.free(); await process_frame
+func verify_port_label_layout():
+	var chart = load("res://game/ui/charts/nautical_chart.gd").new(); root.add_child(chart); chart.size=Vector2(290,323)
+	var ports = [{"id":"far","name":"远港","x":240,"z":40},{"id":"near","name":"近港","x":30,"z":0},{"id":"cluster-a","name":"甲港","x":30,"z":0},{"id":"cluster-b","name":"乙港","x":30,"z":0},{"id":"edge","name":"外港","x":-510,"z":-500}]
+	chart.configure(ports,height,{"compact":true,"span":1100})
+	chart.apply_naval_snapshot({"playerId":"actual","ships":[{"id":"actual","visual":{"position":{"x":0,"z":0}}}]}); await process_frame
+	check(chart.has_method("_port_labels"), "port labels can resolve crowded live geography before drawing")
+	if chart.has_method("_port_labels"):
+		var labels: Array = chart._port_labels([])
+		check(not labels.is_empty() and labels[0].port_id=="near", "nearest real harbor has label priority independent of catalog order")
+		var separated := true; var contained := true
+		for i in labels.size():
+			contained=contained and chart.map_rect().encloses(labels[i].box)
+			for j in range(i): separated=separated and not labels[i].box.intersects(labels[j].box)
+		check(separated and contained and labels.size()<=3, "compact port labels remain distinct and fully inside actual chart frame")
+		var reserved: Array = [chart.map_rect()]
+		check(chart._port_labels(reserved).is_empty(), "occupied navigation annotations suppress overlapping harbor text")
+		check(ports[0].id=="far" and chart._ports[0].id=="far", "label priority sorting never mutates canonical port order")
+	chart.free(); await process_frame
 func verify_expanded_container():
 	var column = VBoxContainer.new(); column.position=Vector2(0,0); column.size=Vector2(622,600); root.add_child(column)
 	var expanded = load("res://game/ui/charts/nautical_chart.gd").new(); column.add_child(expanded)

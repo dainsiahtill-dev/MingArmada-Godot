@@ -34,6 +34,11 @@ both career scenes; campaign adapters retain their original command semantics.
   rebuilds their pixel geometry without re-reading already cached elevations.
   Each build caches its bounds/rectangle/scale once; contained polygons bypass
   intersection, while crossing/outside polygons retain exact clipping.
+- Every mesh vertex has continuous world material coordinates, with one paper
+  tile per 720 metres. Contained vertices use their original world coordinates;
+  clipped boundary intersections recover theirs through the same projection.
+  Resize and compact follow therefore move the map without moving its paper
+  grain across the real terrain. Adjacent cells share the same material origin.
 
 ## Snapshot and overlay contract
 
@@ -88,33 +93,51 @@ UI refresh. `apply_snapshot` before configuration remains safe.
 
 ## Art, labels and provenance
 
-The generated background is a material/ornament plate at
-`res://assets/art/maps/ming-nautical-chart-v1.png`: aged blue-green parchment and
-engraved golden cloud corners. It contains no replacement geography, title,
-contacts or waypoints. Runtime ink coastlines, mountain hatching, labels, north
-pointer, scale and navigation marks remain live data.
+The second visual pass uses two independent generated materials:
+
+- `res://assets/art/maps/ming-nautical-chart-v2.png`: sea paper and engraved
+  ornamental frame, painted beneath the actual geography.
+- `res://assets/art/maps/ming-nautical-land-paper-v2.png`: golden ocher paper,
+  sampled only through the clipped, cached land mesh's world coordinates.
+
+These materials supply no replacement geography, generated labels, contacts or
+waypoints. Zero-elevation marching contours remain the sole source of coast
+geometry. Two restrained ink passes give those same contours a warm shoreline
+edge and a fine dark pen stroke. Sparse etched relief uses the sampled positive
+elevations, and sits under live harbor names. Fine wave marks and rhumb lines
+are cartographic ornament drawn under land; actual routes retain their own
+dotted marks. North compass, vermilion seal, title and scale use native drawing.
 
 Expanded charts derive intrinsic height from allocated width, world aspect and
 insets, bounded to300–500px. Actual VBox622px now uses about568px geographical
 width; compact290×323px is retained. Expanded selection rings read
 `selectedShipId` independently of native `playerId`; unknown IDs add no contact.
 
-Generated source supplied by the root task:
+Original v1 generated source supplied by the root task, retained as fallback:
 `C:/Users/dains/.codex/generated_images/01a12087-2701-7d12-9091-fd4eb5b1d3be/exec-77234e50-c899-419c-9ebf-09d87b6cac65.png`.
 Reference direction was the user's Ming chart clipboard image at
 `C:/Users/dains/AppData/Local/Temp/codex-clipboard-c324d7d0-9cd4-4aff-8ad0-9e55e8dbde33.png`.
 
-The background loads at construction if its resource exists. Missing artwork
-uses native parchment and teal palette. Titles/footer/compass have pale
-parchment backings; map labels have parchment outlines. Labels use runtime
+Resources load at construction through a guarded texture loader. Missing v2
+sea artwork uses the existing v1 plate, then native parchment and teal. Missing
+land material uses one deterministic native paper texture created at readiness;
+its grain requires no terrain samples, random clock, shader or per-frame
+generation. Artwork is fully local and is not an external runtime dependency.
+Titles/footer/compass have pale parchment backings; map labels have a pale
+continuous ground and parchment outline. Labels use runtime
 SystemFont fallback (`KaiTi`, `Microsoft YaHei`, `Noto Sans CJK SC`) and original
 UTF16 display normalization. Ports cap at three compact/eight expanded labels,
-with rectangle collision checks. Generated text is never used.
+prioritizing distance from the authoritative flagship, with catalog-order tie
+breaking. Four placements are tried around each real harbor marker; all label
+rectangles remain within the actual map and avoid earlier names, fleet marks,
+objective labels, waypoint and site annotations. Canonical port records and
+their order remain detached and unchanged. Generated text is never used.
 
 ## Focused evidence and remaining validation
 
 Direct Godot 4.7.2 headless test: `res://tests/test_nautical_chart.gd`.
-Latest focused result: `NAUTICAL_CHART_TESTS assertions=490 failures=0 samples=43964`.
+Latest focused result after v2 material import, before root GPU validation:
+`NAUTICAL_CHART_TESTS assertions=507 failures=0 samples=46441`.
 
 Meaningful RED was first observed with the new chart missing. Later RED verified
 oversized/nonfinite configuration acceptance and the real default runtime's
@@ -123,14 +146,25 @@ asymmetric analytic coastlines, production HeightField zero-elevation contours,
 land/shoals, frame clipping of batched mesh vertices, metric round trips,
 authority-derived flagship position/heading/team, detached overlays, actual
 Control InputEvent handling, off-map focus/contacts, paused sampler and mesh
-reuse, resize, long voyage eviction budgets and disposal. LegacyRuntime and
+reuse, resize, long voyage eviction budgets and disposal. New material/label
+tests first failed with `assertions=493 failures=3`: missing vertex UVs,
+guarded material loading, and crowded harbor label layout. GREEN now covers
+exact world UV stability under resize and compact movement, agreement of new
+clipped intersections with adjacent original vertices, missing/non-texture
+resource fallback, actual imported v2 sea/land resources, native land material,
+fallback mesh reuse, nearest-port priority, bounded separated
+labels, full reserved-area suppression and unchanged canonical port order.
+LegacyRuntime and
 LegacyChart are exercised directly for nullable inactive navigation.
 
 Headless tests establish authority, geometry, input and bounded sampling.
-Root has imported the asset, captured and personally inspected all nine final
-native1600×900 D3D12 screenshots under `evidence/charts/`. See
-`native-nautical-chart-integration.md` for scene behavior and visual limits.
-GPU frame-rate acceptance remains open. No browser,
+The original v1 pass had root-owned native 1600×900 D3D12 captures under
+`evidence/charts/`; those establish that pass only. Root has imported both v2
+materials, and the focused test confirms they load independently. Fresh GPU
+captures, visual inspection and full-suite evidence belong to the root task
+and are pending at this subtask handoff. See
+`native-nautical-chart-integration.md` for integrated scene behavior and the
+root's final evidence. GPU frame-rate acceptance remains open. No browser,
 full-suite runner, shared evidence file, frozen source checkout, domain module,
 terrain mutation, independent clock or Git operation was used by this subtask.
 Thirty-metre sampling approximates small coast details; compact pixel meshes

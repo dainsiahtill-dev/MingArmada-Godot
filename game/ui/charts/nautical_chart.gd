@@ -6,9 +6,12 @@ const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DEFAULT_BOUNDS = Rect2(-1000,-800,2400,1750)
 const GRID_STEP = 30.0
 const CACHE_LIMIT = 20480
-const BACKGROUND = "res://assets/art/maps/ming-nautical-chart-v1.png"
-const INK = Color("3c4234")
-const GOLD = Color("b3934b")
+const BACKGROUND = "res://assets/art/maps/ming-nautical-chart-v2.png"
+const BACKGROUND_FALLBACK = "res://assets/art/maps/ming-nautical-chart-v1.png"
+const LAND_PAPER = "res://assets/art/maps/ming-nautical-land-paper-v2.png"
+const LAND_GRAIN_SPAN = 720.0
+const INK = Color("423b29")
+const GOLD = Color("b3944f")
 var _ports: Array = []
 var _height: Callable
 var _native: Dictionary = {}
@@ -26,6 +29,8 @@ var _terrain_window: Rect2i
 var _terrain_ready := false
 var _configured := false
 var _background: Texture2D
+var _land_paper: Texture2D
+var _fallback_land_paper: Texture2D
 var _font: SystemFont
 var _title_font: SystemFont
 var _land_mesh: ArrayMesh
@@ -33,14 +38,32 @@ var _shoal_mesh: ArrayMesh
 var _mesh_rect: Rect2
 var _mesh_bounds: Rect2
 var _mesh_ready := false
+var _label_boxes: Array = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP; clip_contents = true; custom_minimum_size = Vector2(160,230)
 	_font = SystemFont.new(); _font.font_names = PackedStringArray(["KaiTi","Microsoft YaHei","Noto Sans CJK SC","sans-serif"])
 	_title_font = SystemFont.new(); _title_font.font_names = PackedStringArray(["KaiTi","STKaiti","Microsoft YaHei","sans-serif"])
-	if ResourceLoader.exists(BACKGROUND): _background = load(BACKGROUND)
+	_background=_load_texture(BACKGROUND)
+	if not _background: _background=_load_texture(BACKGROUND_FALLBACK)
+	_land_paper=_load_texture(LAND_PAPER); _fallback_land_paper=_native_land_paper()
+	texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 	resized.connect(_on_chart_resized)
 	_update_intrinsic_height()
+
+func _load_texture(path: String) -> Texture2D:
+	if not ResourceLoader.exists(path): return null
+	return load(path) as Texture2D
+
+func _native_land_paper() -> Texture2D:
+	# A cached material fallback; no terrain, time or external resource dependency.
+	var image := Image.create_empty(128,128,false,Image.FORMAT_RGBA8)
+	for y in 128:
+		for x in 128:
+			var grain := float(posmod(x*37+y*61+x*y*7,29)-14)/520.0
+			var fiber := 0.018 if posmod(x+y*3,17)<2 else 0.0
+			image.set_pixel(x,y,Color(0.81+grain-fiber,0.68+grain-fiber,0.39+grain-fiber,1))
+	return ImageTexture.create_from_image(image)
 
 func configure(ports: Array, height_sampler: Callable, options: Dictionary = {}) -> bool:
 	dispose()
@@ -137,7 +160,7 @@ func _prepare_terrain() -> void:
 			var points := PackedVector2Array([Vector2(ix,iz)*GRID_STEP,Vector2(ix+1,iz)*GRID_STEP,Vector2(ix+1,iz+1)*GRID_STEP,Vector2(ix,iz+1)*GRID_STEP])
 			var heights := PackedFloat64Array([_sample(ix,iz),_sample(ix+1,iz),_sample(ix+1,iz+1),_sample(ix,iz+1)])
 			_march_cell(points,heights,0.0,_land_polygons,true); _march_cell(points,heights,-4.0,_shoal_polygons,false)
-			if heights[0]>12 and posmod(ix+iz*3,5)==0: _mountains.append({"point":points[0],"height":heights[0]})
+			if heights[0]>12 and posmod(ix+iz*3,11)==0: _mountains.append({"point":points[0],"height":heights[0]})
 
 func _march_cell(points: PackedVector2Array, heights: PackedFloat64Array, level: float, polygons: Array, coast: bool) -> void:
 	var mask := 0
@@ -175,7 +198,7 @@ func _world_pixel(point: Vector2) -> Vector2: return projected({"x":point.x,"z":
 func _terrain_mesh(polygons: Array) -> ArrayMesh:
 	var bounds := view_bounds(); var rect := map_rect(); var scale := rect.size/bounds.size
 	var mask := PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
-	var vertices := PackedVector2Array(); var indices := PackedInt32Array()
+	var vertices := PackedVector2Array(); var indices := PackedInt32Array(); var uvs := PackedVector2Array()
 	for polygon in polygons:
 		var pixels := PackedVector2Array(); var inside := true
 		for point in polygon:
@@ -189,11 +212,16 @@ func _terrain_mesh(polygons: Array) -> ArrayMesh:
 			var triangles := Geometry2D.triangulate_polygon(clipped)
 			var offset := vertices.size()
 			vertices.append_array(clipped)
+			for vertex_index in clipped.size():
+				# Recover clipped world coordinates once per mesh build. Adjacent cells,
+				# resize and compact follow share one continuous world paper material.
+				var world: Vector2 = polygon[vertex_index] if inside else bounds.position+(clipped[vertex_index]-rect.position)/scale
+				uvs.append(world/LAND_GRAIN_SPAN)
 			for index in triangles: indices.append(offset+index)
 	var mesh := ArrayMesh.new()
 	if not indices.is_empty():
 		var arrays: Array = []; arrays.resize(Mesh.ARRAY_MAX)
-		arrays[Mesh.ARRAY_VERTEX]=vertices; arrays[Mesh.ARRAY_INDEX]=indices
+		arrays[Mesh.ARRAY_VERTEX]=vertices; arrays[Mesh.ARRAY_INDEX]=indices; arrays[Mesh.ARRAY_TEX_UV]=uvs
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 	return mesh
 
@@ -221,37 +249,58 @@ func _line(a: Vector2, b: Vector2, color: Color, width: float = 1.0) -> void:
 
 func _draw() -> void:
 	if size.x<=0 or size.y<=0 or not _font: return
-	draw_rect(Rect2(Vector2.ZERO,size),Color("bba365"))
+	draw_rect(Rect2(Vector2.ZERO,size),Color("b39a5f"))
 	if _background: draw_texture_rect(_background,Rect2(Vector2.ZERO,size),false)
 	else:
 		draw_rect(Rect2(Vector2(5,5),size-Vector2(10,10)),Color("ded0a0"))
 		for i in 20: draw_line(Vector2(5,float(i)*size.y/20),Vector2(size.x-5,float(i)*size.y/20+2),Color(0.43,0.31,0.15,0.045),1)
 	var rect := map_rect()
 	if rect.size.x<=0 or rect.size.y<=0: return
-	draw_rect(rect,Color(0.25,0.48,0.48,0.25 if _background else 0.65)); _draw_waves(rect)
+	draw_rect(rect,Color(0.10,0.28,0.32,0.12 if _background else 0.84)); _draw_rhumbs(rect); _draw_waves(rect)
 	if _configured:
 		_prepare_meshes()
-		if _shoal_mesh.get_surface_count()>0: draw_mesh(_shoal_mesh,null,Transform2D.IDENTITY,Color("8caa94"))
-		if _land_mesh.get_surface_count()>0: draw_mesh(_land_mesh,null,Transform2D.IDENTITY,Color("d4bd83"))
-		for segment in _coast_segments: _line(_world_pixel(segment[0]),_world_pixel(segment[1]),INK,1.3 if _compact else 1.8)
+		if _shoal_mesh.get_surface_count()>0: draw_mesh(_shoal_mesh,null,Transform2D.IDENTITY,Color("749485"))
+		if _land_mesh.get_surface_count()>0: draw_mesh(_land_mesh,_land_paper if _land_paper else _fallback_land_paper)
+		for segment in _coast_segments: _line(_world_pixel(segment[0]),_world_pixel(segment[1]),Color(0.68,0.52,0.26,0.65),2.8 if _compact else 3.6)
+		for segment in _coast_segments: _line(_world_pixel(segment[0]),_world_pixel(segment[1]),INK,0.9 if _compact else 1.1)
+		_label_boxes.clear()
+		for mark: Dictionary in ship_marks():
+			var p := _world_pixel(mark.position)
+			if rect.has_point(p): _label_boxes.append(Rect2(p-Vector2(12,12),Vector2(24,24)))
 		_draw_mountains(); _draw_routes(); _draw_ports(); _draw_ships()
 	_draw_frame(rect)
 
+func _draw_rhumbs(rect: Rect2) -> void:
+	var origin := rect.position+rect.size*Vector2(0.76,0.28)
+	var reach := rect.size.length()
+	for i in (4 if _compact else 12):
+		var angle := float(i)*PI/(4 if _compact else 12)
+		var direction := Vector2(cos(angle),sin(angle))*reach
+		_line(origin-direction,origin+direction,Color(0.75,0.67,0.43,0.10 if _compact else 0.15),0.7)
+
 func _draw_waves(rect: Rect2) -> void:
-	var spacing := 22.0 if _compact else 32.0
+	var spacing := 32.0 if _compact else 42.0
 	for y in range(int(rect.position.y+12),int(rect.end.y-8),int(spacing)):
-		for x in range(int(rect.position.x+8),int(rect.end.x-18),int(spacing*1.6)):
+		var offset := spacing*0.65 if posmod(int((y-rect.position.y)/spacing),2) else 0.0
+		for x in range(int(rect.position.x+8+offset),int(rect.end.x-18),int(spacing*1.6)):
 			var points := PackedVector2Array()
 			for i in 9: points.append(Vector2(x+i*2,y+sin(float(i)*PI/4)*2))
-			draw_polyline(points,Color(0.12,0.31,0.34,0.22),0.8,true)
+			draw_polyline(points,Color(0.07,0.24,0.28,0.21),0.7,true)
+			if not _compact:
+				for i in points.size(): points[i]+=Vector2(0,2)
+				draw_polyline(points,Color(0.69,0.75,0.58,0.12),0.6,true)
 
 func _draw_mountains() -> void:
+	var drawn: Array = []
 	for mountain in _mountains:
 		var p := _world_pixel(mountain.point)
 		if not map_rect().grow(-9).has_point(p): continue
-		var height := clampf(float(mountain.height)*0.06,3,8)
-		_line(p+Vector2(-5,3),p+Vector2(0,-height),Color(0.26,0.27,0.20,0.65)); _line(p+Vector2(0,-height),p+Vector2(5,3),Color(0.26,0.27,0.20,0.65))
-		for i in 3: _line(p+Vector2(i,1-height+i*2),p+Vector2(i+3,3),Color(0.26,0.27,0.20,0.38),0.7)
+		if drawn.any(func(existing):return existing.distance_to(p)<(11 if _compact else 14)): continue
+		drawn.append(p)
+		var height := clampf(float(mountain.height)*0.05,3,7)
+		var ridge := PackedVector2Array([p+Vector2(-5,3),p+Vector2(-4,1),p+Vector2(-2,-height*0.45),p+Vector2(0,-height),p+Vector2(2,-height*0.3),p+Vector2(4,1),p+Vector2(5,3)])
+		draw_polyline(ridge,Color(0.27,0.25,0.16,0.56),0.8,true)
+		for i in 3: _line(p+Vector2(i*0.8,-height+i*1.7),p+Vector2(i*0.8+2.6,2),Color(0.30,0.27,0.16,0.30),0.6)
 
 func _draw_routes() -> void:
 	var waypoint: Dictionary = _overlays.get("waypoint",{}); var player := _ship_position(_player())
@@ -262,16 +311,19 @@ func _draw_routes() -> void:
 		for i in range(1,points.size()): _dotted(projected(points[i-1]),projected(points[i]),Color(0.39,0.29,0.13,0.6))
 	for site: Dictionary in _overlays.get("landSites",[]):
 		var p := projected(site)
-		if map_rect().grow(-5).has_point(p): draw_rect(Rect2(p-Vector2(2,2),Vector2(4,4)),Color("6e5635"))
+		if map_rect().grow(-5).has_point(p):
+			draw_rect(Rect2(p-Vector2(2,2),Vector2(4,4)),Color("6e5635")); _label_boxes.append(Rect2(p-Vector2(4,4),Vector2(8,8)))
 	for objective: Dictionary in _overlays.get("activeObjectives",[]):
 		var p := projected(objective.get("position",{}))
 		if not map_rect().grow(-9).has_point(p): continue
 		draw_arc(p,7,0,TAU,20,Color("8f4d35"),1.5,true)
-		if not _compact: _label(Text.display_text(str(objective.get("label",""))),p+Vector2(10,14),13,map_rect(),[])
+		_label_boxes.append(Rect2(p-Vector2(8,8),Vector2(16,16)))
+		if not _compact: _label(Text.display_text(str(objective.get("label",""))),p+Vector2(12,14),13,map_rect(),_label_boxes)
 	if not waypoint.is_empty():
 		var p := projected(waypoint)
 		if map_rect().grow(-8).has_point(p):
 			draw_line(p+Vector2(-6,0),p+Vector2(6,0),Color("8f4d35"),1.5,true); draw_line(p+Vector2(0,-6),p+Vector2(0,6),Color("8f4d35"),1.5,true)
+			_label_boxes.append(Rect2(p-Vector2(8,8),Vector2(16,16)))
 
 func _dotted(a: Vector2, b: Vector2, color: Color) -> void:
 	var clipped := _clip_line(a,b)
@@ -282,25 +334,62 @@ func _dotted(a: Vector2, b: Vector2, color: Color) -> void:
 		_line(start,start+delta.normalized()*minf(4,distance-step),color,1.5)
 
 func _draw_ports() -> void:
-	var labels: Array = []; var count := 0
 	for port: Dictionary in _ports:
 		var p := projected(port)
 		if not map_rect().grow(-6).has_point(p): continue
-		draw_rect(Rect2(p-Vector2(3,3),Vector2(6,6)),Color("bf9250")); draw_rect(Rect2(p-Vector2(4,4),Vector2(8,8)),INK,false,1)
-		if count<(3 if _compact else 8):
-			if _label(Text.display_text(str(port.get("name",""))),p+Vector2(8,-7),13 if _compact else 17,map_rect(),labels): count+=1
+		draw_circle(p,4.5,Color("ead49a")); draw_arc(p,4.5,0,TAU,16,INK,1.1,true)
+		draw_rect(Rect2(p-Vector2(1.5,1.5),Vector2(3,3)),Color("77572e"))
+	for label: Dictionary in _port_labels(_label_boxes): _draw_label(label)
 
-func _label(text: String, baseline: Vector2, font_size: int, bounds: Rect2, occupied: Array) -> bool:
-	if text.is_empty(): return false
+func _port_labels(occupied: Array) -> Array:
+	var result: Array = []; var visible: Array = []; var boxes := occupied.duplicate()
+	var rect := map_rect(); var position := _ship_position(_player())
+	var focus := Vector2(float(position.get("x",view_bounds().get_center().x)),float(position.get("z",view_bounds().get_center().y)))
+	for i in _ports.size():
+		var port: Dictionary = _ports[i]; var p := projected(port)
+		if not rect.grow(-6).has_point(p): continue
+		var world := Vector2(float(port.get("x",0)),float(port.get("z",0)))
+		visible.append({"port":port,"point":p,"distance":focus.distance_squared_to(world),"order":i})
+		boxes.append(Rect2(p-Vector2(5,5),Vector2(10,10)))
+	visible.sort_custom(func(a,b):return a.order<b.order if is_equal_approx(a.distance,b.distance) else a.distance<b.distance)
+	var font_size := 14 if _compact else 17
+	for mark: Dictionary in visible:
+		if result.size()>=(3 if _compact else 8): break
+		var text: String = Text.display_text(str(mark.port.get("name","")))
+		var width := _font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+		var candidates := [Vector2(9,-7),Vector2(9,font_size+6),Vector2(-9-width,-7),Vector2(-9-width,font_size+6)]
+		for offset: Vector2 in candidates:
+			var label := _fit_label(text,mark.point+offset,font_size,rect,boxes)
+			if label.is_empty(): continue
+			label.port_id=String(mark.port.get("id","")); result.append(label); boxes.append(label.box)
+			break
+	return result
+
+func _fit_label(text: String, baseline: Vector2, font_size: int, bounds: Rect2, occupied: Array) -> Dictionary:
+	if text.is_empty() or not _font: return {}
 	var extent := _font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size)
 	var position := Vector2(clampf(baseline.x,bounds.position.x+4,maxf(bounds.position.x+4,bounds.end.x-extent.x-4)),clampf(baseline.y,bounds.position.y+font_size+4,bounds.end.y-4))
 	var box := Rect2(position-Vector2(0,font_size),extent).grow(3)
-	if not bounds.encloses(box): return false
+	if not bounds.encloses(box): return {}
 	for existing: Rect2 in occupied:
-		if existing.intersects(box): return false
-	occupied.append(box)
-	draw_string_outline(_font,position,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,2,Color("ead6a4")); draw_string(_font,position,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
+		if existing.intersects(box): return {}
+	return {"text":text,"position":position,"size":font_size,"box":box}
+
+func _label(text: String, baseline: Vector2, font_size: int, bounds: Rect2, occupied: Array) -> bool:
+	var label := _fit_label(text,baseline,font_size,bounds,occupied)
+	if label.is_empty(): return false
+	occupied.append(label.box); _draw_label(label)
 	return true
+
+func _draw_label(label: Dictionary) -> void:
+	# Pale continuous ground keeps small live labels readable across sea and relief.
+	draw_style_box(_label_ground(),label.box)
+	draw_string_outline(_font,label.position,label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,label.size,1,Color("efdcaa"))
+	draw_string(_font,label.position,label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,label.size,INK)
+
+func _label_ground() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new(); style.bg_color=Color(0.91,0.82,0.60,0.92); style.set_corner_radius_all(2)
+	return style
 
 func _draw_ships() -> void:
 	for mark: Dictionary in ship_marks():
@@ -322,10 +411,10 @@ func _draw_frame(rect: Rect2) -> void:
 	var font_size := 18 if _compact else 24; var title_size := _title_font.get_string_size(_title,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size)
 	draw_style_box(_cartouche(),Rect2(Vector2((size.x-title_size.x)/2-9,9),Vector2(title_size.x+18,23 if _compact else 33)))
 	draw_string(_title_font,Vector2((size.x-title_size.x)/2,26 if _compact else 34),_title,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
-	var compass := Vector2(size.x-27,23 if _compact else 31)
-	draw_circle(compass-Vector2(0,4),15,Color("dcc38a"))
-	draw_line(compass+Vector2(0,6),compass-Vector2(0,6),INK,1.5,true); draw_colored_polygon(PackedVector2Array([compass-Vector2(0,8),compass+Vector2(-3,-1),compass+Vector2(3,-1)]),INK)
-	draw_string(_font,compass+Vector2(-4,-10),"北",HORIZONTAL_ALIGNMENT_LEFT,-1,10,INK)
+	_draw_compass(Vector2(size.x-27,22 if _compact else 29))
+	var seal := Rect2(Vector2(17,13),Vector2(17,17) if _compact else Vector2(22,22))
+	draw_rect(seal,Color(0.53,0.19,0.13,0.12)); draw_rect(seal,Color("944530"),false,1.2); draw_rect(seal.grow(-2.5),Color("944530"),false,0.6)
+	draw_string(_title_font,seal.position+Vector2(3,seal.size.y-4),"海",HORIZONTAL_ALIGNMENT_LEFT,-1,11 if _compact else 15,Color("944530"))
 	for corner in [Vector2(12,12),Vector2(size.x-12,12),Vector2(12,size.y-12),Vector2(size.x-12,size.y-12)]: draw_arc(corner,5,0,TAU,18,GOLD,1,true)
 	var legend := "金舟旗舰 · 青舟同盟 · 朱舟敌舰" if not _compact else "点击展开航图"
 	draw_rect(Rect2(Vector2(12,size.y-29),Vector2(size.x-24,21)),Color("dcc38a"))
@@ -335,6 +424,18 @@ func _draw_frame(rect: Rect2) -> void:
 		draw_rect(Rect2(p-Vector2(4,6),Vector2(length+8,25)),Color("dcc38a"))
 		draw_line(p,p+Vector2(length,0),INK,1.5); draw_line(p-Vector2(0,3),p+Vector2(0,3),INK,1); draw_line(p+Vector2(length,-3),p+Vector2(length,3),INK,1)
 		draw_string(_font,p+Vector2(0,14),str(int(scale))+" 米",HORIZONTAL_ALIGNMENT_LEFT,-1,11,INK)
+
+func _draw_compass(center: Vector2) -> void:
+	var radius := 9.0 if _compact else 12.0
+	draw_circle(center,radius+3,Color("dcc38a")); draw_arc(center,radius+2,0,TAU,32,GOLD,0.8,true)
+	for i in 8:
+		var direction := Vector2(cos(float(i)*PI/4),sin(float(i)*PI/4))
+		var normal := Vector2(-direction.y,direction.x)
+		var reach := radius if i%2==0 else radius*0.62
+		draw_colored_polygon(PackedVector2Array([center+direction*reach,center+normal*2,center]),INK if i%2==0 else GOLD)
+		draw_line(center+direction*reach,center-normal*2,INK,0.7,true)
+	draw_circle(center,1.8,Color("e9d39e"))
+	draw_string(_font,center+Vector2(-4,-radius-2),"北",HORIZONTAL_ALIGNMENT_LEFT,-1,9,INK)
 
 func _cartouche() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new(); style.bg_color=Color("e3c88e"); style.border_color=GOLD; style.set_border_width_all(1); style.set_corner_radius_all(3)
@@ -351,6 +452,6 @@ func _gui_input(event: InputEvent) -> void:
 func dispose() -> void:
 	_configured=false; _height=Callable(); _ports.clear(); _native.clear(); _overlays.clear(); _height_cache.clear()
 	_land_polygons.clear(); _shoal_polygons.clear(); _coast_segments.clear(); _mountains.clear(); _terrain_ready=false; queue_redraw()
-	_land_mesh=null; _shoal_mesh=null; _mesh_ready=false
+	_land_mesh=null; _shoal_mesh=null; _mesh_ready=false; _label_boxes.clear()
 
 func _exit_tree() -> void: dispose()

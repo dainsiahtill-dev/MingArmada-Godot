@@ -12,6 +12,10 @@ const SHIPS = [
 	{"id":"heavy","name":"荷兰重型战舰","role":"远洋火力旗舰","length":52,"beam":14.5,"draft":4.2,"description":"九帆、大型舷炮列和三层艉楼，火力强但对深水航道要求更高。"}
 ]
 const ANGLES = ["quarter","bow","starboard","stern","port","underwater"]
+# Three 0.181.2 OrbitControls defaults with ShipViewer.enableDamping = true.
+const DAMPING_FACTOR := .05
+const POLAR_EPSILON := .000001
+enum CameraGesture { NONE, ORBIT, PAN, DOLLY }
 var startup_options: Dictionary = {}
 var startup_receipt: Dictionary = {}
 var settings_storage: RefCounted
@@ -42,6 +46,11 @@ var _scale := 50.0
 var _distance := 100.0
 var _yaw := 0.0
 var _pitch := 0.0
+var _orbit_delta := Vector2.ZERO
+var _pan_offset := Vector3.ZERO
+var _camera_gesture := CameraGesture.NONE
+var _held_mouse_buttons := 0
+var _control_active := false
 var _time := 0.0
 var _recoil_left := 0.0
 var _barrel_rest: Dictionary = {}
@@ -53,7 +62,7 @@ func _ready() -> void:
 	startup_receipt=select_ship(str(startup_options.get("kind","fuchuan")),int(startup_options.get("lod",0)))
 	if not startup_receipt.ok: _status.text="船只载入失败："+str(startup_receipt.reason)
 func _build_world() -> void:
-	_view=SubViewportContainer.new(); _view.name="ModelView"; _view.stretch=true; add_child(_view); _view.gui_input.connect(_camera_input)
+	_view=SubViewportContainer.new(); _view.name="ModelView"; _view.stretch=true; _view.focus_mode=Control.FOCUS_NONE; _view.mouse_target=true; add_child(_view); _view.gui_input.connect(_camera_input)
 	_viewport=SubViewport.new(); _viewport.name="ShipViewport"; _viewport.own_world_3d=true; _view.add_child(_viewport)
 	_world=Node3D.new(); _viewport.add_child(_world)
 	var environment:=WorldEnvironment.new(); var lighting:=Environment.new()
@@ -63,7 +72,7 @@ func _build_world() -> void:
 	var sun:=DirectionalLight3D.new(); sun.light_color=Color("ffe8bf"); sun.light_energy=3.4; sun.rotation_degrees=Vector3(-55,-40,0); sun.shadow_enabled=true; _world.add_child(sun)
 	sea=MeshInstance3D.new(); sea.name="InspectionSea"; var plane:=PlaneMesh.new(); plane.size=Vector2(1000,1000); sea.mesh=plane
 	var material:=StandardMaterial3D.new(); material.albedo_color=Color("387e79"); material.roughness=.45; material.metallic=.08; sea.material_override=material; _world.add_child(sea)
-	camera=Camera3D.new(); camera.name="InspectionCamera"; camera.fov=45; camera.near=.5; camera.far=1000; _world.add_child(camera); camera.current=true
+	camera=Camera3D.new(); camera.name="InspectionCamera"; camera.fov=45; camera.keep_aspect=Camera3D.KEEP_HEIGHT; camera.near=.5; camera.far=1000; _world.add_child(camera); camera.current=true
 func _label(parent: Node, text: String) -> Label:
 	var label:=Label.new(); label.text=text; label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; label.size_flags_horizontal=Control.SIZE_EXPAND_FILL; parent.add_child(label); return label
 func _button(parent: Node, id: String, text: String, callback: Callable) -> Button:
@@ -145,17 +154,48 @@ func set_angle(angle: String) -> bool:
 		"underwater": camera.position=Vector3(-_scale*1.05,-_scale*.3,_scale*.75)
 		_: camera.position=Vector3(_scale*1.25,_center.y+_scale*.6,_scale*1.3)
 	sea.visible=angle!="underwater"; _angle_choice.select(ANGLES.find(angle))
-	var offset:=camera.position-_target; _distance=offset.length(); _yaw=atan2(offset.x,offset.z); _pitch=asin(offset.y/_distance); _update_camera(); return true
+	# Source setAngle replaces position/target then calls controls.update once;
+	# it deliberately does not clear pending damping or the active mouse gesture.
+	_update_controls(); return true
 func orbit(movement: Vector2) -> void:
 	if _leaving or not movement.is_finite(): return
-	_yaw-=movement.x*.008; _pitch=clampf(_pitch+movement.y*.008,-PI/2+.01,PI/2-.01); _update_camera()
+	var height:=maxf(1,_view.size.y)
+	_orbit_delta+=Vector2(-movement.x,movement.y)*TAU/height
+	_update_controls()
+func pan(movement: Vector2) -> void:
+	if _leaving or not movement.is_finite() or not camera: return
+	# screenSpacePanning defaults true. Both axes use displayed clientHeight,
+	# never render resolution/clientWidth, so stretch_shrink does not change speed.
+	var distance:=camera.position.distance_to(_target)
+	var per_pixel:=2*distance*tan(deg_to_rad(camera.fov)/2)/maxf(1,_view.size.y)
+	_pan_offset+=(-camera.basis.x*movement.x+camera.basis.y*movement.y)*per_pixel
+	_update_controls()
 func zoom(factor: float) -> void:
 	if _leaving or not is_finite(factor) or factor<=0: return
-	_distance=clampf(_distance*factor,_scale*.25,_scale*4); _update_camera()
+	_update_controls(factor)
+func _update_controls(dolly_factor:float=1) -> void:
+	if _leaving or not camera: return
+	var offset:=camera.position-_target
+	_distance=offset.length()
+	_yaw=atan2(offset.x,offset.z)
+	# atan2 avoids float32 asin rounding at the source's 1e-6 pole epsilon.
+	_pitch=atan2(offset.y,Vector2(offset.x,offset.z).length())
+	_yaw+=_orbit_delta.x*DAMPING_FACTOR
+	_pitch=clampf(_pitch+_orbit_delta.y*DAMPING_FACTOR,-PI/2+POLAR_EPSILON,PI/2-POLAR_EPSILON)
+	# Source minPolarAngle=0, setAngle maxPolarAngle=PI; no azimuth or
+	# target-radius limits (defaults +/-Infinity and 0..Infinity).
+	_target+=_pan_offset*DAMPING_FACTOR
+	_distance=clampf(_distance*dolly_factor,_scale*.25,_scale*4)
+	_update_camera()
+	_orbit_delta*=1-DAMPING_FACTOR; _pan_offset*=1-DAMPING_FACTOR
 func _update_camera() -> void:
 	if not camera: return
-	camera.position=_target+Vector3(sin(_yaw)*cos(_pitch),sin(_pitch),cos(_yaw)*cos(_pitch))*_distance
-	camera.look_at(_target)
+	var outward:=Vector3(sin(_yaw)*cos(_pitch),sin(_pitch),cos(_yaw)*cos(_pitch))
+	camera.position=_target+outward*_distance
+	# Equivalent Y-up lookAt basis, also well defined at Three's safe pole
+	# epsilon where Godot look_at rejects nearly collinear up/direction vectors.
+	var right:=Vector3(cos(_yaw),0,-sin(_yaw))
+	camera.basis=Basis(right,outward.cross(right),outward)
 func turn_ship() -> void:
 	if ship_model and not _leaving: ship_model.rotation.y+=PI/4
 func test_recoil() -> void:
@@ -172,12 +212,54 @@ func animate_model(delta: float) -> void:
 				var morph: StringName=node.mesh.get_blend_shape_name(index)
 				if morph==&"furl": node.set_blend_shape_value(index,_furl)
 				elif morph==&"inflate": node.set_blend_shape_value(index,.7*(1-_furl))
-func _process(delta: float) -> void: animate_model(delta)
+func _process(delta: float) -> void:
+	_update_controls(); animate_model(delta)
+func _input(event:InputEvent) -> void:
+	# Three listens passively for the physical Control key solely to distinguish
+	# synthetic Ctrl-wheel pinch events. Never consume the sidebar's key events.
+	if not _leaving and event is InputEventKey and (event.keycode==KEY_CTRL or event.physical_keycode==KEY_CTRL):
+		_control_active=event.pressed
 func _camera_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and event.button_mask&MOUSE_BUTTON_MASK_LEFT: orbit(event.relative); _view.accept_event()
-	elif event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP: zoom(1/1.1); _view.accept_event()
-		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN: zoom(1.1); _view.accept_event()
+	if _leaving: return
+	if event is InputEventMouseButton:
+		if event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+			if not event.pressed or _camera_gesture!=CameraGesture.NONE or not is_finite(event.factor): return
+			# Godot wheel factor is normalized wheel travel. One step maps to
+			# OrbitControls' normalized 100-pixel wheel delta; dolly has no inertia.
+			var travel:float=absf(event.factor)*(10 if event.ctrl_pressed and not _control_active else 1)
+			var factor:=pow(.95,travel)
+			zoom(factor if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1/factor)
+			_view.accept_event(); return
+		if event.button_index not in [MOUSE_BUTTON_LEFT,MOUSE_BUTTON_RIGHT,MOUSE_BUTTON_MIDDLE]: return
+		var button_mask:int=1<<(event.button_index-1)
+		if not event.pressed:
+			_held_mouse_buttons&=~button_mask
+			if _held_mouse_buttons==0: _camera_gesture=CameraGesture.NONE
+		else:
+			# DOM pointerdown starts only when the mouse goes from zero held
+			# buttons to one; additional presses belong to the same pointer.
+			# Native GUI delivers each button separately, so retain the first
+			# gesture until every held button has been released.
+			var first_press:bool=_held_mouse_buttons==0
+			_held_mouse_buttons|=button_mask
+			if first_press:
+				if event.button_index==MOUSE_BUTTON_MIDDLE: _camera_gesture=CameraGesture.DOLLY
+				else:
+					var swap:bool=event.ctrl_pressed or event.meta_pressed or event.shift_pressed
+					var rotate:bool=(event.button_index==MOUSE_BUTTON_LEFT)!=swap
+					_camera_gesture=CameraGesture.ORBIT if rotate else CameraGesture.PAN
+		_view.accept_event()
+	elif event is InputEventMouseMotion and event.relative.is_finite():
+		# Gesture comes from pointer-down in this Control, not a global button
+		# mask: sidebar presses cannot start camera motion or change drag mode.
+		match _camera_gesture:
+			CameraGesture.ORBIT: orbit(event.relative)
+			CameraGesture.PAN: pan(event.relative)
+			CameraGesture.DOLLY:
+				var factor:=pow(.95,absf(event.relative.y)*.01)
+				zoom(1/factor if event.relative.y>0 else factor)
+			_: return
+		_view.accept_event()
 func _layout() -> void:
 	if not _view: return
 	var bounds:=get_viewport_rect().size
@@ -192,6 +274,14 @@ func snapshot() -> Dictionary:
 	return {"kind":_kind,"lod":_lod,"path":"res://assets/models/ships/%s-lod%d.glb"%[_kind,_lod],"angle":_angle,"furl":_furl,"distance":_distance}
 func _leave() -> void:
 	if _leaving or not is_inside_tree(): return
-	_leaving=true; main_menu_requested.emit()
+	_leaving=true; _clear_camera_motion(); main_menu_requested.emit()
+func _clear_camera_motion() -> void:
+	_cancel_camera_gesture(); _orbit_delta=Vector2.ZERO; _pan_offset=Vector3.ZERO
+func _cancel_camera_gesture() -> void:
+	_camera_gesture=CameraGesture.NONE; _held_mouse_buttons=0; _control_active=false
+func _notification(what:int) -> void:
+	# Lost application focus cancels native pointer capture. As with the source
+	# pointercancel handler, stop the gesture while preserving damped inertia.
+	if what==NOTIFICATION_APPLICATION_FOCUS_OUT: _cancel_camera_gesture()
 func _exit_tree() -> void:
-	_leaving=true; _library.dispose()
+	_leaving=true; _clear_camera_motion(); _library.dispose()

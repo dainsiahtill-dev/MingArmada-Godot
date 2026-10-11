@@ -126,8 +126,8 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 	if not is_current(candidate): return _no("entry-stale")
 	var mode: String = candidate.mode
 	var node: Node
-	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice"]:
-		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn"}
+	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice","qa"]:
+		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn","qa":"res://game/scenes/visual_qa/visual_qa.tscn"}
 		var scene_path: String = paths[mode]
 		var resource = load(scene_path)
 		if not resource is PackedScene: return _no("entry-resource-unavailable")

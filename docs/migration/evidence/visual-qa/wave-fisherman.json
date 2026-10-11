@@ -1,0 +1,617 @@
+{
+	"camera": {
+		"position": "(-497.4089, 29.72799, -762.265)",
+		"tactical": false
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"inspection": {
+		"chunks": {
+			"builds": 82,
+			"center": {
+				"x": -3,
+				"z": -3
+			},
+			"chunks": 49,
+			"pendingCreates": 0,
+			"pendingDisposes": 0,
+			"scheduling": "synchronous native world"
+		},
+		"export": "",
+		"originalMetrics": {
+			"fps": 60.0000000000001,
+			"frames": 276,
+			"p95Ms": 16.6666666666667,
+			"seconds": 4.59999999999999
+		},
+		"sailors": {
+			"battleId": "visual-wave-fisherman",
+			"budget": 120,
+			"impacts": {
+				"active": 0,
+				"bodies": [],
+				"cap": 12
+			},
+			"ships": [
+				{
+					"acceptedTime": 4.6,
+					"crew": 100.0,
+					"id": "player",
+					"kind": "fisherman",
+					"lod": 0,
+					"roles": [
+						{
+							"clip": "idle",
+							"role": "helm",
+							"side": "",
+							"slot": 0
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 1
+						},
+						{
+							"clip": "idle",
+							"role": "lookout",
+							"side": "",
+							"slot": 2
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 3
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 4
+						},
+						{
+							"clip": "idle",
+							"role": "walk",
+							"side": "",
+							"slot": 5
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 6
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 7
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 8
+						}
+					],
+					"visible": 9
+				}
+			],
+			"simulationTime": 4.6,
+			"tick": 276,
+			"visible": 9
+		},
+		"summary": {
+			"eventCounts": {
+				"blur": 0,
+				"export": 0,
+				"pause": 1,
+				"resume": 0,
+				"visibility-hidden": 0,
+				"visibility-visible": 0
+			},
+			"includedInMetrics": 276,
+			"maxMs": 16.6666666666667,
+			"meanMs": 16.6666666666666,
+			"overMs": {
+				"25": 0,
+				"50": 0,
+				"100": 0,
+				"500": 0,
+				"1000": 0
+			},
+			"p99Ms": 16.6666666666667,
+			"sampleCount": 276,
+			"topIntervals": [
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50119.926,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 1,
+					"phase": "running",
+					"previousCompletedFrame": null
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50141.092,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 2,
+					"phase": "running",
+					"previousCompletedFrame": null
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50152.547,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 3,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50141.092,
+						"completedAtMs": 50145.747,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.463999999999942,
+							"viewMs": null,
+							"viewWorldMs": 4.13100000000122,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50145.747,
+						"cpuStartedAtMs": 50141.152,
+						"phase": "running",
+						"simulationSeconds": 0.0333333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50177.55,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 4,
+					"phase": "running",
+					"previousCompletedFrame": null
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50193.702,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 5,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50177.55,
+						"completedAtMs": 50182.097,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.514999999999418,
+							"viewMs": null,
+							"viewWorldMs": 3.97100000000501,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50182.097,
+						"cpuStartedAtMs": 50177.611,
+						"phase": "running",
+						"simulationSeconds": 0.0666666666666667,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50210.18,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 6,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50193.702,
+						"completedAtMs": 50198.158,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.467999999993481,
+							"viewMs": null,
+							"viewWorldMs": 3.92400000000634,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50198.158,
+						"cpuStartedAtMs": 50193.766,
+						"phase": "running",
+						"simulationSeconds": 0.0833333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50243.714,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 7,
+					"phase": "running",
+					"previousCompletedFrame": null
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50260.364,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 8,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50243.714,
+						"completedAtMs": 50253.124,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.493999999998778,
+							"viewMs": null,
+							"viewWorldMs": 8.84900000000198,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50253.124,
+						"cpuStartedAtMs": 50243.781,
+						"phase": "running",
+						"simulationSeconds": 0.116666666666667,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50277.423,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 9,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50260.364,
+						"completedAtMs": 50265.333,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.471999999994296,
+							"viewMs": null,
+							"viewWorldMs": 4.43600000000151,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50265.333,
+						"cpuStartedAtMs": 50260.425,
+						"phase": "running",
+						"simulationSeconds": 0.133333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 50294.083,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 10,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 50277.423,
+						"completedAtMs": 50281.969,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.487999999997555,
+							"viewMs": null,
+							"viewWorldMs": 3.99199999999837,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 50281.969,
+						"cpuStartedAtMs": 50277.489,
+						"phase": "running",
+						"simulationSeconds": 0.15,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				}
+			],
+			"totalMs": 4599.99999999999
+		}
+	},
+	"quality": "balanced",
+	"route": "actual project MainScene menu QA button",
+	"runtime": {
+		"naval": {
+			"battleId": "visual-wave-fisherman",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 276,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 100.0,
+					"dimensions": {
+						"draft": 1.0,
+						"length": 14.0,
+						"width": 4.2
+					},
+					"hull": 100.0,
+					"id": "player",
+					"kind": "fisherman",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "验收·波谷浮态",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": -1.17809724509617,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 2.35619449019234,
+						"heel": -0.0246384837861495,
+						"pitch": -0.0102796210201281,
+						"position": {
+							"x": -530.408882700464,
+							"y": 2.87948316577967,
+							"z": -723.265016409433
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				}
+			],
+			"status": "sailing",
+			"tick": 276,
+			"time": 4.6,
+			"wind": {
+				"direction": {
+					"x": 1,
+					"y": 0
+				},
+				"speed": 0
+			}
+		},
+		"runtime": {
+			"benchmarkSeconds": 0.0,
+			"generation": 9,
+			"handlingMode": "realistic",
+			"notice": "",
+			"pauseReasons": [
+				"wave"
+			],
+			"paused": true,
+			"phase": "paused",
+			"playback": 1.0,
+			"scenario": "wave-fisherman",
+			"waypoint": null
+		}
+	},
+	"scope": "Native visual and real cannon/Jolt input evidence. Fixed capture ticks are not a wall-time FPS benchmark.",
+	"viewport": [
+		1600,
+		900
+	]
+}

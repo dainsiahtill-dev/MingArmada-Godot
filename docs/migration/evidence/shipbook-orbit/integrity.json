@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-11T09:14:29.151Z",
+  "scope": "Saved native GPU capture integrity and metadata checks. Visual judgment belongs to separate review. Fixed capture ticks exclude FPS/performance claims.",
+  "sources": [
+    {
+      "path": "tools/capture-native-qa.gd",
+      "sha256": "5fe70f9dd1c70ff6a88d93d8050392532e0b560d69b6efc9977e0f2e8a6973ad"
+    },
+    {
+      "path": "tools/capture-ship-book-orbit.gd",
+      "sha256": "08f710b0279e26eba2f59f518bf64f17995f2908b7d8a4a55cb876884c4189a5"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "492f9ce1ce56d88a9c6ea77474a35ac6680db114a02266847036aa6b4c374a6b"
+    }
+  ],
+  "verification": {
+    "path": "docs/migration/evidence/verification.json",
+    "sha256": "5ce9660e316837705dcf51b3540044d85f022ca061e83ef49073a5748aaa3fcf",
+    "summary": {
+      "selected": 53,
+      "passed": 53,
+      "failed": 0,
+      "passedAll": true
+    },
+    "godotWarningsAndErrors": []
+  },
+  "tool": "tools/capture-ship-book-orbit.gd",
+  "captures": [
+    {
+      "label": "quarter-before",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "state": {
+        "angle": "quarter",
+        "distance": 61.4161567687988,
+        "furl": 0,
+        "kind": "fuchuan",
+        "lod": 0,
+        "path": "res://assets/models/ships/fuchuan-lod0.glb"
+      },
+      "pngBytes": 189318,
+      "metadataBytes": 674,
+      "pngSha256": "4426a5404c0a175e62f0ab335f6d520c39f2046fd2fa09ca28dcbc1545d56fe2",
+      "metadataSha256": "2aa12b53175dd99ee16ae4398ca63e96dd851a75fa98965ef7c74cd7298fba14"
+    },
+    {
+      "label": "orbit-after-chord",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "state": {
+        "angle": "quarter",
+        "distance": 61.4161720275879,
+        "furl": 0,
+        "kind": "fuchuan",
+        "lod": 0,
+        "path": "res://assets/models/ships/fuchuan-lod0.glb"
+      },
+      "pngBytes": 163441,
+      "metadataBytes": 677,
+      "pngSha256": "4bba07f802828b0d51904aba7adb1bce31e1ef3c5895e9003e62a217d139bc51",
+      "metadataSha256": "4bde30bbb12efe80ae0cc82ce0363900fd2b2ae39ea16f9f4946d0b7ca007d11"
+    },
+    {
+      "label": "pan-after",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "state": {
+        "angle": "quarter",
+        "distance": 61.4161605834961,
+        "furl": 0,
+        "kind": "fuchuan",
+        "lod": 0,
+        "path": "res://assets/models/ships/fuchuan-lod0.glb"
+      },
+      "pngBytes": 164340,
+      "metadataBytes": 685,
+      "pngSha256": "52a07d3fa63b09f00f4d1da2a7b29918474cd3c0eebf471dd0479bad364b0c89",
+      "metadataSha256": "558d465cf8c3cbbc1798271119050f74168c2fe021f276cca19a63a766b4ff59"
+    },
+    {
+      "label": "zoom-after",
+      "viewport": [
+        1600,
+        900
+      ],
+      "engine": "4.7.2-stable (official)",
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "state": {
+        "angle": "quarter",
+        "distance": 58.3453483581543,
+        "furl": 0,
+        "kind": "fuchuan",
+        "lod": 0,
+        "path": "res://assets/models/ships/fuchuan-lod0.glb"
+      },
+      "pngBytes": 171777,
+      "metadataBytes": 684,
+      "pngSha256": "de61f0ae5a453ccaecf7da873feea3950e6083e25f9631c4d9fe9cbbf32288fd",
+      "metadataSha256": "d9f602f46e135e4304283ff7ce5ab10810a459568cd6b10df3f824f6f824d3d0"
+    }
+  ],
+  "checks": {
+    "orbitCameraBefore": [
+      40.41875,
+      27.366,
+      42.0355
+    ],
+    "orbitCameraAfter": [
+      2.926057,
+      38.52297,
+      53.03902
+    ],
+    "panTargetBefore": [
+      0.2385,
+      7.965,
+      -0.1675
+    ],
+    "panTargetAfter": [
+      -3.824254,
+      6.778843,
+      0.718959
+    ],
+    "zoomDistanceBefore": 61.4161605834961,
+    "zoomDistanceAfter": 58.3453483581543
+  }
+}

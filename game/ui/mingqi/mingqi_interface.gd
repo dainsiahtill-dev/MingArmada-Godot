@@ -641,7 +641,7 @@ func _build_tactics(parent: Control) -> void:
 			for id in order.get("shipIds", []): names.append(_name(id))
 			var intent: Dictionary = order.get("intent", {})
 			var current: Dictionary = statuses.get(order.get("id", ""), {})
-			texts.append("%s · %s\n%s · %s\n%s" % [ORDER_NAMES.get(intent.get("kind"), "战术"), _status(current.get("status", "history")), "、".join(names), _name(intent.get("targetId")) if intent.has("targetId") else "海图集结点", _reason(current.get("reason", ""))])
+			texts.append("%s · %s\n%s · %s\n%s" % [ORDER_NAMES.get(intent.get("kind"), "战术"), _status(current.get("state", current.get("status", "history"))), "、".join(names), _name(intent.get("targetId")) if intent.has("targetId") else "海图集结点", _reason(current.get("reason", ""))])
 		for draft in _runtime().get("drafts", []): texts.append("指令草案 · " + _reason(draft.get("reason", "")))
 		return "\n\n".join(texts) if not texts.is_empty() else "暂无战术指令。")
 

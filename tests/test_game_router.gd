@@ -85,7 +85,7 @@ func _run() -> void:
 	var actual = Router.new({"mingqi_storage":disk})
 	request.generation = actual.generation; request.nonce = 1
 	check(actual.prepare_entry(request).ok and not FileAccess.file_exists(disk_path+".backup"),"actual file continue leaves backup rotation absent")
-	for mode in ["duel","fleet","sail","ships","practice"]:
+	for mode in ["duel","fleet","sail","ships","practice","qa"]:
 		actual.dev = true; actual.cancel()
 		var entry: Dictionary = actual.prepare_entry({"type":"start" if mode in ["duel","fleet","sail"] else mode,"mode":mode,"name":" \t林  明\n","qaSeed":1661,"dev":false,"qa":true,"generation":actual.generation,"nonce":actual.generation})
 		var made: Dictionary = actual.create_scene(entry)
@@ -94,7 +94,7 @@ func _run() -> void:
 			var scene: Node = made.scene
 			check(scene.get("startup_options").get("captainName") == "林 明" and scene.get("startup_options").get("seed") == 1661,"real scene receives normalized captain and seeded detached options "+mode)
 			check(scene.get("startup_options").get("staged",false),"router constructs actual extra entry with staging boundary "+mode)
-			if mode == "ships": check(scene.get("startup_options").get("dev") == true and scene.get("startup_options").get("qa") == false,"actual ship book receives trusted owner development flags while ignoring request flag spoofing")
+			if mode in ["ships","qa"]: check(scene.get("startup_options").get("dev") == true and scene.get("startup_options").get("qa") == false,"actual developer entry receives trusted owner flags while ignoring request flag spoofing "+mode)
 			scene.free()
 	for suffix in ["",".backup",".rollback",".staged"]:
 		if FileAccess.file_exists(disk_path+suffix): DirAccess.remove_absolute(ProjectSettings.globalize_path(disk_path+suffix))
