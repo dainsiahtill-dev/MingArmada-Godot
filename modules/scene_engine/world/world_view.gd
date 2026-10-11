@@ -5,6 +5,7 @@ const TerrainChunk = preload("res://modules/scene_engine/terrain/terrain_chunk.g
 const ProjectedOcean = preload("res://modules/scene_engine/ocean/projected_ocean.gd")
 const VegetationLibrary = preload("res://modules/scene_engine/assets/vegetation_library.gd")
 const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
+const IslandDetails = preload("res://modules/scene_engine/world/island_details.gd")
 const PIER_DECK_HEIGHT := 4.2 # Above the authored offshore 3.5m wave envelope.
 var _height_sampler: Callable
 var _camera: Camera3D
@@ -24,6 +25,7 @@ var _simulation_time := 0.0
 var _shore_field: RefCounted
 var _shore_spray: Node3D
 var _visual_style := 1
+var _island_details: Node3D
 
 func configure(height_sampler: Callable, wave_descriptors: Array = [], options: Dictionary = {}) -> bool:
 	dispose()
@@ -57,6 +59,10 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 	if _visual_style == 1: _ocean.set_projection_padding(0.10)
 	_configure_shore(effective_waves)
 	_build_ports()
+	if _visual_style == 1 and bool(options.get("island_details",true)) and not _ports.is_empty():
+		_island_details = IslandDetails.new(); add_child(_island_details); _owned.append(_island_details)
+		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false)}):
+			dispose(); return false
 	_update_window(Vector2.ZERO)
 	return true
 
@@ -110,6 +116,8 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	if is_finite(focus.x) and is_finite(focus.y):
 		_update_window(focus)
 	_ocean.update_projection()
+	if _island_details:
+		_island_details.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
 	# consumed is accepted for shared presentation API; this world does not bill it.
 	if consumed < 0.0:
 		return
@@ -218,6 +226,7 @@ func dispose() -> void:
 	_ocean = null
 	_shore_field = null
 	_shore_spray = null
+	_island_details = null
 	_vegetation_library = null
 	_height_sampler = Callable()
 	_camera = null

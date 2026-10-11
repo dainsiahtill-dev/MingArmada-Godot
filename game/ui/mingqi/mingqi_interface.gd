@@ -660,6 +660,7 @@ func _build_menu() -> void:
 	_text(body, "save_reason", func(): return "安全条件已核验，可保存航程。" if _runtime().get("canSave", false) == true else _reason(_runtime().get("saveReason", "save-unverified")), 16, Color("ffd99a"))
 	_button(body, "save", "保存安全航程", func(): return {"type": "save"}, func(): return _runtime().get("canSave", false) == true)
 	_button(body, "save_and_menu", "保存并返回主菜单", func(): return {"type": "save-and-menu"}, func(): return _runtime().get("canSave", false) == true)
+	_local_button(body, "menu_settings", "画面与声音设置", func(): _send({"type":"open-settings"}, _token()))
 	_button(body, "export_current", "导出当前安全航程", func(): return {"type": "export-save", "kind": "current"}, func(): return _runtime().get("canSave", false) == true)
 	_button(body, "export_backup", "导出上次安全存档", func(): return {"type": "export-save", "kind": "backup"}, func(): return _runtime().get("hasCheckpoint", false) == true)
 	_text(body, "save_status", func(): return str(_runtime().get("saveStatus", "")))

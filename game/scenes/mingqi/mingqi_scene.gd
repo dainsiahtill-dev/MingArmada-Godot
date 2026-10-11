@@ -4,17 +4,16 @@ signal main_menu_requested
 const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
 const Storage = preload("res://game/persistence/save_coordinator.gd")
 const HeightField = preload("res://modules/scene_engine/terrain/height_field.gd")
-const WorldView = preload("res://modules/scene_engine/world/world_view.gd")
-const Library = preload("res://modules/scene_engine/assets/asset_library.gd")
-const WaveDescriptor = preload("res://modules/contracts/wave_descriptor.gd")
-const ShipView = preload("res://game/presentation/ships/ship_view.gd")
-const CrewView = preload("res://game/presentation/crew/crew_view.gd")
-const Effects = preload("res://game/presentation/combat/combat_effects.gd")
+const NavalWorldView = preload("res://game/presentation/world/naval_world_view.gd")
 const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
+const Services = preload("res://game/scenes/common/sea_services.gd")
 var runtime := Runtime.new()
 var storage := Storage.new()
 var heights := HeightField.new()
-var library := Library.new()
+var sea: Node3D
+var services: Node
+var settings_storage: RefCounted
+var library: RefCounted
 var world: Node3D
 var camera: Camera3D
 var interface: CanvasLayer
@@ -25,8 +24,6 @@ var tactical := false
 var _capture_mode := false
 var _disposed := false
 var _zoom := 1.0
-var _camera_follow := Vector3.ZERO
-var _camera_ready := false
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 func _ready() -> void:
 	DisplayServer.window_set_title("海上明旗 · 1650 厦金护粮")
@@ -34,16 +31,10 @@ func _ready() -> void:
 	_capture_mode = "--capture-mingqi" in OS.get_cmdline_user_args()
 	var geography: Array = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
 	if not heights.configure_ports(geography) or not runtime.configure(heights.sample_height).ok: push_error("Mingqi native startup failed"); get_tree().quit(1); return
-	var env := WorldEnvironment.new(); var lighting := Environment.new()
-	lighting.background_mode = Environment.BG_COLOR; lighting.background_color = Color("87ceeb")
-	lighting.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR; lighting.ambient_light_color = Color("a0c8ff"); lighting.ambient_light_energy = 0.45; lighting.tonemap_mode = Environment.TONE_MAPPER_ACES
-	env.environment = lighting; add_child(env)
-	var sun := DirectionalLight3D.new(); add_child(sun); sun.position = Vector3(300,150,100); sun.look_at(Vector3.ZERO); sun.light_energy = 1.2; sun.shadow_enabled = true
-	camera = Camera3D.new(); add_child(camera); camera.current = true; camera.fov = 55; camera.near = 0.5; camera.far = 4000
-	_update_camera(runtime.snapshot().naval,0)
-	world = WorldView.new(); add_child(world)
-	if not world.configure(heights.sample_height,WaveDescriptor.original_descriptors(),{"camera":camera,"ports":geography,"resolution":64,"chunk_radius":2,"collision":false,"visual_style":1}): push_error("Mingqi world failed"); get_tree().quit(1); return
-	effects = Effects.new(); add_child(effects)
+	sea = NavalWorldView.new(); add_child(sea)
+	if not sea.configure(heights.sample_height,geography,runtime.sample_water_height,runtime.snapshot().naval): push_error("Mingqi world failed"); get_tree().quit(1); return
+	_sync_view_handles()
+	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
 	interface = Interface.new(); add_child(interface); interface.command_requested.connect(_command); interface.view_requested.connect(func(value: bool): tactical = value)
 	_present(0)
 	if _capture_mode: _capture_run.call_deferred()
@@ -51,6 +42,8 @@ func _utc() -> String: return Time.get_datetime_string_from_system(true)+".000Z"
 func _command(intent: Dictionary) -> void:
 	var result: Dictionary
 	match intent.get("type"):
+		"open-settings": services.open_settings(); result = {"ok":true}
+		"settings": result = services.change_settings(intent.get("value",{}))
 		"save","save-and-menu":
 			result = runtime.save_checkpoint(storage,_utc())
 			if result.ok and intent.type == "save-and-menu": main_menu_requested.emit()
@@ -65,56 +58,35 @@ func _command(intent: Dictionary) -> void:
 	_present(0)
 func _physics_process(delta: float) -> void:
 	if not world or _capture_mode: return
-	if interface.captures_keyboard():
+	if interface.captures_keyboard() or services.captures_keyboard():
 		for code in KEYS.values(): runtime.set_held(code,false)
-	effects.observe_projectiles(runtime.simulation.snapshot())
+	sea.observe_projectiles(runtime.simulation.snapshot())
 	var consumed: float = runtime.advance(delta)
 	_present(consumed)
 func _update_camera(native: Dictionary,delta: float) -> void:
-	var active: Dictionary = Runtime._ship(native,native.playerId)
-	if active.is_empty(): return
-	var point: Dictionary = active.visual.position; var target := Vector3(point.x,point.y+3,point.z)
-	# Smooth only target-follow; horizon/camera up remains stable during hull roll.
-	if not _camera_ready or delta <= 0: _camera_follow = target; _camera_ready = true
-	else: _camera_follow = _camera_follow.lerp(target,1-exp(-6*delta))
-	camera.position = _camera_follow+(Vector3(80,115,-110) if tactical else Vector3(33,24,-39))*_zoom
-	camera.look_at(_camera_follow)
+	sea.tactical = tactical; sea.zoom = _zoom; sea._update_camera(native,delta)
+func _sync_view_handles() -> void:
+	world = sea.world; camera = sea.camera; effects = sea.effects
+	library = sea.library; ships = sea.ships; sailors = sea.sailors
 func _present(consumed: float) -> void:
 	if not world: return
 	var packet: Dictionary = runtime.snapshot(); var native: Dictionary = packet.naval
-	_update_camera(native,consumed)
-	var requests: Array = []
-	for ship: Dictionary in native.ships:
-		var point: Dictionary = ship.visual.position; var distance := camera.position.distance_to(Vector3(point.x,point.y,point.z))
-		requests.append({"id":ship.id,"distance":distance,"requested":mini(24,int(ship.crew)) if distance <= 220 else mini(8,int(ship.crew)) if distance <= 650 else mini(2,int(ship.crew)) if distance <= 1200 else 0})
-	var allocation: Dictionary = CrewView.allocate_sailors(requests)
-	var ids: Array = []
-	for ship: Dictionary in native.ships:
-		ids.append(ship.id)
-		if not ships.has(ship.id):
-			var view := ShipView.new(); add_child(view)
-			if not view.configure(ship.kind,library): push_error("Ship import failed: "+ship.kind); view.queue_free(); continue
-			var crew := CrewView.new(); view.add_child(crew)
-			if not crew.configure(ship.kind,view.get_model(),library): push_error("Crew import failed: "+ship.kind)
-			crew.set_environment(runtime.sample_water_height); ships[ship.id] = view; sailors[ship.id] = crew
-		var view: Node3D = ships[ship.id]; var crew: Node3D = sailors[ship.id]
-		view.apply_snapshot(ship,native.wind,consumed); var distance := camera.position.distance_to(view.position)
-		view.set_lod_distance(distance); crew.set_ship_model(view.get_model()); crew.set_lod_distance(distance); crew.set_allocation(allocation.get(ship.id,0))
-		var timed := ship.duplicate(true); timed.time = native.time; crew.apply_snapshot(timed,native.wind,consumed)
-	for id in ships.keys():
-		if not id in ids: sailors[id].dispose(); ships[id].dispose(); ships[id].queue_free(); ships.erase(id); sailors.erase(id)
-	var events: Array = effects.presentation_events(runtime.drain_events())
-	for id in ships: ships[id].apply_events(events); sailors[id].apply_events(events)
-	effects.apply_snapshot(native,consumed); effects.apply_events(events)
-	world.apply_snapshot({"time":native.time,"focus":Runtime._ship(native,native.playerId).visual.position},consumed)
+	sea.tactical = tactical; sea.zoom = _zoom
+	var events: Array = sea.apply_snapshot(native,runtime.drain_events(),consumed)
+	_sync_view_handles()
+	services.present(native,events,consumed,bool(packet.runtime.paused))
 	interface.apply_snapshot(packet)
 func _input(event: InputEvent) -> void:
 	if not interface or not event is InputEventKey or not event.pressed or event.echo: return
-	if event.physical_keycode == KEY_ESCAPE:
+	var code: int = event.physical_keycode if event.physical_keycode else event.keycode
+	if services.captures_keyboard():
+		if code == KEY_ESCAPE: services.close_settings(); _present(0.0)
+		get_viewport().set_input_as_handled(); return
+	if code == KEY_ESCAPE:
 		if runtime.snapshot().runtime.pauseReasons.has("menu"): interface.close_menu()
 		else: interface.open_menu()
 		get_viewport().set_input_as_handled(); return
-	if event.physical_keycode == KEY_SPACE and not interface.captures_keyboard():
+	if code == KEY_SPACE and not interface.captures_keyboard():
 		runtime.command({"type":"pause"}); get_viewport().set_input_as_handled()
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event is InputEventKey or event.echo: return
@@ -180,7 +152,6 @@ func _capture(label: String) -> void:
 func _exit_tree() -> void:
 	if _disposed: return
 	_disposed = true
-	for id in sailors: sailors[id].dispose()
-	for id in ships: ships[id].dispose()
-	if world: world.dispose()
-	library.dispose(); runtime.dispose()
+	if services: services.dispose()
+	if sea: sea.dispose()
+	runtime.dispose()

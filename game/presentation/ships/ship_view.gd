@@ -16,6 +16,10 @@ var _recoil: Dictionary = {}
 var _next_gun := {"port": 0, "starboard": 0}
 var _seen_events: Dictionary = {}
 var _disposed := true
+var _reduced_motion := false
+
+func set_reduced_motion(enabled: bool) -> void:
+	_reduced_motion = enabled
 
 func configure(kind: String, asset_library: RefCounted = null) -> bool:
 	dispose()
@@ -75,7 +79,7 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 			if String(node.name) == "rudder_pivot":
 				node.rotation.y = clampf(float(ship.get("rudder", 0.0)), -1.0, 1.0) * 0.42
 			if String(node.name).begins_with("flag_"):
-				node.rotation.z = sin(_time * 4.0) * 0.025
+				node.rotation.z = 0.0 if _reduced_motion else sin(_time * 4.0) * 0.025
 			if node is MeshInstance3D and node.mesh and String(node.name).begins_with("sail_"):
 				for index in node.mesh.get_blend_shape_count():
 					var morph: StringName = node.mesh.get_blend_shape_name(index)

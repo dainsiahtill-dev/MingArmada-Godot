@@ -14,6 +14,7 @@ func _run() -> void:
 	var scene := Scene.new(); root.add_child(scene)
 	await process_frame; scene.set_physics_process(false)
 	check(scene.ships.size() == 5 and scene.sailors.size() == 5,"actual opening composes five imported models and crew adapters")
+	check(scene.get("services") != null,"native Mingqi scene owns settings and actual audio presentation")
 	var crew := 0
 	for view in scene.sailors.values(): crew += view.get_visible_count()
 	check(crew > 24 and crew <= 120,"visible animated sailors respect global budget across fleet")
@@ -39,6 +40,18 @@ func _run() -> void:
 	scene._physics_process(30)
 	check(before.naval == scene.runtime.snapshot().naval and before.campaign == scene.runtime.snapshot().campaign,"global pause freezes both authorities despite ordinary Button focus")
 	check(absf(float(scene.world.get_ocean().get("_simulation_time"))-before.naval.time)<1e-10,"paused ocean reads accepted native time")
+	if scene.get("services") != null:
+		check(absf(float(scene.services.audio.diagnostics().clock)-before.naval.time)<1e-10,"audio reads the same accepted sea time when paused")
+		scene.services.open_settings()
+		var row: Control = scene.services.settings_panel.find_child("quality",true,false)
+		var choice: OptionButton = row.get_node("Value") if row else null
+		check(choice != null,"real settings modal contains a focusable quality selector")
+		if choice: choice.grab_focus()
+		var escape := InputEventKey.new(); escape.physical_keycode = KEY_ESCAPE; escape.pressed = true
+		Input.parse_input_event(escape); await process_frame
+		check(not scene.services.captures_keyboard(),"physical-only Escape closes settings before focused selector consumes it")
+		check("player" in scene.runtime.snapshot().runtime.pauseReasons and not ("menu" in scene.runtime.snapshot().runtime.pauseReasons),"closing settings retains independent player pause")
 	scene.queue_free(); await process_frame; await process_frame
+	await create_timer(0.08).timeout
 	print("MINGQI_SCENE_TESTS assertions=",assertions," failures=",failures)
 	quit(1 if failures else 0)
