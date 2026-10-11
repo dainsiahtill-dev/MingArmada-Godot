@@ -7,11 +7,13 @@ const HeightField = preload("res://modules/scene_engine/terrain/height_field.gd"
 const NavalWorldView = preload("res://game/presentation/world/naval_world_view.gd")
 const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
 const Services = preload("res://game/scenes/common/sea_services.gd")
+const SeaChart = preload("res://game/scenes/common/sea_chart_overlay.gd")
 var runtime := Runtime.new()
 var storage := Storage.new()
 var heights := HeightField.new()
 var sea: Node3D
 var services: Node
+var minimap: CanvasLayer
 var settings_storage: RefCounted
 var library: RefCounted
 var world: Node3D
@@ -36,6 +38,10 @@ func _ready() -> void:
 	_sync_view_handles()
 	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
 	interface = Interface.new(); add_child(interface); interface.command_requested.connect(_command); interface.view_requested.connect(func(value: bool): tactical = value)
+	if not interface.configure_chart(heights.sample_height): push_error("Mingqi fleet chart failed"); return
+	minimap = SeaChart.new(); add_child(minimap)
+	if not minimap.configure(geography,heights.sample_height,{"bounds":Rect2(-850,-350,1550,1000)}): push_error("Mingqi minimap failed"); return
+	minimap.chart_requested.connect(func(): interface.open_panel("convoy"); _present(0.0))
 	_present(0)
 	if _capture_mode: _capture_run.call_deferred()
 func _utc() -> String: return Time.get_datetime_string_from_system(true)+".000Z"
@@ -76,6 +82,7 @@ func _present(consumed: float) -> void:
 	_sync_view_handles()
 	services.present(native,events,consumed,bool(packet.runtime.paused))
 	interface.apply_snapshot(packet)
+	if minimap: minimap.present(native,{},not interface.visible or interface.is_panel_open() or interface.is_menu_open() or services.captures_keyboard())
 func _input(event: InputEvent) -> void:
 	if not interface or not event is InputEventKey or not event.pressed or event.echo: return
 	var code: int = event.physical_keycode if event.physical_keycode else event.keycode
@@ -153,5 +160,6 @@ func _exit_tree() -> void:
 	if _disposed: return
 	_disposed = true
 	if services: services.dispose()
+	if minimap: minimap.dispose()
 	if sea: sea.dispose()
 	runtime.dispose()

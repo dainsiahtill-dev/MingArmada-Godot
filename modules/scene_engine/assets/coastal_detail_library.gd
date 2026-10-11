@@ -15,6 +15,44 @@ func get_mesh(kind: String, variant: int = 0) -> ArrayMesh:
 	var dark := Color.html("423b31")
 	var rope := Color.html("c6ac75")
 	match kind:
+		"coastal_tree":
+			_tube(Vector3(0,-0.25,0),Vector3(0.25,4.8,0.1),0.25,wood,7)
+			for index in 5:
+				var angle:=index*2.399
+				var crown:=Vector3(cos(angle)*1.55,4.2+(index%3)*0.65,sin(angle)*1.55)
+				_tube(Vector3(0.15,2.9,0),crown,0.11,wood,6)
+				_foliage(crown,1.6+(index%2)*0.3,Color.html("486b38") if index%2 else Color.html("66834a"))
+			_foliage(Vector3(0.3,6.1,-0.1),1.8,Color.html("738b51"))
+		"harbor_house":
+			# Deep compact masonry plinth embeds on sampled slopes; no floating base.
+			_box(Vector3(0,-0.7,0),Vector3(7.3,6.0,5.7),Color.html("89816b"))
+			_box(Vector3(0,4.15,0),Vector3(7.1,3.7,5.5),Color.html("b4a387"))
+			_roof(8.3,6.2,6.0,Color.html("7e4936"))
+			_box(Vector3(0,3.5,2.8),Vector3(1.45,2.35,0.09),dark)
+			for x: float in [-2.25,2.25]:
+				_box(Vector3(x,4.45,2.81),Vector3(1.15,1.0,0.09),dark)
+				for line in 3: _box(Vector3(x+(line-1)*0.3,4.45,2.87),Vector3(0.065,1.05,0.045),wood)
+			for step in 4: _box(Vector3(0,0.3+step*0.55,4.5-step*0.4),Vector3(2.6,0.6+step*1.1,0.55),Color.html("938975"))
+		"lean_to":
+			for x: float in [-2.2,2.2]:
+				for z: float in [-1.7,1.7]: _tube(Vector3(x,-3.6,z),Vector3(x,3.9-z*0.25,z),0.12,wood,6)
+			_box(Vector3(0,0.2,0),Vector3(4.7,0.35,3.7),Color.html("9a8662"))
+			var a:=Vector3(-2.7,4.5,-2.1); var b:=Vector3(2.7,4.5,-2.1)
+			var c:=Vector3(2.7,3.4,2.1); var d:=Vector3(-2.7,3.4,2.1)
+			_quad(a,d,c,b,Color.html("c5b280")); _quad(a-Vector3(0,0.16,0),b-Vector3(0,0.16,0),c-Vector3(0,0.16,0),d-Vector3(0,0.16,0),wood)
+			for index in 7:
+				var x:=(index-3)*0.78
+				_tube(Vector3(x,4.54,-2.15),Vector3(x,3.44,2.15),0.055,wood,4)
+			_box(Vector3(0,1.0,-1.1),Vector3(4.4,1.65,1.0),Color.html("897247"))
+		"market_stall":
+			for x: float in [-2.0,2.0]:
+				for z: float in [-1.05,1.05]: _tube(Vector3(x,-3.5,z),Vector3(x,3.1,z),0.1,wood,6)
+			_box(Vector3(0,1.05,0),Vector3(4.4,0.25,2.5),Color.html("ac8d59"))
+			_box(Vector3(0,0.2,-0.4),Vector3(4.1,1.4,1.3),wood)
+			_roof(5.0,3.0,3.15,Color.html("d3b675"))
+			for index in 5: _foliage(Vector3((index-2)*0.68,1.38,0),0.32,Color.html("aa984e"))
+		"path_gravel":
+			_rock(0,false)
 		"outcrop", "pebble", "reef":
 			_rock(variant, kind == "reef")
 		"beach_grass":
@@ -101,6 +139,11 @@ func get_mesh(kind: String, variant: int = 0) -> ArrayMesh:
 
 func _palette(kind: String) -> Color:
 	match kind:
+		"coastal_tree": return Color.html("547442")
+		"harbor_house": return Color.html("a18764")
+		"lean_to": return Color.html("a58d5e")
+		"market_stall": return Color.html("bb9a61")
+		"path_gravel": return Color.html("b29b73")
 		"outcrop","pebble": return Color.html("807b69")
 		"reef": return Color.html("777d67")
 		"beach_grass": return Color.html("81945b")
@@ -111,6 +154,30 @@ func _palette(kind: String) -> Color:
 		"bollard": return Color.html("3f3329")
 		"lantern": return Color.html("d2a75d")
 	return Color.html("807b69")
+
+func _roof(width: float,depth: float,wall_height: float,color: Color) -> void:
+	for side: float in [-1.0,1.0]:
+		var a:=Vector3(-width*0.5,wall_height+1.6,0); var b:=Vector3(width*0.5,wall_height+1.6,0)
+		var c:=Vector3(width*0.5,wall_height+0.28,side*depth*0.42); var d:=Vector3(-width*0.5,wall_height+0.28,side*depth*0.42)
+		var e:=Vector3(width*0.5,wall_height+0.48,side*depth*0.59); var f:=Vector3(-width*0.5,wall_height+0.48,side*depth*0.59)
+		if side>0:
+			_quad(a,d,c,b,color); _quad(d,f,e,c,color.lightened(0.05))
+		else:
+			_quad(a,b,c,d,color); _quad(d,c,e,f,color.lightened(0.05))
+		var lower:=Vector3(0,0.18,0)
+		if side>0:
+			_quad(a-lower,b-lower,c-lower,d-lower,color.darkened(0.2))
+		else:
+			_quad(a-lower,d-lower,c-lower,b-lower,color.darkened(0.2))
+		for x: float in [-width*0.5,width*0.5]:
+			var ridge:=Vector3(x,wall_height+1.6,0)
+			var edge:=Vector3(x,wall_height+0.28,side*depth*0.42)
+			var base:=Vector3(x,wall_height,0)
+			if x*side>0:
+				_triangle(ridge,edge,base,color.darkened(0.18))
+			else:
+				_triangle(ridge,base,edge,color.darkened(0.18))
+	_box(Vector3(0,wall_height+1.66,0),Vector3(width+0.35,0.2,0.28),color.lightened(0.1))
 
 func _net_point(x: float,z: float) -> Vector3:
 	return Vector3(x,0.09+0.54*maxf(0,1.0-(x*x+z*z)/0.7),z)

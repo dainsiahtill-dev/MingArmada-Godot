@@ -20,6 +20,29 @@ func fingerprints(placements: Array, id: String) -> Array:
 	for placement: Dictionary in placements:
 		if placement.port_id == id: result.append([placement.kind, placement.position, placement.scale])
 	return result
+func check_roof_faces(mesh: ArrayMesh,width: float,depth: float,wall_height: float) -> void:
+	var arrays:=mesh.surface_get_arrays(0)
+	var vertices: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+	var normals: PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
+	var gable_count:=0; var underside_count:=0
+	for index in range(0,vertices.size(),3):
+		var a:=vertices[index]; var b:=vertices[index+1]; var c:=vertices[index+2]
+		var cap:=absf(absf(a.x)-width*0.5)<0.001 and absf(a.x-b.x)<0.001 and absf(a.x-c.x)<0.001 and minf(a.y,minf(b.y,c.y))>=wall_height-0.001
+		var underside:=true
+		for vertex: Vector3 in [a,b,c]:
+			var ridge:=absf(vertex.y-(wall_height+1.42))<0.001 and absf(vertex.z)<0.001
+			var edge:=absf(vertex.y-(wall_height+0.10))<0.001 and absf(absf(vertex.z)-depth*0.42)<0.001
+			if not (ridge or edge): underside=false
+		if cap:
+			gable_count+=1
+			var outward:=Vector3(signf(a.x),0,0)
+			check(normals[index].dot(outward)>0.99,"both gable ends have outward stored normals")
+			check(-(b-a).cross(c-a).normalized().dot(outward)>0.99,"both gable ends use exterior clockwise front-face winding")
+		if underside:
+			underside_count+=1
+			check(normals[index].y< -0.1,"both sloping roof undersides face down")
+			check((b-a).cross(c-a).normalized().y>0.1,"both roof undersides use downward-facing clockwise winding")
+	check(gable_count==4 and underside_count==4,"test inspects every roof half at both gable ends and underside faces")
 func _run() -> void:
 	var path := "res://modules/scene_engine/world/island_details.gd"
 	var script = load(path) if ResourceLoader.exists(path) else null
@@ -33,6 +56,8 @@ func _run() -> void:
 		check(audit.group_count > 10 and audit.mesh_count > 8, "native geometry includes several coast and harbor silhouettes")
 		var kinds: Dictionary = {}
 		var library=load("res://modules/scene_engine/assets/coastal_detail_library.gd").new()
+		check_roof_faces(library.get_mesh("harbor_house"),8.3,6.2,6.0)
+		check_roof_faces(library.get_mesh("market_stall"),5.0,3.0,3.15)
 		for placement: Dictionary in audit.placements:
 			kinds[placement.kind] = true
 			var point: Vector3 = placement.position
@@ -103,12 +128,44 @@ func _run() -> void:
 		var real_audit: Dictionary=details.diagnostics()
 		var port_counts: Dictionary={}; var reef_count:=0; var coast_count:=0
 		var interior_counts: Dictionary={}
+		var grove_counts: Dictionary={}; var harbor_counts: Dictionary={}; var path_counts: Dictionary={}
 		for placement: Dictionary in real_audit.placements:
 			port_counts[placement.port_id]=int(port_counts.get(placement.port_id,0))+1
 			if placement.zone=="reef":
 				reef_count+=1
 				check(placement.position.y+placement.scale.y*1.1<0.0,"real submerged reef remains below mean water surface")
 			if placement.kind=="outcrop": coast_count+=1
+			if placement.kind=="coastal_tree":
+				grove_counts[placement.port_id]=int(grove_counts.get(placement.port_id,0))+1
+				check(placement.position.y>6.0,"grove trees stand inland on authoritative land")
+				check(library.get_mesh("coastal_tree").get_aabb().size.y*placement.scale.y>=7.0,"grove canopy has readable tactical-distance height")
+			if placement.kind in ["harbor_house","lean_to","market_stall"]:
+				harbor_counts[placement.port_id]=int(harbor_counts.get(placement.port_id,0))+1
+				check(placement.position.y>=1.5,"harbor buildings stay above beach/water shelf")
+				var building_mesh: ArrayMesh=library.get_mesh(placement.kind)
+				var foot_y:=building_mesh.get_aabb().position.y
+				var footing_supported:=true
+				for vertex: Vector3 in building_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+					if absf(vertex.y-foot_y)>0.001: continue
+					var foot: Vector3=placement.transform*vertex
+					if foot.y>field.sample_height(foot.x,foot.z)+0.05: footing_supported=false
+				check(footing_supported,"new harbor plinth/post bottoms stay embedded in actual ground")
+				var center:=Vector2(placement.position.x,placement.position.z)
+				var houses_clear:=true
+				for port: Dictionary in geography:
+					for index in 9:
+						var house:=Vector2(float(port.islandX)+cos(index*2.15)*float(port.radius)*0.42,float(port.islandZ)+sin(index*2.15)*float(port.radius)*0.32)
+						if center.distance_to(house)<12.0: houses_clear=false
+				check(houses_clear,"medium harbor architecture does not overlap original house ring")
+			if placement.kind=="path_gravel":
+				path_counts[placement.port_id]=int(path_counts.get(placement.port_id,0))+1
+				var vertices: PackedVector3Array=library.get_mesh("path_gravel").surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+				var contacts:=true
+				for vertex: Vector3 in vertices:
+					if absf(vertex.y)>0.001: continue
+					var world_point: Vector3=placement.transform*vertex
+					if absf(world_point.y-field.sample_height(world_point.x,world_point.z))>0.18: contacts=false
+				check(contacts,"path fragment footprint follows sampled slope without floating flat tiles")
 			if placement.zone=="land" and placement.position.y>6.0 and placement.kind in ["shrub","beach_grass","outcrop"]:
 				interior_counts[placement.port_id]=int(interior_counts.get(placement.port_id,0))+1
 				if placement.kind in ["shrub","beach_grass"]:
@@ -116,8 +173,13 @@ func _run() -> void:
 		check(port_counts.size()==3 and reef_count>5 and coast_count>8,"all real islands have harbor detail and visible geological coast layers")
 		check(interior_counts.size()==3,"each real island has visible interior understory beyond its narrow shoreline")
 		for id: String in interior_counts: check(interior_counts[id]>=10,"interior detail forms useful patches rather than one token bush")
+		print("ISLAND_DETAILS_PHASE2 groves=",grove_counts," architecture=",harbor_counts," path_fragments=",path_counts)
+		check(grove_counts.size()==3 and harbor_counts.size()==3 and path_counts.size()==3,"every real island has grove, medium harbor and connected warm ground dressing")
+		for id: String in grove_counts: check(grove_counts[id]>=5,"grove composition has several useful tree volumes")
+		for id: String in harbor_counts: check(harbor_counts[id]>=3,"working harbor forms a cluster instead of one token stall")
+		for id: String in path_counts: check(path_counts[id]>=12,"ground dressing forms legible path/yard patches")
 		print("ISLAND_DETAILS_REAL instances=",real_audit.instance_count," groups=",real_audit.group_count," meshes=",real_audit.mesh_count," vertices=",real_audit.mesh_vertices," reefs=",reef_count," outcrops=",coast_count)
-		check(real_audit.instance_count<=2200 and real_audit.mesh_count<=18 and real_audit.mesh_vertices<24000,"three-island real geometry stays within reusable mesh budget")
+		check(real_audit.instance_count<=2200 and real_audit.mesh_count<=24 and real_audit.mesh_vertices<35000,"three-island real geometry stays within reusable mesh budget")
 		# Oversized global requests must still fit the hard upper bound.
 		var dense: Array=[]
 		for index in 64:
@@ -126,6 +188,10 @@ func _run() -> void:
 		check(details.diagnostics().instance_count<=4096,"global hard cap survives many overlapping islands and oversized options")
 		var too_many:=dense.duplicate(true); too_many.append(dense[0])
 		check(not details.configure(ground,too_many) and details.diagnostics().owned_nodes==0,"oversized catalog rejected and old resources released")
+		var sample_calls: Array=[0]
+		var flat: Callable=func(_x: float,_z: float)->float: sample_calls[0]+=1; return 10.0
+		check(details.configure(flat,[{"id":"huge","x":100.0,"z":0.0,"islandX":0.0,"islandZ":0.0,"radius":1000000000.0}],{"max_instances":50}),"very large finite island catalog cannot expand decorative work unboundedly")
+		check(sample_calls[0]<5000 and details.diagnostics().instance_count<=50,"per-island path construction bounds sampler work as well as mesh allocation")
 		details.free()
 	print("ISLAND_DETAILS_TESTS assertions=", assertions, " failures=", failures)
 	quit(1 if failures else 0)

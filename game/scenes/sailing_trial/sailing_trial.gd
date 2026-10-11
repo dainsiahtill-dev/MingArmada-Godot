@@ -8,6 +8,8 @@ const ShipView = preload("res://game/presentation/ships/ship_view.gd")
 const Hud = preload("res://game/ui/sailing_hud.gd")
 const WaveDescriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const CrewView = preload("res://game/presentation/crew/crew_view.gd")
+const SeaChartOverlay = preload("res://game/scenes/common/sea_chart_overlay.gd")
+const NauticalChart = preload("res://game/ui/charts/nautical_chart.gd")
 
 var runtime := Runtime.new()
 var heights := HeightField.new()
@@ -20,6 +22,13 @@ var capture_mode := false
 var capture_index := 0
 var previous: Dictionary
 var crew: Node3D
+var mini_chart: CanvasLayer
+var chart_layer: CanvasLayer
+var expanded_chart: Control
+var chart_caption: Label
+var chart_close: Button
+var chart_open := false
+var _pause_before_chart := false
 
 func _ready() -> void:
 	DisplayServer.window_set_title("海上明旗 · Godot 航行迁移")
@@ -79,8 +88,9 @@ func _ready() -> void:
 	crew.set_environment(runtime.sample_water_height)
 	hud = Hud.new()
 	add_child(hud)
-	hud.command_requested.connect(runtime.command)
+	hud.command_requested.connect(_trial_command)
 	hud.view_requested.connect(func(value: bool): tactical = value)
+	_configure_charts(parsed)
 	_apply_snapshot(0.0)
 	if capture_mode:
 		if "--shore-loop" in OS.get_cmdline_user_args(): _capture_shore_loop.call_deferred()
@@ -116,10 +126,89 @@ func _apply_snapshot(consumed: float) -> void:
 		crew.set_lod_distance(camera.position.distance_to(ship.position))
 		crew.apply_snapshot(previous.ship, previous.wind, consumed)
 	hud.apply_snapshot(previous)
+	_present_charts(previous)
+
+func _configure_charts(ports: Array) -> void:
+	mini_chart = SeaChartOverlay.new()
+	add_child(mini_chart)
+	mini_chart.configure(ports,heights.sample_height)
+	mini_chart.chart_requested.connect(func(): _set_chart_open(true))
+	chart_layer = CanvasLayer.new(); chart_layer.layer = 28; add_child(chart_layer)
+	var backdrop := ColorRect.new(); backdrop.name = "trial_chart_backdrop"
+	backdrop.color = Color(0.025,0.065,0.07,0.86)
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	chart_layer.add_child(backdrop)
+	expanded_chart = NauticalChart.new(); expanded_chart.name = "trial_chart"
+	chart_layer.add_child(expanded_chart)
+	expanded_chart.configure(ports,heights.sample_height,{"title":"大明沿海航图"})
+	# Trial runtime has no Navigator. Geographic display never emits route intent.
+	expanded_chart.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	chart_caption = Label.new(); chart_caption.text = "试航模式 · 航位显示"
+	chart_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	chart_caption.add_theme_color_override("font_color",Color("f0d6a1"))
+	chart_caption.add_theme_font_size_override("font_size",20)
+	chart_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	chart_layer.add_child(chart_caption)
+	chart_close = Button.new(); chart_close.name = "trial_chart_close"
+	chart_close.text = "关闭海图  ·  M / Esc"
+	chart_layer.add_child(chart_close)
+	chart_close.pressed.connect(func(): _set_chart_open(false))
+	# The chart recalculates its intrinsic minimum after width changes.
+	expanded_chart.minimum_size_changed.connect(_layout_chart)
+	get_viewport().size_changed.connect(_layout_chart)
+	chart_layer.hide(); _layout_chart()
+
+func _chart_native(state: Dictionary) -> Dictionary:
+	return {"playerId":"trial","ships":[{"id":"trial","team":"player","visual":{"position":state.ship.position.duplicate(true),"heading":state.ship.heading}}]}
+
+func _present_charts(state: Dictionary) -> void:
+	if not mini_chart: return
+	var native := _chart_native(state)
+	mini_chart.present(native,{},chart_open or not hud.visible)
+	if expanded_chart: expanded_chart.apply_naval_snapshot(native)
+
+func _set_chart_open(value: bool) -> void:
+	if not chart_layer or value == chart_open: return
+	chart_open = value
+	if value:
+		_pause_before_chart = bool(runtime.snapshot().paused)
+		runtime.command({"type":"pause","value":true})
+	else:
+		runtime.command({"type":"pause","value":_pause_before_chart})
+	chart_layer.visible = value
+	_layout_chart()
+	_present_charts(runtime.snapshot())
+
+func _layout_chart() -> void:
+	if not expanded_chart: return
+	var viewport := get_viewport().get_visible_rect().size
+	# Reserve caption and close control; preserve chart aspect on smaller windows.
+	var width := maxf(160,minf(622,minf(viewport.x-48,(viewport.y-190)*NauticalChart.DEFAULT_BOUNDS.size.x/NauticalChart.DEFAULT_BOUNDS.size.y+44)))
+	expanded_chart.size = Vector2(width,maxf(300,minf(500,(width-44)*NauticalChart.DEFAULT_BOUNDS.size.y/NauticalChart.DEFAULT_BOUNDS.size.x+86)))
+	var top := maxf(12,(viewport.y-expanded_chart.size.y-84)/2)
+	expanded_chart.position = Vector2((viewport.x-width)/2,top+36)
+	chart_caption.position = Vector2(expanded_chart.position.x,top)
+	chart_caption.size = Vector2(width,28)
+	chart_close.position = Vector2(expanded_chart.position.x,expanded_chart.position.y+expanded_chart.size.y+10)
+	chart_close.size = Vector2(width,38)
+
+func _trial_command(intent: Dictionary) -> void:
+	if chart_open: return
+	runtime.command(intent)
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo: return
+	var code: Key = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+	if code == KEY_M:
+		_set_chart_open(not chart_open)
+		get_viewport().set_input_as_handled()
+	elif chart_open and code in [KEY_ESCAPE,KEY_SPACE]:
+		if code == KEY_ESCAPE: _set_chart_open(false)
+		get_viewport().set_input_as_handled()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo: return
-	match event.physical_keycode:
+	match event.physical_keycode if event.physical_keycode != 0 else event.keycode:
 		KEY_SPACE: runtime.command({"type": "pause"})
 		KEY_1: tactical = false
 		KEY_2: tactical = true
@@ -173,6 +262,9 @@ func _capture(label: String) -> void:
 	print("NATIVE_SAILING_VIEWPORT_SAVED ", label)
 
 func _exit_tree() -> void:
+	if chart_open: runtime.command({"type":"pause","value":_pause_before_chart})
+	if is_instance_valid(mini_chart): mini_chart.dispose()
+	if is_instance_valid(expanded_chart): expanded_chart.dispose()
 	if is_instance_valid(crew): crew.dispose()
 	if is_instance_valid(world): world.dispose()
 	if is_instance_valid(ship): ship.dispose()

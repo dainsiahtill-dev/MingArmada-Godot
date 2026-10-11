@@ -9,9 +9,12 @@
 - Q / E：调整帆角。
 - Space：暂停、恢复，船只/海面/水手共用暂停后的模拟时间。
 - 1 / 2：船长镜头、高位海图镜头。
+- M / 点击右上小地图：展开试航海图；M / Esc / 关闭按钮返回，保留先前暂停状态。
 - F12：保存实际 viewport PNG 与状态 JSON 到 `docs/migration/evidence/sailing-trial/`。
 
 海面实验场景另位于 `game/scenes/water_probe/water_probe.tscn`，可单独按 F6 运行。默认航行场景已接入原船模、水手和原物理，不是静态截图。
+
+明代古航图已接入默认试航与两套生涯场景。1650场景为`game/scenes/mingqi/mingqi_scene.tscn`，1661为`game/scenes/legacy/legacy_scene.tscn`，均可单独F6运行；完整主菜单路由仍在迁移。小图读取真实地形与船位；默认试航海图仅显示航位，两个生涯继续使用各自原有导航命令。原生截图和边界说明见[古航图验收](docs/migration/native-nautical-chart-integration.md)。
 
 运行独立检查（Node.js + RTK + 本机 Godot 可执行文件）：
 

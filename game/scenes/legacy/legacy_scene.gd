@@ -9,6 +9,7 @@ const Sea = preload("res://game/presentation/world/naval_world_view.gd")
 const Interface = preload("res://game/ui/legacy/legacy_interface.gd")
 const EncounterInterface = preload("res://game/ui/encounters/encounter_interface.gd")
 const Services = preload("res://game/scenes/common/sea_services.gd")
+const SeaChart = preload("res://game/scenes/common/sea_chart_overlay.gd")
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 const SHORTCUTS := {KEY_I:"KeyI",KEY_M:"KeyM",KEY_F:"KeyF",KEY_B:"KeyB",KEY_ESCAPE:"Escape"}
 const ENCOUNTER_KEYS := {KEY_J:"KeyJ",KEY_K:"KeyK",KEY_L:"KeyL",KEY_U:"KeyU",KEY_I:"KeyI",KEY_O:"KeyO",KEY_SPACE:"Space",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_W:"KeyW",KEY_A:"KeyA",KEY_S:"KeyS",KEY_D:"KeyD",KEY_ENTER:"Enter"}
@@ -22,6 +23,9 @@ var sea: Node3D
 var interface: CanvasLayer
 var encounter_interface: Control
 var services: Node
+var minimap: CanvasLayer
+var heights := Height.new()
+var _expanded_chart: Control
 var tactical := false
 var _zoom := 1.0
 var _disposed := false
@@ -31,7 +35,6 @@ func _ready() -> void:
 	DisplayServer.window_set_title("海上明旗 · 1661 航海生涯")
 	Engine.physics_ticks_per_second = 60; get_viewport().msaa_3d = Viewport.MSAA_4X
 	_capture_mode = "--capture-legacy" in OS.get_cmdline_user_args()
-	var heights := Height.new()
 	if not heights.configure_ports(Catalog.DATA.PORTS): push_error("Legacy geography failed"); return
 	var options := startup_options.duplicate(true); options.storage = storage
 	startup_receipt = runtime.configure(heights.sample_height,options)
@@ -49,6 +52,9 @@ func _ready() -> void:
 	var layer := CanvasLayer.new(); layer.layer = 35; add_child(layer)
 	encounter_interface = EncounterInterface.new(); layer.add_child(encounter_interface)
 	encounter_interface.command_requested.connect(_command)
+	minimap = SeaChart.new(); add_child(minimap)
+	if not minimap.configure(Catalog.DATA.PORTS,heights.sample_height): push_error("Legacy minimap failed"); return
+	minimap.chart_requested.connect(func(): interface.open_panel("chart"); _present(0.0))
 	_present(0.0)
 	if not initial_save.is_empty(): interface.open_menu()
 	if _capture_mode: _capture_run.call_deferred()
@@ -100,6 +106,14 @@ func _present(consumed: float) -> void:
 	interface.apply_snapshot(packet)
 	var encounter = packet.runtime.get("encounter")
 	encounter_interface.apply_snapshot(encounter if encounter is Dictionary else {},packet.runtime.revision)
+	var chart: Control = interface.find_child("world_chart",true,false)
+	if chart and chart != _expanded_chart:
+		_expanded_chart = chart
+		chart.configure(Catalog.DATA.PORTS,heights.sample_height)
+	var overlays := SeaChart.navigation_overlays(packet.naval,{"activeObjectives":packet.adventure.get("activeObjectives",[]),"waypoint":packet.adventure.get("waypoint",{})})
+	if chart: chart.apply_naval_snapshot(packet.naval,overlays)
+	var result: Control = interface.find_child("result",true,false)
+	if minimap: minimap.present(packet.naval,overlays,not interface.visible or interface.is_panel_open() or interface.is_menu_open() or encounter_interface.visible or services.captures_keyboard() or (result != null and result.visible))
 
 func _physics_process(delta: float) -> void:
 	if not sea or _capture_mode: return
@@ -182,5 +196,6 @@ func _exit_tree() -> void:
 	if _disposed: return
 	_disposed = true
 	if services: services.dispose()
+	if minimap: minimap.dispose()
 	if sea: sea.dispose()
 	runtime.dispose()

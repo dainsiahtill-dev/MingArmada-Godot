@@ -30,6 +30,7 @@ var _receipt_marker := ""
 var _serial := 0
 var _mount := 0
 var _theme: Theme
+var _chart_height: Callable
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -131,6 +132,20 @@ func captures_keyboard() -> bool:
 	var focus := _screen.get_viewport().gui_get_focus_owner()
 	if focus == null or not _screen.is_ancestor_of(focus): return false
 	return (focus is LineEdit and focus.editable) or (focus is TextEdit and focus.editable)
+
+func configure_chart(height_sampler: Callable) -> bool:
+	_chart_height = height_sampler
+	if not _screen: return height_sampler.is_valid()
+	var chart = _screen.find_child("fleet_chart", true, false)
+	if not chart: return false
+	var configured: bool = chart.configure_geography(height_sampler)
+	if configured:
+		chart.apply_data(_vessels(), _ports(), _catalog.get("routes", {}), str(_runtime().get("selectedShipId", _state().get("flagshipId", ""))))
+		chart.apply_packet(_packet)
+	return configured
+
+func is_panel_open() -> bool: return _panel_open
+func is_menu_open() -> bool: return _menu_open
 
 func open_panel(id: String) -> void:
 	if not PANELS.has(id): return
@@ -305,7 +320,10 @@ func _build_convoy(parent: Control) -> void:
 	var chart := Chart.new()
 	chart.name = "fleet_chart"
 	parent.add_child(chart)
-	_watchers.append(func(): chart.apply_data(_vessels(), _ports(), _catalog.get("routes", {}), str(_runtime().get("selectedShipId", _state().get("flagshipId", "")))))
+	if _chart_height.is_valid(): chart.configure_geography(_chart_height)
+	_watchers.append(func():
+		chart.apply_data(_vessels(), _ports(), _catalog.get("routes", {}), str(_runtime().get("selectedShipId", _state().get("flagshipId", ""))))
+		chart.apply_packet(_packet))
 	var chart_token := _token()
 	chart.point_requested.connect(func(point):
 		if chart_token != _token(): return
@@ -315,7 +333,7 @@ func _build_convoy(parent: Control) -> void:
 			var field = _screen.find_child(coordinate, true, false)
 			if field: field.set_value_no_signal(float(_form[coordinate]))
 		_refresh())
-	_text(parent, "chart_legend", func(): return "纸白：近场 · 黄铜：航线 · 红：敌舰\n浅路水深 2.4m；航路选择按实际吃水核验。", 14)
+	_text(parent, "chart_legend", func(): return "金舟：旗舰 · 青舟：同盟 · 朱舟：敌舰\n点击海图填写航位；确认航行仍须使用战术页按钮。\n浅路水深 2.4m；航路选择按实际吃水核验。", 14)
 	_heading(parent, "护粮委托")
 	for id in _state().get("contracts", {}):
 		_text(parent, "contract_" + id, func():

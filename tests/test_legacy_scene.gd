@@ -9,6 +9,10 @@ func check(ok: bool, detail: String) -> void:
 	assertions += 1
 	if not ok: failures += 1; printerr("FAIL: ",detail)
 func _initialize() -> void: _run.call_deferred()
+func click(control: Control, point: Vector2) -> void:
+	var event := InputEventMouseButton.new(); event.button_index=MOUSE_BUTTON_LEFT; event.pressed=true; event.position=control.global_position+point
+	Input.parse_input_event(event); await process_frame
+	event=event.duplicate(); event.pressed=false; Input.parse_input_event(event); await process_frame
 func _run() -> void:
 	var path := "res://game/scenes/legacy/legacy_scene.gd"
 	var script = load(path) if ResourceLoader.exists(path) else null
@@ -28,7 +32,11 @@ func _run() -> void:
 		if buy: buy.pressed.emit()
 		var after: Dictionary = scene.runtime.snapshot().adventure
 		check(after.player.silver < before.player.silver and after.cargo.grain > before.cargo.grain,"UI buy reaches actual career money, inventory and quote authority")
-		scene.interface.open_panel("chart")
+		check(scene.minimap.chart.visible,"actual career opening has a live unobstructed native minimap")
+		await click(scene.minimap.chart,scene.minimap.chart.map_rect().get_center())
+		check(scene.interface.is_panel_open() and scene.interface._panel=="chart" and not scene.minimap.chart.visible,"real minimap Control click opens the paused full chart and hides its compact view")
+		var expanded: Control=scene.interface.find_child("world_chart",true,false)
+		check(expanded._configured and expanded._native==scene.runtime.native_snapshot() and not expanded._coast_segments.is_empty(),"expanded career map renders the same native fleet and actual terrain coastline")
 		check("panel" in scene.runtime.snapshot().runtime.pauseReasons,"opening a named page string pauses the real career")
 		scene.interface.close_panel()
 		check(not ("panel" in scene.runtime.snapshot().runtime.pauseReasons),"closing a page boolean releases only the panel pause")
@@ -57,6 +65,13 @@ func _run() -> void:
 		var routed: Dictionary = scene.runtime.native_snapshot()
 		check(Runtime._ship(routed,routed.playerId).has("navigation"),"actual chart waypoint installs a native route under panel suspension: "+scene.runtime.snapshot().runtime.notice)
 		check(not scene.interface.is_panel_open() and not ("panel" in scene.runtime.snapshot().runtime.pauseReasons),"successful chart navigation returns to sea and releases only originating panel pause")
+		scene.interface.open_panel("chart"); scene._present(0.0); await process_frame
+		expanded=scene.interface.find_child("world_chart",true,false)
+		var target := {"x":120.0,"z":260.0}
+		await click(expanded,expanded.projected(target))
+		var route: Dictionary=Runtime._ship(scene.runtime.native_snapshot(),routed.playerId).get("navigation",{})
+		check(absf(float(route.get("x",INF))-target.x)<0.01 and absf(float(route.get("z",INF))-target.z)<0.01 and not scene.interface.is_panel_open(),"real full chart click converts its framed coordinates to an authoritative native waypoint")
+		check(scene.minimap.chart.visible and scene.minimap.chart._overlays.waypoint==route,"compact chart returns to sailing and shows the accepted route target")
 		scene.interface.open_menu()
 		var paused: Dictionary = scene.runtime.snapshot()
 		scene._physics_process(10)

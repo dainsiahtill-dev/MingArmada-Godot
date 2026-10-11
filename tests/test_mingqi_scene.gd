@@ -35,6 +35,14 @@ func _run() -> void:
 	var moving: Dictionary = scene.runtime.snapshot()
 	var id: String = moving.naval.playerId
 	check(scene.runtime._ship(moving.naval,id).sailDeployment > 0.9,"real native key event reaches gradual forward sails after HUD focus")
+	scene.interface.close_panel(); scene._present(0.0); await process_frame
+	check(scene.minimap.chart.visible and scene.minimap.chart._native==scene.runtime.snapshot().naval,"Mingqi sailing has a compact map reading the actual native fleet")
+	var click := InputEventMouseButton.new(); click.button_index=MOUSE_BUTTON_LEFT; click.pressed=true; click.position=scene.minimap.chart.global_position+scene.minimap.chart.map_rect().get_center()
+	Input.parse_input_event(click); await process_frame
+	click=click.duplicate(); click.pressed=false; Input.parse_input_event(click); await process_frame
+	check(scene.interface.is_panel_open() and scene.interface._panel=="convoy" and not scene.minimap.chart.visible,"actual Mingqi minimap click opens the source convoy chart without overlaying its panel")
+	var expanded: Control=scene.interface.find_child("fleet_chart",true,false)
+	check(expanded._configured and expanded._native==scene.runtime.snapshot().naval and not expanded._coast_segments.is_empty(),"Mingqi full chart uses the shared real terrain and live native ship positions")
 	key(KEY_SPACE,true); await process_frame; key(KEY_SPACE,false); await process_frame
 	before = scene.runtime.snapshot()
 	scene._physics_process(30)
