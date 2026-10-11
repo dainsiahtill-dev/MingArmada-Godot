@@ -1,5 +1,6 @@
 extends RefCounted
 ## Input policy from ManualSailingAssist.ts. Only accepted simulation time counts.
+const Types = preload("res://modules/contracts/physics_types.gd")
 var _stalled := 0.0
 var _fresh_forward_required := false
 var _recovery: Dictionary = {}
@@ -24,7 +25,12 @@ func advance(seconds: float, ship: Dictionary, wind: Dictionary, input: Dictiona
 	var angle := absf(_wrap(ship.visual.heading-atan2(wind.direction.y,wind.direction.x)))
 	if not _recovery.is_empty():
 		_recovery.seconds += seconds
-		if _recovery.seconds+1e-10 >= (24 if ship.kind == "heavy" else 18): block("recovery-timeout"); return
+		# Cargo already reduces angular acceleration through inertia. Give the
+		# same validated recovery proportionate accepted time, never extra torque.
+		var mass: float = Types.ship_spec(ship.kind).get("mass", 1.0)
+		var cargo: float = ship.get("stats", {}).get("cargoMass", 0.0)
+		var timeout: float = (24.0 if ship.kind == "heavy" else 18.0) * (1.0 + clampf(cargo / mass, 0.0, 1.0))
+		if _recovery.seconds+1e-10 >= timeout: block("recovery-timeout"); return
 		if angle > deg_to_rad(50): _recovery.restoring = true
 		if _recovery.restoring: _recovery.restoringSeconds += seconds
 		if _recovery.restoringSeconds+1e-10 >= 2: cancel(); return

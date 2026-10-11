@@ -38,6 +38,8 @@ var last_error = ""
 var _id_collator = Collator.new()
 func _init(initial: Dictionary = {}) -> void: reset(initial)
 func reset(initial: Dictionary = config) -> bool:
+	for flag in ["referenceHandling", "referenceGunnery"]:
+		if initial.has(flag) and not initial[flag] is bool: last_error = "Invalid reference configuration"; return false
 	var next_player = initial.get("playerId", "player")
 	var next_wind = initial.get("wind", {"direction": {"x": -1.0, "y": 0.0}, "speed": 12.0})
 	if not next_player is String or next_player.is_empty() or not _valid_wind(next_wind) or not _finite(initial.get("seed", 1661)) or not _finite(initial.get("seaLevel", 0)):
@@ -338,15 +340,21 @@ func _ship_command(input: Dictionary) -> Dictionary:
 	if ship.reload[input.side] > tick: return _no("Reloading")
 	if state.ammo[state.ammoType] <= 0: return _no("Out of ammunition")
 	if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
+	if config.get("referenceGunnery", false):
+		if state.crew <= 0: return _no("Ship not operational")
+		for cannon in state.cannonsPerSide:
+			if not _reference_corridor_clear(ship, input.side, state.ammoType, cannon): return _no("friendly-fire-blocked")
 	state.controlsSequence += 1; state.ammo[state.ammoType] -= 1
 	var crew_factor = 1.0 + (1.0 - state.crew / state.maxCrew) * 1.5
-	ship.reload[input.side] = tick + int(ceil(7 * 60 * crew_factor * state.stats.reloadMultiplier))
+	var reload_seconds: float = Cannon.reload_seconds(state) if config.get("referenceGunnery", false) else 7.0 * crew_factor * state.stats.reloadMultiplier
+	ship.reload[input.side] = tick + int(ceil(reload_seconds * 60.0))
 	var aim = _target(ship, input.side, state.ammoType) if _continuous() else {}
 	var aim_id = aim.get("state", {}).get("id", "")
 	var target_id = intent.targetId if not intent.is_empty() and intent.kind != "protect" and intent.has("targetId") else aim_id
 	_launch(ship, input.side, state.ammoType, 0, aim_id)
+	var interval: int = Cannon.salvo_interval_ticks(state) if config.get("referenceGunnery", false) else 5
 	for cannon in range(1, state.cannonsPerSide):
-		var volley = {"shipId": id, "side": input.side, "ammo": state.ammoType, "due": tick + cannon * 5, "cannon": cannon}
+		var volley = {"shipId": id, "side": input.side, "ammo": state.ammoType, "due": tick + cannon * interval, "cannon": cannon}
 		if not target_id.is_empty(): volley.targetId = target_id
 		volleys.append(volley)
 	return _ok()
@@ -382,12 +390,29 @@ func _target(ship: Dictionary, side: String, ammo: String, constrained: String =
 		if _distance(p, v.position) <= Cannon.BALLISTICS[ammo].range and absf(_wrap(atan2(p.z - v.position.z, p.x - v.position.x) - bearing)) <= Cannon.ARC: candidates.append(target)
 	_stable_sort(candidates, func(a, b): return _distance(_visual(a).position, v.position) < _distance(_visual(b).position, v.position) if _distance(_visual(a).position, v.position) != _distance(_visual(b).position, v.position) else _compare_ids(a.state.id, b.state.id) < 0)
 	return candidates[0] if not candidates.is_empty() else {}
+func _gunnery_state(ship: Dictionary) -> Dictionary:
+	var result: Dictionary = ship.state.duplicate()
+	result.visual = _visual(ship)
+	return result
+func _gunnery_protected(ship: Dictionary) -> Array:
+	return ships.filter(func(other): return other.state.id != ship.state.id and not other.sunk and not _enemy(ship, other)).map(_gunnery_state)
+func _reference_corridor_clear(ship: Dictionary, side: String, ammo: String, cannon: int, locked: String = "") -> bool:
+	var target: Dictionary = _target(ship, side, ammo, locked)
+	var solution: Dictionary = Cannon.launch_solution(_gunnery_state(ship), side, ammo, cannon, _gunnery_state(target) if not target.is_empty() else {})
+	return Cannon.corridor_clear(solution, _gunnery_protected(ship))
 func _launch(ship: Dictionary, side: String, ammo: String, cannon: int, locked: String = "") -> void:
 	var v = _visual(ship); var spec = Types.ship_spec(ship.state.kind); var ballistic = Cannon.BALLISTICS[ammo]
 	var position = Cannon.muzzle(v, spec, side, cannon)
 	var base_bearing = v.heading + (1 if side == "starboard" else -1) * PI / 2.0
 	var bearing = base_bearing; var elevation = ballistic.angle
 	var target = _target(ship, side, ammo, locked)
+	var reference_solution: Dictionary = {}
+	if config.get("referenceGunnery", false):
+		if ship.state.crew <= 0: return
+		reference_solution = Cannon.launch_solution(_gunnery_state(ship), side, ammo, cannon, _gunnery_state(target) if not target.is_empty() else {})
+		# Recheck each delayed gun against current authority. A friendly ship can
+		# enter the lane after the trigger; suppressed guns never create a shot.
+		if not Cannon.corridor_clear(reference_solution, _gunnery_protected(ship)): return
 	if not target.is_empty():
 		var state = _visual(target)
 		var travel = _distance(state.position, position) / ballistic.speed
@@ -404,6 +429,7 @@ func _launch(ship: Dictionary, side: String, ammo: String, cannon: int, locked: 
 		var horizontal = ballistic.speed * cos(elevation + angles[1])
 		sequence += 1
 		var p = {"id": "shot-" + str(sequence), "shipId": ship.state.id, "ammo": ammo, "position": position.duplicate(true), "velocity": {"x": cos(bearing + angles[0]) * horizontal, "y": ballistic.speed * sin(elevation + angles[1]), "z": sin(bearing + angles[0]) * horizontal}, "age": 0.0, "ttl": ballistic.ttl}
+		if not reference_solution.is_empty(): p.velocity = reference_solution.velocities[spread.find(angles)].duplicate(true)
 		projectiles.append(p)
 		if muzzle.is_empty(): muzzle = p
 		var scale = ship.state.stats.cannonMultiplier / spread.size()
@@ -478,7 +504,7 @@ func _fixed_tick() -> void:
 			ship.state.sailAngle = _wrap(atan2(wz, wx) - visual.heading) / 2.0
 		ship.core.set_sail_deployment(ship.state.sailDeployment); ship.core.set_sail_condition(ship.state.sail / ship.state.maxSail); ship.core.set_sail_angle(ship.state.sailAngle)
 		var controls = {"throttle": 0.0, "rudderAngleDeg": ship.state.rudder * 30, "crewSteeringForce": minf(ship.state.crew, ship.state.maxCrew) * 200 * ship.state.stats.steeringMultiplier, "time": tick * DT}
-		if ship.has("manualHandling"): controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment)
+		if ship.has("manualHandling"): controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
 		ship.core.step(DT, controls)
 		_shore(ship)
 	_contacts()

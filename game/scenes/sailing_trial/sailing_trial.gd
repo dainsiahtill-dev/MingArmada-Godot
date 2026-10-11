@@ -40,7 +40,7 @@ func _ready() -> void:
 		push_error("Invalid sailing geography")
 		get_tree().quit(1)
 		return
-	heights.configure_ports(parsed)
+	heights.configure_ports(parsed,true,preload("res://game/scenes/common/reference_geography.gd").options())
 	if not runtime.configure(heights.sample_height):
 		push_error("Native ship solver configuration failed")
 		get_tree().quit(1)

@@ -33,6 +33,10 @@ var _disposed := false
 var _accepted := 0.0
 var _rejected := 0.0
 var _handling_mode := "assisted"
+var _reference_enhancements := false
+
+func enable_reference_enhancements(enabled: bool = true) -> void:
+	_reference_enhancements = enabled
 
 static func _no(reason: String) -> Dictionary: return {"ok":false,"reason":reason}
 static func _ship(native: Dictionary,id: String) -> Dictionary:
@@ -80,7 +84,7 @@ func build_native(session: RefCounted, paused: bool = true) -> Dictionary:
 	var policy: Dictionary = session.native_policy(ids)
 	var descriptors := WaveDescriptor.original_descriptors()
 	for wave: Dictionary in descriptors: wave.direction = {"x":wave.direction.x,"y":wave.direction.z}
-	var encounter := Encounter.new({"mode":"continuous","routePlanning":true,"seed":state.seed,"battleId":epoch,"playerId":state.flagshipId,"ships":setups,"controllableShipIds":policy.controllableShipIds,"hostileTargets":policy.hostileTargets,"sampleTerrainHeight":_height,"oceanWaves":descriptors,"waveSampler":_waves})
+	var encounter := Encounter.new({"mode":"continuous","routePlanning":true,"seed":state.seed,"battleId":epoch,"playerId":state.flagshipId,"ships":setups,"controllableShipIds":policy.controllableShipIds,"hostileTargets":policy.hostileTargets,"sampleTerrainHeight":_height,"oceanWaves":descriptors,"waveSampler":_waves,"referenceHandling":_reference_enhancements,"referenceGunnery":_reference_enhancements})
 	if not encounter.last_error.is_empty(): return _no(encounter.last_error)
 	var input := Simulation.new(encounter); input.set_handling_mode(_handling_mode); input.set_paused(paused)
 	var handoff := Bridge.new(session,input)
@@ -314,7 +318,7 @@ func snapshot() -> Dictionary:
 func render_snapshot() -> Dictionary: return simulation.render_snapshot()
 func drain_events() -> Array:
 	var result := _events; _events = []; return result
-func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample(x,z,seconds).height
+func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample_height(x,z,seconds)
 func dispose() -> void:
 	_disposed = true; _generation += 1; _pending = 0; _drafts.clear(); _events.clear()
 	if simulation: simulation.set_paused(true)

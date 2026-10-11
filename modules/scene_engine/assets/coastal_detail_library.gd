@@ -8,13 +8,23 @@ var _colors := PackedColorArray()
 var _materials: Dictionary={}
 
 func get_mesh(kind: String, variant: int = 0) -> ArrayMesh:
-	var key := kind + str(variant)
+	# These two kinds already share identical rock geometry and palette. Keep
+	# their placement roles/scales but avoid counting duplicate private meshes.
+	var key := ("outcrop" if kind=="pebble" else kind) + str(variant)
 	if _meshes.has(key): return _meshes[key]
 	_vertices.clear(); _normals.clear(); _colors.clear()
 	var wood := Color.html("8d6641")
 	var dark := Color.html("423b31")
 	var rope := Color.html("c6ac75")
 	match kind:
+		"shore_tree":
+			# Wind-shaped coastal canopy is lower than the inland copse tree.
+			_tube(Vector3(0,-.22,0),Vector3(.45,2.7,.16),.15,wood,7)
+			for index in 4:
+				var angle: float=index*2.399
+				var crown:=Vector3(.4+cos(angle)*1.2,2.9+(index%2)*.40,sin(angle)*1.0)
+				_tube(Vector3(.3,1.7,.10),crown,.07,wood,6)
+				_foliage(crown,1.2+(index%2)*.25,Color.html("66844b"))
 		"coastal_tree":
 			_tube(Vector3(0,-0.25,0),Vector3(0.25,4.8,0.1),0.25,wood,7)
 			for index in 5:
@@ -53,6 +63,40 @@ func get_mesh(kind: String, variant: int = 0) -> ArrayMesh:
 			for index in 5: _foliage(Vector3((index-2)*0.68,1.38,0),0.32,Color.html("aa984e"))
 		"path_gravel":
 			_rock(0,false)
+		"beached_boat":
+			# A grounded skiff: keeled wooden sides, visible inner planks and seats.
+			var stations: Array=[Vector2(-2.6,.06),Vector2(-1.8,.7),Vector2(0,.92),Vector2(1.8,.66),Vector2(2.6,.05)]
+			for index in stations.size()-1:
+				var a: Vector2=stations[index]; var b: Vector2=stations[index+1]
+				for side: float in [-1,1]:
+					var keel_a:=Vector3(0,.06,a.x); var keel_b:=Vector3(0,.06,b.x)
+					var lower_a:=Vector3(side*a.y*.7,.35,a.x); var lower_b:=Vector3(side*b.y*.7,.35,b.x)
+					var rim_a:=Vector3(side*a.y,.84,a.x); var rim_b:=Vector3(side*b.y,.84,b.x)
+					_quad(keel_a,lower_a,lower_b,keel_b,wood.darkened(.16))
+					_quad(lower_a,rim_a,rim_b,lower_b,wood)
+					_quad(rim_a-Vector3(side*.08,.06,0),rim_b-Vector3(side*.08,.06,0),lower_b-Vector3(side*.05,0,0),lower_a-Vector3(side*.05,0,0),wood.lightened(.14))
+					_tube(rim_a,rim_b,.055,Color.html("b5915b"),6)
+			_tube(Vector3(0,.0,-2.6),Vector3(0,.0,2.6),.055,dark,6)
+			for z: float in [-1.25,0.0,1.2]: _box(Vector3(0,.66,z),Vector3(1.30,.12,.28),Color.html("bc925d"))
+			_tube(Vector3(-.5,.76,-1.1),Vector3(.35,.97,1.1),.035,dark,5)
+			_box(Vector3(.47,1.0,1.38),Vector3(.22,.07,.65),wood.lightened(.1))
+		"drying_rack":
+			# Raised timber frame, open rope net and hanging fish; no decal plane.
+			for x: float in [-1.65,1.65]:
+				_tube(Vector3(x,-.35,0),Vector3(x,2.6,0),.10,wood,7)
+				_tube(Vector3(x,1.4,0),Vector3(x,.0,.7),.07,wood,6)
+			_tube(Vector3(-1.8,2.45,0),Vector3(1.8,2.45,0),.10,wood,7)
+			for line in 8:
+				var x: float=-1.45+line*.414
+				_tube(Vector3(x,.52,.015),Vector3(x,2.35,.015),.017,rope,4)
+			for row in 6:
+				var y: float=.60+row*.33
+				_tube(Vector3(-1.50,y,.015),Vector3(1.50,y,.015),.017,rope,4)
+			for index in 5:
+				var x: float=(index-2)*.52
+				_tube(Vector3(x,2.45,0),Vector3(x,2.02,0),.02,rope,4)
+				_foliage(Vector3(x,1.80,.09),.16,Color.html("ae9870"))
+				_triangle(Vector3(x-.12,1.52,.08),Vector3(x+.12,1.52,.08),Vector3(x,1.69,.08),Color.html("bbaa83"))
 		"outcrop", "pebble", "reef":
 			_rock(variant, kind == "reef")
 		"beach_grass":
@@ -139,11 +183,14 @@ func get_mesh(kind: String, variant: int = 0) -> ArrayMesh:
 
 func _palette(kind: String) -> Color:
 	match kind:
+		"shore_tree": return Color.html("658247")
 		"coastal_tree": return Color.html("547442")
 		"harbor_house": return Color.html("a18764")
 		"lean_to": return Color.html("a58d5e")
 		"market_stall": return Color.html("bb9a61")
 		"path_gravel": return Color.html("b29b73")
+		"beached_boat": return Color.html("9a7246")
+		"drying_rack": return Color.html("a08b5c")
 		"outcrop","pebble": return Color.html("807b69")
 		"reef": return Color.html("777d67")
 		"beach_grass": return Color.html("81945b")

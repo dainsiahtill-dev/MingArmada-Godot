@@ -177,7 +177,7 @@ func snapshot() -> Dictionary:
 	return {"naval":simulation.snapshot(),"runtime":{"scenario":_scenario,"generation":_generation,"paused":is_paused(),"pauseReasons":_pauses.keys(),"handlingMode":_handling,"playback":_playback,"benchmarkSeconds":_benchmark,"phase":phase(),"notice":_notice,"waypoint":WAYPOINT.duplicate() if _scenario=="shore-escape" else null}}
 func render_snapshot() -> Dictionary: return simulation.render_snapshot() if not _disposed and simulation else {}
 func drain_events() -> Array: return simulation.drain_events() if not _disposed and simulation else []
-func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample(x,z,seconds).height if _waves else 0.0
+func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample_height(x,z,seconds) if _waves else 0.0
 func dispose() -> void:
 	if simulation: simulation.set_paused(true)
 	simulation=null; _waves=null; _height=Callable(); _disposed=true; _pauses.clear(); _frames.clear(); diagnostics.reset()

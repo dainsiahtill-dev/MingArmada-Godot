@@ -1,0 +1,52 @@
+{
+  "source": {
+    "asset": "cannon_ball_splash.nif",
+    "raw": "raw/fpk/Pak6/cannon_ball_splash.nif",
+    "sha256": "6190bd0d9e7c82f3e92c842ee81ff77c632f60250fa3c0b110c482ed01d8db76",
+    "inputs": {
+      "naval-study\\selected-geometry.json": "948b6057dbccb4c48f820f6d1648bb18a1061aca9e8d54a24e6a8df9a47feef4",
+      "naval-study\\deep\\asset-details\\complete-assets.json": "24dab02cacb1a35546acad56e39e1c7c9ba39ce33d86f313210f1a18e8bdc8eb",
+      "naval-study\\deep\\asset-details\\particle-systems.json": "94b8fbf2d7ffd6561ed718b9432d974c8fb59e8dd34842a5ac51e470fd3ad4ba"
+    }
+  },
+  "output": {
+    "resource": "res://assets/data/reference_cannon_splash.json",
+    "sha256": "8d0d510b36cf5b029fd5701cece9e4ed42eede4655c920c253c7f4a4a7c9db93"
+  },
+  "textures": [
+    {
+      "resource": "res://assets/textures/pirates_reference/fx_mist_01.dds.png",
+      "sha256": "84e853537ebd6e4f7188f5131a0ba09e36f8c1aab09babbec1ef085b54b29089",
+      "referencePreview": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak5\\fx_mist_01.dds.png"
+    },
+    {
+      "resource": "res://assets/textures/pirates_reference/fx_streakin_001.dds.png",
+      "sha256": "661e4ebdd9085a4c3216e478f1b7a0be32dbe943303bc27ed5b1d47c0f93a067",
+      "referencePreview": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak1\\fx_streakin_001.dds.png"
+    },
+    {
+      "resource": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+      "sha256": "573c902a6eb16daaa7d90d6b2077c3590c3ed12df0bc75c36ac5bc67adfdb25d",
+      "referencePreview": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak6\\fx_water_splash_004.dds.png"
+    },
+    {
+      "resource": "res://assets/textures/pirates_reference/fx_water_splash_rings_01.dds.png",
+      "sha256": "e49d14b518122a8499be6df059a2e60d7a55195efebb57263a4147b8f88fa675",
+      "referencePreview": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak0\\fx_water_splash_rings_01.dds.png"
+    }
+  ],
+  "meshCount": 7,
+  "vertices": 176,
+  "triangles": 262,
+  "particleSystems": 8,
+  "particleCapacity": 82,
+  "runtimeChoices": {
+    "metresPerSourceUnit": 0.01,
+    "seededVariation": "uniform deterministic presentation supplement",
+    "births": "half-open enabled windows; immediate birth at enable then 1/rate grid; truncated by authored capacity",
+    "lifetimeVariation": "not applied; base authored lifespan and color keys determine visible tail",
+    "sourceColumnOpacityGain": 18,
+    "sourceRingOpacityGain": 0.35,
+    "sourceParticlesOpacityGain": 0.4
+  }
+}

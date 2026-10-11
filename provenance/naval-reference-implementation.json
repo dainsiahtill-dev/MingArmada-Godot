@@ -1,0 +1,427 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-11T11:45:11.578722+00:00",
+  "target_project": "C:/Users/dains/Documents/Git/ming-armada",
+  "reference_root": "C:/Games/Pirates-REA-Reference-20261011",
+  "scope": "Incremental provenance of four newly delivered PNG dependencies and one previously delivered PNG newly bound to fragment whitecaps; no reference source edits or prior-manifest overwrite",
+  "asset_count": 5,
+  "new_png_dependency_count": 4,
+  "existing_png_new_binding_count": 1,
+  "integrity": {
+    "five_source_png_local_png_pairs_byte_identical": true,
+    "raw_dds_hashes_freshly_computed": true,
+    "prior_manifest_path": "C:/Users/dains/Documents/Git/ming-armada/provenance/pirates-water-textures.json",
+    "prior_manifest_sha256": "9fd8a079882365d090c3173ad12ec46cf3008ea1263676dd6a17c674304cd6a3",
+    "prior_delivery_assets_checked": 27,
+    "prior_delivery_local_hash_mismatches": [],
+    "prior_manifest_overwritten": false,
+    "reference_source_modified_by_this_audit": false,
+    "current_binding_string_checks": 15,
+    "current_binding_string_check_failures": 0
+  },
+  "assets": [
+    {
+      "filename": "fx_water_splash_004.dds.png",
+      "pak": "Pak6",
+      "delivery_change": "new_png_dependency",
+      "present_in_prior_27_asset_delivery": false,
+      "source_dds": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/raw/fpk/Pak6/fx_water_splash_004.dds",
+        "sha256": "36c2cc0dabc3d7a6f5677226e1915087ce0901f9b8925efe876972fe3c29505e",
+        "byte_length": 32896
+      },
+      "source_png": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak6/fx_water_splash_004.dds.png",
+        "sha256": "573c902a6eb16daaa7d90d6b2077c3590c3ed12df0bc75c36ac5bc67adfdb25d",
+        "byte_length": 16495
+      },
+      "local_png": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+        "resource_uri": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+        "sha256": "573c902a6eb16daaa7d90d6b2077c3590c3ed12df0bc75c36ac5bc67adfdb25d",
+        "byte_length": 16495
+      },
+      "copied_byte_identical": true,
+      "channel_audit": {
+        "domain": "Stored PNG eight-bit RGBA channels; not GPU linear sampling",
+        "mode": "RGBA",
+        "width": 128,
+        "height": 256,
+        "rgb_constant": [
+          255,
+          251,
+          255
+        ],
+        "alpha_range": [
+          0,
+          127
+        ],
+        "rgb_used_as_mask": false,
+        "mask_channel": "alpha"
+      },
+      "binding": {
+        "role": "WaterColumn and UmbrellaShell",
+        "binder_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/water_splashes.gd",
+        "binder_resource_uri": "res://game/presentation/water/water_splashes.gd",
+        "binder_lines": [
+          7,
+          63,
+          64
+        ],
+        "binder_sha256_at_audit": "e7524ea8becdae3a40a77b3f13eed8994c2c9a1c73e1dc5c02b3baa6d67decb1",
+        "shader_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/splash_volume.gdshader",
+        "shader_resource_uri": "res://game/presentation/water/splash_volume.gdshader",
+        "shader_lines": [
+          3,
+          9,
+          12
+        ],
+        "shader_sha256_at_audit": "093c5576e637edf5d60c51b041df450cbc4e6f6f35524d5dfd42058c5e1fbc95",
+        "sampling": "Texture alpha determines coverage; output RGB uses authored foam tint, not constant source RGB"
+      },
+      "godot_derivative_import": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_water_splash_004.dds.png.import",
+        "sha256": "302875b2190645cc3ce58e4f6b91a2531c343dbc0babb5b90903aa9f95e32444",
+        "mipmaps_generate": true,
+        "fix_alpha_border": true,
+        "premultiply_alpha": false,
+        "normal_map": false,
+        "derivative_runtime_byte_identity_claimed": false
+      }
+    },
+    {
+      "filename": "fx_streakin_001.dds.png",
+      "pak": "Pak1",
+      "delivery_change": "new_png_dependency",
+      "present_in_prior_27_asset_delivery": false,
+      "source_dds": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/raw/fpk/Pak1/fx_streakin_001.dds",
+        "sha256": "bdc9931efb752334bc77cbaf6dac588621afd5a5f10021717b4d94616202b580",
+        "byte_length": 16512
+      },
+      "source_png": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak1/fx_streakin_001.dds.png",
+        "sha256": "661e4ebdd9085a4c3216e478f1b7a0be32dbe943303bc27ed5b1d47c0f93a067",
+        "byte_length": 8670
+      },
+      "local_png": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_streakin_001.dds.png",
+        "resource_uri": "res://assets/textures/pirates_reference/fx_streakin_001.dds.png",
+        "sha256": "661e4ebdd9085a4c3216e478f1b7a0be32dbe943303bc27ed5b1d47c0f93a067",
+        "byte_length": 8670
+      },
+      "copied_byte_identical": true,
+      "channel_audit": {
+        "domain": "Stored PNG eight-bit RGBA channels; not GPU linear sampling",
+        "mode": "RGBA",
+        "width": 128,
+        "height": 128,
+        "rgb_constant": [
+          255,
+          251,
+          255
+        ],
+        "alpha_range": [
+          0,
+          219
+        ],
+        "rgb_used_as_mask": false,
+        "mask_channel": "alpha"
+      },
+      "binding": {
+        "role": "WorldDroplets crossed strips",
+        "binder_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/water_splashes.gd",
+        "binder_resource_uri": "res://game/presentation/water/water_splashes.gd",
+        "binder_lines": [
+          8,
+          76
+        ],
+        "binder_sha256_at_audit": "e7524ea8becdae3a40a77b3f13eed8994c2c9a1c73e1dc5c02b3baa6d67decb1",
+        "shader_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/splash_volume.gdshader",
+        "shader_resource_uri": "res://game/presentation/water/splash_volume.gdshader",
+        "shader_lines": [
+          3,
+          9,
+          12
+        ],
+        "shader_sha256_at_audit": "093c5576e637edf5d60c51b041df450cbc4e6f6f35524d5dfd42058c5e1fbc95",
+        "sampling": "Texture alpha determines coverage; output RGB uses authored foam tint, not constant source RGB"
+      },
+      "godot_derivative_import": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_streakin_001.dds.png.import",
+        "sha256": "dd52f519158daac600ea7b232382d6def768a1b6dfa3930fb3ff0ecad272cf3d",
+        "mipmaps_generate": true,
+        "fix_alpha_border": true,
+        "premultiply_alpha": false,
+        "normal_map": false,
+        "derivative_runtime_byte_identity_claimed": false
+      }
+    },
+    {
+      "filename": "fx_mist_01.dds.png",
+      "pak": "Pak5",
+      "delivery_change": "new_png_dependency",
+      "present_in_prior_27_asset_delivery": false,
+      "source_dds": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/raw/fpk/Pak5/fx_mist_01.dds",
+        "sha256": "97a62745f1dc05e6a2331a0a1b420d7da6d0cd05182b82d5cda794720789f98d",
+        "byte_length": 16512
+      },
+      "source_png": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak5/fx_mist_01.dds.png",
+        "sha256": "84e853537ebd6e4f7188f5131a0ba09e36f8c1aab09babbec1ef085b54b29089",
+        "byte_length": 6304
+      },
+      "local_png": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_mist_01.dds.png",
+        "resource_uri": "res://assets/textures/pirates_reference/fx_mist_01.dds.png",
+        "sha256": "84e853537ebd6e4f7188f5131a0ba09e36f8c1aab09babbec1ef085b54b29089",
+        "byte_length": 6304
+      },
+      "copied_byte_identical": true,
+      "channel_audit": {
+        "domain": "Stored PNG eight-bit RGBA channels; not GPU linear sampling",
+        "mode": "RGBA",
+        "width": 128,
+        "height": 128,
+        "rgb_constant": [
+          255,
+          251,
+          255
+        ],
+        "alpha_range": [
+          0,
+          206
+        ],
+        "rgb_used_as_mask": false,
+        "mask_channel": "alpha"
+      },
+      "binding": {
+        "role": "WeakMist elliptical billboard, both foam_texture and detail_texture",
+        "binder_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/water_splashes.gd",
+        "binder_resource_uri": "res://game/presentation/water/water_splashes.gd",
+        "binder_lines": [
+          9,
+          65,
+          66,
+          67,
+          167,
+          169
+        ],
+        "binder_sha256_at_audit": "e7524ea8becdae3a40a77b3f13eed8994c2c9a1c73e1dc5c02b3baa6d67decb1",
+        "shader_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/pirates_foam.gdshader",
+        "shader_resource_uri": "res://game/presentation/water/pirates_foam.gdshader",
+        "shader_lines": [
+          4,
+          5,
+          33,
+          36,
+          37,
+          41,
+          42
+        ],
+        "shader_sha256_at_audit": "92e22afc8239f0e8e24a8e1c77a352ed2ac61951ad0d1993eaead2bf1362ffdf",
+        "sampling": "Texture alpha determines coverage; output RGB uses authored foam tint, not constant source RGB",
+        "lifecycle_note": "Visible only during finite early splash phase; surface_only disables it; old WaterSpray remains hidden by default"
+      },
+      "godot_derivative_import": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/fx_mist_01.dds.png.import",
+        "sha256": "63ed937d002f161862abbe3422962334d56636c0df12ec03f1bdf4fbf5f89518",
+        "mipmaps_generate": true,
+        "fix_alpha_border": true,
+        "premultiply_alpha": false,
+        "normal_map": false,
+        "derivative_runtime_byte_identity_claimed": false
+      }
+    },
+    {
+      "filename": "wake3unique.dds.png",
+      "pak": "Pak4",
+      "delivery_change": "new_png_dependency",
+      "present_in_prior_27_asset_delivery": false,
+      "source_dds": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/raw/fpk/Pak4/wake3unique.dds",
+        "sha256": "255d1020d8a74e1a3390b47ae805da72bfb9d3f26496032fda3d658759c9a6ae",
+        "byte_length": 22000
+      },
+      "source_png": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak4/wake3unique.dds.png",
+        "sha256": "77f467af2ea61bd0fa07bf22cf8e956334b63f6edeb5347bedb1c145ae314ad5",
+        "byte_length": 3594
+      },
+      "local_png": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/wake3unique.dds.png",
+        "resource_uri": "res://assets/textures/pirates_reference/wake3unique.dds.png",
+        "sha256": "77f467af2ea61bd0fa07bf22cf8e956334b63f6edeb5347bedb1c145ae314ad5",
+        "byte_length": 3594
+      },
+      "copied_byte_identical": true,
+      "channel_audit": {
+        "domain": "Stored PNG eight-bit RGBA channels; not GPU linear sampling",
+        "mode": "RGBA",
+        "width": 128,
+        "height": 128,
+        "rgb_constant": [
+          214,
+          255,
+          255
+        ],
+        "alpha_range": [
+          0,
+          187
+        ],
+        "rgb_used_as_mask": false,
+        "mask_channel": "alpha"
+      },
+      "binding": {
+        "role": "Observed stern-history ribbon; retained WAKE_DDS/WAKE_TGA are not selected by configure",
+        "binder_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/wake_trails.gd",
+        "binder_resource_uri": "res://game/presentation/water/wake_trails.gd",
+        "binder_lines": [
+          9,
+          27,
+          30,
+          31,
+          32,
+          33
+        ],
+        "binder_sha256_at_audit": "7fc3c6cb4f8a79b2f322730dc6641cdecd1e044e36605d1fad0f3255b4277fe0",
+        "shader_path": "C:/Users/dains/Documents/Git/ming-armada/game/presentation/water/pirates_foam.gdshader",
+        "shader_resource_uri": "res://game/presentation/water/pirates_foam.gdshader",
+        "shader_lines": [
+          4,
+          25,
+          30,
+          32,
+          41,
+          42
+        ],
+        "shader_sha256_at_audit": "92e22afc8239f0e8e24a8e1c77a352ed2ac61951ad0d1993eaead2bf1362ffdf",
+        "sampling": "Texture alpha determines coverage; output RGB uses authored foam tint, not constant source RGB"
+      },
+      "godot_derivative_import": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/wake3unique.dds.png.import",
+        "sha256": "eaee63eb7ea797cdd57b04c7eb526aacf97e7208930fef5a4a676201ce4aec7e",
+        "mipmaps_generate": true,
+        "fix_alpha_border": true,
+        "premultiply_alpha": false,
+        "normal_map": false,
+        "derivative_runtime_byte_identity_claimed": false
+      }
+    },
+    {
+      "filename": "foam0024.dds.png",
+      "pak": "Pak0",
+      "delivery_change": "existing_png_new_shader_binding",
+      "present_in_prior_27_asset_delivery": true,
+      "source_dds": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/raw/fpk/Pak0/foam0024.dds",
+        "sha256": "74684eb7794c3f33a79cb3a4a46c9b235ba1a8c53d318aad512866af77045870",
+        "byte_length": 5616
+      },
+      "source_png": {
+        "path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/foam0024.dds.png",
+        "sha256": "1ac058271974fb0dadac22feb12f3104c7d4be75b444012ce08d88eacedad34a",
+        "byte_length": 1762
+      },
+      "local_png": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/foam0024.dds.png",
+        "resource_uri": "res://assets/textures/pirates_reference/foam0024.dds.png",
+        "sha256": "1ac058271974fb0dadac22feb12f3104c7d4be75b444012ce08d88eacedad34a",
+        "byte_length": 1762
+      },
+      "copied_byte_identical": true,
+      "channel_audit": {
+        "domain": "Stored PNG eight-bit RGBA channels; not GPU linear sampling",
+        "mode": "RGBA",
+        "width": 64,
+        "height": 64,
+        "rgb_constant": [
+          203,
+          227,
+          214
+        ],
+        "alpha_range": [
+          0,
+          238
+        ],
+        "rgb_used_as_mask": false,
+        "mask_channel": "alpha"
+      },
+      "binding": {
+        "role": "World-space wind-aligned broad whitecaps, fragment layer only",
+        "binder_path": "C:/Users/dains/Documents/Git/ming-armada/modules/scene_engine/ocean/projected_ocean.gd",
+        "binder_resource_uri": "res://modules/scene_engine/ocean/projected_ocean.gd",
+        "binder_lines": [
+          12,
+          56
+        ],
+        "binder_sha256_at_audit": "d70afaf6117e94eee8d3024551cb02179f8885cb1cc7f30fe0ec9b7f5c1e81e6",
+        "shader_path": "C:/Users/dains/Documents/Git/ming-armada/modules/scene_engine/ocean/surface_layers.gdshaderinc",
+        "shader_resource_uri": "res://modules/scene_engine/ocean/surface_layers.gdshaderinc",
+        "shader_lines": [
+          2,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18
+        ],
+        "shader_sha256_at_audit": "1b33fab04407a05ca45366763baa9ced36923235acd2b8627696831d9ec64099",
+        "sampling": "Texture alpha determines coverage; output RGB uses authored foam tint, not constant source RGB",
+        "consumption_path": [
+          {
+            "path": "C:/Users/dains/Documents/Git/ming-armada/modules/scene_engine/ocean/original_water.gdshader",
+            "lines": [
+              35,
+              157,
+              159
+            ],
+            "meaning": "Include, coverage calculation and water color mix; this texture does not drive vertex height or buoyancy"
+          }
+        ]
+      },
+      "godot_derivative_import": {
+        "path": "C:/Users/dains/Documents/Git/ming-armada/assets/textures/pirates_reference/foam0024.dds.png.import",
+        "sha256": "2bf45ffa548cfc4c9c178cdd675b36b207283a1bd3a93f69575df4101012e8f4",
+        "mipmaps_generate": true,
+        "fix_alpha_border": true,
+        "premultiply_alpha": false,
+        "normal_map": false,
+        "derivative_runtime_byte_identity_claimed": false
+      },
+      "supersedes_prior_selection_status": "Prior manifest alternative_not_bound_in_current_code is historical; current binding recorded here without rewriting it"
+    }
+  ],
+  "reference_document_snapshots": [
+    {
+      "path": "C:/Games/Pirates-REA-Reference-20261011/naval-study/deep/README.md",
+      "sha256": "a85e22b00a7b5a2358d78261186c9b09d8cc51ac62e1928e2f6e18d8728ba07b"
+    },
+    {
+      "path": "C:/Games/Pirates-REA-Reference-20261011/naval-study/deep/RENDERING_AND_COLLISION.md",
+      "sha256": "0653c39d25ed4f26fd39abb9f6084e4789616db21ab00f8b2e25cc7cdc726c3a"
+    },
+    {
+      "path": "C:/Games/Pirates-REA-Reference-20261011/naval-study/deep/asset-details/DETAIL.md",
+      "sha256": "70484c5c2beac3707221f5b60b95a98e278a5dfb93bb7aa3b10a28707ad89c58"
+    },
+    {
+      "path": "C:/Games/Pirates-REA-Reference-20261011/naval-study/deep/asset-details/particle-systems.json",
+      "sha256": "94b8fbf2d7ffd6561ed718b9432d974c8fb59e8dd34842a5ac51e470fd3ad4ba"
+    },
+    {
+      "path": "C:/Games/Pirates-REA-Reference-20261011/naval-study/selected-geometry.json",
+      "sha256": "948b6057dbccb4c48f820f6d1648bb18a1061aca9e8d54a24e6a8df9a47feef4"
+    }
+  ],
+  "evidence_boundaries": [
+    "Fresh verification covers disk bytes, import configuration and current code binding, not GPU pixels or performance.",
+    "Original DX9 game runtime frames and exact GPU material selection are not verified; Top/Plane01 remains unresolved.",
+    "Column, umbrella, droplet and ribbon geometry/scale/lifecycle are MingArmada presentation designs informed by the reference reports, not an exact engine port.",
+    "No claim of restored complete original collision primitives, six-degree-of-freedom buoyancy, arbitrary mesh fracture or original forty-slot rescue gameplay.",
+    "Commercial-game reference provenance retained; no original-authorship or public-redistribution-license claim."
+  ]
+}

@@ -2,6 +2,7 @@ extends Node3D
 ## Trusted owner supplies dev/qa startup flags; no imported career state accepted.
 signal main_menu_requested
 const Runtime=preload("res://game/runtime/visual_qa_runtime.gd")
+const DevelopmentAccess=preload("res://game/runtime/development_access.gd")
 const Height=preload("res://modules/scene_engine/terrain/height_field.gd")
 const Catalog=preload("res://game/domain/legacy/catalog.gd")
 const Sea=preload("res://game/presentation/world/naval_world_view.gd")
@@ -35,9 +36,9 @@ class SettingsRuntime extends RefCounted:
 		return receipt
 func _ready() -> void:
 	set_physics_process(false) # RAF equivalent: idle wall intervals feed real fixed ticks.
-	if not (OS.has_feature("editor") or bool(startup_options.get("dev",false)) or bool(startup_options.get("qa",false))):
+	if not (DevelopmentAccess.host_allows() and (OS.has_feature("editor") or bool(startup_options.get("dev",false)) or bool(startup_options.get("qa",false)))):
 		startup_receipt={"ok":false,"reason":"visual-qa-development-only"}; return
-	if not heights.configure_ports(Catalog.DATA.PORTS,false): startup_receipt={"ok":false,"reason":"visual-qa-geography-failed"}; return
+	if not heights.configure_ports(Catalog.DATA.PORTS,false,preload("res://game/scenes/common/reference_geography.gd").options()): startup_receipt={"ok":false,"reason":"visual-qa-geography-failed"}; return
 	startup_receipt=runtime.configure(heights.sample_height,startup_options)
 	if not startup_receipt.ok: return
 	runtime.set_pause("loading",true)

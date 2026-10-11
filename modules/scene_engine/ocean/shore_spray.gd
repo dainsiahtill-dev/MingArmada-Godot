@@ -3,9 +3,11 @@ extends MultiMeshInstance3D
 ## Runtime supplies simulation time; pause freezes spray and ocean together.
 
 const SPRAY_SHADER = preload("res://modules/scene_engine/ocean/shore_spray.gdshader")
+const SPRAY_MASK = preload("res://assets/textures/pirates_reference/water spash.tga.png")
 const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const WaveUniforms = preload("res://modules/scene_engine/ocean/wave_uniforms.gd")
 var _material: ShaderMaterial
+var _simulation_time := 0.0
 
 func configure(height_sampler: Callable, bounds: Rect2, maximum: int = 160) -> bool:
 	if not height_sampler.is_valid() or bounds.size.x <= 0 or bounds.size.y <= 0:
@@ -39,6 +41,8 @@ func configure(height_sampler: Callable, bounds: Rect2, maximum: int = 160) -> b
 	multimesh = instances
 	_material = ShaderMaterial.new()
 	_material.shader = SPRAY_SHADER
+	_material.set_shader_parameter("spray_mask_texture", SPRAY_MASK)
+	_material.set_shader_parameter("simulation_time", _simulation_time)
 	set_wave_descriptors(Descriptor.original_descriptors())
 	_material.render_priority = 2
 	material_override = _material
@@ -54,12 +58,16 @@ func set_wave_descriptors(descriptors: Array) -> bool:
 	return true
 
 func set_simulation_time(seconds: float) -> void:
+	if is_finite(seconds):
+		_simulation_time = seconds
 	if _material and is_finite(seconds):
 		_material.set_shader_parameter("simulation_time", seconds)
 
-func set_shore_field(texture: Texture2D, bounds: Vector4) -> void:
+func set_shore_field(texture: Texture2D, bounds: Vector4, coast_texture: Texture2D = null) -> void:
 	if not _material: return
 	_material.set_shader_parameter("shore_height_texture", texture)
 	_material.set_shader_parameter("shore_bounds", bounds)
 	_material.set_shader_parameter("has_shore_field", texture != null and bounds.z > bounds.x and bounds.w > bounds.y)
+	_material.set_shader_parameter("coast_distance_texture", coast_texture)
+	_material.set_shader_parameter("has_coast_distance_field", coast_texture != null and bounds.z > bounds.x and bounds.w > bounds.y)
 	_material.set_shader_parameter("coastal_attenuation", true)

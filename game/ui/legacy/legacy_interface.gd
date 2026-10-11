@@ -6,6 +6,7 @@ const Catalog=preload("res://game/domain/legacy/catalog.gd")
 const Text=preload("res://game/domain/legacy/utf16_text.gd")
 const ThemeFactory=preload("res://game/ui/legacy/legacy_theme.gd")
 const Chart=preload("res://game/ui/legacy/legacy_chart.gd")
+const Gunnery=preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const C=Catalog.DATA
 const PANELS={"market":"港口市场","shipyard":"修船与船坞","recruit":"船员与军需","officers":"舰队军官","quests":"委托簿","people":"港口人物","fleet":"我的舰队","factions":"势力关系","chart":"六港海图","log":"航海日志","save":"航程存档","settings":"设置与归航"}
 const FACTIONS={"zheng":"郑氏水师","qing":"清廷","voc":"荷兰商馆","pirates":"海上群雄"}
@@ -242,6 +243,7 @@ func _build():
 	_label(h,"identity","",func():return "%s · 第 %s 日 · %s"%[_state().get("player",{}).get("name","船长"),_state().get("day",1),_port_name(_state().get("currentPortId"))])
 	_label(h,"balances","",func():return "银两 %s · 士气 %s · 粮食 %s\n名望 %s · 日耗粮 %s / 薪银 %s"%[_state().get("player",{}).get("silver",0),_state().get("player",{}).get("morale",0),_state().get("player",{}).get("supplies",0),_state().get("player",{}).get("fame",0),_state().get("supplyPerDay",0),_state().get("wagesPerDay",0)])
 	_label(h,"notice","",func():return _runtime().get("notice",""))
+	_label(h,"broadside_status","",func():return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_packet.get("naval",{}),str(_state().get("flagshipId","")),"port").label,Gunnery.broadside_status(_packet.get("naval",{}),str(_state().get("flagshipId","")),"starboard").label])
 	var row=HFlowContainer.new();h.add_child(row)
 	_local_button(row,"open_quests","委托 [I]",func():open_panel("quests"));_local_button(row,"open_chart","海图 [M]",func():open_panel("chart"));_local_button(row,"open_fleet","舰队",func():open_panel("fleet"));_local_button(row,"menu","菜单",open_menu)
 	_button(row,"pause","暂停 / 继续",func():return {"type":"pause","value":not _runtime().get("paused",false)})

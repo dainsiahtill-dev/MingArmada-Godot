@@ -2,6 +2,7 @@ extends Control
 ## Native ShipViewer: original GLB assets, orbit camera and authored sail/cannon rigs.
 signal main_menu_requested
 const Library = preload("res://modules/scene_engine/assets/asset_library.gd")
+const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
 const SHIPS = [
 	{"id":"fuchuan","name":"郑氏福船","role":"水师主力战舰","length":32,"beam":9,"draft":2,"description":"高艉楼、三桅翼帆与舷侧炮位，兼顾火力与近海机动。"},
@@ -94,7 +95,7 @@ func _build_controls() -> void:
 	_angle_choice=OptionButton.new(); _angle_choice.name="CameraAngle"; content.add_child(_angle_choice)
 	for angle in ["全貌","船首","右舷","船尾","左舷","水下船壳"]: _angle_choice.add_item(angle)
 	_angle_choice.item_selected.connect(func(index): set_angle(ANGLES[index]))
-	var qa:=VBoxContainer.new(); qa.name="LODControls"; qa.visible=startup_options.get("dev",OS.has_feature("debug")) or startup_options.get("qa",false); content.add_child(qa)
+	var qa:=VBoxContainer.new(); qa.name="LODControls"; qa.visible=DevelopmentAccess.host_allows() and (startup_options.get("dev",OS.is_debug_build()) or startup_options.get("qa",false)); content.add_child(qa)
 	_label(qa,"模型距离版本")
 	_lod_choice=OptionButton.new(); _lod_choice.name="ShipLOD"; qa.add_child(_lod_choice)
 	for lod in ["近景 LOD0","中景 LOD1","远景 LOD2"]: _lod_choice.add_item(lod)

@@ -4,6 +4,7 @@ signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 
 const Chart = preload("res://game/ui/mingqi/mingqi_chart.gd")
+const Gunnery = preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const BUSINESS = ["accept-convoy", "buy", "sell", "depart", "choose-route", "assign-order", "claim-convoy", "dock", "repair", "refit", "start-boarding", "board-action", "allocate-prize", "release-prisoners", "treat-wounded", "take-prize-cargo", "resolve-prize", "sell-prize", "incorporate-prize"]
 const PANELS = {"ship": "旗舰与操船", "convoy": "船队与海图", "port": "靠港与贸易", "boarding": "接舷与俘获", "tactics": "船队战术"}
 const GOODS = {"grain": "粮食", "water": "淡水", "wood": "木材", "iron": "铁料", "powder": "火药", "cloth": "布匹", "silk": "丝绸", "porcelain": "瓷器", "tea": "茶", "sugar": "糖", "salt": "盐", "spices": "香料"}
@@ -204,6 +205,10 @@ func _build() -> void:
 		return "%d年%d月%d日  ·  %s  ·  %d岁" % [c.get("year", 1650), c.get("month", 1), c.get("day", 1), captain.get("name", "船长"), int(c.get("year", 1650)) - int(captain.get("birthYear", 1631))], 14)
 	_text(head, "silver", func(): return "银 %d两   借债 %d两   航程 %.1f秒" % [_state().get("captain", {}).get("silver", 0), _state().get("debt", {}).get("principal", 0), _state().get("simulationSeconds", 0)], 14)
 	_text(head, "navigation", _navigation_text, 14)
+	var broadside := _text(head, "broadside_status", func():
+		var id := str(_state().get("flagshipId",""))
+		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Color("a9c3bd"))
+	_watchers.append(func(): broadside.visible = not _native(str(_state().get("flagshipId",""))).is_empty())
 	_text(head, "time_state", func(): return ("已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Color("a9c3bd"))
 	var time := _row(head)
 	_button(time, "pause", "暂停", func(): return {"type": "pause", "value": not _runtime().get("paused", false)}, func(): return _operational())

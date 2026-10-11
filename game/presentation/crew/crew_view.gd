@@ -38,7 +38,7 @@ func configure(ship_kind: String, ship_model: Node3D, asset_library = null) -> b
 	_disposed = false
 	_kind = ship_kind
 	_model = ship_model
-	_deck_frame = global_transform
+	_deck_frame = ship_model.global_transform if is_instance_valid(ship_model) else global_transform
 	_previous_deck_frame = _deck_frame
 	_own_library = asset_library == null
 	_library = AssetLibrary.new() if _own_library else asset_library
@@ -118,6 +118,18 @@ func apply_snapshot(ship: Dictionary, _wind: Dictionary = {}, consumed: float = 
 	if _disposed or _deck == null:
 		return
 	var delta := maxf(0.0, consumed) if is_finite(consumed) else 0.0
+	var supplied: float = ship.get("time", _time + delta)
+	if not is_finite(supplied):
+		return
+	if supplied < _time - 1.0e-8:
+		if _pool != null:
+			_pool.remove_ship(_ship_id)
+		_seen.clear()
+		_fire_velocities.clear()
+		_fire_until = {"port": 0.0, "starboard": 0.0}
+		_sheet_until = 0.0
+		_loss_budget = 0
+		_ship.clear()
 	# Terminal snapshots remove standing coverage immediately, but their drawn
 	# skins survive until this accepted tick's authoritative hit events transfer them.
 	for instance: Dictionary in _retired.values():
@@ -126,19 +138,17 @@ func apply_snapshot(ship: Dictionary, _wind: Dictionary = {}, consumed: float = 
 	var lost := 0
 	if not _ship.is_empty():
 		lost = maxi(0, _actual_count(_ship) - _actual_count(ship))
-		_loss_budget += lost
 		if absf(float(ship.get("sailDeployment", 1.0)) - float(_ship.get("sailDeployment", 1.0))) > 0.001 or absf(float(ship.get("sailAngle", 0.0)) - float(_ship.get("sailAngle", 0.0))) > 0.005:
 			_sheet_until = float(ship.get("time", _time + delta)) + 2.4
-	var supplied: float = ship.get("time", _time + delta)
+	_loss_budget = lost
 	if is_finite(supplied):
 		_time = supplied
 	_ship = ship.duplicate(true)
 	_ship_id = ship.get("id", "")
 	_previous_deck_frame = _deck_frame
-	_deck_frame = global_transform
+	_deck_frame = _model.global_transform
 	if _pool != null:
-		var frame := global_transform
-		_pool.register_deck(_ship_id, _deck.faces, frame)
+		_pool.register_deck(_ship_id, _deck.faces, _deck_frame)
 		if _own_pool:
 			_pool.advance(delta, _time)
 		_pose_impacts()

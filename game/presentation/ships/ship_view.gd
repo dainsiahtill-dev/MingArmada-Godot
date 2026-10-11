@@ -2,6 +2,9 @@ extends Node3D
 ## Original GLB presentation. Simulation remains the only pose/damage authority.
 
 const AssetLibrary = preload("res://modules/scene_engine/assets/asset_library.gd")
+const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
+signal presentation_event(event: Dictionary)
+var _damage = ShipDamage.new()
 const KINDS := ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]
 var _models: Array[Node3D] = []
 var _library: RefCounted
@@ -40,22 +43,30 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 		model.visible = lod == _lod
 		_models.append(model)
 		for node in model.find_children("*", "Node3D", true, false):
-			if String(node.name).begins_with("mast_"):
+			if String(node.name).begins_with("mast_") and String(node.name).trim_prefix("mast_").is_valid_int():
 				_mast_yaw[node.get_instance_id()] = node.rotation.y
 			if String(node.name).begins_with("barrel_"):
 				_barrel_rest[node.get_instance_id()] = node.position.z
+	_damage.configure(_models)
 	return true
 
 func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0.0) -> void:
 	if _disposed:
 		return
+	var supplied := float(ship.get("time", _time + maxf(0.0, consumed)))
+	if not is_finite(supplied):
+		return
+	var rewind := supplied < _time - 1.0e-8
+	if rewind:
+		_recoil.clear()
+		_seen_events.clear()
 	_snapshot = ship.duplicate(true)
 	_wind = wind.duplicate(true)
 	if is_finite(consumed) and consumed > 0.0:
-		_time += consumed
 		for gun: String in _recoil:
 			var offset := float(_recoil[gun]) * exp(-consumed * 9.0)
 			_recoil[gun] = 0.0 if absf(offset) < 0.001 else offset
+	_time = supplied
 	var visual: Dictionary = ship.get("visual", ship)
 	var point = visual.get("position", {})
 	var next_position := _vector(point)
@@ -89,6 +100,10 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 						node.set_blend_shape_value(index, inflation)
 			if _barrel_rest.has(id):
 				node.position.z = float(_barrel_rest[id]) + float(_recoil.get(String(node.name), 0.0))
+	for event: Dictionary in _damage.apply_snapshot(ship, _time, _reduced_motion):
+		event.position = {"x": global_position.x, "y": global_position.y, "z": global_position.z}
+		presentation_event.emit(event)
+	set_lod_distance([0.0, 220.0, 650.0][_lod])
 
 func apply_events(events: Array) -> void:
 	if _disposed:
@@ -162,7 +177,10 @@ func _vector(value) -> Vector3:
 func set_lod_distance(distance: float) -> void:
 	_lod = 2 if distance >= 650.0 else (1 if distance >= 220.0 else 0)
 	for index in _models.size():
-		_models[index].visible = index == _lod
+		_models[index].visible = index == _lod and not _damage.ended()
+
+func damage_diagnostics() -> Dictionary:
+	return _damage.diagnostics()
 
 func get_lod() -> int:
 	return _lod
@@ -172,6 +190,7 @@ func get_model() -> Node3D:
 
 func dispose() -> void:
 	_disposed = true
+	_damage.dispose()
 	for model in _models:
 		if is_instance_valid(model):
 			model.free()

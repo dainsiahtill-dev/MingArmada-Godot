@@ -1,11 +1,22 @@
 extends Node3D
 ## Presentation only: source projectiles and deduplicated fire/hit/splash events.
+const Splashes = preload("res://game/presentation/water/water_splashes.gd")
 var _balls: Dictionary = {}
 var _puffs: Array = []
 var _seen: Dictionary = {}
 var _velocities: Dictionary = {}
 var _time := 0.0
 var _ball_material: StandardMaterial3D
+var _water_splashes: Node3D
+var _surface_filter: Callable
+func set_water_sampler(sampler: Callable) -> void:
+	if _water_splashes: _water_splashes.free()
+	_water_splashes = Splashes.new(); _water_splashes.name = "WaterSplashes"
+	add_child(_water_splashes); _water_splashes.configure(sampler)
+	if _surface_filter.is_valid(): _water_splashes.configure_surface_filter(_surface_filter)
+func set_surface_filter(surface_filter: Callable) -> void:
+	_surface_filter = surface_filter
+	if _water_splashes: _water_splashes.configure_surface_filter(surface_filter)
 func _ready() -> void:
 	_ball_material = StandardMaterial3D.new(); _ball_material.albedo_color = Color("302e26")
 static func _vector(value: Dictionary) -> Vector3: return Vector3(value.get("x",0),value.get("y",0),value.get("z",0))
@@ -19,8 +30,12 @@ func presentation_events(events: Array) -> Array:
 			var observed: Dictionary = _velocities[event.projectileId]; event.velocity = observed.velocity.duplicate()
 			event.velocity.y -= 9.81*maxf(0,event.time-observed.time)
 	return result
-func apply_snapshot(native: Dictionary,consumed: float) -> void:
-	_time = native.time
+func apply_snapshot(native: Dictionary,_consumed: float) -> void:
+	var now := float(native.time)
+	if not is_finite(now) or now < 0: return
+	if now < _time: _clear_transients()
+	_time = now
+	if _water_splashes: _water_splashes.apply_snapshot(_time)
 	var present: Array = []
 	for projectile: Dictionary in native.get("projectiles",[]):
 		present.append(projectile.id)
@@ -33,30 +48,60 @@ func apply_snapshot(native: Dictionary,consumed: float) -> void:
 	for index in range(_puffs.size()-1,-1,-1):
 		var puff: Dictionary = _puffs[index]; var age: float = _time-puff.time
 		if age >= puff.duration: puff.node.queue_free(); _puffs.remove_at(index); continue
-		puff.node.position = puff.origin+puff.velocity*age
-		puff.node.scale = Vector3.ONE*(puff.size+age*puff.growth)
-		puff.material.albedo_color.a = (1-age/puff.duration)*puff.alpha
+		_update_puff(puff,age)
 	for id in _velocities.keys():
 		if _time-_velocities[id].time > 10: _velocities.erase(id)
-func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: Vector3,growth: float) -> void:
+func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: Vector3,growth: float,born: float = -1.0) -> void:
 	if _puffs.size() >= 160: return
+	var stamp := _time if born < 0.0 else born
+	if not is_finite(stamp) or stamp > _time or _time-stamp >= duration: return
 	var mesh := MeshInstance3D.new(); var sphere := SphereMesh.new(); sphere.radius = 0.5; sphere.height = 1
 	var material := StandardMaterial3D.new(); material.albedo_color = color; material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mesh.mesh = sphere; mesh.material_override = material; mesh.position = position; mesh.scale = Vector3.ONE*size; add_child(mesh)
-	_puffs.append({"node":mesh,"material":material,"origin":position,"velocity":velocity,"size":size,"growth":growth,"time":_time,"duration":duration,"alpha":color.a})
+	var puff := {"node":mesh,"material":material,"origin":position,"velocity":velocity,"size":size,"growth":growth,"time":stamp,"duration":duration,"alpha":color.a}
+	_puffs.append(puff)
+	_update_puff(puff,_time-stamp)
+func _update_puff(puff: Dictionary, age: float) -> void:
+	puff.node.position = puff.origin+puff.velocity*age
+	puff.node.scale = Vector3.ONE*(puff.size+age*puff.growth)
+	puff.material.albedo_color.a = (1-age/puff.duration)*puff.alpha
 func apply_events(events: Array) -> void:
 	for event: Dictionary in events:
 		if _seen.has(event.id): continue
 		_seen[event.id] = true
+		var born := float(event.get("time",_time))
+		if not is_finite(born) or born < 0.0 or born > _time: continue
 		var point := _vector(event.get("position",{}))
 		match event.type:
 			"fire":
 				var velocity := _vector(event.velocity).normalized()
-				_puff(point,Color(1,0.75,0.27,0.95),1.1,0.12,velocity*3,2)
-				for i in 6: _puff(point-velocity*i*0.4,Color(0.76,0.74,0.67,0.5),1.0+i*0.3,2.5,Vector3(-0.8,0.7,0.3),1.3)
+				_puff(point,Color(1,0.75,0.27,0.95),1.1,0.12,velocity*3,2,born)
+				for i in 6: _puff(point-velocity*i*0.4,Color(0.76,0.74,0.67,0.5),1.0+i*0.3,2.5,Vector3(-0.8,0.7,0.3),1.3,born)
 			"hit":
-				for i in 6: _puff(point,Color(0.55,0.35,0.15,0.95),0.12,0.9,Vector3(sin(i*2.1)*3,1.5+i*0.3,cos(i*2.1)*3),0.1)
+				for i in 6: _puff(point,Color(0.55,0.35,0.15,0.95),0.12,0.9,Vector3(sin(i*2.1)*3,1.5+i*0.3,cos(i*2.1)*3),0.1,born)
 			"splash":
-				for i in 7: _puff(point,Color(0.8,0.97,1,0.7),0.65,0.8,Vector3(sin(i*0.9)*1.4,1.8,cos(i*0.9)*1.4),0.8)
+				if _water_splashes: _water_splashes.add_event(event)
+			"mast-break":
+				for i in 8: _puff(point,Color(0.50,0.33,0.17,0.70),0.10,1.2,Vector3(sin(i*2.1)*2.0,1.1+i*.12,cos(i*2.1)*2.0),0.12,born)
+			"destruction-explosion":
+				_puff(point,Color(1.0,0.65,0.22,0.85),2.2,0.18,Vector3.UP,4.0,born)
+				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.38),1.2+i*.15,3.0,Vector3(sin(i)*.5,1.0,cos(i)*.5),0.65,born)
+			"sinking-froth":
+				if _water_splashes:
+					var froth := event.duplicate(true); froth.type = "splash"; froth.scale = 1.8; froth.surface_only = true
+					_water_splashes.add_event(froth)
 	while _seen.size() > 512: _seen.erase(_seen.keys()[0])
-func diagnostics() -> Dictionary: return {"projectiles":_balls.size(),"puffs":_puffs.size(),"events":_seen.size()}
+func diagnostics() -> Dictionary: return {"projectiles":_balls.size(),"puffs":_puffs.size(),"events":_seen.size(),"splashes":_water_splashes.diagnostics().splashes if _water_splashes else 0}
+
+func _clear_transients() -> void:
+	for ball: Node in _balls.values(): ball.free()
+	for puff: Dictionary in _puffs: puff.node.free()
+	_balls.clear(); _puffs.clear(); _seen.clear(); _velocities.clear()
+
+func dispose() -> void:
+	_clear_transients()
+	if _water_splashes: _water_splashes.free(); _water_splashes = null
+	_time = 0.0
+	_surface_filter = Callable()
+
+func _exit_tree() -> void: dispose()

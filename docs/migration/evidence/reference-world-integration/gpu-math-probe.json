@@ -1,0 +1,96 @@
+{
+	"assertions": 10131,
+	"canonicalToleranceMeters": 0.05,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": 0,
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"gpuExecuted": true,
+	"mathToleranceMeters": 0.002,
+	"maxGpuGroundFetchErrorMeters": 0.000193156088172941,
+	"maxGpuVisibleTriangleErrorMeters": 0.000168028890811911,
+	"maxGpuVsCanonicalCpuHeightMeters": 0.027585528092713,
+	"maxGpuVsRfCpuHeightMeters": 0.0000299146548861096,
+	"maxRfGroundApproximationInsideMeters": 1.33838817202537,
+	"maxRfGroundApproximationMeters": 4.0,
+	"maxRfWaveApproximationMeters": 0.0275619409840714,
+	"outsideGlobalFieldSamples": 151,
+	"readbackFloatCount": 5780,
+	"referenceProfiles": [
+		{
+			"dock": "(-306.2571, -38.28214)",
+			"height": 140,
+			"id": "cat_island",
+			"inward": "(-0.992278, -0.124035)",
+			"islandCenter": "(-480.0, -60.0)",
+			"peak": 58.0,
+			"scale": 2.58651865483364,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(56.0, 69.0)",
+			"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+			"sourceOutward": "(0.616882, 0.787056)",
+			"width": 120
+		},
+		{
+			"dock": "(282.1499, 107.4857)",
+			"height": 193,
+			"id": "coastal2",
+			"inward": "(0.934488, 0.355995)",
+			"islandCenter": "(420.0, 160.0)",
+			"peak": 48.0,
+			"scale": 0.800840181195824,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(164.0, 83.0)",
+			"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+			"sourceOutward": "(-0.741536, 0.670913)",
+			"width": 329
+		},
+		{
+			"dock": "(-60.0, 320.0)",
+			"height": 77,
+			"id": "virgin_islands",
+			"inward": "(0.0, 1.0)",
+			"islandCenter": "(-60.0, 390.0)",
+			"peak": 28.0,
+			"scale": 1.35153278055802,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(78.0, 35.5)",
+			"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+			"sourceOutward": "(-0.496139, 0.868243)",
+			"width": 160
+		}
+	],
+	"rfSizes": {
+		"global": [
+			1024,
+			1024
+		],
+		"near": [
+			49,
+			49
+		]
+	},
+	"samples": 1445,
+	"scope": "Actual integration include + actual material wave uniforms/RF on GPU. Canonical CPU comparison includes measured RF geography approximation. Does not prove final vertex raster interpolation or ocean appearance.",
+	"shader": "res://modules/scene_engine/ocean/reference_game_water.gdshader",
+	"sourceSha256": {
+		"probe": "fe5e27e98a028ef5739577a2da0b9984d42a45c274230f4d2b6873e93de04820",
+		"res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc": "c9cf6982dc37a6d4e8cada9661c8faf0170588382ea44cba4f3c32ba280606d7",
+		"res://modules/scene_engine/ocean/reference_game_water.gdshader": "fa2e844d409c77c7fb14d262e29bd78e6d806bbafa0205f2821376d3aa00a7ec",
+		"res://modules/scene_engine/ocean/wave_functions.gdshaderinc": "2ab02e75889b7472f40da4ae5eca0dcc24de37de53663740aa57801d3eb528b2"
+	},
+	"waveCount": 5,
+	"worstRfWavePoint": "(-3.997143, 435.9223, 17.25, 0.0)"
+}

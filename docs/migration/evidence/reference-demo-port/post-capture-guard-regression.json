@@ -1,0 +1,37 @@
+{
+  "schema": "ming-armada-reference-demo-final-guard-regression-v1",
+  "scope": "Targeted final main-entry/capture-guard regression after the complete 78-test suite passed; not a second full-suite run.",
+  "runs": [
+    {
+      "test": "tests/test_reference_demo_scene.gd",
+      "marker": "REFERENCE_DEMO_SCENE_COMPLETE",
+      "passed": true,
+      "chunk_id": "5a0dcc",
+      "wall_time_seconds": 3.7900689,
+      "exit_code": 0,
+      "original_token_count": 53,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_DEMO_SCENE_COMPLETE assertions=35 failures=0\r\n"
+    },
+    {
+      "test": "tests/test_main_menu.gd",
+      "marker": "MAIN_MENU_TESTS",
+      "passed": true,
+      "chunk_id": "a0f017",
+      "wall_time_seconds": 1.2105416,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nMAIN_MENU_TESTS assertions=61 failures=0\r\n"
+    },
+    {
+      "test": "tests/test_game_router.gd",
+      "marker": "GAME_ROUTER_TESTS",
+      "passed": true,
+      "chunk_id": "a1040b",
+      "wall_time_seconds": 2.812385,
+      "exit_code": 0,
+      "original_token_count": 52,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nGAME_ROUTER_TESTS complete assertions=55 failures=0\r\n"
+    }
+  ],
+  "passed": true
+}

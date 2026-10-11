@@ -1,8 +1,20 @@
 extends MeshInstance3D
 
 const WATER_SHADER := preload("res://modules/scene_engine/ocean/original_water.gdshader")
+const OPTICS_SHADER := preload("res://modules/scene_engine/ocean/original_water_optics.gdshader")
+const SurfaceOptics = preload("res://modules/scene_engine/ocean/surface_optics.gd")
+const REFERENCE_GAME_SHADER = preload("res://modules/scene_engine/ocean/reference_game_water.gdshader")
+const ReferenceRenderer = preload("res://modules/scene_engine/reference_island_water/ocean_renderer.gd")
 const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const WaveUniforms = preload("res://modules/scene_engine/ocean/wave_uniforms.gd")
+const REFERENCE_SPARKLE = preload("res://assets/textures/pirates_reference/02_sparkle_b.dds.png")
+const REFERENCE_ORIGINAL_SPARKLE = preload("res://assets/textures/pirates_reference/water_spaarkle.dds.png")
+const REFERENCE_DEEP = preload("res://assets/textures/pirates_reference/duel_ocean deep.dds.png")
+const REFERENCE_SURFACE = preload("res://assets/textures/pirates_reference/water.dds.png")
+const REFERENCE_CAUSTICS = preload("res://assets/textures/pirates_reference/duel_waterdetail.dds.png")
+const REFERENCE_FOAM_A = preload("res://assets/textures/pirates_reference/foam0008.dds.png")
+const REFERENCE_FOAM_B = preload("res://assets/textures/pirates_reference/foam0009.dds.png")
+const REFERENCE_WHITECAPS = preload("res://assets/textures/pirates_reference/foam0024.dds.png")
 const MINIMUM_RESOLUTION := 16
 const UNBOUNDED_FALLBACK_DISTANCE := 2500.0
 
@@ -29,9 +41,17 @@ var _last_camera_projection := Projection()
 var _last_world_transform := Transform3D.IDENTITY
 var _last_viewport_size := Vector2.ZERO
 var _projection_padding := 0.0
+var _surface_optics := SurfaceOptics.new()
+var _reference_renderer: Node3D
+var _original_layers := 1
+var _layers_saved := false
+var _near_shore_texture: Texture2D
+var _near_shore_bounds := Vector4.ZERO
+var _reference_state := {"preset":"clear","strength":1.0,"tide":0.0,"foamWidth":1.5,"waves":true,"reflection":true,"foam":true,"caustics":true}
 
 func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80, max_distance: float = 3000.0) -> void:
 	_camera = camera
+	if _surface_optics.camera != _camera: _surface_optics.camera = null
 	_segments = maxi(MINIMUM_RESOLUTION, resolution)
 	_has_maximum_distance = is_finite(max_distance) and max_distance > 0.0
 	_maximum_distance = max_distance if _has_maximum_distance else INF
@@ -41,6 +61,16 @@ func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80
 		_water_material.shader = WATER_SHADER
 		_water_material.render_priority = 1
 	_water_material.set_shader_parameter("normal_texture", normal_texture)
+	_water_material.set_shader_parameter("reference_sparkle_texture", REFERENCE_SPARKLE)
+	_water_material.set_shader_parameter("reference_original_sparkle_texture", REFERENCE_ORIGINAL_SPARKLE)
+	_water_material.set_shader_parameter("reference_deep_texture", REFERENCE_DEEP)
+	_water_material.set_shader_parameter("reference_surface_texture", REFERENCE_SURFACE)
+	_water_material.set_shader_parameter("reference_caustics_texture", REFERENCE_CAUSTICS)
+	_water_material.set_shader_parameter("has_reference_water_textures", true)
+	_water_material.set_shader_parameter("reference_whitecaps_texture", REFERENCE_WHITECAPS)
+	_water_material.set_shader_parameter("coastal_foam_texture_a", REFERENCE_FOAM_A)
+	_water_material.set_shader_parameter("coastal_foam_texture_b", REFERENCE_FOAM_B)
+	_water_material.set_shader_parameter("has_coastal_foam_textures", true)
 	_water_material.set_shader_parameter("simulation_time", _simulation_time)
 	_water_material.set_shader_parameter("visual_style", _visual_style)
 	_water_material.set_shader_parameter("coastal_attenuation", _visual_style == 1)
@@ -54,13 +84,145 @@ func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80
 	extra_cull_margin = 8.0
 	_create_grid()
 	_projection_initialized = false
+	_update_surface_optics()
 	update_projection()
+
+func set_surface_wind(direction: Vector2, speed: float) -> void:
+	if _water_material == null or not direction.is_finite() or not is_finite(speed): return
+	# Scale before normalizing: large finite values must not overflow length².
+	var largest := maxf(absf(direction.x),absf(direction.y))
+	var heading := (direction / largest).normalized() if largest > 0.0 else Vector2.RIGHT
+	_water_material.set_shader_parameter("surface_wind_direction", heading)
+	_water_material.set_shader_parameter("surface_wind_speed", clampf(speed,0.0,60.0))
+
+func set_surface_quality(quality: String) -> void:
+	_surface_optics.quality = quality if quality in ["low", "balanced", "high"] else "balanced"
+	if _water_material:
+		_water_material.set_shader_parameter("surface_detail_strength", {"low":0.05,"balanced":0.09,"high":0.13}.get(quality,0.09))
+	_update_surface_optics()
+
+func configure_reflection(camera: Camera3D) -> void:
+	# Main screen/depth stay viewport-local; mirror color uses the same World3D.
+	_surface_optics.camera = camera if camera == _camera else null
+	_update_surface_optics()
+
+func enable_surface_optics(enabled: bool = true) -> void:
+	_surface_optics.enabled = enabled
+	_update_surface_optics()
+
+func set_reflection_enabled(enabled: bool) -> void:
+	_surface_optics.reflection_enabled = enabled
+	_update_surface_optics()
+
+func set_refraction_enabled(enabled: bool) -> void:
+	_surface_optics.refraction_enabled = enabled
+	_update_surface_optics()
+
+func get_surface_optics_diagnostics() -> Dictionary:
+	var result: Dictionary = _surface_optics.diagnostics()
+	result.enabled=bool(result.enabled) and is_inside_tree()
+	result.reflection_method="planar-subviewport" if _visual_style==1 else "disabled"
+	result.reflection_steps=0
+	result.reflection_enabled=bool(result.enabled) and _surface_optics.reflection_enabled
+	result.refraction_enabled=bool(result.enabled) and _surface_optics.refraction_enabled
+	result.offscreen_targets=0
+	# This target draws the normal shared World3D 3D pass, including its
+	# transparent materials. These describe the path/capability, not a count of
+	# visible transparent objects or a claim that the scene currently has any.
+	result.transparent_objects_supported=_visual_style==1
+	result.includes_transparent_objects=false
+	result.includes_offscreen_objects=false
+	result.wave_profile="authoritative-five-wave"
+	if is_instance_valid(_reference_renderer):
+		var mirror: Dictionary=_reference_renderer.diagnostics()
+		result.offscreen_targets=mirror.offscreenTargets
+		result.shared_world=mirror.sharedWorld
+		result.water_layer_excluded=mirror.waterLayerExcluded
+		result.reflection_size=mirror.reflectionSize
+		result.accepted_time=mirror.acceptedTime
+		result.reflection_enabled=mirror.reflectionEnabled
+		result.includes_transparent_objects=mirror.reflectionEnabled
+		result.includes_offscreen_objects=mirror.reflectionEnabled
+	return result
+
+func _update_surface_optics() -> void:
+	if _water_material == null: return
+	_surface_optics.visual_style = _visual_style
+	var active := bool(_surface_optics.diagnostics().enabled) and is_inside_tree()
+	var shader: Shader = REFERENCE_GAME_SHADER if _visual_style==1 else WATER_SHADER
+	if _water_material.shader != shader: _water_material.shader = shader
+	if _visual_style==0:
+		if is_instance_valid(_reference_renderer):
+			_reference_renderer.dispose(); _reference_renderer.free(); _reference_renderer=null
+		if _layers_saved: layers=_original_layers
+		_surface_optics.apply(_water_material)
+		return
+	if not _layers_saved: _original_layers=layers; _layers_saved=true
+	layers=ReferenceRenderer.WATER_LAYER
+	if not is_instance_valid(_reference_renderer):
+		_reference_renderer=ReferenceRenderer.new(); _reference_renderer.name="IntegratedReferenceWater"
+		add_child(_reference_renderer)
+		_reference_renderer.attach_surface(self,_water_material,_camera if is_instance_valid(_camera) else null)
+	_water_material.set_shader_parameter("wave_components",WaveUniforms.components(_descriptors))
+	_water_material.set_shader_parameter("wave_count",_descriptors.size())
+	_water_material.set_shader_parameter("simulation_time",_simulation_time)
+	_water_material.set_shader_parameter("visual_style",_visual_style)
+	_water_material.set_shader_parameter("coastal_attenuation",true)
+	_water_material.set_shader_parameter("shore_height_texture",_shore_texture)
+	_water_material.set_shader_parameter("coast_distance_texture",_coast_texture)
+	_water_material.set_shader_parameter("has_coast_distance",_coast_texture!=null and _coast_texture.get_width()>1 and _coast_texture.get_height()>1)
+	_water_material.set_shader_parameter("shore_bounds",_shore_bounds)
+	_water_material.set_shader_parameter("has_shore_field",_shore_texture!=null and _shore_bounds.z>_shore_bounds.x and _shore_bounds.w>_shore_bounds.y)
+	_water_material.set_shader_parameter("reference_near_height_texture",_near_shore_texture)
+	_water_material.set_shader_parameter("reference_near_bounds",_near_shore_bounds)
+	_water_material.set_shader_parameter("has_reference_near_field",_near_shore_texture!=null and _near_shore_bounds.z>_near_shore_bounds.x and _near_shore_bounds.w>_near_shore_bounds.y)
+	_water_material.set_shader_parameter("surface_optics_enabled",active)
+	_water_material.set_shader_parameter("surface_reflection_enabled",active and _surface_optics.reflection_enabled)
+	_water_material.set_shader_parameter("surface_refraction_enabled",active and _surface_optics.refraction_enabled)
+	_water_material.set_shader_parameter("surface_reflection_steps",0)
+	_water_material.set_shader_parameter("u_refraction_enabled",active and _surface_optics.refraction_enabled)
+	_water_material.set_shader_parameter("u_caustics",bool(_reference_state.get("caustics",true)))
+	var state := _reference_state.duplicate()
+	state.reflection=active and _surface_optics.reflection_enabled
+	_reference_renderer.render(state,_camera if is_instance_valid(_camera) else null,_simulation_time)
+
+func get_sky_material() -> ShaderMaterial:
+	return _reference_renderer.get_sky_material() if is_instance_valid(_reference_renderer) else null
+
+func get_reflection_viewport() -> SubViewport:
+	return _reference_renderer.get_reflection_viewport() if is_instance_valid(_reference_renderer) else null
+
+func get_reflection_camera() -> Camera3D:
+	return _reference_renderer.get_reflection_camera() if is_instance_valid(_reference_renderer) else null
+
+func set_reference_surface_state(state: Dictionary) -> bool:
+	# Tide/wave enable affect physics. The current formal profile is tide zero;
+	# standalone preview retains its independent complete four-Gerstner controls.
+	if state.has("tide") and (not state.tide is float and not state.tide is int or float(state.tide)!=0.0): return false
+	if state.has("waves") and state.waves!=true: return false
+	for key: String in ["strength","foamWidth"]:
+		if state.has(key) and (not state[key] is float and not state[key] is int or not is_finite(float(state[key]))): return false
+	if state.has("strength") and (float(state.strength)<0.0 or float(state.strength)>2.0): return false
+	if state.has("foamWidth") and (float(state.foamWidth)<=0.0 or float(state.foamWidth)>4.0): return false
+	if state.has("preset") and state.preset not in ["clear","sunset","storm"]: return false
+	for key: String in ["foam","caustics"]:
+		if state.has(key) and not state[key] is bool: return false
+	for key: String in ["preset","strength","foamWidth","foam","caustics"]:
+		if state.has(key): _reference_state[key]=state[key]
+	_update_surface_optics()
+	return true
+
+func set_near_shore_field(texture: Texture2D,bounds: Vector4) -> void:
+	if texture!=null and (not bounds.is_finite() or bounds.z<=bounds.x or bounds.w<=bounds.y or texture.get_width()<2 or texture.get_height()<2): return
+	_near_shore_texture=texture; _near_shore_bounds=bounds
+	_update_surface_optics()
 
 func set_visual_style(style: int) -> void:
 	_visual_style = clampi(style, 0, 1)
 	if _water_material:
 		_water_material.set_shader_parameter("visual_style", _visual_style)
 		_water_material.set_shader_parameter("coastal_attenuation", _visual_style == 1)
+	_update_surface_optics()
 
 func set_wave_descriptors(descriptors: Array) -> bool:
 	var values := WaveUniforms.components(descriptors)
@@ -77,6 +239,9 @@ func set_projection_padding(fraction: float) -> void:
 	_projection_initialized = false
 
 func set_shore_field(texture: Texture2D, bounds: Vector4, coast_texture: Texture2D = null) -> void:
+	# Both enhanced samplers fetch four endpoint texels; reject malformed fields
+	# atomically rather than replacing an accepted physical attenuation texture.
+	if texture!=null and (not bounds.is_finite() or bounds.z<=bounds.x or bounds.w<=bounds.y or texture.get_width()<2 or texture.get_height()<2): return
 	_shore_texture = texture
 	_coast_texture = coast_texture
 	_shore_bounds = bounds
@@ -94,11 +259,21 @@ func set_simulation_time(seconds: float) -> void:
 	_simulation_time = seconds
 	if _water_material != null:
 		_water_material.set_shader_parameter("simulation_time", seconds)
+		_water_material.set_shader_parameter("u_time",seconds)
+	if _visual_style==1: _update_surface_optics()
 
 func update_projection() -> void:
-	if not is_instance_valid(_camera) or _projected_mesh == null:
+	if _visual_style==1: _update_surface_optics()
+	if not is_inside_tree() or not is_instance_valid(_camera) or not _camera.is_inside_tree() or _projected_mesh == null:
+		_update_surface_optics()
+		_projection_initialized = false
 		return
-	var viewport_size := _camera.get_viewport().get_visible_rect().size
+	var camera_viewport := _camera.get_viewport()
+	if not is_instance_valid(camera_viewport):
+		_update_surface_optics()
+		_projection_initialized = false
+		return
+	var viewport_size := camera_viewport.get_visible_rect().size
 	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
 		return
 	var camera_position := _camera.global_position

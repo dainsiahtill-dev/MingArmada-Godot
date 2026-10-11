@@ -19,7 +19,7 @@ var services: Node
 var minimap: CanvasLayer
 var _disposed:=false
 func _ready() -> void:
-	if not heights.configure_ports(Catalog.DATA.PORTS,false): startup_receipt={"ok":false,"reason":"practice-geography-failed"}; return
+	if not heights.configure_ports(Catalog.DATA.PORTS,false,preload("res://game/scenes/common/reference_geography.gd").options()): startup_receipt={"ok":false,"reason":"practice-geography-failed"}; return
 	startup_receipt=runtime.configure(heights.sample_height,startup_options)
 	if not startup_receipt.ok: return
 	if startup_options.get("staged",false): runtime.set_pause("loading",true)

@@ -1,0 +1,33 @@
+{
+  "schema": "ming-armada-reference-island-v1",
+  "id": "coastal2",
+  "sourceJson": "C:\\Games\\Pirates-REA-Reference-20261011\\naval-study\\island-water\\source-study\\data\\coastal2_h.bmp.json",
+  "sourceJsonSha256": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+  "sourceBitmap": {
+    "name": "coastal2_h.bmp",
+    "raw": "raw/fpk/Pak1/coastal2_h.bmp",
+    "bytes": 65154,
+    "sha256": "8e49e57988fc08a1f0d7011e7171eefa5a051ca291f93cec7b004bf51cc7454c",
+    "manifest_match": true
+  },
+  "dimensions": [
+    329,
+    193
+  ],
+  "indexCount": 63497,
+  "indexRange": [
+    94,
+    201
+  ],
+  "encoding": "uint8 palette indices, row-major top-to-bottom PIL decoded raster",
+  "originalWorldUnits": null,
+  "originalHeightScale": null,
+  "adaptation": {
+    "seaIndex": 128,
+    "seaIndexStatus": "Explicit game threshold; original sea level not recovered.",
+    "horizontal": "Preserve source silhouette and aspect; scale land extent to each game port radius, rotate toward the dock.",
+    "vertical": "Original positive indices normalized to port peak; negative indices normalized to 24 m seabed.",
+    "harbor": "Only a local navigation approach and pier landing apron are adapted.",
+    "boundary": "Close source image edges into deep water; coastal2 originally continues as mainland."
+  }
+}

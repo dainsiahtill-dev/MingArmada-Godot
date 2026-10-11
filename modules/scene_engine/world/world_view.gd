@@ -12,6 +12,10 @@ var _camera: Camera3D
 var _ocean: MeshInstance3D
 var _ports: Array = []
 var _chunks: Dictionary = {}
+var _distant_chunks: Dictionary = {}
+var _port_visuals: Array[Dictionary] = []
+var _port_building_sites: Array = []
+const MAX_DISTANT_CHUNKS := 128
 var _owned: Array[Node] = []
 var _vegetation_library: RefCounted
 var _chunk_size := 250.0
@@ -23,6 +27,8 @@ var _builds := 0
 var _disposed := true
 var _simulation_time := 0.0
 var _shore_field: RefCounted
+var _near_shore_texture: ImageTexture
+var _near_shore_center := Vector2i(2147483647,2147483647)
 var _shore_spray: Node3D
 var _visual_style := 1
 var _island_details: Node3D
@@ -50,20 +56,24 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 	if texture == null and ResourceLoader.exists("res://assets/textures/waternormals.jpg"):
 		texture = load("res://assets/textures/waternormals.jpg") as Texture2D
 	_ocean.configure(_camera, texture, int(options.get("ocean_resolution", 80)), float(options.get("ocean_distance", 3000.0)))
+	_ocean.set_surface_quality(String(options.get("quality","balanced")))
 	var effective_waves: Array = Descriptor.original_descriptors() if wave_descriptors.is_empty() else wave_descriptors.duplicate(true)
 	if not _ocean.set_wave_descriptors(effective_waves):
 		dispose()
 		return false
 	if _ocean.has_method("set_visual_style"):
 		_ocean.set_visual_style(int(options.get("visual_style", 1)))
+	_ocean.configure_reflection(_camera)
+	_ocean.enable_surface_optics(_visual_style == 1)
 	if _visual_style == 1: _ocean.set_projection_padding(0.10)
 	_configure_shore(effective_waves)
 	_build_ports()
 	if _visual_style == 1 and bool(options.get("island_details",true)) and not _ports.is_empty():
 		_island_details = IslandDetails.new(); add_child(_island_details); _owned.append(_island_details)
-		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false)}):
+		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false),"terrain_support":_island_supported,"existing_buildings":_port_building_sites}):
 			dispose(); return false
 	_update_window(Vector2.ZERO)
+	if _island_details: _island_details.apply_snapshot({"time":0.0,"focus":Vector2.ZERO})
 	return true
 
 func _configure_shore(wave_descriptors: Array = []) -> void:
@@ -79,7 +89,7 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 		maximum = maximum.max(center + reach)
 	var shore_script = load(path)
 	_shore_field = shore_script.new()
-	if _shore_field.configure(_height_sampler, Rect2(minimum, maximum - minimum), 512):
+	if _shore_field.configure(_height_sampler, Rect2(minimum, maximum - minimum), 1024):
 		_ocean.set_shore_field(_shore_field.get_texture(), _shore_field.get_bounds(), _shore_field.get_coast_texture())
 	var spray_path := "res://modules/scene_engine/ocean/shore_spray.gd"
 	if ResourceLoader.exists(spray_path):
@@ -87,7 +97,7 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 		_shore_spray = spray_script.new()
 		if _shore_spray.configure(_height_sampler, Rect2(minimum, maximum - minimum), 160):
 			if not wave_descriptors.is_empty(): _shore_spray.set_wave_descriptors(wave_descriptors)
-			if _shore_field: _shore_spray.set_shore_field(_shore_field.get_texture(), _shore_field.get_bounds())
+			if _shore_field: _shore_spray.set_shore_field(_shore_field.get_texture(), _shore_field.get_bounds(), _shore_field.get_coast_texture())
 			add_child(_shore_spray)
 			_owned.append(_shore_spray)
 		else:
@@ -104,6 +114,10 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 		_ocean.set_simulation_time(seconds)
 		if is_instance_valid(_shore_spray):
 			_shore_spray.set_simulation_time(seconds)
+	if snapshot.get("wind") is Dictionary:
+		var wind: Dictionary = snapshot.wind
+		var direction: Dictionary = wind.get("direction",{})
+		_ocean.set_surface_wind(Vector2(float(direction.get("x",1.0)),float(direction.get("y",direction.get("z",0.0)))),float(wind.get("speed",0.0)))
 	var focus := Vector2.ZERO
 	if snapshot.has("focus"):
 		var point = snapshot.focus
@@ -115,6 +129,7 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 		focus = Vector2(_camera.global_position.x, _camera.global_position.z)
 	if is_finite(focus.x) and is_finite(focus.y):
 		_update_window(focus)
+	_sync_terrain_surface()
 	_ocean.update_projection()
 	if _island_details:
 		_island_details.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
@@ -139,16 +154,106 @@ func _update_window(focus: Vector2) -> void:
 		if _chunks.has(coordinate):
 			continue
 		var chunk := TerrainChunk.new()
-		if not chunk.configure(_height_sampler, coordinate, _chunk_size, _resolution, _collision):
+		if not chunk.configure(_height_sampler, coordinate, _chunk_size, _resolution, _collision, {"detailed": _visual_style == 1}):
 			chunk.free()
 			continue
 		chunk.name = "Terrain_%d_%d" % [coordinate.x, coordinate.y]
 		add_child(chunk)
 		_owned.append(chunk)
 		_chunks[coordinate] = chunk
+		_sync_chunk_surface(chunk)
 		_builds += 1
 		if _vegetation:
 			_vegetation_library.populate(chunk, _height_sampler, coordinate, _chunk_size, _resolution, _ports)
+	_update_distant_islands(focus, active)
+	_update_near_shore_field(center)
+	for entry: Dictionary in _port_visuals:
+		var supported := _island_supported(entry.center, entry.radius)
+		for node: Node3D in entry.nodes: node.visible = supported
+
+func _update_near_shore_field(center: Vector2i) -> void:
+	if _visual_style != 1 or not is_instance_valid(_ocean) or not _ocean.has_method("set_near_shore_field") or center == _near_shore_center: return
+	# Use the same vertex lattice and Float32 triangle surface as the actual near
+	# terrain. This field controls visible foam/refraction, not physics attenuation.
+	var tiles := _radius * 2 + 1
+	var side := tiles * _resolution + 1
+	var minimum := Vector2(float(center.x-_radius)-0.5,float(center.y-_radius)-0.5)*_chunk_size
+	var maximum := minimum + Vector2.ONE * tiles * _chunk_size
+	var heights := PackedFloat32Array(); heights.resize(side*side)
+	for row in side:
+		for column in side:
+			var point := minimum+Vector2(column,row)*(_chunk_size/_resolution)
+			var coordinate := Vector2i(floori(point.x/_chunk_size+0.5),floori(point.y/_chunk_size+0.5))
+			var chunk: Node3D = _chunks.get(coordinate)
+			var value := NAN
+			if is_instance_valid(chunk) and chunk.has_method("sample_mesh_height"):
+				value = float(chunk.sample_mesh_height(point.x,point.y))
+			if not is_finite(value): value = float(_height_sampler.call(point.x,point.y))
+			if not is_finite(value): return
+			heights[row*side+column] = value
+	var image := Image.create_from_data(side,side,false,Image.FORMAT_RF,heights.to_byte_array())
+	_near_shore_texture = ImageTexture.create_from_image(image)
+	_ocean.set_near_shore_field(_near_shore_texture,Vector4(minimum.x,minimum.y,maximum.x,maximum.y))
+	_near_shore_center = center
+
+func _update_distant_islands(focus: Vector2, near_chunks: Dictionary) -> void:
+	# Far ports remain visible, so their islands must have terrain beneath them.
+	# These coarse tiles have no physics or vegetation and never overlap near tiles.
+	var active: Dictionary = {}
+	for port: Dictionary in _ports:
+		var island := Vector2(float(port.get("islandX", 0.0)), float(port.get("islandZ", 0.0)))
+		var radius := maxf(0.0, float(port.get("radius", 0.0)))
+		if not is_finite(island.x) or not is_finite(island.y) or not is_finite(radius):
+			continue
+		var reach := Vector2.ONE * (radius + _chunk_size * 0.1)
+		var minimum := Vector2i(floori((island.x - reach.x + _chunk_size * 0.5) / _chunk_size), floori((island.y - reach.y + _chunk_size * 0.5) / _chunk_size))
+		var maximum := Vector2i(floori((island.x + reach.x + _chunk_size * 0.5) / _chunk_size), floori((island.y + reach.y + _chunk_size * 0.5) / _chunk_size))
+		for row in range(minimum.y, maximum.y + 1):
+			for column in range(minimum.x, maximum.x + 1):
+				var coordinate := Vector2i(column, row)
+				if near_chunks.has(coordinate) or active.size() >= MAX_DISTANT_CHUNKS:
+					continue
+				active[coordinate] = true
+	for coordinate in _distant_chunks.keys():
+		if not active.has(coordinate):
+			var chunk: Node = _distant_chunks[coordinate]
+			_owned.erase(chunk)
+			chunk.free()
+			_distant_chunks.erase(coordinate)
+	for coordinate: Vector2i in active:
+		if _distant_chunks.has(coordinate):
+			continue
+		var chunk := TerrainChunk.new()
+		if not chunk.configure(_height_sampler, coordinate, _chunk_size, mini(16, _resolution), false, {"detailed": _visual_style == 1}):
+			chunk.free()
+			continue
+		chunk.name = "DistantTerrain_%d_%d" % [coordinate.x, coordinate.y]
+		add_child(chunk)
+		_owned.append(chunk)
+		_distant_chunks[coordinate] = chunk
+		_sync_chunk_surface(chunk)
+
+func _sync_chunk_surface(chunk: Node3D) -> void:
+	if _visual_style == 1 and is_instance_valid(_ocean):
+		chunk.sync_surface_state(_ocean.material_override as ShaderMaterial)
+
+func _sync_terrain_surface() -> void:
+	if _visual_style != 1: return
+	# Near and far tiles share the accepted sea clock and immutable wave/shore data.
+	for chunk: Node3D in _chunks.values(): _sync_chunk_surface(chunk)
+	for chunk: Node3D in _distant_chunks.values(): _sync_chunk_surface(chunk)
+
+func _island_supported(center: Vector2, radius: float) -> bool:
+	var reach := radius + _chunk_size * 0.1
+	var minimum := Vector2i(floori((center.x - reach + _chunk_size * 0.5) / _chunk_size), floori((center.y - reach + _chunk_size * 0.5) / _chunk_size))
+	var maximum := Vector2i(floori((center.x + reach + _chunk_size * 0.5) / _chunk_size), floori((center.y + reach + _chunk_size * 0.5) / _chunk_size))
+	if (maximum.x - minimum.x + 1) * (maximum.y - minimum.y + 1) > _chunks.size() + _distant_chunks.size():
+		return false
+	for row in range(minimum.y, maximum.y + 1):
+		for column in range(minimum.x, maximum.x + 1):
+			var key := Vector2i(column, row)
+			if not _chunks.has(key) and not _distant_chunks.has(key): return false
+	return true
 
 func _build_ports() -> void:
 	var root := Node3D.new()
@@ -164,29 +269,52 @@ func _build_ports() -> void:
 		group.position = Vector3(float(port.x), 0.0, float(port.z))
 		group.rotation.y = atan2(float(port.islandX) - float(port.x), float(port.islandZ) - float(port.z))
 		root.add_child(group)
+		var visuals: Array[Node3D] = [group]
 		var pier := _box(group, Vector3(8, 0.5, 55), Vector3(0, PIER_DECK_HEIGHT, 20), wood)
 		pier.name = "PierDeck"
 		for z in range(-4, 48, 9):
 			for x: float in [-3.1, 3.1]:
 				_box(group, Vector3(0.55, 10.7, 0.55), Vector3(x, -1.4, z), wood)
+		# The reference harbor adapts its landward terrain beneath the dock end.
+		# Sample the same ground as navigation and provide a visible landing stair.
+		var approach:=Vector2(float(port.islandX)-float(port.x),float(port.islandZ)-float(port.z)).normalized()
+		var landing:=Vector2(float(port.x),float(port.z))+approach*54.0
+		var landing_height:=float(_height_sampler.call(landing.x,landing.y))
+		if is_finite(landing_height) and landing_height>0.4 and landing_height<PIER_DECK_HEIGHT:
+			for step in 6:
+				var top:=lerpf(PIER_DECK_HEIGHT+0.25,landing_height+0.12,float(step+1)/6.0)
+				_box(group,Vector3(5.6,0.30,1.24),Vector3(0,top-0.15,47.5+step*1.2),wood)
 		for index in 9:
 			var x := float(port.islandX) + cos(index * 2.15) * float(port.radius) * 0.42
 			var z := float(port.islandZ) + sin(index * 2.15) * float(port.radius) * 0.32
 			var height := float(_height_sampler.call(x, z))
 			if height < 2.0 or not is_finite(height):
 				continue
+			var width := 8.0 + (index % 3) * 2.0
+			var yaw:=index*0.7
+			var basis:=Basis(Vector3.UP,yaw)
+			var supported:=true
+			for side_x: float in [-width*0.5,width*0.5]:
+				for side_z: float in [-3.5,3.5]:
+					var offset:=basis*Vector3(side_x,0,side_z)
+					var footing:=float(_height_sampler.call(x+offset.x,z+offset.z))
+					if not is_finite(footing) or footing<0.5 or absf(footing-height)>1.0: supported=false
+			if not supported: continue
 			var house := Node3D.new()
 			house.position = Vector3(x, height, z)
-			house.rotation.y = index * 0.7
+			house.rotation.y = yaw
 			root.add_child(house)
-			var width := 8.0 + (index % 3) * 2.0
+			visuals.append(house)
+			_port_building_sites.append({"position":Vector2(x,z),"radius":maxf(width,7.0)*0.6})
 			var wall_height := 4.0 + index % 2
+			_box(house,Vector3(width+0.4,1.3,7.4),Vector3(0,-0.55,0),walls)
 			_box(house, Vector3(width, wall_height, 7), Vector3(0, wall_height / 2.0, 0), walls)
 			_box(house, Vector3(width * 0.32, wall_height * 0.65, 0.15), Vector3(0, wall_height * 0.325, 3.58), wood)
 			for side: float in [-1.0, 1.0]:
 				var slope := _box(house, Vector3(width + 2, 0.35, 5.04), Vector3(0, wall_height + 1.4, side * 1.96), roof)
 				slope.rotation.x = side * 0.42
 			_box(house, Vector3(width + 2, 0.4, 0.55), Vector3(0, wall_height + 2.8, 0), roof)
+		_port_visuals.append({"center":Vector2(float(port.islandX),float(port.islandZ)),"radius":float(port.radius),"nodes":visuals})
 
 func _material(hex: String) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
@@ -216,6 +344,9 @@ func get_chunk_build_count() -> int:
 func get_chunks() -> Array:
 	return _chunks.values()
 
+func get_distant_chunks() -> Array:
+	return _distant_chunks.values()
+
 func dispose() -> void:
 	_disposed = true
 	for node in _owned:
@@ -223,8 +354,13 @@ func dispose() -> void:
 			node.free()
 	_owned.clear()
 	_chunks.clear()
+	_distant_chunks.clear()
+	_port_visuals.clear()
+	_port_building_sites.clear()
 	_ocean = null
 	_shore_field = null
+	_near_shore_texture = null
+	_near_shore_center = Vector2i(2147483647,2147483647)
 	_shore_spray = null
 	_island_details = null
 	_vegetation_library = null

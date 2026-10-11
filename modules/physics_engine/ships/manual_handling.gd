@@ -8,16 +8,20 @@ const LIMITS := {
 
 # Numeric hull-dependent torque budget. Permission/recovery/navigation are
 # caller policy; the solver never knows a player, battle, campaign or UI.
-static func build(kind: String, turn_intent: float, speed: float, crew_fraction: float = 1.0, hull_fraction: float = 1.0, sail_fraction: float = 1.0, braking: bool = false, sail_deployment: float = 1.0) -> Dictionary:
+static func build(kind: String, turn_intent: float, speed: float, crew_fraction: float = 1.0, hull_fraction: float = 1.0, sail_fraction: float = 1.0, braking: bool = false, sail_deployment: float = 1.0, responsive: bool = false) -> Dictionary:
 	if not LIMITS.has(kind) or not [turn_intent, speed, crew_fraction, hull_fraction, sail_fraction, sail_deployment].all(func(value: float) -> bool: return is_finite(value)):
 		return {}
 	var limits: Array = LIMITS[kind]
 	var blend := clampf((speed - 0.3) / 1.2, 0.0, 1.0)
-	return {"targetYawRateRad": clampf(turn_intent, -1.0, 1.0) * (limits[1] + (limits[0] - limits[1]) * blend) * PI / 180.0,
+	var result := {"targetYawRateRad": clampf(turn_intent, -1.0, 1.0) * (limits[1] + (limits[0] - limits[1]) * blend) * PI / 180.0,
 		"maxYawAccelerationRad": limits[2] * PI / 180.0,
 		"powerFraction": clampf(crew_fraction, 0.0, 1.0) * sqrt(clampf(hull_fraction, 0.0, 1.0) * clampf(sail_fraction, 0.0, 1.0)),
 		"neutralYawDamping": 2.5 if absf(turn_intent) < 0.001 else 0.0,
 		"brakeDeceleration": 0.2 if braking and sail_deployment <= 0.05 else 0.0, "coastInNoGo": true}
+	# An opt-in controller response changes no force/acceleration budget. Old
+	# detached requests retain their exact four-per-second response.
+	if responsive: result.responseRate = 6.0
+	return result
 
 static func sanitize(value: Variant) -> Dictionary:
 	if not value is Dictionary:
@@ -32,10 +36,13 @@ static func sanitize(value: Variant) -> Dictionary:
 	for key: String in bounds:
 		result[key] = float(value[key])
 	result.coastInNoGo = value.coastInNoGo
+	if value.has("responseRate"):
+		if not Types.finite_number(value.responseRate) or value.responseRate < 4.0 or value.responseRate > 8.0: return {}
+		result.responseRate = float(value.responseRate)
 	return result
 
 static func torque(request: Dictionary, yaw_rate: float, dry_yaw_inertia: float) -> float:
 	if request.is_empty() or request.powerFraction == 0.0 or not is_finite(yaw_rate) or not is_finite(dry_yaw_inertia) or dry_yaw_inertia <= 0.0:
 		return 0.0
-	var desired: float = (request.targetYawRateRad - yaw_rate) * 4.0 - request.neutralYawDamping * yaw_rate
+	var desired: float = (request.targetYawRateRad - yaw_rate) * request.get("responseRate", 4.0) - request.neutralYawDamping * yaw_rate
 	return dry_yaw_inertia * clampf(desired, -request.maxYawAccelerationRad, request.maxYawAccelerationRad) * request.powerFraction

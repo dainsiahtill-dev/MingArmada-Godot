@@ -34,7 +34,7 @@ func configure(height_sampler: Callable, spec: Dictionary = {}) -> bool:
 	return _configured
 
 func sample_water_height(x: float, z: float, seconds: float) -> float:
-	return _waves.sample(x, z, seconds).height if _waves else NAN
+	return _waves.sample_height(x, z, seconds) if _waves else NAN
 
 func command(intent: Dictionary) -> Dictionary:
 	match intent.get("type", ""):

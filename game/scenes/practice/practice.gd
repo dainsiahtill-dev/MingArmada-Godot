@@ -1,6 +1,7 @@
 extends Control
 signal main_menu_requested
 const Runtime = preload("res://game/runtime/practice_runtime.gd")
+const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const EncounterInterface = preload("res://game/ui/encounters/encounter_interface.gd")
 const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
 const KINDS = ["duel","landBattle","treasure","banquet"]
@@ -15,7 +16,12 @@ var _begin: Button
 var _kind := "duel"
 var _leaving := false
 var _last_result: Dictionary = {}
+func development_access_allowed() -> bool:
+	return DevelopmentAccess.host_allows()
 func _ready() -> void:
+	if not development_access_allowed():
+		_leaving = true; set_process(false)
+		startup_receipt = {"ok":false,"reason":"practice-development-only"}; return
 	theme=ThemeFactory.create(); set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var background:=ColorRect.new(); background.color=Color("173e3e"); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(background)
 	encounter_ui=EncounterInterface.new(); add_child(encounter_ui); encounter_ui.command_requested.connect(_command)

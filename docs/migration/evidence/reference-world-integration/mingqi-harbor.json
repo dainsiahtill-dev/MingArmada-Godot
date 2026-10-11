@@ -1,0 +1,2170 @@
+{
+	"camera": "[X: (-0.763386, 0.0, -0.645942), Y: (-0.274652, 0.905102, 0.324588), Z: (0.584643, 0.425195, -0.690942), O: (-239.0275, 27.20079, -89.40691)]",
+	"effects": {
+		"events": 0,
+		"projectiles": 0,
+		"puffs": 0,
+		"splashes": 0
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"imageSha256": "c28a6685736b233b13fb551bcdcbe43af7046a28831718ff61765f7d4f92b490",
+	"nearBounds": "(-1375.0, -1125.0, 375.0, 625.0)",
+	"optics": {
+		"accepted_time": 0.0333333333333333,
+		"camera_valid": true,
+		"depth_source": "current-viewport-inverse-projection",
+		"enabled": true,
+		"includes_offscreen_objects": true,
+		"includes_transparent_objects": true,
+		"offscreen_targets": 1,
+		"private_worlds": 0,
+		"quality": "balanced",
+		"reflection_enabled": true,
+		"reflection_method": "planar-subviewport",
+		"reflection_size": "(768, 432)",
+		"reflection_steps": 0,
+		"refraction_enabled": true,
+		"requested": true,
+		"screen_source": "current-viewport-opaque-copy",
+		"shared_world": true,
+		"transparent_objects_supported": true,
+		"water_layer_excluded": true,
+		"wave_profile": "authoritative-five-wave"
+	},
+	"referenceProfiles": [
+		{
+			"dock": "(-306.2571, -38.28214)",
+			"height": 193,
+			"id": "coastal2",
+			"inward": "(-0.992278, -0.124035)",
+			"islandCenter": "(-480.0, -60.0)",
+			"peak": 58.0,
+			"scale": 0.925971459507671,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(164.0, 83.0)",
+			"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+			"sourceOutward": "(-0.741536, 0.670913)",
+			"width": 329
+		},
+		{
+			"dock": "(282.1499, 107.4857)",
+			"height": 140,
+			"id": "cat_island",
+			"inward": "(0.934488, 0.355995)",
+			"islandCenter": "(420.0, 160.0)",
+			"peak": 48.0,
+			"scale": 2.23698910688314,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(56.0, 69.0)",
+			"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+			"sourceOutward": "(0.616882, 0.787056)",
+			"width": 120
+		},
+		{
+			"dock": "(-60.0, 320.0)",
+			"height": 77,
+			"id": "virgin_islands",
+			"inward": "(0.0, 1.0)",
+			"islandCenter": "(-60.0, 390.0)",
+			"peak": 28.0,
+			"scale": 1.35153278055802,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(78.0, 35.5)",
+			"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+			"sourceOutward": "(-0.496139, 0.868243)",
+			"width": 160
+		}
+	],
+	"route": "actual MainScene menu Control and entry router",
+	"runtime": {
+		"campaign": {
+			"boardings": {},
+			"calendar": {
+				"day": 1,
+				"month": 1,
+				"year": 1650
+			},
+			"campaignId": "mingqi-1650",
+			"captain": {
+				"birthYear": 1631,
+				"name": "沈沧海",
+				"silver": 650
+			},
+			"casualtyOrdinals": {},
+			"chapterId": "opening-1650",
+			"chronicle": [
+				{
+					"causeIds": [
+						"background-load-01",
+						"mingqi-1650-background-grain-01",
+						"mingqi-1650-background-voyage"
+					],
+					"date": {
+						"day": 1,
+						"month": 1,
+						"year": 1650
+					},
+					"id": "background-load-01",
+					"kind": "background-load",
+					"message": "厦门库存100出库10，林家商船载粮10。",
+					"simTime": 0
+				}
+			],
+			"clockCompensation": 0.0,
+			"contracts": {
+				"convoy-001": {
+					"bonusQuantity": 40,
+					"criticalPersonIds": [
+						"steward-a",
+						"steward-b"
+					],
+					"deadlineAt": 1800,
+					"id": "convoy-001",
+					"minimumDelivery": 1,
+					"receiptId": null,
+					"secret": false,
+					"status": "offered",
+					"voyageIds": [
+						"mingqi-1650-grain-a-voyage",
+						"mingqi-1650-grain-b-voyage"
+					]
+				}
+			},
+			"currentPortId": "xiamen",
+			"debt": {
+				"creditorId": "house-lin",
+				"dueAt": 18000,
+				"principal": 400
+			},
+			"flagshipId": "mingqi-1650-flagship",
+			"intelligence": [],
+			"macroRemainder": 0.0333333333333333,
+			"macroSeconds": 0,
+			"nearTicks": {
+				"mingqi-1650:mingqi-1650:native:1": 2
+			},
+			"nextId": 2,
+			"orders": [],
+			"people": {
+				"steward-a": {
+					"alive": true,
+					"id": "steward-a",
+					"name": "林管事",
+					"role": "steward",
+					"shipId": "mingqi-1650-grain-a"
+				},
+				"steward-b": {
+					"alive": true,
+					"id": "steward-b",
+					"name": "陈管事",
+					"role": "steward",
+					"shipId": "mingqi-1650-grain-b"
+				}
+			},
+			"ports": {
+				"forward-supply": {
+					"consumption": {},
+					"id": "forward-supply",
+					"name": "近岸补给点",
+					"position": {
+						"x": -60,
+						"z": 320
+					},
+					"production": {},
+					"stock": {
+						"grain": 0
+					}
+				},
+				"kinmen": {
+					"consumption": {
+						"grain": 2
+					},
+					"id": "kinmen",
+					"name": "金门",
+					"position": {
+						"x": 282.149928893017,
+						"z": 107.48568719734
+					},
+					"production": {},
+					"stock": {
+						"grain": 0
+					}
+				},
+				"xiamen": {
+					"consumption": {
+						"grain": 1
+					},
+					"id": "xiamen",
+					"name": "厦门",
+					"position": {
+						"x": -306.257095844739,
+						"z": -38.2821369805923
+					},
+					"production": {
+						"grain": 4
+					},
+					"stock": {
+						"grain": 90
+					}
+				}
+			},
+			"prizes": {},
+			"randomState": 1661,
+			"reputations": {
+				"crewSupport": 50,
+				"intimidation": 0,
+				"merchantCredit": 0,
+				"militaryTrust": 0
+			},
+			"revision": 4,
+			"seed": 1661,
+			"settlements": {
+				"background-load-01": {
+					"commandId": "background-load-01",
+					"id": "background-load-01",
+					"kind": "background-load",
+					"message": "厦门库存100出库10，林家商船载粮10。",
+					"revision": 0
+				}
+			},
+			"simulationSeconds": 0.0333333333333333,
+			"vessels": {
+				"mingqi-1650-background-grain-01": {
+					"cargo": {
+						"grain": 10
+					},
+					"combat": {
+						"ammo": {
+							"chain": 0,
+							"grape": 0,
+							"solid": 0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.437119100865793,
+						"sailAngle": -1.5707963267949,
+						"sailDeployment": 1.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0,
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsRevision": 0,
+					"crew": {
+						"able": 16,
+						"minimum": 8,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100.0,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100.0,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-background-grain-01",
+					"name": "林家运粮商船",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.000000398027049030666,
+						"position": {
+							"x": -133.414595757538,
+							"z": 272.396084436297
+						},
+						"speed": 0.0141426564046931
+					},
+					"profileId": "background",
+					"representation": "near",
+					"revision": 2,
+					"voyageId": "mingqi-1650-background-voyage"
+				},
+				"mingqi-1650-enemy": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24,
+							"grape": 24,
+							"solid": 40
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0,
+							"starboard": 0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 0.785398163397448,
+						"sailDeployment": 0
+					},
+					"controlsObserved": null,
+					"controlsProjection": null,
+					"controlsRevision": 0,
+					"crew": {
+						"able": 30,
+						"minimum": 12,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-enemy",
+					"name": "敌炮舰",
+					"ownerId": "enemy",
+					"pose": {
+						"heading": 0,
+						"position": {
+							"x": 319.49483043808,
+							"z": -295.354317248411
+						},
+						"speed": 0
+					},
+					"profileId": "enemy",
+					"representation": "route",
+					"revision": 0,
+					"voyageId": null
+				},
+				"mingqi-1650-fast": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24,
+							"grape": 24,
+							"solid": 40
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 1.5707963267949,
+						"sailDeployment": 0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0,
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsRevision": 0,
+					"crew": {
+						"able": 18,
+						"minimum": 8,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100.0,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100.0,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-fast",
+					"name": "雇佣快船逐浪号",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.0,
+						"position": {
+							"x": -164.911879903878,
+							"z": -29.0219887964153
+						},
+						"speed": 0.0
+					},
+					"profileId": "fast",
+					"representation": "near",
+					"revision": 2,
+					"voyageId": null
+				},
+				"mingqi-1650-flagship": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24,
+							"grape": 24,
+							"solid": 40
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 1.5707963267949,
+						"sailDeployment": 0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0,
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsRevision": 0,
+					"crew": {
+						"able": 60,
+						"minimum": 20,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100.0,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100.0,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-flagship",
+					"name": "借用福船明旗号",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.0,
+						"position": {
+							"x": -272.027464406909,
+							"z": -50.4069068730936
+						},
+						"speed": 0.0
+					},
+					"profileId": "flagship",
+					"representation": "near",
+					"revision": 2,
+					"voyageId": null
+				},
+				"mingqi-1650-grain-a": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 0,
+							"grape": 0,
+							"solid": 0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 1.5707963267949,
+						"sailDeployment": 0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0,
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsRevision": 0,
+					"crew": {
+						"able": 20,
+						"minimum": 8,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100.0,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100.0,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-grain-a",
+					"name": "粮船甲",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.0,
+						"position": {
+							"x": -217.613452122676,
+							"z": -93.5893522094826
+						},
+						"speed": 0.0
+					},
+					"profileId": "grain",
+					"representation": "near",
+					"revision": 2,
+					"voyageId": "mingqi-1650-grain-a-voyage"
+				},
+				"mingqi-1650-grain-b": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 0,
+							"grape": 0,
+							"solid": 0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 1.5707963267949,
+						"sailDeployment": 0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0,
+						"sequence": 3,
+						"tick": 2
+					},
+					"controlsRevision": 0,
+					"crew": {
+						"able": 20,
+						"minimum": 8,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100.0,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100.0,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-grain-b",
+					"name": "粮船乙",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.0,
+						"position": {
+							"x": -161.997119788207,
+							"z": -141.625087821221
+						},
+						"speed": 0.0
+					},
+					"profileId": "grain",
+					"representation": "near",
+					"revision": 2,
+					"voyageId": "mingqi-1650-grain-b-voyage"
+				},
+				"mingqi-1650-heritage": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 0,
+							"grape": 0,
+							"solid": 0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0,
+							"starboard": 0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0,
+						"sailAngle": 0.785398163397448,
+						"sailDeployment": 0
+					},
+					"controlsObserved": null,
+					"controlsProjection": null,
+					"controlsRevision": 0,
+					"crew": {
+						"able": 12,
+						"minimum": 8,
+						"prisoners": 0,
+						"wounded": 0
+					},
+					"damage": {
+						"fire": 0,
+						"flooding": 0,
+						"hull": 100,
+						"mast": 100,
+						"portGuns": 100,
+						"sail": 100,
+						"starboardGuns": 100
+					},
+					"id": "mingqi-1650-heritage",
+					"name": "继承商船承家号",
+					"ownerId": "captain",
+					"pose": {
+						"heading": 0,
+						"position": {
+							"x": -290.626935191677,
+							"z": -101.374910560135
+						},
+						"speed": 0
+					},
+					"profileId": "heritage",
+					"representation": "route",
+					"revision": 0,
+					"voyageId": null
+				}
+			},
+			"voyages": {
+				"mingqi-1650-background-voyage": {
+					"departedAt": 0,
+					"destinationId": "kinmen",
+					"escortIds": [],
+					"eta": 274.130962706826,
+					"id": "mingqi-1650-background-voyage",
+					"leg": 1,
+					"originId": "xiamen",
+					"progress": 0.357143616967198,
+					"routeId": "xiamen-kinmen-outer",
+					"status": "underway",
+					"vesselId": "mingqi-1650-background-grain-01"
+				},
+				"mingqi-1650-grain-a-voyage": {
+					"departedAt": 0,
+					"destinationId": "kinmen",
+					"escortIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-fast"
+					],
+					"eta": 1200,
+					"id": "mingqi-1650-grain-a-voyage",
+					"leg": 0,
+					"originId": "xiamen",
+					"progress": 0,
+					"routeId": "xiamen-kinmen-deep",
+					"status": "loading",
+					"vesselId": "mingqi-1650-grain-a"
+				},
+				"mingqi-1650-grain-b-voyage": {
+					"departedAt": 0,
+					"destinationId": "kinmen",
+					"escortIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-fast"
+					],
+					"eta": 1200,
+					"id": "mingqi-1650-grain-b-voyage",
+					"leg": 0,
+					"originId": "xiamen",
+					"progress": 0,
+					"routeId": "xiamen-kinmen-deep",
+					"status": "loading",
+					"vesselId": "mingqi-1650-grain-b"
+				}
+			},
+			"works": {}
+		},
+		"naval": {
+			"battleId": "mingqi-1650:native:1",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "mingqi-1650-flagship",
+			"projectiles": [],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 24,
+						"grape": 24,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 3,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 60.0,
+					"dimensions": {
+						"draft": 3.2,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-flagship",
+					"kind": "fuchuan",
+					"maxCrew": 80,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "借用福船明旗号",
+					"rudder": 0,
+					"sail": 100.0,
+					"sailAngle": 1.5707963267949,
+					"sailDeployment": 0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 3.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 80,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.0,
+						"heel": -0.00011996603393661,
+						"pitch": 0.000110917812050152,
+						"position": {
+							"x": -272.027464406909,
+							"y": 0.200799316338226,
+							"z": -50.4069068730936
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0,
+						"grape": 0,
+						"solid": 0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 3,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 20.0,
+					"dimensions": {
+						"draft": 1.2,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-grain-a",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "粮船甲",
+					"rudder": 0,
+					"sail": 100.0,
+					"sailAngle": 1.5707963267949,
+					"sailDeployment": 0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 0.0,
+						"heel": -0.000324706686266891,
+						"pitch": 0.000135648639748511,
+						"position": {
+							"x": -217.613452122676,
+							"y": 1.1230259158003,
+							"z": -93.5893522094826
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0,
+						"grape": 0,
+						"solid": 0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 3,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 20.0,
+					"dimensions": {
+						"draft": 1.2,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-grain-b",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "粮船乙",
+					"rudder": 0,
+					"sail": 100.0,
+					"sailAngle": 1.5707963267949,
+					"sailDeployment": 0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 0.0,
+						"heel": -0.0000358196823512717,
+						"pitch": 0.000363053544141014,
+						"position": {
+							"x": -161.997119788207,
+							"y": -0.946454978940319,
+							"z": -141.625087821221
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 24,
+						"grape": 24,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 3,
+					"controlsSequence": 3,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 18.0,
+					"dimensions": {
+						"draft": 1.0,
+						"length": 24.0,
+						"width": 6.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-fast",
+					"kind": "patrol",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "雇佣快船逐浪号",
+					"rudder": 0,
+					"sail": 100.0,
+					"sailAngle": 1.5707963267949,
+					"sailDeployment": 0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.0,
+						"heel": -0.00000309229653437273,
+						"pitch": -0.0000602958743876399,
+						"position": {
+							"x": -164.911879903878,
+							"y": -0.17067332301346,
+							"z": -29.0219887964153
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0,
+						"grape": 0,
+						"solid": 0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 3,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 16.0,
+					"dimensions": {
+						"draft": 1.4,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-background-grain-01",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "林家运粮商船",
+					"navigation": {
+						"x": 131.368232570108,
+						"z": 337.991607888822
+					},
+					"rudder": 0.437119100865793,
+					"sail": 100.0,
+					"sailAngle": -1.5707963267949,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 1000.0,
+						"draftMeters": 1.4,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 0.000000398027049030666,
+						"heel": 0.000206054869428589,
+						"pitch": 0.000550820466849654,
+						"position": {
+							"x": -133.414595757538,
+							"y": 0.199893016566226,
+							"z": 272.396084436297
+						},
+						"velocity": {
+							"x": 0.0141418141369006,
+							"y": 0.0,
+							"z": -0.000154347330927877
+						}
+					}
+				}
+			],
+			"status": "sailing",
+			"tick": 2,
+			"time": 0.0333333333333333,
+			"wind": {
+				"direction": {
+					"x": -1.0,
+					"y": 0.0
+				},
+				"speed": 12.0
+			}
+		},
+		"runtime": {
+			"acceptedSeconds": 0.0166666666666667,
+			"canDepart": false,
+			"canDock": {
+				"forward-supply": {
+					"ok": false,
+					"reason": "unsafe-port"
+				},
+				"kinmen": {
+					"ok": false,
+					"reason": "unsafe-port"
+				},
+				"xiamen": {
+					"ok": true
+				}
+			},
+			"canSave": true,
+			"controllableShipIds": [],
+			"departReason": "unsafe-port",
+			"draftResults": [],
+			"drafts": [],
+			"eligibility": {
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"buy": {
+					"ok": true,
+					"reason": ""
+				},
+				"incorporate-prize:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"refit:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "unauthorized-port-service"
+				},
+				"refit:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-heritage": {
+					"ok": true,
+					"reason": ""
+				},
+				"release-prisoners:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "unauthorized-port-service"
+				},
+				"release-prisoners:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"repair:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "unauthorized-port-service"
+				},
+				"repair:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-heritage": {
+					"ok": true,
+					"reason": ""
+				},
+				"resolve-prize:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"sell": {
+					"ok": true,
+					"reason": ""
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"treat-wounded:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "unauthorized-port-service"
+				},
+				"treat-wounded:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-heritage": {
+					"ok": true,
+					"reason": ""
+				}
+			},
+			"error": false,
+			"generation": 1,
+			"handlingMode": "assisted",
+			"handlingStatus": {
+				"phase": "idle"
+			},
+			"notice": "",
+			"noticeRevision": 0,
+			"orderStatuses": [],
+			"pauseReasons": [],
+			"paused": false,
+			"policy": {
+				"capturedShipIds": [],
+				"controllableShipIds": [],
+				"disabledMotionShipIds": [],
+				"hostileTargets": {
+					"mingqi-1650-background-grain-01": [],
+					"mingqi-1650-fast": [],
+					"mingqi-1650-flagship": [],
+					"mingqi-1650-grain-a": [],
+					"mingqi-1650-grain-b": []
+				},
+				"lockedShipIds": []
+			},
+			"portId": "xiamen",
+			"rejectedSeconds": 0.0,
+			"saveReason": "",
+			"selectedShipId": "mingqi-1650-flagship",
+			"status": "ready",
+			"timeScale": 1.0
+		}
+	},
+	"scene": "res://game/scenes/mingqi/mingqi_scene.gd",
+	"scope": "Formal gameplay composition and GPU appearance at accepted ticks. Excludes wall-time performance and complete historical journey.",
+	"terrainChunks": 49,
+	"viewport": [
+		1600,
+		900
+	],
+	"wakes": {
+		"accepted_time": 0.0333333333333333,
+		"attached_waves": 0,
+		"samples": 0,
+		"trails": 0,
+		"wave_budget": 96
+	},
+	"waterShader": "res://modules/scene_engine/ocean/reference_game_water.gdshader"
+}

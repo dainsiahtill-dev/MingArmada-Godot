@@ -1,0 +1,759 @@
+{
+	"camera": "[X: (-0.806405, 0.0, -0.591364), Y: (-0.329841, 0.83, 0.449783), Z: (0.490832, 0.557764, -0.669316), O: (-113.1739, 25.0, -247.7676)]",
+	"effects": {
+		"events": 7,
+		"projectiles": 1,
+		"puffs": 0,
+		"splashes": 3
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"imageSha256": "289fbeddb5d64a70faccde2e7a40fe0fe5443145ea3c3ed790acd67ebe57b306",
+	"optics": {
+		"accepted_time": 20.85,
+		"camera_valid": true,
+		"depth_source": "current-viewport-inverse-projection",
+		"enabled": true,
+		"includes_offscreen_objects": true,
+		"includes_transparent_objects": true,
+		"offscreen_targets": 1,
+		"private_worlds": 0,
+		"quality": "balanced",
+		"reflection_enabled": true,
+		"reflection_method": "planar-subviewport",
+		"reflection_size": "(768, 432)",
+		"reflection_steps": 0,
+		"refraction_enabled": true,
+		"requested": true,
+		"screen_source": "current-viewport-opaque-copy",
+		"shared_world": true,
+		"transparent_objects_supported": true,
+		"water_layer_excluded": true,
+		"wave_profile": "authoritative-five-wave"
+	},
+	"packet": {
+		"adventure": {
+			"activeObjectives": [],
+			"ammoStocks": {
+				"dongshan": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				},
+				"kinmen": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				},
+				"luermen": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				},
+				"penghu": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				},
+				"quanzhou": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				},
+				"xiamen": {
+					"chain": 60.0,
+					"grape": 80.0,
+					"solid": 80.0
+				}
+			},
+			"battleActive": false,
+			"career": {
+				"battlesWon": 0.0,
+				"ending": "",
+				"injuries": 0.0,
+				"portsVisited": [
+					"xiamen"
+				],
+				"rank": "新任船长",
+				"retired": false,
+				"score": 0.0,
+				"shipsCaptured": 0.0,
+				"sitesVisited": [],
+				"surrenders": 0.0,
+				"totalPlunder": 0.0,
+				"tradeProfit": 0.0,
+				"treasureFound": 0.0
+			},
+			"cargo": {
+				"grain": 30.0,
+				"iron": 0.0,
+				"porcelain": 0.0,
+				"silk": 0.0,
+				"spices": 0.0,
+				"wood": 0.0
+			},
+			"currentPortId": null,
+			"day": 1.0,
+			"elapsedSeconds": 20.85,
+			"flagshipId": "player",
+			"fleet": [
+				{
+					"ammo": {
+						"chain": 24.0,
+						"grape": 24.0,
+						"solid": 39.0
+					},
+					"capacity": 120.0,
+					"cargo": {
+						"grain": 30.0,
+						"iron": 0.0,
+						"porcelain": 0.0,
+						"silk": 0.0,
+						"spices": 0.0,
+						"wood": 0.0
+					},
+					"crew": 48.0,
+					"heading": 0.579290170101062,
+					"hull": 100.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"maxCrew": 100.0,
+					"maxHull": 100.0,
+					"maxSail": 100.0,
+					"name": "定海号",
+					"navalState": {
+						"ammoType": "solid",
+						"autoTrim": true,
+						"cooldownSeconds": {
+							"port": 8.51666666666667,
+							"starboard": 0.0
+						},
+						"rudder": 0.0,
+						"sailAngle": 1.51790661606954,
+						"sailDeployment": 1.0
+					},
+					"position": {
+						"x": -242.022655203286,
+						"y": 0.567199242903505,
+						"z": -23.707093360014
+					},
+					"sail": 100.0,
+					"speed": 2.4072646128186,
+					"upgrades": {
+						"cannons": 0.0,
+						"hull": 0.0,
+						"sails": 0.0
+					}
+				}
+			],
+			"heading": 0.579290170101062,
+			"log": [
+				{
+					"day": 1.0,
+					"id": 1.0,
+					"message": "1661年。虚构船长初掌定海号，三十袋军粮随船。厦门锚地在近旁，金门等待补给。"
+				},
+				{
+					"day": 1.0,
+					"id": 2.0,
+					"message": "靠泊厦门。港内暂停航海时间。"
+				},
+				{
+					"day": 1.0,
+					"id": 3.0,
+					"message": "驶离厦门。"
+				}
+			],
+			"mainChapter": 1.0,
+			"markets": {
+				"dongshan": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				},
+				"kinmen": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				},
+				"luermen": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				},
+				"penghu": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				},
+				"quanzhou": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				},
+				"xiamen": {
+					"grain": 120.0,
+					"iron": 60.0,
+					"porcelain": 35.0,
+					"silk": 30.0,
+					"spices": 25.0,
+					"wood": 80.0
+				}
+			},
+			"officers": [],
+			"player": {
+				"age": 22.0,
+				"fame": 2.0,
+				"infamy": 0.0,
+				"morale": 100.0,
+				"name": "沈沧海",
+				"silver": 650.0,
+				"supplies": 30.0
+			},
+			"position": {
+				"x": -242.022655203286,
+				"y": 0.567199242903505,
+				"z": -23.707093360014
+			},
+			"quests": [
+				{
+					"deadlineDays": 10.0,
+					"description": "从厦门运送十袋粮食至金门，支援郑氏水师。",
+					"destinationPortId": "kinmen",
+					"faction": "zheng",
+					"fame": 12.0,
+					"good": "grain",
+					"id": "main-1",
+					"issuerPortId": "xiamen",
+					"kind": "delivery",
+					"mainStep": 1.0,
+					"progress": 0.0,
+					"quantity": 10.0,
+					"required": 10.0,
+					"reward": 280.0,
+					"status": "available",
+					"title": "金门军粮"
+				},
+				{
+					"deadlineDays": 14.0,
+					"description": "护送金门补给船抵达澎湖。补给船必须存活并真正抵达锚地。",
+					"destinationPortId": "penghu",
+					"faction": "zheng",
+					"fame": 18.0,
+					"id": "main-2",
+					"issuerPortId": "kinmen",
+					"kind": "escort",
+					"mainStep": 2.0,
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 400.0,
+					"status": "available",
+					"targetId": "escort-penghu",
+					"title": "护航澎湖"
+				},
+				{
+					"deadlineDays": 16.0,
+					"description": "击败或降服盘踞东山外海的海盗首船。",
+					"destinationPortId": "dongshan",
+					"faction": "zheng",
+					"fame": 24.0,
+					"id": "main-3",
+					"issuerPortId": "penghu",
+					"kind": "bounty",
+					"mainStep": 3.0,
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 500.0,
+					"status": "available",
+					"targetId": "pirate-dongshan",
+					"title": "东山剿寇"
+				},
+				{
+					"deadlineDays": 25.0,
+					"description": "在金门古祠、澎湖石灯、东山海洞获得三处藏宝线索。",
+					"faction": "zheng",
+					"fame": 20.0,
+					"id": "main-4",
+					"issuerPortId": "kinmen",
+					"kind": "clues",
+					"mainStep": 4.0,
+					"progress": 0.0,
+					"required": 3.0,
+					"reward": 250.0,
+					"status": "available",
+					"title": "三岛密图"
+				},
+				{
+					"deadlineDays": 20.0,
+					"description": "在鹿耳门外海接舷VOC船长的武装商船并赢得决斗。",
+					"destinationPortId": "luermen",
+					"faction": "zheng",
+					"fame": 30.0,
+					"id": "main-5",
+					"issuerPortId": "kinmen",
+					"kind": "boarding",
+					"mainStep": 5.0,
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 700.0,
+					"status": "available",
+					"targetId": "voc-captain",
+					"title": "夺取航海密令"
+				},
+				{
+					"deadlineDays": 30.0,
+					"description": "击败鹿耳门守舰，再登岸夺取炮台；回金门报告战果。背景取材1661年，船长与支线角色为虚构。",
+					"destinationPortId": "luermen",
+					"faction": "zheng",
+					"fame": 60.0,
+					"id": "main-6",
+					"issuerPortId": "kinmen",
+					"kind": "finale",
+					"mainStep": 6.0,
+					"progress": 0.0,
+					"required": 2.0,
+					"reward": 1200.0,
+					"siteId": "taiwan-fort",
+					"status": "available",
+					"targetId": "taiwan-guard",
+					"title": "逐浪台湾"
+				},
+				{
+					"deadlineDays": 18.0,
+					"description": "备齐8瓷器，运抵澎湖。",
+					"destinationPortId": "penghu",
+					"faction": "qing",
+					"fame": 8.0,
+					"good": "porcelain",
+					"id": "side-delivery-1",
+					"issuerPortId": "quanzhou",
+					"kind": "delivery",
+					"progress": 0.0,
+					"quantity": 8.0,
+					"required": 8.0,
+					"reward": 350.0,
+					"status": "available",
+					"title": "海商运瓷"
+				},
+				{
+					"deadlineDays": 18.0,
+					"description": "护航须抵达真实锚地；讨伐须击败指定敌船。",
+					"destinationPortId": "kinmen",
+					"faction": "zheng",
+					"fame": 8.0,
+					"id": "side-escort-2",
+					"issuerPortId": "xiamen",
+					"kind": "escort",
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 200.0,
+					"status": "available",
+					"targetId": "target-side-escort-2",
+					"title": "民船护航"
+				},
+				{
+					"deadlineDays": 18.0,
+					"description": "护航须抵达真实锚地；讨伐须击败指定敌船。",
+					"destinationPortId": "dongshan",
+					"faction": "zheng",
+					"fame": 8.0,
+					"id": "side-bounty-3",
+					"issuerPortId": "kinmen",
+					"kind": "bounty",
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 260.0,
+					"status": "available",
+					"targetId": "target-side-bounty-3",
+					"title": "清剿劫船者"
+				},
+				{
+					"deadlineDays": 18.0,
+					"description": "登岸踏查指定海洞，并返回报告。",
+					"faction": "zheng",
+					"fame": 8.0,
+					"id": "side-explore-4",
+					"issuerPortId": "penghu",
+					"kind": "explore",
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 160.0,
+					"siteId": "dongshan-cave",
+					"status": "available",
+					"title": "访查古海洞"
+				},
+				{
+					"deadlineDays": 18.0,
+					"description": "护送遇险渔船回到厦门锚地。",
+					"destinationPortId": "xiamen",
+					"faction": "zheng",
+					"fame": 8.0,
+					"id": "side-rescue-5",
+					"issuerPortId": "xiamen",
+					"kind": "rescue",
+					"progress": 0.0,
+					"required": 1.0,
+					"reward": 180.0,
+					"status": "available",
+					"targetId": "target-side-rescue-5",
+					"title": "救援遇险渔民"
+				}
+			],
+			"relations": {
+				"pirates": 0.0,
+				"qing": 0.0,
+				"voc": 0.0,
+				"zheng": 0.0
+			},
+			"seed": 1661.0,
+			"speed": 2.4072646128186,
+			"supplyPerDay": 2.0,
+			"version": 1.0,
+			"wagesPerDay": 2.0,
+			"weather": {
+				"kind": "clear",
+				"label": "晴朗",
+				"visibility": 1.0,
+				"wind": {
+					"direction": {
+						"x": -0.876906975222021,
+						"y": -0.480660126083874
+					},
+					"speed": 9.0
+				},
+				"windFactor": 1.0
+			}
+		},
+		"naval": {
+			"battleId": "legacy-2-19050180-4274957321",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [
+				{
+					"age": 3.31666666666666,
+					"ammo": "solid",
+					"id": "shot-7",
+					"position": {
+						"x": -129.543360246425,
+						"y": 1.55651293206097,
+						"z": -205.213052608467
+					},
+					"shipId": "player",
+					"ttl": 8.0,
+					"velocity": {
+						"x": 34.0359333986216,
+						"y": -16.4552426484561,
+						"z": -52.9900783135674
+					}
+				}
+			],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 24.0,
+						"grape": 24.0,
+						"solid": 39.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 1252,
+					"cooldownSeconds": {
+						"port": 8.51666666666667,
+						"starboard": 0.0
+					},
+					"crew": 48.0,
+					"dimensions": {
+						"draft": 2.0,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 100.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"maxCrew": 100.0,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "定海号",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": 1.51790661606954,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 3000.0,
+						"draftMeters": 2.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100.0,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.579290170101062,
+						"heel": -0.0300485135071095,
+						"pitch": 0.0320972955657296,
+						"position": {
+							"x": -242.022655203286,
+							"y": 0.567199242903505,
+							"z": -23.707093360014
+						},
+						"velocity": {
+							"x": 2.01617637992577,
+							"y": 0.0,
+							"z": 1.31527781139882
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0.0,
+						"grape": 0.0,
+						"solid": 0.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 0,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 60.0,
+					"dimensions": {
+						"draft": 2.8,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "ambient-zheng-trader",
+					"kind": "merchant",
+					"maxCrew": 70.0,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "郑氏沿海商船",
+					"navigation": {
+						"x": 282.149928893017,
+						"z": 107.48568719734
+					},
+					"rudder": -0.000479716478279946,
+					"sail": 100.0,
+					"sailAngle": -1.44627059669111,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 2000.0,
+						"draftMeters": 2.8,
+						"hullMultiplier": 1.0,
+						"maxCrew": 70.0,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 0.85,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 0.300326881380038,
+						"heel": -0.0269150725136565,
+						"pitch": -0.0406457016447266,
+						"position": {
+							"x": -200.96345161687,
+							"y": 0.00990583457344396,
+							"z": -41.9721776513193
+						},
+						"velocity": {
+							"x": 1.69020271424172,
+							"y": 0.0,
+							"z": 0.528720074976362
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0.0,
+						"grape": 0.0,
+						"solid": 0.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 0,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 20.0,
+					"dimensions": {
+						"draft": 1.0,
+						"length": 14.0,
+						"width": 4.2
+					},
+					"hull": 85.0,
+					"id": "ambient-qing-fisher",
+					"kind": "fisherman",
+					"maxCrew": 24.0,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "泉州渔船",
+					"navigation": {
+						"x": -541.349302543477,
+						"z": -437.856053527813
+					},
+					"rudder": 0.277217962953281,
+					"sail": 100.0,
+					"sailAngle": -0.392685616586786,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 500.0,
+						"draftMeters": 1.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 24.0,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.05,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": -1.80659819409873,
+						"heel": 0.073955006713365,
+						"pitch": 0.000945048643419807,
+						"position": {
+							"x": -165.786827959535,
+							"y": -2.31441233477116,
+							"z": 39.3178864495619
+						},
+						"velocity": {
+							"x": 0.264536872124215,
+							"y": 0.0,
+							"z": -0.344687560905905
+						}
+					}
+				}
+			],
+			"status": "sailing",
+			"tick": 1251,
+			"time": 20.85,
+			"wind": {
+				"direction": {
+					"x": -0.876906975222021,
+					"y": -0.480660126083874
+				},
+				"speed": 9.0
+			}
+		},
+		"runtime": {
+			"canSave": false,
+			"encounter": null,
+			"generation": 2,
+			"handlingMode": "assisted",
+			"handlingStatus": {
+				"phase": "idle"
+			},
+			"lastSaveReceipt": {
+				"bytes": 8325,
+				"ok": true
+			},
+			"notice": "",
+			"pauseReasons": [],
+			"paused": false,
+			"pendingSurrenderReceipt": null,
+			"revision": 2,
+			"saveReason": "交战或炮击尚未结束，请在安全海面或靠港后存档",
+			"surrenderEligibility": {
+				"ok": false,
+				"reason": "须在旗舰存活的真实交战中投降"
+			},
+			"surrenderQuote": null
+		}
+	},
+	"scope": "Actual product LegacyScene GPU render with real depart, held-key, pause and cannon commands; accepted fixed ticks for visual sampling only; not performance or complete journey evidence.",
+	"shotReceipt": {
+		"ok": true
+	},
+	"size": [
+		1600,
+		900
+	],
+	"wakes": {
+		"accepted_time": 20.85,
+		"attached_waves": 6,
+		"samples": 128,
+		"trails": 2,
+		"wave_budget": 96
+	}
+}

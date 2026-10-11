@@ -22,6 +22,8 @@ func _run() -> void:
 		var native: Dictionary = runtime.snapshot().naval
 		var unchanged := native.duplicate(true)
 		check(view.configure(heights.sample_height, ports, runtime.sample_water_height, native, {"resolution":12,"chunk_radius":0,"vegetation":false}), "shared view composes real ocean, fleet and deck crews")
+		check(view._environment.tonemap_mode == Environment.TONE_MAPPER_LINEAR and view._environment.tonemap_exposure == 1.0,"formal sea keeps the reference display/linear color contract without ACES darkening")
+		check(view._environment.background_mode == Environment.BG_SKY and view._environment.sky != null and view._environment.sky.sky_material is ShaderMaterial,"formal sailing binds the same reference procedural sky as planar reflection")
 		check(view.ships.size() == 5 and view.sailors.size() == 5, "all five opening fleet snapshots obtain independent imported models")
 		check(native == unchanged, "presentation never mutates canonical native state")
 		var id: String = native.playerId
@@ -39,6 +41,15 @@ func _run() -> void:
 		var camera_before: Vector3 = view.camera.position
 		view.apply_snapshot(native, [], 0.0)
 		check(view.camera.position == camera_before, "pause does not drift following camera")
+		native.wind={"direction":{"x":0.6,"y":0.8},"speed":6.5}
+		view.apply_snapshot(native,[],0.0)
+		var old_mirror: WeakRef=weakref(view.world.get_ocean().get_reflection_viewport())
+		view.apply_settings({"quality":"high"})
+		var rebuilt: MeshInstance3D=view.world.get_ocean()
+		var rebuilt_wind: Variant=rebuilt.material_override.get_shader_parameter("surface_wind_direction")
+		check(rebuilt_wind is Vector2 and rebuilt_wind.is_equal_approx(Vector2(0.6,0.8)) and rebuilt.material_override.get_shader_parameter("surface_wind_speed")==6.5,"paused quality rebuild retains the accepted wind for natural surface detail")
+		check(rebuilt._simulation_time==7.25 and old_mirror.get_ref()==null,"quality rebuild preserves accepted sea clock and releases old planar target")
+		check(view._environment.sky.sky_material==rebuilt.get_sky_material(),"quality rebuild rebinds the same sky used by the new mirror")
 		view.apply_settings({"cameraFollow":false})
 		player.visual.position.x += 40.0
 		view.apply_snapshot(native,[],1.0/60.0)

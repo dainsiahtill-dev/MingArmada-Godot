@@ -1,0 +1,815 @@
+{
+	"camera": {
+		"position": "(-497.4089, 29.44789, -762.265)",
+		"tactical": false
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"inspection": {
+		"chunks": {
+			"builds": 82,
+			"center": {
+				"x": -3,
+				"z": -3
+			},
+			"chunks": 49,
+			"pendingCreates": 0,
+			"pendingDisposes": 0,
+			"scheduling": "synchronous native world"
+		},
+		"export": "",
+		"originalMetrics": {
+			"fps": 60.0000000000001,
+			"frames": 276,
+			"p95Ms": 16.6666666666667,
+			"seconds": 4.59999999999999
+		},
+		"sailors": {
+			"battleId": "visual-wave-patrol",
+			"budget": 120,
+			"impacts": {
+				"active": 0,
+				"bodies": [],
+				"cap": 12
+			},
+			"ships": [
+				{
+					"acceptedTime": 4.6,
+					"crew": 60.0,
+					"id": "player",
+					"kind": "patrol",
+					"lod": 0,
+					"roles": [
+						{
+							"clip": "idle",
+							"role": "helm",
+							"side": "",
+							"slot": 0
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 1
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "port",
+							"slot": 2
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "starboard",
+							"slot": 3
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 4
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "port",
+							"slot": 5
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "starboard",
+							"slot": 6
+						},
+						{
+							"clip": "idle",
+							"role": "walk",
+							"side": "",
+							"slot": 7
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 8
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 9
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 10
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 11
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 12
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 13
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 14
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 15
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 16
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 17
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 18
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 19
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 20
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 21
+						}
+					],
+					"visible": 22
+				}
+			],
+			"simulationTime": 4.6,
+			"tick": 276,
+			"visible": 22
+		},
+		"summary": {
+			"eventCounts": {
+				"blur": 0,
+				"export": 0,
+				"pause": 1,
+				"resume": 0,
+				"visibility-hidden": 0,
+				"visibility-visible": 0
+			},
+			"includedInMetrics": 276,
+			"maxMs": 16.6666666666667,
+			"meanMs": 16.6666666666666,
+			"overMs": {
+				"25": 0,
+				"50": 0,
+				"100": 0,
+				"500": 0,
+				"1000": 0
+			},
+			"p99Ms": 16.6666666666667,
+			"sampleCount": 276,
+			"topIntervals": [
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 80934.653,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 1,
+					"phase": "running",
+					"previousCompletedFrame": null
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 80954.631,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 2,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 80934.653,
+						"completedAtMs": 80938.093,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.639999999999418,
+							"viewMs": null,
+							"viewWorldMs": 2.69599999999627,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 80938.093,
+						"cpuStartedAtMs": 80934.757,
+						"phase": "running",
+						"simulationSeconds": 0.0166666666666667,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 80973.241,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 3,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 80954.631,
+						"completedAtMs": 80962.788,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.76600000000326,
+							"viewMs": null,
+							"viewWorldMs": 7.29099999999744,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 80962.788,
+						"cpuStartedAtMs": 80954.731,
+						"phase": "running",
+						"simulationSeconds": 0.0333333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 80994.466,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 4,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 80973.241,
+						"completedAtMs": 80980.709,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.599000000001979,
+							"viewMs": null,
+							"viewWorldMs": 6.78900000000431,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 80980.709,
+						"cpuStartedAtMs": 80973.321,
+						"phase": "running",
+						"simulationSeconds": 0.05,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81011.79,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 5,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 80994.466,
+						"completedAtMs": 81001.459,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.562999999994645,
+							"viewMs": null,
+							"viewWorldMs": 6.36100000000442,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81001.459,
+						"cpuStartedAtMs": 80994.535,
+						"phase": "running",
+						"simulationSeconds": 0.0666666666666667,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81034.06,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 6,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 81011.79,
+						"completedAtMs": 81025.879,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.589000000007218,
+							"viewMs": null,
+							"viewWorldMs": 13.4199999999983,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81025.879,
+						"cpuStartedAtMs": 81011.87,
+						"phase": "running",
+						"simulationSeconds": 0.0833333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81049.6,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 7,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 81034.06,
+						"completedAtMs": 81041.242,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.596000000005006,
+							"viewMs": null,
+							"viewWorldMs": 6.51299999999173,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81041.242,
+						"cpuStartedAtMs": 81034.133,
+						"phase": "running",
+						"simulationSeconds": 0.1,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81065.668,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 8,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 81049.6,
+						"completedAtMs": 81056.714,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.570999999996275,
+							"viewMs": null,
+							"viewWorldMs": 6.46700000000419,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81056.714,
+						"cpuStartedAtMs": 81049.676,
+						"phase": "running",
+						"simulationSeconds": 0.116666666666667,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81083.998,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 9,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 81065.668,
+						"completedAtMs": 81072.919,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.600000000005821,
+							"viewMs": null,
+							"viewWorldMs": 6.57699999999022,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81072.919,
+						"cpuStartedAtMs": 81065.742,
+						"phase": "running",
+						"simulationSeconds": 0.133333333333333,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				},
+				{
+					"benchmarkSeconds": 0.0,
+					"callbackTimestampMs": 81101.245,
+					"elapsedMs": 16.6666666666667,
+					"includedInMetrics": true,
+					"index": 10,
+					"phase": "running",
+					"previousCompletedFrame": {
+						"benchmarkSeconds": 0.0,
+						"callbackTimestampMs": 81083.998,
+						"completedAtMs": 81091.144,
+						"cpu": {
+							"gpuCompletionMs": null,
+							"renderSubmitMs": null,
+							"simulationMs": 0.597999999998137,
+							"viewMs": null,
+							"viewWorldMs": 6.47299999999814,
+							"worldUpdateMs": null
+						},
+						"cpuCompletedAtMs": 81091.144,
+						"cpuStartedAtMs": 81084.073,
+						"phase": "running",
+						"simulationSeconds": 0.15,
+						"world": {
+							"after": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							},
+							"before": {
+								"builds": 82,
+								"center": {
+									"x": -3,
+									"z": -3
+								},
+								"chunks": 49,
+								"pendingCreates": 0,
+								"pendingDisposes": 0,
+								"scheduling": "synchronous native world"
+							}
+						}
+					}
+				}
+			],
+			"totalMs": 4599.99999999999
+		}
+	},
+	"quality": "balanced",
+	"route": "actual project MainScene menu QA button",
+	"runtime": {
+		"naval": {
+			"battleId": "visual-wave-patrol",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 3,
+					"controlsSequence": 276,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 60.0,
+					"dimensions": {
+						"draft": 1.4,
+						"length": 24.0,
+						"width": 6.0
+					},
+					"hull": 100.0,
+					"id": "player",
+					"kind": "patrol",
+					"maxCrew": 60,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "验收·波谷浮态",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": -1.17809724509617,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.4,
+						"hullMultiplier": 1.0,
+						"maxCrew": 60,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 2.35619449019234,
+						"heel": -0.0137741735752274,
+						"pitch": -0.00654162640371051,
+						"position": {
+							"x": -530.408882700464,
+							"y": 2.63986784801912,
+							"z": -723.265016409433
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				}
+			],
+			"status": "sailing",
+			"tick": 276,
+			"time": 4.6,
+			"wind": {
+				"direction": {
+					"x": 1,
+					"y": 0
+				},
+				"speed": 0
+			}
+		},
+		"runtime": {
+			"benchmarkSeconds": 0.0,
+			"generation": 10,
+			"handlingMode": "realistic",
+			"notice": "",
+			"pauseReasons": [
+				"wave"
+			],
+			"paused": true,
+			"phase": "paused",
+			"playback": 1.0,
+			"scenario": "wave-patrol",
+			"waypoint": null
+		}
+	},
+	"scope": "Native visual and real cannon/Jolt input evidence. Fixed capture ticks are not a wall-time FPS benchmark.",
+	"viewport": [
+		1600,
+		900
+	]
+}

@@ -13,6 +13,7 @@ var _water := Callable()
 var _deck := Callable()
 var _disposed := false
 var _phase := 0.0
+var _seen: Dictionary = {}
 
 func _ready() -> void:
 	top_level = true
@@ -50,6 +51,9 @@ func update_deck(target_id: String, frame: Transform3D) -> void:
 
 func spawn(definition: Dictionary, source: Dictionary, reduced_motion := false) -> String:
 	if _disposed or _live_count >= CAP:
+		return ""
+	var event_key := "%s:%s:%s" % [source.get("target_id", ""), source.get("event_id", ""), source.get("slot", -1)]
+	if _seen.has(event_key):
 		return ""
 	var transforms: Array = definition.get("transforms", [])
 	var parents: Array = definition.get("parents", [])
@@ -115,7 +119,10 @@ func spawn(definition: Dictionary, source: Dictionary, reduced_motion := false) 
 		joint.node_b = joint.get_path_to(bones[index])
 		joint.exclude_nodes_from_collision = true
 		joints.append(joint)
-	_bodies[id] = {"group": group, "bones": bones, "joints": joints, "source": source.duplicate(), "casualty": casualty, "age": 0.0, "wet": 0.0, "lifetime": 7.0 if casualty else 1.25}
+	_bodies[id] = {"group": group, "bones": bones, "joints": joints, "source": source.duplicate(), "casualty": casualty, "age": 0.0, "wet": 0.0, "water_entered": false, "state": "airborne", "lifetime": 7.0 if casualty else 1.25}
+	_seen[event_key] = true
+	while _seen.size() > 256:
+		_seen.erase(_seen.keys()[0])
 	_live_count += 1
 	visual_event.emit({"type": "crew-impact", "body_id": id, "target_id": source.get("target_id", ""), "event_id": source.get("event_id", "")})
 	return id
@@ -123,17 +130,41 @@ func spawn(definition: Dictionary, source: Dictionary, reduced_motion := false) 
 func advance(accepted_seconds: float, phase: float) -> void:
 	if _disposed or not is_finite(accepted_seconds) or not is_finite(phase) or accepted_seconds < 0.0:
 		return
+	if phase < _phase - 1.0e-8:
+		for id: String in _bodies.keys():
+			_release(id, false)
+		_seen.clear()
+		_phase = phase
+		return
+	if phase <= _phase + 1.0e-8:
+		accepted_seconds = 0.0
 	_phase = phase
 	for id: String in _bodies.keys():
 		var entry: Dictionary = _bodies[id]
 		entry.age += accepted_seconds
 		var wet := false
+		var water_bone = null
+		var deck_contact := false
 		for bone in entry.bones:
 			wet = wet or bone.contact == "water"
+			if bone.contact == "water":
+				water_bone = bone
+			deck_contact = deck_contact or bone.contact == "deck"
 			bone.wet_age = entry.wet
 			bone.request_step(accepted_seconds, phase)
 		if wet:
 			entry.wet += accepted_seconds
+			entry.state = "water-contact"
+			if not entry.water_entered and accepted_seconds > 0.0:
+				entry.water_entered = true
+				var point: Vector3 = PhysicsServer3D.body_get_state(water_bone.get_rid(), PhysicsServer3D.BODY_STATE_TRANSFORM).origin
+				if _water.is_valid():
+					var surface: float = _water.call(point.x, point.z, water_bone.previous_phase)
+					if is_finite(surface):
+						point.y = surface
+				visual_event.emit({"type": "crew-water-entry", "body_id": id, "target_id": entry.source.get("target_id", ""), "event_id": entry.source.get("event_id", ""), "position": point, "time": water_bone.previous_phase})
+		elif deck_contact:
+			entry.state = "deck-contact"
 		if entry.age >= entry.lifetime - 1.0e-8 or entry.wet >= 1.2:
 			_release(id, not entry.casualty)
 
@@ -188,7 +219,7 @@ func diagnostics() -> Dictionary:
 	var bodies: Array[Dictionary] = []
 	for id: String in _bodies:
 		var entry: Dictionary = _bodies[id]
-		bodies.append({"id": id, "bone_count": entry.bones.size(), "joint_count": entry.joints.size(), "age": entry.age, "wet": entry.wet, "casualty": entry.casualty, "transforms": get_transforms(id), "source": entry.source})
+		bodies.append({"id": id, "bone_count": entry.bones.size(), "joint_count": entry.joints.size(), "age": entry.age, "wet": entry.wet, "state": entry.state, "water_entered": entry.water_entered, "casualty": entry.casualty, "transforms": get_transforms(id), "source": entry.source})
 	return {"bodies": bodies, "count": _bodies.size(), "global_count": _live_count, "cap": CAP}
 
 func dispose() -> void:
@@ -200,6 +231,7 @@ func dispose() -> void:
 	for deck in _decks.values():
 		deck.free()
 	_decks.clear()
+	_seen.clear()
 
 func _exit_tree() -> void:
 	dispose()

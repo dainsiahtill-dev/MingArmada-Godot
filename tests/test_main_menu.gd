@@ -85,7 +85,7 @@ func _run() -> void:
 	seed.text = " "; captain.text_submitted.emit(captain.text)
 	check(not intents[-1].has("qaSeed"),"Enter starts1650 with random seed when blank")
 	menu.apply_status({"phase":"complete"},12,intents[-1].nonce); menu.acknowledge(12,intents[-1].nonce)
-	for mode in ["mingqi-continue","career","duel","fleet","sail","qa","ships","practice","quit"]:
+	for mode in ["mingqi-continue","career","duel","fleet","sail","qa","ships","practice","water-study","quit"]:
 		var count := intents.size(); menu.find_child(mode,true,false).pressed.emit()
 		check(intents.size() == count+1 and (intents[-1].get("mode") == mode or intents[-1].type == mode),"native entry dispatches source mode: "+mode)
 		menu.apply_status({"phase":"complete"},12,intents[-1].nonce); menu.acknowledge(12,intents[-1].nonce)

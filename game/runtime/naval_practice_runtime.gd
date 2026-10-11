@@ -22,7 +22,7 @@ func configure(height: Callable,options: Dictionary={}) -> Dictionary:
 	return _restart()
 func _restart() -> Dictionary:
 	var mode: String=_options.get("mode","duel")
-	var config := {"seed":1661,"enemyCount":1 if mode=="duel" else 2 if mode=="fleet" else 0,"mode":"terminal","wind":{"direction":{"x":-0.8,"y":-0.6},"speed":14.0},"sampleTerrainHeight":_height,"waveSampler":_waves,"oceanWaves":Descriptors.original_descriptors(),"battleId":"practice-%s-%s-%s" % [mode,OS.get_process_id(),_generation+1]}
+	var config := {"referenceHandling":true,"referenceGunnery":true,"seed":1661,"enemyCount":1 if mode=="duel" else 2 if mode=="fleet" else 0,"mode":"terminal","wind":{"direction":{"x":-0.8,"y":-0.6},"speed":14.0},"sampleTerrainHeight":_height,"waveSampler":_waves,"oceanWaves":Descriptors.original_descriptors(),"battleId":"practice-%s-%s-%s" % [mode,OS.get_process_id(),_generation+1]}
 	if mode=="sail":
 		config.ships=[{"id":"player","name":"定海","kind":"fuchuan","team":"player","position":{"x":0,"z":0},"heading":0},{"id":"merchant","name":"泉州商船","kind":"merchant","team":"neutral","position":{"x":140,"z":100},"heading":0},{"id":"fisher","name":"金门渔舟","kind":"fisherman","team":"neutral","position":{"x":60,"z":-120},"heading":PI/3,"sailDeployment":0.65}]
 	var native := Encounter.new(config)
@@ -102,10 +102,12 @@ func advance(seconds: float) -> float:
 	return native.time-before
 func snapshot() -> Dictionary:
 	if _disposed or not simulation: return {}
-	return {"naval":simulation.snapshot(),"runtime":{"generation":_generation,"mode":_options.get("mode","duel"),"paused":is_paused(),"pauseReasons":_pauses.keys(),"handlingMode":_handling,"notice":_notice,"surrenderQuote":_quote.duplicate(true)}}
+	var phase: String = simulation.handling_status().get("phase","idle")
+	var assistance_notice: String = {"wind-recovery":"迎风起步辅助：先转出迎风区，再逐渐升帆。A/D 转舵可立即接管。","blocked":"起步辅助已停止；调整航向后重新按 W。"}.get(phase, "")
+	return {"naval":simulation.snapshot(),"runtime":{"generation":_generation,"mode":_options.get("mode","duel"),"paused":is_paused(),"pauseReasons":_pauses.keys(),"handlingMode":_handling,"notice":_notice if not _notice.is_empty() else assistance_notice,"surrenderQuote":_quote.duplicate(true)}}
 func render_snapshot() -> Dictionary: return simulation.render_snapshot() if not _disposed and simulation else {}
 func drain_events() -> Array: return simulation.drain_events() if not _disposed and simulation else []
-func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample(x,z,seconds).height if _waves else 0
+func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample_height(x,z,seconds) if _waves else 0
 func dispose() -> void:
 	if simulation: simulation.set_paused(true)
 	simulation=null; _disposed=true; _quote.clear(); _pauses.clear()

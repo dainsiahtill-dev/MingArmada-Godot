@@ -1,0 +1,27 @@
+{
+  "checkedAtUtc": "2026-10-11T13:24:24.456Z",
+  "scope": "formal terrain CPU, geometry, material-state contracts; no GPU window opened",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "gpuVerification": "pending root integration capture",
+  "runs": [
+    {
+      "test": "tests/test_reference_game_terrain.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_GAME_TERRAIN_TESTS assertions=114 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_reference_island_materials.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_ISLAND_MATERIAL_TESTS assertions=155 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_scene_geometry.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nSCENE_GEOMETRY_TESTS triangles=32 failures=0\r\n",
+      "passed": true
+    }
+  ],
+  "passedAll": true
+}

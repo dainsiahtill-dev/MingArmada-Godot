@@ -34,7 +34,21 @@ static func valid_descriptors(waves: Array) -> bool:
 				return false
 		if not _finite(value.direction.get("x")) or not _finite(value.direction.get("z", value.direction.get("y"))):
 			return false
+		# CPU and GPU require a usable heading. Scale before normalization so
+		# enormous finite coordinates do not overflow a squared length.
+		var heading_scale := maxf(absf(float(value.direction.x)), absf(float(value.direction.get("z", value.direction.get("y")))))
+		if heading_scale <= 1.0e-12:
+			return false
 		if value.wavelength <= 0.0 or not is_finite(TAU / value.wavelength):
+			return false
+		# A shared profile must also survive the renderer's Float32 Vector4
+		# upload. Finite double amplitude/speed/k can still overflow there.
+		var x := float(value.direction.x) / heading_scale
+		var z := float(value.direction.get("z", value.direction.get("y"))) / heading_scale
+		var magnitude := sqrt(x*x + z*z)
+		var wave_number := TAU / float(value.wavelength)
+		var uploaded := Vector4(float(value.amplitude), x/magnitude*wave_number, z/magnitude*wave_number, float(value.speed))
+		if not uploaded.is_finite():
 			return false
 		amplitude_sum += absf(value.amplitude)
 	return is_finite(amplitude_sum * 2.0)

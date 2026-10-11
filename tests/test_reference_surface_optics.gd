@@ -1,0 +1,125 @@
+extends SceneTree
+
+const Ocean = preload("res://modules/scene_engine/ocean/projected_ocean.gd")
+var assertions := 0
+var failures := 0
+
+func _initialize() -> void: _run.call_deferred()
+
+func check(value: bool, reason: String) -> void:
+	assertions += 1
+	if not value:
+		failures += 1
+		printerr("FAIL: ", reason)
+
+func _run() -> void:
+	var viewport := SubViewport.new()
+	viewport.size = Vector2i(1200, 700)
+	root.add_child(viewport)
+	var camera := Camera3D.new()
+	viewport.add_child(camera)
+	camera.position = Vector3(0, 18, 25)
+	camera.look_at(Vector3.ZERO)
+	var ocean := Ocean.new()
+	viewport.add_child(ocean)
+	ocean.configure(camera, load("res://assets/textures/waternormals.jpg"), 16)
+	check(ocean.has_method("configure_reflection"), "surface optics has an explicit camera attachment")
+	check(ocean.has_method("enable_surface_optics"), "surface optics must be explicitly enabled by composition")
+	if ocean.has_method("enable_surface_optics") and ocean.has_method("configure_reflection"):
+		var material: ShaderMaterial = ocean.material_override
+		check(material.get_shader_parameter("surface_optics_enabled") != true, "existing profile defaults to disabled optics")
+		var waves: Variant = material.get_shader_parameter("wave_components")
+		ocean.configure_reflection(camera)
+		ocean.enable_surface_optics(true)
+		var state: Dictionary = ocean.get_surface_optics_diagnostics()
+		check(state.enabled and state.camera_valid, "explicit attachment activates real optics uniforms")
+		check(state.reflection_method == "planar-subviewport" and state.offscreen_targets == 1 and state.shared_world, "formal water reflects the existing World3D through one real target")
+		check(state.reflection_steps == 0 and state.water_layer_excluded, "formal mirror excludes its own water and performs no SSR ray queries")
+		ocean.set_surface_quality("low")
+		check(bool(material.get_shader_parameter("surface_reflection_enabled")), "low quality retains the requested visible planar effect")
+		check(bool(material.get_shader_parameter("surface_refraction_enabled")), "low quality retains depth absorption")
+		ocean.set_surface_quality("high")
+		check(int(material.get_shader_parameter("surface_reflection_steps")) == 0, "high quality still uses actual mirror color instead of ray marching")
+		ocean.set_reflection_enabled(false)
+		check(not bool(material.get_shader_parameter("surface_reflection_enabled")), "reflection may be disabled independently")
+		ocean.set_refraction_enabled(false)
+		check(not bool(material.get_shader_parameter("surface_refraction_enabled")), "refraction may be disabled independently")
+		ocean.set_reflection_enabled(true)
+		ocean.set_refraction_enabled(true)
+		ocean.set_simulation_time(12.25)
+		ocean.set_simulation_time(12.25)
+		check(material.get_shader_parameter("simulation_time") == 12.25, "optics never advances the accepted surface time")
+		check(material.get_shader_parameter("wave_components") == waves, "optics never changes the five wave descriptors")
+		ocean.set_visual_style(0)
+		check(material.get_shader_parameter("surface_optics_enabled") != true, "original style keeps its historical output contract")
+		ocean.set_visual_style(1)
+		check(bool(material.get_shader_parameter("surface_optics_enabled")), "returning to native style restores requested optics")
+		var old_mesh := ocean.mesh
+		viewport.size = Vector2i(400, 900)
+		ocean.update_projection()
+		check(ocean.mesh == old_mesh and ocean.get_surface_optics_diagnostics().offscreen_targets == 1 and ocean.get_reflection_viewport().size==Vector2i(400,900), "resize reuses projection and the same reflection target with the new aspect")
+		ocean.configure_reflection(null)
+		check(material.get_shader_parameter("surface_optics_enabled") != true, "missing camera returns to safe opaque input fallback")
+		ocean.configure_reflection(camera)
+		check(bool(material.get_shader_parameter("surface_optics_enabled")), "valid camera may be attached again")
+		var foreign_camera := Camera3D.new()
+		viewport.add_child(foreign_camera)
+		ocean.configure_reflection(foreign_camera)
+		check(material.get_shader_parameter("surface_optics_enabled") != true, "an unrelated camera cannot claim ownership of this viewport projection")
+		foreign_camera.free()
+		ocean.configure_reflection(camera)
+		viewport.remove_child(camera)
+		ocean.update_projection()
+		check(material.get_shader_parameter("surface_optics_enabled") != true, "detaching a live camera disables the screen-reading shader without a viewport access error")
+		check(not bool(ocean.get_surface_optics_diagnostics().enabled), "detached camera diagnostics agree with disabled rendering")
+		check(material.get_shader_parameter("simulation_time") == 12.25, "camera detach cannot change accepted time")
+		viewport.add_child(camera)
+		ocean.update_projection()
+		check(material.get_shader_parameter("surface_optics_enabled") == true, "reattaching the configured camera automatically restores requested optics")
+		check(bool(ocean.get_surface_optics_diagnostics().enabled), "reattached camera diagnostics agree with active rendering")
+		check(ocean.mesh == old_mesh, "camera reattachment reuses the projected mesh")
+	var helper_path := "res://modules/scene_engine/ocean/surface_optics.gd"
+	check(ResourceLoader.exists(helper_path), "optics provides projection-aware diagnostic math")
+	if ResourceLoader.exists(helper_path):
+		var helper = load(helper_path)
+		for aspect in [0.5, 1.0, 1.777778]:
+			for near_value in [0.05, 0.3, 2.0]:
+				for far_value in [100.0, 1200.0, 4000.0]:
+					# Independently derived Forward+ reverse-Z matrix: near=1, far=0.
+					var tangent := tan(deg_to_rad(65.0) * 0.5)
+					var projection := Projection(Vector4(1.0 / (aspect * tangent), 0, 0, 0), Vector4(0, -1.0 / tangent, 0, 0), Vector4(0, 0, near_value / (far_value - near_value), -1), Vector4(0, 0, far_value * near_value / (far_value - near_value), 0))
+					for point: Vector3 in [Vector3(0, 0, -near_value * 1.1), Vector3(0.4, -0.2, -8.0), Vector3(-3.0, 2.0, -far_value * 0.9)]:
+						var projected: Dictionary = helper.project_view(projection, point)
+						var reconstructed: Vector3 = helper.reconstruct_view(projection.inverse(), projected.uv, projected.depth)
+						check(reconstructed.distance_to(point) < maxf(0.0001, point.length() * 0.0001), "inverse projection restores view position for actual near, far and aspect: %s -> %s, near %s far %s" % [point, reconstructed, near_value, far_value])
+		check(helper.transmittance(0.0).is_equal_approx(Vector3.ONE), "zero water thickness does not absorb")
+		check(helper.transmittance(20.0).x < helper.transmittance(20.0).z, "red light absorbs faster than blue")
+		check(helper.transmittance(-10.0).is_equal_approx(Vector3.ONE), "negative thickness is treated as foreground")
+		check(helper.transmittance(INF).is_finite(), "invalid optical thickness has a finite fallback")
+		check(helper.project_view(Projection(), Vector3.ZERO).is_empty(), "projection cannot divide by zero at the camera")
+		check(helper.reconstruct_view(Projection(), Vector2(NAN, 0), 0).is_finite(), "invalid coordinates cannot poison diagnostic output")
+		check(helper.reflection_direction(Vector3(0,-1,-1), Vector3.UP).distance_to(Vector3(0,1,-1).normalized()) < .0001, "optics mirrors the incident ray across the normal")
+		var perspective := Projection.create_perspective(65, 1.0, 0.3, 1200)
+		var surface := Vector3(0,-2,-10)
+		var normal := Vector3(0,0.8660254,0.5)
+		var depth_of_wall := float(helper.project_view(perspective, Vector3(0,0,-11)).depth)
+		check(helper.has_method("trace_reflection"), "diagnostic tracing can prove a real positive scene-depth intersection")
+		if helper.has_method("trace_reflection"):
+			var hit: Dictionary = helper.trace_reflection(perspective, surface, normal, 24, func(_uv:Vector2): return depth_of_wall, Transform3D.IDENTITY)
+			check(hit.hit and hit.distance > 2.0 and hit.distance < 8.0, "reflected ray actually intersects an above-water opaque wall")
+			check(absf(hit.scene_position.z + 11.0) < .001 and hit.scene_position.y > 0.0, "positive intersection reconstructs the expected opaque object")
+			check(hit.queries <= 24, "successful trace respects the rendering query budget")
+			var no_hit: Dictionary = helper.trace_reflection(perspective, surface, normal, 0, func(_uv:Vector2): return depth_of_wall, Transform3D.IDENTITY)
+			check(not no_hit.hit and no_hit.queries == 0, "zero quality budget cannot query scene depth")
+			var invalid_hit: Dictionary = helper.trace_reflection(perspective, surface, normal, 1000, func(_uv:Vector2): return NAN, Transform3D.IDENTITY)
+			check(not invalid_hit.hit and invalid_hit.queries <= 24, "invalid depth samples never become reflections or unbounded queries")
+	camera.free()
+	ocean.update_projection()
+	check(ocean.material_override.get_shader_parameter("surface_optics_enabled") != true, "freed camera removes the screen-reading shader on the next projection update")
+	var reference: WeakRef = weakref(ocean)
+	ocean.free()
+	check(reference.get_ref() == null, "free releases the entire optics attachment")
+	viewport.queue_free()
+	await process_frame
+	print("REFERENCE_SURFACE_OPTICS_TESTS assertions=", assertions, " failures=", failures)
+	quit(1 if failures else 0)

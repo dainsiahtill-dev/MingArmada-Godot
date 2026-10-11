@@ -5,6 +5,7 @@ const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
 const Campaign = preload("res://game/domain/mingqi/campaign.gd")
 const Storage = preload("res://game/persistence/save_coordinator.gd")
 const HeightField = preload("res://modules/scene_engine/terrain/height_field.gd")
+const ReferenceGeography = preload("res://game/scenes/common/reference_geography.gd")
 const NavalWorldView = preload("res://game/presentation/world/naval_world_view.gd")
 const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
 const Services = preload("res://game/scenes/common/sea_services.gd")
@@ -31,19 +32,23 @@ var _capture_mode := false
 var _disposed := false
 var _activated := false
 var _zoom := 1.0
+var _verified_checkpoint := ""
+var _save_status := ""
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 func _ready() -> void:
 	_capture_mode = "--capture-mingqi" in OS.get_cmdline_user_args()
 	var options := _validate_startup_options()
 	if not options.ok: startup_receipt = options; return
 	var geography: Array = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
-	if not heights.configure_ports(geography): startup_receipt = {"ok":false,"reason":"geography-invalid"}; return
+	if not heights.configure_ports(geography,true,ReferenceGeography.options()): startup_receipt = {"ok":false,"reason":"geography-invalid"}; return
+	runtime.enable_reference_enhancements()
 	startup_receipt = runtime.configure(heights.sample_height,Campaign.new(options.seed,options.captainName,options.campaignId))
 	if not startup_receipt.ok: return
 	if not initial_save.is_empty():
 		# Continue reads a confirmed slot. Only explicit import/save may rotate disk.
 		startup_receipt = runtime.adopt_save(initial_save,null,_utc())
 		if not startup_receipt.ok: return
+		_confirm_checkpoint(initial_save)
 	if startup_options.get("staged",false): runtime.set_pause("loading",true)
 	sea = NavalWorldView.new(); add_child(sea)
 	if not sea.configure(heights.sample_height,geography,runtime.sample_water_height,runtime.snapshot().naval): _reject_startup("world-startup-failed"); return
@@ -87,6 +92,15 @@ func _reject_startup(reason: String) -> void:
 	world = null; camera = null; effects = null; ships.clear(); sailors.clear()
 
 func _utc() -> String: return Time.get_datetime_string_from_system(true)+".000Z"
+func _confirm_checkpoint(expected: String = "") -> void:
+	# Recovery exports the last confirmed checkpoint, not arbitrary backup files.
+	# Continue verifies the exact original bytes without writing or rotating disk.
+	var read: Dictionary = storage.read_checkpoint()
+	if read.get("ok",false) and (expected.is_empty() or read.json == expected): _verified_checkpoint = read.json
+func _checkpoint_export() -> Dictionary:
+	return {"ok":true,"json":_verified_checkpoint} if not _verified_checkpoint.is_empty() else {"ok":false,"reason":"save-not-found"}
+func _save_failure(reason: String) -> String:
+	return {"save-directory-failed":"无法创建存档目录。", "save-write-failed":"存档写入失败。", "save-readback-failed":"存档读回不一致，未确认保存。", "save-read-failed":"存档读取失败。", "save-invalid":"存档无效或版本不受支持。", "save-not-found":"没有上次已验证的安全存档。", "save-replace-failed":"存档替换失败，保留上次安全存档。", "save-backup-failed":"存档备份失败。", "save-recovery-failed":"存档恢复失败。"}.get(reason,interface._reason(reason))
 func _command(intent: Dictionary) -> void:
 	var result: Dictionary
 	match intent.get("type"):
@@ -97,13 +111,19 @@ func _command(intent: Dictionary) -> void:
 		"settings": result = services.change_settings(intent.get("value",{}))
 		"save","save-and-menu":
 			result = runtime.save_checkpoint(storage,_utc())
+			if result.ok: _confirm_checkpoint()
+			_save_status = "航程已验证并保存。" if result.ok else "未能保存："+_save_failure(result.get("reason","save-write-failed"))
 			if result.ok and intent.type == "save-and-menu": main_menu_requested.emit()
 		"export-save":
-			result = storage.read_backup() if intent.get("kind") == "backup" else runtime.export_save(_utc())
+			result = _checkpoint_export() if intent.get("kind") == "backup" else runtime.export_save(_utc())
 			if result.ok: DisplayServer.clipboard_set(result.json)
+			_save_status = "存档已导出。" if result.ok else "未能导出："+_save_failure(result.get("reason","save-not-found"))
+			if result.ok: runtime._notify(_save_status)
 		"import-save":
 			result = runtime.adopt_save(intent.get("json",""),storage,_utc())
-			if result.ok: interface.open_menu()
+			if result.ok:
+				_confirm_checkpoint(); interface.open_menu()
+			_save_status = "存档已验证、保存并载入。准备好后继续航行。" if result.ok else "导入未成功："+_save_failure(result.get("reason","save-invalid"))
 		_: result = runtime.command(intent)
 	if not result.ok: runtime._notify(result.get("reason","command-rejected"))
 	_present(0)
@@ -122,6 +142,8 @@ func _sync_view_handles() -> void:
 func _present(consumed: float) -> void:
 	if not world: return
 	var packet: Dictionary = runtime.snapshot(); var native: Dictionary = packet.naval
+	packet.runtime.hasCheckpoint = not _verified_checkpoint.is_empty()
+	packet.runtime.saveStatus = _save_status
 	sea.tactical = tactical; sea.zoom = _zoom
 	var events: Array = sea.apply_snapshot(native,runtime.drain_events(),consumed)
 	_sync_view_handles()

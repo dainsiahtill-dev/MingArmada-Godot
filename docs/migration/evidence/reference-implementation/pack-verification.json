@@ -1,0 +1,864 @@
+{
+	"assertions": 517,
+	"engine": "4.7.2-stable (official)",
+	"engineArguments": [
+		"--script",
+		"C:\\Users\\dains\\Documents\\Git\\ming-armada\\tools\\migration\\verify_pack.gd"
+	],
+	"entrypoint": {
+		"disposed": true,
+		"mainScene": "res://game/scenes/main/main_scene.tscn",
+		"processFrames": 11,
+		"readyExecuted": true,
+		"route": {
+			"campaignId": "mingqi-1650",
+			"crew": {
+				"accepted_time": 0.0833333333333333,
+				"impact_count": 0,
+				"lod": 0,
+				"roles": [
+					{
+						"clip": "idle",
+						"role": "helm",
+						"side": "",
+						"slot": 0
+					},
+					{
+						"clip": "haul",
+						"role": "haul",
+						"side": "",
+						"slot": 1
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "port",
+						"slot": 2
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "starboard",
+						"slot": 3
+					},
+					{
+						"clip": "idle",
+						"role": "lookout",
+						"side": "",
+						"slot": 4
+					},
+					{
+						"clip": "haul",
+						"role": "haul",
+						"side": "",
+						"slot": 5
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "port",
+						"slot": 6
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "port",
+						"slot": 7
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "port",
+						"slot": 8
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "port",
+						"slot": 9
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "starboard",
+						"slot": 10
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "starboard",
+						"slot": 11
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "starboard",
+						"slot": 12
+					},
+					{
+						"clip": "idle",
+						"role": "cannon",
+						"side": "starboard",
+						"slot": 13
+					},
+					{
+						"clip": "idle",
+						"role": "walk",
+						"side": "",
+						"slot": 14
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 15
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 16
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 17
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 18
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 19
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 20
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 21
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 22
+					},
+					{
+						"clip": "idle",
+						"role": "idle",
+						"side": "",
+						"slot": 23
+					}
+				],
+				"visible": 24
+			},
+			"scene": "res://game/scenes/mingqi/mingqi_scene.gd",
+			"ships": [
+				"mingqi-1650-flagship",
+				"mingqi-1650-grain-a",
+				"mingqi-1650-grain-b",
+				"mingqi-1650-fast",
+				"mingqi-1650-background-grain-01"
+			],
+			"terrainChunks": 49,
+			"tick": 4
+		}
+	},
+	"failures": [],
+	"generatedAtUtc": "2026-10-11T12:13:09",
+	"models": [
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fuchuan-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/voc-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/merchant-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/fisherman-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/patrol-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/ships/heavy-lod2.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod0.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod1.glb",
+			"rawGlbPresent": false
+		},
+		{
+			"instantiated": true,
+			"nativeResourcePresent": true,
+			"path": "res://assets/models/sailors/sailor-lod2.glb",
+			"rawGlbPresent": false
+		}
+	],
+	"packPath": "C:\\Users\\dains\\Documents\\Git\\ming-armada\\build\\windows\\MingArmada.pck",
+	"packSha256": "db81e180f682b11de26bea52b72b18a67e4d307a55f4a194a0b430792e4a9915",
+	"referenceEnhancements": {
+		"damageBindings": [
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"binding": "ShaderMaterial.reference_damage",
+				"bound": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png",
+				"scope": "native-resource-binding-capability"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "",
+				"scope": "actual-dynamic-presenter",
+				"stage": 0,
+				"stageZeroRestoresDefault": true,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 20,
+				"stageZeroRestoresDefault": false,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 40,
+				"stageZeroRestoresDefault": false,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 60,
+				"stageZeroRestoresDefault": false,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 80,
+				"stageZeroRestoresDefault": false,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 1,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 100,
+				"stageZeroRestoresDefault": false,
+				"surface": "hull"
+			},
+			{
+				"bound": true,
+				"materials": 3,
+				"path": "",
+				"scope": "actual-dynamic-presenter",
+				"stage": 0,
+				"stageZeroRestoresDefault": true,
+				"surface": "sail"
+			},
+			{
+				"bound": true,
+				"materials": 3,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 20,
+				"stageZeroRestoresDefault": false,
+				"surface": "sail"
+			},
+			{
+				"bound": true,
+				"materials": 3,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 40,
+				"stageZeroRestoresDefault": false,
+				"surface": "sail"
+			},
+			{
+				"bound": true,
+				"materials": 3,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 60,
+				"stageZeroRestoresDefault": false,
+				"surface": "sail"
+			},
+			{
+				"bound": true,
+				"materials": 3,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png",
+				"scope": "actual-dynamic-presenter",
+				"stage": 80,
+				"stageZeroRestoresDefault": false,
+				"surface": "sail"
+			}
+		],
+		"textures": [
+			{
+				"category": "dynamic-damage",
+				"height": 4,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png",
+				"rawPngPresent": false,
+				"width": 4
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 64,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 64,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 64,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 64,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 64,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "dynamic-damage",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png",
+				"rawPngPresent": false,
+				"width": 256
+			},
+			{
+				"category": "new-water",
+				"height": 256,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+				"rawPngPresent": false,
+				"width": 128
+			},
+			{
+				"category": "new-water",
+				"height": 128,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_reference/fx_streakin_001.dds.png",
+				"rawPngPresent": false,
+				"width": 128
+			},
+			{
+				"category": "new-water",
+				"height": 128,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_reference/fx_mist_01.dds.png",
+				"rawPngPresent": false,
+				"width": 128
+			},
+			{
+				"category": "new-water",
+				"height": 128,
+				"loaded": true,
+				"path": "res://assets/textures/pirates_reference/wake3unique.dds.png",
+				"rawPngPresent": false,
+				"width": 128
+			}
+		],
+		"waterBindings": [
+			{
+				"bound": true,
+				"path": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+				"role": "column"
+			},
+			{
+				"bound": true,
+				"path": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+				"role": "shell"
+			},
+			{
+				"bound": true,
+				"path": "res://assets/textures/pirates_reference/fx_mist_01.dds.png",
+				"role": "mist"
+			},
+			{
+				"bound": true,
+				"path": "res://assets/textures/pirates_reference/fx_streakin_001.dds.png",
+				"role": "world-droplets"
+			},
+			{
+				"bound": true,
+				"path": "res://assets/textures/pirates_reference/wake3unique.dds.png",
+				"role": "history-wake"
+			}
+		],
+		"world": {
+			"acceptedSeconds": 0.0166666666666667,
+			"clockAfter": 0.0833333333333333,
+			"clockBefore": 0.0666666666666667,
+			"distantTerrainChunks": 2,
+			"islandInstances": 1040,
+			"optics": {
+				"camera_valid": true,
+				"depth_source": "current-viewport-inverse-projection",
+				"enabled": true,
+				"includes_offscreen_objects": false,
+				"includes_transparent_objects": false,
+				"offscreen_targets": 0,
+				"private_worlds": 0,
+				"quality": "balanced",
+				"reflection_enabled": true,
+				"reflection_method": "screen-space",
+				"reflection_steps": 16,
+				"refraction_enabled": true,
+				"requested": true,
+				"screen_source": "current-viewport-opaque-copy"
+			},
+			"pausedConsumed": 0.0,
+			"pausedSnapshotUnchanged": true,
+			"terrainClockScope": "all-current-near-and-distant-shader-materials",
+			"visibleDetailGroups": 65
+		}
+	},
+	"resourceRoot": "",
+	"resources": [
+		{
+			"byteLength": 439,
+			"parseError": 0,
+			"path": "res://game/data/mingqi_geography.json",
+			"sha256": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d"
+		},
+		{
+			"byteLength": 239841,
+			"parseError": 0,
+			"path": "res://assets/reference/vegetation-geometry.json",
+			"sha256": "14430501f5ee6a08f280fdd8a61af408d59595cf9640cb9543069ef3f0a5cd24"
+		},
+		{
+			"byteLength": 9778,
+			"parseError": 0,
+			"path": "res://game/domain/mingqi/catalog.json",
+			"sha256": "7f11e7d513c824c607063df7a7a336a0542c2e3b6bc3d19714b18969a3a0f113"
+		},
+		{
+			"byteLength": 60959,
+			"parseError": 0,
+			"path": "res://modules/naval_simulation/id-collation.json",
+			"sha256": "10f0ebcde0f3bf4922bafff7b5603ed127b52e427e576767eda81dbd4d5e097b"
+		},
+		{
+			"byteLength": 34855,
+			"parseError": 0,
+			"path": "res://assets/models/ships/ships-manifest.json",
+			"sha256": "59a62d7cc24c7a7ec3c384260e0828f91413575a789f8bf06dabac782ba68f1d"
+		},
+		{
+			"byteLength": 4920,
+			"parseError": 0,
+			"path": "res://assets/models/sailors/sailors-manifest.json",
+			"sha256": "cd2b9379108b0e0b694699f82240ccacebec0da173cd59ea8ecaf79f43b98a65"
+		},
+		{
+			"kind": "Shader",
+			"loaded": true,
+			"path": "res://game/presentation/ships/ship_damage.gdshader"
+		},
+		{
+			"kind": "Shader",
+			"loaded": true,
+			"path": "res://modules/scene_engine/terrain/terrain_surface.gdshader"
+		},
+		{
+			"kind": "Shader",
+			"loaded": true,
+			"path": "res://modules/scene_engine/ocean/original_water_optics.gdshader"
+		},
+		{
+			"kind": "Shader",
+			"loaded": true,
+			"path": "res://game/presentation/water/splash_volume.gdshader"
+		},
+		{
+			"kind": "GDScript",
+			"loaded": true,
+			"path": "res://modules/scene_engine/ocean/surface_optics.gd"
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 4,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png",
+			"rawPngPresent": false,
+			"width": 4
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 64,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 64,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 64,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 64,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 64,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "dynamic-damage",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png",
+			"rawPngPresent": false,
+			"width": 256
+		},
+		{
+			"category": "new-water",
+			"height": 256,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png",
+			"rawPngPresent": false,
+			"width": 128
+		},
+		{
+			"category": "new-water",
+			"height": 128,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_reference/fx_streakin_001.dds.png",
+			"rawPngPresent": false,
+			"width": 128
+		},
+		{
+			"category": "new-water",
+			"height": 128,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_reference/fx_mist_01.dds.png",
+			"rawPngPresent": false,
+			"width": 128
+		},
+		{
+			"category": "new-water",
+			"height": 128,
+			"loaded": true,
+			"path": "res://assets/textures/pirates_reference/wake3unique.dds.png",
+			"rawPngPresent": false,
+			"width": 128
+		}
+	],
+	"scope": "Native PCK resource reads and imported-model instantiation; 11 dynamic damage PNG loads/material bindings, four new water texture loads/presenter bindings, terrain/optics shader and helper loads; one deterministic naval tick; default-menu initialization and actual 1650 startup/authority-clock advancement, pause and terrain/ocean/ship synchronization through menu route. Full PASS also requires engine log without SCRIPT ERROR/ERROR. Default sail subtype0 uses up to damage080; sail100 is load/bind capability checked, not claimed visible in that route. Not a Windows EXE launch, GPU compilation/pixels or performance acceptance.",
+	"simulation": {
+		"lastError": "",
+		"pose": {
+			"heading": 0.0000025400700789349,
+			"heel": -0.0000000000368120550917692,
+			"pitch": 0.0,
+			"position": {
+				"x": 0.000105349582975194,
+				"y": 0.0,
+				"z": -0.0000146187493712868
+			},
+			"velocity": {
+				"x": 0.00632097497851161,
+				"y": 0.0,
+				"z": -0.000877124962277206
+			}
+		},
+		"shipId": "pack-player",
+		"tick": 1,
+		"time": 0.0166666666666667
+	},
+	"status": "PASS",
+	"workingDirectory": "C:/Users/dains/Documents/Git/ming-armada/build/pack-probe-reference-implementation-empty-20261011"
+}

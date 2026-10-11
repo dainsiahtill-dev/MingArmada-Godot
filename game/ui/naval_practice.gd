@@ -3,11 +3,13 @@ extends CanvasLayer
 signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 const Chart=preload("res://game/ui/charts/nautical_chart.gd")
+const Cannon=preload("res://modules/naval_simulation/combat/cannon_system.gd")
 var chart: Control
 var _screen: Control
 var _panel: PanelContainer
 var _status: Label
 var _notice: Label
+var _gunnery: Label
 var _sails: HSlider
 var _modal: PanelContainer
 var _modal_title: Label
@@ -29,6 +31,7 @@ func _ready() -> void:
 		if not _applying: command_requested.emit({"type":"sails","value":value/100.0}))
 	var cannons:=HFlowContainer.new(); column.add_child(cannons)
 	button(cannons,"fire_port","左舷开炮 Q",{"type":"fire","side":"port"}); button(cannons,"fire_starboard","右舷开炮 E",{"type":"fire","side":"starboard"})
+	_gunnery=Label.new(); _gunnery.name="GunneryStatus"; _gunnery.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _gunnery.add_theme_font_size_override("font_size",14); column.add_child(_gunnery)
 	var ammo:=HFlowContainer.new(); column.add_child(ammo)
 	for entry in [["solid","实心弹 1"],["chain","链弹 2"],["grape","葡萄弹 3"]]: button(ammo,entry[0],entry[1],{"type":"select-ammo","ammo":entry[0]})
 	var sailing:=HFlowContainer.new(); column.add_child(sailing)
@@ -80,6 +83,17 @@ func apply_snapshot(packet: Dictionary) -> void:
 	_buttons.confirm_surrender.visible=not quote.is_empty(); _buttons.cancel_surrender.visible=not quote.is_empty()
 	_buttons.restart.visible=quote.is_empty(); _buttons.main_menu.visible=quote.is_empty()
 	for id in ["fire_port","fire_starboard","solid","chain","grape","trim","surrender"]: _buttons[id].disabled=state.paused or terminal
+	var gunnery_lines: Array[String] = []
+	for side in ["port","starboard"]:
+		var readiness := Cannon.broadside_status(native,player.id,side)
+		var control: Button = _buttons["fire_"+side]
+		control.tooltip_text = readiness.label
+		control.disabled = control.disabled or readiness.phase in ["unavailable","no-guns","not-operational","reloading","no-ammo","blocked"]
+		gunnery_lines.append(("左舷" if side == "port" else "右舷") + " · " + readiness.label)
+	_gunnery.text = "\n".join(gunnery_lines)
+	var ammunition_labels := {"solid":"实心弹 1 · 船壳 / 250米","chain":"链弹 2 · 风帆 / 190米","grape":"葡萄弹 3 · 水手 / 80米"}
+	for ammo: String in ammunition_labels:
+		_buttons[ammo].text = ammunition_labels[ammo] + (" · 当前" if player.ammoType == ammo else "")
 	_buttons.surrender.visible=state.mode!="sail"; _sails.editable=not state.paused and not terminal
 	_buttons.pause.text="继续" if "player" in state.pauseReasons or "blur" in state.pauseReasons else "暂停"
 	chart.visible="chart" in state.pauseReasons; chart.apply_naval_snapshot(native); _layout()

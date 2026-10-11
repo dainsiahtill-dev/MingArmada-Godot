@@ -1,0 +1,5725 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-11T10:09:06.269781+00:00",
+  "delivery_root": "assets/textures/pirates_reference",
+  "asset_count": 27,
+  "commercial_game_reference_count": 26,
+  "user_attachment_count": 1,
+  "scope": "用户明确指定的PNG参考文件，原字节复制；本清单不是原DDS/TGA提取过程或原游戏shader的验证记录。",
+  "analysis": {
+    "tool": "Python Pillow",
+    "rgb_luminance": "Pillow RGB.convert(L): rounded Rec.601 RGB weighting in stored 8-bit RGB, not shader-linear-space luminance",
+    "statistics_domain": "stored PNG 8-bit channels; alpha shown independently as grayscale",
+    "full_histogram_report": "build/water-reference/channel-audit.json",
+    "contact_sheet": "build/water-reference/rgba-contact-sheet.png",
+    "contact_sheet_pages": [
+      "build/water-reference/rgba-contact-sheet-page-1.png",
+      "build/water-reference/rgba-contact-sheet-page-2.png",
+      "build/water-reference/rgba-contact-sheet-page-3.png",
+      "build/water-reference/rgba-contact-sheet-page-4.png",
+      "build/water-reference/rgba-contact-sheet-page-5.png",
+      "build/water-reference/rgba-contact-sheet-page-6.png"
+    ],
+    "visual_inspection": "Agent inspected each reference RGB, alpha and RGB luminance contact-sheet row via view_image on 2026-10-11."
+  },
+  "dimension_policy": "保留所有PNG原宽高；不烘焙、不改色、不缩放、不旋转。64x64只作为微纹理，256x64保留4:1比例，调节shader UV与采样强度。",
+  "godot_derivative_import_configuration": {
+    "asset_importer_count": 27,
+    "mipmaps_generate": true,
+    "compress_mode": 0,
+    "source_png_sha256_unchanged": true,
+    "alpha_channel_remap": 3,
+    "premultiply_alpha": false,
+    "process_size_limit": 0,
+    "fix_alpha_border": true,
+    "status": "all .import configs checked; root task performs unified Godot reimport and GPU acceptance",
+    "derivative_bit_identity_claimed": false,
+    "note": "源PNG原字节不变；Godot导入衍生纹理包含mips，并保留默认fix_alpha_border。ctex不宣称与源PNG逐位一致。"
+  },
+  "limitations": [
+    "未运行Godot，本记录不证明游戏内视觉验收。",
+    "用途基于实测通道和预览形态，未验证原游戏shader使用合同。",
+    "未验证tile边缘无缝性。",
+    "PNG预览与源DDS/TGA之间的转换保真未在本任务验证。",
+    "未提供或验证公开许可、原创性及外部再分发权利。"
+  ],
+  "pixel_relationships": [
+    {
+      "files": [
+        "duel_waterdetail.dds.png",
+        "user_water_caustics.png"
+      ],
+      "alpha_byte_identical": false,
+      "rgba_byte_identical": false,
+      "alpha_histogram_identical": true,
+      "user_image_transforms_with_exact_alpha_match_to_game_detail": [
+        "rotate_270"
+      ],
+      "user_image_transforms_with_exact_rgba_match_to_game_detail": [],
+      "interpretation": "仅记录像素关系，未据此推断附件作者、编辑历史或许可。"
+    }
+  ],
+  "current_implementation_selection": {
+    "recorded_at_utc": "2026-10-11T10:09:06.269781+00:00",
+    "status": "first-pass binding and 10 actual Godot GPU samples checked; original-game 3D splash structure remains a follow-up after report study",
+    "selected_count": 12,
+    "alternative_count": 14,
+    "empty_archive_count": 1,
+    "existing_wave_and_normal_textures_retained": true,
+    "user_caustics_selection": "duel_waterdetail bound for shallow-water caustics; user attachment retained as rotated-alpha-equivalent different-RGB alternative; do not overlay both",
+    "ship_masks": "wake alpha_floor=.018, source mask multiplied by froth detail; geometric taper and multi-row head/tail fade; sparse water spash alpha and ellipse for spray, dense splash02 internal detail only",
+    "visual_validation": {
+      "engine": "Godot 4.7.2",
+      "renderer": "D3D12 Forward+",
+      "captures": 10,
+      "dimensions": [
+        1600,
+        900
+      ],
+      "capture_exit_code": 0,
+      "all_images_personally_viewed_by_root": true,
+      "paused_pixels_identical": true,
+      "headless_tests": 58,
+      "headless_failed": 0,
+      "evidence": "docs/migration/evidence/reference-water",
+      "scope": "fixed accepted ticks; no wall-time performance or complete original-game recreation claim"
+    }
+  },
+  "assets": [
+    {
+      "filename": "02_sparkle_b.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/02_sparkle_b.dds.png",
+      "destination_path": "assets/textures/pirates_reference/02_sparkle_b.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "c22a0922885b21eb048d7a69bebbe3121d354630ff5a133ac2c7e97500362811",
+      "byte_length": 27857,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 23981,
+          "rgba": [
+            216,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 12308,
+          "rgba": [
+            216,
+            255,
+            255,
+            17
+          ]
+        },
+        {
+          "count": 7259,
+          "rgba": [
+            216,
+            255,
+            255,
+            34
+          ]
+        },
+        {
+          "count": 5088,
+          "rgba": [
+            216,
+            255,
+            255,
+            51
+          ]
+        },
+        {
+          "count": 3928,
+          "rgba": [
+            216,
+            255,
+            255,
+            68
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "水面稀疏高光",
+        "阈值筛选后的细滴飞沫"
+      ],
+      "candidate_use_note": "RGB恒(216,255,255)，散点图案仅在alpha；阈值和强度仅在shader中调整。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "projected_ocean",
+        "slot": "reference_sparkle",
+        "scope": "style1 fragment_detail"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 216,
+          "max": 216,
+          "mean": 216,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 42.50856,
+          "standard_deviation": 55.940003,
+          "unique_values": 16,
+          "zero_pixels": 23981,
+          "full_255_pixels": 284,
+          "nonzero_fraction": 0.634079,
+          "fraction_above_16": 0.634079,
+          "fraction_above_64": 0.257874,
+          "fraction_above_128": 0.100555,
+          "fraction_above_192": 0.030807
+        },
+        "luminance_pillow_rec601": {
+          "min": 243,
+          "max": 243,
+          "mean": 243,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 23981,
+        "17": 12308,
+        "34": 7259,
+        "51": 5088,
+        "68": 3928,
+        "85": 2636,
+        "102": 2059,
+        "119": 1687,
+        "136": 1535,
+        "153": 1299,
+        "170": 1026,
+        "187": 711,
+        "204": 632,
+        "221": 610,
+        "238": 493,
+        "255": 284
+      }
+    },
+    {
+      "filename": "foam0016.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/foam0016.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0016.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "4e5cdddf6b16cabb3955b5ac3a539123abbb78017cb8d74beab43958e5c51a96",
+      "byte_length": 1625,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 1091,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 290,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 274,
+          "rgba": [
+            203,
+            227,
+            214,
+            102
+          ]
+        },
+        {
+          "count": 273,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 254,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "较密岸浪拖尾",
+        "第二层泡沫"
+      ],
+      "candidate_use_note": "RGB恒(203,227,214)，alpha为横向浪缘和下垂网纹，不是圆点飞沫。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 84.821533,
+          "standard_deviation": 76.645839,
+          "unique_values": 16,
+          "zero_pixels": 1091,
+          "full_255_pixels": 11,
+          "nonzero_fraction": 0.733643,
+          "fraction_above_16": 0.733643,
+          "fraction_above_64": 0.552979,
+          "fraction_above_128": 0.300293,
+          "fraction_above_192": 0.115723
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 1091,
+        "17": 227,
+        "34": 240,
+        "51": 273,
+        "68": 290,
+        "85": 254,
+        "102": 274,
+        "119": 217,
+        "136": 249,
+        "153": 178,
+        "170": 184,
+        "187": 145,
+        "204": 122,
+        "221": 114,
+        "238": 227,
+        "255": 11
+      }
+    },
+    {
+      "filename": "foam0024.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/foam0024.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0024.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "1ac058271974fb0dadac22feb12f3104c7d4be75b444012ce08d88eacedad34a",
+      "byte_length": 1762,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 476,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 402,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 361,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        },
+        {
+          "count": 332,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        },
+        {
+          "count": 308,
+          "rgba": [
+            203,
+            227,
+            214,
+            187
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "密集岸浪泡沫后层"
+      ],
+      "candidate_use_note": "RGB恒(203,227,214)，alpha非零比例93.2%；避免单层高强度形成白带。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 238,
+          "mean": 101.460449,
+          "standard_deviation": 67.852436,
+          "unique_values": 15,
+          "zero_pixels": 278,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.932129,
+          "fraction_above_16": 0.932129,
+          "fraction_above_64": 0.65625,
+          "fraction_above_128": 0.350342,
+          "fraction_above_192": 0.124268
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 278,
+        "17": 293,
+        "34": 361,
+        "51": 476,
+        "68": 402,
+        "85": 332,
+        "102": 283,
+        "119": 236,
+        "136": 166,
+        "153": 203,
+        "170": 249,
+        "187": 308,
+        "204": 273,
+        "221": 228,
+        "238": 8
+      }
+    },
+    {
+      "filename": "fx_standing_water_01_gloss.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/fx_standing_water_01_gloss.dds.png",
+      "destination_path": "assets/textures/pirates_reference/fx_standing_water_01_gloss.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "744e20d6a405a2a7dfa9b72b55f9e126d80d85563ceca58160901046583c56d5",
+      "byte_length": 28145,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 33146,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ]
+        },
+        {
+          "count": 3559,
+          "rgba": [
+            2,
+            2,
+            2,
+            255
+          ]
+        },
+        {
+          "count": 2359,
+          "rgba": [
+            8,
+            8,
+            8,
+            255
+          ]
+        },
+        {
+          "count": 1573,
+          "rgba": [
+            5,
+            5,
+            5,
+            255
+          ]
+        },
+        {
+          "count": 1205,
+          "rgba": [
+            16,
+            16,
+            16,
+            255
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "rgb_luminance",
+      "candidate_uses": [
+        "局部低强度水面gloss变化"
+      ],
+      "candidate_use_note": "alpha恒255，RGB亮度0..109；可以shader内控制增益，原图不归一化。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 0,
+          "max": 109,
+          "mean": 17.852142,
+          "standard_deviation": 27.890991,
+          "unique_values": 60,
+          "zero_pixels": 33303,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.491837,
+          "fraction_above_16": 0.303589,
+          "fraction_above_64": 0.113861,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "G": {
+          "min": 0,
+          "max": 109,
+          "mean": 19.189941,
+          "standard_deviation": 29.972086,
+          "unique_values": 94,
+          "zero_pixels": 33146,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.494232,
+          "fraction_above_16": 0.31485,
+          "fraction_above_64": 0.126633,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "B": {
+          "min": 0,
+          "max": 109,
+          "mean": 19.285767,
+          "standard_deviation": 30.183102,
+          "unique_values": 63,
+          "zero_pixels": 33278,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.492218,
+          "fraction_above_16": 0.310745,
+          "fraction_above_64": 0.127609,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "A": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "luminance_pillow_rec601": {
+          "min": 0,
+          "max": 108,
+          "mean": 18.787521,
+          "standard_deviation": 29.346047,
+          "unique_values": 107,
+          "zero_pixels": 33146,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.494232,
+          "fraction_above_16": 0.312729,
+          "fraction_above_64": 0.120483,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "255": 65536
+      }
+    },
+    {
+      "filename": "fx_water_splash_02.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/fx_water_splash_02.dds.png",
+      "destination_path": "assets/textures/pirates_reference/fx_water_splash_02.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "eb2f400a40f0a9cc1ce46f12b86bca45ff0ecfe21aee9ba0245349f6c8d3617e",
+      "byte_length": 78081,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 268,
+          "rgba": [
+            82,
+            125,
+            148,
+            0
+          ]
+        },
+        {
+          "count": 125,
+          "rgba": [
+            175,
+            196,
+            206,
+            191
+          ]
+        },
+        {
+          "count": 108,
+          "rgba": [
+            175,
+            195,
+            206,
+            191
+          ]
+        },
+        {
+          "count": 105,
+          "rgba": [
+            79,
+            123,
+            145,
+            0
+          ]
+        },
+        {
+          "count": 87,
+          "rgba": [
+            84,
+            126,
+            148,
+            0
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "低强度水花烟状微纹理"
+      ],
+      "candidate_use_note": "RGB也有蓝白变化，alpha有起伏但97.2%非零；需要区域包络，避免满幅矩形。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "water_splashes",
+        "slot": "spray_internal_detail",
+        "scope": "multiplies sparse Pak7 primary alpha; cannot fill transparent gaps"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 63,
+          "max": 189,
+          "mean": 142.698166,
+          "standard_deviation": 24.873511,
+          "unique_values": 53,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.998856,
+          "fraction_above_128": 0.759399,
+          "fraction_above_192": 0
+        },
+        "G": {
+          "min": 111,
+          "max": 207,
+          "mean": 170.643829,
+          "standard_deviation": 18.740558,
+          "unique_values": 78,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.965622,
+          "fraction_above_192": 0.102814
+        },
+        "B": {
+          "min": 137,
+          "max": 216,
+          "mean": 185.269852,
+          "standard_deviation": 15.591012,
+          "unique_values": 34,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.350677
+        },
+        "A": {
+          "min": 0,
+          "max": 194,
+          "mean": 88.588837,
+          "standard_deviation": 43.240738,
+          "unique_values": 195,
+          "zero_pixels": 1820,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.972229,
+          "fraction_above_16": 0.952332,
+          "fraction_above_64": 0.697723,
+          "fraction_above_128": 0.171936,
+          "fraction_above_192": 0.000137
+        },
+        "luminance_pillow_rec601": {
+          "min": 100,
+          "max": 202,
+          "mean": 163.979156,
+          "standard_deviation": 20.208518,
+          "unique_values": 103,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.922043,
+          "fraction_above_192": 0.035156
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 1820,
+        "1": 136,
+        "2": 166,
+        "3": 110,
+        "4": 88,
+        "5": 70,
+        "6": 71,
+        "7": 74,
+        "8": 86,
+        "9": 55,
+        "10": 81,
+        "11": 53,
+        "12": 63,
+        "13": 50,
+        "14": 52,
+        "15": 63,
+        "16": 86,
+        "17": 84,
+        "18": 49,
+        "19": 78,
+        "20": 81,
+        "21": 88,
+        "22": 74,
+        "23": 109,
+        "24": 113,
+        "25": 99,
+        "26": 144,
+        "27": 112,
+        "28": 163,
+        "29": 136,
+        "30": 207,
+        "31": 204,
+        "32": 255,
+        "33": 269,
+        "34": 304,
+        "35": 313,
+        "36": 315,
+        "37": 294,
+        "38": 326,
+        "39": 299,
+        "40": 389,
+        "41": 317,
+        "42": 525,
+        "43": 511,
+        "44": 520,
+        "45": 465,
+        "46": 530,
+        "47": 407,
+        "48": 359,
+        "49": 378,
+        "50": 427,
+        "51": 426,
+        "52": 427,
+        "53": 491,
+        "54": 464,
+        "55": 525,
+        "56": 527,
+        "57": 552,
+        "58": 580,
+        "59": 514,
+        "60": 471,
+        "61": 678,
+        "62": 700,
+        "63": 698,
+        "64": 689,
+        "65": 614,
+        "66": 569,
+        "67": 624,
+        "68": 640,
+        "69": 677,
+        "70": 609,
+        "71": 619,
+        "72": 597,
+        "73": 613,
+        "74": 683,
+        "75": 667,
+        "76": 642,
+        "77": 583,
+        "78": 623,
+        "79": 603,
+        "80": 679,
+        "81": 588,
+        "82": 576,
+        "83": 623,
+        "84": 785,
+        "85": 578,
+        "86": 613,
+        "87": 613,
+        "88": 542,
+        "89": 514,
+        "90": 480,
+        "91": 517,
+        "92": 497,
+        "93": 602,
+        "94": 511,
+        "95": 527,
+        "96": 497,
+        "97": 600,
+        "98": 556,
+        "99": 556,
+        "100": 591,
+        "101": 546,
+        "102": 604,
+        "103": 587,
+        "104": 564,
+        "105": 570,
+        "106": 513,
+        "107": 599,
+        "108": 511,
+        "109": 520,
+        "110": 487,
+        "111": 511,
+        "112": 526,
+        "113": 488,
+        "114": 515,
+        "115": 487,
+        "116": 442,
+        "117": 512,
+        "118": 422,
+        "119": 478,
+        "120": 507,
+        "121": 344,
+        "122": 380,
+        "123": 350,
+        "124": 353,
+        "125": 279,
+        "126": 324,
+        "127": 364,
+        "128": 267,
+        "129": 308,
+        "130": 225,
+        "131": 319,
+        "132": 335,
+        "133": 220,
+        "134": 264,
+        "135": 223,
+        "136": 261,
+        "137": 232,
+        "138": 192,
+        "139": 310,
+        "140": 217,
+        "141": 226,
+        "142": 215,
+        "143": 239,
+        "144": 235,
+        "145": 235,
+        "146": 198,
+        "147": 202,
+        "148": 150,
+        "149": 171,
+        "150": 177,
+        "151": 140,
+        "152": 183,
+        "153": 165,
+        "154": 125,
+        "155": 157,
+        "156": 126,
+        "157": 123,
+        "158": 198,
+        "159": 171,
+        "160": 133,
+        "161": 108,
+        "162": 126,
+        "163": 154,
+        "164": 115,
+        "165": 142,
+        "166": 82,
+        "167": 292,
+        "168": 80,
+        "169": 67,
+        "170": 71,
+        "171": 92,
+        "172": 134,
+        "173": 106,
+        "174": 124,
+        "175": 97,
+        "176": 142,
+        "177": 153,
+        "178": 139,
+        "179": 86,
+        "180": 115,
+        "181": 117,
+        "182": 95,
+        "183": 99,
+        "184": 85,
+        "185": 135,
+        "186": 103,
+        "187": 120,
+        "188": 171,
+        "189": 294,
+        "190": 264,
+        "191": 675,
+        "192": 1,
+        "193": 5,
+        "194": 4
+      }
+    },
+    {
+      "filename": "fx_water_splash_rings_01.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/fx_water_splash_rings_01.dds.png",
+      "destination_path": "assets/textures/pirates_reference/fx_water_splash_rings_01.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "e49d14b518122a8499be6df059a2e60d7a55195efebb57263a4147b8f88fa675",
+      "byte_length": 5621,
+      "width": 128,
+      "height": 128,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 11919,
+          "rgba": [
+            255,
+            251,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 192,
+          "rgba": [
+            255,
+            251,
+            255,
+            1
+          ]
+        },
+        {
+          "count": 95,
+          "rgba": [
+            255,
+            251,
+            255,
+            28
+          ]
+        },
+        {
+          "count": 91,
+          "rgba": [
+            255,
+            251,
+            255,
+            23
+          ]
+        },
+        {
+          "count": 81,
+          "rgba": [
+            255,
+            251,
+            255,
+            34
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "局部水花环纹",
+        "短寿命涟漪"
+      ],
+      "candidate_use_note": "RGB恒(255,251,255)，环图案在alpha；局部clamp采样配合生命周期淡出。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "ship_water_effects",
+        "slot": "splash_ring",
+        "scope": "wave height conforming expanding rings"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 251,
+          "max": 251,
+          "mean": 251,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 16.618591,
+          "standard_deviation": 38.580786,
+          "unique_values": 214,
+          "zero_pixels": 11919,
+          "full_255_pixels": 22,
+          "nonzero_fraction": 0.272522,
+          "fraction_above_16": 0.222778,
+          "fraction_above_64": 0.096619,
+          "fraction_above_128": 0.034485,
+          "fraction_above_192": 0.006287
+        },
+        "luminance_pillow_rec601": {
+          "min": 253,
+          "max": 253,
+          "mean": 253,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 11919,
+        "1": 192,
+        "2": 42,
+        "3": 47,
+        "4": 69,
+        "5": 47,
+        "6": 37,
+        "7": 25,
+        "8": 42,
+        "9": 81,
+        "10": 13,
+        "11": 23,
+        "12": 30,
+        "13": 41,
+        "14": 74,
+        "15": 32,
+        "16": 20,
+        "17": 17,
+        "18": 60,
+        "19": 56,
+        "20": 29,
+        "21": 48,
+        "22": 38,
+        "23": 91,
+        "24": 64,
+        "25": 45,
+        "26": 40,
+        "27": 69,
+        "28": 95,
+        "29": 50,
+        "30": 44,
+        "31": 46,
+        "32": 71,
+        "33": 68,
+        "34": 81,
+        "35": 34,
+        "36": 35,
+        "37": 60,
+        "38": 39,
+        "39": 43,
+        "40": 33,
+        "41": 48,
+        "42": 57,
+        "43": 33,
+        "44": 35,
+        "45": 28,
+        "46": 44,
+        "47": 53,
+        "48": 54,
+        "49": 38,
+        "50": 30,
+        "51": 17,
+        "52": 34,
+        "53": 15,
+        "54": 51,
+        "55": 30,
+        "56": 31,
+        "57": 30,
+        "58": 24,
+        "59": 28,
+        "60": 30,
+        "61": 32,
+        "62": 26,
+        "63": 30,
+        "64": 13,
+        "65": 22,
+        "66": 17,
+        "67": 17,
+        "68": 9,
+        "69": 22,
+        "70": 31,
+        "71": 11,
+        "72": 24,
+        "73": 17,
+        "74": 20,
+        "75": 13,
+        "76": 24,
+        "77": 23,
+        "78": 15,
+        "79": 14,
+        "80": 14,
+        "81": 23,
+        "82": 12,
+        "83": 20,
+        "84": 21,
+        "85": 17,
+        "86": 18,
+        "87": 22,
+        "88": 16,
+        "89": 15,
+        "90": 18,
+        "91": 15,
+        "92": 23,
+        "93": 25,
+        "94": 6,
+        "95": 18,
+        "96": 18,
+        "97": 14,
+        "98": 13,
+        "99": 19,
+        "100": 9,
+        "101": 27,
+        "102": 21,
+        "103": 15,
+        "104": 17,
+        "105": 14,
+        "106": 15,
+        "107": 14,
+        "108": 11,
+        "109": 14,
+        "110": 19,
+        "111": 15,
+        "112": 4,
+        "113": 16,
+        "114": 19,
+        "115": 10,
+        "116": 12,
+        "117": 12,
+        "118": 13,
+        "119": 11,
+        "120": 11,
+        "121": 20,
+        "122": 9,
+        "123": 14,
+        "124": 3,
+        "125": 19,
+        "126": 8,
+        "127": 8,
+        "128": 12,
+        "129": 6,
+        "130": 3,
+        "131": 18,
+        "132": 30,
+        "133": 8,
+        "134": 10,
+        "135": 11,
+        "136": 9,
+        "137": 10,
+        "138": 18,
+        "139": 13,
+        "140": 8,
+        "141": 7,
+        "142": 7,
+        "143": 7,
+        "144": 9,
+        "145": 3,
+        "146": 9,
+        "147": 21,
+        "148": 5,
+        "149": 8,
+        "150": 13,
+        "151": 2,
+        "152": 6,
+        "153": 18,
+        "154": 11,
+        "155": 4,
+        "156": 6,
+        "157": 14,
+        "159": 4,
+        "160": 11,
+        "161": 4,
+        "162": 9,
+        "163": 6,
+        "164": 18,
+        "165": 5,
+        "166": 6,
+        "167": 1,
+        "169": 9,
+        "170": 6,
+        "171": 1,
+        "172": 8,
+        "173": 4,
+        "174": 12,
+        "176": 12,
+        "178": 4,
+        "180": 5,
+        "181": 2,
+        "182": 3,
+        "183": 1,
+        "185": 3,
+        "186": 6,
+        "187": 2,
+        "188": 5,
+        "189": 12,
+        "190": 9,
+        "193": 1,
+        "194": 1,
+        "196": 4,
+        "198": 5,
+        "200": 4,
+        "202": 2,
+        "204": 2,
+        "205": 9,
+        "207": 5,
+        "209": 1,
+        "211": 1,
+        "212": 1,
+        "214": 4,
+        "216": 9,
+        "219": 2,
+        "223": 1,
+        "224": 2,
+        "230": 1,
+        "233": 2,
+        "235": 2,
+        "236": 1,
+        "242": 2,
+        "245": 2,
+        "246": 2,
+        "249": 6,
+        "250": 1,
+        "251": 2,
+        "254": 6,
+        "255": 22
+      }
+    },
+    {
+      "filename": "wake3.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/wake3.dds.png",
+      "destination_path": "assets/textures/pirates_reference/wake3.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "81662e09f67ea959729426381ce6aaf8d7d3f718b17d6abfeb6b9fdd5019e6ea",
+      "byte_length": 34412,
+      "width": 128,
+      "height": 128,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 32,
+          "rgba": [
+            132,
+            154,
+            156,
+            137
+          ]
+        },
+        {
+          "count": 29,
+          "rgba": [
+            115,
+            134,
+            140,
+            115
+          ]
+        },
+        {
+          "count": 29,
+          "rgba": [
+            115,
+            134,
+            140,
+            113
+          ]
+        },
+        {
+          "count": 29,
+          "rgba": [
+            57,
+            81,
+            90,
+            51
+          ]
+        },
+        {
+          "count": 27,
+          "rgba": [
+            82,
+            105,
+            107,
+            78
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "船舶尾流主体细节"
+      ],
+      "candidate_use_note": "alpha最低4且全幅非零，需尾流区域衰减；与tga版本不是相同文件。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "ship_water_effects",
+        "slot": "wake_variant_a",
+        "scope": "stable ship id variant"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 49,
+          "max": 222,
+          "mean": 114.593506,
+          "standard_deviation": 38.02442,
+          "unique_values": 84,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.905579,
+          "fraction_above_128": 0.371765,
+          "fraction_above_192": 0.013
+        },
+        "G": {
+          "min": 73,
+          "max": 227,
+          "mean": 134.60321,
+          "standard_deviation": 35.024428,
+          "unique_values": 134,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.565796,
+          "fraction_above_192": 0.054321
+        },
+        "B": {
+          "min": 74,
+          "max": 231,
+          "mean": 138.697876,
+          "standard_deviation": 34.582681,
+          "unique_values": 75,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.597412,
+          "fraction_above_192": 0.063232
+        },
+        "A": {
+          "min": 4,
+          "max": 231,
+          "mean": 104.172485,
+          "standard_deviation": 50.681138,
+          "unique_values": 225,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 0.957092,
+          "fraction_above_64": 0.752625,
+          "fraction_above_128": 0.345764,
+          "fraction_above_192": 0.033691
+        },
+        "luminance_pillow_rec601": {
+          "min": 66,
+          "max": 226,
+          "mean": 129.050598,
+          "standard_deviation": 35.820258,
+          "unique_values": 147,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.511292,
+          "fraction_above_192": 0.038391
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "4": 12,
+        "5": 45,
+        "6": 37,
+        "7": 30,
+        "8": 62,
+        "9": 23,
+        "10": 89,
+        "11": 79,
+        "12": 55,
+        "13": 53,
+        "14": 54,
+        "15": 71,
+        "16": 93,
+        "17": 79,
+        "18": 78,
+        "19": 55,
+        "20": 49,
+        "21": 56,
+        "22": 70,
+        "23": 37,
+        "24": 56,
+        "25": 43,
+        "26": 60,
+        "27": 46,
+        "28": 51,
+        "29": 39,
+        "30": 54,
+        "31": 59,
+        "32": 44,
+        "33": 33,
+        "34": 47,
+        "35": 55,
+        "36": 61,
+        "37": 45,
+        "38": 48,
+        "39": 41,
+        "40": 61,
+        "41": 59,
+        "42": 48,
+        "43": 64,
+        "44": 38,
+        "45": 75,
+        "46": 72,
+        "47": 58,
+        "48": 67,
+        "49": 82,
+        "50": 57,
+        "51": 99,
+        "52": 113,
+        "53": 96,
+        "54": 91,
+        "55": 91,
+        "56": 83,
+        "57": 96,
+        "58": 128,
+        "59": 151,
+        "60": 96,
+        "61": 107,
+        "62": 88,
+        "63": 112,
+        "64": 112,
+        "65": 140,
+        "66": 94,
+        "67": 145,
+        "68": 115,
+        "69": 120,
+        "70": 93,
+        "71": 116,
+        "72": 113,
+        "73": 111,
+        "74": 77,
+        "75": 89,
+        "76": 97,
+        "77": 109,
+        "78": 115,
+        "79": 82,
+        "80": 106,
+        "81": 121,
+        "82": 85,
+        "83": 87,
+        "84": 106,
+        "85": 82,
+        "86": 118,
+        "87": 87,
+        "88": 97,
+        "89": 99,
+        "90": 150,
+        "91": 57,
+        "92": 105,
+        "93": 97,
+        "94": 62,
+        "95": 77,
+        "96": 111,
+        "97": 114,
+        "98": 94,
+        "99": 88,
+        "100": 42,
+        "101": 108,
+        "102": 89,
+        "103": 142,
+        "104": 111,
+        "105": 112,
+        "106": 78,
+        "107": 109,
+        "108": 103,
+        "109": 120,
+        "110": 99,
+        "111": 104,
+        "112": 105,
+        "113": 142,
+        "114": 107,
+        "115": 111,
+        "116": 135,
+        "117": 91,
+        "118": 126,
+        "119": 106,
+        "120": 87,
+        "121": 97,
+        "122": 128,
+        "123": 92,
+        "124": 114,
+        "125": 127,
+        "126": 117,
+        "127": 91,
+        "128": 114,
+        "129": 104,
+        "130": 101,
+        "131": 106,
+        "132": 127,
+        "133": 133,
+        "134": 124,
+        "135": 112,
+        "136": 93,
+        "137": 143,
+        "138": 95,
+        "139": 123,
+        "140": 105,
+        "141": 80,
+        "142": 104,
+        "143": 94,
+        "144": 78,
+        "145": 118,
+        "146": 81,
+        "147": 88,
+        "148": 121,
+        "149": 95,
+        "150": 115,
+        "151": 103,
+        "152": 67,
+        "153": 105,
+        "154": 94,
+        "155": 76,
+        "156": 92,
+        "157": 104,
+        "158": 61,
+        "159": 92,
+        "160": 92,
+        "161": 78,
+        "162": 53,
+        "163": 61,
+        "164": 84,
+        "165": 59,
+        "166": 72,
+        "167": 85,
+        "168": 39,
+        "169": 69,
+        "170": 81,
+        "171": 52,
+        "172": 86,
+        "173": 68,
+        "174": 48,
+        "175": 67,
+        "176": 57,
+        "177": 47,
+        "178": 73,
+        "179": 65,
+        "180": 48,
+        "181": 74,
+        "182": 28,
+        "183": 37,
+        "184": 78,
+        "185": 62,
+        "186": 49,
+        "187": 30,
+        "188": 40,
+        "189": 53,
+        "190": 48,
+        "191": 62,
+        "192": 34,
+        "193": 35,
+        "194": 29,
+        "195": 37,
+        "196": 31,
+        "197": 29,
+        "198": 27,
+        "199": 36,
+        "200": 19,
+        "201": 40,
+        "202": 17,
+        "203": 27,
+        "204": 18,
+        "205": 22,
+        "206": 13,
+        "207": 17,
+        "208": 16,
+        "209": 12,
+        "210": 4,
+        "211": 15,
+        "212": 18,
+        "213": 15,
+        "214": 16,
+        "215": 6,
+        "216": 6,
+        "217": 9,
+        "218": 7,
+        "219": 6,
+        "220": 2,
+        "221": 5,
+        "222": 1,
+        "223": 2,
+        "225": 4,
+        "227": 3,
+        "228": 3,
+        "229": 4,
+        "231": 1
+      }
+    },
+    {
+      "filename": "wake3.tga.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/wake3.tga.png",
+      "destination_path": "assets/textures/pirates_reference/wake3.tga.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "da7a60e0141c4e24707d6af69c09351032b0b3dfc1864a22b84d425c20f030da",
+      "byte_length": 34085,
+      "width": 128,
+      "height": 128,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 31,
+          "rgba": [
+            132,
+            154,
+            156,
+            137
+          ]
+        },
+        {
+          "count": 31,
+          "rgba": [
+            115,
+            134,
+            140,
+            114
+          ]
+        },
+        {
+          "count": 27,
+          "rgba": [
+            57,
+            81,
+            90,
+            51
+          ]
+        },
+        {
+          "count": 26,
+          "rgba": [
+            115,
+            134,
+            140,
+            113
+          ]
+        },
+        {
+          "count": 25,
+          "rgba": [
+            66,
+            89,
+            90,
+            59
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "船舶尾流主体细节备选"
+      ],
+      "candidate_use_note": "alpha最低4且全幅非零，需尾流区域衰减；与dds版本不同，保留两份。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "ship_water_effects",
+        "slot": "wake_variant_b",
+        "scope": "stable ship id variant"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 49,
+          "max": 222,
+          "mean": 114.769531,
+          "standard_deviation": 38.012012,
+          "unique_values": 81,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.905579,
+          "fraction_above_128": 0.37793,
+          "fraction_above_192": 0.013
+        },
+        "G": {
+          "min": 73,
+          "max": 227,
+          "mean": 134.79126,
+          "standard_deviation": 35.020448,
+          "unique_values": 131,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.565796,
+          "fraction_above_192": 0.054321
+        },
+        "B": {
+          "min": 74,
+          "max": 231,
+          "mean": 138.866943,
+          "standard_deviation": 34.578307,
+          "unique_values": 75,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.605225,
+          "fraction_above_192": 0.063232
+        },
+        "A": {
+          "min": 4,
+          "max": 231,
+          "mean": 104.490662,
+          "standard_deviation": 50.693221,
+          "unique_values": 225,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 0.959106,
+          "fraction_above_64": 0.753845,
+          "fraction_above_128": 0.348572,
+          "fraction_above_192": 0.034668
+        },
+        "luminance_pillow_rec601": {
+          "min": 66,
+          "max": 226,
+          "mean": 129.237122,
+          "standard_deviation": 35.812191,
+          "unique_values": 146,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.513611,
+          "fraction_above_192": 0.038391
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "4": 12,
+        "5": 39,
+        "6": 26,
+        "7": 44,
+        "8": 41,
+        "9": 37,
+        "10": 63,
+        "11": 91,
+        "12": 58,
+        "13": 55,
+        "14": 59,
+        "15": 62,
+        "16": 83,
+        "17": 97,
+        "18": 69,
+        "19": 60,
+        "20": 54,
+        "21": 64,
+        "22": 55,
+        "23": 47,
+        "24": 57,
+        "25": 42,
+        "26": 60,
+        "27": 51,
+        "28": 34,
+        "29": 44,
+        "30": 56,
+        "31": 60,
+        "32": 50,
+        "33": 29,
+        "34": 43,
+        "35": 50,
+        "36": 64,
+        "37": 47,
+        "38": 52,
+        "39": 39,
+        "40": 47,
+        "41": 72,
+        "42": 57,
+        "43": 57,
+        "44": 46,
+        "45": 54,
+        "46": 74,
+        "47": 78,
+        "48": 49,
+        "49": 75,
+        "50": 68,
+        "51": 94,
+        "52": 119,
+        "53": 91,
+        "54": 93,
+        "55": 100,
+        "56": 68,
+        "57": 96,
+        "58": 107,
+        "59": 161,
+        "60": 109,
+        "61": 99,
+        "62": 95,
+        "63": 101,
+        "64": 129,
+        "65": 122,
+        "66": 109,
+        "67": 111,
+        "68": 129,
+        "69": 143,
+        "70": 77,
+        "71": 106,
+        "72": 117,
+        "73": 106,
+        "74": 94,
+        "75": 88,
+        "76": 99,
+        "77": 109,
+        "78": 114,
+        "79": 82,
+        "80": 96,
+        "81": 116,
+        "82": 100,
+        "83": 95,
+        "84": 97,
+        "85": 87,
+        "86": 115,
+        "87": 88,
+        "88": 82,
+        "89": 108,
+        "90": 137,
+        "91": 78,
+        "92": 98,
+        "93": 107,
+        "94": 63,
+        "95": 76,
+        "96": 106,
+        "97": 108,
+        "98": 92,
+        "99": 101,
+        "100": 54,
+        "101": 86,
+        "102": 88,
+        "103": 125,
+        "104": 141,
+        "105": 96,
+        "106": 90,
+        "107": 111,
+        "108": 89,
+        "109": 110,
+        "110": 118,
+        "111": 99,
+        "112": 97,
+        "113": 136,
+        "114": 126,
+        "115": 107,
+        "116": 116,
+        "117": 128,
+        "118": 105,
+        "119": 98,
+        "120": 109,
+        "121": 79,
+        "122": 124,
+        "123": 120,
+        "124": 81,
+        "125": 141,
+        "126": 96,
+        "127": 119,
+        "128": 95,
+        "129": 108,
+        "130": 115,
+        "131": 101,
+        "132": 115,
+        "133": 113,
+        "134": 145,
+        "135": 110,
+        "136": 104,
+        "137": 140,
+        "138": 102,
+        "139": 110,
+        "140": 107,
+        "141": 81,
+        "142": 115,
+        "143": 83,
+        "144": 84,
+        "145": 120,
+        "146": 75,
+        "147": 103,
+        "148": 102,
+        "149": 107,
+        "150": 99,
+        "151": 96,
+        "152": 105,
+        "153": 77,
+        "154": 92,
+        "155": 102,
+        "156": 92,
+        "157": 83,
+        "158": 74,
+        "159": 98,
+        "160": 87,
+        "161": 79,
+        "162": 64,
+        "163": 48,
+        "164": 84,
+        "165": 70,
+        "166": 71,
+        "167": 75,
+        "168": 55,
+        "169": 63,
+        "170": 68,
+        "171": 68,
+        "172": 67,
+        "173": 83,
+        "174": 50,
+        "175": 70,
+        "176": 45,
+        "177": 56,
+        "178": 70,
+        "179": 69,
+        "180": 45,
+        "181": 69,
+        "182": 47,
+        "183": 38,
+        "184": 60,
+        "185": 70,
+        "186": 44,
+        "187": 42,
+        "188": 35,
+        "189": 41,
+        "190": 60,
+        "191": 56,
+        "192": 36,
+        "193": 40,
+        "194": 36,
+        "195": 22,
+        "196": 39,
+        "197": 32,
+        "198": 30,
+        "199": 21,
+        "200": 35,
+        "201": 37,
+        "202": 17,
+        "203": 28,
+        "204": 21,
+        "205": 25,
+        "206": 10,
+        "207": 9,
+        "208": 23,
+        "209": 14,
+        "210": 6,
+        "211": 11,
+        "212": 22,
+        "213": 15,
+        "214": 16,
+        "215": 6,
+        "216": 3,
+        "217": 10,
+        "218": 9,
+        "219": 6,
+        "220": 1,
+        "221": 6,
+        "222": 1,
+        "223": 2,
+        "225": 4,
+        "227": 3,
+        "228": 3,
+        "229": 4,
+        "231": 1
+      }
+    },
+    {
+      "filename": "water_spaarkle.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak0/water_spaarkle.dds.png",
+      "destination_path": "assets/textures/pirates_reference/water_spaarkle.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "7ffdd77800ec4e7a0badd54bc220b919de272045bfb5e4bf763c3431fb933952",
+      "byte_length": 50466,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 22748,
+          "rgba": [
+            219,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 10901,
+          "rgba": [
+            222,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 10631,
+          "rgba": [
+            219,
+            255,
+            255,
+            17
+          ]
+        },
+        {
+          "count": 4907,
+          "rgba": [
+            222,
+            255,
+            255,
+            17
+          ]
+        },
+        {
+          "count": 3951,
+          "rgba": [
+            219,
+            255,
+            255,
+            34
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "较稀水面闪光",
+        "细粒飞沫"
+      ],
+      "candidate_use_note": "RGB近纯色，图案在alpha；拼写spaarkle保留。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 216,
+          "max": 222,
+          "mean": 219.95842,
+          "standard_deviation": 1.398916,
+          "unique_values": 3,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 252,
+          "max": 255,
+          "mean": 254.994492,
+          "standard_deviation": 0.105035,
+          "unique_values": 3,
+          "zero_pixels": 0,
+          "full_255_pixels": 65356,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 24.485748,
+          "standard_deviation": 43.403215,
+          "unique_values": 13,
+          "zero_pixels": 33748,
+          "full_255_pixels": 328,
+          "nonzero_fraction": 0.485046,
+          "fraction_above_16": 0.485046,
+          "fraction_above_64": 0.157959,
+          "fraction_above_128": 0.038849,
+          "fraction_above_192": 0.012314
+        },
+        "luminance_pillow_rec601": {
+          "min": 243,
+          "max": 245,
+          "mean": 244.316711,
+          "standard_deviation": 0.470705,
+          "unique_values": 3,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 33748,
+        "17": 15584,
+        "34": 5852,
+        "68": 3381,
+        "85": 2013,
+        "102": 1396,
+        "119": 1016,
+        "153": 807,
+        "170": 558,
+        "187": 374,
+        "204": 277,
+        "238": 202,
+        "255": 328
+      }
+    },
+    {
+      "filename": "foam0002.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0002.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0002.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "3e43122607248f7b7e1af7b1326422e318ea2d2abd7bf29550af75cb58789dd9",
+      "byte_length": 494,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 3428,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 269,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 171,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        },
+        {
+          "count": 132,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 96,
+          "rgba": [
+            203,
+            227,
+            214,
+            17
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪早期或淡残留"
+      ],
+      "candidate_use_note": "alpha0..68仅5档、16.3%非零，密度很低；不适合作为主要白浪头。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 68,
+          "mean": 7.358643,
+          "standard_deviation": 17.908596,
+          "unique_values": 5,
+          "zero_pixels": 3428,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.163086,
+          "fraction_above_16": 0.163086,
+          "fraction_above_64": 0.032227,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 3428,
+        "17": 96,
+        "34": 171,
+        "51": 269,
+        "68": 132
+      }
+    },
+    {
+      "filename": "foam0006.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0006.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0006.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "6a4f97298295fd55c04a94d1b362629a386cd06cd5e3bccf4a49ba773ef5dc2c",
+      "byte_length": 1001,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2546,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 227,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        },
+        {
+          "count": 180,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 161,
+          "rgba": [
+            203,
+            227,
+            214,
+            17
+          ]
+        },
+        {
+          "count": 135,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪波头微纹理"
+      ],
+      "candidate_use_note": "横向浪缘及网状拖尾；alpha38%非零，为较薄浪头。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 44.708008,
+          "standard_deviation": 74.058852,
+          "unique_values": 16,
+          "zero_pixels": 2546,
+          "full_255_pixels": 8,
+          "nonzero_fraction": 0.378418,
+          "fraction_above_16": 0.378418,
+          "fraction_above_64": 0.262207,
+          "fraction_above_128": 0.154785,
+          "fraction_above_192": 0.085693
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 2546,
+        "17": 161,
+        "34": 135,
+        "51": 180,
+        "68": 127,
+        "85": 110,
+        "102": 115,
+        "119": 88,
+        "136": 78,
+        "153": 68,
+        "170": 84,
+        "187": 53,
+        "204": 28,
+        "221": 88,
+        "238": 227,
+        "255": 8
+      }
+    },
+    {
+      "filename": "foam0007.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0007.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0007.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "1301cc1c965acccdcc8c80c4e4d769088b65908e7cd987c8bd1294a39be5c81e",
+      "byte_length": 1057,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2374,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 234,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        },
+        {
+          "count": 204,
+          "rgba": [
+            203,
+            227,
+            214,
+            17
+          ]
+        },
+        {
+          "count": 185,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 155,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪波头微纹理备选"
+      ],
+      "candidate_use_note": "横向浪缘及网状拖尾；alpha42%非零。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 238,
+          "mean": 47.907959,
+          "standard_deviation": 74.173371,
+          "unique_values": 15,
+          "zero_pixels": 2374,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.42041,
+          "fraction_above_16": 0.42041,
+          "fraction_above_64": 0.296875,
+          "fraction_above_128": 0.162842,
+          "fraction_above_192": 0.087891
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 2374,
+        "17": 204,
+        "34": 155,
+        "51": 147,
+        "68": 185,
+        "85": 148,
+        "102": 103,
+        "119": 113,
+        "136": 92,
+        "153": 104,
+        "170": 63,
+        "187": 48,
+        "204": 45,
+        "221": 81,
+        "238": 234
+      }
+    },
+    {
+      "filename": "foam0008.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0008.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0008.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "ce455937e195fb6d0ad4d52a5d35ae89bb39a1ceb3c50dc0f581c7d2b89293ad",
+      "byte_length": 1135,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2251,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 250,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        },
+        {
+          "count": 193,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        },
+        {
+          "count": 186,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 179,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪波头微纹理优选"
+      ],
+      "candidate_use_note": "横向浪缘及网状拖尾；alpha45%非零，适合作为浪头。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "shore-break",
+        "slot": "foam_a",
+        "scope": "wave head microtexture"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 238,
+          "mean": 51.369385,
+          "standard_deviation": 74.747397,
+          "unique_values": 15,
+          "zero_pixels": 2251,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.450439,
+          "fraction_above_16": 0.450439,
+          "fraction_above_64": 0.322021,
+          "fraction_above_128": 0.172607,
+          "fraction_above_192": 0.090088
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 2251,
+        "17": 165,
+        "34": 193,
+        "51": 168,
+        "68": 186,
+        "85": 179,
+        "102": 133,
+        "119": 114,
+        "136": 105,
+        "153": 104,
+        "170": 81,
+        "187": 48,
+        "204": 74,
+        "221": 45,
+        "238": 250
+      }
+    },
+    {
+      "filename": "foam0009.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0009.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0009.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "632cc4b0e026f91acf9c29ddd71fcfae517dbf663e897532c88f6683c415905e",
+      "byte_length": 1159,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2086,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 219,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        },
+        {
+          "count": 206,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        },
+        {
+          "count": 201,
+          "rgba": [
+            203,
+            227,
+            214,
+            17
+          ]
+        },
+        {
+          "count": 200,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪拖尾微纹理优选"
+      ],
+      "candidate_use_note": "横向浪缘及网状拖尾；alpha49%非零，适合与0008异相叠加。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "shore-break",
+        "slot": "foam_b",
+        "scope": "wave tail microtexture"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 54.71875,
+          "standard_deviation": 74.659056,
+          "unique_values": 16,
+          "zero_pixels": 2086,
+          "full_255_pixels": 4,
+          "nonzero_fraction": 0.490723,
+          "fraction_above_16": 0.490723,
+          "fraction_above_64": 0.349609,
+          "fraction_above_128": 0.18042,
+          "fraction_above_192": 0.086182
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 2086,
+        "17": 201,
+        "34": 188,
+        "51": 189,
+        "68": 200,
+        "85": 219,
+        "102": 130,
+        "119": 144,
+        "136": 108,
+        "153": 129,
+        "170": 72,
+        "187": 77,
+        "204": 38,
+        "221": 105,
+        "238": 206,
+        "255": 4
+      }
+    },
+    {
+      "filename": "foam0011.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0011.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0011.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "c08de9b157d0bdb7d85fc37e0fdef0aa913e4d7eed07d7334ca11e9dbeabe456",
+      "byte_length": 1329,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 1801,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 234,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        },
+        {
+          "count": 229,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 225,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        },
+        {
+          "count": 216,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "较宽岸浪泡沫带"
+      ],
+      "candidate_use_note": "横向浪缘及网状拖尾；alpha56%非零，为较宽泡沫层。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 62.031738,
+          "standard_deviation": 75.323848,
+          "unique_values": 16,
+          "zero_pixels": 1801,
+          "full_255_pixels": 4,
+          "nonzero_fraction": 0.560303,
+          "fraction_above_16": 0.560303,
+          "fraction_above_64": 0.401855,
+          "fraction_above_128": 0.205078,
+          "fraction_above_192": 0.090332
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 1801,
+        "17": 205,
+        "34": 215,
+        "51": 229,
+        "68": 234,
+        "85": 225,
+        "102": 184,
+        "119": 163,
+        "136": 151,
+        "153": 134,
+        "170": 120,
+        "187": 65,
+        "204": 45,
+        "221": 105,
+        "238": 216,
+        "255": 4
+      }
+    },
+    {
+      "filename": "foam0023.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0023.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0023.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "cf426de7afc45cf181465cbabe8287fbb0f81ed57c3e04796c62691a0d9a1b73",
+      "byte_length": 1912,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 392,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 354,
+          "rgba": [
+            203,
+            227,
+            214,
+            238
+          ]
+        },
+        {
+          "count": 292,
+          "rgba": [
+            203,
+            227,
+            214,
+            102
+          ]
+        },
+        {
+          "count": 286,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 283,
+          "rgba": [
+            203,
+            227,
+            214,
+            85
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "密泡沫后层"
+      ],
+      "candidate_use_note": "alpha90.4%非零，均值118，密度高；需较低增益或局部遮罩。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 255,
+          "mean": 117.987305,
+          "standard_deviation": 76.549542,
+          "unique_values": 16,
+          "zero_pixels": 392,
+          "full_255_pixels": 16,
+          "nonzero_fraction": 0.904297,
+          "fraction_above_16": 0.904297,
+          "fraction_above_64": 0.721436,
+          "fraction_above_128": 0.454102,
+          "fraction_above_192": 0.222412
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 392,
+        "17": 218,
+        "34": 245,
+        "51": 286,
+        "68": 272,
+        "85": 283,
+        "102": 292,
+        "119": 248,
+        "136": 266,
+        "153": 251,
+        "170": 219,
+        "187": 213,
+        "204": 278,
+        "221": 263,
+        "238": 354,
+        "255": 16
+      }
+    },
+    {
+      "filename": "foam0029.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0029.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0029.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "e7d41b61d1de28748462200f339a42b7367af68755c5a1b50e78773114b869aa",
+      "byte_length": 750,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 1901,
+          "rgba": [
+            203,
+            227,
+            214,
+            17
+          ]
+        },
+        {
+          "count": 1011,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        },
+        {
+          "count": 766,
+          "rgba": [
+            203,
+            227,
+            214,
+            34
+          ]
+        },
+        {
+          "count": 283,
+          "rgba": [
+            203,
+            227,
+            214,
+            51
+          ]
+        },
+        {
+          "count": 130,
+          "rgba": [
+            203,
+            227,
+            214,
+            68
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "岸浪消退残留层"
+      ],
+      "candidate_use_note": "alpha0..85仅6档，低对比衰减层；不能用RGB取图案。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 85,
+          "mean": 20.033936,
+          "standard_deviation": 16.859428,
+          "unique_values": 6,
+          "zero_pixels": 1011,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.753174,
+          "fraction_above_16": 0.753174,
+          "fraction_above_64": 0.032959,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 1011,
+        "17": 1901,
+        "34": 766,
+        "51": 283,
+        "68": 130,
+        "85": 5
+      }
+    },
+    {
+      "filename": "foam0030.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/foam0030.dds.png",
+      "destination_path": "assets/textures/pirates_reference/foam0030.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "2c9bdaa0dd8ca30bd2d17f54ffde79df434241200979325752f0bf7d00caec96",
+      "byte_length": 185,
+      "width": 64,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 4096,
+          "rgba": [
+            203,
+            227,
+            214,
+            0
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "none_empty_alpha",
+      "candidate_uses": [
+        "来源归档"
+      ],
+      "candidate_use_note": "alpha恒0且RGB恒色，没有有效泡沫mask；原字节保留，不绑定显示。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "archive_empty_alpha_do_not_render",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 203,
+          "max": 203,
+          "mean": 203,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 227,
+          "max": 227,
+          "mean": 227,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 0,
+          "mean": 0,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 4096,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0,
+          "fraction_above_16": 0,
+          "fraction_above_64": 0,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "luminance_pillow_rec601": {
+          "min": 218,
+          "max": 218,
+          "mean": 218,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 4096
+      }
+    },
+    {
+      "filename": "fx_waterfroth_003.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak3/fx_waterfroth_003.dds.png",
+      "destination_path": "assets/textures/pirates_reference/fx_waterfroth_003.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "a9cfae87b3b4a1c25d4dfa7c37fbb197ebbf14d8e50f5d4bb579ada3a3c37a7e",
+      "byte_length": 7146,
+      "width": 256,
+      "height": 64,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2115,
+          "rgba": [
+            214,
+            255,
+            255,
+            102
+          ]
+        },
+        {
+          "count": 2043,
+          "rgba": [
+            214,
+            255,
+            255,
+            85
+          ]
+        },
+        {
+          "count": 2036,
+          "rgba": [
+            214,
+            255,
+            255,
+            68
+          ]
+        },
+        {
+          "count": 1828,
+          "rgba": [
+            214,
+            255,
+            255,
+            51
+          ]
+        },
+        {
+          "count": 1731,
+          "rgba": [
+            214,
+            255,
+            255,
+            119
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "尾流条带细沫",
+        "浪花条带微纹理"
+      ],
+      "candidate_use_note": "256x64条带；RGB恒(214,255,255)，alpha34..255全幅非零，需shader阈值去底及尾流区域淡出。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "ship_water_effects",
+        "slot": "wake_froth",
+        "scope": "thin froth overlay"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 214,
+          "max": 214,
+          "mean": 214,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 34,
+          "max": 255,
+          "mean": 120.830322,
+          "standard_deviation": 55.819196,
+          "unique_values": 14,
+          "zero_pixels": 0,
+          "full_255_pixels": 286,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.870422,
+          "fraction_above_128": 0.386719,
+          "fraction_above_192": 0.130737
+        },
+        "luminance_pillow_rec601": {
+          "min": 243,
+          "max": 243,
+          "mean": 243,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "34": 295,
+        "51": 1828,
+        "68": 2036,
+        "85": 2043,
+        "102": 2115,
+        "119": 1731,
+        "136": 1376,
+        "153": 1062,
+        "170": 913,
+        "187": 843,
+        "204": 711,
+        "221": 609,
+        "238": 536,
+        "255": 286
+      }
+    },
+    {
+      "filename": "water mist.tga.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak5/water mist.tga.png",
+      "destination_path": "assets/textures/pirates_reference/water mist.tga.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "6e7117f87cb16e6111f5bbc7824cf570adf9cc7d8a6368b26a45740be9225198",
+      "byte_length": 10116,
+      "width": 128,
+      "height": 128,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 9603,
+          "rgba": [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 874,
+          "rgba": [
+            255,
+            255,
+            255,
+            1
+          ]
+        },
+        {
+          "count": 507,
+          "rgba": [
+            255,
+            255,
+            255,
+            2
+          ]
+        },
+        {
+          "count": 344,
+          "rgba": [
+            255,
+            255,
+            255,
+            4
+          ]
+        },
+        {
+          "count": 327,
+          "rgba": [
+            255,
+            255,
+            255,
+            9
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "船首弱雾晕",
+        "岸浪弱雾晕"
+      ],
+      "candidate_use_note": "RGB恒255，alpha0..63；原强度很弱，可shader控制增益，文件名空格保留。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 63,
+          "mean": 4.760193,
+          "standard_deviation": 8.237327,
+          "unique_values": 51,
+          "zero_pixels": 9603,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.413879,
+          "fraction_above_16": 0.109741,
+          "fraction_above_64": 0,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "luminance_pillow_rec601": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 9603,
+        "1": 874,
+        "2": 507,
+        "3": 265,
+        "4": 344,
+        "5": 281,
+        "6": 222,
+        "7": 320,
+        "8": 268,
+        "9": 327,
+        "10": 252,
+        "11": 249,
+        "12": 208,
+        "13": 175,
+        "14": 243,
+        "15": 242,
+        "16": 206,
+        "17": 230,
+        "18": 219,
+        "19": 163,
+        "20": 137,
+        "21": 85,
+        "22": 66,
+        "23": 57,
+        "24": 70,
+        "25": 68,
+        "26": 57,
+        "27": 74,
+        "28": 82,
+        "29": 62,
+        "30": 72,
+        "31": 88,
+        "32": 58,
+        "33": 55,
+        "34": 39,
+        "35": 35,
+        "36": 21,
+        "37": 17,
+        "38": 11,
+        "39": 4,
+        "40": 5,
+        "41": 6,
+        "42": 4,
+        "43": 4,
+        "44": 1,
+        "45": 1,
+        "48": 1,
+        "52": 3,
+        "53": 1,
+        "55": 1,
+        "63": 1
+      }
+    },
+    {
+      "filename": "water_shader.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak5/water_shader.dds.png",
+      "destination_path": "assets/textures/pirates_reference/water_shader.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "dd40fffd22e33f942793d4a959475bf5dc0443786c643db9a5b267b9b5b293dd",
+      "byte_length": 87849,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 4192,
+          "rgba": [
+            140,
+            247,
+            247,
+            255
+          ]
+        },
+        {
+          "count": 2901,
+          "rgba": [
+            140,
+            243,
+            247,
+            255
+          ]
+        },
+        {
+          "count": 2044,
+          "rgba": [
+            107,
+            170,
+            231,
+            255
+          ]
+        },
+        {
+          "count": 1854,
+          "rgba": [
+            140,
+            251,
+            247,
+            255
+          ]
+        },
+        {
+          "count": 1802,
+          "rgba": [
+            107,
+            174,
+            231,
+            255
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "conventional_rgb_normal_decode_diagnostic": {
+        "hypothesis": "unsigned RGB directly encodes unit XYZ via RGB/127.5-1; original shader contract unverified",
+        "decoded_vector_length_min": 0.714576,
+        "decoded_vector_length_max": 1.423324,
+        "decoded_vector_length_mean": 1.06487,
+        "decoded_vector_length_standard_deviation": 0.153754,
+        "fraction_length_within_0_05_of_1": 0.271652,
+        "fraction_length_within_0_10_of_1": 0.474319
+      },
+      "mask_recommendation": "rgb_luminance",
+      "candidate_uses": [
+        "水面RGB浮雕微纹理候选"
+      ],
+      "candidate_use_note": "alpha恒255。像素具有青色浮雕外观，但常规RGB单位法线解码仅27.2%长度在1±0.05；原shader合同未知，不按已确认normalmap使用。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 90,
+          "max": 148,
+          "mean": 121.530365,
+          "standard_deviation": 11.369007,
+          "unique_values": 24,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.315384,
+          "fraction_above_192": 0
+        },
+        "G": {
+          "min": 109,
+          "max": 255,
+          "mean": 203.058533,
+          "standard_deviation": 27.500241,
+          "unique_values": 100,
+          "zero_pixels": 0,
+          "full_255_pixels": 173,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.998642,
+          "fraction_above_192": 0.621109
+        },
+        "B": {
+          "min": 214,
+          "max": 255,
+          "mean": 237.722809,
+          "standard_deviation": 6.222344,
+          "unique_values": 14,
+          "zero_pixels": 0,
+          "full_255_pixels": 20,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "luminance_pillow_rec601": {
+          "min": 115,
+          "max": 223,
+          "mean": 182.629211,
+          "standard_deviation": 20.188601,
+          "unique_values": 94,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.998642,
+          "fraction_above_192": 0.329361
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "255": 65536
+      }
+    },
+    {
+      "filename": "duel_ocean deep.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak6/duel_ocean deep.dds.png",
+      "destination_path": "assets/textures/pirates_reference/duel_ocean deep.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "562194e4ed5f9fb69300d40a105e9aad7da100c503d78513f49b1c11e604b7a7",
+      "byte_length": 55235,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 3743,
+          "rgba": [
+            74,
+            158,
+            165,
+            255
+          ]
+        },
+        {
+          "count": 3333,
+          "rgba": [
+            74,
+            146,
+            165,
+            255
+          ]
+        },
+        {
+          "count": 1916,
+          "rgba": [
+            66,
+            170,
+            173,
+            255
+          ]
+        },
+        {
+          "count": 1806,
+          "rgba": [
+            68,
+            162,
+            170,
+            255
+          ]
+        },
+        {
+          "count": 1622,
+          "rgba": [
+            63,
+            170,
+            181,
+            255
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "conventional_rgb_normal_decode_diagnostic": {
+        "hypothesis": "unsigned RGB directly encodes unit XYZ via RGB/127.5-1; original shader contract unverified",
+        "decoded_vector_length_min": 0.310647,
+        "decoded_vector_length_max": 1.239929,
+        "decoded_vector_length_mean": 0.673268,
+        "decoded_vector_length_standard_deviation": 0.107498,
+        "fraction_length_within_0_05_of_1": 0.014832,
+        "fraction_length_within_0_10_of_1": 0.031143
+      },
+      "mask_recommendation": "rgb_color_or_luminance",
+      "candidate_uses": [
+        "低强度深水色变",
+        "低频海面颜色细节"
+      ],
+      "candidate_use_note": "RGB青绿色低对比纹理，alpha恒255；保留水面基础色，用小权重混合。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "projected_ocean",
+        "slot": "reference_deep",
+        "scope": "style1 fragment_detail"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 41,
+          "max": 90,
+          "mean": 66.718903,
+          "standard_deviation": 5.998532,
+          "unique_values": 19,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.706604,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "G": {
+          "min": 130,
+          "max": 227,
+          "mean": 164.767792,
+          "standard_deviation": 11.741097,
+          "unique_values": 69,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.013763
+        },
+        "B": {
+          "min": 137,
+          "max": 222,
+          "mean": 174.476501,
+          "standard_deviation": 9.632439,
+          "unique_values": 37,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.032349
+        },
+        "A": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "luminance_pillow_rec601": {
+          "min": 119,
+          "max": 173,
+          "mean": 136.595001,
+          "standard_deviation": 6.284796,
+          "unique_values": 47,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.889496,
+          "fraction_above_192": 0
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "255": 65536
+      }
+    },
+    {
+      "filename": "duel_waterbump1.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak6/duel_waterbump1.dds.png",
+      "destination_path": "assets/textures/pirates_reference/duel_waterbump1.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "e847ce9dc32122c042affbd6e7694db53ac011e669eb35282e15df4f3e36a14f",
+      "byte_length": 58066,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 3690,
+          "rgba": [
+            115,
+            113,
+            115,
+            255
+          ]
+        },
+        {
+          "count": 3655,
+          "rgba": [
+            123,
+            121,
+            123,
+            255
+          ]
+        },
+        {
+          "count": 3325,
+          "rgba": [
+            165,
+            162,
+            165,
+            255
+          ]
+        },
+        {
+          "count": 3209,
+          "rgba": [
+            107,
+            105,
+            107,
+            255
+          ]
+        },
+        {
+          "count": 2946,
+          "rgba": [
+            99,
+            97,
+            99,
+            255
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "conventional_rgb_normal_decode_diagnostic": {
+        "hypothesis": "unsigned RGB directly encodes unit XYZ via RGB/127.5-1; original shader contract unverified",
+        "decoded_vector_length_min": 0.006792,
+        "decoded_vector_length_max": 1.714129,
+        "decoded_vector_length_mean": 0.321472,
+        "decoded_vector_length_standard_deviation": 0.247501,
+        "fraction_length_within_0_05_of_1": 0.001312,
+        "fraction_length_within_0_10_of_1": 0.021561
+      },
+      "mask_recommendation": "rgb_luminance_height_candidate",
+      "candidate_uses": [
+        "水面高度微纹理候选",
+        "以相邻采样差分生成扰动候选"
+      ],
+      "candidate_use_note": "RGB近灰度浮雕、alpha恒255；不是已确认RGB法线。直接XYZ解码长度均0.321，仅0.13%在1±0.05。作为高度使用也属于候选，原shader未验证。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 57,
+          "max": 255,
+          "mean": 140.024109,
+          "standard_deviation": 27.572258,
+          "unique_values": 78,
+          "zero_pixels": 0,
+          "full_255_pixels": 76,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.999863,
+          "fraction_above_128": 0.655319,
+          "fraction_above_192": 0.029251
+        },
+        "G": {
+          "min": 56,
+          "max": 251,
+          "mean": 137.736038,
+          "standard_deviation": 27.140681,
+          "unique_values": 79,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.999863,
+          "fraction_above_128": 0.640732,
+          "fraction_above_192": 0.028976
+        },
+        "B": {
+          "min": 57,
+          "max": 255,
+          "mean": 140.031921,
+          "standard_deviation": 27.57305,
+          "unique_values": 78,
+          "zero_pixels": 0,
+          "full_255_pixels": 76,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.999863,
+          "fraction_above_128": 0.655518,
+          "fraction_above_192": 0.029312
+        },
+        "A": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "luminance_pillow_rec601": {
+          "min": 56,
+          "max": 253,
+          "mean": 138.677383,
+          "standard_deviation": 27.259852,
+          "unique_values": 98,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.999863,
+          "fraction_above_128": 0.640488,
+          "fraction_above_192": 0.029114
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "255": 65536
+      }
+    },
+    {
+      "filename": "duel_waterdetail.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak6/duel_waterdetail.dds.png",
+      "destination_path": "assets/textures/pirates_reference/duel_waterdetail.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "05a0f1576bfe44327c2c1ece9f69b32b350928ee7019819e4582414a32c6ee64",
+      "byte_length": 83827,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2478,
+          "rgba": [
+            66,
+            162,
+            189,
+            85
+          ]
+        },
+        {
+          "count": 1695,
+          "rgba": [
+            66,
+            170,
+            189,
+            85
+          ]
+        },
+        {
+          "count": 1229,
+          "rgba": [
+            66,
+            158,
+            189,
+            85
+          ]
+        },
+        {
+          "count": 1011,
+          "rgba": [
+            57,
+            150,
+            181,
+            68
+          ]
+        },
+        {
+          "count": 842,
+          "rgba": [
+            66,
+            154,
+            181,
+            68
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "conventional_rgb_normal_decode_diagnostic": {
+        "hypothesis": "unsigned RGB directly encodes unit XYZ via RGB/127.5-1; original shader contract unverified",
+        "decoded_vector_length_min": 0.552969,
+        "decoded_vector_length_max": 1.208422,
+        "decoded_vector_length_mean": 0.784062,
+        "decoded_vector_length_standard_deviation": 0.086153,
+        "fraction_length_within_0_05_of_1": 0.033539,
+        "fraction_length_within_0_10_of_1": 0.104965
+      },
+      "mask_recommendation": "rgb_luminance",
+      "candidate_uses": [
+        "仅浅水焦散白网细节"
+      ],
+      "candidate_use_note": "RGB青色白网；alpha68..204全幅非零，仅9档，不作为透明洞。与用户附件alpha逐像素关系另列。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "projected_ocean",
+        "slot": "reference_caustics",
+        "scope": "style1 fragment_detail, shallow water only"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 41,
+          "max": 198,
+          "mean": 67.803909,
+          "standard_deviation": 9.113177,
+          "unique_values": 59,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.71228,
+          "fraction_above_128": 0.00325,
+          "fraction_above_192": 0.000015
+        },
+        "G": {
+          "min": 130,
+          "max": 231,
+          "mean": 170.665985,
+          "standard_deviation": 14.539526,
+          "unique_values": 82,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.091019
+        },
+        "B": {
+          "min": 170,
+          "max": 239,
+          "mean": 193.126007,
+          "standard_deviation": 9.278242,
+          "unique_values": 32,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.460785
+        },
+        "A": {
+          "min": 68,
+          "max": 204,
+          "mean": 88.568558,
+          "standard_deviation": 17.369671,
+          "unique_values": 9,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.033768,
+          "fraction_above_192": 0.000488
+        },
+        "luminance_pillow_rec601": {
+          "min": 117,
+          "max": 213,
+          "mean": 142.438507,
+          "standard_deviation": 11.153035,
+          "unique_values": 92,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.921036,
+          "fraction_above_192": 0.002075
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "68": 13456,
+        "85": 34902,
+        "102": 10568,
+        "119": 4397,
+        "136": 1452,
+        "153": 473,
+        "170": 157,
+        "187": 99,
+        "204": 32
+      }
+    },
+    {
+      "filename": "water.dds.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak6/water.dds.png",
+      "destination_path": "assets/textures/pirates_reference/water.dds.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "ab4ce406eefb8b15128355e6c66c6ecc62ccc757da5937954f6b66c2f88b5fe3",
+      "byte_length": 87487,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 1978,
+          "rgba": [
+            82,
+            162,
+            206,
+            255
+          ]
+        },
+        {
+          "count": 1658,
+          "rgba": [
+            82,
+            166,
+            206,
+            255
+          ]
+        },
+        {
+          "count": 1627,
+          "rgba": [
+            90,
+            186,
+            214,
+            255
+          ]
+        },
+        {
+          "count": 1548,
+          "rgba": [
+            99,
+            195,
+            222,
+            255
+          ]
+        },
+        {
+          "count": 1519,
+          "rgba": [
+            90,
+            182,
+            214,
+            255
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "conventional_rgb_normal_decode_diagnostic": {
+        "hypothesis": "unsigned RGB directly encodes unit XYZ via RGB/127.5-1; original shader contract unverified",
+        "decoded_vector_length_min": 0.667854,
+        "decoded_vector_length_max": 1.108875,
+        "decoded_vector_length_mean": 0.838553,
+        "decoded_vector_length_standard_deviation": 0.05034,
+        "fraction_length_within_0_05_of_1": 0.033188,
+        "fraction_length_within_0_10_of_1": 0.110245
+      },
+      "mask_recommendation": "rgb_color_or_luminance",
+      "candidate_uses": [
+        "低强度水面颜色细节",
+        "低强度微波亮度调制"
+      ],
+      "candidate_use_note": "青蓝低对比RGB微纹理；alpha恒255；不可按透明mask或已确认法线使用。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": "projected_ocean",
+        "slot": "reference_surface",
+        "scope": "style1 fragment_detail"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 66,
+          "max": 123,
+          "mean": 89.151505,
+          "standard_deviation": 6.648252,
+          "unique_values": 24,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0,
+          "fraction_above_192": 0
+        },
+        "G": {
+          "min": 134,
+          "max": 223,
+          "mean": 177.127365,
+          "standard_deviation": 10.807608,
+          "unique_values": 60,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 0.080826
+        },
+        "B": {
+          "min": 198,
+          "max": 231,
+          "mean": 213.27948,
+          "standard_deviation": 4.418055,
+          "unique_values": 13,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 65536,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "luminance_pillow_rec601": {
+          "min": 121,
+          "max": 192,
+          "mean": 154.910995,
+          "standard_deviation": 8.535636,
+          "unique_values": 65,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.999557,
+          "fraction_above_192": 0
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "255": 65536
+      }
+    },
+    {
+      "filename": "water spash.tga.png",
+      "source_path": "C:/Games/Pirates-REA-Reference-20261011/preview/images/fpk/Pak7/water spash.tga.png",
+      "destination_path": "assets/textures/pirates_reference/water spash.tga.png",
+      "source_category": "commercial_game_reference",
+      "sha256": "4dca5f9fb03655b6317404570ccd8649cd27c1af619a3bea4252d1df8480bf38",
+      "byte_length": 6798,
+      "width": 128,
+      "height": 128,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 11690,
+          "rgba": [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "count": 938,
+          "rgba": [
+            255,
+            255,
+            255,
+            1
+          ]
+        },
+        {
+          "count": 367,
+          "rgba": [
+            255,
+            255,
+            255,
+            2
+          ]
+        },
+        {
+          "count": 189,
+          "rgba": [
+            255,
+            255,
+            255,
+            4
+          ]
+        },
+        {
+          "count": 188,
+          "rgba": [
+            255,
+            255,
+            255,
+            5
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "alpha",
+      "candidate_uses": [
+        "船首稀疏圆点飞沫",
+        "岸浪圆点飞沫"
+      ],
+      "candidate_use_note": "RGB恒255，alpha0..203；实看为离散圆滴/环斑，>64仅6.8%；spash及空格原样保留。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "selected_in_current_code_first_pass_gpu_sampled",
+      "current_binding": {
+        "owner": [
+          "shore_spray",
+          "water_splashes"
+        ],
+        "slot": "sparse_droplet_primary_mask",
+        "scope": "shore droplets and short elliptical cannon spray"
+      },
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户提供商业游戏参考素材的PNG预览并在本次任务指定复用。未验证原版权许可，不标注原创或公开许可。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "G": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "B": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        },
+        "A": {
+          "min": 0,
+          "max": 203,
+          "mean": 10.090881,
+          "standard_deviation": 28.713004,
+          "unique_values": 186,
+          "zero_pixels": 11690,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 0.286499,
+          "fraction_above_16": 0.124512,
+          "fraction_above_64": 0.067688,
+          "fraction_above_128": 0.015808,
+          "fraction_above_192": 0.000366
+        },
+        "luminance_pillow_rec601": {
+          "min": 255,
+          "max": 255,
+          "mean": 255,
+          "standard_deviation": 0,
+          "unique_values": 1,
+          "zero_pixels": 0,
+          "full_255_pixels": 16384,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 1,
+          "fraction_above_192": 1
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "0": 11690,
+        "1": 938,
+        "2": 367,
+        "3": 168,
+        "4": 189,
+        "5": 188,
+        "6": 104,
+        "7": 102,
+        "8": 105,
+        "9": 58,
+        "10": 74,
+        "11": 54,
+        "12": 47,
+        "13": 63,
+        "14": 76,
+        "15": 77,
+        "16": 44,
+        "17": 26,
+        "18": 41,
+        "19": 34,
+        "20": 17,
+        "21": 33,
+        "22": 32,
+        "23": 11,
+        "24": 25,
+        "25": 29,
+        "26": 21,
+        "27": 23,
+        "28": 21,
+        "29": 17,
+        "30": 20,
+        "31": 25,
+        "32": 13,
+        "33": 26,
+        "34": 24,
+        "35": 14,
+        "36": 18,
+        "37": 12,
+        "38": 11,
+        "39": 27,
+        "40": 20,
+        "41": 27,
+        "42": 25,
+        "43": 15,
+        "44": 16,
+        "45": 18,
+        "46": 13,
+        "47": 24,
+        "48": 29,
+        "49": 10,
+        "50": 6,
+        "51": 17,
+        "52": 5,
+        "53": 13,
+        "54": 24,
+        "55": 19,
+        "56": 13,
+        "57": 15,
+        "58": 6,
+        "59": 21,
+        "60": 22,
+        "61": 10,
+        "62": 21,
+        "63": 16,
+        "64": 6,
+        "65": 19,
+        "66": 23,
+        "67": 12,
+        "68": 34,
+        "69": 11,
+        "70": 15,
+        "71": 19,
+        "72": 11,
+        "73": 8,
+        "74": 14,
+        "75": 7,
+        "76": 13,
+        "77": 11,
+        "78": 12,
+        "79": 16,
+        "80": 16,
+        "81": 6,
+        "82": 9,
+        "83": 24,
+        "84": 8,
+        "85": 14,
+        "86": 19,
+        "87": 14,
+        "88": 18,
+        "89": 16,
+        "90": 13,
+        "91": 22,
+        "92": 20,
+        "93": 12,
+        "94": 15,
+        "95": 9,
+        "96": 25,
+        "97": 13,
+        "98": 13,
+        "99": 19,
+        "100": 12,
+        "101": 10,
+        "102": 22,
+        "103": 19,
+        "104": 12,
+        "105": 15,
+        "106": 17,
+        "107": 10,
+        "108": 14,
+        "109": 13,
+        "110": 8,
+        "111": 13,
+        "112": 11,
+        "113": 7,
+        "114": 10,
+        "115": 15,
+        "116": 10,
+        "117": 15,
+        "118": 9,
+        "119": 5,
+        "120": 5,
+        "121": 7,
+        "122": 8,
+        "123": 11,
+        "124": 11,
+        "125": 8,
+        "126": 10,
+        "127": 6,
+        "128": 7,
+        "129": 10,
+        "130": 3,
+        "131": 9,
+        "132": 10,
+        "133": 5,
+        "134": 7,
+        "135": 12,
+        "136": 4,
+        "137": 2,
+        "138": 9,
+        "139": 10,
+        "140": 7,
+        "141": 9,
+        "142": 8,
+        "143": 3,
+        "144": 5,
+        "145": 8,
+        "146": 7,
+        "147": 3,
+        "148": 10,
+        "149": 7,
+        "150": 6,
+        "151": 7,
+        "152": 4,
+        "153": 2,
+        "154": 4,
+        "155": 2,
+        "156": 4,
+        "157": 2,
+        "158": 3,
+        "160": 2,
+        "161": 5,
+        "162": 1,
+        "163": 5,
+        "164": 5,
+        "165": 5,
+        "166": 2,
+        "167": 5,
+        "168": 4,
+        "169": 10,
+        "170": 5,
+        "171": 4,
+        "172": 1,
+        "173": 5,
+        "175": 3,
+        "176": 1,
+        "179": 1,
+        "180": 2,
+        "182": 1,
+        "183": 1,
+        "186": 1,
+        "188": 1,
+        "189": 1,
+        "193": 2,
+        "195": 2,
+        "198": 1,
+        "203": 1
+      }
+    },
+    {
+      "filename": "user_water_caustics.png",
+      "source_path": "C:/Users/dains/AppData/Local/Temp/codex-clipboard-83c0b05f-9a86-4a66-a828-2f94d77d5223.png",
+      "destination_path": "assets/textures/pirates_reference/user_water_caustics.png",
+      "source_category": "user_attachment",
+      "sha256": "83c670624064a6817e3e7e94079b98d512fff5abf19b82a389fe50aca46c3e5e",
+      "byte_length": 93556,
+      "width": 256,
+      "height": 256,
+      "original_mode": "RGBA",
+      "original_bands": [
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "embedded_alpha": true,
+      "rgba_analysis_mode": "RGBA",
+      "most_common_rgba_values": [
+        {
+          "count": 2092,
+          "rgba": [
+            41,
+            56,
+            90,
+            68
+          ]
+        },
+        {
+          "count": 2028,
+          "rgba": [
+            66,
+            85,
+            123,
+            85
+          ]
+        },
+        {
+          "count": 1566,
+          "rgba": [
+            82,
+            101,
+            140,
+            85
+          ]
+        },
+        {
+          "count": 1376,
+          "rgba": [
+            49,
+            65,
+            99,
+            85
+          ]
+        },
+        {
+          "count": 1279,
+          "rgba": [
+            57,
+            81,
+            115,
+            85
+          ]
+        }
+      ],
+      "copied_byte_identical": true,
+      "mask_recommendation": "rgb_luminance",
+      "candidate_uses": [
+        "浅水焦散白网细节"
+      ],
+      "candidate_use_note": "用户附件，RGB白网清楚；含alpha68..204全幅非零，仅9档，不能宣称无alpha，也不作为透明洞。",
+      "original_runtime_role_verified": false,
+      "tile_seam_verified": false,
+      "delivery_transformations": [],
+      "selection_status": "alternative_not_bound_in_current_code",
+      "current_binding": null,
+      "license": {
+        "local_reuse_authorized_by_user": true,
+        "ownership_verified": false,
+        "public_license_identifier": null,
+        "third_party_publication_or_redistribution_rights_verified": false,
+        "source_statement": "用户本次附图。未确认作者、原创性或许可，不标注为公开许可或原创。"
+      },
+      "channel_statistics": {
+        "R": {
+          "min": 16,
+          "max": 231,
+          "mean": 78.206039,
+          "standard_deviation": 33.087642,
+          "unique_values": 106,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 0.999481,
+          "fraction_above_64": 0.609818,
+          "fraction_above_128": 0.077972,
+          "fraction_above_192": 0.004349
+        },
+        "G": {
+          "min": 24,
+          "max": 239,
+          "mean": 96.200531,
+          "standard_deviation": 32.635089,
+          "unique_values": 183,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.844864,
+          "fraction_above_128": 0.173492,
+          "fraction_above_192": 0.007431
+        },
+        "B": {
+          "min": 49,
+          "max": 247,
+          "mean": 130.55426,
+          "standard_deviation": 29.701411,
+          "unique_values": 94,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.999817,
+          "fraction_above_128": 0.492477,
+          "fraction_above_192": 0.026138
+        },
+        "A": {
+          "min": 68,
+          "max": 204,
+          "mean": 88.568558,
+          "standard_deviation": 17.369671,
+          "unique_values": 9,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 1,
+          "fraction_above_128": 0.033768,
+          "fraction_above_192": 0.000488
+        },
+        "luminance_pillow_rec601": {
+          "min": 24,
+          "max": 238,
+          "mean": 94.753128,
+          "standard_deviation": 32.411514,
+          "unique_values": 193,
+          "zero_pixels": 0,
+          "full_255_pixels": 0,
+          "nonzero_fraction": 1,
+          "fraction_above_16": 1,
+          "fraction_above_64": 0.805054,
+          "fraction_above_128": 0.166122,
+          "fraction_above_192": 0.007324
+        }
+      },
+      "alpha_value_pixel_counts": {
+        "68": 13456,
+        "85": 34902,
+        "102": 10568,
+        "119": 4397,
+        "136": 1452,
+        "153": 473,
+        "170": 157,
+        "187": 99,
+        "204": 32
+      }
+    }
+  ]
+}

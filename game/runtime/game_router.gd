@@ -7,7 +7,8 @@ const MingqiRuntime = preload("res://game/runtime/mingqi_runtime.gd")
 const LegacyRuntime = preload("res://game/runtime/legacy_runtime.gd")
 const Menu = preload("res://game/ui/menu/main_menu.gd")
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","practice"]
+const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
+const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","practice","water-study"]
 var generation := 1
 var mingqi_storage: RefCounted
 var legacy_storage: RefCounted
@@ -26,7 +27,8 @@ func _init(dependencies: Dictionary = {}) -> void:
 	legacy_storage = dependencies.get("legacy_storage",Storage.new("user://saves/legacy-v1.json",LegacyRuntime.validate_save))
 	settings_storage = dependencies.get("settings_storage",Settings.new())
 	entry_factory = dependencies.get("entry_factory",Callable())
-	dev = dependencies.get("dev",false); qa = dependencies.get("qa",false)
+	dev = DevelopmentAccess.host_allows() and bool(dependencies.get("dev",false))
+	qa = DevelopmentAccess.host_allows() and bool(dependencies.get("qa",false))
 
 static func _no(reason: String) -> Dictionary: return {"ok":false,"reason":reason}
 func view_model() -> Dictionary:
@@ -52,7 +54,7 @@ func prepare_entry(request: Dictionary) -> Dictionary:
 	var mode: String = request.get("mode","") if type == "start" else type
 	if mode == "quit": return _stamp({"ok":true,"quit":true})
 	if mode not in MODES: return _stamp(_no("entry-unknown"))
-	if mode in ["qa","practice"] and not (dev or qa): return _stamp(_no("entry-developer-only"))
+	if mode in ["qa","practice"] and not (DevelopmentAccess.host_allows() and (dev or qa)): return _stamp(_no("entry-developer-only"))
 	var seed: Variant = request.get("qaSeed",randi())
 	if not seed is int or seed < 0 or seed > 4294967295: return _stamp(_no("entry-invalid-seed"))
 	var options := {"mode":mode,"captainName":Menu.normalized_name(request.get("name",Menu.DEFAULT_NAME)),"seed":seed,"handlingMode":settings_storage.snapshot().handling,"dev":dev,"qa":qa}
@@ -125,9 +127,10 @@ func commit_import(candidate: Dictionary) -> Dictionary:
 func create_scene(candidate: Dictionary) -> Dictionary:
 	if not is_current(candidate): return _no("entry-stale")
 	var mode: String = candidate.mode
+	if mode in ["qa","practice"] and not (DevelopmentAccess.host_allows() and (dev or qa)): return _no("entry-developer-only")
 	var node: Node
-	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice","qa"]:
-		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn","qa":"res://game/scenes/visual_qa/visual_qa.tscn"}
+	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice","qa","water-study"]:
+		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn","qa":"res://game/scenes/visual_qa/visual_qa.tscn","water-study":"res://game/scenes/reference_island_water/reference_island_water.tscn"}
 		var scene_path: String = paths[mode]
 		var resource = load(scene_path)
 		if not resource is PackedScene: return _no("entry-resource-unavailable")

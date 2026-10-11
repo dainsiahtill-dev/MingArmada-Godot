@@ -1,0 +1,84 @@
+{
+  "checkedAtUtc": "2026-10-11T14:03:38.510Z",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "scope": "terrain-informed reference island dressing, actual footings/slope/route clearances, legacy owned resources, irregular contour and distant support; no GPU window",
+  "before": {
+    "assertions": 307,
+    "failures": 10,
+    "counts": {
+      "xiamen": {
+        "architecture": 0,
+        "coastalTrees": 0,
+        "pathFragments": 0
+      },
+      "kinmen": {
+        "architecture": 2,
+        "coastalTrees": 6,
+        "pathFragments": 23
+      },
+      "forwardSupply": {
+        "architecture": 0,
+        "coastalTrees": 3,
+        "pathFragments": 0
+      }
+    }
+  },
+  "actualIsolatedLayer": {
+    "externalBuildingFootprints": [],
+    "counts": {
+      "xiamen": {
+        "architecture": 3,
+        "lifeProps": 2,
+        "lowSlopeTrees": 5,
+        "pathFragments": 74,
+        "outcrops": 41
+      },
+      "kinmen": {
+        "architecture": 6,
+        "lifeProps": 2,
+        "lowSlopeTrees": 36,
+        "pathFragments": 150,
+        "outcrops": 47
+      },
+      "forwardSupply": {
+        "architecture": 3,
+        "lifeProps": 2,
+        "lowSlopeTrees": 5,
+        "pathFragments": 69,
+        "outcrops": 44
+      }
+    },
+    "instances": 931,
+    "reusableMeshes": 23,
+    "meshVertices": 19254
+  },
+  "runs": [
+    {
+      "test": "tests/test_reference_island_art.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_ISLAND_ART_COUNTS { \"forward-supply\": { \"beached_boat\": 1, \"drying_rack\": 1, \"market_stall\": 2, \"lean_to\": 1, \"barrel\": 10, \"basket\": 4, \"cargo_net\": 4, \"crate\": 6, \"path_gravel\": 69, \"pebble\": 35, \"beach_grass\": 14, \"shrub\": 5, \"outcrop\": 44, \"reef\": 6, \"shore_tree\": 5, \"rope_coil\": 2, \"bollard\": 2, \"lantern\": 2 }, \"kinmen\": { \"beached_boat\": 1, \"drying_rack\": 1, \"market_stall\": 2, \"lean_to\": 3, \"harbor_house\": 1, \"crate\": 15, \"barrel\": 14, \"basket\": 7, \"cargo_net\": 6, \"path_gravel\": 150, \"pebble\": 30, \"beach_grass\": 106, \"shrub\": 47, \"outcrop\": 47, \"reef\": 8, \"coastal_tree\": 16, \"shore_tree\": 20, \"rope_coil\": 2, \"bollard\": 2, \"lantern\": 2 }, \"xiamen\": { \"beached_boat\": 1, \"drying_rack\": 1, \"market_stall\": 1, \"lean_to\": 1, \"harbor_house\": 1, \"crate\": 8, \"barrel\": 5, \"basket\": 4, \"path_gravel\": 74, \"pebble\": 25, \"beach_grass\": 42, \"shrub\": 13, \"outcrop\": 41, \"reef\": 8, \"coastal_tree\": 2, \"shore_tree\": 3, \"rope_coil\": 2, \"cargo_net\": 2, \"bollard\": 2, \"lantern\": 2 } }\r\nREFERENCE_ISLAND_ART_RESOURCES instances=931 meshes=23 vertices=19254\r\nREFERENCE_ISLAND_ART_TESTS assertions=2111 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_island_details.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nISLAND_DETAILS_PHASE2 groves={ \"forward-supply\": 21, \"kinmen\": 35, \"xiamen\": 42 } architecture={ \"forward-supply\": 6, \"kinmen\": 6, \"xiamen\": 6 } path_fragments={ \"forward-supply\": 88, \"kinmen\": 104, \"xiamen\": 109 }\r\nISLAND_DETAILS_REAL instances=1442 groups=71 meshes=23 vertices=19254 reefs=24 outcrops=129\r\nISLAND_DETAILS_TESTS assertions=4566 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_reference_coastal_dressing.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_COASTAL_DRESSING_TESTS assertions=11 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_distant_island_support.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nDISTANT_ISLAND_SUPPORT_TESTS assertions=31 failures=0\r\n",
+      "passed": true
+    }
+  ],
+  "passedAll": true,
+  "gpuAcceptance": "pending root official scene capture",
+  "formalWorldRequires": "pass the actual successful legacy house footprints via options.existing_buildings"
+}

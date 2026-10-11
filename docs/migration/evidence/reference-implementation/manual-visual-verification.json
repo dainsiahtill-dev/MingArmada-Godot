@@ -1,0 +1,46 @@
+{
+  "schema": "ming-armada-reference-manual-visual-review-v1",
+  "reviewedAtUtc": "2026-10-11T12:17:36.120823+00:00",
+  "reviewer": "root",
+  "captureCount": 60,
+  "visualIndexSha256": "b338339a47b65d5c68024f8dddc535e40d544e395000166d39d1736dfe5d5272",
+  "inspectionMethod": "Root personally viewed all 10 labelled contact sheets (60 original GPU captures), and full-size shore, sailing, splash, damage, crew impact, dismast, sinking, optics baseline/refraction/both views.",
+  "findings": [
+    {
+      "area": "water and shore",
+      "result": "pass",
+      "observed": "Bright readable blue-green sea, moving white shoreline bands, docks and distant islands supported by terrain; no rectangular wake background."
+    },
+    {
+      "area": "3D splash",
+      "result": "pass",
+      "observed": "Spatial white column, cap and expanding water rings visible in overhead and low views; finite per-event lifetime."
+    },
+    {
+      "area": "ships and damage",
+      "result": "pass",
+      "observed": "Hull remains solid, original organic sail holes replace dot grid; falling masts carry sails, yards, rigging and flag."
+    },
+    {
+      "area": "crew",
+      "result": "pass",
+      "observed": "3D crew stand on deck; actual salvos displace physical bodies; impact and recovery frames agree with diagnostics."
+    },
+    {
+      "area": "optics",
+      "result": "pass",
+      "observed": "Identical authority snapshots show pier/ship reflection and shallow-water difference; no broad screen-feedback block in sampled camera views."
+    },
+    {
+      "area": "UI and quality",
+      "result": "pass",
+      "observed": "Product helm/broadside states readable, QA narrow view scrollable; low/high variants rendered."
+    }
+  ],
+  "limitations": [
+    "Fixed accepted ticks are image acceptance only, not measured FPS.",
+    "Contact sheets are derived viewing aids; original PNG pixels were not edited.",
+    "Screenspace reflections omit offscreen and transparent objects.",
+    "Sampled images do not prove all possible camera angles, hardware, campaign content, or exhaustive collision configurations."
+  ]
+}

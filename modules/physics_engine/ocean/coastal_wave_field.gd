@@ -3,14 +3,32 @@ extends RefCounted
 ## Eight metres is shared with coastal_wave_functions.gdshaderinc.
 
 const Original = preload("res://modules/physics_engine/ocean/wave_field.gd")
+const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const BREAKING_DEPTH := 8.0
 var _original := Original.new()
 var _height_sampler: Callable
 
-func configure(height_sampler: Callable) -> bool:
+func configure(height_sampler: Callable, descriptors: Array = Descriptor.original_descriptors()) -> bool:
 	if not height_sampler.is_valid(): return false
+	var next := Original.new()
+	if not next.configure(descriptors): return false
+	_original = next
 	_height_sampler = height_sampler
 	return true
+
+func sample_height(x: float, z: float, time: float) -> float:
+	# Height consumers need the center depth only. Preserve sample()'s exact
+	# offshore fallback, land boundary and cubic attenuation in double scalars.
+	var raw: float = _original.sample_height(x, z, time)
+	if not _height_sampler.is_valid(): return raw
+	var height := float(_height_sampler.call(x, z))
+	if not is_finite(height): return raw
+	var depth := -height
+	if depth >= BREAKING_DEPTH: return raw
+	if depth <= 0.0: return 0.0
+	var t := depth / BREAKING_DEPTH
+	var scale := t * t * (3.0 - 2.0 * t)
+	return raw * scale
 
 func sample(x: float, z: float, time: float) -> Dictionary:
 	var raw: Dictionary = _original.sample(x, z, time)

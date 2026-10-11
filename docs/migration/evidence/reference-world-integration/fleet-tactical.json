@@ -1,0 +1,508 @@
+{
+	"camera": "[X: (-0.808736, 0.0, -0.588172), Y: (-0.379753, 0.763634, 0.52216), Z: (0.449148, 0.64565, -0.617578), O: (80.98607, 118.4535, -109.7801)]",
+	"effects": {
+		"events": 10,
+		"projectiles": 6,
+		"puffs": 60,
+		"splashes": 0
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"imageSha256": "ae15bf97ac8b68ffd80db51b3219fe4c1bfe29313c6e4d4600882f042ecb447c",
+	"nearBounds": "(-875.0, -875.0, 875.0, 875.0)",
+	"optics": {
+		"accepted_time": 1.55,
+		"camera_valid": true,
+		"depth_source": "current-viewport-inverse-projection",
+		"enabled": true,
+		"includes_offscreen_objects": true,
+		"includes_transparent_objects": true,
+		"offscreen_targets": 1,
+		"private_worlds": 0,
+		"quality": "balanced",
+		"reflection_enabled": true,
+		"reflection_method": "planar-subviewport",
+		"reflection_size": "(768, 432)",
+		"reflection_steps": 0,
+		"refraction_enabled": true,
+		"requested": true,
+		"screen_source": "current-viewport-opaque-copy",
+		"shared_world": true,
+		"transparent_objects_supported": true,
+		"water_layer_excluded": true,
+		"wave_profile": "authoritative-five-wave"
+	},
+	"referenceProfiles": [
+		{
+			"dock": "(-306.2571, -38.28214)",
+			"height": 193,
+			"id": "coastal2",
+			"inward": "(-0.992278, -0.124035)",
+			"islandCenter": "(-480.0, -60.0)",
+			"peak": 58.0,
+			"scale": 0.925971459507671,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(164.0, 83.0)",
+			"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+			"sourceOutward": "(-0.741536, 0.670913)",
+			"width": 329
+		},
+		{
+			"dock": "(282.1499, 107.4857)",
+			"height": 140,
+			"id": "cat_island",
+			"inward": "(0.934488, 0.355995)",
+			"islandCenter": "(420.0, 160.0)",
+			"peak": 48.0,
+			"scale": 2.23698910688314,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(56.0, 69.0)",
+			"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+			"sourceOutward": "(0.616882, 0.787056)",
+			"width": 120
+		},
+		{
+			"dock": "(-541.3493, -437.856)",
+			"height": 77,
+			"id": "virgin_islands",
+			"inward": "(-0.777511, -0.628869)",
+			"islandCenter": "(-680.0, -550.0)",
+			"peak": 66.0,
+			"scale": 3.07849133349328,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(78.0, 35.5)",
+			"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+			"sourceOutward": "(-0.496139, 0.868243)",
+			"width": 160
+		},
+		{
+			"dock": "(645.77, -356.8729)",
+			"height": 140,
+			"id": "cat_island",
+			"inward": "(0.875242, -0.483686)",
+			"islandCenter": "(760.0, -420.0)",
+			"peak": 36.0,
+			"scale": 2.02727137811285,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(56.0, 69.0)",
+			"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+			"sourceOutward": "(0.616882, 0.787056)",
+			"width": 120
+		},
+		{
+			"dock": "(939.9417, 367.8033)",
+			"height": 193,
+			"id": "coastal2",
+			"inward": "(0.931243, 0.364399)",
+			"islandCenter": "(1150.0, 450.0)",
+			"peak": 76.0,
+			"scale": 1.22628652745611,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(164.0, 83.0)",
+			"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+			"sourceOutward": "(-0.741536, 0.670913)",
+			"width": 329
+		},
+		{
+			"dock": "(-232.142, 613.5182)",
+			"height": 77,
+			"id": "virgin_islands",
+			"inward": "(-0.353892, 0.935286)",
+			"islandCenter": "(-280.0, 740.0)",
+			"peak": 46.0,
+			"scale": 2.55289525216516,
+			"scope": "Original height silhouette with explicit game scale, border closure and local harbor adaptation.",
+			"seaIndex": 128.0,
+			"sourceCenter": "(78.0, 35.5)",
+			"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+			"sourceOutward": "(-0.496139, 0.868243)",
+			"width": 160
+		}
+	],
+	"route": "actual MainScene menu Control and entry router",
+	"runtime": {
+		"naval": {
+			"battleId": "practice-fleet-11212-1",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [
+				{
+					"age": 1.41666666666667,
+					"ammo": "solid",
+					"id": "shot-5",
+					"position": {
+						"x": 0.17950390028863,
+						"y": 3.28786740628674,
+						"z": 7.84260621694507
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": 0.292273529315346,
+						"y": -6.79228779504179,
+						"z": -64.6098331193215
+					}
+				},
+				{
+					"age": 1.41666666666667,
+					"ammo": "solid",
+					"id": "shot-7",
+					"position": {
+						"x": 1.34334909223269,
+						"y": 3.46887860102183,
+						"z": -9.38782460815832
+					},
+					"shipId": "enemy-2",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -7.61754638955376,
+						"y": -6.4984363317514,
+						"z": 64.1266469093481
+					}
+				},
+				{
+					"age": 1.28333333333333,
+					"ammo": "solid",
+					"id": "shot-9",
+					"position": {
+						"x": 0.918179476869163,
+						"y": 4.1105380405499,
+						"z": 16.5014590122014
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -1.97943611471325,
+						"y": -5.47775755328757,
+						"z": -64.5794468235785
+					}
+				},
+				{
+					"age": 1.28333333333333,
+					"ammo": "solid",
+					"id": "shot-11",
+					"position": {
+						"x": 3.11261171783402,
+						"y": 4.29873612689894,
+						"z": -18.2303978191851
+					},
+					"shipId": "enemy-2",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -9.33715113879299,
+						"y": -5.14785918673756,
+						"z": 63.8939714731971
+					}
+				},
+				{
+					"age": 1.15,
+					"ammo": "solid",
+					"id": "shot-13",
+					"position": {
+						"x": 2.28948844102858,
+						"y": 4.79557989728675,
+						"z": 25.4612219295989
+					},
+					"shipId": "enemy-1",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -4.23438944219337,
+						"y": -4.12457134185417,
+						"z": -64.46586940571
+					}
+				},
+				{
+					"age": 1.15,
+					"ammo": "solid",
+					"id": "shot-15",
+					"position": {
+						"x": 5.3988187842738,
+						"y": 4.97070461876323,
+						"z": -27.2285259280094
+					},
+					"shipId": "enemy-2",
+					"ttl": 8.0,
+					"velocity": {
+						"x": -11.0144031564855,
+						"y": -3.76913412156276,
+						"z": 63.6179792355502
+					}
+				}
+			],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 93,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 98.0,
+					"dimensions": {
+						"draft": 2.0,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 84.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "逐浪号",
+					"rudder": 0.0,
+					"sail": 98.0,
+					"sailAngle": -1.22610704371423,
+					"sailDeployment": 1.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 2.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.0,
+						"heel": 0.0316118007317102,
+						"pitch": 0.0829222863610414,
+						"position": {
+							"x": 0.986069817870493,
+							"y": 0.453487427895961,
+							"z": 0.219898254946066
+						},
+						"velocity": {
+							"x": 1.19989341946134,
+							"y": 0.0,
+							"z": 0.14641929211938
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 39
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 94,
+					"cooldownSeconds": {
+						"port": 5.46666666666667,
+						"starboard": 0.0
+					},
+					"crew": 100.0,
+					"dimensions": {
+						"draft": 3.2,
+						"length": 40.0,
+						"width": 11.0
+					},
+					"hull": 100.0,
+					"id": "enemy-1",
+					"kind": "voc",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "VOC武装商船",
+					"rudder": -0.0146569956639169,
+					"sail": 100.0,
+					"sailAngle": -1.23871224138129,
+					"sailDeployment": 0.65,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 3.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "hostile",
+					"visual": {
+						"heading": -0.000275929251184795,
+						"heel": 0.0153129007351917,
+						"pitch": 0.0354050979746619,
+						"position": {
+							"x": 2.10346261140164,
+							"y": -0.462097966221616,
+							"z": 105.141495793019
+						},
+						"velocity": {
+							"x": 0.623149678096524,
+							"y": 0.0,
+							"z": 0.119778428022024
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 39
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 94,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 5.46666666666667
+					},
+					"crew": 100.0,
+					"dimensions": {
+						"draft": 2.0,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 100.0,
+					"id": "enemy-2",
+					"kind": "fuchuan",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "海盗战船",
+					"rudder": 0.169349346418607,
+					"sail": 100.0,
+					"sailAngle": -1.23701342662545,
+					"sailDeployment": 0.65,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 2.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "hostile",
+					"visual": {
+						"heading": 0.00487006413628341,
+						"heel": 0.00159333818856066,
+						"pitch": 0.0692937447177783,
+						"position": {
+							"x": 14.2633158859463,
+							"y": 0.562371944972137,
+							"z": -104.847329542728
+						},
+						"velocity": {
+							"x": 0.818368316332552,
+							"y": 0.0,
+							"z": 0.128290120984869
+						}
+					}
+				}
+			],
+			"status": "active",
+			"tick": 93,
+			"time": 1.55,
+			"wind": {
+				"direction": {
+					"x": -0.8,
+					"y": -0.6
+				},
+				"speed": 14.0
+			}
+		},
+		"runtime": {
+			"generation": 1,
+			"handlingMode": "assisted",
+			"mode": "fleet",
+			"notice": "",
+			"pauseReasons": [],
+			"paused": false,
+			"surrenderQuote": {}
+		}
+	},
+	"scene": "res://game/scenes/naval_practice/naval_practice.gd",
+	"scope": "Formal gameplay composition and GPU appearance at accepted ticks. Excludes wall-time performance and complete historical journey.",
+	"terrainChunks": 49,
+	"viewport": [
+		1600,
+		900
+	],
+	"wakes": {
+		"accepted_time": 1.55,
+		"attached_waves": 9,
+		"samples": 35,
+		"trails": 3,
+		"wave_budget": 96
+	},
+	"waterShader": "res://modules/scene_engine/ocean/reference_game_water.gdshader"
+}

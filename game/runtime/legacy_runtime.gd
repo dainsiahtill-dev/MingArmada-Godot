@@ -47,6 +47,10 @@ static func _terminal(native: Dictionary) -> bool: return native.get("status") i
 static func validate_save(raw: String) -> Dictionary:
 	var candidate = Session.new()
 	return {"ok":true} if candidate.restore(raw) else _no(candidate.last_error)
+var _reference_enhancements := false
+func enable_reference_enhancements(enabled: bool = true) -> void:
+	_reference_enhancements = enabled
+
 func configure(height_sampler: Callable,options: Dictionary = {}) -> Dictionary:
 	if not height_sampler.is_valid(): return _no("invalid-terrain-sampler")
 	var domain_options := options.duplicate(); domain_options.erase("storage")
@@ -110,7 +114,7 @@ func _live_setup(ship: Dictionary) -> Dictionary:
 func _native(state: Dictionary,setups: Array) -> RefCounted:
 	var descriptors: Array = Descriptor.original_descriptors()
 	for wave: Dictionary in descriptors: wave.direction = {"x":wave.direction.x,"y":wave.direction.z}
-	return Encounter.new({"playerId":state.flagshipId,"ships":setups,"seed":state.seed,"wind":state.weather.wind,"battleId":"legacy-%d-%d-%d"%[_generation+1,Time.get_ticks_usec(),randi()],"sampleTerrainHeight":_height,"oceanWaves":descriptors,"waveSampler":_waves})
+	return Encounter.new({"playerId":state.flagshipId,"ships":setups,"seed":state.seed,"wind":state.weather.wind,"battleId":"legacy-%d-%d-%d"%[_generation+1,Time.get_ticks_usec(),randi()],"sampleTerrainHeight":_height,"oceanWaves":descriptors,"waveSampler":_waves,"referenceHandling":_reference_enhancements,"referenceGunnery":_reference_enhancements})
 func _validate_all(owner: RefCounted,setups: Array) -> Dictionary:
 	var native := _native(owner.snapshot(),setups)
 	return {"ok":true} if native.last_error.is_empty() else _no(native.last_error)
@@ -476,7 +480,7 @@ func drain_events() -> Array:
 	_collect(); var incoming := _events; _events = []; return incoming.duplicate(true)
 func drain_results() -> Array: return simulation.drain_results() if simulation else []
 func sample_water_height(x: float,z: float,seconds: float=NAN) -> float:
-	return _waves.sample(x,z,simulation.snapshot().time if is_nan(seconds) and simulation else 0 if is_nan(seconds) else seconds).height if _waves else 0
+	return _waves.sample_height(x,z,simulation.snapshot().time if is_nan(seconds) and simulation else 0 if is_nan(seconds) else seconds) if _waves else 0
 func dispose() -> void:
 	_disposed = true; _generation += 1; _events.clear(); _unsynced.clear(); _surrender_prompt.clear()
 	if encounter_coordinator: encounter_coordinator.dispose()

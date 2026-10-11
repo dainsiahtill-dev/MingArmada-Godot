@@ -58,7 +58,13 @@ func populate(parent: Node3D, sampler: Callable, coordinate: Vector2i, size: flo
 			var wx := x + coordinate.x * size
 			var wz := z + coordinate.y * size
 			var height := float(sampler.call(wx, wz))
-			if height <= 0.3 or height >= 90.0 or rng.randf() > 0.06:
+			if not is_finite(height) or height <= 0.3 or height >= 90.0 or rng.randf() > 0.06:
+				continue
+			# Authored reference islands have real cliffs and narrow ridge shoulders.
+			# Preserve source tree geometry, but require stable soil for its roots.
+			var slope_x: float=(float(sampler.call(wx+0.75,wz))-float(sampler.call(wx-0.75,wz)))/1.5
+			var slope_z: float=(float(sampler.call(wx,wz+0.75))-float(sampler.call(wx,wz-0.75)))/1.5
+			if not is_finite(slope_x) or not is_finite(slope_z) or slope_x*slope_x+slope_z*slope_z>0.49:
 				continue
 			var excluded := false
 			for port: Dictionary in exclusions:

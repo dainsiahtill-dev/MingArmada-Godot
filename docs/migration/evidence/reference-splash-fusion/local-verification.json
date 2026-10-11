@@ -1,0 +1,48 @@
+{
+  "checkedAtUtc": "2026-10-11T13:42:17.465Z",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "scope": "splash fusion CPU/source/actual projectile event pipeline plus preserved legacy effects; GPU pending root",
+  "redBeforeImplementation": {
+    "assertions": 2,
+    "failures": 1,
+    "reason": "actual combat splash includes exported source geometry and eight authored systems"
+  },
+  "redLiveFilter": {
+    "assertions": 71,
+    "failures": 2,
+    "reason": "active source geometry and particles retained an earlier sea filter"
+  },
+  "runs": [
+    {
+      "test": "tests/test_reference_splash_fusion.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_SPLASH_FUSION_TESTS assertions=71 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_pirates_water_effects.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nPIRATES_WATER_EFFECT_TESTS assertions=127 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_reference_water_volume.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_WATER_VOLUME_TESTS assertions=133 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_reference_event_time.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_EVENT_TIME_TESTS assertions=31 failures=0\r\n",
+      "passed": true
+    },
+    {
+      "test": "tests/test_reference_presentation_integration.gd",
+      "exitCode": 0,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nREFERENCE_PRESENTATION_INTEGRATION_TESTS assertions=7 failures=0\r\n",
+      "passed": true
+    }
+  ],
+  "passedAll": true
+}

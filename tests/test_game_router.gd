@@ -85,7 +85,7 @@ func _run() -> void:
 	var actual = Router.new({"mingqi_storage":disk})
 	request.generation = actual.generation; request.nonce = 1
 	check(actual.prepare_entry(request).ok and not FileAccess.file_exists(disk_path+".backup"),"actual file continue leaves backup rotation absent")
-	for mode in ["duel","fleet","sail","ships","practice","qa"]:
+	for mode in ["duel","fleet","sail","ships","practice","qa","water-study"]:
 		actual.dev = true; actual.cancel()
 		var entry: Dictionary = actual.prepare_entry({"type":"start" if mode in ["duel","fleet","sail"] else mode,"mode":mode,"name":" \t林  明\n","qaSeed":1661,"dev":false,"qa":true,"generation":actual.generation,"nonce":actual.generation})
 		var made: Dictionary = actual.create_scene(entry)

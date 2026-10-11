@@ -1,0 +1,148 @@
+{
+  "schema": "ming-armada-user-water-textures-v1",
+  "textures": [
+    {
+      "name": "water_spaarkle.dds.png",
+      "previewSource": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak0\\water_spaarkle.dds.png",
+      "rawSource": "C:\\Games\\Pirates-REA-Reference-20261011\\raw\\fpk\\Pak0\\water_spaarkle.dds",
+      "pngSha256": "7ffdd77800ec4e7a0badd54bc220b919de272045bfb5e4bf763c3431fb933952",
+      "ddsSha256": "c39470e5ee05138a31899770e6a0847a057b3503a78dc9863da27e0fb938ae66",
+      "decodedDdsPngPixelsIdentical": true,
+      "dimensions": [
+        256,
+        256
+      ],
+      "rgbaRanges": [
+        [
+          216,
+          222
+        ],
+        [
+          252,
+          255
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          0,
+          255
+        ]
+      ],
+      "alphaMeanNormalized": 0.09602254231770833,
+      "alphaZeroFraction": 0.51495361328125,
+      "alphaAbove180Fraction": 0.0180206298828125,
+      "role": "Sparse alpha micro-highlight mask; not a normal or opaque albedo.",
+      "evidence": "Full original Pak NIF audit: sparkle_surface.nif NiTexturingProperty block7 Base -> NiSourceTexture block8 water_spaarkle.dds; exact original shader/program binding remains unproved. WaterSparkle/OceanWaterSparkle alpha-layer semantics are separate shader evidence."
+    },
+    {
+      "name": "foam0016.dds.png",
+      "previewSource": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak0\\foam0016.dds.png",
+      "rawSource": "C:\\Games\\Pirates-REA-Reference-20261011\\raw\\fpk\\Pak0\\foam0016.dds",
+      "pngSha256": "4e5cdddf6b16cabb3955b5ac3a539123abbb78017cb8d74beab43958e5c51a96",
+      "ddsSha256": "c262d1ef4c7b0e8cc309a619837777d22a940eb0d77e6d1a796a81ef79136ca1",
+      "decodedDdsPngPixelsIdentical": true,
+      "dimensions": [
+        64,
+        64
+      ],
+      "rgbaRanges": [
+        [
+          203,
+          203
+        ],
+        [
+          227,
+          227
+        ],
+        [
+          214,
+          214
+        ],
+        [
+          0,
+          255
+        ]
+      ],
+      "alphaMeanNormalized": 0.3326334635416667,
+      "alphaZeroFraction": 0.266357421875,
+      "alphaAbove180Fraction": 0.151123046875,
+      "role": "Constant RGB; alpha has ragged advancing surf head and trailing foam.",
+      "evidence": "Original pixel structure and WaterSparkle/OceanWaterSparkle mask-layer semantics; exact original filename shader binding is not proven."
+    },
+    {
+      "name": "foam0024.dds.png",
+      "previewSource": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak0\\foam0024.dds.png",
+      "rawSource": "C:\\Games\\Pirates-REA-Reference-20261011\\raw\\fpk\\Pak0\\foam0024.dds",
+      "pngSha256": "1ac058271974fb0dadac22feb12f3104c7d4be75b444012ce08d88eacedad34a",
+      "ddsSha256": "74684eb7794c3f33a79cb3a4a46c9b235ba1a8c53d318aad512866af77045870",
+      "decodedDdsPngPixelsIdentical": true,
+      "dimensions": [
+        64,
+        64
+      ],
+      "rgbaRanges": [
+        [
+          203,
+          203
+        ],
+        [
+          227,
+          227
+        ],
+        [
+          214,
+          214
+        ],
+        [
+          0,
+          238
+        ]
+      ],
+      "alphaMeanNormalized": 0.39788411458333334,
+      "alphaZeroFraction": 0.06787109375,
+      "alphaAbove180Fraction": 0.199462890625,
+      "role": "Constant RGB; alpha supplies complementary foamy crest/tail and wind caps.",
+      "evidence": "Original pixel structure and WaterSparkle/OceanWaterSparkle mask-layer semantics; exact original filename shader binding is not proven."
+    },
+    {
+      "name": "fx_water_splash_02.dds.png",
+      "previewSource": "C:\\Games\\Pirates-REA-Reference-20261011\\preview\\images\\fpk\\Pak0\\fx_water_splash_02.dds.png",
+      "rawSource": "C:\\Games\\Pirates-REA-Reference-20261011\\raw\\fpk\\Pak0\\fx_water_splash_02.dds",
+      "pngSha256": "eb2f400a40f0a9cc1ce46f12b86bca45ff0ecfe21aee9ba0245349f6c8d3617e",
+      "ddsSha256": "012ae95c2022e4220b0cf79ce9f5d87288b4b6d97b0b2a887ce779053a571597",
+      "decodedDdsPngPixelsIdentical": true,
+      "dimensions": [
+        256,
+        256
+      ],
+      "rgbaRanges": [
+        [
+          63,
+          189
+        ],
+        [
+          111,
+          207
+        ],
+        [
+          137,
+          216
+        ],
+        [
+          0,
+          194
+        ]
+      ],
+      "alphaMeanNormalized": 0.3474072026271446,
+      "alphaZeroFraction": 0.02777099609375,
+      "alphaAbove180Fraction": 0.0330810546875,
+      "role": "Cloudy RGBA base of original body-water splash, NiTexturingProperty 12 base -> NiSourceTexture 13; no glint/normal role.",
+      "evidence": "complete-assets.json: fx_splash_body_in_water.nif block 12 base_texture.source.ref=13; block13 file_name=fx_water_splash_02.dds."
+    }
+  ],
+  "shaderStudy": "naval-study/SHADERS.md sections 5 and 6: UV animation, Base*Detail/alpha multiplication; not displacement.",
+  "scope": "Local original-byte preservation and decoded channel evidence. No original-game GPU rendering or inferred exact shader/file binding claim.",
+  "bindingAudit": "water-binding-provenance.json"
+}
