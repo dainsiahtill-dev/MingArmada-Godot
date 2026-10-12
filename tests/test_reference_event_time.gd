@@ -41,6 +41,15 @@ func _run() -> void:
 	check(immediate.diagnostics().source_particles>0 and not _source_geometry(immediate).is_empty(),"accepted source births create submitted textured cannon geometry")
 	_close(immediate)
 
+	var visual_fire := _view(10.0)
+	var mapped_fire := _event("fire", "source-muzzle", 10.0)
+	mapped_fire.source_muzzle_position = {"x": 1.25, "y": 2.5, "z": -3.0}
+	var mapped_original := mapped_fire.duplicate(true)
+	visual_fire.apply_events([mapped_fire])
+	check(_source_state(visual_fire).get("origin") == Vector3(1.25, 2.5, -3.0), "source cannon smoke follows the rendered original muzzle")
+	check(mapped_fire == mapped_original and mapped_fire.position == {"x":10.0,"y":3.0,"z":4.0}, "visual muzzle adaptation preserves native shot position and payload")
+	_close(visual_fire)
+
 	var delayed := _view(10.0)
 	var old_fire := _event("fire","delayed-fire",9.5)
 	var before := old_fire.duplicate(true)

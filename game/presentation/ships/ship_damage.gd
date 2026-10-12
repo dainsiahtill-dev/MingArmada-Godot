@@ -2,6 +2,7 @@ extends RefCounted
 ## Presentation-only stages and finite accepted-clock clips; no damage settlement.
 
 const DamageShader = preload("res://game/presentation/ships/ship_damage.gdshader")
+const AlphaDamageShader = preload("res://game/presentation/ships/ship_damage_alpha.gdshader")
 const MAST_DURATION := 2.66666698456
 const SINK_DURATION := 4.125
 const MAST_KEY := 0.041666984558
@@ -47,22 +48,52 @@ func configure(models: Array[Node3D], texture_root: String = TEXTURE_ROOT) -> vo
 				model_masts.append(entry)
 			if not node is MeshInstance3D or node.mesh == null:
 				continue
-			if not name.begins_with("sail_") and name != "hull":
+			var surface_kind := String(node.get_meta("damage_surface", "sail" if name.begins_with("sail_") else ("hull" if name == "hull" or name.begins_with("hull_") else "")))
+			if surface_kind not in ["hull", "sail"]:
 				continue
-			var material := ShaderMaterial.new()
-			material.shader = DamageShader
-			var sail := name.begins_with("sail_")
-			material.set_shader_parameter("sail_surface", sail)
-			var original = node.get_active_material(0)
-			if original is StandardMaterial3D:
-				material.set_shader_parameter("original_color", original.albedo_color)
-				material.set_shader_parameter("original_roughness", original.roughness)
-			node.material_override = material
-			_materials.append({"node": node, "material": material, "sail": sail, "seed": int(name.trim_prefix("sail_")) if sail else 0, "bound_stage": -1})
+			var sail := surface_kind == "sail"
+			for surface in node.mesh.get_surface_count():
+				var material := ShaderMaterial.new()
+				material.shader = DamageShader
+				material.set_shader_parameter("sail_surface", sail)
+				var original = node.get_active_material(surface)
+				if original is StandardMaterial3D:
+					material.set_shader_parameter("original_color", original.albedo_color)
+					material.set_shader_parameter("original_roughness", original.roughness)
+					material.set_shader_parameter("original_albedo", original.albedo_texture)
+					material.set_shader_parameter("use_original_albedo", original.albedo_texture != null)
+					material.set_shader_parameter("use_original_vertex_color", original.vertex_color_use_as_albedo)
+					material.set_shader_parameter("original_uv_scale", Vector2(original.uv1_scale.x, original.uv1_scale.y))
+					material.set_shader_parameter("original_uv_offset", Vector2(original.uv1_offset.x, original.uv1_offset.y))
+					material.set_shader_parameter("original_alpha_cutoff", original.alpha_scissor_threshold if original.transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR else 0.0)
+				var layers: Variant = node.get_meta("source_hull_layers", {})
+				if layers is Array:
+					layers = layers[surface] if surface < layers.size() else {}
+				var layered_hull: bool = layers is Dictionary and layers.get("player") is Texture2D and layers.get("upgrade") is Texture2D
+				# Blend-only source cloth/rope uses a separate transparent program.
+				# The ordinary hull program never writes ALPHA and stays opaque.
+				if original is StandardMaterial3D and original.transparency == BaseMaterial3D.TRANSPARENCY_ALPHA and not layered_hull:
+					material.shader = AlphaDamageShader
+				if layered_hull:
+					material.set_shader_parameter("use_source_hull_layers", true)
+					material.set_shader_parameter("original_player", layers.player)
+					material.set_shader_parameter("original_upgrade", layers.upgrade)
+					material.set_shader_parameter("original_has_damage_uv", bool(layers.get("damage_uv2", false)))
+				material.set_shader_parameter("reference_damage_uv2", bool(node.get_meta("damage_uv2", false)))
+				# A single override would erase all but one imported material slot.
+				if node.mesh.get_surface_count() == 1:
+					node.material_override = material
+				else:
+					node.set_surface_override_material(surface, material)
+				_materials.append({"node": node, "material": material, "original": original, "surface": surface, "sail": sail, "seed": int(name.trim_prefix("sail_")) if sail else 0, "bound_stage": -1})
 			_depth = maxf(_depth, node.position.y + node.get_aabb().end.y + 3.0)
 		_split_rigging(model, model_masts)
 		for flag: Node3D in model.find_children("flag_*", "Node3D", true, false):
-			if not model_masts.is_empty():
+			if bool(flag.get_meta("source_fixed_attachment", false)): continue
+			var already_carried := false
+			for mast: Dictionary in model_masts:
+				if mast.node.is_ancestor_of(flag): already_carried = true
+			if not model_masts.is_empty() and not already_carried:
 				_flags.append({"node": flag, "rest": flag.transform, "pivot": _nearest_mast(flag.position, model_masts).rest.origin})
 
 func apply_snapshot(ship: Dictionary, now: float, reduced_motion := false) -> Array[Dictionary]:
@@ -114,7 +145,7 @@ func apply_snapshot(ship: Dictionary, now: float, reduced_motion := false) -> Ar
 		# Fall in model space around the actual deck pivot, before healthy trim.
 		# Recompose from rest every tick: Euler mutation would retain old fall axes.
 		var fall := Basis(Vector3.BACK, progress * progress * 1.45)
-		var trim := Basis(Vector3.UP, PI / 2.0 - clampf(float(ship.get("sailAngle", 0.0)), -PI / 2.0, PI / 2.0))
+		var trim := Basis(Vector3.UP, float(entry.node.get_meta("sail_trim_origin", PI / 2.0)) - clampf(float(ship.get("sailAngle", 0.0)), -PI / 2.0, PI / 2.0))
 		entry.node.transform = Transform3D(fall * entry.rest.basis * trim, entry.rest.origin)
 	var rig_progress := clampf((now - _mast_start) / MAST_DURATION, 0.0, 1.0) if is_finite(_mast_start) else 0.0
 	var rig_fall := Basis(Vector3.BACK, rig_progress * rig_progress * 1.45)
@@ -152,7 +183,7 @@ static func sail_tears(stage: int, seed: int = 0) -> PackedVector4Array:
 func _nearest_mast(point: Vector3, masts: Array[Dictionary]) -> Dictionary:
 	var nearest: Dictionary = masts[0]
 	for mast: Dictionary in masts:
-		if absf(mast.rest.origin.z - point.z) < absf(nearest.rest.origin.z - point.z):
+		if Vector2(mast.rest.origin.x, mast.rest.origin.z).distance_squared_to(Vector2(point.x, point.z)) < Vector2(nearest.rest.origin.x, nearest.rest.origin.z).distance_squared_to(Vector2(point.x, point.z)):
 			nearest = mast
 	return nearest
 
@@ -262,6 +293,14 @@ func diagnostics() -> Dictionary:
 	return {"hull_stage": _hull_stage, "sail_quantized": _sail_quantized, "sail_stage": _sail_stage, "mast_age": maxf(0.0, _time - _mast_start) if is_finite(_mast_start) else -1.0, "sinking_age": maxf(0.0, _time - _sink_start) if is_finite(_sink_start) else -1.0, "ended": ended(), "material_count": _materials.size(), "accepted_time": _time}
 
 func dispose() -> void:
+	# Detach mutable damage materials while their RIDs are alive. Imported mesh
+	# resources are shared; never overwrite their original surface materials.
+	for entry: Dictionary in _materials:
+		if is_instance_valid(entry.node) and entry.node.mesh != null:
+			if entry.node.mesh.get_surface_count() == 1:
+				entry.node.material_override = entry.original
+			else:
+				entry.node.set_surface_override_material(entry.surface, entry.original)
 	_models.clear()
 	_materials.clear()
 	_textures.clear()

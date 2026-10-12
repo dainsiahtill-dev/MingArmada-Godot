@@ -52,4 +52,7 @@ func get_cached_count() -> int:
 
 func dispose() -> void:
 	_disposed = true
+	if has_meta("reference_ship_provider"):
+		get_meta("reference_ship_provider").dispose()
+		remove_meta("reference_ship_provider")
 	_scenes.clear()

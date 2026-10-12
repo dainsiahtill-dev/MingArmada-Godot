@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtUtc": "2026-10-12T12:55:36.988227+00:00",
+  "projectRoot": "C:\\Users\\dains\\Documents\\Git\\ming-armada",
+  "scope": "Six temporary original western ship appearances integrated into current native Godot menu, ShipBook and actual career/naval scenes; existing gameplay authority preserved.",
+  "manifestSha256": "9ebc5449df5e2add96d555f60b3425bc44372223fc1dd36bdb4c443e8444568e",
+  "models": [
+    {
+      "family": "barque",
+      "modelPath": "res://assets/models/fidelity_naval/barque.glb",
+      "convertedSha256": "6f8f6320017a04aee29cdfa72b536f388ce62e775a88f3b4b6a3bb460eb9974d",
+      "foldedControl": "game_fold2D_no_authored_lowend_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 3051,
+      "kind": "fuchuan"
+    },
+    {
+      "family": "sloop1",
+      "modelPath": "res://assets/models/fidelity_naval/sloop1.glb",
+      "convertedSha256": "2e07b2fcf6638e68a69847548a83a3b90ffc153bf8d046c99196bc5abe2104fc",
+      "foldedControl": "original_authored_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 2805,
+      "kind": "fisherman"
+    },
+    {
+      "family": "ship_merman",
+      "modelPath": "res://assets/models/fidelity_naval/ship_merman.glb",
+      "convertedSha256": "8b5d5549127bf3c6a524afa2fab5d771f92d0cb54438391b2ec8fc3e179e9aa5",
+      "foldedControl": "original_authored_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 3810,
+      "kind": "merchant"
+    },
+    {
+      "family": "frigate",
+      "modelPath": "res://assets/models/fidelity_naval/frigate.glb",
+      "convertedSha256": "bcc93fe02135478eb07c88ac52a5106a76c5e36d0168f224aa4d0eae3bd7a631",
+      "foldedControl": "original_authored_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 5194,
+      "kind": "voc"
+    },
+    {
+      "family": "ship_brigantine",
+      "modelPath": "res://assets/models/fidelity_naval/ship_brigantine.glb",
+      "convertedSha256": "27be4eaa456ac923d8a0f62c916dcc75bedaec209b864229c4b1511bad9ecb89",
+      "foldedControl": "original_authored_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 3681,
+      "kind": "patrol"
+    },
+    {
+      "family": "treasure_galleon",
+      "modelPath": "res://assets/models/fidelity_naval/treasure_galleon.glb",
+      "convertedSha256": "c1cffcb52882b9bf4a3ddb7930c538b16f9c8a9bd7eb2f039dfffe4aecdff4c9",
+      "foldedControl": "original_authored_fold",
+      "lodPolicy": "same_source_lowend",
+      "renderedTriangles": 4504,
+      "kind": "heavy"
+    }
+  ],
+  "textures": {
+    "originalDDS": 24,
+    "authoredMipLevels": 215
+  },
+  "assetChecks": {
+    "command": "rtk proxy node --test tests/test_reference_ship_import.mjs",
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "stdout": "✔ all six temporary appearances are project-contained original reference families (8.9438ms)\n✔ barque GLB contains real source positions, triangles, UV and material roles (29.7613ms)\n✔ sloop1 GLB contains real source positions, triangles, UV and material roles (17.5929ms)\n✔ ship_merman GLB contains real source positions, triangles, UV and material roles (35.983ms)\n✔ frigate GLB contains real source positions, triangles, UV and material roles (45.9534ms)\n✔ ship_brigantine GLB contains real source positions, triangles, UV and material roles (28.9895ms)\n✔ treasure_galleon GLB contains real source positions, triangles, UV and material roles (38.673ms)\n✔ every original DDS and authored mip payload is retained byte-for-byte (26.1205ms)\n✔ source ropes, masts, flags and hidden cloth cannot enter the default cloth or deck supports (39.1182ms)\n✔ real native folded cloth pairs preserve source topology under the same mast as the open panel (54.0672ms)\n✔ native timber components fall with actual masts while fixed bow and stern attachments stay on the hull (58.6057ms)\n✔ packed hull rigging and shroud atlases follow actual masts without carrying the connected hull (49.5808ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 516.6781\n"
+  },
+  "headless": {
+    "scripts": 7,
+    "assertions": 8202,
+    "failures": 0,
+    "runs": [
+      {
+        "test": "tests/test_reference_ship_damage.gd",
+        "assertions": 844,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-tests-final-v4.json"
+      },
+      {
+        "test": "tests/test_reference_ship_deck_safety.gd",
+        "assertions": 13,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-tests-final-v4.json"
+      },
+      {
+        "test": "tests/test_reference_ship_game_contract.gd",
+        "assertions": 985,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-tests-final-v4.json"
+      },
+      {
+        "test": "tests/test_reference_ship_provider.gd",
+        "assertions": 4955,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-tests-final-v4.json"
+      },
+      {
+        "test": "tests/test_ship_damage_materials.gd",
+        "assertions": 18,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-materials-final-v4.json"
+      },
+      {
+        "test": "tests/test_reference_dismast_assembly.gd",
+        "assertions": 1356,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-dismast-final-v4.json"
+      },
+      {
+        "test": "tests/test_reference_event_time.gd",
+        "assertions": 31,
+        "report": "docs/migration/evidence/integrated-world/reference-ships-event-time-final-v4.json"
+      }
+    ]
+  },
+  "native": [
+    {
+      "directory": "docs/migration/evidence/integrated-world/reference-ships-native-v5",
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "images": [
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/ordinary-main-menu.png",
+          "sha256": "5bb83fa2fb4ce028b882ba0435a447774455a11449aba7e851a64815cc652dda",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-fuchuan.png",
+          "sha256": "bcb21711d1bb930f5f4673fa8b6e08236c402572911aeaa8215af1d3c9b2a606",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-fisherman.png",
+          "sha256": "e604f5aa62f27228acf8b3a4f4464045a05f339b0687dc13325349cb3b4bbd0e",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled-fisherman.png",
+          "sha256": "00d8c204dd0c188ea9ca5ce9b1df5351acdd82c831a45cc329c8dc582332fc4d",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-merchant.png",
+          "sha256": "6e768412dd9975198a9f257d4a590a823d5a7caffa1f97543e08198a5b3217ea",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled-merchant.png",
+          "sha256": "4b68c4621d2e6328b797409ffd02b1d2b60fe50ab24f5d2e6bcb51886dacf8dc",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-voc.png",
+          "sha256": "e12f3663dc0c808ff7d81d98dc4bd8f252c7576e61eed37ce510cffcfcf3333e",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled-voc.png",
+          "sha256": "961da0fb4f5646bf38de83e765f12696bd22b729a4a5bfe749a72309a1128767",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-patrol.png",
+          "sha256": "6b1871c9f7606f46ee67e54c89ec7f612cdff1e75e86b28f3155f4d81430f65d",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled-patrol.png",
+          "sha256": "4a31e935e41c963a2f48e8a4a28f5e5193db8bb0764e676a5adb64d9132f25d3",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-heavy.png",
+          "sha256": "45690ec15bd4fdf2a022f8f96fbb0bd5c5e6f03549a1deadb72d810222c55d97",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled-heavy.png",
+          "sha256": "e51346dbade1d9f8cf0515e4f9b94ea664cce2cc652d55515ec718ae420e407c",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-starboard.png",
+          "sha256": "43bc172cbbbc833d62bfef6fc71560dd1b4503d118c0b67e098fae3fb3198b97",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-furled.png",
+          "sha256": "dcfe358a3ddf9f0f213fcf7a13011abe121e7f223396112705a8b94e51dce4cf",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-dismast-inspection.png",
+          "sha256": "7dfd59f5b4a439502d046c2a44cddbb154f13a1f256c9fbd04b0e5676d8c9ad5",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-ship-underwater.png",
+          "sha256": "d57b885f8a464abb0ead29453e73947492020fae18feaf65da101bbd2685e0c5",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-formal-career-close.png",
+          "sha256": "7e01b44168a59d33103128c99df94d735278551793b4d87dcd09ee9e20cb7cae",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/formal-battle-ready.png",
+          "sha256": "9b2da702ace684a82d2286d4263842d7b00673b3645f9a9ef32a941bfb3375a9",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/source-formal-battle-close.png",
+          "sha256": "86af7509fe4b835d7d753b35af2f0b376981c0f5ca98e1b552f6e58609bd1d6c",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/formal-battle-009.png",
+          "sha256": "c0d9f8a8bcd68dd54780bccfe0c06384701d633d0849f2152f7049c9e9e26919",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/formal-battle-030.png",
+          "sha256": "76b6e466c16009fdb6cc98d5da9c1133331091262a7514301e6bf78da8009bb5",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/formal-battle-090.png",
+          "sha256": "0203ffcf684b55b5114c7c24ce485253e1ecfef8d1dab56e2980b194a94cc340",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/reference-ships-native-v5/formal-battle-180.png",
+          "sha256": "941406138164c0c0538907d39d9bed375189b0c523091a6907a8da10c2cfb788",
+          "dimensions": [
+            1600,
+            900
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "docs/migration/evidence/integrated-world/ship-material-layers-v2",
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+      "images": [
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ordinary-main-menu.png",
+          "sha256": "5bb83fa2fb4ce028b882ba0435a447774455a11449aba7e851a64815cc652dda",
+          "dimensions": [
+            1600,
+            900
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-healthy.png",
+          "sha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-damaged.png",
+          "sha256": "065e502e40fc56e1618858848cba3a65bb421c5b158e2b87a2affc2dcde9212c",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-missing-source-uv.png",
+          "sha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-healthy-alpha-test.png",
+          "sha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-blend-0.png",
+          "sha256": "62394f65a1b9c348aae7161a9c99eee102dc4ae308c2988539945cbf69000e1e",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-blend-50.png",
+          "sha256": "623cca3f0328ae89e3ab021a456e9099d545f63a6865bf8eff3e8971fd75bef6",
+          "dimensions": [
+            128,
+            128
+          ]
+        },
+        {
+          "path": "docs/migration/evidence/integrated-world/ship-material-layers-v2/ship-material-blend-100.png",
+          "sha256": "b5178641b06d37d17ba397a95e254e5ddae9ec4418033b272e9ff46a8a84fa20",
+          "dimensions": [
+            128,
+            128
+          ]
+        }
+      ]
+    }
+  ],
+  "playerFire": {
+    "ammoAfter": 39,
+    "ammoBefore": 40,
+    "effects": [
+      {
+        "eventId": "event-4",
+        "origin": {
+          "x": -9.55009365081787,
+          "y": 2.03970909118652,
+          "z": 1.38488805294037
+        },
+        "shipId": "player",
+        "source": "fx_cannon_fire_01.nif"
+      }
+    ],
+    "events": [
+      {
+        "ammo": "solid",
+        "id": "event-4",
+        "position": {
+          "x": -4.40708570328191,
+          "y": 2.2011840756863,
+          "z": 4.59500271514547
+        },
+        "projectileId": "shot-3",
+        "shipId": "player",
+        "side": "starboard",
+        "time": 0.133333333333333,
+        "type": "fire",
+        "velocity": {
+          "x": 3.90876290709283,
+          "y": 8.33927666644053,
+          "z": 64.3442152583796
+        }
+      }
+    ],
+    "input": "actual HUD fire button signal followed by one real simulation tick",
+    "playerId": "player",
+    "side": "starboard"
+  },
+  "visualInspection": {
+    "nativeV5PNGsViewed": 23,
+    "controlledDamage": "ShipBook dismast snapshot is a presentation inspection, not a claim that this screenshot records an actual combat dismast."
+  },
+  "saveScope": "Capture uses non-writing in-memory legacy and Mingqi save slots; its final zero-write assertion passed.",
+  "limitations": [
+    "Temporary western hulls and pirate flags are identified in the ShipBook; not historical Chinese models.",
+    "Source lowend geometry is shared across three independent visual LOD instances; distinct original LOD scheduling is not restored.",
+    "Five families use actual native closed-cloth target geometry; Barque uses an explicitly identified game morph around the real sail top.",
+    "Native Godot shading and controls are adapted; full original DX9 cloth/rendering is not claimed.",
+    "Focused ship tests and actual GPU captures passed; no full-suite or performance conclusion."
+  ],
+  "failures": 0
+}

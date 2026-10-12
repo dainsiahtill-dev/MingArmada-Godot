@@ -1,0 +1,134 @@
+{
+	"captures": [
+		{
+			"dev": false,
+			"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+			"imageSha256": "5bb83fa2fb4ce028b882ba0435a447774455a11449aba7e851a64815cc652dda",
+			"label": "ordinary-main-menu",
+			"qa": false,
+			"route": "actual main menu",
+			"viewport": [
+				1600,
+				900
+			]
+		},
+		{
+			"actual": [
+				0.462745100259781,
+				0.498039215803146,
+				0.443137258291245
+			],
+			"error": 0.00140868755988777,
+			"expected": [
+				0.463477343320847,
+				0.49772584438324,
+				0.444299161434174
+			],
+			"imageSha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+			"label": "ship-material-healthy",
+			"materialShaderSha256": "f8ec39dfe4fd4e8571e4c439d2b3f1c34ca0036a6109a997ebd4d9088aede587",
+			"scope": "Native GPU production fragment with lighting disabled; independent original PSShipHull alpha-priority expectation, not a game frame."
+		},
+		{
+			"actual": [
+				0.576470613479614,
+				0.196078434586525,
+				0.513725519180298
+			],
+			"error": 0.00172920804470778,
+			"expected": [
+				0.576384961605072,
+				0.195670545101166,
+				0.515403747558594
+			],
+			"imageSha256": "065e502e40fc56e1618858848cba3a65bb421c5b158e2b87a2affc2dcde9212c",
+			"label": "ship-material-damaged",
+			"materialShaderSha256": "f8ec39dfe4fd4e8571e4c439d2b3f1c34ca0036a6109a997ebd4d9088aede587",
+			"scope": "Native GPU production fragment with lighting disabled; independent original PSShipHull alpha-priority expectation, not a game frame."
+		},
+		{
+			"actual": [
+				0.462745100259781,
+				0.498039215803146,
+				0.443137258291245
+			],
+			"error": 0.00140868755988777,
+			"expected": [
+				0.463477343320847,
+				0.49772584438324,
+				0.444299161434174
+			],
+			"imageSha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+			"label": "ship-material-missing-source-uv",
+			"materialShaderSha256": "f8ec39dfe4fd4e8571e4c439d2b3f1c34ca0036a6109a997ebd4d9088aede587",
+			"scope": "Native GPU production fragment with lighting disabled; independent original PSShipHull alpha-priority expectation, not a game frame."
+		},
+		{
+			"actual": [
+				0.462745100259781,
+				0.498039215803146,
+				0.443137258291245
+			],
+			"error": 0.00140868755988777,
+			"expected": [
+				0.463477343320847,
+				0.49772584438324,
+				0.444299161434174
+			],
+			"imageSha256": "6a89e87ec89978be1cf9a4bb5af78368c2eb36823adfb52f31ff1e4b1d9564e8",
+			"label": "ship-material-healthy-alpha-test",
+			"materialShaderSha256": "f8ec39dfe4fd4e8571e4c439d2b3f1c34ca0036a6109a997ebd4d9088aede587",
+			"scope": "Native GPU production fragment with lighting disabled; independent original PSShipHull alpha-priority expectation, not a game frame."
+		},
+		{
+			"actual": [
+				0.69803923368454,
+				0.0980392172932625,
+				0.0980392172932625
+			],
+			"background": [
+				0.0313725508749485,
+				0.149019613862038,
+				0.600000023841858
+			],
+			"imageSha256": "b5178641b06d37d17ba397a95e254e5ddae9ec4418033b272e9ff46a8a84fa20",
+			"label": "ship-material-blend-0",
+			"scope": "Native GPU real ShipDamage shader selection for blend-only source texture.",
+			"sourceAlpha": 0.0
+		},
+		{
+			"actual": [
+				0.69803923368454,
+				0.0980392172932625,
+				0.0980392172932625
+			],
+			"background": [
+				0.0313725508749485,
+				0.149019613862038,
+				0.600000023841858
+			],
+			"imageSha256": "b5178641b06d37d17ba397a95e254e5ddae9ec4418033b272e9ff46a8a84fa20",
+			"label": "ship-material-blend-50",
+			"scope": "Native GPU real ShipDamage shader selection for blend-only source texture.",
+			"sourceAlpha": 0.498039215803146
+		},
+		{
+			"actual": [
+				0.69803923368454,
+				0.0980392172932625,
+				0.0980392172932625
+			],
+			"background": [
+				0.0313725508749485,
+				0.149019613862038,
+				0.600000023841858
+			],
+			"imageSha256": "b5178641b06d37d17ba397a95e254e5ddae9ec4418033b272e9ff46a8a84fa20",
+			"label": "ship-material-blend-100",
+			"scope": "Native GPU real ShipDamage shader selection for blend-only source texture.",
+			"sourceAlpha": 1.0
+		}
+	],
+	"failures": 2,
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)"
+}

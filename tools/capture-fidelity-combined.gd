@@ -13,6 +13,10 @@ func _run() -> void:
 	main=Main.new(); main.router=Router.new({"mingqi_storage":slot,"legacy_storage":legacy,"settings_storage":settings}); root.add_child(main)
 	await process_frame
 	await _capture_menu()
+	if OS.get_cmdline_user_args().has("--ship-material-check"):
+		await _capture_ship_material_layers(); _finish(); return
+	if OS.get_cmdline_user_args().has("--reference-ships"):
+		await _capture_reference_ships(slot, legacy); _finish(); return
 	if OS.get_cmdline_user_args().has("--combat-only"):
 		await _capture_combat(); _finish(); return
 	var button: Button=main.menu.find_child("fidelity-island",true,false)
@@ -337,6 +341,148 @@ func _capture_far_water(scene: Control) -> void:
 	check(material.get_shader_parameter("wave_count")==5,"far optical repair preserves original five physical waves")
 	check(material.get_shader_parameter("coastal_breaker_strength")==0.36 and material.get_shader_parameter("shoreline_residue_strength")==0.38,"accepted shoreline fusion and residue settings remain intact")
 
+func _capture_ship_material_layers() -> void:
+	# Execute the actual production fragment program on the native GPU. Only
+	# lighting is disabled to compare layer math against independent source math.
+	var viewport := SubViewport.new(); viewport.size = Vector2i(128, 128)
+	viewport.own_world_3d = true; viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	root.add_child(viewport)
+	var camera := Camera3D.new(); camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+	camera.size = 2.5; camera.position = Vector3(0, 0, 3); viewport.add_child(camera); camera.current = true
+	var surface := MeshInstance3D.new(); var quad := QuadMesh.new(); quad.size = Vector2(2, 2); surface.mesh = quad
+	viewport.add_child(surface)
+	var material := ShaderMaterial.new(); var shader := Shader.new()
+	shader.code = FileAccess.get_file_as_string("res://game/presentation/ships/ship_damage.gdshader").replace("render_mode cull_disabled;", "render_mode cull_disabled, unshaded;")
+	material.shader = shader; surface.material_override = material
+	material.set_shader_parameter("use_original_albedo", true)
+	material.set_shader_parameter("use_original_vertex_color", false)
+	material.set_shader_parameter("sail_surface", false)
+	material.set_shader_parameter("use_source_hull_layers", true)
+	material.set_shader_parameter("original_has_damage_uv", true)
+	var samples: Array[Color] = []
+	for input: Color in [Color(0.7, 0.25, 0.12, 0.4), Color(0.05, 0.75, 0.2, 1), Color(0.1, 0.2, 0.8, 0.25), Color(0.6, 0.06, 0.5, 0.35)]:
+		var image := Image.create(2, 2, false, Image.FORMAT_RGBA8); image.fill(input)
+		samples.append(image.get_pixel(0, 0))
+		material.set_shader_parameter(["original_albedo", "original_player", "original_upgrade", "reference_damage"][samples.size() - 1], ImageTexture.create_from_image(image))
+	for row: Array in [["healthy", false, true], ["damaged", true, true], ["missing-source-uv", true, false], ["healthy-alpha-test", false, true]]:
+		material.set_shader_parameter("use_reference_damage", row[1]); material.set_shader_parameter("original_has_damage_uv", row[2])
+		material.set_shader_parameter("original_alpha_cutoff", 0.6 if row[0] == "healthy-alpha-test" else 0.0)
+		for frame in 6: await process_frame
+		await RenderingServer.frame_post_draw
+		var pixels := viewport.get_texture().get_image(); var actual := pixels.get_pixel(64, 64)
+		var damage_alpha: float = samples[3].a if row[1] and row[2] else 0.0
+		var one := clampf(damage_alpha + samples[2].a, 0, 1); var two := clampf(one + samples[0].a, 0, 1)
+		var expected := (samples[3].srgb_to_linear() * damage_alpha + samples[2].srgb_to_linear() * (one - damage_alpha) + samples[0].srgb_to_linear() * (two - one) + samples[1].srgb_to_linear() * (1.0 - two)).linear_to_srgb()
+		var error := Vector3(actual.r - expected.r, actual.g - expected.g, actual.b - expected.b).length()
+		check(error < 0.025, "actual source hull layer pixel " + row[0] + ": " + str(error))
+		var path: String = output + "/ship-material-" + row[0] + ".png"; pixels.save_png(path)
+		var info := {"label": "ship-material-" + row[0], "actual": [actual.r, actual.g, actual.b], "expected": [expected.r, expected.g, expected.b], "error": error, "imageSha256": FileAccess.get_sha256(path), "materialShaderSha256": FileAccess.get_sha256("res://game/presentation/ships/ship_damage.gdshader"), "scope": "Native GPU production fragment with lighting disabled; independent original PSShipHull alpha-priority expectation, not a game frame."}
+		var receipt := FileAccess.open(path.get_basename() + ".json", FileAccess.WRITE); receipt.store_string(JSON.stringify(info, "\t")); receipt.close(); captures.append(info)
+	# Select through the real ShipDamage binding, not a hand-picked test shader.
+	var environment := WorldEnvironment.new(); var lighting := Environment.new()
+	lighting.background_mode=Environment.BG_COLOR; lighting.background_color=Color(0.03,0.15,0.6)
+	environment.environment=lighting; viewport.add_child(environment)
+	var model := Node3D.new(); viewport.add_child(model); surface.reparent(model)
+	surface.name="hull"
+	var original := StandardMaterial3D.new(); original.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+	var transparent_pixels:=Image.create(2,2,false,Image.FORMAT_RGBA8); transparent_pixels.fill(Color(0.7,0.1,0.1,0.0))
+	original.albedo_texture=ImageTexture.create_from_image(transparent_pixels); surface.material_override=original
+	var helper=load("res://game/presentation/ships/ship_damage.gd").new()
+	var models: Array[Node3D]=[model]; helper.configure(models)
+	material=surface.material_override as ShaderMaterial
+	var selected_shader:=Shader.new()
+	selected_shader.code=material.shader.code.replace("render_mode cull_disabled;","render_mode cull_disabled, unshaded;").replace("render_mode cull_disabled, depth_prepass_alpha;","render_mode cull_disabled, depth_prepass_alpha, unshaded;")
+	material.shader=selected_shader
+	surface.hide(); for frame in 6: await process_frame
+	await RenderingServer.frame_post_draw
+	var background:=viewport.get_texture().get_image().get_pixel(64,64)
+	surface.show()
+	var blend_colors: Array[Color]=[]
+	for alpha: float in [0.0,0.5,1.0]:
+		var pixels:=Image.create(2,2,false,Image.FORMAT_RGBA8); pixels.fill(Color(0.7,0.1,0.1,alpha))
+		material.set_shader_parameter("original_albedo",ImageTexture.create_from_image(pixels))
+		for frame in 6: await process_frame
+		await RenderingServer.frame_post_draw
+		var rendered:=viewport.get_texture().get_image(); var actual:=rendered.get_pixel(64,64)
+		blend_colors.append(actual)
+		var path:=output+"/ship-material-blend-%d.png"%roundi(alpha*100); rendered.save_png(path)
+		var info:={"label":"ship-material-blend-%d"%roundi(alpha*100),"actual":[actual.r,actual.g,actual.b],"background":[background.r,background.g,background.b],"sourceAlpha":pixels.get_pixel(0,0).a,"imageSha256":FileAccess.get_sha256(path),"scope":"Native GPU real ShipDamage shader selection for blend-only source texture."}
+		var receipt:=FileAccess.open(path.get_basename()+".json",FileAccess.WRITE); receipt.store_string(JSON.stringify(info,"\t")); receipt.close(); captures.append(info)
+	check(Vector3(blend_colors[0].r-background.r,blend_colors[0].g-background.g,blend_colors[0].b-background.b).length()<0.002,"zero-alpha original texture preserves exact rendered background")
+	var expected_half: Color=(blend_colors[2].srgb_to_linear()*(128.0/255.0)+background.srgb_to_linear()*(127.0/255.0)).linear_to_srgb()
+	check(Vector3(blend_colors[1].r-expected_half.r,blend_colors[1].g-expected_half.g,blend_colors[1].b-expected_half.b).length()<0.025,"half-alpha source texture blends rather than becoming an opaque plate")
+	helper.dispose()
+	viewport.free()
+
+func _capture_reference_ships(slot: RefCounted, legacy: RefCounted) -> void:
+	var button: Button = main.menu.find_child("ships", true, false)
+	if not check(button != null and not button.disabled, "ordinary ship book is available"): return
+	button.pressed.emit()
+	if not await _await_scene("ships"): return
+	var book: Control = main.current_scene
+	book.process_mode = Node.PROCESS_MODE_DISABLED
+	for kind: String in ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]:
+		if not check(book.select_ship(kind, 0).ok, "actual ship book selects source " + kind): return
+		book.set_angle("quarter"); book.animate_model(0.0)
+		await _capture_ship_book("source-ship-" + kind, book)
+		if kind != "fuchuan":
+			book.set_furl(1.0); await _capture_ship_book("source-ship-furled-" + kind, book)
+	book.select_ship("fuchuan", 0); book.set_angle("starboard")
+	await _capture_ship_book("source-ship-starboard", book)
+	book.set_furl(1.0); await _capture_ship_book("source-ship-furled", book)
+	book.set_furl(0.0); book.set_angle("quarter")
+	book._damage.apply_snapshot({"hull":100.0,"sail":100.0,"sailAngle":0.0},1.0,true)
+	book._damage.apply_snapshot({"hull":100.0,"sail":0.0,"sailAngle":0.0},2.0,true)
+	book._damage.apply_snapshot({"hull":100.0,"sail":0.0,"sailAngle":0.0},5.0,true)
+	book.set_meta("capture_inspection", {"type":"controlled presentation damage snapshot", "hull":100.0,"sail":0.0,"scope":"Native ship book damage inspection, not a player-triggered combat result."})
+	await _capture_ship_book("source-ship-dismast-inspection", book)
+	book.remove_meta("capture_inspection"); book.select_ship("fuchuan",0)
+	book.set_furl(0.0); book.set_angle("underwater")
+	await _capture_ship_book("source-ship-underwater", book)
+	main._return_from_scene(book); for frame in 5: await process_frame
+	button = main.menu.find_child("mingqi", true, false)
+	if not check(button != null and not button.disabled, "ordinary career available with source models"): return
+	button.pressed.emit()
+	if not await _await_scene("mingqi"): return
+	var game: Node = main.current_scene
+	game.runtime.set_pause("player", true); game.process_mode = Node.PROCESS_MODE_DISABLED
+	game.interface.close_menu(); game.interface.close_panel()
+	game.sea.apply_settings({"cameraFollow": false, "quality": "high"})
+	var ship: Node3D = game.sea.ships.values()[0]
+	var point: Vector3 = ship.global_position
+	game.sea.set_camera_controller(func():
+		game.sea.camera.position = point + Vector3(32, 26, 40)
+		game.sea.camera.look_at(point + Vector3.UP * 5, Vector3.UP))
+	game._present(0.0)
+	await _capture("source-formal-career-close", game)
+	var sailors: Dictionary = {}
+	for id: String in game.sea.sailors:
+		sailors[id] = game.sea.sailors[id].diagnostics()
+	check(not sailors.is_empty(), "actual career source ships have separate deck crew owners")
+	var audit := {"ships": {}, "sailors": sailors}
+	for id: String in game.sea.ships:
+		audit.ships[id] = {"sourceKind": game.sea.ships[id].source_kind(), "damage": game.sea.ships[id].damage_diagnostics()}
+	var receipt := FileAccess.open(output + "/source-formal-models.json", FileAccess.WRITE)
+	if check(receipt != null, "formal source model audit opens"):
+		receipt.store_string(JSON.stringify(audit, "\t")); receipt.close()
+	main._return_from_scene(game); for frame in 5: await process_frame
+	await _capture_combat()
+	check(slot.writes == 0 and legacy.writes == 0, "source model native validation preserved both save slots")
+
+func _capture_ship_book(label: String, book: Control) -> void:
+	for frame in 5: await process_frame
+	await RenderingServer.frame_post_draw
+	var pixels := root.get_texture().get_image()
+	var path := output + "/" + label + ".png"
+	if not check(pixels != null and not pixels.is_empty() and pixels.save_png(path) == OK, "actual source ship book PNG " + label): return
+	var info := {"label": label, "imageSha256": FileAccess.get_sha256(path), "route": "actual main menu / ship book", "gpu": RenderingServer.get_video_adapter_name(), "renderingMethod": RenderingServer.get_current_rendering_method(), "viewport": [pixels.get_width(), pixels.get_height()], "snapshot": book.snapshot(), "cameraPosition": str(book.camera.position), "modelManifestSha256": FileAccess.get_sha256("res://assets/data/fidelity_naval/ships-manifest.json"), "materialShaderSha256": FileAccess.get_sha256("res://game/presentation/ships/ship_damage.gdshader"), "scope": "Actual current native source-model adaptation; no original game rendering fidelity or historical Chinese hull claim."}
+	info.damageShaderBodySha256=FileAccess.get_sha256("res://game/presentation/ships/ship_damage_surface.gdshaderinc")
+	info.alphaShaderSha256=FileAccess.get_sha256("res://game/presentation/ships/ship_damage_alpha.gdshader")
+	if book.has_meta("capture_inspection"): info.inspection=book.get_meta("capture_inspection")
+	var receipt := FileAccess.open(path.get_basename() + ".json", FileAccess.WRITE)
+	if check(receipt != null, "source ship metadata opens"):
+		receipt.store_string(JSON.stringify(info, "\t")); receipt.close(); captures.append(info)
+
 func _capture_combat() -> void:
 	var button: Button=main.menu.find_child("duel",true,false)
 	if not check(button!=null and not button.disabled,"ordinary single-ship battle entry"): return
@@ -348,14 +494,45 @@ func _capture_combat() -> void:
 	game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(65,35,85); game.sea.camera.look_at(Vector3(0,4,12),Vector3.UP))
 	game._present(0.0)
 	await _capture("formal-battle-ready",game)
+	if OS.get_cmdline_user_args().has("--reference-ships"):
+		game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
+		game._present(0.0)
+		await _capture("source-formal-battle-close",game)
 	game._command({"type":"resume"})
 	var side: String=game.runtime.nearest_side()
 	button=game.interface.find_child("fire_"+side,true,false)
 	if not check(button!=null and not button.disabled,"actual battle fire control is enabled"): return
+	var before_fire: Dictionary=game.runtime.snapshot().naval
+	var player_id: String=before_fire.playerId
+	var ammo_before:=0
+	for ship: Dictionary in before_fire.ships:
+		if ship.id==player_id: ammo_before=int(ship.ammo.solid)
+	var initial_time: float=before_fire.time
 	button.pressed.emit()
-	check(not game.sea.effects.get("_source_fire").is_empty(),"actual player fire created source muzzle/smoke effect in the formal scene")
-	var initial_time: float=game.runtime.snapshot().naval.time
-	var ticks:=0
+	# UI commands enter the real fixed-step input queue. Consume that step
+	# before any await or Resume, whose focus protection clears queued input.
+	game.sea.observe_projectiles(game.runtime.snapshot().naval)
+	var consumed: float=game.runtime.advance(1.0/60.0)
+	var original_events: Array=game.runtime.simulation.get("_events").duplicate(true)
+	var player_shots: Array=original_events.filter(func(event: Dictionary)->bool:return event.get("type")=="fire" and event.get("shipId")==player_id)
+	game._present(consumed)
+	var ammo_after:=0
+	for ship: Dictionary in game.runtime.snapshot().naval.ships:
+		if ship.id==player_id: ammo_after=int(ship.ammo.solid)
+	check(ammo_after<ammo_before and player_shots.size()==1,"actual UI player fire consumes ammunition and emits its own authoritative shot")
+	var player_effects: Array=[]
+	for shot: Dictionary in player_shots:
+		var source: Variant=game.sea.ships[player_id].source_fire_position(shot)
+		for effect: Dictionary in game.sea.effects.get("_source_fire"):
+			if String(effect.node.name)!="CannonSource_"+String(shot.id): continue
+			var state: Dictionary=effect.node.diagnostics()
+			check(source is Vector3 and state.origin.distance_to(source)<0.01,"player shot effect uses the actual original-model muzzle")
+			player_effects.append({"eventId":shot.id,"shipId":shot.shipId,"source":state.source,"origin":{"x":state.origin.x,"y":state.origin.y,"z":state.origin.z}})
+	check(player_effects.size()==player_shots.size() and not player_effects.is_empty(),"formal scene contains source effects matched to actual player event IDs")
+	var fire_receipt:=FileAccess.open(output+"/source-player-fire-contract.json",FileAccess.WRITE)
+	if check(fire_receipt!=null,"actual player fire receipt opens"):
+		fire_receipt.store_string(JSON.stringify({"input":"actual HUD fire button signal followed by one real simulation tick","side":side,"playerId":player_id,"ammoBefore":ammo_before,"ammoAfter":ammo_after,"events":player_shots,"effects":player_effects},"\t")); fire_receipt.close()
+	var ticks:=1
 	for target in [9,30,90,180]:
 		# Native focus protection also fires during screenshot export. Each
 		# scripted batch explicitly uses the normal Resume command, and proves
@@ -366,6 +543,11 @@ func _capture_combat() -> void:
 			game._present(game.runtime.advance(1.0/60.0)); ticks+=1
 		check(absf(float(game.runtime.snapshot().naval.time)-initial_time-float(target)/60.0)<0.03,"actual combat clock reached requested capture tick %d"%target)
 		await _capture("formal-battle-%03d"%target,game)
+		if target == 9 and OS.get_cmdline_user_args().has("--reference-ships"):
+			var effects: Dictionary = game.sea.effects.diagnostics()
+			var receipt := FileAccess.open(output + "/source-formal-fire.json", FileAccess.WRITE)
+			if check(receipt != null, "actual source muzzle effect receipt opens"):
+				receipt.store_string(JSON.stringify(effects, "\t")); receipt.close()
 	check(game.sea.world.fidelity_diagnostics().geometryMode=="static_natural","battle particles share actual new game world")
 	main._return_from_scene(game); for frame in 5: await process_frame
 

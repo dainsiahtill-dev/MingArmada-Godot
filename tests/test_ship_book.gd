@@ -2,12 +2,13 @@ extends SceneTree
 var failures := 0
 var assertions := 0
 var _sent_button_mask := 0
+const SOURCE_FAMILIES := {"fuchuan":"barque","fisherman":"sloop1","merchant":"ship_merman","voc":"frigate","patrol":"ship_brigantine","heavy":"treasure_galleon"}
 class FailingLibrary extends "res://modules/scene_engine/assets/asset_library.gd":
 	var fail := true
 	var attempts:Array[String]=[]
 	func instantiate_model(path:String) -> Node3D:
 		attempts.append(path)
-		if fail and path=="res://assets/models/ships/merchant-lod2.glb": return null
+		if fail and path=="res://assets/models/fidelity_naval/ship_merman.glb": return null
 		return super.instantiate_model(path)
 func check(value: bool, message: String) -> void:
 	assertions += 1
@@ -23,11 +24,14 @@ func _run() -> void:
 	for kind in ["fuchuan","fisherman","merchant","voc","patrol","heavy"]:
 		for lod in 3:
 			check(scene.select_ship(kind,lod).ok,"real ship GLB loads: %s LOD%s"%[kind,lod])
-			check(scene.snapshot().path=="res://assets/models/ships/%s-lod%d.glb"%[kind,lod],"selected LOD is actual original asset")
+			check(scene.snapshot().path=="res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind] and scene.snapshot().source_kind==SOURCE_FAMILIES[kind],"selected game kind uses its distinct original reference family")
 			var sails := 0
 			for mesh in scene.ship_model.find_children("sail_*","MeshInstance3D",true,false):
+				if mesh.get_meta("source_sail_control","") != "game_furl_inflate_morph":
+					check(not mesh.visible and mesh.get_meta("damage_surface","") == "sail","original hidden furled targets do not create duplicate cloth")
+					continue
 				sails+=1
-				check(mesh.mesh.get_blend_shape_count()==2,"original sail morphs remain native")
+				check(mesh.mesh.get_blend_shape_count()==2 and mesh.get_meta("source_sail_control","")=="game_furl_inflate_morph","original rigid sail has explicit game furl/inflate controls")
 			check(sails>0,"real ship retains authored rigging")
 	scene.select_ship("fuchuan",0)
 	var original: Dictionary = scene.snapshot()
@@ -81,7 +85,7 @@ func _run() -> void:
 	check(not scene.select_ship("merchant",2).ok and scene.ship_model==confirmed_model and scene.snapshot()==confirmed,"failed requested GLB preserves confirmed ship and presentation")
 	injected.fail=false
 	scene.find_child("RetryModel",true,false).pressed.emit()
-	check(injected.attempts[-1]=="res://assets/models/ships/merchant-lod2.glb" and scene.snapshot().kind=="merchant" and scene.snapshot().lod==2,"native RetryModel recovers last attempted ship/LOD")
+	check(injected.attempts[-1]=="res://assets/models/fidelity_naval/ship_merman.glb" and scene.snapshot().kind=="merchant" and scene.snapshot().lod==2,"native RetryModel recovers last attempted ship/LOD")
 	var leaves: Array = []; scene.main_menu_requested.connect(func(): leaves.append(true))
 	_mouse_button(scene,MOUSE_BUTTON_RIGHT,true); _mouse_motion(scene,Vector2(40,10),MOUSE_BUTTON_MASK_RIGHT)
 	scene.find_child("MainMenu",true,false).pressed.emit(); check(leaves.size()==1,"ship book returns through owner signal")

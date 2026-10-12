@@ -2,18 +2,23 @@ extends Node3D
 ## Original GLB presentation. Simulation remains the only pose/damage authority.
 
 const AssetLibrary = preload("res://modules/scene_engine/assets/asset_library.gd")
+const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 signal presentation_event(event: Dictionary)
 var _damage = ShipDamage.new()
 const KINDS := ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]
 var _models: Array[Node3D] = []
 var _library: RefCounted
+var _provider: RefCounted
+var _kind := ""
 var _owns_library := false
 var _lod := 0
 var _time := 0.0
 var _snapshot: Dictionary = {}
 var _wind: Dictionary = {}
 var _mast_yaw: Dictionary = {}
+var _mast_basis: Dictionary = {}
+var _rudder_rest: Dictionary = {}
 var _barrel_rest: Dictionary = {}
 var _recoil: Dictionary = {}
 var _next_gun := {"port": 0, "starboard": 0}
@@ -30,11 +35,13 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 		return false
 	_owns_library = asset_library == null
 	_library = AssetLibrary.new() if _owns_library else asset_library
+	_provider = ModelProvider.for_library(_library)
+	_kind = kind
 	_disposed = false
 	_lod = 0
 	rotation_order = EulerOrder.EULER_ORDER_YXZ
 	for lod in 3:
-		var model: Node3D = _library.instantiate_model("res://assets/models/ships/%s-lod%d.glb" % [kind, lod])
+		var model: Node3D = _provider.instantiate_ship(kind,lod,_library)
 		if model == null:
 			dispose()
 			return false
@@ -45,6 +52,8 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 		for node in model.find_children("*", "Node3D", true, false):
 			if String(node.name).begins_with("mast_") and String(node.name).trim_prefix("mast_").is_valid_int():
 				_mast_yaw[node.get_instance_id()] = node.rotation.y
+				_mast_basis[node.get_instance_id()] = node.basis
+			if String(node.name) == "rudder_pivot": _rudder_rest[node.get_instance_id()] = node.rotation.y
 			if String(node.name).begins_with("barrel_"):
 				_barrel_rest[node.get_instance_id()] = node.position.z
 	_damage.configure(_models)
@@ -86,9 +95,9 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 		for node in model.find_children("*", "Node3D", true, false):
 			var id: int = node.get_instance_id()
 			if _mast_yaw.has(id):
-				node.rotation.y = float(_mast_yaw[id]) + PI / 2.0 - sail_angle
+				node.basis = Basis(Vector3.UP,float(node.get_meta("sail_trim_origin",PI/2.0)) - sail_angle) * _mast_basis[id]
 			if String(node.name) == "rudder_pivot":
-				node.rotation.y = clampf(float(ship.get("rudder", 0.0)), -1.0, 1.0) * 0.42
+				node.rotation.y = float(_rudder_rest.get(id,0.0)) + clampf(float(ship.get("rudder", 0.0)), -1.0, 1.0) * 0.42
 			if String(node.name).begins_with("flag_"):
 				node.rotation.z = 0.0 if _reduced_motion else sin(_time * 4.0) * 0.025
 			if node is MeshInstance3D and node.mesh and String(node.name).begins_with("sail_"):
@@ -122,6 +131,20 @@ func apply_events(events: Array) -> void:
 		var keys := _seen_events.keys()
 		for index in keys.size() - 128:
 			_seen_events.erase(keys[index])
+
+func source_fire_position(event: Dictionary) -> Variant:
+	if _disposed or event.get("type") != "fire" or String(event.get("shipId","")) != String(_snapshot.get("id","")): return null
+	var model := get_model()
+	if model == null: return null
+	var side := str(event.get("side","port"))
+	var nearest: Node3D = null
+	var distance := INF
+	var point := _vector(event.get("position",{}))
+	for socket: Node3D in model.find_children("socket_smoke_"+side+"_*","Node3D",true,false):
+		if not socket.has_meta("source_muzzle_position"): continue
+		var candidate := socket.global_position.distance_squared_to(point)
+		if candidate < distance: nearest=socket; distance=candidate
+	return model.global_transform * nearest.get_meta("source_muzzle_position") if nearest else null
 
 func _fire(side: String, point) -> void:
 	if not side in ["port", "starboard"] or _models.is_empty():
@@ -188,6 +211,9 @@ func get_lod() -> int:
 func get_model() -> Node3D:
 	return _models[_lod] if _models.size() > _lod else null
 
+func source_kind() -> String:
+	return _provider.source_kind(_kind) if _provider and not _disposed else ""
+
 func dispose() -> void:
 	_disposed = true
 	_damage.dispose()
@@ -196,6 +222,8 @@ func dispose() -> void:
 			model.free()
 	_models.clear()
 	_mast_yaw.clear()
+	_mast_basis.clear()
+	_rudder_rest.clear()
 	_barrel_rest.clear()
 	_recoil.clear()
 	_next_gun = {"port": 0, "starboard": 0}
@@ -206,3 +234,5 @@ func dispose() -> void:
 	if _owns_library and _library:
 		_library.dispose()
 	_library = null
+	_provider = null
+	_kind = ""

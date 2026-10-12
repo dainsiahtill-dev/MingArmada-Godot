@@ -44,12 +44,12 @@ func _test_damage(view) -> void:
 	for lod in 3:
 		view.set_lod_distance([0.0, 300.0, 800.0][lod])
 		var model: Node3D = view.get_model()
-		var hull := model.find_child("hull", true, false) as MeshInstance3D
-		var sail := model.find_child("sail_01", true, false) as MeshInstance3D
-		check(hull.material_override is ShaderMaterial, "each real LOD hull has damage shader")
-		check(sail.material_override is ShaderMaterial, "each real LOD sail has holes and scorch shader")
-		if sail.material_override is ShaderMaterial:
-			check(sail.material_override.get_shader_parameter("damage_stage") == 1.0, "LOD changes preserve sail holes")
+		var hull := _first_surface(model, "hull")
+		var sail := _first_surface(model, "sail")
+		check(hull != null and hull.get_active_material(0) is ShaderMaterial, "each real LOD hull has damage shader")
+		check(sail != null and sail.get_active_material(0) is ShaderMaterial, "each real LOD sail has holes and scorch shader")
+		if sail != null and sail.get_active_material(0) is ShaderMaterial:
+			check(sail.get_active_material(0).get_shader_parameter("damage_stage") == 1.0, "LOD changes preserve sail holes")
 	check(state == authoritative, "presentation never writes authority damage")
 	state.time = 11.0
 	state.sail = 0.0
@@ -104,10 +104,13 @@ func _test_all_kinds(script) -> void:
 		for distance in [0.0, 300.0, 800.0]:
 			view.set_lod_distance(distance)
 			var model: Node3D = view.get_model()
-			var hull := model.find_child("hull", true, false) as MeshInstance3D
-			check(hull.material_override.get_shader_parameter("damage_stage") == 5.0, "all eighteen hull LODs retain final stage")
-			for sail: MeshInstance3D in model.find_children("sail_*", "MeshInstance3D", true, false):
-				check(sail.material_override.get_shader_parameter("damage_stage") == 4.0, "each authored sail receives full perforation stage")
+			var hull := _first_surface(model, "hull")
+			check(hull != null and hull.get_active_material(0) is ShaderMaterial and hull.get_active_material(0).get_shader_parameter("damage_stage") == 5.0, "all source hull LOD instances retain final stage")
+			for sail: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+				if sail.get_meta("damage_surface", "") != "sail": continue
+				for surface in sail.mesh.get_surface_count():
+					var material := sail.get_active_material(surface)
+					check(material is ShaderMaterial and material.get_shader_parameter("damage_stage") == 4.0, "each authored sail material receives full perforation stage")
 		check(events.is_empty(), "first loaded destroyed sail cannot replay historical mast effect")
 		view.dispose()
 		view.configure(kind)
@@ -116,6 +119,12 @@ func _test_all_kinds(script) -> void:
 		check(events.is_empty(), "restored terminal snapshot emits no past destruction effects")
 		view.dispose()
 		view.free()
+
+func _first_surface(model: Node3D, kind: String) -> MeshInstance3D:
+	for mesh: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+		if mesh.get_meta("damage_surface", "") == kind and mesh.mesh != null:
+			return mesh
+	return null
 
 func _test_sail_mask() -> void:
 	var helper = load("res://game/presentation/ships/ship_damage.gd").new()

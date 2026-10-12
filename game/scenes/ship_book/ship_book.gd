@@ -2,6 +2,8 @@ extends Control
 ## Native ShipViewer: original GLB assets, orbit camera and authored sail/cannon rigs.
 signal main_menu_requested
 const Library = preload("res://modules/scene_engine/assets/asset_library.gd")
+const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
+const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
 const SHIPS = [
@@ -13,6 +15,7 @@ const SHIPS = [
 	{"id":"heavy","name":"荷兰重型战舰","role":"远洋火力旗舰","length":52,"beam":14.5,"draft":4.2,"description":"九帆、大型舷炮列和三层艉楼，火力强但对深水航道要求更高。"}
 ]
 const ANGLES = ["quarter","bow","starboard","stern","port","underwater"]
+const SOURCE_NAMES := {"barque":"Barque","sloop1":"Sloop","ship_merman":"Merman","frigate":"Frigate","ship_brigantine":"Brigantine","treasure_galleon":"Treasure Galleon"}
 # Three 0.181.2 OrbitControls defaults with ShipViewer.enableDamping = true.
 const DAMPING_FACTOR := .05
 const POLAR_EPSILON := .000001
@@ -24,6 +27,7 @@ var ship_model: Node3D
 var camera: Camera3D
 var sea: MeshInstance3D
 var _library := Library.new()
+var _damage := ShipDamage.new()
 var _world: Node3D
 var _view: SubViewportContainer
 var _viewport: SubViewport
@@ -114,12 +118,14 @@ func select_ship(kind: String, lod: int = 0) -> Dictionary:
 		if SHIPS[n].id==kind: index=n; break
 	if index<0 or lod not in [0,1,2]: return {"ok":false,"reason":"invalid-ship-selection"}
 	_attempted_kind=kind; _attempted_lod=lod
-	var model: Node3D = _library.instantiate_model("res://assets/models/ships/%s-lod%d.glb"%[kind,lod])
+	var model: Node3D = ModelProvider.for_library(_library).instantiate_ship(kind,lod,_library)
 	if model==null:
 		if _status: _status.text="船只载入失败；可重试。"
 		return {"ok":false,"reason":"ship-model-unavailable"}
+	_damage.dispose()
 	if ship_model: ship_model.free()
 	ship_model=model; _world.add_child(ship_model); _kind=kind; _lod=lod; _furl=0; _recoil_left=0; _barrel_rest.clear(); _rudder_rest.clear()
+	_damage.configure([ship_model])
 	var box:=AABB(); var has_box:=false
 	for node in model.find_children("*","Node3D",true,false):
 		if node is MeshInstance3D and node.mesh:
@@ -130,7 +136,8 @@ func select_ship(kind: String, lod: int = 0) -> Dictionary:
 	_center=box.get_center(); _scale=maxf(1,maxf(box.size.x,maxf(box.size.y,box.size.z)))
 	_ship_choice.select(index); _lod_choice.select(lod); _furl_slider.set_value_no_signal(0)
 	var ship: Dictionary=SHIPS[index]
-	_description.text="%s\n%s\n%s\n船长 %s m · 船宽 %s m · 吃水 %s m"%[ship.name,ship.role,ship.description,ship.length,ship.beam,ship.draft]
+	var family := str(model.get_meta("source_family",""))
+	_description.text="%s\n%s\n临时外观：原版 %s 西式帆船。\n操船、火炮与船员沿用当前船型参数。\n船长 %s m · 船宽 %s m · 吃水 %s m"%[ship.name,ship.role,SOURCE_NAMES.get(family,family),ship.length,ship.beam,ship.draft]
 	_status.text=""; set_furl(0); set_angle(_angle)
 	return {"ok":true,"kind":kind,"lod":lod}
 func set_furl(value: float) -> void:
@@ -272,7 +279,7 @@ func _layout() -> void:
 		_sidebar.position=Vector2.ZERO; _sidebar.size=Vector2(width,bounds.y)
 		_view.position=Vector2(width,0); _view.size=Vector2(maxf(1,bounds.x-width),bounds.y)
 func snapshot() -> Dictionary:
-	return {"kind":_kind,"lod":_lod,"path":"res://assets/models/ships/%s-lod%d.glb"%[_kind,_lod],"angle":_angle,"furl":_furl,"distance":_distance}
+	return {"kind":_kind,"source_kind":str(ship_model.get_meta("source_family","")) if ship_model else "","lod":_lod,"path":str(ship_model.get_meta("source_path","")) if ship_model else "","lod_policy":"same_source_lowend","angle":_angle,"furl":_furl,"distance":_distance}
 func _leave() -> void:
 	if _leaving or not is_inside_tree(): return
 	_leaving=true; _clear_camera_motion(); main_menu_requested.emit()
@@ -285,4 +292,4 @@ func _notification(what:int) -> void:
 	# pointercancel handler, stop the gesture while preserving damped inertia.
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT: _cancel_camera_gesture()
 func _exit_tree() -> void:
-	_leaving=true; _clear_camera_motion(); _library.dispose()
+	_leaving=true; _clear_camera_motion(); _damage.dispose(); _library.dispose()

@@ -92,6 +92,12 @@ func _capture(label: String, scene: Node) -> void:
 	var camera: Camera3D=scene.camera if scene.has_method("inspection_snapshot") else scene.sea.camera
 	metadata.cameraFov=camera.fov
 	metadata.productionShaderHashes={}
+	var ship_manifest:="res://assets/data/fidelity_naval/ships-manifest.json"
+	if FileAccess.file_exists(ship_manifest):
+		metadata.shipModelManifestSha256=FileAccess.get_sha256(ship_manifest)
+		metadata.shipPresentationHashes={}
+		for source_path: String in ["res://modules/scene_engine/assets/ship_model_provider.gd","res://game/presentation/ships/ship_view.gd","res://game/presentation/ships/ship_damage.gd","res://game/presentation/ships/ship_damage.gdshader","res://game/presentation/ships/ship_damage_alpha.gdshader","res://game/presentation/ships/ship_damage_surface.gdshaderinc","res://game/presentation/combat/combat_effects.gd"]:
+			metadata.shipPresentationHashes[source_path]=FileAccess.get_sha256(source_path)
 	for shader_path: String in ["res://modules/scene_engine/ocean/reference_game_water.gdshader","res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc","res://modules/scene_engine/terrain/natural_shore_surf.gdshader"]:
 		metadata.productionShaderHashes[shader_path]=FileAccess.get_sha256(shader_path)
 	var macro_optics_path:="res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc"

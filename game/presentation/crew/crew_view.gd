@@ -44,6 +44,7 @@ func configure(ship_kind: String, ship_model: Node3D, asset_library = null) -> b
 	_library = AssetLibrary.new() if _own_library else asset_library
 	_deck = DeckStations.new()
 	if not is_instance_valid(ship_model) or not _deck.configure(ship_kind, ship_model):
+		dispose()
 		return false
 	_pool = ImpactPool.new()
 	add_child(_pool)
@@ -378,6 +379,8 @@ func dispose() -> void:
 	_seen.clear()
 	_fire_velocities.clear()
 	_ship.clear()
+	_deck = null
+	_model = null
 	if _own_library and _library != null:
 		_library.dispose()
 	_library = null

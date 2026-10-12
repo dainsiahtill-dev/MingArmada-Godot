@@ -1,0 +1,2520 @@
+{
+	"events": 3,
+	"projectiles": 3,
+	"puffs": 0,
+	"source_effects": [
+		{
+			"accepted_time": 0.283333333333333,
+			"active": 132,
+			"age": 0.266666666666667,
+			"asset": "fx_cannon_fire_01.nif",
+			"births": 432,
+			"configured": true,
+			"deaths": 300,
+			"last_error": "",
+			"layers": [
+				{
+					"active": 2,
+					"births": 2,
+					"block": 9.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							4.2042121887207,
+							156.932708740234,
+							0.710302948951721
+						],
+						"radius": 8.18221282958984
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 02",
+					"pendingCount": 0,
+					"pendingStart": 2,
+					"requested": 3,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 3,
+					"births": 3,
+					"block": 33.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-6.83395099639893,
+							150.376922607422,
+							1.75727510452271
+						],
+						"radius": 13.0096302032471
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 02",
+					"pendingCount": 0,
+					"pendingStart": 3,
+					"requested": 3,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 6,
+					"births": 6,
+					"block": 55.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.63272166252136,
+							155.373718261719,
+							-0.447201311588287
+						],
+						"radius": 8.21008491516113
+					},
+					"capacity": 7,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist",
+					"pendingCount": 0,
+					"pendingStart": 6,
+					"requested": 6,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 7,
+					"births": 7,
+					"block": 75.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-2.73867058753967,
+							154.7060546875,
+							0.1331787109375
+						],
+						"radius": 8.18532562255859
+					},
+					"capacity": 8,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist01",
+					"pendingCount": 0,
+					"pendingStart": 7,
+					"requested": 7,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 10,
+					"births": 10,
+					"block": 92.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-2.34591865539551,
+							166.295318603516,
+							0.574757814407349
+						],
+						"radius": 23.8093852996826
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke00",
+					"pendingCount": 0,
+					"pendingStart": 10,
+					"requested": 10,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 14,
+					"births": 14,
+					"block": 114.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.000317096710205078,
+							170.047561645508,
+							0.574941396713257
+						],
+						"radius": 18.238452911377
+					},
+					"capacity": 15,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke01",
+					"pendingCount": 0,
+					"pendingStart": 14,
+					"requested": 14,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 3,
+					"births": 3,
+					"block": 135.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							6.68539047241211,
+							168.432159423828,
+							3.29926991462708
+						],
+						"radius": 18.8029880523682
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 01",
+					"pendingCount": 0,
+					"pendingStart": 3,
+					"requested": 3,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 2,
+					"births": 2,
+					"block": 152.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-0.55834698677063,
+							154.238159179688,
+							1.24434196949005
+						],
+						"radius": 10.2008771896362
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 01",
+					"pendingCount": 0,
+					"pendingStart": 2,
+					"requested": 2,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 10,
+					"births": 10,
+					"block": 169.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							2.61088275909424,
+							167.186279296875,
+							7.00222682952881
+						],
+						"radius": 24.6147060394287
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke02",
+					"pendingCount": 0,
+					"pendingStart": 10,
+					"requested": 10,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 75,
+					"births": 75,
+					"block": 186.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-0.774365782737732,
+							249.510665893555,
+							12.8808326721191
+						],
+						"radius": 73.6797027587891
+					},
+					"capacity": 75,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSinitial center smoke",
+					"pendingCount": 0,
+					"pendingStart": 75,
+					"requested": 160,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 300,
+					"block": 207.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 300,
+					"deaths": 300,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray INITIAL",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 300,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				}
+			],
+			"max_time": 3.33333325386047,
+			"orientation": "[X: (0.999226, 0.0, 0.039334), Y: (0.0, 1.0, 0.0), Z: (-0.039334, 0.0, 0.999226)]",
+			"origin": "(-10.33677, 4.335328, 101.8712)",
+			"owned_nodes": 5,
+			"particles": 132,
+			"rendered_meshes": 132,
+			"rendered_triangles": 264,
+			"requested": 518,
+			"rng_draws": 3024,
+			"rng_state": 4213836182,
+			"scope": "completed native replay with target event orientation, .01 metres/unit and wave-conforming water rings",
+			"seed": 2099003334,
+			"source": "fx_cannon_fire_01.nif",
+			"source_scope": "35 selected native particle systems and authored splash meshes; seed explicit; 120Hz observer is adapter; D3D lighting/raster/vertex-color upload unresolved",
+			"system_count": 11,
+			"systems": 11,
+			"time": 0.266666680574417,
+			"time_input": {
+				"canonicalGridAdvances": 32,
+				"endpointDeltaSeconds": 0.0,
+				"endpointTime": null,
+				"frequency": 120,
+				"gridTick": 32,
+				"kind": "canonical float32 120Hz grid plus at most one display endpoint",
+				"lastGridTime": 0.266666680574417,
+				"rebuilds": 1
+			}
+		},
+		{
+			"accepted_time": 0.283333333333333,
+			"active": 271,
+			"age": 0.133333333333333,
+			"asset": "fx_cannon_fire_01.nif",
+			"births": 425,
+			"configured": true,
+			"deaths": 154,
+			"last_error": "",
+			"layers": [
+				{
+					"active": 2,
+					"births": 2,
+					"block": 9.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.035296231508255,
+							127.603462219238,
+							-0.155307739973068
+						],
+						"radius": 5.41743278503418
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 02",
+					"pendingCount": 0,
+					"pendingStart": 2,
+					"requested": 2,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 2,
+					"births": 2,
+					"block": 33.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-2.38852405548096,
+							125.303756713867,
+							1.37058854103088
+						],
+						"radius": 5.66124677658081
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 02",
+					"pendingCount": 0,
+					"pendingStart": 2,
+					"requested": 2,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 6,
+					"births": 6,
+					"block": 55.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.23832845687866,
+							118.151657104492,
+							0.0276309251785278
+						],
+						"radius": 6.47427368164063
+					},
+					"capacity": 7,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist",
+					"pendingCount": 0,
+					"pendingStart": 6,
+					"requested": 6,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 7,
+					"births": 7,
+					"block": 75.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-2.2133936882019,
+							117.479759216309,
+							1.32469964027405
+						],
+						"radius": 6.65817832946777
+					},
+					"capacity": 8,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist01",
+					"pendingCount": 0,
+					"pendingStart": 7,
+					"requested": 7,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 8,
+					"births": 8,
+					"block": 92.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.45566534996033,
+							132.295852661133,
+							-0.412667870521545
+						],
+						"radius": 15.8169746398926
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke00",
+					"pendingCount": 0,
+					"pendingStart": 8,
+					"requested": 8,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 14,
+					"births": 14,
+					"block": 114.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.25872230529785,
+							133.452728271484,
+							0.758246779441834
+						],
+						"radius": 14.9323377609253
+					},
+					"capacity": 15,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke01",
+					"pendingCount": 0,
+					"pendingStart": 14,
+					"requested": 14,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 2,
+					"births": 2,
+					"block": 135.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							1.11203527450562,
+							133.51985168457,
+							0.2687628865242
+						],
+						"radius": 8.0569019317627
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 01",
+					"pendingCount": 0,
+					"pendingStart": 2,
+					"requested": 2,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 1,
+					"births": 1,
+					"block": 152.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-0.519570767879486,
+							128.578338623047,
+							0.222622469067574
+						],
+						"radius": 3.75000023841858
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 01",
+					"pendingCount": 0,
+					"pendingStart": 1,
+					"requested": 1,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 8,
+					"births": 8,
+					"block": 169.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.97368264198303,
+							132.163360595703,
+							-1.92077600955963
+						],
+						"radius": 16.4063777923584
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke02",
+					"pendingCount": 0,
+					"pendingStart": 8,
+					"requested": 8,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 75,
+					"births": 75,
+					"block": 186.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-1.1204047203064,
+							86.9304733276367,
+							3.11604499816895
+						],
+						"radius": 76.9361801147461
+					},
+					"capacity": 75,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSinitial center smoke",
+					"pendingCount": 0,
+					"pendingStart": 75,
+					"requested": 80,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 146,
+					"births": 300,
+					"block": 207.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							-0.0948080644011498,
+							99.0581130981445,
+							-0.155770063400269
+						],
+						"radius": 99.4036483764648
+					},
+					"capacity": 300,
+					"deaths": 154,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray INITIAL",
+					"pendingCount": 0,
+					"pendingStart": 146,
+					"requested": 300,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				}
+			],
+			"max_time": 3.33333325386047,
+			"orientation": "[X: (0.99999, 0.0, 0.004524), Y: (0.0, 1.0, 0.0), Z: (-0.004524, 0.0, 0.99999)]",
+			"origin": "(-4.22117, 3.387177, 101.2987)",
+			"owned_nodes": 5,
+			"particles": 271,
+			"rendered_meshes": 271,
+			"rendered_triangles": 542,
+			"requested": 430,
+			"rng_draws": 2975,
+			"rng_state": 2067403977,
+			"scope": "completed native replay with target event orientation, .01 metres/unit and wave-conforming water rings",
+			"seed": 2099003336,
+			"source": "fx_cannon_fire_01.nif",
+			"source_scope": "35 selected native particle systems and authored splash meshes; seed explicit; 120Hz observer is adapter; D3D lighting/raster/vertex-color upload unresolved",
+			"system_count": 11,
+			"systems": 11,
+			"time": 0.133333340287209,
+			"time_input": {
+				"canonicalGridAdvances": 16,
+				"endpointDeltaSeconds": 0.0,
+				"endpointTime": null,
+				"frequency": 120,
+				"gridTick": 16,
+				"kind": "canonical float32 120Hz grid plus at most one display endpoint",
+				"lastGridTime": 0.133333340287209,
+				"rebuilds": 1
+			}
+		},
+		{
+			"accepted_time": 0.283333333333333,
+			"active": 0,
+			"age": 0.0,
+			"asset": "fx_cannon_fire_01.nif",
+			"births": 0,
+			"configured": true,
+			"deaths": 0,
+			"last_error": "",
+			"layers": [
+				{
+					"active": 0,
+					"births": 0,
+					"block": 9.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 02",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 33.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 02",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 55.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 7,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 75.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 8,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray mist01",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 92.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke00",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 114.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 15,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke01",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 135.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 3,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke up 01",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 152.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 2,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS spiral smoke down 01",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 0.999999940395355,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 169.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 10,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SS main smoke02",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 186.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 75,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 4000.0,
+							"type": "NiPSysGravityModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSinitial center smoke",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				},
+				{
+					"active": 0,
+					"births": 0,
+					"block": 207.0,
+					"boundCounter": 0,
+					"bounds": {
+						"center": [
+							0.0,
+							0.0,
+							0.0
+						],
+						"radius": 0.0
+					},
+					"capacity": 300,
+					"deaths": 0,
+					"modifierOrder": [
+						{
+							"order": 0.0,
+							"type": "NiPSysAgeDeathModifier"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysBoxEmitter"
+						},
+						{
+							"order": 1000.0,
+							"type": "NiPSysSpawnModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysGrowFadeModifier"
+						},
+						{
+							"order": 3000.0,
+							"type": "NiPSysColorModifier"
+						},
+						{
+							"order": 6000.0,
+							"type": "NiPSysPositionModifier"
+						},
+						{
+							"order": 7000.0,
+							"type": "NiPSysBoundUpdateModifier"
+						}
+					],
+					"name": "SSpray INITIAL",
+					"pendingCount": 0,
+					"pendingStart": 0,
+					"requested": 0,
+					"world": {
+						"rotation": [
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0,
+							0.0,
+							0.0,
+							0.0,
+							1.0
+						],
+						"scale": 1.0,
+						"translation": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				}
+			],
+			"max_time": 3.33333325386047,
+			"orientation": "[X: (0.999531, 0.0, -0.030637), Y: (0.0, 1.0, 0.0), Z: (0.030637, 0.0, 0.999531)]",
+			"origin": "(9.601419, 2.28636, 101.0454)",
+			"owned_nodes": 0,
+			"particles": 0,
+			"rendered_meshes": 0,
+			"rendered_triangles": 0,
+			"requested": 0,
+			"rng_draws": 0,
+			"rng_state": 2099003338,
+			"scope": "completed native replay with target event orientation, .01 metres/unit and wave-conforming water rings",
+			"seed": 2099003338,
+			"source": "fx_cannon_fire_01.nif",
+			"source_scope": "35 selected native particle systems and authored splash meshes; seed explicit; 120Hz observer is adapter; D3D lighting/raster/vertex-color upload unresolved",
+			"system_count": 11,
+			"systems": 11,
+			"time": 0.0,
+			"time_input": {
+				"canonicalGridAdvances": 0,
+				"endpointDeltaSeconds": 0.0,
+				"endpointTime": null,
+				"frequency": 120,
+				"gridTick": 0,
+				"kind": "canonical float32 120Hz grid plus at most one display endpoint",
+				"lastGridTime": 0.0,
+				"rebuilds": 1
+			}
+		}
+	],
+	"source_fire": 3,
+	"source_particles": 403,
+	"splashes": 0,
+	"water": {
+		"accepted_time": 0.283333333333333,
+		"droplet_capacity": 0,
+		"droplet_positions": [],
+		"droplets": 0,
+		"fidelity_sources": [],
+		"splashes": 0
+	}
+}

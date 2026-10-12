@@ -88,6 +88,9 @@ func apply_events(events: Array) -> void:
 		var point := _vector(event.get("position",{}))
 		match event.type:
 			"fire":
+				# Original hull proportions differ from temporary game ship stats.
+				# Smoke uses the actual drawn gun; authority keeps its ballistic muzzle.
+				point = _vector(event.get("source_muzzle_position", event.get("position", {})))
 				var velocity := _vector(event.velocity).normalized()
 				if _time-born < 3.333334:
 					var source := SourceEffect.new(); source.name = "CannonSource_"+String(event.id)

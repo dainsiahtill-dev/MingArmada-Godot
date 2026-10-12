@@ -77,6 +77,10 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	wakes = Wakes.new(); _own(wakes); wakes.configure(_water)
 	wakes.configure_surface_filter(_surface_is_water)
 	apply_snapshot(native, [], 0.0)
+	for ship: Dictionary in native.get("ships", []):
+		if not ships.has(str(ship.id)) or not sailors.has(str(ship.id)):
+			dispose()
+			return false
 	return true
 
 func _own(node: Node) -> void:
@@ -183,7 +187,8 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 			_kinds[id] = String(ship.kind)
 			view.set_reduced_motion(bool(_settings.reducedMotion))
 			var crew := Crew.new(); view.add_child(crew)
-			crew.configure(String(ship.kind),view.get_model(),library)
+			if not crew.configure(String(ship.kind),view.get_model(),library):
+				crew.free(); _release_ship(id); continue
 			crew.set_environment(_water); crew.set_reduced_motion(bool(_settings.reducedMotion))
 			crew.get_impact_pool().visual_event.connect(_on_crew_water_entry)
 			sailors[id] = crew
@@ -197,6 +202,10 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	for id: String in ships.keys():
 		if not live.has(id): _release_ship(id)
 	var presented_events: Array = effects.presentation_events(events)
+	for event: Dictionary in presented_events:
+		if event.get("type") == "fire" and ships.has(str(event.get("shipId",""))):
+			var source_point: Variant = ships[str(event.shipId)].source_fire_position(event)
+			if source_point is Vector3: event.source_muzzle_position={"x":source_point.x,"y":source_point.y,"z":source_point.z}
 	for id: String in ships:
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
