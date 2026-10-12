@@ -126,7 +126,7 @@ func _configure_atmosphere(options: Dictionary) -> bool:
 		fog_placements.append(Transform3D(Basis.IDENTITY.scaled(Vector3(3.0,1.0,3.0)),Vector3(x,land_height+1.5,z)))
 	# Source unit-dome geometry needs a distant meter-scale sky in normal play;
 	# the standalone observer's 160/36 placement would sit among these islands.
-	var settings := {"crt_seed":1,"cloud_sky_radius":1200.0,"cloud_sky_height":380.0,"fog_placements":fog_placements,"fog_opacity":0.035}
+	var settings := {"crt_seed":1,"cloud_sky_radius":minf(2800.0,_camera.far*0.65),"cloud_sky_height":380.0,"cloud_bounds_layer":true,"cloud_min_height":80.0,"cloud_height_variation":40.0,"fog_placements":fog_placements,"fog_opacity":0.035}
 	if atmosphere and settings == _atmosphere_options:
 		atmosphere.set_reduced_motion(bool(options.get("reduced_motion",false)))
 		return true

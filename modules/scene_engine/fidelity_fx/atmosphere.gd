@@ -21,6 +21,9 @@ var _journal: Array = []
 var _sky_radius := 160.0
 var _sky_height := 36.0
 var _sky_origin := Vector3.ZERO
+var _sky_bounds_layer := false
+var _sky_floor := 80.0
+var _sky_variation := 40.0
 var _fog_duration := 33.333335876464844
 var _fog_opacity := 1.0
 var _reduced_motion := false
@@ -52,7 +55,11 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 	if _seed < 0 or _seed > 0xffffffff: return _fail("Explicit CRT seed must be uint32")
 	_sky_radius = float(options.get("cloud_sky_radius",160.0))
 	_sky_height = float(options.get("cloud_sky_height",36.0))
+	_sky_bounds_layer = bool(options.get("cloud_bounds_layer",false))
+	_sky_floor = float(options.get("cloud_min_height",80.0))
+	_sky_variation = float(options.get("cloud_height_variation",40.0))
 	if not is_finite(_sky_radius) or _sky_radius <= 0 or not is_finite(_sky_height): return _fail("Invalid explicit camera-follow sky adaptation")
+	if not is_finite(_sky_floor) or _sky_floor <= 60.0 or not is_finite(_sky_variation) or _sky_variation < 0.0: return _fail("Invalid target cloud navigation clearance")
 	_fog_opacity = float(options.get("fog_opacity",1.0))
 	if not is_finite(_fog_opacity) or _fog_opacity < 0.0 or _fog_opacity > 1.0: return _fail("Invalid target ground-fog opacity")
 	_reduced_motion = bool(options.get("reduced_motion",false))
@@ -187,11 +194,28 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 	_sky_origin = camera.global_position+Vector3(0,_sky_height,0)
 	var native_camera := _camera_basis(camera)
 	var scale_adaptation := _sky_radius/SOURCE_METRES
+	var groups: Array = []
+	var low_bounds: Array[float] = []
 	for i in _ring.nodes.size():
 		var clone: Dictionary = _ring.nodes[i]
 		var outer := {"rotation":clone.rotation,"translation":Native.transform_vector(clone.rotation,[0,1,0]),"scale":1.0}
 		var meshes := Native.original_meshes(_assets[clone.prototype],0.0,outer,false,native_camera)
-		_update_group(_clouds[i],meshes,Transform3D(Basis.IDENTITY,_sky_origin),scale_adaptation)
+		groups.append(meshes)
+		var lowest := INF
+		for mesh: Dictionary in meshes:
+			for vertex: Array in mesh.vertices: lowest=minf(lowest,float(vertex[2])*_sky_radius)
+		low_bounds.append(lowest)
+	var minimum: float = low_bounds.min() if not low_bounds.is_empty() else 0.0
+	var maximum: float = low_bounds.max() if not low_bounds.is_empty() else 0.0
+	for i in groups.size():
+		var origin := _sky_origin
+		if _sky_bounds_layer:
+			# Explicit game sky placement: preserve each whole prototype's shape
+			# and internal sparse downward patches, then translate the whole group.
+			# The source's lower/higher group ordering remains visible in this deck.
+			var variation := (low_bounds[i]-minimum)/maxf(0.001,maximum-minimum)
+			origin.y = _sky_floor+variation*_sky_variation-low_bounds[i]
+		_update_group(_clouds[i],groups[i],Transform3D(Basis.IDENTITY,origin),scale_adaptation)
 	for instance: Dictionary in _fog:
 		var meshes := Native.original_meshes(_assets["fx_groundfog01.nif"],_cloud_time+float(instance.phase),{},true)
 		_update_group(instance.meshes,meshes,instance.placement,1.0)
@@ -219,7 +243,7 @@ static func _mesh_count(groups: Array) -> int:
 func diagnostics() -> Dictionary:
 	var fog_phases: Array = []
 	for instance: Dictionary in _fog: fog_phases.append(instance.phase)
-	return {"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"independentClock":false,"error":_error}
+	return {"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"skyBoundsLayer":_sky_bounds_layer,"cloudMinimumHeight":_sky_floor,"skyRadius":_sky_radius,"independentClock":false,"error":_error}
 
 func dispose() -> void:
 	if is_instance_valid(_container):
@@ -230,3 +254,4 @@ func dispose() -> void:
 	_clouds.clear(); _fog.clear(); _ring.clear(); _journal.clear()
 	_time = 0.0; _cloud_time = 0.0; _sky_origin = Vector3.ZERO; _error = ""
 	_fog_opacity = 1.0; _reduced_motion = false
+	_sky_bounds_layer = false; _sky_floor=80.0; _sky_variation=40.0

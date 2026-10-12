@@ -176,8 +176,12 @@ static func _visit(blocks: Dictionary, block: Dictionary, parent: Dictionary, in
 			if not data.get("translations",{}).get("keys",[]).is_empty(): local.translation = _sample(data.translations,mapped)
 			if not data.get("scales",{}).get("keys",[]).is_empty(): local.scale = _sample(data.scales,mapped)
 	var world := compose_transform(parent,local)
+	var billboard: Dictionary = inherited.get("_draw_billboard",{}).duplicate(true)
+	if not billboard.is_empty(): billboard.relative=compose_transform(billboard.relative,local)
+	if block.type == "NiBillboardNode": billboard={"parent":world.duplicate(true),"relative":{"rotation":identity(),"translation":[0.0,0.0,0.0],"scale":1.0}}
 	if block.type == "NiBillboardNode" and not camera.is_empty(): world.rotation = billboard_mode0(world.rotation,camera)
 	var props := inherited.duplicate()
+	if not billboard.is_empty(): props._draw_billboard=billboard
 	for reference: Variant in fields.get("properties",[]):
 		var property := _ref(blocks,reference)
 		props[str(property.type)] = property
@@ -214,4 +218,5 @@ static func _visit(blocks: Dictionary, block: Dictionary, parent: Dictionary, in
 			uvs.append([f32(float(uv_matrix[0])*float(v.u)+float(uv_matrix[3])*float(v.v)+float(uv_matrix[6])),f32(float(uv_matrix[1])*float(v.u)+float(uv_matrix[4])*float(v.v)+float(uv_matrix[7]))])
 		var diffuse: Dictionary = material.get("fields",{}).get("diffuse_color",{})
 		result.append({"asset":asset_name,"block":int(block.id),"texture":texture,"vertices":vertices,"localVertices":local_vertices,"sourceUV":uv_source,"uvs":uvs,"uvMatrix":uv_matrix,"triangles":data.effective_triangles,"alpha":alpha,"color":[float(diffuse.get("r",1.0)),float(diffuse.get("g",1.0)),float(diffuse.get("b",1.0))],"alphaFlags":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("flags",0)),"threshold":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("threshold",0)),"clampMode":int(desc.get("clamp_mode",3)),"filterMode":int(desc.get("filter_mode",2)),"world":world})
+		if not billboard.is_empty(): result[-1].billboard=billboard
 	for reference: Variant in fields.get("children",[]): _visit(blocks,_ref(blocks,reference),world,props,time,animate,camera,asset_name,result)

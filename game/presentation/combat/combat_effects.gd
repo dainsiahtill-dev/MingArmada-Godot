@@ -47,7 +47,7 @@ func apply_snapshot(native: Dictionary,_consumed: float) -> void:
 	for index in range(_source_fire.size()-1,-1,-1):
 		var effect: Dictionary = _source_fire[index]
 		var age := _time-float(effect.time)
-		if age < 0.0 or age >= 3.333334:
+		if age < 0.0 or age >= float(effect.duration):
 			effect.node.free(); _source_fire.remove_at(index); continue
 		effect.node.apply_snapshot(age,_time)
 	var present: Array = []
@@ -65,13 +65,32 @@ func apply_snapshot(native: Dictionary,_consumed: float) -> void:
 		_update_puff(puff,age)
 	for id in _velocities.keys():
 		if _time-_velocities[id].time > 10: _velocities.erase(id)
-func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: Vector3,growth: float,born: float = -1.0) -> void:
+func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: Vector3,growth: float,born: float = -1.0,texture_name: String = "",flash: bool = false) -> void:
 	if _puffs.size() >= 160: return
 	var stamp := _time if born < 0.0 else born
 	if not is_finite(stamp) or stamp > _time or _time-stamp >= duration: return
-	var mesh := MeshInstance3D.new(); var sphere := SphereMesh.new(); sphere.radius = 0.5; sphere.height = 1
+	var mesh := MeshInstance3D.new()
 	var material := StandardMaterial3D.new(); material.albedo_color = color; material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mesh.mesh = sphere; mesh.material_override = material; mesh.position = position; mesh.scale = Vector3.ONE*size; add_child(mesh)
+	if not texture_name.is_empty():
+		# Reuse the original DDS and authored mips already owned by the source
+		# renderer. These destruction overlays are explicit game presentation.
+		var texture: Texture2D = SourceEffect._texture(texture_name)
+		if texture == null: return
+		mesh.mesh = QuadMesh.new(); mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		material.albedo_texture = texture
+		material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		material.texture_repeat = false
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
+		material.render_priority = 3
+		if flash:
+			material.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+			material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			material.emission_enabled = true; material.emission = Color(1.0,0.42,0.08); material.emission_energy_multiplier = 1.8
+	else:
+		var fragment := BoxMesh.new(); fragment.size = Vector3(0.24,0.18,1.0)
+		mesh.mesh = fragment
+	mesh.material_override = material; mesh.position = position; mesh.scale = Vector3.ONE*size; add_child(mesh)
 	var puff := {"node":mesh,"material":material,"origin":position,"velocity":velocity,"size":size,"growth":growth,"time":stamp,"duration":duration,"alpha":color.a}
 	_puffs.append(puff)
 	_update_puff(puff,_time-stamp)
@@ -95,8 +114,8 @@ func apply_events(events: Array) -> void:
 				if _time-born < 3.333334:
 					var source := SourceEffect.new(); source.name = "CannonSource_"+String(event.id)
 					add_child(source)
-					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera}):
-						_source_fire.append({"node":source,"time":born}); source.apply_snapshot(_time-born,_time)
+					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera,"render_profile":"game_cannon"}):
+						_source_fire.append({"node":source,"time":born,"duration":source.get_playback_duration()}); source.apply_snapshot(_time-born,_time)
 					else: source.free()
 			"hit":
 				for i in 6: _puff(point,Color(0.55,0.35,0.15,0.95),0.12,0.9,Vector3(sin(i*2.1)*3,1.5+i*0.3,cos(i*2.1)*3),0.1,born)
@@ -105,8 +124,8 @@ func apply_events(events: Array) -> void:
 			"mast-break":
 				for i in 8: _puff(point,Color(0.50,0.33,0.17,0.70),0.10,1.2,Vector3(sin(i*2.1)*2.0,1.1+i*.12,cos(i*2.1)*2.0),0.12,born)
 			"destruction-explosion":
-				_puff(point,Color(1.0,0.65,0.22,0.85),2.2,0.18,Vector3.UP,4.0,born)
-				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.38),1.2+i*.15,3.0,Vector3(sin(i)*.5,1.0,cos(i)*.5),0.65,born)
+				_puff(point,Color(1.0,0.65,0.22,0.85),2.2,0.18,Vector3.UP,4.0,born,"fx_cannon_smoke_03.dds",true)
+				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.38),1.2+i*.15,3.0,Vector3(sin(i)*.5,1.0,cos(i)*.5),0.65,born,"fx_cannon_smoke_0%d.dds"%[2+i%2])
 			"sinking-froth":
 				if _water_splashes:
 					var froth := event.duplicate(true); froth.type = "splash"; froth.scale = 1.8; froth.surface_only = true

@@ -82,6 +82,8 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	return true
 
 func set_camera(camera: Camera3D) -> void: _camera = camera
+func get_playback_duration() -> float:
+	return float(_replay.diagnostics().get("max_time",0.0)) if _replay != null else 0.0
 func configure_surface_filter(sea_at: Callable) -> void: _sea = sea_at
 static func native_to_godot(point: Array) -> Vector3: return Vector3(float(point[0]),float(point[2]),-float(point[1]))
 static func godot_to_native(point: Vector3) -> Array: return [point.x,-point.z,point.y]

@@ -203,7 +203,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 		if not live.has(id): _release_ship(id)
 	var presented_events: Array = effects.presentation_events(events)
 	for event: Dictionary in presented_events:
-		if event.get("type") == "fire" and ships.has(str(event.get("shipId",""))):
+		if event.get("type") == "fire" and not event.has("source_muzzle_position") and ships.has(str(event.get("shipId",""))):
 			var source_point: Variant = ships[str(event.shipId)].source_fire_position(event)
 			if source_point is Vector3: event.source_muzzle_position={"x":source_point.x,"y":source_point.y,"z":source_point.z}
 	for id: String in ships:

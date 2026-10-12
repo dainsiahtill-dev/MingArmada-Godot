@@ -13,6 +13,8 @@ func _run() -> void:
 	main=Main.new(); main.router=Router.new({"mingqi_storage":slot,"legacy_storage":legacy,"settings_storage":settings}); root.add_child(main)
 	await process_frame
 	await _capture_menu()
+	if OS.get_cmdline_user_args().has("--atmosphere-particles"):
+		await _capture_atmosphere_particles(slot,legacy); _finish(); return
 	if OS.get_cmdline_user_args().has("--ship-material-check"):
 		await _capture_ship_material_layers(); _finish(); return
 	if OS.get_cmdline_user_args().has("--reference-ships"):
@@ -483,6 +485,31 @@ func _capture_ship_book(label: String, book: Control) -> void:
 	if check(receipt != null, "source ship metadata opens"):
 		receipt.store_string(JSON.stringify(info, "\t")); receipt.close(); captures.append(info)
 
+func _capture_atmosphere_particles(slot: RefCounted, legacy: RefCounted) -> void:
+	var button: Button=main.menu.find_child("mingqi",true,false)
+	if not check(button!=null and not button.disabled,"ordinary career entry for atmosphere inspection"): return
+	button.pressed.emit()
+	if not await _await_scene("mingqi"): return
+	var game: Node=main.current_scene
+	game.process_mode=Node.PROCESS_MODE_DISABLED
+	game.runtime.set_pause("player",true)
+	game.interface.close_menu(); game.interface.close_panel()
+	game.sea.apply_settings({"quality":"high"})
+	game._present(0.0)
+	await _capture("atmosphere-career-captain",game)
+	var point: Vector3=game.sea.ships.values()[0].global_position
+	game.sea.set_camera_controller(func():
+		game.sea.camera.position=point+Vector3(24,12,45)
+		game.sea.camera.look_at(point+Vector3.UP*8,Vector3.UP))
+	game._present(0.0)
+	await _capture("atmosphere-career-sky",game)
+	var sky_before: Dictionary=game.sea.world.atmosphere.diagnostics()
+	game._present(0.0)
+	check(game.sea.world.atmosphere.diagnostics()==sky_before,"paused current scene atmosphere stays at accepted time")
+	main._return_from_scene(game); for frame in 5: await process_frame
+	await _capture_combat()
+	check(slot.writes==0 and legacy.writes==0,"particle capture preserves actual user save slots")
+
 func _capture_combat() -> void:
 	var button: Button=main.menu.find_child("duel",true,false)
 	if not check(button!=null and not button.disabled,"ordinary single-ship battle entry"): return
@@ -494,8 +521,11 @@ func _capture_combat() -> void:
 	game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(65,35,85); game.sea.camera.look_at(Vector3(0,4,12),Vector3.UP))
 	game._present(0.0)
 	await _capture("formal-battle-ready",game)
-	if OS.get_cmdline_user_args().has("--reference-ships"):
-		game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
+	if OS.get_cmdline_user_args().has("--reference-ships") or OS.get_cmdline_user_args().has("--atmosphere-particles"):
+		if OS.get_cmdline_user_args().has("--atmosphere-particles"):
+			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(28,13,45); game.sea.camera.look_at(Vector3(0,6,3),Vector3.UP))
+		else:
+			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
 		game._present(0.0)
 		await _capture("source-formal-battle-close",game)
 	game._command({"type":"resume"})
@@ -533,7 +563,9 @@ func _capture_combat() -> void:
 	if check(fire_receipt!=null,"actual player fire receipt opens"):
 		fire_receipt.store_string(JSON.stringify({"input":"actual HUD fire button signal followed by one real simulation tick","side":side,"playerId":player_id,"ammoBefore":ammo_before,"ammoAfter":ammo_after,"events":player_shots,"effects":player_effects},"\t")); fire_receipt.close()
 	var ticks:=1
-	for target in [9,30,90,180]:
+	var targets: Array=[2,4,8,16,30,60,120,180] if OS.get_cmdline_user_args().has("--atmosphere-particles") else [9,30,90,180]
+	var effect_frames: Array=[]
+	for target in targets:
 		# Native focus protection also fires during screenshot export. Each
 		# scripted batch explicitly uses the normal Resume command, and proves
 		# the requested fixed ticks advanced rather than relabeling a paused PNG.
@@ -543,12 +575,25 @@ func _capture_combat() -> void:
 			game._present(game.runtime.advance(1.0/60.0)); ticks+=1
 		check(absf(float(game.runtime.snapshot().naval.time)-initial_time-float(target)/60.0)<0.03,"actual combat clock reached requested capture tick %d"%target)
 		await _capture("formal-battle-%03d"%target,game)
+		if OS.get_cmdline_user_args().has("--atmosphere-particles"):
+			var frame_effects: Array=[]
+			for effect: Dictionary in game.sea.effects.get("_source_fire"):
+				var state: Dictionary=effect.node.diagnostics()
+				frame_effects.append({"eventId":String(effect.node.name).trim_prefix("CannonSource_"),"age":state.get("age"),"origin":state.get("origin"),"source":state.get("source"),"profile":state.get("render_profile"),"particles":state.get("active",state.get("particles",0)),"renderedMeshes":state.get("rendered_meshes"),"renderedTriangles":state.get("rendered_triangles"),"flash":state.get("game_flash")})
+			effect_frames.append({"tick":target,"time":game.runtime.snapshot().naval.time,"effects":frame_effects,"sky":game.sea.world.atmosphere.diagnostics()})
 		if target == 9 and OS.get_cmdline_user_args().has("--reference-ships"):
 			var effects: Dictionary = game.sea.effects.diagnostics()
 			var receipt := FileAccess.open(output + "/source-formal-fire.json", FileAccess.WRITE)
 			if check(receipt != null, "actual source muzzle effect receipt opens"):
 				receipt.store_string(JSON.stringify(effects, "\t")); receipt.close()
 	check(game.sea.world.fidelity_diagnostics().geometryMode=="static_natural","battle particles share actual new game world")
+	if OS.get_cmdline_user_args().has("--atmosphere-particles"):
+		var receipt:=FileAccess.open(output+"/particle-event-frames.json",FileAccess.WRITE)
+		if check(receipt!=null,"real particle lifecycle receipt opens"):
+			receipt.store_string(JSON.stringify(effect_frames,"\t")); receipt.close()
+		var now: float=game.runtime.snapshot().naval.time
+		game.sea.effects.apply_events([{"id":"controlled-destruction-inspection","type":"destruction-explosion","time":now-0.06,"position":{"x":0.0,"y":5.0,"z":0.0}}])
+		await _capture("controlled-destruction-inspection",game)
 	main._return_from_scene(game); for frame in 5: await process_frame
 
 func _capture_menu() -> void:

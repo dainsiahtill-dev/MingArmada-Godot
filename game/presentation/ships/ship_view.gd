@@ -23,6 +23,9 @@ var _barrel_rest: Dictionary = {}
 var _recoil: Dictionary = {}
 var _next_gun := {"port": 0, "starboard": 0}
 var _seen_events: Dictionary = {}
+const SOURCE_POSE_SECONDS := 4.0
+const SOURCE_POSE_LIMIT := 256
+var _source_poses: Array[Dictionary] = []
 var _disposed := true
 var _reduced_motion := false
 
@@ -69,6 +72,7 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 	if rewind:
 		_recoil.clear()
 		_seen_events.clear()
+		_source_poses.clear()
 	_snapshot = ship.duplicate(true)
 	_wind = wind.duplicate(true)
 	if is_finite(consumed) and consumed > 0.0:
@@ -113,6 +117,31 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 		event.position = {"x": global_position.x, "y": global_position.y, "z": global_position.z}
 		presentation_event.emit(event)
 	set_lod_distance([0.0, 220.0, 650.0][_lod])
+	_record_source_pose()
+
+func _record_source_pose() -> void:
+	if _models.is_empty(): return
+	var record := {"time":_time,"transform":_models[0].global_transform}
+	if not _source_poses.is_empty() and absf(float(_source_poses[-1].time)-_time) <= 1.0e-8:
+		_source_poses[-1] = record
+	else:
+		_source_poses.append(record)
+	while _source_poses.size() > 1 and (_source_poses.size() > SOURCE_POSE_LIMIT or float(_source_poses[0].time) < _time-SOURCE_POSE_SECONDS):
+		_source_poses.pop_front()
+
+func _source_pose_at(time: float) -> Variant:
+	# Outside the bounded accepted history, callers use the native event mouth.
+	# A latest ship transform must never relocate a delayed shot to the new ship.
+	if not is_finite(time) or _source_poses.is_empty(): return null
+	if time < float(_source_poses[0].time)-1.0e-8 or time > float(_source_poses[-1].time)+1.0e-8: return null
+	for i in _source_poses.size():
+		var before: Dictionary = _source_poses[i]
+		if absf(time-float(before.time)) <= 1.0e-8: return before.transform
+		if i+1 < _source_poses.size():
+			var after: Dictionary = _source_poses[i+1]
+			if time > float(before.time) and time < float(after.time):
+				return (before.transform as Transform3D).interpolate_with(after.transform,(time-float(before.time))/(float(after.time)-float(before.time)))
+	return null
 
 func apply_events(events: Array) -> void:
 	if _disposed:
@@ -134,17 +163,24 @@ func apply_events(events: Array) -> void:
 
 func source_fire_position(event: Dictionary) -> Variant:
 	if _disposed or event.get("type") != "fire" or String(event.get("shipId","")) != String(_snapshot.get("id","")): return null
-	var model := get_model()
-	if model == null: return null
+	if event.has("source_muzzle_position"):
+		var captured := _vector(event.source_muzzle_position)
+		return captured if captured.is_finite() else null
+	if _models.is_empty(): return null
+	var born_pose: Variant = _source_pose_at(float(event.get("time",_time)))
+	if not born_pose is Transform3D: return null
+	var model := _models[0]
+	var local_from_world := model.global_transform.affine_inverse()
 	var side := str(event.get("side","port"))
 	var nearest: Node3D = null
 	var distance := INF
 	var point := _vector(event.get("position",{}))
 	for socket: Node3D in model.find_children("socket_smoke_"+side+"_*","Node3D",true,false):
 		if not socket.has_meta("source_muzzle_position"): continue
-		var candidate := socket.global_position.distance_squared_to(point)
+		var logical_local := local_from_world * socket.global_position
+		var candidate: float = (born_pose * logical_local).distance_squared_to(point)
 		if candidate < distance: nearest=socket; distance=candidate
-	return model.global_transform * nearest.get_meta("source_muzzle_position") if nearest else null
+	return born_pose * nearest.get_meta("source_muzzle_position") if nearest else null
 
 func _fire(side: String, point) -> void:
 	if not side in ["port", "starboard"] or _models.is_empty():
@@ -228,6 +264,7 @@ func dispose() -> void:
 	_recoil.clear()
 	_next_gun = {"port": 0, "starboard": 0}
 	_seen_events.clear()
+	_source_poses.clear()
 	_snapshot.clear()
 	_wind.clear()
 	_time = 0.0
