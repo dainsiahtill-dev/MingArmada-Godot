@@ -13,6 +13,10 @@ func _run() -> void:
 	main=Main.new(); main.router=Router.new({"mingqi_storage":slot,"legacy_storage":legacy,"settings_storage":settings}); root.add_child(main)
 	await process_frame
 	await _capture_menu()
+	if OS.get_cmdline_user_args().has("--water-optics-probe"):
+		await _capture_water_optics_probe(); _finish(); return
+	if OS.get_cmdline_user_args().has("--particle-visibility-probe"):
+		await _capture_combat(); _finish(); return
 	if OS.get_cmdline_user_args().has("--atmosphere-particles"):
 		await _capture_atmosphere_particles(slot,legacy); _finish(); return
 	if OS.get_cmdline_user_args().has("--ship-material-check"):
@@ -485,6 +489,33 @@ func _capture_ship_book(label: String, book: Control) -> void:
 	if check(receipt != null, "source ship metadata opens"):
 		receipt.store_string(JSON.stringify(info, "\t")); receipt.close(); captures.append(info)
 
+func _capture_water_optics_probe() -> void:
+	var button: Button=main.menu.find_child("duel",true,false)
+	if not check(button!=null and not button.disabled,"ordinary naval scene for water optics probe"): return
+	button.pressed.emit()
+	if not await _await_scene("duel"): return
+	var game: Node=main.current_scene
+	game.process_mode=Node.PROCESS_MODE_DISABLED
+	game._command({"type":"resume"})
+	game.sea.apply_settings({"quality":"high","cameraFollow":false})
+	game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
+	game._present(0.0)
+	var material: ShaderMaterial=game.sea.world.get_ocean().material_override
+	if not check(material!=null,"actual water optical shader material exists"): return
+	await _capture("water-probe-baseline",game)
+	var optical_cases: Array=[{"name":"normal-flat","key":"u_strength","value":0.0},{"name":"no-scene-reflection","key":"u_use_reflection","value":false},{"name":"no-sun-specular","key":"u_sun_color","value":Vector3.ZERO},{"name":"no-reference-color","key":"has_reference_water_textures","value":false}]
+	for optical: Dictionary in optical_cases:
+		var original: Variant=material.get_shader_parameter(optical.key)
+		capture_render_hook=func(): material.set_shader_parameter(optical.key,optical.value)
+		game.set_meta("capture_inspection",{"type":"same-frame optical ablation","uniform":optical.key})
+		await _capture("water-probe-"+String(optical.name),game)
+		capture_render_hook=Callable(); material.set_shader_parameter(optical.key,original)
+	var atmosphere_container: Node3D=game.sea.world.atmosphere.get("_container")
+	atmosphere_container.visible=false
+	game.set_meta("capture_inspection",{"type":"same-frame optical ablation","owner":"cloud and ground-fog container"})
+	await _capture("water-probe-no-clouds",game)
+	atmosphere_container.visible=true; game.remove_meta("capture_inspection")
+
 func _capture_atmosphere_particles(slot: RefCounted, legacy: RefCounted) -> void:
 	var button: Button=main.menu.find_child("mingqi",true,false)
 	if not check(button!=null and not button.disabled,"ordinary career entry for atmosphere inspection"): return
@@ -521,9 +552,11 @@ func _capture_combat() -> void:
 	game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(65,35,85); game.sea.camera.look_at(Vector3(0,4,12),Vector3.UP))
 	game._present(0.0)
 	await _capture("formal-battle-ready",game)
-	if OS.get_cmdline_user_args().has("--reference-ships") or OS.get_cmdline_user_args().has("--atmosphere-particles"):
-		if OS.get_cmdline_user_args().has("--atmosphere-particles"):
-			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(28,13,45); game.sea.camera.look_at(Vector3(0,6,3),Vector3.UP))
+	if OS.get_cmdline_user_args().has("--reference-ships") or OS.get_cmdline_user_args().has("--atmosphere-particles") or OS.get_cmdline_user_args().has("--particle-visibility-probe"):
+		if OS.get_cmdline_user_args().has("--atmosphere-particles") or OS.get_cmdline_user_args().has("--particle-visibility-probe"):
+			# Inspect the firing starboard side, using the established ocean-safe
+			# camera height instead of hiding the flash behind the opposite hull.
+			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(-35,23,48); game.sea.camera.look_at(Vector3(0,6,3),Vector3.UP))
 		else:
 			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
 		game._present(0.0)
@@ -564,6 +597,7 @@ func _capture_combat() -> void:
 		fire_receipt.store_string(JSON.stringify({"input":"actual HUD fire button signal followed by one real simulation tick","side":side,"playerId":player_id,"ammoBefore":ammo_before,"ammoAfter":ammo_after,"events":player_shots,"effects":player_effects},"\t")); fire_receipt.close()
 	var ticks:=1
 	var targets: Array=[2,4,8,16,30,60,120,180] if OS.get_cmdline_user_args().has("--atmosphere-particles") else [9,30,90,180]
+	if OS.get_cmdline_user_args().has("--particle-visibility-probe"): targets=[2,4]
 	var effect_frames: Array=[]
 	for target in targets:
 		# Native focus protection also fires during screenshot export. Each
@@ -575,6 +609,22 @@ func _capture_combat() -> void:
 			game._present(game.runtime.advance(1.0/60.0)); ticks+=1
 		check(absf(float(game.runtime.snapshot().naval.time)-initial_time-float(target)/60.0)<0.03,"actual combat clock reached requested capture tick %d"%target)
 		await _capture("formal-battle-%03d"%target,game)
+		if OS.get_cmdline_user_args().has("--particle-visibility-probe") and target==4:
+			var visible_flash: Array=[]
+			for effect: Dictionary in game.sea.effects.get("_source_fire"):
+				for mesh: MeshInstance3D in effect.node.get_children():
+					if mesh.get_meta("display_role","")!="game_flash": continue
+					var point: Vector3=mesh.global_position
+					visible_flash.append({"event":String(effect.node.name),"world":point,"pixel":game.sea.camera.unproject_position(point),"bounds":mesh.get_aabb(),"materialTint":mesh.material_override.get_shader_parameter("display_tint")})
+			var receipt:=FileAccess.open(output+"/flash-visibility-probe.json",FileAccess.WRITE)
+			if check(receipt!=null,"flash visibility geometry receipt opens"):
+				receipt.store_string(JSON.stringify(visible_flash,"\t")); receipt.close()
+			game.sea.ships[player_id].visible=false
+			await _capture("probe-004-no-player-ship",game)
+			game.sea.world.get_ocean().visible=false
+			await _capture("probe-004-no-player-ship-or-ocean",game)
+			game.sea.world.get_ocean().visible=true; game.sea.ships[player_id].visible=true
+			return
 		if OS.get_cmdline_user_args().has("--atmosphere-particles"):
 			var frame_effects: Array=[]
 			for effect: Dictionary in game.sea.effects.get("_source_fire"):
@@ -592,8 +642,23 @@ func _capture_combat() -> void:
 		if check(receipt!=null,"real particle lifecycle receipt opens"):
 			receipt.store_string(JSON.stringify(effect_frames,"\t")); receipt.close()
 		var now: float=game.runtime.snapshot().naval.time
+		game.set_meta("capture_inspection",{"type":"controlled production effect event","scope":"Visual destruction/splash inspection, not an actual battle outcome."})
 		game.sea.effects.apply_events([{"id":"controlled-destruction-inspection","type":"destruction-explosion","time":now-0.06,"position":{"x":0.0,"y":5.0,"z":0.0}}])
 		await _capture("controlled-destruction-inspection",game)
+		for variant in range(1,4):
+			var ordinal:=0
+			var id: String="controlled-splash-%d-%d"%[variant,ordinal]
+			while 1+posmod(absi(id.hash()),3)!=variant:
+				ordinal+=1; id="controlled-splash-%d-%d"%[variant,ordinal]
+			game.sea.effects.apply_events([{"id":id,"type":"splash","time":now-0.35,"position":{"x":-24.0+(variant-1)*15.0,"y":0.0,"z":-16.0}}])
+			var found:=false
+			for source: Dictionary in game.sea.effects.diagnostics().water.fidelity_sources:
+				if source.source=="cannon_ball_splash_0%d.nif"%variant:
+					check(String(source.get("render_error","error")).is_empty(),"whole original splash material stream renders variant %d"%variant)
+					check(int(source.rendered_triangles)>0,"original splash has submitted mesh geometry variant %d"%variant); found=true
+			check(found,"production water presenter chooses original splash variant %d"%variant)
+			await _capture("controlled-splash-%02d-inspection"%variant,game)
+		game.remove_meta("capture_inspection")
 	main._return_from_scene(game); for frame in 5: await process_frame
 
 func _capture_menu() -> void:

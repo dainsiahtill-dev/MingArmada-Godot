@@ -43,6 +43,20 @@ func _run()->void:
 			frame.rotation=Native.billboard_mode0(frame.rotation,source_camera)
 			var recovered:Dictionary=Native.compose_transform(frame,state.billboard.relative)
 			check(recovered==state.world,"declared draw frame reconstructs actual original main-camera mesh pose")
+	var fog_renderer:=Atmosphere.new()
+	check(fog_renderer.configure(host,manifest,{"fog_placements":[Transform3D.IDENTITY]}).get("ok",false),"original fog prototype configures for sampler border contract")
+	fog_renderer.apply_snapshot({"time":24.4},camera)
+	var fog_nodes:Node3D=host.get_node("OriginalCloudAndFog")
+	var clamped:=0
+	for mesh:MeshInstance3D in fog_nodes.get_children():
+		if not String(mesh.name).begins_with("OriginalGroundFog_"):continue
+		var texture:Variant=mesh.material_override.get_shader_parameter("original_clamped_texture")
+		check(texture is Texture2D,"each original CC fog material binds a real hardware-clamped texture for every mip")
+		if texture is Texture2D:
+			clamped+=1
+			check(texture.get_image().get_mipmap_count()==8,"clamped hardware sampler preserves all nine original fog mips")
+	check(clamped==20,"all original fog meshes receive clamped sampler rather than base-level half-texel UV wrapping")
+	fog_renderer.dispose()
 	world.dispose();host.free()
 	var result:Dictionary={"assertions":assertions,"failures":failures,"projectedCloudMeshes":on_screen,"minimumCloudY":low}
 	var output:=FileAccess.open("res://Temp/atmosphere-sky-contract.json",FileAccess.WRITE);output.store_string(JSON.stringify(result,"  "));output.close()

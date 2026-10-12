@@ -1,0 +1,25 @@
+{
+  "scope": "Initial shared source particle presentation and display shaders only. Superseded by v1.1: whole-source audit found six mixed-axis splash descriptors unsupported by v1; see fidelity-fx-backend-v1-1-headless.json. Native replay numerical code and source assets unchanged. No GPU validation or full suite.",
+  "productionFiles": [
+    "modules/scene_engine/fidelity_fx/presentation.gd",
+    "modules/scene_engine/fidelity_fx/particle.gdshader",
+    "modules/scene_engine/fidelity_fx/particle_add.gdshader",
+    "modules/scene_engine/fidelity_fx/particle_sampling.gdshaderinc"
+  ],
+  "red": {"test":"tests/test_fidelity_fx_rendering.gd","assertions":22,"failures":8,"exitCode":1,"reason":"Actual missing source samplers, independent depth order, expiry clearing, public duration and game muzzle streak"},
+  "greenRuns": [
+    {"test":"tests/test_fidelity_fx_rendering.gd","assertions":33,"failures":0,"exitCode":0,"seconds":2.5967},
+    {"test":"tests/test_fidelity_fx_runtime.gd","assertions":7520,"failures":0,"exitCode":0,"seconds":7.7351},
+    {"test":"tests/test_fidelity_fx_presentation.gd","assertions":7,"failures":0,"exitCode":0,"seconds":0.6698},
+    {"test":"tests/test_reference_presentation_integration.gd","assertions":7,"failures":0,"exitCode":0,"seconds":1.9663},
+    {"test":"tests/test_reference_particle_model.gd","assertions":59,"failures":0,"exitCode":0,"seconds":2.7267}
+  ],
+  "renderProfiles": {
+    "native": "Recovered packed RGBA, UV, original blend flags, seed and original source keys remain numerical source data; native D3D pixel equivalence is unclaimed.",
+    "game_cannon": "Original eleven-layer smoke plus two short axial streak quads using original fx_streakin_001 DDS, warm game tint and finite 0.14 second injected-clock lifetime; original SSpray INITIAL displays additive warm light in this game profile.",
+    "game_smoke": "Original source particles with explicit grey/opacity and soft-depth display treatment, without added muzzle streak."
+  },
+  "sorting": "One source quad/authored mesh per spatial instance, actual centroid transforms, local camera depth order, uniform priority 4. Engine sorting across effects remains to be verified in GPU captures.",
+  "expiry": "get_playback_duration queries original configured replay clip. Overrun seeks clip end, clears all draw instances and returns false/expired instead of reusing the preceding frame.",
+  "sampler": "Initial v1 supports native CC/WW hardware samplers and untouched UV. Subsequent whole-source audit found six clamp mode 2 splash descriptors that v1 incorrectly rejects; v1.1 consumer RED and fix records this omission explicitly."
+}

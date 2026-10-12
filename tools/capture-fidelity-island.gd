@@ -91,10 +91,13 @@ func _capture(label: String, scene: Node) -> void:
 	var metadata:={"label":label,"imageSha256":FileAccess.get_sha256(path),"gpu":RenderingServer.get_video_adapter_name(),"renderingMethod":RenderingServer.get_current_rendering_method(),"viewport":[image.get_width(),image.get_height()],"snapshot":snapshot,"world":world_audit,"sourceManifestSha256":FileAccess.get_sha256("res://assets/data/fidelity_island/manifest.json"),"scope":"Actual current Godot menu/router scene PNG; read-only source checkpoint Continue; no original-game-frame or performance claim."}
 	var camera: Camera3D=scene.camera if scene.has_method("inspection_snapshot") else scene.sea.camera
 	metadata.cameraFov=camera.fov
+	if scene.has_meta("capture_inspection"): metadata.inspection=scene.get_meta("capture_inspection")
 	metadata.productionShaderHashes={}
 	metadata.effectPresentationHashes={}
 	for source_path: String in ["res://modules/scene_engine/fidelity_fx/presentation.gd","res://modules/scene_engine/fidelity_fx/particle.gdshader","res://modules/scene_engine/fidelity_fx/particle_add.gdshader","res://modules/scene_engine/fidelity_fx/atmosphere.gd","res://modules/scene_engine/fidelity_fx/atmosphere.gdshader","res://modules/scene_engine/fidelity_fx/cloud_native.gd","res://modules/scene_engine/world/world_view.gd","res://game/presentation/world/naval_world_view.gd","res://game/presentation/combat/combat_effects.gd"]:
 		metadata.effectPresentationHashes[source_path]=FileAccess.get_sha256(source_path)
+	var sampling_path:="res://modules/scene_engine/fidelity_fx/particle_sampling.gdshaderinc"
+	if FileAccess.file_exists(sampling_path): metadata.effectPresentationHashes[sampling_path]=FileAccess.get_sha256(sampling_path)
 	var ship_manifest:="res://assets/data/fidelity_naval/ships-manifest.json"
 	if FileAccess.file_exists(ship_manifest):
 		metadata.shipModelManifestSha256=FileAccess.get_sha256(ship_manifest)

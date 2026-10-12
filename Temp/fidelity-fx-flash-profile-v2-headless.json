@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "Game-only muzzle flash profile after causal GPU probes confirmed weak coverage/opacity/energy; headless evidence only",
+  "production_frozen": true,
+  "production_file": "modules/scene_engine/fidelity_fx/presentation.gd",
+  "new_test": "tests/test_fidelity_fx_flash_profile.gd",
+  "causal_images_read": [
+    "docs/migration/evidence/integrated-world/particle-visibility-probe-v1/probe-004-no-player-ship.png",
+    "docs/migration/evidence/integrated-world/particle-visibility-probe-v1/probe-004-no-player-ship-or-ocean.png"
+  ],
+  "changes": {
+    "role": "game_flash",
+    "emission_gain_before": 0.55,
+    "emission_gain_after": 1.6,
+    "half_width_before": "(.28 + .012 * (seed % 7)) * (1 - age/.14 * .45) * scale",
+    "half_width_after": "(.48 + .009 * (seed % 7)) * (1 - age/.14 * .15) * scale",
+    "opacity_before": "(1 - age/.14)^2",
+    "opacity_after": "1 - age/.14",
+    "expiry_seconds": 0.14,
+    "preserved": ["Original muzzle origin and direction", "4cm axial start offset", "Axial trapezoid shape and length", "Original fx_streakin_001.dds", "Native replay/seed/packed RGBA/UV/controller curves", "Source smoke profile", "Source sampler and original mip data"]
+  },
+  "red": {"test": "test_fidelity_fx_flash_profile.gd", "assertions": 27, "failures": 9, "exit_code": 1, "failure_contracts": ["Four emission checks", "Four actual mesh start-width checks", "Middle early-frame opacity"]},
+  "green": [
+    {"test": "test_fidelity_fx_flash_profile.gd", "assertions": 27, "failures": 0, "exit_code": 0, "seconds": 0.9674572},
+    {"test": "test_fidelity_fx_rendering.gd", "assertions": 42, "failures": 0, "exit_code": 0, "seconds": 2.7854531},
+    {"test": "test_fidelity_fx_sampling.mjs", "tests": 2, "passed": 2, "failed": 0, "skipped": 0, "exit_code": 0, "duration_ms": 60.9241},
+    {"test": "test_fidelity_fx_presentation.gd", "assertions": 7, "failures": 0, "exit_code": 0, "seconds": 0.6860066}
+  ],
+  "measured_actual_consumer_phases": [
+    {"age": 0.033, "emission_gain": 1.6, "opacity": 0.764285743236542, "start_width_m": 0.94342029094696, "tint_rgb": [1.0, 0.767301797866821, 0.199257090687752]},
+    {"age": 0.067, "emission_gain": 1.6, "opacity": 0.52142858505249, "start_width_m": 0.907793521881104, "tint_rgb": [1.0, 0.463241338729858, 0.0795737206935883]},
+    {"age": 0.1, "emission_gain": 1.6, "opacity": 0.28571429848671, "start_width_m": 0.873214423656464, "tint_rgb": [1.0, 0.349999994039536, 0.0349999964237213]},
+    {"age": 0.133, "emission_gain": 1.6, "opacity": 0.0500000007450581, "start_width_m": 0.838634967803955, "tint_rgb": [1.0, 0.349999994039536, 0.0349999964237213]}
+  ],
+  "consumer_setup": {"seed": 1, "scale": 1, "origin": [-9.55, 2.04, 1.38], "camera": [-35, 23, 48], "look_at": [0, 6, 3]},
+  "verified_contracts": ["Actual drawn mesh footprint", "Actual material emission and opacity", "Yellow-to-orange phase transition", "Unmoved source muzzle", "Strict 0.14s game flash expiry with native smoke continuing", "Geometry and material rewind determinism"],
+  "limitations": ["No GPU was run by this agent", "Headless coverage and energy are not proof of readable pixels or final bloom/color", "Root owns final native GPU verification", "Global transparent compositing remains an explicit GPU acceptance item"]
+}

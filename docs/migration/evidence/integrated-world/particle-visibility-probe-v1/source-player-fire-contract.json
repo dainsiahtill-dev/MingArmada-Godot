@@ -1,0 +1,40 @@
+{
+	"ammoAfter": 39,
+	"ammoBefore": 40,
+	"effects": [
+		{
+			"eventId": "event-2",
+			"origin": {
+				"x": -9.54254817962646,
+				"y": 2.12496876716614,
+				"z": 1.3785787820816
+			},
+			"shipId": "player",
+			"source": "fx_cannon_fire_01.nif"
+		}
+	],
+	"events": [
+		{
+			"ammo": "solid",
+			"id": "event-2",
+			"position": {
+				"x": -4.416,
+				"y": 2.2,
+				"z": 4.59142165414575
+			},
+			"projectileId": "shot-1",
+			"shipId": "player",
+			"side": "starboard",
+			"time": 0.0,
+			"type": "fire",
+			"velocity": {
+				"x": 3.85540262198819,
+				"y": 8.33757078025742,
+				"z": 64.3476556224589
+			}
+		}
+	],
+	"input": "actual HUD fire button signal followed by one real simulation tick",
+	"playerId": "player",
+	"side": "starboard"
+}

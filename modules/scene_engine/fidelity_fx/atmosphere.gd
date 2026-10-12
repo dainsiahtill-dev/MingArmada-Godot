@@ -114,6 +114,7 @@ func _fail(reason: String) -> Dictionary:
 
 func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	if int(source.filterMode) != 2 or not _textures.has(source.texture): return {}
+	if int(source.clampMode) not in [0,3]: return {} # No current source asset uses mixed-axis addressing.
 	var test_enabled := (int(source.alphaFlags)&512) != 0
 	if test_enabled and ((int(source.alphaFlags)>>10)&7) != 4: return {}
 	var vertices := PackedVector3Array()
@@ -133,6 +134,7 @@ func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	var material := ShaderMaterial.new()
 	material.shader = SHADER
 	material.set_shader_parameter("original_texture",_textures[source.texture])
+	material.set_shader_parameter("original_clamped_texture",_textures[source.texture])
 	material.set_shader_parameter("original_alpha_threshold",float(source.threshold)/255.0 if test_enabled else -1.0)
 	material.set_shader_parameter("source_wrap_u",(int(source.clampMode)&2) != 0)
 	material.set_shader_parameter("source_wrap_v",(int(source.clampMode)&1) != 0)
@@ -145,7 +147,9 @@ func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	node.visible = false
 	_container.add_child(node)
-	return {"node":node,"material":material,"block":int(source.block)}
+	var radius := 0.0
+	for point: Vector3 in vertices: radius=maxf(radius,point.length())
+	return {"node":node,"material":material,"block":int(source.block),"radius":radius}
 
 func _seek_cloud(time: float) -> void:
 	if time == _cloud_time: return
@@ -230,6 +234,23 @@ func _update_group(records: Array, meshes: Array, placement: Transform3D, scale_
 		var native_basis := _rotation(state.world.rotation).scaled(Vector3.ONE*float(state.world.scale)*scale_adaptation)
 		var position := _native_to_godot(state.world.translation)*SOURCE_METRES*scale_adaptation
 		record.node.global_transform = placement*Transform3D(native_basis,position)
+		var billboard: Dictionary = state.get("billboard",{})
+		record.material.set_shader_parameter("source_billboard_enabled",not billboard.is_empty())
+		if not billboard.is_empty():
+			var frame: Dictionary = billboard.parent
+			var relative: Dictionary = billboard.relative
+			var parent_origin := placement * (_native_to_godot(frame.translation)*SOURCE_METRES*scale_adaptation)
+			var parent_scale := float(frame.scale)*scale_adaptation
+			var relative_transform := Transform3D(_rotation(relative.rotation).scaled(Vector3.ONE*float(relative.scale)),_native_to_godot(relative.translation)*SOURCE_METRES)
+			record.material.set_shader_parameter("source_billboard_rotation",placement.basis*_rotation(frame.rotation))
+			record.material.set_shader_parameter("source_billboard_origin",parent_origin)
+			record.material.set_shader_parameter("source_billboard_scale",parent_scale)
+			record.material.set_shader_parameter("source_billboard_relative",relative_transform)
+			# Cover the whole source billboard sphere in every view, including the
+			# existing reflection camera, without touching its pass or cull mask.
+			var radius := (relative_transform.origin.length()+float(record.radius)*float(relative.scale))*parent_scale/maxf(0.00001,record.node.global_basis.x.length())
+			var center: Vector3 = record.node.global_transform.affine_inverse()*parent_origin
+			record.node.custom_aabb=AABB(center-Vector3.ONE*radius,Vector3.ONE*(2.0*radius))
 		var color: Array = state.color
 		record.material.set_shader_parameter("original_material",Color(float(color[0]),float(color[1]),float(color[2]),float(state.alpha)))
 		record.material.set_shader_parameter("original_uv_matrix",SourceMath.texture_basis(state.uvMatrix))

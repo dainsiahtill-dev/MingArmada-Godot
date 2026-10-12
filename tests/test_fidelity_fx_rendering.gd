@@ -8,7 +8,9 @@ func check(ok: bool, detail: String) -> void:
 	if not ok: failures += 1; printerr("FAIL FX render: ", detail)
 func _initialize() -> void: _run.call_deferred()
 func _record(texture: String, depth: float, clamp_mode: int = 0) -> Dictionary:
-	return {"name":"source-test","texture":texture,"vertices":[[-1.0,depth,-1.0],[1.0,depth,-1.0],[1.0,depth,1.0],[-1.0,depth,1.0]],"uvs":[[-.25,0.0],[1.25,0.0],[1.25,1.0],[-.25,1.0]],"triangles":[[0,1,2],[0,2,3]],"color":[.8,.45,.1],"alpha":.62,"alphaFlags":4845,"threshold":0,"clampMode":clamp_mode,"filterMode":2,"world":{"translation":[0.0,depth,0.0]}}
+	# Real native quad records already carry packed 8-bit RGBA / 255; test that
+	# representation rather than an arbitrary unquantized synthetic colour.
+	return {"name":"source-test","texture":texture,"vertices":[[-1.0,depth,-1.0],[1.0,depth,-1.0],[1.0,depth,1.0],[-1.0,depth,1.0]],"uvs":[[-.25,0.0],[1.25,0.0],[1.25,1.0],[-.25,1.0]],"triangles":[[0,1,2],[0,2,3]],"color":[204.0/255.0,115.0/255.0,26.0/255.0],"alpha":158.0/255.0,"alphaFlags":4845,"threshold":0,"clampMode":clamp_mode,"filterMode":2,"world":{"translation":[0.0,depth,0.0]}}
 func _visible(effect: Node3D) -> Array:
 	return effect.get_children().filter(func(node): return node is MeshInstance3D and node.visible)
 func _geometry(effect: Node3D) -> Array:
@@ -37,7 +39,7 @@ func _run() -> void:
 		check(draws[0].material_override == draws[2].material_override,"source materials stay shared despite independent spatial order")
 		for node in draws:
 			var arrays: Array = node.mesh.surface_get_arrays(0)
-			check(arrays[Mesh.ARRAY_COLOR][0].is_equal_approx(Color(.8,.45,.1,.62)),"source packed RGBA reaches the actual vertex array")
+			check(arrays[Mesh.ARRAY_COLOR][0].is_equal_approx(Color(204.0/255.0,115.0/255.0,26.0/255.0,158.0/255.0)),"source packed RGBA reaches the actual vertex array")
 			check(arrays[Mesh.ARRAY_TEX_UV][0] == Vector2(-.25,0),"sampler correction does not rewrite native transformed UV")
 	check(native.apply_snapshot(.06,10.06),"accepted source clock draws a real frame")
 	check(not native.apply_snapshot(3.34,13.34),"past the explicit source controller clip is rejected")
@@ -65,7 +67,21 @@ func _run() -> void:
 	check(smoke_only.configure("fx_cannon_fire_01.nif",{"camera":camera,"render_profile":"game_smoke"}),"destruction owner can request original smoke with no duplicate fire node")
 	smoke_only.apply_snapshot(.02,.02)
 	check(_visible(smoke_only).all(func(node): return node.get_meta("display_role","") != "game_flash"),"smoke-only profile has no invented muzzle flash")
-	for effect in [native,game,smoke_only]: effect.dispose(); effect.dispose(); check(effect.get_child_count() == 0,"dispose releases every native/profile mesh"); effect.free()
+	var splash := Effect.new(); root.add_child(splash)
+	check(splash.configure("cannon_ball_splash_01.nif",{"camera":camera}),"actual authored water mesh source configures")
+	splash.apply_snapshot(.35,.35)
+	check(splash.diagnostics().get("render_error","") == "","original mixed-axis water-ring sampler cannot silently omit source geometry")
+	var asset: Dictionary = Effect._asset("cannon_ball_splash_01.nif")
+	var replay := preload("res://modules/scene_engine/fidelity_fx/particle_runtime.gd").new()
+	check(replay.configure(asset,1),"independent source supplies the actual authored ring records")
+	replay.seek(.35)
+	var mixed := replay.meshes({"right":[1.0,0.0,0.0],"up":[0.0,0.5,sqrt(.75)],"direction":[0.0,-sqrt(.75),0.5]}).filter(func(record): return record.get("clampMode") == 2)
+	check(not mixed.is_empty(),"source fixture has actual U-wrap/V-clamp authored meshes")
+	for record: Dictionary in mixed:
+		var ring_material: ShaderMaterial = splash._material(record)
+		check(ring_material != null,"every actual mixed-axis original ring keeps a material")
+		if ring_material != null: check(ring_material.get_shader_parameter("source_clamp_mode") == 2,"mixed-axis material keeps the recovered descriptor")
+	for effect in [native,game,smoke_only,splash]: effect.dispose(); effect.dispose(); check(effect.get_child_count() == 0,"dispose releases every native/profile mesh"); effect.free()
 	camera.free()
 	print("FIDELITY_FX_RENDERING assertions=%d failures=%d" % [assertions,failures])
 	quit(1 if failures else 0)

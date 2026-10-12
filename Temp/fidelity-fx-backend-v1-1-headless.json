@@ -1,0 +1,11 @@
+{
+  "scope": "Final mixed-axis sampler correction; cannon modes 0/3 and native runtime code unchanged. No GPU or full-suite claim.",
+  "sourceDescriptorCounts": {"0/2":5,"3/2":10,"2/2":6},
+  "red": {"test":"tests/test_fidelity_fx_rendering.gd","assertions":40,"failures":3,"exitCode":1,"reason":"Actual native splash ring materials with U-wrap/V-clamp were missing"},
+  "green": {"test":"tests/test_fidelity_fx_rendering.gd","assertions":42,"failures":0,"exitCode":0,"seconds":2.9655},
+  "shaderAddressMath": {"test":"tests/test_fidelity_fx_sampling.mjs","red":"Missing production helper, exit 1","greenTests":2,"failures":0,"skips":0,"milliseconds":8.6758,"scope":"Actual GLSL scalar helper body executes as JS; validates original-size mip addressing and seam continuity, not GPU texture sampling"},
+  "method": "Raw UV derivatives choose trilinear LOD. At each original mip, explicit wrapped-axis bilinear neighbours use clamp hardware samples so the other axis retains its exact mip edge. CW and WC are symmetric; CC/WW use native hardware samplers directly. No source UV rewrite or regenerated mip data.",
+  "originalDdsByteCheck": "Local original DDS equals read-only reference byte-for-byte; BC mip payload equals original bytes after the DDS header for all three cannon smoke textures and original streak texture.",
+  "originalMipCounts": {"fx_cannon_smoke_01.dds":8,"fx_cannon_smoke_02.dds":8,"fx_cannon_smoke_03.dds":8,"fx_streakin_001.dds":1},
+  "remainingGpuAcceptance": "Warm flash actual visibility, grey smoke density, soft-depth intersection and engine sort across separate smoke actors. Root's first 14-PNG set showed weak visible flash despite two active game flash meshes; no visibility success claimed."
+}

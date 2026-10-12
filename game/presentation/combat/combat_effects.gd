@@ -124,8 +124,8 @@ func apply_events(events: Array) -> void:
 			"mast-break":
 				for i in 8: _puff(point,Color(0.50,0.33,0.17,0.70),0.10,1.2,Vector3(sin(i*2.1)*2.0,1.1+i*.12,cos(i*2.1)*2.0),0.12,born)
 			"destruction-explosion":
-				_puff(point,Color(1.0,0.65,0.22,0.85),2.2,0.18,Vector3.UP,4.0,born,"fx_cannon_smoke_03.dds",true)
-				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.38),1.2+i*.15,3.0,Vector3(sin(i)*.5,1.0,cos(i)*.5),0.65,born,"fx_cannon_smoke_0%d.dds"%[2+i%2])
+				_puff(point,Color(1.0,0.65,0.22,0.85),3.0,0.18,Vector3.UP,4.0,born,"fx_cannon_smoke_03.dds",true)
+				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.72),2.8+i*.3,3.0,Vector3(sin(i)*.65,1.5,cos(i)*.65),1.25,born,"fx_cannon_smoke_0%d.dds"%[2+i%2])
 			"sinking-froth":
 				if _water_splashes:
 					var froth := event.duplicate(true); froth.type = "splash"; froth.scale = 1.8; froth.surface_only = true
