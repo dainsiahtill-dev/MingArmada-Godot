@@ -48,8 +48,11 @@ func run() -> void:
 	var resume_start:=Time.get_ticks_usec()/1000.0
 	scene._command({"type":"resume"})
 	check(not scene.runtime.is_paused() and scene._last_frame_ms>=resume_start,"resume resets anchor before first active callback")
+	var resume_anchor: float=scene._last_frame_ms
 	scene._process(0.0)
-	check(scene.runtime.snapshot().runtime.benchmarkSeconds-paused_time<0.2,"resumed actual idle callback does not include paused five seconds")
+	# Active presentation CPU is part of the source wall interval. Compare with
+	# the reset callback anchor instead of assuming the host completes it in .2s.
+	check(absf(scene.runtime.snapshot().runtime.benchmarkSeconds-paused_time-(scene._last_frame_ms-resume_anchor)/1000.0)<0.000001,"resumed actual idle callback counts only wall time since active anchor")
 	scene._command({"type":"open-settings"})
 	check(scene.runtime.is_paused() and scene.services.captures_keyboard(),"actual settings dialog pauses benchmark")
 	scene._last_frame_ms=Time.get_ticks_usec()/1000.0-5000.0
@@ -57,14 +60,16 @@ func run() -> void:
 	var settings_time: float=scene.runtime.snapshot().runtime.benchmarkSeconds
 	scene.services.settings_panel.close_requested.emit()
 	check(not scene.runtime.is_paused() and scene._last_frame_ms>=close_start,"actual settings close resets paused callback anchor")
+	var close_anchor: float=scene._last_frame_ms
 	scene._process(0.0)
-	check(scene.runtime.snapshot().runtime.benchmarkSeconds-settings_time<0.2,"actual settings-close callback excludes hidden inactive wall period")
+	check(absf(scene.runtime.snapshot().runtime.benchmarkSeconds-settings_time-(scene._last_frame_ms-close_anchor)/1000.0)<0.000001,"actual settings-close callback excludes hidden wall period while counting active CPU")
 	scene._last_frame_ms=Time.get_ticks_usec()/1000.0-5000.0
 	var restart_start:=Time.get_ticks_usec()/1000.0
 	scene._command({"type":"restart"})
 	check(scene.runtime.snapshot().naval.tick==0 and scene._last_frame_ms>=restart_start,"restart resets clock after rebuilding real benchmark")
+	var restart_anchor: float=scene._last_frame_ms
 	scene._process(0.0)
-	check(scene.runtime.snapshot().runtime.benchmarkSeconds<0.2,"restarted actual idle callback excludes previous-run wall time")
+	check(absf(scene.runtime.snapshot().runtime.benchmarkSeconds-(scene._last_frame_ms-restart_anchor)/1000.0)<0.000001,"restarted actual idle callback counts only its new run wall interval")
 	scene.queue_free(); await process_frame; await process_frame; await create_timer(0.08).timeout
 	for path: String in [settings_path,diagnostic_path]:
 		for suffix in ["",".backup",".rollback",".staged"]:

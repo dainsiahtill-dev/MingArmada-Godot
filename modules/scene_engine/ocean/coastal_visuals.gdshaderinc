@@ -2,43 +2,9 @@
 uniform sampler2D coastal_foam_texture_a : repeat_enable, filter_linear_mipmap;
 uniform sampler2D coastal_foam_texture_b : repeat_enable, filter_linear_mipmap;
 uniform bool has_coastal_foam_textures = false;
+uniform float shoreline_residue_strength : hint_range(0.0,1.0) = 1.0;
 
-vec2 coastal_cell_seed(vec2 cell) {
-	vec2 value = vec2(dot(cell, vec2(127.1, 311.7)), dot(cell, vec2(269.5, 183.3)));
-	return fract(sin(value) * 43758.5453);
-}
-
-float coastal_caustic_network(vec2 world_xz, float seconds, vec2 ripple) {
-	// A slowly distorted cellular network reads as refracted light on the bottom,
-	// rather than diagonal stripes sliding across the entire sea.
-	vec2 p = world_xz * 0.28 + ripple * 0.32;
-	p += vec2(sin(p.y * 0.9 + seconds * 0.32), cos(p.x * 0.8 - seconds * 0.27)) * 0.20;
-	vec2 cell = floor(p);
-	vec2 local = fract(p);
-	float nearest = 8.0;
-	float second = 8.0;
-	for (int y = -1; y <= 1; y++) {
-		for (int x = -1; x <= 1; x++) {
-			vec2 offset = vec2(float(x), float(y));
-			vec2 seed = coastal_cell_seed(cell + offset);
-			vec2 center = 0.5 + sin(seed * 6.2831853 + vec2(seconds * 0.23, -seconds * 0.19)) * 0.34;
-			vec2 delta = offset + center - local;
-			float distance_squared = dot(delta, delta);
-			if (distance_squared < nearest) {
-				second = nearest;
-				nearest = distance_squared;
-			} else {
-				second = min(second, distance_squared);
-			}
-		}
-	}
-	float edge = max(second - nearest, 0.0);
-	float antialias = max(fwidth(edge), 0.018);
-	// A wider pixel filter must reduce line energy; otherwise distant cells turn
-	// into a bright tiled blanket instead of faint light below the surface.
-	float filtered_line = 1.0 - smoothstep(0.018, 0.055 + antialias, edge);
-	return filtered_line * min(0.060 / antialias, 1.0);
-}
+#include "res://modules/scene_engine/ocean/coastal_caustics.gdshaderinc"
 
 vec3 coastal_sand_bottom(vec2 world_xz, vec2 ripple) {
 	// The sand stays fixed in world space. Only its refracted image is distorted.
@@ -64,6 +30,15 @@ float coastal_foam_patch(vec2 p) {
 	);
 }
 
+float coastal_advance_phase(float coast_distance, vec2 world_xz, float seconds, float shore_noise) {
+	float patch = coastal_foam_patch(world_xz * 0.075);
+	return coast_distance * 1.05 + seconds * 1.50 + (shore_noise - 0.5) * 1.15 + (patch - 0.5) * 0.80;
+}
+
+float coastal_advance_offset(float phase) {
+	return (fract(phase / 6.2831853 + 0.5) - 0.5) * (6.2831853 / 1.05);
+}
+
 float coastal_breaker_foam(float coast_distance, float shore_depth, float dry_height, vec2 world_xz, float seconds, float foam_noise, float shore_noise) {
 	// The distance field contains genuine land/water crossings. A submerged bank
 	// can show bottom light but cannot acquire a false circular surf outline.
@@ -71,14 +46,13 @@ float coastal_breaker_foam(float coast_distance, float shore_depth, float dry_he
 	float shoal = 1.0 - smoothstep(6.0, 11.0, shore_depth);
 	float zone = (1.0 - smoothstep(19.0, 25.0, coast_distance)) * wet * shoal;
 	float patch = coastal_foam_patch(world_xz * 0.075);
-	float phase = coast_distance * 1.05 + seconds * 1.50;
-	phase += (shore_noise - 0.5) * 1.15 + (patch - 0.5) * 0.80;
+	float phase = coastal_advance_phase(coast_distance, world_xz, seconds, shore_noise);
 	// Positive offsets lie offshore of the advancing crest: water there has
 	// already broken. Distance from that crest gives foam age without a new
 	// clock or texture history. Use derivatives before wrapping the phase so
 	// the cycle seam does not falsely widen the filter.
 	float pixel_width = max(fwidth(phase) / 1.05, 0.035);
-	float crest_offset = (fract(phase / 6.2831853 + 0.5) - 0.5) * (6.2831853 / 1.05);
+	float crest_offset = coastal_advance_offset(phase);
 	// The source masks are constant-color RGBA. Their alpha holds an uneven
 	// front at V=.6-.72 and trailing foam below it. Feed crest distance to V,
 	// so the photographed edge advances with the actual shoreline wave phase.
@@ -104,11 +78,18 @@ float coastal_breaker_foam(float coast_distance, float shore_depth, float dry_he
 	}
 	float front = 1.0 - smoothstep(0.12, 0.43 + pixel_width, abs(crest_offset));
 	front *= min(0.43 / (0.43 + pixel_width), 1.0);
-	float breakup = smoothstep(0.34, 0.64, patch * 0.78 + shore_noise * 0.22);
+	// Adjacent advancing fronts use different coverage. The cycle boundary lies
+	// opposite the crest, where this wave has already faded, so the irregular
+	// sections change between waves without popping on a visible head.
+	float cycle = floor(phase / 6.2831853 + 0.5);
+	float cycle_patch = coastal_foam_patch(world_xz * 0.11 + vec2(cycle * 3.731, cycle * 8.137));
+	float breakup = smoothstep(0.34, 0.64, patch * 0.48 + shore_noise * 0.22 + cycle_patch * 0.30);
 	// Resolve grains only when the screen footprint can show them. At distance
 	// they converge to their coverage, rather than sparkling or becoming a net.
 	float grain_visibility = 1.0 - smoothstep(0.14, 0.65, length(fwidth(world_xz)));
-	float grain = coastal_foam_random(floor(world_xz * 2.25));
+	// Continuous filtered grain: hashing floored world cells stamped visible
+	// 0.444 m square tiles along the wave heads in close native GPU captures.
+	float grain = coastal_foam_patch(world_xz * 2.25);
 	float crest_grain = mix(0.58, smoothstep(0.30, 0.77, grain), grain_visibility);
 	float tail_grain = mix(0.40, smoothstep(0.42, 0.88, grain), grain_visibility);
 	float breaker = front * breakup * (0.35 + crest_grain * 0.65) * head_mask;
@@ -120,7 +101,10 @@ float coastal_breaker_foam(float coast_distance, float shore_depth, float dry_he
 	float tail = tail_birth * tail_life * tail_decay * breakup * (0.16 + tail_grain * 0.84) * 0.48 * tail_mask;
 	float erosion = smoothstep(0.30, 0.77, foam_noise);
 	float shore_pulse = 0.30 + 0.70 * (0.5 + 0.5 * cos(phase));
-	float lace = (1.0 - smoothstep(0.8, 3.1, coast_distance)) * erosion * breakup * shore_pulse * 0.30 * residue_mask;
+	// Contact lace remains continuous through the invisible wave-cycle seam.
+	// Only the moving head/trail use the changing per-wave coverage above.
+	float contact_breakup = smoothstep(0.34, 0.64, patch * 0.78 + shore_noise * 0.22);
+	float lace = (1.0 - smoothstep(0.8, 3.1, coast_distance)) * erosion * contact_breakup * shore_pulse * 0.30 * residue_mask * shoreline_residue_strength;
 	float coast_energy = clamp(0.96 - coast_distance * 0.010, 0.0, 1.0);
 	return clamp((breaker + tail + lace) * coast_energy * zone, 0.0, 0.82);
 }

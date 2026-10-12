@@ -19,13 +19,17 @@ function assess(result, marker) {
   if (marker !== null) {
     if (!marker) reasons.push('test has no supported completion marker');
     else {
-      const completions = output.split(/\r?\n/).filter(line => line.startsWith(marker));
+      const formatted = marker.includes('%d');
+      const prefix = formatted ? marker.slice(0, marker.indexOf('%d')) : marker;
+      const pattern = formatted ? new RegExp('^' + marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replaceAll('%d', '\\d+') + '$') : null;
+      const completions = output.split(/\r?\n/).filter(line => line.startsWith(prefix));
       if (completions.length !== 1) reasons.push(`expected one ${JSON.stringify(marker)} completion, saw ${completions.length}`);
       else {
         const line = completions[0];
         const failures = line.match(/\bfailures\s*=\s*(\d+)\b/);
         const success = failures ? Number(failures[1]) === 0 : /\bPASS\s*\(\s*0\s*\)\s*$/.test(line) || /_PASS\s+assertions=\d+(?:\s+cases=\d+)?\s*$/.test(line);
-        if (!success) reasons.push(`unsuccessful completion: ${line}`);
+        if (pattern && !pattern.test(line)) reasons.push(`malformed completion: ${line}`);
+        else if (!success) reasons.push(`unsuccessful completion: ${line}`);
       }
     }
   }
@@ -50,7 +54,21 @@ function selfTest() {
   assert.equal(assess({ ...success, stdout: 'NAVAL_INVARIANTS_PASS assertions=72\n', stderr: 'SCRIPT ERROR: broken\n' }, 'NAVAL_INVARIANTS_PASS assertions=').passed, false);
   assert.equal(completionMarker('print("NAVAL_SIMULATION_PASS assertions=", assertions)\nprint("NAVAL_SIMULATION_FAIL count=", failures.size())'), 'NAVAL_SIMULATION_PASS assertions=', 'completion discovery must not choose a later failure branch');
   assert.equal(completionMarker('print("NAVAL_INVARIANTS_PASS assertions=", assertions)\nfor failure in failures: print("NAVAL_INVARIANT_FAIL ", failure)'), 'NAVAL_INVARIANTS_PASS assertions=', 'failure-variable names must not turn diagnostic prints into success markers');
-  console.log('VERIFICATION_RUNNER_SELF_TEST assertions=16 failures=0');
+  const formattedMarker = completionMarker('print("EXAMPLE_TESTS assertions=%d failures=%d" % [assertions, failures])');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\n' }, formattedMarker).passed, true, 'formatted source markers must recognize actual numeric output');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=2\n' }, formattedMarker).passed, false, 'formatted completion still rejects assertion failures');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS_OTHER assertions=8 failures=0\n' }, formattedMarker).passed, false, 'formatted marker retains exact test identity');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\nEXAMPLE_TESTS assertions=8 failures=0\n' }, formattedMarker).passed, false, 'formatted completions must occur exactly once');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\nEXAMPLE_TESTS assertions=bad failures=0\n' }, formattedMarker).passed, false, 'malformed duplicate must not disappear from completion count');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=bad failures=0\n' }, formattedMarker).passed, false, 'formatted assertions field must be numeric');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0 ignored\n' }, formattedMarker).passed, false, 'formatted output must match the entire declared format');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\n', stderr: 'SCRIPT ERROR: Invalid call.\n' }, formattedMarker).passed, false, 'formatted completion cannot hide script errors');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\n', exitCode: 1 }, formattedMarker).passed, false, 'formatted completion cannot hide nonzero process exit');
+  assert.equal(assess({ ...success, stdout: 'EXAMPLE_TESTS assertions=8 failures=0\n', timedOut: true }, formattedMarker).passed, false, 'formatted completion cannot hide timeouts');
+  assert.equal(assess({ ...success, stdout: 'quoted.test (v2) assertions=8 failures=0\n' }, completionMarker("print('quoted.test (v2) assertions=%d failures=%d'%[assertions,failures])")).passed, true, 'single-quoted compact formats retain literal regex punctuation');
+  assert.equal(assess({ ...success, stdout: 'quotedXtest v2 assertions=8 failures=0\n' }, completionMarker("print('quoted.test (v2) assertions=%d failures=%d'%[assertions,failures])")).passed, false, 'regex punctuation in test identity must remain literal');
+  assert.equal(completionMarker('print("EXAMPLE_TESTS assertions=%d failures=%d")'), '', 'unformatted placeholders are not a supported numeric completion format');
+  console.log('VERIFICATION_RUNNER_SELF_TEST assertions=29 failures=0');
 }
 
 async function discover(directory) {
@@ -66,7 +84,13 @@ async function discover(directory) {
 // Source supplies only each test's identity; success still comes from actual output.
 function completionMarker(source) {
   const prints = source.split(/\r?\n/).filter(line => /\bprint\s*\(/.test(line) && /failures|["']PASS["']|_PASS\b/.test(line));
-  const literals = prints.map(line => line.match(/\bprint\s*\(\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
+  const literals = prints.map(line => {
+    const print = line.match(/\bprint\s*\(\s*(["'])([^"']+)\1/);
+    if (!print) return '';
+    const literal = print[2];
+    if (literal.includes('%d') && (!/^\s*%/.test(line.slice(print.index + print[0].length)) || /%(?!d)/.test(literal) || literal.startsWith('%d'))) return '';
+    return literal;
+  }).filter(Boolean);
   const explicitPass = [...new Set(literals.filter(literal => /_PASS\b/.test(literal)))];
   if (explicitPass.length > 1) return '';
   if (explicitPass.length === 1) return explicitPass[0];
@@ -113,7 +137,7 @@ async function main() {
   const allTests = await discover(path.join(root, 'tests'));
   const tests = allTests.filter(file => !filter || path.basename(file).includes(filter));
   if (!tests.length) throw new Error('No tests discovered or selected');
-  const evidence = { schemaVersion: 1, startedAtUtc: new Date().toISOString(), projectRoot: root, godot, timeoutMs, mode: 'headless', filter: filter ?? null, discoveredTests: allTests.map(file => path.relative(root, file).replaceAll('\\', '/')), runnerSelfTest: '16 assertions, failures=0', runs: [] };
+  const evidence = { schemaVersion: 1, startedAtUtc: new Date().toISOString(), projectRoot: root, godot, timeoutMs, mode: 'headless', filter: filter ?? null, discoveredTests: allTests.map(file => path.relative(root, file).replaceAll('\\', '/')), runnerSelfTest: '29 assertions, failures=0', runs: [] };
   const version = await runGodot(godot, ['--headless', '--version'], timeoutMs);
   evidence.version = { ...version, ...assess(version, null) };
   for (const file of tests) {
@@ -126,7 +150,8 @@ async function main() {
   }
   evidence.finishedAtUtc = new Date().toISOString();
   evidence.summary = { selected: tests.length, passed: evidence.runs.filter(run => run.passed).length, failed: evidence.runs.filter(run => !run.passed).length, passedAll: evidence.version.passed && evidence.runs.every(run => run.passed) };
-  const output = path.join(root, 'docs/migration/evidence/verification.json');
+  // Focused visual repairs must not erase the retained full-suite report.
+  const output = path.resolve(root, value('--output') ?? 'docs/migration/evidence/verification.json');
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, JSON.stringify(evidence, null, 2) + '\n');
   console.log(`GODOT_VERIFICATION selected=${tests.length} passed=${evidence.summary.passed} failures=${evidence.summary.failed} evidence=${output}`);

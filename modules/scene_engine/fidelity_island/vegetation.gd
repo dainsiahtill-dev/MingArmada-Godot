@@ -1,8 +1,9 @@
 extends Node3D
 ## Recovered Cat Island canopy and rigid palm streams. Exact viewer mode keeps
 ## the original world transforms; mapped mode only adapts real tree groups to
-## existing game terrain and excludes retained harbor geometry. No random tree
-## positions, generated crowns, camera-facing palm rotation or wall clock.
+## existing game terrain and excludes retained harbor geometry. Product forest
+## population samples each target island using real authored tree prototypes;
+## exact reference layout is unchanged. No generated crowns or palm billboards.
 const MeshAsset = preload("res://modules/scene_engine/fidelity_island/mesh_asset.gd")
 const Coordinates = preload("res://modules/scene_engine/fidelity_island/source_coordinates.gd")
 const CanopyShader = preload("res://modules/scene_engine/fidelity_island/canopy.gdshader")
@@ -127,6 +128,126 @@ static func _building_overlap(point: Vector3, sites: Array, clearance: float) ->
 			if Vector2(point.x,point.z).distance_to(Vector2(center.x,center.z)) <= radius+clearance: return true
 	return false
 
+static func _population_hash(mapping: Dictionary, column: int, row: int, seed: int) -> int:
+	var value: int = seed & 0x7fffffff
+	for byte: int in str(mapping.get("id","")).to_utf8_buffer(): value = ((value*33)^byte)&0x7fffffff
+	value = (value^(column*73856093)^(row*19349663))&0x7fffffff
+	value = ((value^(value>>13))*1274126177)&0x7fffffff
+	return value^(value>>16)
+
+static func _prototype(mesh: Dictionary, group: Dictionary) -> Dictionary:
+	var remap: Dictionary = {}; var positions: Array = []; var normals: Array = []; var uv: Array = []; var indices: Array = []
+	for source_index: int in group.indices:
+		remap[source_index] = remap.size()
+		for axis in 3:
+			positions.append(mesh.positions[source_index*3+axis]); normals.append(mesh.normals[source_index*3+axis])
+		uv.append(mesh.uv[source_index*2]); uv.append(mesh.uv[source_index*2+1])
+	for i in range(0,mesh.indices.size(),3):
+		var a := int(mesh.indices[i]); var b := int(mesh.indices[i+1]); var c := int(mesh.indices[i+2])
+		if remap.has(a) and remap.has(b) and remap.has(c): indices.append_array([remap[a],remap[b],remap[c]])
+	var height := 0.0; var radius := 0.0
+	for i in group.indices.size():
+		var delta: Vector3 = _point(positions,i)-group.anchor
+		height = maxf(height,delta.z); radius = maxf(radius,Vector2(delta.x,delta.y).length())
+	return {"positions":positions,"normals":normals,"uv":uv,"indices":indices,"anchor":group.anchor,"height":height,"radius":radius}
+
+static func _dock_overlap(point: Vector3, mapping: Dictionary, radius: float) -> bool:
+	var dock: Variant = mapping.get("dock")
+	if dock is Array and dock.size() == 2: dock = Vector2(float(dock[0]),float(dock[1]))
+	if not dock is Vector2: return false
+	var direction: Variant = mapping.inward
+	var inward: Vector2 = direction if direction is Vector2 else Vector2(float(direction[0]),float(direction[1]))
+	var across := Vector2(-inward.y,inward.x)
+	var offset: Vector2 = Vector2(point.x,point.z)-dock
+	return offset.dot(inward)>-100.0 and offset.dot(inward)<90.0 and absf(offset.dot(across))<22.0+radius
+
+static func _profile_spacing(mapping: Dictionary, options: Dictionary) -> float:
+	var nominal := float(options.get("forest_spacing",5.8))
+	# Small source atlases often represent separate narrow islets. A slightly
+	# finer planting grid samples their real dry cores without adding sea roots.
+	var short_extent := minf(float(mapping.get("width",120))-2.0,float(mapping.get("height",140))-2.0)*float(mapping.scale)
+	return minf(nominal,maxf(4.0,short_extent/20.0))
+
+static func _adaptive_bundles(source: Dictionary, scene: Dictionary, metadata: Dictionary, mapping: Dictionary, sampler: Callable, options: Dictionary, palm_groups: Array, canopy_groups: Array) -> Array:
+	var palettes: Array = []
+	for patch: Dictionary in scene.patches:
+		var table: Dictionary = canopy_table(source,metadata,int(patch.column),int(patch.row))
+		if not table.exists: continue
+		var variants: Array = []
+		for group: Dictionary in canopy_groups:
+			var control := _sample_control(table.data,group.color)
+			if control.y < 0.5: continue
+			var prototype := _prototype(scene.canopy,group)
+			if prototype.height <= 0.001 or prototype.indices.is_empty(): continue
+			prototype["color"] = group.color; prototype["control"] = control
+			variants.append(prototype)
+		if not variants.is_empty(): palettes.append({"variants":variants,"table":table.data,"kind":"canopy"})
+	var palms: Array = []
+	for group: Dictionary in palm_groups:
+		var prototype := _prototype(scene.palm,group)
+		if prototype.height > 0.001 and not prototype.indices.is_empty(): palms.append(prototype)
+	if not palms.is_empty(): palettes.append({"variants":palms,"table":PackedFloat32Array(),"kind":"palm"})
+	var bundles: Array = []
+	for palette: Dictionary in palettes:
+		var template: Dictionary = scene.palm if palette.kind == "palm" else scene.canopy
+		var mesh: Dictionary = template.duplicate(false)
+		for key: String in ["positions","normals","uv","indices","colors"]: mesh[key] = []
+		bundles.append({"kind":palette.kind,"mesh":mesh,"groups":[],"translation":Vector3.ZERO,"scale":1.0,"table":palette.table,"palette":palette.variants,"packed_colors":[],"adaptive":true})
+	var unit := float(mapping.scale)/float(metadata.effectiveScale[0])
+	var width := int(mapping.get("width",120)); var height := int(mapping.get("height",140))
+	var spacing := _profile_spacing(mapping,options)
+	var step := spacing/float(mapping.scale)
+	var columns := int(ceil(float(width-2)/step)); var rows := int(ceil(float(height-2)/step))
+	var seed := int(options.get("forest_seed",1661))
+	var root_translation := _vector3(scene.treeTranslation)
+	for row in rows:
+		for column in columns:
+			var hash := _population_hash(mapping,column,row,seed)
+			var jitter_x := float(hash&255)/255.0*0.6+0.2
+			var jitter_y := float((hash>>8)&255)/255.0*0.6+0.2
+			var pixel := Vector2(1.0+(float(column)+jitter_x)*step,1.0+(float(row)+jitter_y)*step)
+			if pixel.x>=width-1 or pixel.y>=height-1: continue
+			var horizontal := Coordinates.source_pixel_to_world(pixel,mapping)
+			var ground := float(sampler.call(horizontal.x,horizontal.y))
+			if not is_finite(ground) or ground<float(options.get("forest_min_height",0.45)): continue
+			var point := Vector3(horizontal.x,ground,horizontal.y)
+			# Check trunk footing, not the full foliage diameter. Crown overhang at
+			# a coast is valid; a root or its footing in the sea is not.
+			var probe := maxf(0.5,minf(1.0,spacing*0.15)); var slope := 0.0; var footprint_dry := true
+			for offset: Vector2 in [Vector2(probe,0),Vector2(-probe,0),Vector2(0,probe),Vector2(0,-probe)]:
+				var neighboring := float(sampler.call(horizontal.x+offset.x,horizontal.y+offset.y))
+				if not is_finite(neighboring) or neighboring<0.12: footprint_dry = false; break
+				slope = maxf(slope,absf(neighboring-ground)/probe)
+			if not footprint_dry or slope>float(options.get("forest_max_slope",2.5)): continue
+			var palm := ground<3.6 and (hash%7 == 0)
+			if palm and hash%int(maxf(2.0,float(options.get("palm_spacing",22.0))/spacing))!=0: continue
+			var palette_index := bundles.size()-1 if palm else hash%(bundles.size()-1)
+			var bundle: Dictionary = bundles[palette_index]
+			var variants: Array = bundle.palette
+			var prototype: Dictionary = variants[(hash>>12)%variants.size()]
+			var target_height := float(options.get("palm_height",8.0) if palm else options.get("canopy_height",6.5))
+			target_height *= 0.86+float((hash>>16)&255)/255.0*0.28
+			var native_scale := target_height/(float(prototype.height)*unit)
+			var crown_radius := float(prototype.radius)*native_scale*unit
+			if _dock_overlap(point,mapping,crown_radius) or _building_overlap(point,options.get("existing_buildings",[]),float(options.get("building_clearance",4.0))+crown_radius): continue
+			var control: Vector4 = Vector4(0,1,1,0) if palm else prototype.control
+			var native_anchor := Coordinates.source_pixel_to_native(pixel,0.0,metadata)
+			native_anchor.z = ground/unit-root_translation.z-control.x
+			var rotation := Basis(Vector3(0,0,1),float((hash>>4)&65535)/65535.0*TAU)
+			var mesh: Dictionary = bundle.mesh; var base_index := int(mesh.positions.size()/3); var group_indices: Array = []
+			for i in int(prototype.positions.size()/3):
+				var vertex: Vector3 = native_anchor+rotation*(_point(prototype.positions,i)-prototype.anchor)*native_scale
+				var normal: Vector3 = rotation*_point(prototype.normals,i)
+				mesh.positions.append_array([vertex.x,vertex.y,vertex.z]); mesh.normals.append_array([normal.x,normal.y,normal.z]); mesh.uv.append_array([prototype.uv[i*2],prototype.uv[i*2+1]])
+				group_indices.append(base_index+i)
+				if not palm: bundle.packed_colors.append(prototype.color)
+			for index: int in prototype.indices: mesh.indices.append(base_index+index)
+			bundle.groups.append({"anchor":native_anchor,"indices":group_indices,"color":Vector4.ZERO if palm else prototype.color,"adaptive":true,"cell":Vector2i(column,row),"crown_radius":crown_radius})
+	var populated: Array = []
+	for bundle: Dictionary in bundles:
+		if not bundle.groups.is_empty(): populated.append(bundle)
+	return populated
+
 func configure(profile_mapping: Variant, height_sampler: Callable, options: Dictionary = {}) -> bool:
 	var mappings: Array = []
 	if profile_mapping is Array: mappings = profile_mapping
@@ -141,6 +262,11 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 	for mapping: Variant in mappings:
 		if not mapping is Dictionary or not Coordinates.valid_mapping(mapping): return false
 	if not options.get("existing_buildings",[]) is Array: return false
+	if options.has("adaptive_population") and not options.adaptive_population is bool: return false
+	if options.has("forest_seed") and not options.forest_seed is int: return false
+	for key: String in ["forest_spacing","canopy_height","palm_height","palm_spacing","forest_min_height","forest_max_slope"]:
+		if options.has(key) and (not (options[key] is int or options[key] is float) or not is_finite(float(options[key])) or float(options[key])<=0.0): return false
+	if float(options.get("forest_spacing",5.8))<4.0 or float(options.get("canopy_height",6.5))>25.0 or float(options.get("palm_height",8.0))>35.0: return false
 	var source := MeshAsset.read_json(BASE+"vegetation-original.json")
 	var scene := MeshAsset.read_json(BASE+"vegetation-scene.json")
 	var terrain := MeshAsset.read_json(BASE+"terrain-scene.json")
@@ -163,6 +289,8 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 	var palm_groups := _palm_groups(scene.palm)
 	var canopy_groups := _canopy_groups(source.assets[1].meshes[0],scene.canopy)
 	var targets: Array = [{}] if mode == "exact" else mappings
+	var adaptive: bool = mode == "mapped" and not exact_source and options.get("adaptive_population",true)
+	var profile_spacing: Dictionary = {}
 	for mapping: Dictionary in targets:
 		var unit := 1.0 if mode == "exact" else float(mapping.scale)/float(metadata.effectiveScale[0])
 		var bundles: Array = [{"kind":"palm","mesh":scene.palm,"groups":palm_groups,"translation":Vector3.ZERO,"scale":1.0,"table":PackedFloat32Array(),"texture":textures["palm_plant.dds"]}]
@@ -171,6 +299,10 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 			if not table.exists: continue
 			bundles.append({"kind":"canopy","mesh":scene.canopy,"groups":canopy_groups,"translation":_vector3(patch.translation),"scale":float(scene.scale),"table":table.data,"texture":textures["canopy tree.dds"]})
 			patch_count += 1
+		if adaptive:
+			profile_spacing[str(mapping.get("id",""))] = _profile_spacing(mapping,options)
+			bundles = _adaptive_bundles(source,scene,metadata,mapping,height_sampler,options,palm_groups,canopy_groups)
+			for bundle: Dictionary in bundles: bundle["texture"] = textures["palm_plant.dds" if bundle.kind == "palm" else "canopy tree.dds"]
 		for bundle: Dictionary in bundles:
 			var mesh: Dictionary = bundle.mesh; var count := int(mesh.positions.size()/3)
 			var vertices := PackedVector3Array(); var normals := PackedVector3Array(); var uv := PackedVector2Array()
@@ -192,7 +324,7 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 				uv[i] = Vector2(float(mesh.uv[i*2]),float(mesh.uv[i*2+1]))
 				adjustments[i*4+1] = 1.0
 				if bundle.kind == "canopy":
-					var packed := MeshAsset.unpack_argb(MeshAsset.pack_geometry_color_argb(source.assets[1].meshes[0].colors[i]))
+					var packed: Vector4 = bundle.packed_colors[i] if bundle.get("adaptive",false) else MeshAsset.unpack_argb(MeshAsset.pack_geometry_color_argb(source.assets[1].meshes[0].colors[i]))
 					for channel in 4: colors[i*4+channel] = packed[channel]
 			for group: Dictionary in bundle.groups:
 				var local_anchor: Vector3 = group.anchor*float(bundle.scale)+bundle.translation
@@ -216,7 +348,7 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 					shader_offsets[i] = MeshAsset.float32(control.x*unit*float(bundle.scale)+correction)
 				if keep:
 					accepted += 1
-					anchors.append({"kind":bundle.kind,"position":anchor,"profile_id":str(mapping.get("id","exact")),"source_root":local_anchor})
+					anchors.append({"kind":bundle.kind,"position":anchor,"profile_id":str(mapping.get("id","exact")),"source_root":local_anchor,"adaptive":bundle.get("adaptive",false),"crown_radius":float(group.get("crown_radius",0.0))})
 			var array_mesh := MeshAsset.surface(vertices,normals,uv,PackedInt32Array(mesh.indices),colors,adjustments)
 			if array_mesh == null:
 				for node: Node3D in candidate_nodes: node.free()
@@ -249,6 +381,9 @@ func configure(profile_mapping: Variant, height_sampler: Callable, options: Dict
 	_owned = candidate_nodes; _materials = candidate_materials
 	for node: Node3D in _owned: add_child(node)
 	_audit = {"mode":mode,"exact_source":exact_source,"owned_nodes":_owned.size(),"accepted_tree_count":accepted,"anchors":anchors,"simulation_time":0.0,"canopy_patch_count":patch_count,"palm_vertices":scene.palm.positions.size()/3,"palm_triangles":scene.palm.indices.size()/3,"canopy_vertices":scene.canopy.positions.size()/3,"canopy_triangles":scene.canopy.indices.size()/3,"palm_source_sha256":PALM_HASH,"canopy_source_sha256":CANOPY_HASH,"texture_mips":"original BC mip payload","camera_pool_restored":false,"palm_ffp_restored":false,"scope":"Original mesh, CXD and shader stream; mapped roots/building masks are explicit game terrain adaptation. exact_source bypasses anchoring and retains source Z while adapting horizontal axes. All positive patches, no claimed original camera/LOD/pool scheduler. Palm diffuse/ambient is diagnostic, not recovered full FFP."}
+	_audit["population_mode"] = "adaptive" if adaptive else "source_layout"
+	_audit["forest_spacing"] = float(options.get("forest_spacing",5.8)) if adaptive else 0.0
+	_audit["population_profile_spacing"] = profile_spacing
 	apply_snapshot(options.get("snapshot",{}))
 	return true
 

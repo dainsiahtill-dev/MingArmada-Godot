@@ -27,7 +27,7 @@ func _run() -> void:
 	if failures: main.free(); _finish(); return
 	main.menu.intent_requested.disconnect(main._handle_intent)
 	main.menu.intent_requested.connect(func(request: Dictionary): requests.append(request.duplicate(true)))
-	for mode: String in ["mingqi","career","sail","duel","fleet"]:
+	for mode: String in ["mingqi","sail","duel","fleet"]:
 		requests.clear()
 		check(main._request_startup_game(PackedStringArray(["--start-game="+mode])),"normal release route accepts "+mode)
 		check(requests.size()==1 and requests[0].type=="start" and requests[0].mode==mode,"CLI emits the actual menu button's gameplay intent")
@@ -35,10 +35,13 @@ func _run() -> void:
 		var prepared: Dictionary=main.router.prepare_entry(requests[0])
 		check(prepared.ok and main.router.is_current(prepared) and prepared.mode==mode,"actual router accepts the normal CLI menu request")
 		main.router.cancel(); main.menu.apply_view_model(main.router.view_model(),main.router.generation)
-	for arguments: PackedStringArray in [PackedStringArray(),PackedStringArray(["--start-game=qa"]),PackedStringArray(["--start-game=ships"]),PackedStringArray(["--start-game=sail","--start-game=fleet"]),PackedStringArray(["--start-game=","--start-game=sail"]),PackedStringArray(["--start-game=sail","--game-capture=relative.png"]),PackedStringArray(["--start-game=sail","--game-capture=user://capture.png"]),PackedStringArray(["--start-game=sail","--game-capture=C:/capture.txt"]),PackedStringArray(["--water-study","--start-game=sail"])]:
+	for arguments: PackedStringArray in [PackedStringArray(),PackedStringArray(["--start-game=qa"]),PackedStringArray(["--start-game=career"]),PackedStringArray(["--start-game=ships"]),PackedStringArray(["--start-game=sail","--start-game=fleet"]),PackedStringArray(["--start-game=","--start-game=sail"]),PackedStringArray(["--start-game=sail","--game-capture=relative.png"]),PackedStringArray(["--start-game=sail","--game-capture=user://capture.png"]),PackedStringArray(["--start-game=sail","--game-capture=C:/capture.txt"]),PackedStringArray(["--water-study","--start-game=sail"]),PackedStringArray(["--sea-island","--start-game=sail"])]:
 		requests.clear()
 		check(not main._request_startup_game(arguments),"invalid or conflicting release arguments preserve the menu")
 		check(requests.is_empty() and main.menu.visible,"invalid release arguments do not bypass the actual menu/router")
+	check(main._request_startup_game(PackedStringArray(["--start-game=mingqi-continue"])),"ordinary continuation reaches the existing save recovery route")
+	check(requests.size()==1 and requests[0].mode=="mingqi-continue" and main._startup_game_capture_mode=="mingqi","continuation preserves requested save route and captures the restored Mingqi scene")
+	main.router.cancel(); main.menu.apply_view_model(main.router.view_model(),main.router.generation)
 	requests.clear()
 	check(main._request_startup_game(PackedStringArray(["--start-game=sail","--game-capture=C:/absolute folder/capture.png"])),"absolute PNG path with spaces is accepted")
 	check(requests.size()==1 and main._startup_game_capture_path=="C:/absolute folder/capture.png","capture argument remains literal until the actual menu request")

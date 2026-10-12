@@ -67,6 +67,7 @@ func run() -> void:
 func capture_cancellation() -> void:
 	var main = load("res://game/scenes/main/main_scene.gd").new()
 	root.add_child(main); await process_frame
+	main.router.dev = true
 	var path := "user://migration-verification/cancelled-capture-%d.png" % OS.get_process_id()
 	var pending: Dictionary = main.router.prepare_entry({"type":"water-study","generation":main.router.generation,"nonce":50})
 	check(pending.ok and main.router.is_current(pending),"capture fixture starts with a valid entry token")
@@ -93,9 +94,9 @@ func launch_route() -> void:
 	var Storage = load("res://game/persistence/save_coordinator.gd")
 	var Settings = load("res://game/persistence/user_settings.gd")
 	var prefix := "user://migration-verification/island-water-launch-%d" % OS.get_process_id()
-	main.router = Router.new({"mingqi_storage":Storage.new(prefix+"-v2.json"),"legacy_storage":Storage.new(prefix+"-v1.json"),"settings_storage":Settings.new(prefix+"-settings.json")})
+	main.router = Router.new({"dev":true,"mingqi_storage":Storage.new(prefix+"-v2.json"),"legacy_storage":Storage.new(prefix+"-v1.json"),"settings_storage":Settings.new(prefix+"-settings.json")})
 	root.add_child(main); await process_frame
-	check(main.has_method("_request_startup_preview"),"release preview has a normal user-argument entry without path overrides")
+	check(main.has_method("_request_startup_preview"),"internal preview retains its bundled argument entry without path overrides")
 	if not main.has_method("_request_startup_preview"):
 		main.free(); return
 	main._request_startup_preview(PackedStringArray(["--unrelated"]))

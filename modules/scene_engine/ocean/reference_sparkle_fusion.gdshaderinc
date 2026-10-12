@@ -3,6 +3,8 @@
 // no evidence claims this PNG's exact original shader binding has been recovered.
 uniform sampler2D reference_original_sparkle_texture : repeat_enable, filter_linear_mipmap;
 uniform float reference_original_sparkle_strength = 1.0;
+#include "res://modules/scene_engine/ocean/stochastic_alpha.gdshaderinc"
+#include "res://modules/scene_engine/ocean/surface_detail_lod.gdshaderinc"
 
 // Returns a bounded display-RGB increment for the existing optical expression.
 // Neither geometry nor wave descriptors are changed; no private shader TIME.
@@ -17,15 +19,17 @@ vec3 reference_original_micro_sparkle(vec2 world_xz,vec3 normal,float accepted_s
 	// Different scale/rotation/phase modulates bright flecks without a common
 	// square lattice. Source RGB is almost constant; the sparse image is alpha.
 	vec2 uv_b=mat2(vec2(.891,.454),vec2(-.454,.891))*p*vec2(.073,.061)+vec2(drift*.31,-drift*.47)+vec2(.37,.19);
-	float alpha_a=texture(reference_original_sparkle_texture,uv_a).a;
-	float alpha_b=texture(reference_original_sparkle_texture,uv_b).a;
+	float alpha_a=reference_stochastic_alpha(reference_original_sparkle_texture,uv_a,43u,3.14159265);
+	float alpha_b=reference_stochastic_alpha(reference_original_sparkle_texture,uv_b,97u,3.14159265);
 	// Unresolved alpha averages to ~.096, below the first threshold, rather
 	// than turning the sea white. Explicit footprint/distance fades remain.
 	float flecks=smoothstep(.18,.72,alpha_a)*(.35+.65*smoothstep(.08,.55,alpha_b));
-	float resolved=1.0-smoothstep(.18,1.3,max(footprint,0.0));
+	// Sparse original alpha features have their own texel footprint, including
+	// normal-driven UV distortion. Metres-per-pixel alone cannot resolve them.
+	float resolved=min(reference_surface_alpha_visibility(reference_original_sparkle_texture,uv_a,4.0),reference_surface_alpha_visibility(reference_original_sparkle_texture,uv_b,4.0));
 	float visible=1.0-smoothstep(180.0,800.0,max(view_distance,0.0));
 	float moving=smoothstep(.5,16.0,speed);
-	float lit=.20+.80*pow(clamp(light_alignment,0.0,1.0),16.0);
+	float lit=.04+.96*pow(clamp(light_alignment,0.0,1.0),16.0);
 	float energy=flecks*resolved*visible*moving*lit*clamp(reference_original_sparkle_strength,0.0,1.0);
 	return vec3(.045,.061,.064)*energy;
 }

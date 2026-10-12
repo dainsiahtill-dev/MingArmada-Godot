@@ -9,6 +9,7 @@ var captures: Array=[]
 var failures := 0
 var settings: RefCounted
 var output_owned := false
+var capture_render_hook: Callable
 class MemorySlot extends RefCounted:
 	var raw := ""
 	var writes := 0
@@ -31,7 +32,7 @@ func _run() -> void:
 	settings=Settings.new("user://verification/fidelity-island-no-write-%d.json" % OS.get_process_id())
 	main=Main.new(); main.router=Router.new({"mingqi_storage":slot,"legacy_storage":legacy,"settings_storage":settings}); root.add_child(main)
 	await process_frame
-	var button: Button=main.menu.find_child("fidelity-island",true,false)
+	var button: Button=main.menu.find_child("fidelity-source",true,false)
 	if not check(button!=null and not button.disabled,"normal public menu island entry is available"): _finish(); return
 	button.pressed.emit()
 	if not await _await_scene("fidelity-island"): _finish(); return
@@ -80,6 +81,7 @@ func _capture(label: String, scene: Node) -> void:
 	for frame in 5: await process_frame
 	if scene.has_method("_render"): scene._render()
 	else: scene.sea.world.get_ocean().update_projection()
+	if capture_render_hook.is_valid(): capture_render_hook.call()
 	await RenderingServer.frame_post_draw
 	var image: Image=root.get_texture().get_image()
 	var path:=output+"/"+label+".png"
@@ -87,6 +89,13 @@ func _capture(label: String, scene: Node) -> void:
 	var snapshot: Dictionary=scene.inspection_snapshot() if scene.has_method("inspection_snapshot") else scene.runtime.snapshot()
 	var world_audit: Dictionary={} if scene.has_method("inspection_snapshot") else scene.sea.world.fidelity_diagnostics()
 	var metadata:={"label":label,"imageSha256":FileAccess.get_sha256(path),"gpu":RenderingServer.get_video_adapter_name(),"renderingMethod":RenderingServer.get_current_rendering_method(),"viewport":[image.get_width(),image.get_height()],"snapshot":snapshot,"world":world_audit,"sourceManifestSha256":FileAccess.get_sha256("res://assets/data/fidelity_island/manifest.json"),"scope":"Actual current Godot menu/router scene PNG; read-only source checkpoint Continue; no original-game-frame or performance claim."}
+	var camera: Camera3D=scene.camera if scene.has_method("inspection_snapshot") else scene.sea.camera
+	metadata.cameraFov=camera.fov
+	metadata.productionShaderHashes={}
+	for shader_path: String in ["res://modules/scene_engine/ocean/reference_game_water.gdshader","res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc","res://modules/scene_engine/terrain/natural_shore_surf.gdshader"]:
+		metadata.productionShaderHashes[shader_path]=FileAccess.get_sha256(shader_path)
+	var macro_optics_path:="res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc"
+	if FileAccess.file_exists(macro_optics_path): metadata.productionShaderHashes[macro_optics_path]=FileAccess.get_sha256(macro_optics_path)
 	var file:=FileAccess.open(path.get_basename()+".json",FileAccess.WRITE)
 	if not check(file!=null,"PNG metadata file opens"): return
 	file.store_string(JSON.stringify(metadata,"\t")); file.close(); captures.append(metadata)

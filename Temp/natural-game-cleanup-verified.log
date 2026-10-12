@@ -1,0 +1,892 @@
+[rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+WorkerThreadPool: 14 threads, 4 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/test_natural_game_world.gd remapped: res://tests/test_natural_game_world.gd
+Loading resource: res://modules/scene_engine/terrain/terrain_surface.gdshader remapped: res://modules/scene_engine/terrain/terrain_surface.gdshader
+Loading resource: res://modules/scene_engine/ocean/wave_functions.gdshaderinc remapped: res://modules/scene_engine/ocean/wave_functions.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/wave_functions.gdshaderinc' remapped 'res://modules/scene_engine/ocean/wave_functions.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/coastal_wave_functions.gdshaderinc remapped: res://modules/scene_engine/ocean/coastal_wave_functions.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/coastal_wave_functions.gdshaderinc' remapped 'res://modules/scene_engine/ocean/coastal_wave_functions.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/reference_island_water/reference_terrain_common.gdshaderinc remapped: res://modules/scene_engine/reference_island_water/reference_terrain_common.gdshaderinc
+Completed load for: 'res://modules/scene_engine/reference_island_water/reference_terrain_common.gdshaderinc' remapped 'res://modules/scene_engine/reference_island_water/reference_terrain_common.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/terrain/terrain_surface.gdshader' remapped 'res://modules/scene_engine/terrain/terrain_surface.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/ocean/original_water.gdshader remapped: res://modules/scene_engine/ocean/original_water.gdshader
+Loading resource: res://modules/scene_engine/ocean/original_water_body.gdshaderinc remapped: res://modules/scene_engine/ocean/original_water_body.gdshaderinc
+Loading resource: res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc remapped: res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc' remapped 'res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/surface_layers.gdshaderinc remapped: res://modules/scene_engine/ocean/surface_layers.gdshaderinc
+Loading resource: res://modules/scene_engine/ocean/stochastic_alpha.gdshaderinc remapped: res://modules/scene_engine/ocean/stochastic_alpha.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/stochastic_alpha.gdshaderinc' remapped 'res://modules/scene_engine/ocean/stochastic_alpha.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/surface_detail_lod.gdshaderinc remapped: res://modules/scene_engine/ocean/surface_detail_lod.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/surface_detail_lod.gdshaderinc' remapped 'res://modules/scene_engine/ocean/surface_detail_lod.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/surface_layers.gdshaderinc' remapped 'res://modules/scene_engine/ocean/surface_layers.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/original_water_body.gdshaderinc' remapped 'res://modules/scene_engine/ocean/original_water_body.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/original_water.gdshader' remapped 'res://modules/scene_engine/ocean/original_water.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/ocean/original_water_optics.gdshader remapped: res://modules/scene_engine/ocean/original_water_optics.gdshader
+Loading resource: res://modules/scene_engine/ocean/surface_optics.gdshaderinc remapped: res://modules/scene_engine/ocean/surface_optics.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/surface_optics.gdshaderinc' remapped 'res://modules/scene_engine/ocean/surface_optics.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/original_water_optics.gdshader' remapped 'res://modules/scene_engine/ocean/original_water_optics.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/ocean/reference_game_water.gdshader remapped: res://modules/scene_engine/ocean/reference_game_water.gdshader
+Loading resource: res://modules/scene_engine/reference_island_water/source_common.gdshaderinc remapped: res://modules/scene_engine/reference_island_water/source_common.gdshaderinc
+Completed load for: 'res://modules/scene_engine/reference_island_water/source_common.gdshaderinc' remapped 'res://modules/scene_engine/reference_island_water/source_common.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc remapped: res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc' remapped 'res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc remapped: res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc' remapped 'res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc' at thread -1
+Loading resource: res://modules/scene_engine/ocean/reference_shore_foam.gdshaderinc remapped: res://modules/scene_engine/ocean/reference_shore_foam.gdshaderinc
+Completed load for: 'res://modules/scene_engine/ocean/reference_shore_foam.gdshaderinc' remapped 'res://modules/scene_engine/ocean/reference_shore_foam.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/reference_game_water.gdshader' remapped 'res://modules/scene_engine/ocean/reference_game_water.gdshader' at thread -1
+Loading resource: res://assets/textures/pirates_reference/02_sparkle_b.dds.png remapped: res://assets/textures/pirates_reference/02_sparkle_b.dds.png
+Loading resource: res://.godot/imported/02_sparkle_b.dds.png-db644c9b0066e56a5c5f55f6ccb6169e.ctex remapped: res://.godot/imported/02_sparkle_b.dds.png-db644c9b0066e56a5c5f55f6ccb6169e.ctex
+Completed load for: 'res://assets/textures/pirates_reference/02_sparkle_b.dds.png' remapped 'res://assets/textures/pirates_reference/02_sparkle_b.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/water_spaarkle.dds.png remapped: res://assets/textures/pirates_reference/water_spaarkle.dds.png
+Loading resource: res://.godot/imported/water_spaarkle.dds.png-239ec5b19e7afb6cd80566183f8448b6.ctex remapped: res://.godot/imported/water_spaarkle.dds.png-239ec5b19e7afb6cd80566183f8448b6.ctex
+Completed load for: 'res://assets/textures/pirates_reference/water_spaarkle.dds.png' remapped 'res://assets/textures/pirates_reference/water_spaarkle.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/duel_ocean deep.dds.png remapped: res://assets/textures/pirates_reference/duel_ocean deep.dds.png
+Loading resource: res://.godot/imported/duel_ocean deep.dds.png-080506b8c560b73900b599dd1721a78c.ctex remapped: res://.godot/imported/duel_ocean deep.dds.png-080506b8c560b73900b599dd1721a78c.ctex
+Completed load for: 'res://assets/textures/pirates_reference/duel_ocean deep.dds.png' remapped 'res://assets/textures/pirates_reference/duel_ocean deep.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/water.dds.png remapped: res://assets/textures/pirates_reference/water.dds.png
+Loading resource: res://.godot/imported/water.dds.png-0ebbb2b6efbd6bd8482bffcec575ad7a.ctex remapped: res://.godot/imported/water.dds.png-0ebbb2b6efbd6bd8482bffcec575ad7a.ctex
+Completed load for: 'res://assets/textures/pirates_reference/water.dds.png' remapped 'res://assets/textures/pirates_reference/water.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/duel_waterdetail.dds.png remapped: res://assets/textures/pirates_reference/duel_waterdetail.dds.png
+Loading resource: res://.godot/imported/duel_waterdetail.dds.png-6e8d003d53d778c6a212083da4c2c2b4.ctex remapped: res://.godot/imported/duel_waterdetail.dds.png-6e8d003d53d778c6a212083da4c2c2b4.ctex
+Completed load for: 'res://assets/textures/pirates_reference/duel_waterdetail.dds.png' remapped 'res://assets/textures/pirates_reference/duel_waterdetail.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/foam0008.dds.png remapped: res://assets/textures/pirates_reference/foam0008.dds.png
+Loading resource: res://.godot/imported/foam0008.dds.png-30376b85a10a076b847fc27d7cfd8b18.ctex remapped: res://.godot/imported/foam0008.dds.png-30376b85a10a076b847fc27d7cfd8b18.ctex
+Completed load for: 'res://assets/textures/pirates_reference/foam0008.dds.png' remapped 'res://assets/textures/pirates_reference/foam0008.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/foam0009.dds.png remapped: res://assets/textures/pirates_reference/foam0009.dds.png
+Loading resource: res://.godot/imported/foam0009.dds.png-3358652b4bd832174a391806829e4e68.ctex remapped: res://.godot/imported/foam0009.dds.png-3358652b4bd832174a391806829e4e68.ctex
+Completed load for: 'res://assets/textures/pirates_reference/foam0009.dds.png' remapped 'res://assets/textures/pirates_reference/foam0009.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/foam0024.dds.png remapped: res://assets/textures/pirates_reference/foam0024.dds.png
+Loading resource: res://.godot/imported/foam0024.dds.png-5d8b272f29f1f89aa95341cf8d9af318.ctex remapped: res://.godot/imported/foam0024.dds.png-5d8b272f29f1f89aa95341cf8d9af318.ctex
+Completed load for: 'res://assets/textures/pirates_reference/foam0024.dds.png' remapped 'res://assets/textures/pirates_reference/foam0024.dds.png' at thread -1
+Loading resource: res://modules/scene_engine/reference_island_water/reference_water.gdshader remapped: res://modules/scene_engine/reference_island_water/reference_water.gdshader
+Completed load for: 'res://modules/scene_engine/reference_island_water/reference_water.gdshader' remapped 'res://modules/scene_engine/reference_island_water/reference_water.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/reference_island_water/reference_sky.gdshader remapped: res://modules/scene_engine/reference_island_water/reference_sky.gdshader
+Completed load for: 'res://modules/scene_engine/reference_island_water/reference_sky.gdshader' remapped 'res://modules/scene_engine/reference_island_water/reference_sky.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_island/terrain.gdshader remapped: res://modules/scene_engine/fidelity_island/terrain.gdshader
+Loading resource: res://modules/scene_engine/fidelity_island/source_water_color.gdshaderinc remapped: res://modules/scene_engine/fidelity_island/source_water_color.gdshaderinc
+Completed load for: 'res://modules/scene_engine/fidelity_island/source_water_color.gdshaderinc' remapped 'res://modules/scene_engine/fidelity_island/source_water_color.gdshaderinc' at thread -1
+Completed load for: 'res://modules/scene_engine/fidelity_island/terrain.gdshader' remapped 'res://modules/scene_engine/fidelity_island/terrain.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_island/canopy.gdshader remapped: res://modules/scene_engine/fidelity_island/canopy.gdshader
+Completed load for: 'res://modules/scene_engine/fidelity_island/canopy.gdshader' remapped 'res://modules/scene_engine/fidelity_island/canopy.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/terrain/natural_island_surface.gdshader remapped: res://modules/scene_engine/terrain/natural_island_surface.gdshader
+Completed load for: 'res://modules/scene_engine/terrain/natural_island_surface.gdshader' remapped 'res://modules/scene_engine/terrain/natural_island_surface.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/terrain/natural_shore_surf.gdshader remapped: res://modules/scene_engine/terrain/natural_shore_surf.gdshader
+Completed load for: 'res://modules/scene_engine/terrain/natural_shore_surf.gdshader' remapped 'res://modules/scene_engine/terrain/natural_shore_surf.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_island/shore.gdshader remapped: res://modules/scene_engine/fidelity_island/shore.gdshader
+Completed load for: 'res://modules/scene_engine/fidelity_island/shore.gdshader' remapped 'res://modules/scene_engine/fidelity_island/shore.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_fx/atmosphere.gdshader remapped: res://modules/scene_engine/fidelity_fx/atmosphere.gdshader
+Completed load for: 'res://modules/scene_engine/fidelity_fx/atmosphere.gdshader' remapped 'res://modules/scene_engine/fidelity_fx/atmosphere.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_fx/particle.gdshader remapped: res://modules/scene_engine/fidelity_fx/particle.gdshader
+Completed load for: 'res://modules/scene_engine/fidelity_fx/particle.gdshader' remapped 'res://modules/scene_engine/fidelity_fx/particle.gdshader' at thread -1
+Loading resource: res://modules/scene_engine/fidelity_fx/particle_add.gdshader remapped: res://modules/scene_engine/fidelity_fx/particle_add.gdshader
+Completed load for: 'res://modules/scene_engine/fidelity_fx/particle_add.gdshader' remapped 'res://modules/scene_engine/fidelity_fx/particle_add.gdshader' at thread -1
+Loading resource: res://game/presentation/ships/ship_damage.gdshader remapped: res://game/presentation/ships/ship_damage.gdshader
+Completed load for: 'res://game/presentation/ships/ship_damage.gdshader' remapped 'res://game/presentation/ships/ship_damage.gdshader' at thread -1
+Loading resource: res://game/presentation/water/pirates_foam.gdshader remapped: res://game/presentation/water/pirates_foam.gdshader
+Completed load for: 'res://game/presentation/water/pirates_foam.gdshader' remapped 'res://game/presentation/water/pirates_foam.gdshader' at thread -1
+Loading resource: res://game/presentation/water/splash_volume.gdshader remapped: res://game/presentation/water/splash_volume.gdshader
+Completed load for: 'res://game/presentation/water/splash_volume.gdshader' remapped 'res://game/presentation/water/splash_volume.gdshader' at thread -1
+Loading resource: res://game/presentation/water/reference_splash.gdshader remapped: res://game/presentation/water/reference_splash.gdshader
+Completed load for: 'res://game/presentation/water/reference_splash.gdshader' remapped 'res://game/presentation/water/reference_splash.gdshader' at thread -1
+Completed load for: 'res://tests/test_natural_game_world.gd' remapped 'res://tests/test_natural_game_world.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+Loading resource: res://assets/textures/waternormals.jpg remapped: res://assets/textures/waternormals.jpg
+Loading resource: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex remapped: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex
+Completed load for: 'res://assets/textures/waternormals.jpg' remapped 'res://assets/textures/waternormals.jpg' at thread -1
+Loading resource: res://modules/scene_engine/ocean/shore_field.gd remapped: res://modules/scene_engine/ocean/shore_field.gd
+Completed load for: 'res://modules/scene_engine/ocean/shore_field.gd' remapped 'res://modules/scene_engine/ocean/shore_field.gd' at thread -1
+Loading resource: res://modules/scene_engine/ocean/shore_spray.gd remapped: res://modules/scene_engine/ocean/shore_spray.gd
+Loading resource: res://modules/scene_engine/ocean/shore_spray.gdshader remapped: res://modules/scene_engine/ocean/shore_spray.gdshader
+Completed load for: 'res://modules/scene_engine/ocean/shore_spray.gdshader' remapped 'res://modules/scene_engine/ocean/shore_spray.gdshader' at thread -1
+Loading resource: res://assets/textures/pirates_reference/water spash.tga.png remapped: res://assets/textures/pirates_reference/water spash.tga.png
+Loading resource: res://.godot/imported/water spash.tga.png-19d9c3945179d90d4fe3dd13deed7878.ctex remapped: res://.godot/imported/water spash.tga.png-19d9c3945179d90d4fe3dd13deed7878.ctex
+Completed load for: 'res://assets/textures/pirates_reference/water spash.tga.png' remapped 'res://assets/textures/pirates_reference/water spash.tga.png' at thread -1
+Completed load for: 'res://modules/scene_engine/ocean/shore_spray.gd' remapped 'res://modules/scene_engine/ocean/shore_spray.gd' at thread -1
+Loading resource: res://assets/textures/waternormals.jpg remapped: res://assets/textures/waternormals.jpg
+Loading resource: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex remapped: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex
+Completed load for: 'res://assets/textures/waternormals.jpg' remapped 'res://assets/textures/waternormals.jpg' at thread -1
+Loading resource: res://assets/textures/pirates_reference/wake3unique.dds.png remapped: res://assets/textures/pirates_reference/wake3unique.dds.png
+Loading resource: res://.godot/imported/wake3unique.dds.png-6212dd0b9eae75b742903faffbb715b8.ctex remapped: res://.godot/imported/wake3unique.dds.png-6212dd0b9eae75b742903faffbb715b8.ctex
+Completed load for: 'res://assets/textures/pirates_reference/wake3unique.dds.png' remapped 'res://assets/textures/pirates_reference/wake3unique.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png remapped: res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png
+Loading resource: res://.godot/imported/fx_waterfroth_003.dds.png-3d16fbe826cc47df068d964f7dcd3ea7.ctex remapped: res://.godot/imported/fx_waterfroth_003.dds.png-3d16fbe826cc47df068d964f7dcd3ea7.ctex
+Completed load for: 'res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png' remapped 'res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png' at thread -1
+glTF: Total buffers: 1
+glTF: Total buffer views: 141
+glTF: Total accessors: 141
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Parsing mesh: 22
+glTF: Parsing mesh: 23
+glTF: Parsing mesh: 24
+glTF: Parsing mesh: 25
+glTF: Parsing mesh: 26
+glTF: Parsing mesh: 27
+glTF: Parsing mesh: 28
+glTF: Parsing mesh: 29
+glTF: Parsing mesh: 30
+glTF: Total meshes: 31
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: sterncastle
+glTF: Creating mesh for: sterncastle_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_port_04
+glTF: Creating mesh for: barrel_port_04
+glTF: Converting spatial: socket_smoke_port_04
+glTF: Converting spatial: cannon_port_05
+glTF: Creating mesh for: barrel_port_05
+glTF: Converting spatial: socket_smoke_port_05
+glTF: Converting spatial: cannon_port_06
+glTF: Creating mesh for: barrel_port_06
+glTF: Converting spatial: socket_smoke_port_06
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: cannon_starboard_04
+glTF: Creating mesh for: barrel_starboard_04
+glTF: Converting spatial: socket_smoke_starboard_04
+glTF: Converting spatial: cannon_starboard_05
+glTF: Creating mesh for: barrel_starboard_05
+glTF: Converting spatial: socket_smoke_starboard_05
+glTF: Converting spatial: cannon_starboard_06
+glTF: Creating mesh for: barrel_starboard_06
+glTF: Converting spatial: socket_smoke_starboard_06
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Creating mesh for: zheng_pennant_mark
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_iron
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 141
+glTF: Total accessors: 141
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Parsing mesh: 22
+glTF: Parsing mesh: 23
+glTF: Parsing mesh: 24
+glTF: Parsing mesh: 25
+glTF: Parsing mesh: 26
+glTF: Parsing mesh: 27
+glTF: Parsing mesh: 28
+glTF: Parsing mesh: 29
+glTF: Parsing mesh: 30
+glTF: Total meshes: 31
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: sterncastle
+glTF: Creating mesh for: sterncastle_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_port_04
+glTF: Creating mesh for: barrel_port_04
+glTF: Converting spatial: socket_smoke_port_04
+glTF: Converting spatial: cannon_port_05
+glTF: Creating mesh for: barrel_port_05
+glTF: Converting spatial: socket_smoke_port_05
+glTF: Converting spatial: cannon_port_06
+glTF: Creating mesh for: barrel_port_06
+glTF: Converting spatial: socket_smoke_port_06
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: cannon_starboard_04
+glTF: Creating mesh for: barrel_starboard_04
+glTF: Converting spatial: socket_smoke_starboard_04
+glTF: Converting spatial: cannon_starboard_05
+glTF: Creating mesh for: barrel_starboard_05
+glTF: Converting spatial: socket_smoke_starboard_05
+glTF: Converting spatial: cannon_starboard_06
+glTF: Creating mesh for: barrel_starboard_06
+glTF: Converting spatial: socket_smoke_starboard_06
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Creating mesh for: zheng_pennant_mark
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_iron
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 133
+glTF: Total accessors: 133
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Parsing mesh: 22
+glTF: Parsing mesh: 23
+glTF: Parsing mesh: 24
+glTF: Parsing mesh: 25
+glTF: Parsing mesh: 26
+glTF: Parsing mesh: 27
+glTF: Parsing mesh: 28
+glTF: Total meshes: 29
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: sterncastle
+glTF: Creating mesh for: sterncastle_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_port_04
+glTF: Creating mesh for: barrel_port_04
+glTF: Converting spatial: socket_smoke_port_04
+glTF: Converting spatial: cannon_port_05
+glTF: Creating mesh for: barrel_port_05
+glTF: Converting spatial: socket_smoke_port_05
+glTF: Converting spatial: cannon_port_06
+glTF: Creating mesh for: barrel_port_06
+glTF: Converting spatial: socket_smoke_port_06
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: cannon_starboard_04
+glTF: Creating mesh for: barrel_starboard_04
+glTF: Converting spatial: socket_smoke_starboard_04
+glTF: Converting spatial: cannon_starboard_05
+glTF: Creating mesh for: barrel_starboard_05
+glTF: Converting spatial: socket_smoke_starboard_05
+glTF: Converting spatial: cannon_starboard_06
+glTF: Creating mesh for: barrel_starboard_06
+glTF: Converting spatial: socket_smoke_starboard_06
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_trim
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage000.dds.png-84eb07b901cfcc32a679f6ede4f1370e.ctex remapped: res://.godot/imported/ship_hull_damage000.dds.png-84eb07b901cfcc32a679f6ede4f1370e.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage000.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage020.dds.png-281b22b88823bf69126605ef1bda8202.ctex remapped: res://.godot/imported/ship_hull_damage020.dds.png-281b22b88823bf69126605ef1bda8202.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage020.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage040.dds.png-f2cb804a74fcc352d2bfba0195739b3c.ctex remapped: res://.godot/imported/ship_hull_damage040.dds.png-f2cb804a74fcc352d2bfba0195739b3c.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage040.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage060.dds.png-38f55d433f0e833772a28dc6702734bd.ctex remapped: res://.godot/imported/ship_hull_damage060.dds.png-38f55d433f0e833772a28dc6702734bd.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage060.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage080.dds.png-73badd3ae341d2347560db9fe6443f0a.ctex remapped: res://.godot/imported/ship_hull_damage080.dds.png-73badd3ae341d2347560db9fe6443f0a.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage080.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png
+Loading resource: res://.godot/imported/ship_hull_damage100.dds.png-182e9e880195574580596e9e70e0a05c.ctex remapped: res://.godot/imported/ship_hull_damage100.dds.png-182e9e880195574580596e9e70e0a05c.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_hull_damage100.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png
+Loading resource: res://.godot/imported/ship_sail_damage020.dds.png-6284bcbe78760d3ca694a3c1713d3503.ctex remapped: res://.godot/imported/ship_sail_damage020.dds.png-6284bcbe78760d3ca694a3c1713d3503.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_sail_damage020.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png
+Loading resource: res://.godot/imported/ship_sail_damage040.dds.png-cd3aea030d1d4c484b7f315946c5a063.ctex remapped: res://.godot/imported/ship_sail_damage040.dds.png-cd3aea030d1d4c484b7f315946c5a063.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_sail_damage040.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png
+Loading resource: res://.godot/imported/ship_sail_damage060.dds.png-426e60a715786b997bcaba925da6b679.ctex remapped: res://.godot/imported/ship_sail_damage060.dds.png-426e60a715786b997bcaba925da6b679.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_sail_damage060.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png
+Loading resource: res://.godot/imported/ship_sail_damage080.dds.png-b1803f78a75dd77543483b0d4b57a1af.ctex remapped: res://.godot/imported/ship_sail_damage080.dds.png-b1803f78a75dd77543483b0d4b57a1af.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_sail_damage080.dds.png' at thread -1
+Loading resource: res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png remapped: res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png
+Loading resource: res://.godot/imported/ship_sail_damage100.dds.png-0838798cbe64a690568ee904d1df96bb.ctex remapped: res://.godot/imported/ship_sail_damage100.dds.png-0838798cbe64a690568ee904d1df96bb.ctex
+Completed load for: 'res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png' remapped 'res://assets/textures/pirates_damage_reference/ship_sail_damage100.dds.png' at thread -1
+glTF: Total buffers: 1
+glTF: Total buffer views: 125
+glTF: Total accessors: 125
+Total materials: 1
+glTF: Total skins: 1
+glTF: Parsing mesh: 0
+glTF: Total meshes: 1
+glTF: Total animations '6'.
+glTF: Creating mesh for: sailor_body
+glTF: Converting spatial: sailor_body
+glTF: Total buffers: 1
+glTF: Total buffer views: 85
+glTF: Total accessors: 85
+Total materials: 4
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Total meshes: 17
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: cargo_hold
+glTF: Creating mesh for: cargo_hold_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 85
+glTF: Total accessors: 85
+Total materials: 4
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Total meshes: 17
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: cargo_hold
+glTF: Creating mesh for: cargo_hold_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 85
+glTF: Total accessors: 85
+Total materials: 4
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Mesh has targets
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Parsing mesh: 8
+glTF: Mesh has targets
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Parsing mesh: 11
+glTF: Mesh has targets
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Total meshes: 17
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: cargo_hold
+glTF: Creating mesh for: cargo_hold_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: mast_03
+glTF: Creating mesh for: mast_timber_03
+glTF: Creating mesh for: sail_03
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh5
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 108
+glTF: Total accessors: 108
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Mesh has targets
+glTF: Parsing mesh: 8
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Mesh has targets
+glTF: Parsing mesh: 11
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Parsing mesh: 22
+glTF: Parsing mesh: 23
+glTF: Total meshes: 24
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: patrol_stern_house
+glTF: Creating mesh for: patrol_stern_house_body
+glTF: Converting spatial: bow_firing_platform
+glTF: Creating mesh for: bow_firing_platform_body
+glTF: Converting spatial: shield_rack
+glTF: Creating mesh for: shield_rack_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh4
+glTF: Creating mesh for: zheng_pennant_mark
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_iron
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 108
+glTF: Total accessors: 108
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Mesh has targets
+glTF: Parsing mesh: 8
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Mesh has targets
+glTF: Parsing mesh: 11
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Parsing mesh: 22
+glTF: Parsing mesh: 23
+glTF: Total meshes: 24
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: patrol_stern_house
+glTF: Creating mesh for: patrol_stern_house_body
+glTF: Converting spatial: bow_firing_platform
+glTF: Creating mesh for: bow_firing_platform_body
+glTF: Converting spatial: shield_rack
+glTF: Creating mesh for: shield_rack_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh4
+glTF: Creating mesh for: zheng_pennant_mark
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_iron
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 100
+glTF: Total accessors: 100
+Total materials: 5
+glTF: Parsing mesh: 0
+glTF: Parsing mesh: 1
+glTF: Parsing mesh: 2
+glTF: Parsing mesh: 3
+glTF: Parsing mesh: 4
+glTF: Parsing mesh: 5
+glTF: Parsing mesh: 6
+glTF: Parsing mesh: 7
+glTF: Mesh has targets
+glTF: Parsing mesh: 8
+glTF: Parsing mesh: 9
+glTF: Parsing mesh: 10
+glTF: Mesh has targets
+glTF: Parsing mesh: 11
+glTF: Parsing mesh: 12
+glTF: Parsing mesh: 13
+glTF: Parsing mesh: 14
+glTF: Parsing mesh: 15
+glTF: Parsing mesh: 16
+glTF: Parsing mesh: 17
+glTF: Parsing mesh: 18
+glTF: Parsing mesh: 19
+glTF: Parsing mesh: 20
+glTF: Parsing mesh: 21
+glTF: Total meshes: 22
+glTF: Converting spatial: ship_root
+glTF: Creating mesh for: hull
+glTF: Creating mesh for: deck
+glTF: Converting spatial: patrol_stern_house
+glTF: Creating mesh for: patrol_stern_house_body
+glTF: Converting spatial: bow_firing_platform
+glTF: Creating mesh for: bow_firing_platform_body
+glTF: Converting spatial: shield_rack
+glTF: Creating mesh for: shield_rack_body
+glTF: Converting spatial: rudder_pivot
+glTF: Creating mesh for: Mesh
+glTF: Converting spatial: mast_01
+glTF: Creating mesh for: mast_timber_01
+glTF: Creating mesh for: sail_01
+glTF: Creating mesh for: Mesh2
+glTF: Converting spatial: mast_02
+glTF: Creating mesh for: mast_timber_02
+glTF: Creating mesh for: sail_02
+glTF: Creating mesh for: Mesh3
+glTF: Converting spatial: cannon_port_01
+glTF: Creating mesh for: barrel_port_01
+glTF: Converting spatial: socket_smoke_port_01
+glTF: Converting spatial: cannon_port_02
+glTF: Creating mesh for: barrel_port_02
+glTF: Converting spatial: socket_smoke_port_02
+glTF: Converting spatial: cannon_port_03
+glTF: Creating mesh for: barrel_port_03
+glTF: Converting spatial: socket_smoke_port_03
+glTF: Converting spatial: cannon_starboard_01
+glTF: Creating mesh for: barrel_starboard_01
+glTF: Converting spatial: socket_smoke_starboard_01
+glTF: Converting spatial: cannon_starboard_02
+glTF: Creating mesh for: barrel_starboard_02
+glTF: Converting spatial: socket_smoke_starboard_02
+glTF: Converting spatial: cannon_starboard_03
+glTF: Creating mesh for: barrel_starboard_03
+glTF: Converting spatial: socket_smoke_starboard_03
+glTF: Converting spatial: flag_01
+glTF: Creating mesh for: Mesh4
+glTF: Converting spatial: socket_wake
+glTF: Converting spatial: socket_crew_01
+glTF: Converting spatial: socket_crew_02
+glTF: Creating mesh for: fittings_wood
+glTF: Creating mesh for: fittings_deck
+glTF: Creating mesh for: fittings_trim
+glTF: Total buffers: 1
+glTF: Total buffer views: 125
+glTF: Total accessors: 125
+Total materials: 1
+glTF: Total skins: 1
+glTF: Parsing mesh: 0
+glTF: Total meshes: 1
+glTF: Total animations '6'.
+glTF: Creating mesh for: sailor_body
+glTF: Converting spatial: sailor_body
+Loading resource: res://assets/music/大明逐浪.mp3 remapped: res://assets/music/大明逐浪.mp3
+Loading resource: res://.godot/imported/大明逐浪.mp3-130b1bf3c3b59a93925c46d17884e752.mp3str remapped: res://.godot/imported/大明逐浪.mp3-130b1bf3c3b59a93925c46d17884e752.mp3str
+Completed load for: 'res://assets/music/大明逐浪.mp3' remapped 'res://assets/music/大明逐浪.mp3' at thread -1
+Loading resource: res://assets/textures/waternormals.jpg remapped: res://assets/textures/waternormals.jpg
+Loading resource: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex remapped: res://.godot/imported/waternormals.jpg-4b207ef7e7e3a5b6dd413a44692ab525.ctex
+Completed load for: 'res://assets/textures/waternormals.jpg' remapped 'res://assets/textures/waternormals.jpg' at thread -1
+Loading resource: res://assets/art/characters/zheng-captain-v1.png remapped: res://assets/art/characters/zheng-captain-v1.png
+Loading resource: res://.godot/imported/zheng-captain-v1.png-92ec508861c64122395007d41ab72ad2.ctex remapped: res://.godot/imported/zheng-captain-v1.png-92ec508861c64122395007d41ab72ad2.ctex
+Completed load for: 'res://assets/art/characters/zheng-captain-v1.png' remapped 'res://assets/art/characters/zheng-captain-v1.png' at thread -1
+Loading resource: res://assets/art/maps/ming-nautical-chart-v2.png remapped: res://assets/art/maps/ming-nautical-chart-v2.png
+Loading resource: res://.godot/imported/ming-nautical-chart-v2.png-d8769d8f644b9925fed414f7f2de08ff.ctex remapped: res://.godot/imported/ming-nautical-chart-v2.png-d8769d8f644b9925fed414f7f2de08ff.ctex
+Completed load for: 'res://assets/art/maps/ming-nautical-chart-v2.png' remapped 'res://assets/art/maps/ming-nautical-chart-v2.png' at thread -1
+Loading resource: res://assets/art/maps/ming-nautical-land-paper-v2.png remapped: res://assets/art/maps/ming-nautical-land-paper-v2.png
+Loading resource: res://.godot/imported/ming-nautical-land-paper-v2.png-c2d2619455ce41b3c992d109d359d08f.ctex remapped: res://.godot/imported/ming-nautical-land-paper-v2.png-c2d2619455ce41b3c992d109d359d08f.ctex
+Completed load for: 'res://assets/art/maps/ming-nautical-land-paper-v2.png' remapped 'res://assets/art/maps/ming-nautical-land-paper-v2.png' at thread -1
+Loading resource: res://assets/art/ports/xiamen-harbor-v1.png remapped: res://assets/art/ports/xiamen-harbor-v1.png
+Loading resource: res://.godot/imported/xiamen-harbor-v1.png-ac256821703879d53b85cb9246f1283e.ctex remapped: res://.godot/imported/xiamen-harbor-v1.png-ac256821703879d53b85cb9246f1283e.ctex
+Completed load for: 'res://assets/art/ports/xiamen-harbor-v1.png' remapped 'res://assets/art/ports/xiamen-harbor-v1.png' at thread -1
+NATURAL_GAME_WORLD_TESTS assertions=158 failures=0
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

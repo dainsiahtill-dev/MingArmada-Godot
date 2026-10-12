@@ -37,6 +37,9 @@ var _last_tactical := false
 var _battle_id := ""
 var _snapshot: Dictionary = {}
 var _disposed := true
+var _camera_controller: Callable
+func set_camera_controller(controller: Callable) -> void:
+	_camera_controller = controller
 
 static func find_ship(native: Dictionary, id: String) -> Dictionary:
 	for ship: Dictionary in native.get("ships", []):
@@ -112,9 +115,10 @@ func apply_settings(settings: Dictionary) -> void:
 	_environment.glow_enabled = bool(QUALITY.get(_settings.quality, QUALITY.balanced).bloom)
 	if old_quality != _settings.quality:
 		_configure_world()
-		world.apply_snapshot({"time":_snapshot.get("time",0.0),"wind":_snapshot.get("wind",{}),"focus":{"x":_last_target.x,"z":_last_target.z}},0.0)
+		world.apply_snapshot({"time":_snapshot.get("time",0.0),"wind":_snapshot.get("wind",{}),"battleId":_snapshot.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},0.0)
 	for crew in sailors.values(): crew.set_reduced_motion(bool(_settings.reducedMotion))
 	for ship in ships.values(): ship.set_reduced_motion(bool(_settings.reducedMotion))
+	world.set_reduced_motion(bool(_settings.reducedMotion))
 
 func observe_projectiles(native: Dictionary) -> void:
 	if not _disposed: effects.observe_projectiles(native)
@@ -197,7 +201,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
 	wakes.apply_snapshot(native)
-	world.apply_snapshot({"time":native.get("time",0.0),"wind":native.get("wind",{}),"focus":{"x":_last_target.x,"z":_last_target.z}},consumed)
+	world.apply_snapshot({"time":native.get("time",0.0),"wind":native.get("wind",{}),"battleId":native.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},consumed)
 	return presented_events
 
 func _update_camera(native: Dictionary, consumed: float) -> void:
@@ -205,6 +209,10 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 	if ship.is_empty(): return
 	var point: Dictionary = ship.visual.position
 	var target := Vector3(point.x,point.y+3.0,point.z)
+	if _camera_controller.is_valid():
+		_last_target = target
+		_camera_controller.call()
+		return
 	var mode_changed := _last_tactical != tactical
 	if not _camera_ready or mode_changed:
 		_camera_target = target
@@ -224,6 +232,7 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 
 func dispose() -> void:
 	_disposed = true
+	_camera_controller = Callable()
 	for id: String in ships.keys(): _release_ship(id)
 	for node in _owned:
 		if is_instance_valid(node):

@@ -33,7 +33,7 @@ var _capture_mode := false
 
 func _ready() -> void:
 	_capture_mode = "--capture-legacy" in OS.get_cmdline_user_args()
-	if not heights.configure_ports(Catalog.DATA.PORTS,false,preload("res://game/scenes/common/reference_geography.gd").options()): push_error("Legacy geography failed"); return
+	if not heights.configure_ports(Catalog.DATA.PORTS,false,preload("res://game/scenes/common/reference_geography.gd").source_options()): push_error("Legacy geography failed"); return
 	var options := startup_options.duplicate(true); options.erase("staged"); options.storage = storage
 	runtime.enable_reference_enhancements()
 	startup_receipt = runtime.configure(heights.sample_height,options)

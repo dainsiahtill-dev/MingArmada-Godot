@@ -8,6 +8,9 @@ const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const IslandDetails = preload("res://modules/scene_engine/world/island_details.gd")
 const FidelityMaterial = preload("res://modules/scene_engine/fidelity_island/terrain_material.gd")
 const FidelityVegetation = preload("res://modules/scene_engine/fidelity_island/vegetation.gd")
+const NaturalWorld = preload("res://modules/scene_engine/terrain/natural_world.gd")
+const Atmosphere = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gd")
+const SourceEffects = preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
 const PIER_DECK_HEIGHT := 4.2 # Above the authored offshore 3.5m wave envelope.
 var _height_sampler: Callable
 var _camera: Camera3D
@@ -38,11 +41,29 @@ var _fidelity_profiles: Array = []
 var _fidelity_materials: Array[ShaderMaterial] = []
 var _fidelity_vegetation: Array[Node3D] = []
 var _fidelity_shores: Array[Node3D] = []
+var _static_islands: RefCounted
+var _natural_world: Node3D
+var _static_shore_resolution := 512
+var _sea_visual_scale := 1.0
+var _display_fog_density := 0.0015
+var atmosphere: RefCounted
+var _atmosphere_options: Dictionary = {}
+var _weather_epoch := ""
 
 func configure(height_sampler: Callable, wave_descriptors: Array = [], options: Dictionary = {}) -> bool:
+	# A quality rebuild may replace sea and terrain without throwing away the
+	# source cloud delta history. Different land placements rebuild weather.
+	var retained_atmosphere: RefCounted = atmosphere
+	var retained_options := _atmosphere_options.duplicate(true)
+	var retained_epoch := _weather_epoch
+	atmosphere = null
 	dispose()
 	if not height_sampler.is_valid():
+		if retained_atmosphere: retained_atmosphere.dispose()
 		return false
+	atmosphere = retained_atmosphere
+	_atmosphere_options = retained_options
+	_weather_epoch = retained_epoch
 	_disposed = false
 	_height_sampler = height_sampler
 	_camera = options.get("camera")
@@ -72,19 +93,93 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 	_ocean.configure_reflection(_camera)
 	_ocean.enable_surface_optics(_visual_style == 1)
 	if _visual_style == 1: _ocean.set_projection_padding(0.10)
-	_configure_shore(effective_waves)
 	_build_ports()
+	if not _configure_natural_islands(options):
+		dispose(); return false
 	if not _configure_fidelity_islands(options):
 		dispose(); return false
+	if not _configure_visual_scale(options):
+		dispose(); return false
+	_configure_shore(effective_waves)
 	if _visual_style == 1 and bool(options.get("island_details",true)) and not _ports.is_empty():
 		_island_details = IslandDetails.new(); add_child(_island_details); _owned.append(_island_details)
-		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false),"terrain_support":_island_supported,"existing_buildings":_port_building_sites,"native_forest":not _fidelity_profiles.is_empty()}):
+		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false),"terrain_support":_island_supported,"existing_buildings":_port_building_sites,"native_forest":not _fidelity_profiles.is_empty() or is_instance_valid(_natural_world)}):
 			dispose(); return false
 	_update_window(Vector2.ZERO)
+	if is_instance_valid(_static_islands) or is_instance_valid(_natural_world): _sync_terrain_surface()
 	if _island_details: _island_details.apply_snapshot({"time":0.0,"focus":Vector2.ZERO})
+	if not _configure_atmosphere(options): dispose(); return false
 	return true
 
+func _configure_atmosphere(options: Dictionary) -> bool:
+	if not is_instance_valid(_camera):
+		if atmosphere: atmosphere.dispose()
+		atmosphere = null; _atmosphere_options.clear()
+		return true
+	var fog_placements: Array[Transform3D] = []
+	for port: Dictionary in _ports:
+		var x := float(port.get("islandX",port.get("x",0.0)))
+		var z := float(port.get("islandZ",port.get("z",0.0)))
+		var land_height := float(_height_sampler.call(x,z))
+		if not is_finite(land_height) or land_height <= 0.0: continue
+		# Thin clear-weather fog stays on accepted island land, outside fleet lanes.
+		fog_placements.append(Transform3D(Basis.IDENTITY.scaled(Vector3(3.0,1.0,3.0)),Vector3(x,land_height+1.5,z)))
+	# Source unit-dome geometry needs a distant meter-scale sky in normal play;
+	# the standalone observer's 160/36 placement would sit among these islands.
+	var settings := {"crt_seed":1,"cloud_sky_radius":1200.0,"cloud_sky_height":380.0,"fog_placements":fog_placements,"fog_opacity":0.035}
+	if atmosphere and settings == _atmosphere_options:
+		atmosphere.set_reduced_motion(bool(options.get("reduced_motion",false)))
+		return true
+	if atmosphere: atmosphere.dispose()
+	atmosphere = Atmosphere.new()
+	_atmosphere_options = settings.duplicate(true)
+	settings.reduced_motion = bool(options.get("reduced_motion",false))
+	var receipt: Dictionary = atmosphere.configure(self,SourceEffects.load_manifest(),settings)
+	if not receipt.get("ok",false): push_error("Shared source atmosphere: "+String(receipt.get("error","unknown configuration error")))
+	return bool(receipt.get("ok",false))
+
+func set_reduced_motion(enabled: bool) -> void:
+	if atmosphere: atmosphere.set_reduced_motion(enabled)
+
+func _configure_visual_scale(options: Dictionary) -> bool:
+	var native_scale := not _fidelity_profiles.is_empty() or is_instance_valid(_natural_world)
+	var scale: Variant = options.get("sea_visual_scale",1.5 if not _fidelity_profiles.is_empty() else 1.0)
+	var fog: Variant = options.get("display_fog_density",0.00035 if native_scale else 0.0015)
+	if not (scale is int or scale is float) or not is_finite(float(scale)) or float(scale) <= 0.0: return false
+	if not (fog is int or fog is float) or not is_finite(float(fog)) or float(fog) < 0.0: return false
+	_sea_visual_scale = float(scale)
+	_display_fog_density = float(fog)
+	# These are presentation uniforms only. The accepted five wave components,
+	# physics sampler and all world-space terrain/ship coordinates stay intact.
+	var sea_material := _ocean.material_override as ShaderMaterial
+	if sea_material:
+		sea_material.set_shader_parameter("surface_visual_scale",_sea_visual_scale)
+		sea_material.set_shader_parameter("mask_dry_terrain",is_instance_valid(_static_islands) or is_instance_valid(_natural_world))
+		sea_material.set_shader_parameter("display_fog_density",_display_fog_density)
+		# The curved ocean fronts lead; authored surf adds detail to the same phase.
+		# Keep contact residue quieter than the approaching wave heads.
+		sea_material.set_shader_parameter("coastal_breaker_strength",0.36 if is_instance_valid(_natural_world) else 1.0)
+		sea_material.set_shader_parameter("shoreline_residue_strength",0.38 if is_instance_valid(_natural_world) else 1.0)
+	for material: ShaderMaterial in _fidelity_materials:
+		material.set_shader_parameter("display_fog_density",_display_fog_density)
+	if is_instance_valid(_natural_world):
+		for mesh: MeshInstance3D in _natural_world.get_meshes():
+			(mesh.material_override as ShaderMaterial).set_shader_parameter("display_fog_density",_display_fog_density)
+	return true
+
+func _configure_natural_islands(options: Dictionary) -> bool:
+	var owner: Object=_height_sampler.get_object()
+	if owner==null or not owner.has_method("natural_terrain_grids"): return true
+	var grids: Array=owner.natural_terrain_grids()
+	if grids.is_empty(): return true
+	_natural_world=NaturalWorld.new(); _natural_world.name="StaticNaturalWorld"
+	add_child(_natural_world); _owned.append(_natural_world)
+	var settings:=options.duplicate(); settings.vegetation=_vegetation; settings.existing_buildings=_port_building_sites
+	_static_shore_resolution=clampi(int(options.get("static_shore_resolution",512)),256,512)
+	return _natural_world.configure(grids,_height_sampler,settings)
+
 func _configure_fidelity_islands(options: Dictionary) -> bool:
+	if is_instance_valid(_natural_world): return true
 	if _visual_style != 1 or not options.get("fidelity_islands",true): return true
 	var owner: Object = _height_sampler.get_object()
 	if owner == null or not owner.has_method("reference_profiles"): return true
@@ -97,6 +192,17 @@ func _configure_fidelity_islands(options: Dictionary) -> bool:
 		if material == null: return false
 		_fidelity_profiles.append(mapping)
 		_fidelity_materials.append(material)
+	if bool(options.get("fidelity_island_geometry",true)):
+		var geometry_path := "res://modules/scene_engine/fidelity_island/static_islands.gd"
+		if not ResourceLoader.exists(geometry_path): return false
+		var geometry_script: GDScript = load(geometry_path)
+		_static_islands = geometry_script.new()
+		if not _static_islands.configure(_fidelity_profiles,_height_sampler,_fidelity_materials): return false
+		var island_root := Node3D.new()
+		island_root.name = "StaticSourceIslands"
+		add_child(island_root); _owned.append(island_root)
+		for island: MeshInstance3D in _static_islands.get_meshes(): island_root.add_child(island)
+		_static_shore_resolution = clampi(int(options.get("static_shore_resolution",512)),256,512)
 	if _vegetation:
 		var trees := FidelityVegetation.new()
 		add_child(trees); _owned.append(trees)
@@ -126,10 +232,27 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 		var reach := Vector2(float(port.radius), float(port.radius) * 0.82) + Vector2.ONE * 100.0
 		minimum = minimum.min(center - reach)
 		maximum = maximum.max(center + reach)
+	if is_instance_valid(_natural_world):
+		var owner: Object=_height_sampler.get_object()
+		for entry: Dictionary in owner.natural_terrain_grids():
+			var bounds: Rect2=entry.bounds
+			minimum=minimum.min(bounds.position); maximum=maximum.max(bounds.end)
+	if is_instance_valid(_static_islands):
+		# Fit the complete rotated finite source grids once. Camera movement never
+		# resamples this field or creates a new near/far terrain lattice.
+		for island: MeshInstance3D in _static_islands.get_meshes():
+			var bounds: AABB = island.get_aabb()
+			for index in 8:
+				var vertex: Vector3 = island.global_transform * bounds.get_endpoint(index)
+				minimum = minimum.min(Vector2(vertex.x,vertex.z)-Vector2.ONE*20.0)
+				maximum = maximum.max(Vector2(vertex.x,vertex.z)+Vector2.ONE*20.0)
 	var shore_script = load(path)
 	_shore_field = shore_script.new()
-	if _shore_field.configure(_height_sampler, Rect2(minimum, maximum - minimum), 1024):
+	var resolution := _static_shore_resolution if is_instance_valid(_static_islands) or is_instance_valid(_natural_world) else 1024
+	if _shore_field.configure(_height_sampler, Rect2(minimum, maximum - minimum), resolution):
 		_ocean.set_shore_field(_shore_field.get_texture(), _shore_field.get_bounds(), _shore_field.get_coast_texture())
+	if is_instance_valid(_static_islands) or is_instance_valid(_natural_world):
+		_configure_static_shore_field(Rect2(minimum,maximum-minimum))
 	var spray_path := "res://modules/scene_engine/ocean/shore_spray.gd"
 	if ResourceLoader.exists(spray_path):
 		var spray_script = load(spray_path)
@@ -143,9 +266,31 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 			_shore_spray.free()
 			_shore_spray = null
 
+func _configure_static_shore_field(bounds: Rect2) -> void:
+	if not _ocean.has_method("set_near_shore_field"): return
+	var side := _static_shore_resolution
+	var heights := PackedFloat32Array()
+	heights.resize(side*side)
+	for row in side:
+		for column in side:
+			var point := bounds.position+bounds.size*Vector2(column,row)/float(side-1)
+			var value := sample_rendered_terrain_height(point.x,point.y)
+			# Preserve submerged shoals between finite source islands. They remain
+			# navigation heights from the injected owner, with no rendered land grid.
+			if not is_finite(value): value = float(_height_sampler.call(point.x,point.y))
+			if not is_finite(value): return
+			heights[row*side+column] = value
+	var image := Image.create_from_data(side,side,false,Image.FORMAT_RF,heights.to_byte_array())
+	_near_shore_texture = ImageTexture.create_from_image(image)
+	_ocean.set_near_shore_field(_near_shore_texture,Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
+
 func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	if _disposed:
 		return
+	var next_epoch := String(snapshot.get("battleId",""))
+	if not next_epoch.is_empty() and next_epoch != _weather_epoch:
+		if atmosphere: atmosphere.reset_timeline()
+		_weather_epoch = next_epoch
 	# Runtime time is authoritative, including pause and rewind. No wall clock.
 	var seconds := float(snapshot.get("time", _simulation_time))
 	if is_finite(seconds):
@@ -177,11 +322,16 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	for surf: Node3D in _fidelity_shores:
 		surf.sync_surface_state(_ocean.material_override as ShaderMaterial)
 		surf.apply_snapshot(_simulation_time)
+	if is_instance_valid(_natural_world): _natural_world.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
+	if atmosphere: atmosphere.apply_snapshot({"time":_simulation_time},_camera,Vector3(focus.x,0.0,focus.y))
 	# consumed is accepted for shared presentation API; this world does not bill it.
 	if consumed < 0.0:
 		return
 
 func _update_window(focus: Vector2) -> void:
+	if is_instance_valid(_static_islands) or is_instance_valid(_natural_world):
+		_update_port_support()
+		return
 	var center := Vector2i(floori(focus.x / _chunk_size), floori(focus.y / _chunk_size))
 	var active: Dictionary = {}
 	for row in range(center.y - _radius, center.y + _radius + 1):
@@ -211,6 +361,9 @@ func _update_window(focus: Vector2) -> void:
 			_vegetation_library.populate(chunk, _height_sampler, coordinate, _chunk_size, _resolution, _ports)
 	_update_distant_islands(focus, active)
 	_update_near_shore_field(center)
+	_update_port_support()
+
+func _update_port_support() -> void:
 	for entry: Dictionary in _port_visuals:
 		var supported := _island_supported(entry.center, entry.radius)
 		for node: Node3D in entry.nodes: node.visible = supported
@@ -292,11 +445,20 @@ func _sync_chunk_surface(chunk: Node3D) -> void:
 
 func _sync_terrain_surface() -> void:
 	if _visual_style != 1: return
+	if is_instance_valid(_natural_world):
+		_natural_world.sync_surface_state(_ocean.material_override as ShaderMaterial,{"time":_simulation_time})
+		return
+	if is_instance_valid(_static_islands):
+		for island: MeshInstance3D in _static_islands.get_meshes():
+			island.sync_surface_state(_ocean.material_override as ShaderMaterial)
+		return
 	# Near and far tiles share the accepted sea clock and immutable wave/shore data.
 	for chunk: Node3D in _chunks.values(): _sync_chunk_surface(chunk)
 	for chunk: Node3D in _distant_chunks.values(): _sync_chunk_surface(chunk)
 
 func _island_supported(center: Vector2, radius: float) -> bool:
+	if is_instance_valid(_natural_world): return _natural_world.supports(center,radius)
+	if is_instance_valid(_static_islands): return _static_islands.supports(center,radius)
 	var reach := radius + _chunk_size * 0.1
 	var minimum := Vector2i(floori((center.x - reach + _chunk_size * 0.5) / _chunk_size), floori((center.y - reach + _chunk_size * 0.5) / _chunk_size))
 	var maximum := Vector2i(floori((center.x + reach + _chunk_size * 0.5) / _chunk_size), floori((center.y + reach + _chunk_size * 0.5) / _chunk_size))
@@ -316,6 +478,8 @@ func _build_ports() -> void:
 	var wood := _material("785033")
 	var walls := _material("ddd7c5")
 	var roof := _material("a6573e")
+	var height_owner: Object=_height_sampler.get_object()
+	var natural: bool=height_owner!=null and height_owner.has_method("natural_islands") and not height_owner.natural_islands().is_empty()
 	for port: Dictionary in _ports:
 		var group := Node3D.new()
 		group.name = String(port.get("id", "Port"))
@@ -323,20 +487,33 @@ func _build_ports() -> void:
 		group.rotation.y = atan2(float(port.islandX) - float(port.x), float(port.islandZ) - float(port.z))
 		root.add_child(group)
 		var visuals: Array[Node3D] = [group]
-		var pier := _box(group, Vector3(8, 0.5, 55), Vector3(0, PIER_DECK_HEIGHT, 20), wood)
-		pier.name = "PierDeck"
-		for z in range(-4, 48, 9):
-			for x: float in [-3.1, 3.1]:
-				_box(group, Vector3(0.55, 10.7, 0.55), Vector3(x, -1.4, z), wood)
-		# The reference harbor adapts its landward terrain beneath the dock end.
-		# Sample the same ground as navigation and provide a visible landing stair.
 		var approach:=Vector2(float(port.islandX)-float(port.x),float(port.islandZ)-float(port.z)).normalized()
-		var landing:=Vector2(float(port.x),float(port.z))+approach*54.0
+		var landing_distance := 54.0
+		if natural:
+			# Fit only presentation to the accepted terrain. Canonical port anchors,
+			# finite island grids and native ship depths remain unchanged.
+			for distance in range(1,ceili(float(port.radius)*2.8)):
+				var probe := Vector2(float(port.x),float(port.z))+approach*distance
+				if float(_height_sampler.call(probe.x,probe.y))>=1.5:
+					landing_distance=float(distance); break
+		var landing:=Vector2(float(port.x),float(port.z))+approach*landing_distance
+		if natural: group.set_meta("real_shore_landing",landing)
+		var deck_end := landing_distance-7.2 if natural else 47.5
+		var pier := _box(group, Vector3(8,0.5,deck_end+7.5), Vector3(0,PIER_DECK_HEIGHT,(deck_end-7.5)*0.5), wood)
+		pier.name = "PierDeck"
+		for z in range(-4, ceili(deck_end), 9):
+			for x: float in [-3.1, 3.1]:
+				var bottom := -6.75
+				if natural:
+					var world_point := group.transform*Vector3(x,0,z)
+					bottom=float(_height_sampler.call(world_point.x,world_point.z))-0.35
+				_box(group,Vector3(0.55,3.95-bottom,0.55),Vector3(x,(3.95+bottom)*0.5,z),wood)
+		# A visible stair joins the elevated pier to real beach elevation.
 		var landing_height:=float(_height_sampler.call(landing.x,landing.y))
 		if is_finite(landing_height) and landing_height>0.4 and landing_height<PIER_DECK_HEIGHT:
 			for step in 6:
 				var top:=lerpf(PIER_DECK_HEIGHT+0.25,landing_height+0.12,float(step+1)/6.0)
-				_box(group,Vector3(5.6,0.30,1.24),Vector3(0,top-0.15,47.5+step*1.2),wood)
+				_box(group,Vector3(5.6,0.30,1.24),Vector3(0,top-0.15,(deck_end+0.6 if natural else 47.5)+step*1.2),wood)
 		for index in 9:
 			var x := float(port.islandX) + cos(index * 2.15) * float(port.radius) * 0.42
 			var z := float(port.islandZ) + sin(index * 2.15) * float(port.radius) * 0.32
@@ -400,6 +577,19 @@ func get_chunks() -> Array:
 func get_distant_chunks() -> Array:
 	return _distant_chunks.values()
 
+func get_static_island_meshes() -> Array:
+	if is_instance_valid(_natural_world): return _natural_world.get_meshes()
+	return _static_islands.get_meshes() if is_instance_valid(_static_islands) else []
+
+func sample_rendered_terrain_height(x: float,z: float) -> float:
+	if is_instance_valid(_natural_world): return _natural_world.sample_mesh_height(x,z)
+	if is_instance_valid(_static_islands): return _static_islands.sample_mesh_height(x,z)
+	var height := NAN
+	for chunk: Node3D in _chunks.values()+_distant_chunks.values():
+		var candidate: float=chunk.sample_mesh_height(x,z)
+		if is_finite(candidate): height=candidate if not is_finite(height) else maxf(height,candidate)
+	return height
+
 func fidelity_diagnostics() -> Dictionary:
 	var materials: Array=[]
 	for material: ShaderMaterial in _fidelity_materials: materials.append(FidelityMaterial.diagnostics(material))
@@ -407,10 +597,35 @@ func fidelity_diagnostics() -> Dictionary:
 	for trees: Node3D in _fidelity_vegetation: vegetation.append(trees.diagnostics())
 	var shore: Array=[]
 	for surf: Node3D in _fidelity_shores: shore.append(surf.diagnostics())
-	return {"profiles":_fidelity_profiles.duplicate(true),"materials":materials,"vegetation":vegetation,"shore":shore,"heightSamplerChanged":false,"waveDescriptorsChanged":false}
+	var geometry: Dictionary = _static_islands.diagnostics() if is_instance_valid(_static_islands) else {}
+	if is_instance_valid(_natural_world):
+		geometry=_natural_world.diagnostics()
+		vegetation=geometry.vegetation
+	if is_instance_valid(_static_islands):
+		# Capture the bound mesh resources, rather than only the materials retained
+		# by World, so GPU evidence can reveal accidental binding replacement.
+		var bindings: Array = []
+		var meshes: Array = _static_islands.get_meshes()
+		for index in meshes.size():
+			var mesh_material: ShaderMaterial = meshes[index].material_override as ShaderMaterial
+			bindings.append({"profile":meshes[index].get_meta("source_profile",""),
+				"matchesOwnedMaterial":mesh_material == _fidelity_materials[index],
+				"shader":mesh_material.shader.resource_path if mesh_material and mesh_material.shader else "",
+				"usesSourceBhi":mesh_material.get_shader_parameter("use_source_material_field") if mesh_material else false})
+		geometry["meshMaterialBindings"] = bindings
+	return {"profiles":_fidelity_profiles.duplicate(true),"materials":materials,"vegetation":vegetation,"shore":shore,
+		"geometryMode":"static_natural" if is_instance_valid(_natural_world) else ("static_source" if is_instance_valid(_static_islands) else "camera_chunks"),"geometry":geometry,
+		"staticShoreResolution":_static_shore_resolution if is_instance_valid(_static_islands) or is_instance_valid(_natural_world) else 0,
+		"seaVisualScale":_sea_visual_scale,"displayFogDensity":_display_fog_density,
+		"heightSamplerChanged":false,"waveDescriptorsChanged":false}
 
 func dispose() -> void:
 	_disposed = true
+	if atmosphere: atmosphere.dispose()
+	atmosphere = null; _atmosphere_options.clear()
+	_weather_epoch = ""
+	if is_instance_valid(_natural_world): _natural_world.dispose()
+	if is_instance_valid(_static_islands): _static_islands.dispose()
 	for node in _owned:
 		if is_instance_valid(node):
 			node.free()
@@ -423,6 +638,11 @@ func dispose() -> void:
 	_fidelity_materials.clear()
 	_fidelity_vegetation.clear()
 	_fidelity_shores.clear()
+	_static_islands = null
+	_natural_world = null
+	_static_shore_resolution = 512
+	_sea_visual_scale = 1.0
+	_display_fog_density = 0.0015
 	_ocean = null
 	_shore_field = null
 	_near_shore_texture = null

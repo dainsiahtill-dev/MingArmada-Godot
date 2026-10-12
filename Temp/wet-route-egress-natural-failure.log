@@ -1,0 +1,27 @@
+[rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: unchanged original Planner rejects circle-unsafe start
+FAIL: wet low-speed unsafe-start gets independently owned directed connector
+FAIL: short connector remains separate from ordinary45m waypoint pop
+FAIL: recorded moving-peer fixture triggers fresh conservative peer hold
+FAIL: fresh predicted-peer rejection keeps furled neutral control
+EGRESS_NATIVE ticks=1 motion={ "position": { "x": 14.3058165541423, "y": 0.0, "z": 431.149894975045 }, "heading": 2.77848699591111, "velocity": { "x": 0.00189346898532, "y": 0.0, "z": -0.00005391472772 }, "heel": -0.00000000009827, "pitch": 0.0 } owner=<null> clearance=<null> maxSpeed=0.00189423641508
+FAIL: independently constructed safe fixture starts with checked egress and no peers
+FAIL: actual safe single-boat300tick turn retains fresh checked egress ownership
+FAIL: manual fixture acquired owner before revocation
+FAIL: tactical fixture acquired owner before revocation
+FAIL: crew fixture acquired owner before revocation
+FAIL: sunk fixture acquired owner before revocation
+FAIL: service fixture acquired owner before revocation
+FAIL: disabled fixture acquired owner before revocation
+FAIL: captured fixture acquired owner before revocation
+FAIL: navigation fixture acquired owner before revocation
+FAIL: draft fixture acquired owner before revocation
+FAIL: cancel clears old output or retains explicit new manual controls
+FAIL: manual clears old output or retains explicit new manual controls
+FAIL: reconcile clears old output or retains explicit new manual controls
+SCRIPT ERROR: Invalid access to property or key 'wetRouteEgress' on a base object of type 'Dictionary'.
+   at: _initialize (res://tests/test_wet_route_egress.gd:138)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tests/test_wet_route_egress.gd:138)

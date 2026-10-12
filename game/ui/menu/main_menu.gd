@@ -5,6 +5,7 @@ signal settings_requested
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DEFAULT_NAME := "沈沧海"
 const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa"]
+const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 const PAPER := Color("f1e6cb")
 const INK := Color("183e3c")
 const BRASS := Color("b89a60")
@@ -33,6 +34,7 @@ var _back: Button
 var _settings: Button
 var _status_box: VBoxContainer
 var _slot_hint: Label
+var _development: VBoxContainer
 
 func _ready() -> void: build()
 
@@ -100,8 +102,8 @@ func _seed_value() -> Dictionary:
 func _request(entry: String) -> void:
 	if _phase != "menu" or _generation < 0: return
 	if entry == "continue" and _model.get("hasLegacySave",false) != true: return
-	if entry in ["qa","practice"] and not _qa_enabled(): return
-	if entry not in MODES and entry not in ["ships","practice","water-study","fidelity-island","quit"]: return
+	if entry in DEVELOPMENT_MODES and not _qa_enabled(): return
+	if entry not in MODES and entry not in ["ships","practice","water-study","fidelity-island","fidelity-source","quit"]: return
 	var payload: Dictionary = {"type":"start" if entry in MODES else entry,"name":_draft_name}
 	if entry in MODES:
 		if entry == "mingqi" and _qa_enabled():
@@ -143,7 +145,8 @@ func _render() -> void:
 	for entry in _buttons:
 		var button: Button = _buttons[entry]
 		button.disabled = not idle or (entry == "continue" and _model.get("hasLegacySave",false) != true)
-		if entry in ["qa","practice"]: button.visible = _qa_enabled()
+		if entry in DEVELOPMENT_MODES: button.visible = _qa_enabled()
+	_development.visible = _qa_enabled()
 	_seed_row.visible = _qa_enabled(); _captain.editable = idle; _seed.editable = idle
 	_settings.disabled = not idle
 	_status_box.visible = not idle; _progress.visible = _phase in ["pending","loading","complete"]
@@ -229,16 +232,19 @@ func build() -> void:
 	_entry(column,"mingqi","海上明旗新生涯","1650 · 厦金护粮",true)
 	_entry(column,"mingqi-continue","继续海上明旗 · 1650","导入存档或恢复航程")
 	_slot_hint = _label(column,"SlotHint","",12); _slot_hint.hide()
-	_entry(column,"career","旧版航程 · 1661","开始旧版生涯")
-	_entry(column,"continue","继续旧版航程","尚无旧版存档")
 	var battles := HBoxContainer.new(); battles.name = "Battles"; battles.add_theme_constant_override("separation",10); column.add_child(battles)
 	_entry(battles,"duel","单舰炮战","一对一交锋"); _entry(battles,"fleet","舰队遭遇","一对二挑战")
 	_entry(column,"sail","自由试航","练习风帆与操舵")
-	_entry(column,"water-study","海岛与海面","晴天、夕阳与潮起潮落")
-	_entry(column,"fidelity-island","新海岛实景","白沙、森林、棕榈与动态岸浪")
+	_entry(column,"fidelity-island","海面与海岛验收","正式航海世界 · 海水、海岛与动态岸浪")
 	_entry(column,"ships","检阅船只","福船、渔舟与远洋商船")
-	_entry(column,"qa","画面验收","真实引擎 · 可重复场景")
-	_entry(column,"practice","玩法验收","决斗、陆战、寻宝与宴会")
+	_development = VBoxContainer.new(); _development.name = "DevelopmentEntries"; _development.add_theme_constant_override("separation",10); column.add_child(_development)
+	_label(_development,"DevelopmentTitle","开发工具与兼容航程",16)
+	_entry(_development,"career","旧版航程 · 1661","开始旧版生涯")
+	_entry(_development,"continue","继续旧版航程","尚无旧版存档")
+	_entry(_development,"water-study","海岛水面参考","晴天、夕阳与潮起潮落的来源对照")
+	_entry(_development,"fidelity-source","参考海岛对照","来源海面与岸浪的独立校验画面")
+	_entry(_development,"qa","画面验收","真实引擎 · 可重复场景")
+	_entry(_development,"practice","玩法验收","决斗、陆战、寻宝与宴会")
 	var utility := HBoxContainer.new(); utility.name = "Utility"; utility.add_theme_constant_override("separation",10); column.add_child(utility)
 	_settings = Button.new(); _settings.name = "Settings"; _settings.text = "航海设置"; _settings.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(_settings); _settings.pressed.connect(_settings_request)
 	var exit := Button.new(); exit.name = "quit"; exit.text = "退出游戏"; exit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(exit); _buttons.quit = exit; exit.pressed.connect(func():_request("quit"))

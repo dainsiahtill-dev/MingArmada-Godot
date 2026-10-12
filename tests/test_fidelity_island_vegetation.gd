@@ -65,7 +65,7 @@ func _run() -> void:
 			plants.apply_snapshot({"time":0.0,"focus":Vector2.ZERO})
 			check(plants.diagnostics().simulation_time == 0.0, "explicit simulation zero is accepted")
 			var profile := {"id":"cat_island", "sourceCenter":Vector2(60,70), "sourceOutward":Vector2.DOWN, "islandCenter":Vector2.ZERO, "inward":Vector2.LEFT, "scale":5.0, "width":120,"height":140}
-			check(plants.configure([profile], flat_ground, {"mode":"mapped"}), "formal profile mapping uses authoritative terrain")
+			check(plants.configure([profile], flat_ground, {"mode":"mapped","adaptive_population":false}), "source-layout profile mapping uses authoritative terrain")
 			var mapped: Dictionary = plants.diagnostics()
 			# Native table/color fixtures independently yield 9+5+19 canopy trees;
 			# the merged original palm mesh has 24 connected authored trunks.
@@ -73,9 +73,9 @@ func _run() -> void:
 			for anchor: Dictionary in mapped.anchors:
 				check(absf(anchor.position.y - 8.0) < 0.001, "whole original tree root is reanchored to sampled terrain")
 			var site := {"position":Vector3.ZERO,"radius":2000.0}
-			check(plants.configure([profile], flat_ground, {"mode":"mapped","existing_buildings":[site]}), "existing harbor geometry participates in planting exclusion")
+			check(plants.configure([profile], flat_ground, {"mode":"mapped","adaptive_population":false,"existing_buildings":[site]}), "existing harbor geometry participates in planting exclusion")
 			check(plants.diagnostics().accepted_tree_count == 0, "a building footprint excludes every overlapping actual tree")
-			check(plants.configure([profile], submerged, {"mode":"mapped"}), "submerged terrain is valid geography")
+			check(plants.configure([profile], submerged, {"mode":"mapped","adaptive_population":false}), "submerged terrain is valid geography")
 			check(plants.diagnostics().accepted_tree_count == 0, "original layout never plants live trees into sea floor")
 			var before: Dictionary = plants.diagnostics()
 			check(not plants.configure([profile], Callable(), {"mode":"mapped"}), "mapping without authoritative ground is rejected")

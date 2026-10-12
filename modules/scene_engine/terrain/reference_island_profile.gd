@@ -8,7 +8,7 @@ const SOURCE_HASHES := {
 const IDS := ["cat_island","coastal2","virgin_islands"]
 const SEA_INDEX := 128.0
 const OUTSIDE_HEIGHT := -24.0
-const ART_DEFAULTS := {"sea_index":128.0,"height_gain":1.0,"smoothing_radius":0,"border_rounding":0.0,"border_fade_pixels":5.0}
+const ART_DEFAULTS := {"sea_index":128.0,"height_gain":1.0,"smoothing_radius":0,"border_rounding":0.0,"border_fade_pixels":5.0,"harbor_land_half_width":18.0,"harbor_land_fade_width":17.0}
 var _values:=PackedByteArray()
 var _sample_values:=PackedFloat64Array()
 var _width:=0
@@ -51,7 +51,11 @@ static func valid_art_options(options: Dictionary) -> bool:
 	var radius:=float(options.get("smoothing_radius",0))
 	var rounding:=float(options.get("border_rounding",0.0))
 	var fade:=float(options.get("border_fade_pixels",5.0))
-	return sea>0.0 and sea<255.0 and gain>0.0 and gain<=1.0 and radius>=0.0 and radius<=8.0 and radius==floor(radius) and rounding>=0.0 and rounding<=.45 and fade>0.0 and fade<=32.0
+	var land_width:=float(options.get("harbor_land_half_width",18.0))
+	var land_fade:=float(options.get("harbor_land_fade_width",17.0))
+	# A land apron may narrow the existing 35m approach envelope. Keeping that
+	# outer bound also keeps render coverage and source-coordinate ownership.
+	return sea>0.0 and sea<255.0 and gain>0.0 and gain<=1.0 and radius>=0.0 and radius<=8.0 and radius==floor(radius) and rounding>=0.0 and rounding<=.45 and fade>0.0 and fade<=32.0 and land_width>0.0 and land_fade>0.0 and land_width+land_fade<=35.0
 
 static func _filtered_values(values: PackedByteArray,width: int,height: int,radius: int) -> PackedFloat64Array:
 	var result:=PackedFloat64Array()
@@ -111,7 +115,10 @@ func configure(port: Dictionary,data: Dictionary,id: String,art_options: Diction
 		if samples[index]>sea:
 			source_radius=maxf(source_radius,Vector2(float(index%width),float(index/width)).distance_to(source_center))
 	if source_radius<=0.0: return false
-	var outward: Vector2=(peak_point-source_center).normalized()
+	# Source outward faces the coast away from the highest ridge. Mapping the
+	# mountain toward the dock puts it inside the local pier-apron adaptation
+	# (Cat48m became2.076m); place the same source mountain inland instead.
+	var outward: Vector2=(source_center-peak_point).normalized()
 	if outward==Vector2.ZERO: outward=Vector2.DOWN
 	var center:=Vector2(float(port.islandX),float(port.islandZ))
 	var dock:=Vector2(float(port.x),float(port.z))
@@ -141,6 +148,12 @@ func sample_height(x: float,z: float) -> float:
 	var along_mask:=smoothstep(-120.0,-80.0,along)*(1.0-smoothstep(55.0,95.0,along))
 	var landward:=smoothstep(20.0,43.0,along)
 	var target:=lerpf(-8.0,2.1,landward)+maxf(along-43.0,0.0)*.025
+	# The negative target retains the navigable 18/35m water corridor. Blend
+	# to the optional smaller land apron as the target rises to the 2.1m landing,
+	# so target crossing zero cannot create a lateral terrain discontinuity.
+	var land_width:=float(_art.harbor_land_half_width)
+	var land_mask:=1.0-smoothstep(land_width,land_width+float(_art.harbor_land_fade_width),lateral)
+	width_mask=lerpf(width_mask,land_mask,smoothstep(0.0,2.1,target))
 	return lerpf(h,target,width_mask*along_mask)
 
 func _source_height(point: Vector2) -> float:
@@ -166,4 +179,4 @@ func _source_height(point: Vector2) -> float:
 	return lerpf(OUTSIDE_HEIGHT,h,smoothstep(0.0,float(_art.border_fade_pixels),edge))
 
 func diagnostics() -> Dictionary:
-	return {"id":_id,"sourceHash":SOURCE_HASHES.get(_id,""),"width":_width,"height":_height,"scale":_scale,"sourceCenter":_source_center,"sourceOutward":_source_outward,"islandCenter":_center,"dock":_dock,"inward":_inward,"peak":_peak,"seaIndex":_art.sea_index,"heightGain":_art.height_gain,"smoothingRadius":_art.smoothing_radius,"borderRounding":_art.border_rounding,"borderFadePixels":_art.border_fade_pixels,"cachedSamples":_sample_values.size(),"scope":"Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction."}
+	return {"id":_id,"sourceHash":SOURCE_HASHES.get(_id,""),"width":_width,"height":_height,"scale":_scale,"sourceCenter":_source_center,"sourceOutward":_source_outward,"islandCenter":_center,"dock":_dock,"inward":_inward,"peak":_peak,"seaIndex":_art.sea_index,"heightGain":_art.height_gain,"smoothingRadius":_art.smoothing_radius,"borderRounding":_art.border_rounding,"borderFadePixels":_art.border_fade_pixels,"harborLandHalfWidth":_art.harbor_land_half_width,"harborLandFadeWidth":_art.harbor_land_fade_width,"cachedSamples":_sample_values.size(),"scope":"Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction."}

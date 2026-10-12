@@ -8,9 +8,9 @@ func check(ok: bool, detail: String) -> void:
 	if not ok: failures+=1; printerr("FAIL: ",detail)
 func _initialize() -> void: _run.call_deferred()
 func _run() -> void:
-	var router := Router.new()
-	var prepared: Dictionary=router.prepare_entry({"type":"fidelity-island","generation":router.generation,"nonce":1,"name":"船长"})
-	check(prepared.get("ok",false) and prepared.get("persist_name",true)==false,"normal public island entry does not write a captain setting")
+	var router := Router.new({"dev":true})
+	var prepared: Dictionary=router.prepare_entry({"type":"fidelity-source","generation":router.generation,"nonce":1,"name":"船长"})
+	check(prepared.get("ok",false) and prepared.get("persist_name",true)==false,"internal source comparison does not write a captain setting")
 	var created: Dictionary=router.create_scene(prepared)
 	check(created.get("ok",false),"normal router creates the actual new island scene")
 	if not created.get("ok",false): _finish(); return

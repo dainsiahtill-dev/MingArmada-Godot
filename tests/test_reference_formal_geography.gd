@@ -19,7 +19,7 @@ func _initialize() -> void: run.call_deferred()
 func run() -> void:
 	var ports: Array=JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
 	var height:=Height.new()
-	check(height.configure_ports(ports,true,Layout.options()),"actual campaign geography enables original profiles")
+	check(height.configure_ports(ports,true,Layout.source_options()),"explicit source comparison geography enables original profiles")
 	check(height.reference_profiles().size()==ports.size(),"all campaign islands use actual reference indices")
 	check(height.reference_profiles()[0].id=="coastal2" and height.reference_profiles()[1].id=="cat_island","harbor town uses broad bay and outpost uses narrow ridge")
 	var before: Array=height.reference_profiles()
@@ -29,7 +29,7 @@ func run() -> void:
 	check_fleet(height,runtime.snapshot().naval,"campaign")
 	runtime.dispose()
 	var training:=Height.new()
-	check(training.configure_ports(Catalog.DATA.PORTS,false,Layout.options()),"all practice/legacy ports use reference geography")
+	check(training.configure_ports(Catalog.DATA.PORTS,false,Layout.source_options()),"all practice/legacy ports use reference geography")
 	for mode: String in ["sail","duel","fleet"]:
 		var practice:=Practice.new()
 		check(practice.configure(training.sample_height,{"mode":mode}).get("ok",false),"real "+mode+" authority starts")

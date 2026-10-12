@@ -83,6 +83,7 @@ func _ready() -> void:
 	ocean.visible=false
 	reference_ocean=SourceWater.new(); reference_ocean.name="CompletedReferenceWater"; world.add_child(reference_ocean)
 	if not reference_ocean.configure(camera,_native_origin,{"far":30000.0,"fog_enabled":true}): _fail("参考海面初始化失败"); return
+	reference_ocean.bind_terrain(terrain_material,bounds)
 	trees=Trees.new(); trees.name="OriginalForestAndPalms"; world.add_child(trees)
 	if not trees.configure({},Callable(),{"mode":"exact","native_origin":_native_origin}): _fail("森林与棕榈初始化失败"); return
 	surf=Surf.new(); surf.name="OriginalShortSurf"; world.add_child(surf)

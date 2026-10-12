@@ -1,10 +1,10 @@
 # 海上明旗 · Godot
 
-明郑背景的海商舰队冒险游戏，独立 Godot 迁移仓库。原网页版保留不变。原生菜单已连接两个生涯、海战练习和船舶图鉴；完整迁移与整机验收仍在进行。
+明郑背景的海商舰队冒险游戏，独立 Godot 迁移仓库。原网页版保留不变。正式生涯、海战和航行使用共享世界；来源对照和旧实验保留在开发区。完整产品迁移仍在进行。
 
-使用 Godot 4.7 打开 [project.godot](project.godot)，按 **F5**。已验证版本为 4.7.2，Windows D3D12 / Forward+，Jolt Physics。
+使用 Godot 4.7 打开 [project.godot](project.godot)，按 **F5**。本轮实景截图使用 4.7.2，Windows Vulkan / Forward+，Jolt Physics；项目默认渲染驱动与本轮验收一致。
 
-默认进入真实主菜单，可选择1650护粮生涯、1661生涯、新建或继续、海战单挑、舰队交战、航行练习、船舶图鉴及航海设置。继续读取原始存档而不旋转备份；无效1650存档进入恢复界面，可导出原文、读取已验证备份或导入v2 JSON。导入先建立实际原生场景，再提交磁盘事务。
+默认进入真实主菜单，可选择1650护粮新生涯或继续、单舰炮战、舰队遭遇、自由试航、船舶图鉴和航海设置。海面与海岛只有一个公开验收入口，复用正式游戏的世界组件。1661旧生涯、原水面、原海岛及其他技术对照仅在明确 `--dev` / `--qa` 下显示。继续读取原始存档而不旋转备份；无效1650存档进入恢复界面，可导出原文、读取已验证备份或导入v2 JSON。导入先建立实际原生场景，再提交磁盘事务。
 
 海战与航行练习操作：
 
@@ -16,7 +16,9 @@
 
 两个生涯保留各自的命令与快捷键，详见游戏内操作提示。1661完整海图可点图下达航向；1650点图填入目标后由按钮确认。航行练习展开图显示真实航位，不发经营或舰队命令。
 
-独立航行实验位于`game/scenes/sailing_trial/sailing_trial.tscn`，可F6运行；其旧操作为W/S帆速、A/D转舵、Q/E帆角、Space暂停、1/2镜头、M海图、F12原生截图。水面实验位于`game/scenes/water_probe/water_probe.tscn`。两者继续保留，默认F5入口现在为主菜单。
+旧实验脚本保留供开发回归使用，不再作为推荐游戏入口。后续海水、海岛和岸浪效果通过共享世界整合，再从正式玩法或唯一验收入口检查。
+
+共享路径：`HeightField` 提供固定缓存三角地形，导航、物理、海图和可见海床读取同一表面；`WorldView` 组合自然海岛、森林、码头、旧五波海水与源贴图岸浪；`NavalWorldView` 组合船只、水手、尾迹及炮火/落水效果。所有动画读取运行时 snapshot 时间，暂停与回退不引入独立演示时钟。自然海岛不生成进港切水航道。
 
 明代古航图使用纸纹、金色云纹边框和墨绘岸线，并叠加真实浅滩、港口、船位及航向。1650场景为`game/scenes/mingqi/mingqi_scene.tscn`，1661为`game/scenes/legacy/legacy_scene.tscn`。古航图截图见[航图验收](docs/migration/native-nautical-chart-integration.md)，菜单与新增入口见[原生入口验收](docs/migration/native-entry-integration.md)。
 
@@ -31,8 +33,9 @@ rtk proxy node tools/verify-godot.mjs --godot "C:/Users/dains/Downloads/Godot_v4
 所有测试使用原生 headless Godot。水面实际 GPU 证据必须额外运行图形模式：
 
 ```powershell
-rtk proxy Godot_v4.7.2-stable_win64.exe --path . res://game/scenes/sailing_trial/sailing_trial.tscn -- --capture
-rtk proxy Godot_v4.7.2-stable_win64.exe --path . res://game/scenes/sailing_trial/sailing_trial.tscn -- --capture --shore-loop
+rtk proxy Godot_v4.7.2-stable_win64.exe --path . -- --start-game=mingqi
+rtk proxy Godot_v4.7.2-stable_win64.exe --path . -- --sea-island
+rtk proxy Godot_v4.7.2-stable_win64.exe --path . --script tools/capture-fidelity-combined.gd -- --output=res://docs/migration/evidence/integrated-world/fresh-run
 ```
 
 底层按 `modules/contracts`、`modules/physics_engine`、`modules/scene_engine` 分离，上层按领域、运行时、表现和 UI 分离。详见 [迁移进度](docs/migration/progress.md)、[实施计划](docs/superpowers/plans/2026-10-11-godot-migration.md) 和 [水面实际验收](docs/migration/water-probe-acceptance.md)。

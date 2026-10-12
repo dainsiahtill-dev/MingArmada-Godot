@@ -12,7 +12,7 @@ func _run() -> void:
 	settings = Settings.new("user://verification/wave-review-no-write-%d.json"%OS.get_process_id())
 	main = Main.new(); main.router = Router.new({"mingqi_storage":MemorySlot.new(),"legacy_storage":MemorySlot.new(),"settings_storage":settings}); root.add_child(main)
 	await process_frame
-	var button: Button = main.menu.find_child("fidelity-island",true,false)
+	var button: Button = main.menu.find_child("fidelity-source",true,false)
 	if not check(button != null and not button.disabled,"ordinary island menu entry"): _finish(); return
 	button.pressed.emit()
 	if not await _await_scene("fidelity-island"): _finish(); return

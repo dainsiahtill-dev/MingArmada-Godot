@@ -1,9 +1,15 @@
 extends SceneTree
+## Frozen historical voyage regression. Its recorded unsafe-circle witnesses
+## belong to the source-profile geography, not today's natural campaign map.
+## Current natural egress is covered by test_natural_wet_route_egress.gd.
 const Encounter=preload("res://modules/naval_simulation/encounter.gd")
 const Height=preload("res://modules/scene_engine/terrain/height_field.gd")
 const Layout=preload("res://game/scenes/common/reference_geography.gd")
 const Planner=preload("res://modules/naval_simulation/navigation/wet_route_planner.gd")
 const Egress=preload("res://modules/naval_simulation/navigation/wet_route_egress.gd")
+# Frozen raw-profile layout recorded in INPUT.sourceHashes. Current source art
+# grading and the natural campaign have both moved beyond this historical map.
+const RECORDED_LAYOUT={"reference_islands":true,"reference_profiles":{"xiamen":"coastal2","kinmen":"cat_island","forward-supply":"virgin_islands"}}
 const INPUT="res://docs/migration/evidence/opening-story/port-approach-and-voyage-clarity/journey-second-corrected.json"
 const ID="mingqi-1650-grain-a"
 var record: Dictionary
@@ -44,7 +50,7 @@ func safe_fixture() -> RefCounted:
 	return e
 func _initialize() -> void:
 	record=JSON.parse_string(FileAccess.get_file_as_string(INPUT))
-	check(heights.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,Layout.options()),"formal terrain configured")
+	check(heights.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,RECORDED_LAYOUT),"historical recorded raw source-profile terrain configured")
 	var e=fixture();var ship: Dictionary=e._ship(ID);var p: Dictionary=e._visual(ship)
 	check(e._wet_hull(ship,p.position.x,p.position.z,p.heading),"real stuck hull is wet")
 	check(not Planner.new().plan(p.position,ship.state.navigation,ship.state.dimensions,heights.sample_height).ok,"unchanged original Planner rejects circle-unsafe start")
@@ -135,10 +141,10 @@ func _initialize() -> void:
 	e=fixture();ship=e._ship(ID);e._autopilot(ship)
 	e.config.sampleTerrainHeight=func(_x,_z):return -0.1
 	var held: Dictionary=e._autopilot(ship)
-	check(ship.wetRouteEgress.holding and ship.state.sailDeployment==0 and held.get("targetYawRateRad",1)==0 and held.get("brakeDeceleration",0)>0,"fresh depth hazard latches neutral furled braking")
+	check(ship.has("wetRouteEgress") and ship.wetRouteEgress.holding and ship.state.sailDeployment==0 and held.get("targetYawRateRad",1)==0 and held.get("brakeDeceleration",0)>0,"fresh depth hazard latches neutral furled braking")
 	e.config.sampleTerrainHeight=heights.sample_height;e._autopilot(ship)
-	check(ship.wetRouteEgress.holding and ship.state.sailDeployment==0,"removed hazard does not automatically reopen sails")
-	var report={"assertions":assertions,"failures":failures,"scope":"recorded scalar fixtures, isolated native short continuous turn, no complete campaign/GPU claim","encounterSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/encounter.gd").sha256_text(),"moduleSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/navigation/wet_route_egress.gd").sha256_text(),"fixtureSha256":FileAccess.get_file_as_string(INPUT).sha256_text()}
+	check(ship.has("wetRouteEgress") and ship.wetRouteEgress.holding and ship.state.sailDeployment==0,"removed hazard does not automatically reopen sails")
+	var report={"assertions":assertions,"failures":failures,"scope":"historical source-profile recorded scalar fixtures and isolated native short continuous turn; current natural campaign covered separately","encounterSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/encounter.gd").sha256_text(),"moduleSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/navigation/wet_route_egress.gd").sha256_text(),"fixtureSha256":FileAccess.get_file_as_string(INPUT).sha256_text()}
 	var output=FileAccess.open("res://build/port-approach-work/wet-route-egress/unit.json",FileAccess.WRITE)
 	output.store_string(JSON.stringify(report,"\t"));output.close()
 	print("WET_ROUTE_EGRESS assertions=",assertions," failures=",failures)

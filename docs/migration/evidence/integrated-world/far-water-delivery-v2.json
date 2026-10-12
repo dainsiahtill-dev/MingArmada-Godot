@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "scope": "Existing shared Godot water material: distant optical wave banding repair. Scoped static/motion-sample evidence; not whole-project visual acceptance.",
+  "rootCause": "Owner-controlled single-layer GPU isolation: flat optical macro and flat Fresnel remove the reproduced bands; no texture-normal, no additive specular and no body light retain them.",
+  "frequencyFilter": "Each wave uses continuous phase footprint projected from world-coordinate screen derivatives. Resolved waves preserved; compressed short waves fade before Nyquist.",
+  "displayAdaptation": "Long-wave grazing reflection contrast is softened in the middle/far field; distance <=180m and steep abs(viewY)>=.4 preserve full macro optics. Smooth distance/angle transitions, separate from physical wave state.",
+  "counterfactual": "Regression *-unfiltered images restore only old n=normalize(macro_normal+texture_slopes) after the owner updates. Production shader hash refers to the current source, not this diagnostic override.",
+  "captures": {
+    "far-water-final-v2": {
+      "captures": 12,
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)"
+    },
+    "far-water-regression-ab-v2": {
+      "captures": 8,
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)"
+    }
+  },
+  "headless": {
+    "ocean-v2": {
+      "selected": 2,
+      "passed": 2,
+      "failed": 0,
+      "passedAll": true
+    },
+    "physical-waves-v2": {
+      "selected": 1,
+      "passed": 1,
+      "failed": 0,
+      "passedAll": true
+    },
+    "combined-v2": {
+      "selected": 1,
+      "passed": 1,
+      "failed": 0,
+      "passedAll": true
+    },
+    "shore-v2": {
+      "selected": 1,
+      "passed": 1,
+      "failed": 0,
+      "passedAll": true
+    }
+  },
+  "actualGlslScalarTests": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Actual GLSL scalar bodies read/transpiled, not GPU derivative execution."
+  },
+  "sameCameraNearPreservation": {
+    "near": {
+      "roi": [
+        340,
+        400,
+        1500,
+        850
+      ],
+      "meanChannelDifference": 0.0,
+      "maxChannelDifference": 0.0,
+      "identicalPixelFraction": 1.0
+    },
+    "near-low": {
+      "roi": [
+        400,
+        600,
+        1500,
+        850
+      ],
+      "meanChannelDifference": 0.0,
+      "maxChannelDifference": 0.0,
+      "identicalPixelFraction": 1.0
+    }
+  },
+  "farHorizontalBandMeasure": {
+    "roi": [
+      1050,
+      215,
+      1530,
+      300
+    ],
+    "before": 0.7331650812953215,
+    "after": 0.2247920119629316,
+    "ratio": 0.30660490754112246,
+    "scope": "Single reproduced, unobstructed far-water view; not a general aesthetic score."
+  },
+  "productionShaderHashes": {
+    "res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc": "f461320d4baef716d42f77e723f8eb140d878c9295cf8337521f4f79cc665fd7",
+    "res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc": "60dfea29be698ca5dcb2f41fdd4534e38ebbbf1697a63b36dfd58cf52a7e3cdf",
+    "res://modules/scene_engine/ocean/reference_game_water.gdshader": "cc81f63233af4156baa8dc4551544d314ad8adc076c8e7bdb2d0e6d2fc7eb9c2",
+    "res://modules/scene_engine/terrain/natural_shore_surf.gdshader": "d8d84a4290042a885bf4c7c05ed0479f64084bea7dc60a3f1dd90b8619a0b45b"
+  },
+  "islandGeneratorSha256": "37983951b5a8a6b90e7639bc9983a8cc8d8f117cb65e0e84457b25f189b4cf03",
+  "retained": "Five-wave physical/vertex displacement, current optical texture bands, authored surf and .36 primary/.38 residue shoreline settings.",
+  "review": "Independent code and seven current key-image review found no concrete blocking issue; first frequency-only visual result was rejected because broad repeated bands still dominated.",
+  "limitations": "Sampled times12/12.1/12.2/18/24 and several angles/zoom levels; not proof of every subframe, all camera states, all graphics hardware or unrelated full-suite completion."
+}

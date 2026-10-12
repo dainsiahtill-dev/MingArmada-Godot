@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "scope": "Two advancing shore waves fused in the existing shared Godot game presentation; this is not whole-project or user visual acceptance.",
+  "composition": {
+    "primary": "Existing coast-distance curved fronts drive the only advancing phase, strength .36 (previous .18).",
+    "detail": "Original surf texture and 8 mips; selected authored quad dimensions, co-located pairs, deterministic staggered clocks, source alpha plus game lifecycle, texture crest reanchored to the same phase.",
+    "contact": "Edge wash and contact lace use independent .38 residue multiplier; lace uses continuous coverage through cycle seams.",
+    "grain": "Owner-controlled native GPU isolation demonstrated fixed 0.444m cells; continuous grain removes square stamps.",
+    "physics": "Existing five-wave displacement retained; accepted island generator unchanged."
+  },
+  "headless": {
+    "combined-tests-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-headless/combined-tests-v3.json",
+      "summary": {
+        "selected": 1,
+        "passed": 1,
+        "failed": 0,
+        "passedAll": true
+      }
+    },
+    "surf-tests-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-headless/surf-tests-v3.json",
+      "summary": {
+        "selected": 1,
+        "passed": 1,
+        "failed": 0,
+        "passedAll": true
+      }
+    },
+    "ocean-tests-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-headless/ocean-tests-v3.json",
+      "summary": {
+        "selected": 2,
+        "passed": 2,
+        "failed": 0,
+        "passedAll": true
+      }
+    },
+    "physical-waves-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-headless/physical-waves-v3.json",
+      "summary": {
+        "selected": 1,
+        "passed": 1,
+        "failed": 0,
+        "passedAll": true
+      }
+    }
+  },
+  "gpu": {
+    "shore-fusion-motion-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-motion-v3/capture-result.json",
+      "captures": 49,
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)"
+    },
+    "shore-fusion-world-v3": {
+      "path": "docs/migration/evidence/integrated-world/shore-fusion-world-v3/capture-result.json",
+      "captures": 20,
+      "failures": 0,
+      "gpu": "Intel(R) Arc(TM) 130T GPU (16GB)"
+    }
+  },
+  "productionShaderHashes": {
+    "res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc": "f461320d4baef716d42f77e723f8eb140d878c9295cf8337521f4f79cc665fd7",
+    "res://modules/scene_engine/ocean/reference_game_water.gdshader": "fce30891cf0ea82a57ab55f113e78183cdc5c553aeb2a48edc51636ed4e3e31c",
+    "res://modules/scene_engine/terrain/natural_shore_surf.gdshader": "d8d84a4290042a885bf4c7c05ed0479f64084bea7dc60a3f1dd90b8619a0b45b"
+  },
+  "islandGeneratorSha256": "37983951b5a8a6b90e7639bc9983a8cc8d8f117cb65e0e84457b25f189b4cf03",
+  "motion": {
+    "frames": 42,
+    "timeStart": 6.0,
+    "timeEnd": 10.1,
+    "stepSeconds": 0.1,
+    "size": [
+      1600,
+      900
+    ],
+    "cameraFov": 25.0,
+    "sourceHashesVerified": true,
+    "decodedPixelsEqualNativePng": true,
+    "productionShaderHashes": {
+      "res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc": "f461320d4baef716d42f77e723f8eb140d878c9295cf8337521f4f79cc665fd7",
+      "res://modules/scene_engine/ocean/reference_game_water.gdshader": "fce30891cf0ea82a57ab55f113e78183cdc5c553aeb2a48edc51636ed4e3e31c",
+      "res://modules/scene_engine/terrain/natural_shore_surf.gdshader": "d8d84a4290042a885bf4c7c05ed0479f64084bea7dc60a3f1dd90b8619a0b45b"
+    },
+    "file": "shore-fusion-motion.webp",
+    "bytes": 21934390,
+    "sha256": "f39012d6cf9434a3adbdba52d138376de3977f9cbe37a088852b144fdf4e22db",
+    "scope": "Looping lossless excerpt of actual paused/manual-clock GPU PNGs; not a realtime frame-rate or full-scene visual acceptance test."
+  },
+  "independentReview": "Contact cycle seam found and corrected; reviewer inspected 9 current key PNGs and current shader hashes, without GPU runs or edits.",
+  "inspectionLimits": "Dense capture covers 6.0..10.1s at .1s intervals plus sparse lifecycle 18/24/29/30/36s; no claim about all possible subframe states, target performance, unrelated full-matrix failures or unfinished world art."
+}

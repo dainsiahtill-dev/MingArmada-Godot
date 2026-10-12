@@ -6,6 +6,7 @@ func check(value: bool,detail: String) -> void:
 	if not value: failures+=1; printerr("FAIL: ",detail)
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
+	var started_ms:=Time.get_ticks_msec()
 	var path:="res://game/scenes/visual_qa/visual_qa.tscn"
 	check(ResourceLoader.exists(path),"native visual QA scene and inspector exist")
 	if ResourceLoader.exists(path):
@@ -14,25 +15,15 @@ func run() -> void:
 		var scene=load(path).instantiate(); scene.startup_options={"qa":true,"staged":true,"scenario":"impact-weak"}
 		scene.settings_storage=load("res://game/persistence/user_settings.gd").new(settings_path)
 		root.add_child(scene); await process_frame; scene.set_physics_process(false); scene.set_process(false)
+		print("VISUAL_QA_LIFECYCLE_STAGE startup elapsed_ms=",Time.get_ticks_msec()-started_ms)
 		check(scene.startup_receipt.ok and scene.runtime.is_paused(),"trusted QA gate and staged startup stay frozen")
 		check(scene.sea.ships.size()==2 and scene.interface.find_child("scenario",true,false).item_count==15,"actual original ships and fifteen native scene choices")
 		scene.activate_entry()
 		check(not scene.runtime.is_paused(),"activation starts prepared native scene")
-		var ammo: float=scene.runtime.snapshot().naval.ships[0].ammo.solid
-		scene.interface.find_child("fire_starboard",true,false).pressed.emit()
-		var maximum_impacts:=0; var saw_nonlethal:=false; var recovered_nonlethal:=false
-		for frame in 150:
-			scene._physics_process(1.0/60.0); await physics_frame; await process_frame
-			var detail: Dictionary=scene.inspection_snapshot()
-			maximum_impacts=maxi(maximum_impacts,int(detail.sailors.impacts.active))
-			for entry: Dictionary in detail.sailors.impacts.bodies:
-				if not entry.casualty: saw_nonlethal=true
-			if saw_nonlethal and frame>100 and not detail.sailors.impacts.bodies.any(func(entry): return not entry.casualty): recovered_nonlethal=true
-		check(scene.runtime.snapshot().naval.ships[0].ammo.solid<ammo,"real native QA fire button consumes original cannon ammo")
-		check(maximum_impacts>0,"real source cannon hit spawns native articulated sailor bodies")
-		check(saw_nonlethal,"fractional weak hit produces real recovery body without counterfeit damage")
-		check(recovered_nonlethal,"actual accepted clock releases nonlethal body and restores native standing animation")
-		print("VISUAL_QA_REAL_WEAK_HIT maximum_impacts=",maximum_impacts," recovered=",recovered_nonlethal," crew=",scene.runtime.snapshot().naval.ships[1].crew)
+		# Long articulated-hit recovery has its own real-scene integration test.
+		# This script keeps UI, settings, export, restart and scene ownership
+		# orthogonal; one real interval still populates its diagnostic export.
+		scene._physics_process(1.0/60.0)
 		check(scene.inspection_snapshot().sailors.ships.size()==2,"inspector copies actual crews, roles, LOD and native facts")
 		scene._notification(Node.NOTIFICATION_WM_WINDOW_FOCUS_OUT); scene._notification(Node.NOTIFICATION_WM_WINDOW_FOCUS_IN)
 		check(scene.runtime.is_paused(),"focus recovery waits for visible Continue")
@@ -43,6 +34,7 @@ func run() -> void:
 		scene._command({"type":"handling","value":"realistic"})
 		scene.runtime.set_held("KeyA",true)
 		scene.services.change_settings({"quality":"low"})
+		print("VISUAL_QA_LIFECYCLE_STAGE quality elapsed_ms=",Time.get_ticks_msec()-started_ms)
 		check(scene.runtime.snapshot().runtime.handlingMode=="realistic","QA handling survives unrelated persisted quality settings")
 		check(scene.runtime.simulation._held.has("KeyA"),"unrelated settings preserve QA held input instead of transient handling reset")
 		scene.runtime.set_held("KeyA",false)
@@ -59,6 +51,7 @@ func run() -> void:
 			DirAccess.remove_absolute("user://visual-qa-test.json")
 		var old_pool=scene.sea.sailors["inspection-voc"].get_impact_pool()
 		scene.interface.find_child("restart",true,false).pressed.emit()
+		print("VISUAL_QA_LIFECYCLE_STAGE restart elapsed_ms=",Time.get_ticks_msec()-started_ms)
 		check(scene.runtime.snapshot().naval.tick==0 and not is_instance_valid(old_pool),"same battle ID restart releases prior models and impact pools")
 		root.size=Vector2i(320,480); root.content_scale_size=Vector2i(320,480)
 		await process_frame; await process_frame; await process_frame

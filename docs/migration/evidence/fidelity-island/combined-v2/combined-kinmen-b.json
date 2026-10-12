@@ -1,0 +1,3284 @@
+{
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"imageSha256": "198952914c17aa4361eb5e46f80b0beaa5d56bb68068582cd069dda48a00cc8a",
+	"label": "combined-kinmen-b",
+	"renderingMethod": "forward_plus",
+	"scope": "Actual current Godot menu/router scene PNG; read-only source checkpoint Continue; no original-game-frame or performance claim.",
+	"snapshot": {
+		"cameraPosition": "(341.8801, 281.9416, -145.9422)",
+		"focus": "(420.0, 5.0, 160.0)",
+		"orbit": {
+			"distance": 420.0,
+			"elevation": 0.72,
+			"yaw": -0.25
+		},
+		"paused": true,
+		"scope": "Actual game presentation modules; visual preview has no campaign or save writes.",
+		"seaShader": "retained reference_game_water",
+		"startup": {
+			"mode": "fidelity-island",
+			"ok": true,
+			"source": "completed source islands + retained game sea"
+		},
+		"time": 13.0,
+		"world": {
+			"displayFogDensity": 0.00035,
+			"geometry": {
+				"buildMilliseconds": 358.3,
+				"collisionBodies": 0,
+				"geometry_builds": 3,
+				"meshCount": 3,
+				"meshMaterialBindings": [
+					{
+						"matchesOwnedMaterial": true,
+						"profile": "coastal2",
+						"shader": "res://modules/scene_engine/fidelity_island/terrain.gdshader",
+						"usesSourceBhi": false
+					},
+					{
+						"matchesOwnedMaterial": true,
+						"profile": "cat_island",
+						"shader": "res://modules/scene_engine/fidelity_island/terrain.gdshader",
+						"usesSourceBhi": true
+					},
+					{
+						"matchesOwnedMaterial": true,
+						"profile": "virgin_islands",
+						"shader": "res://modules/scene_engine/fidelity_island/terrain.gdshader",
+						"usesSourceBhi": false
+					}
+				],
+				"nativePixelSpacing": 1,
+				"sampleCalls": 92617,
+				"scope": "Immutable original source-pixel topology mapped to retained height authority; neighbor normals, native UV centers, no moving chunk generator or physics mutation.",
+				"sourceProfiles": [
+					{
+						"borderFadePixels": 14.0,
+						"borderRounding": 0.3,
+						"cachedSamples": 63497,
+						"dock": "(-306.2571, -38.28214)",
+						"height": 193,
+						"heightGain": 0.35,
+						"id": "coastal2",
+						"inward": "(-0.992278, -0.124035)",
+						"islandCenter": "(-480.0, -60.0)",
+						"material_kind": "game_adapted",
+						"peak": 58.0,
+						"scale": 0.925971459507671,
+						"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+						"seaIndex": 127.5,
+						"smoothingRadius": 1,
+						"sourceCenter": "(164.0, 83.0)",
+						"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+						"sourceOutward": "(0.75144, -0.659801)",
+						"width": 329
+					},
+					{
+						"borderFadePixels": 14.0,
+						"borderRounding": 0.3,
+						"cachedSamples": 16800,
+						"dock": "(282.1499, 107.4857)",
+						"height": 140,
+						"heightGain": 0.35,
+						"id": "cat_island",
+						"inward": "(0.934488, 0.355995)",
+						"islandCenter": "(420.0, 160.0)",
+						"peak": 48.0,
+						"scale": 2.21685748493086,
+						"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+						"seaIndex": 127.5,
+						"smoothingRadius": 1,
+						"sourceCenter": "(56.0, 69.0)",
+						"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+						"sourceOutward": "(-0.616882, -0.787056)",
+						"width": 120
+					},
+					{
+						"borderFadePixels": 14.0,
+						"borderRounding": 0.3,
+						"cachedSamples": 12320,
+						"dock": "(-60.0, 320.0)",
+						"height": 77,
+						"heightGain": 0.35,
+						"id": "virgin_islands",
+						"inward": "(0.0, 1.0)",
+						"islandCenter": "(-60.0, 390.0)",
+						"material_kind": "game_adapted",
+						"peak": 28.0,
+						"scale": 1.34937738039228,
+						"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+						"seaIndex": 127.5,
+						"smoothingRadius": 1,
+						"sourceCenter": "(78.5, 35.0)",
+						"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+						"sourceOutward": "(0.508729, -0.860927)",
+						"width": 160
+					}
+				],
+				"triangles": 183202,
+				"vertices": 92617
+			},
+			"geometryMode": "static_source",
+			"heightSamplerChanged": false,
+			"materials": [
+				{
+					"nativeIds": [
+						1,
+						2,
+						3,
+						16,
+						17,
+						32,
+						33,
+						64,
+						48,
+						49
+					],
+					"normalAxes": "native[G,R,B] -> Godot[column,up,-row]",
+					"normalization": false,
+					"originalMipRegistry": "res://assets/data/fidelity_island/manifest.json",
+					"scope": "Game terrain height/slope adaptation using original Cat material textures",
+					"source": "res://assets/data/fidelity_island/cat-island-original.json",
+					"sourceLighting": false,
+					"terrainGeometryModified": false,
+					"usesSourceBhi": false
+				},
+				{
+					"nativeIds": [
+						1,
+						2,
+						3,
+						16,
+						17,
+						32,
+						33,
+						64,
+						48,
+						49
+					],
+					"normalAxes": "native[G,R,B] -> Godot[column,up,-row]",
+					"normalization": false,
+					"originalMipRegistry": "res://assets/data/fidelity_island/manifest.json",
+					"scope": "Cat source BHI mapped to unchanged game terrain",
+					"source": "res://assets/data/fidelity_island/cat-island-original.json",
+					"sourceLighting": false,
+					"terrainGeometryModified": false,
+					"usesSourceBhi": true
+				},
+				{
+					"nativeIds": [
+						1,
+						2,
+						3,
+						16,
+						17,
+						32,
+						33,
+						64,
+						48,
+						49
+					],
+					"normalAxes": "native[G,R,B] -> Godot[column,up,-row]",
+					"normalization": false,
+					"originalMipRegistry": "res://assets/data/fidelity_island/manifest.json",
+					"scope": "Game terrain height/slope adaptation using original Cat material textures",
+					"source": "res://assets/data/fidelity_island/cat-island-original.json",
+					"sourceLighting": false,
+					"terrainGeometryModified": false,
+					"usesSourceBhi": false
+				}
+			],
+			"profiles": [
+				{
+					"borderFadePixels": 14.0,
+					"borderRounding": 0.3,
+					"cachedSamples": 63497,
+					"dock": "(-306.2571, -38.28214)",
+					"height": 193,
+					"heightGain": 0.35,
+					"id": "coastal2",
+					"inward": "(-0.992278, -0.124035)",
+					"islandCenter": "(-480.0, -60.0)",
+					"material_kind": "game_adapted",
+					"peak": 58.0,
+					"scale": 0.925971459507671,
+					"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+					"seaIndex": 127.5,
+					"smoothingRadius": 1,
+					"sourceCenter": "(164.0, 83.0)",
+					"sourceHash": "ce35636beb51ec4865e8073bd0d0803c75c88e3633770517233c657a254d950d",
+					"sourceOutward": "(0.75144, -0.659801)",
+					"width": 329
+				},
+				{
+					"borderFadePixels": 14.0,
+					"borderRounding": 0.3,
+					"cachedSamples": 16800,
+					"dock": "(282.1499, 107.4857)",
+					"height": 140,
+					"heightGain": 0.35,
+					"id": "cat_island",
+					"inward": "(0.934488, 0.355995)",
+					"islandCenter": "(420.0, 160.0)",
+					"peak": 48.0,
+					"scale": 2.21685748493086,
+					"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+					"seaIndex": 127.5,
+					"smoothingRadius": 1,
+					"sourceCenter": "(56.0, 69.0)",
+					"sourceHash": "d1b4f3b42347916ef7f85262e1ac16a65234c4981a374039b55ab0b417d30a1c",
+					"sourceOutward": "(-0.616882, -0.787056)",
+					"width": 120
+				},
+				{
+					"borderFadePixels": 14.0,
+					"borderRounding": 0.3,
+					"cachedSamples": 12320,
+					"dock": "(-60.0, 320.0)",
+					"height": 77,
+					"heightGain": 0.35,
+					"id": "virgin_islands",
+					"inward": "(0.0, 1.0)",
+					"islandCenter": "(-60.0, 390.0)",
+					"material_kind": "game_adapted",
+					"peak": 28.0,
+					"scale": 1.34937738039228,
+					"scope": "Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction.",
+					"seaIndex": 127.5,
+					"smoothingRadius": 1,
+					"sourceCenter": "(78.5, 35.0)",
+					"sourceHash": "5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f",
+					"sourceOutward": "(0.508729, -0.860927)",
+					"width": 160
+				}
+			],
+			"seaVisualScale": 1.5,
+			"shore": [
+				{
+					"clippedTriangles": 192,
+					"followSurface": true,
+					"landRejectedTriangles": 114,
+					"meshCount": 8,
+					"mode": "mapped",
+					"originalMeshCount": 8,
+					"renderEdgeLimit": 1.88342700225738,
+					"renderedTriangles": 192644,
+					"scope": "Original short meshes/UV/alpha; mapped coordinate/.035 elevation/land clipping/extra soft-edge and cached render-only wave refinement follow current water. Exact observer keeps original static topology. Complete original FFP lighting remains unknown.",
+					"states": [
+						{
+							"alpha": 1.0,
+							"scaleU": 1.14072167873383,
+							"translationU": 1.08535742759705
+						},
+						{
+							"alpha": 1.0,
+							"scaleU": 1.10824739933014,
+							"translationU": 1.22218596935272
+						},
+						{
+							"alpha": 1.0,
+							"scaleU": 1.07770562171936,
+							"translationU": 1.36878800392151
+						},
+						{
+							"alpha": 1.0,
+							"scaleU": 1.04848492145538,
+							"translationU": 1.5153900384903
+						},
+						{
+							"alpha": 0.349808543920517,
+							"scaleU": 0.820287764072418,
+							"translationU": 1.75429391860962
+						},
+						{
+							"alpha": 0.000000967098912951769,
+							"scaleU": 2.93299555778503,
+							"translationU": 0.289368122816086
+						},
+						{
+							"alpha": 0.00187155709136277,
+							"scaleU": 2.40090107917786,
+							"translationU": 0.355755776166916
+						},
+						{
+							"alpha": 0.0881011709570885,
+							"scaleU": 1.8688063621521,
+							"translationU": 0.498866468667984
+						}
+					],
+					"surfaceState": {
+						"coastal_attenuation": true,
+						"has_shore_field": true,
+						"shore_bounds": "(-765.0, -311.7, 680.0, 563.8)",
+						"shore_height_texture_present": true,
+						"simulation_time": 13.0,
+						"surface_tide": 0.0,
+						"wave_components": "[(1.0, 0.02, 0.015, 0.9), (1.0, 0.02, -0.015, 0.1), (1.0, 0.05, 0.0, -0.6), (0.25, 0.1, 0.11, 2.05), (0.25, 0.1, -0.11, -0.05), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0)]",
+						"wave_count": 5
+					},
+					"time": 13.0,
+					"triangles": 332,
+					"waterPlaneY": 0.035
+				}
+			],
+			"staticShoreResolution": 512,
+			"vegetation": [
+				{
+					"accepted_tree_count": 418,
+					"anchors": [
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-525.8735, 1.972796, 42.50671)",
+							"profile_id": "coastal2",
+							"source_root": "(4050.909, -1279.199, 774.6874)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-521.0507, 2.758755, 42.34605)",
+							"profile_id": "coastal2",
+							"source_root": "(4344.321, -1094.057, 831.1964)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-515.7339, 2.510875, 34.67999)",
+							"profile_id": "coastal2",
+							"source_root": "(4970.121, -1335.499, 813.3743)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-409.4691, 2.287623, -33.46108)",
+							"profile_id": "coastal2",
+							"source_root": "(14043.14, -1099.471, 797.3229)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-350.4818, 1.847226, -73.76112)",
+							"profile_id": "coastal2",
+							"source_root": "(19179.47, -1115.711, 765.6592)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-493.9965, 1.883769, 11.97683)",
+							"profile_id": "coastal2",
+							"source_root": "(7179.91, -1808.639, 768.2866)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-487.0737, 1.980057, 10.70049)",
+							"profile_id": "coastal2",
+							"source_root": "(7643.306, -1605.091, 775.2095)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-465.5463, 1.538513, -6.546162)",
+							"profile_id": "coastal2",
+							"source_root": "(9620.314, -1762.083, 743.4634)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-364.182, 3.382902, -73.83678)",
+							"profile_id": "coastal2",
+							"source_root": "(18367.44, -1673.301, 876.0713)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-353.7808, 5.319842, -80.82196)",
+							"profile_id": "coastal2",
+							"source_root": "(19268.25, -1668.971, 1015.333)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-554.6829, 2.811294, 48.80743)",
+							"profile_id": "coastal2",
+							"source_root": "(2082.562, -2067.404, 834.9738)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-352.5035, 9.356887, -87.54858)",
+							"profile_id": "coastal2",
+							"source_root": "(19615.8, -2017.6, 1305.589)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-520.8687, 3.44564, 17.67276)",
+							"profile_id": "coastal2",
+							"source_root": "(5351.231, -2554.619, 880.582)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-510.8173, 2.067721, 8.267967)",
+							"profile_id": "coastal2",
+							"source_root": "(6328.909, -2708.362, 781.5123)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-504.6327, 2.9, 8.129555)",
+							"profile_id": "coastal2",
+							"source_root": "(6702.44, -2466.92, 841.3516)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-494.1011, 2.294056, 0.746525)",
+							"profile_id": "coastal2",
+							"source_root": "(7627.065, -2480.995, 797.7855)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-488.0563, 1.375378, -4.210659)",
+							"profile_id": "coastal2",
+							"source_root": "(8186.821, -2531.882, 731.7343)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-446.5159, 3.244987, -34.92834)",
+							"profile_id": "coastal2",
+							"source_root": "(11898.31, -2682.377, 866.1555)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-372.4827, 5.315178, -82.69019)",
+							"profile_id": "coastal2",
+							"source_root": "(18231.02, -2535.13, 1014.998)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-551.3728, 1.87154, 28.69035)",
+							"profile_id": "coastal2",
+							"source_root": "(3091.638, -3130.615, 767.4073)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-523.8201, 1.733209, 11.23141)",
+							"profile_id": "coastal2",
+							"source_root": "(5435.682, -3056.991, 757.4617)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-507.9838, 3.108434, 1.34063)",
+							"profile_id": "coastal2",
+							"source_root": "(6777.146, -3006.104, 856.3376)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-440.5948, 2.709404, -43.76884)",
+							"profile_id": "coastal2",
+							"source_root": "(12607.48, -2969.293, 827.6481)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-435.7213, 1.628754, -49.45987)",
+							"profile_id": "coastal2",
+							"source_root": "(13127.18, -3111.126, 749.9515)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-425.0331, 2.991206, -54.54699)",
+							"profile_id": "coastal2",
+							"source_root": "(13968.44, -2982.285, 847.9091)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-419.6331, 2.047746, -60.2131)",
+							"profile_id": "coastal2",
+							"source_root": "(14518.45, -3101.382, 780.0762)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-370.3799, 6.047664, -92.1426)",
+							"profile_id": "coastal2",
+							"source_root": "(18737.73, -3012.601, 1067.662)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-364.8251, 5.153275, -96.7491)",
+							"profile_id": "coastal2",
+							"source_root": "(19254.17, -3062.405, 1003.358)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-555.4216, 2.319283, 26.45139)",
+							"profile_id": "coastal2",
+							"source_root": "(2941.142, -3427.274, 799.5992)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-518.5697, 1.538788, -0.447933)",
+							"profile_id": "coastal2",
+							"source_root": "(6219.556, -3539.875, 743.4832)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-511.8395, 3.213092, -3.831932)",
+							"profile_id": "coastal2",
+							"source_root": "(6756.575, -3469.5, 863.8622)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-506.1427, 2.03765, -9.462887)",
+							"profile_id": "coastal2",
+							"source_root": "(7322.827, -3574.521, 779.3503)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-447.4127, 2.719656, -47.51376)",
+							"profile_id": "coastal2",
+							"source_root": "(12353.05, -3467.334, 828.3852)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-442.0861, 2.003381, -51.43758)",
+							"profile_id": "coastal2",
+							"source_root": "(12828.35, -3485.74, 776.8865)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-432.0325, 4.198912, -60.06135)",
+							"profile_id": "coastal2",
+							"source_root": "(13774.63, -3592.927, 934.7407)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-416.359, 3.714988, -70.46034)",
+							"profile_id": "coastal2",
+							"source_root": "(15126.92, -3578.852, 899.9476)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-403.9627, 2.127119, -75.57818)",
+							"profile_id": "coastal2",
+							"source_root": "(16071.04, -3382.884, 785.7829)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-385.2457, 5.307912, -89.69849)",
+							"profile_id": "coastal2",
+							"source_root": "(17754.63, -3467.334, 1014.476)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-382.1314, 4.512964, -93.95921)",
+							"profile_id": "coastal2",
+							"source_root": "(18111.93, -3595.093, 957.3205)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-368.7369, 2.986565, -103.6671)",
+							"profile_id": "coastal2",
+							"source_root": "(19300.73, -3631.905, 847.5754)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-559.3771, 3.769632, 17.77956)",
+							"profile_id": "coastal2",
+							"source_root": "(3055.908, -4102.879, 903.8763)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-537.7371, 1.920978, 6.625801)",
+							"profile_id": "coastal2",
+							"source_root": "(4793.641, -3892.835, 770.9619)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-527.9184, 2.102299, -2.129696)",
+							"profile_id": "coastal2",
+							"source_root": "(5731.259, -4017.345, 783.9984)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-518.0904, 1.813023, -9.235477)",
+							"profile_id": "coastal2",
+							"source_root": "(6602.832, -4043.33, 763.2001)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-488.2365, 1.599706, -28.74733)",
+							"profile_id": "coastal2",
+							"source_root": "(9166.664, -3998.94, 747.863)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-425.2938, 6.422726, -72.09538)",
+							"profile_id": "coastal2",
+							"source_root": "(14661.36, -4036.834, 1094.629)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-421.4848, 5.973929, -73.64275)",
+							"profile_id": "coastal2",
+							"source_root": "(14950.44, -3975.12, 1062.361)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-414.594, 5.520612, -79.33778)",
+							"profile_id": "coastal2",
+							"source_root": "(15590.32, -4035.751, 1029.768)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-405.3601, 4.861746, -84.02039)",
+							"profile_id": "coastal2",
+							"source_root": "(16328.72, -3941.557, 982.3972)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-395.2606, 1.499213, -93.67618)",
+							"profile_id": "coastal2",
+							"source_root": "(17319.39, -4108.292, 740.6384)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-382.4064, 5.55218, -101.0156)",
+							"profile_id": "coastal2",
+							"source_root": "(18380.44, -4026.007, 1032.038)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-378.2454, 5.564282, -104.9674)",
+							"profile_id": "coastal2",
+							"source_root": "(18787.53, -4093.134, 1032.908)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-356.2084, 2.650352, -117.6281)",
+							"profile_id": "coastal2",
+							"source_root": "(20609.71, -3956.714, 823.4024)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-565.478, 1.679676, 18.44356)",
+							"profile_id": "coastal2",
+							"source_root": "(2666.137, -4309.674, 753.6127)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-538.3979, 3.453044, -0.114159)",
+							"profile_id": "coastal2",
+							"source_root": "(5026.421, -4320.501, 881.1143)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-518.8875, 1.274373, -13.22605)",
+							"profile_id": "coastal2",
+							"source_root": "(6716.515, -4312.922, 724.4722)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-515.5524, 2.634587, -18.07331)",
+							"profile_id": "coastal2",
+							"source_root": "(7110.618, -4466.666, 822.2689)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-491.2253, 1.496051, -33.12508)",
+							"profile_id": "coastal2",
+							"source_root": "(9165.581, -4380.05, 740.4104)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-444.0474, 7.313059, -63.9558)",
+							"profile_id": "coastal2",
+							"source_root": "(13217.04, -4309.674, 1158.642)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-434.8406, 7.319047, -70.42162)",
+							"profile_id": "coastal2",
+							"source_root": "(14025.82, -4322.667, 1159.072)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-423.1163, 6.860374, -78.03162)",
+							"profile_id": "coastal2",
+							"source_root": "(15030.56, -4302.095, 1126.094)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-412.2523, 3.797244, -86.64114)",
+							"profile_id": "coastal2",
+							"source_root": "(16024.48, -4375.719, 905.8616)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-407.3334, 2.886308, -89.85159)",
+							"profile_id": "coastal2",
+							"source_root": "(16446.73, -4368.14, 840.3672)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-366.1824, 3.623992, -117.1203)",
+							"profile_id": "coastal2",
+							"source_root": "(19995.82, -4329.163, 893.4052)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-587.927, 1.093626, 21.59302)",
+							"profile_id": "coastal2",
+							"source_root": "(1203.41, -5028.586, 711.4769)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-571.6452, 1.447644, 13.5656)",
+							"profile_id": "coastal2",
+							"source_root": "(2496.153, -4848.858, 736.9301)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-560.871, 2.817514, 6.727715)",
+							"profile_id": "coastal2",
+							"source_root": "(3413.199, -4820.708, 835.421)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-513.4848, 1.42363, -28.24801)",
+							"profile_id": "coastal2",
+							"source_root": "(7644.388, -4988.527, 735.2036)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-471.9685, 3.804865, -56.80196)",
+							"profile_id": "coastal2",
+							"source_root": "(11267.1, -5011.264, 906.4095)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-466.1275, 3.398335, -60.63811)",
+							"profile_id": "coastal2",
+							"source_root": "(11769.47, -5003.685, 877.1808)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-458.2665, 4.349924, -63.64294)",
+							"profile_id": "coastal2",
+							"source_root": "(12358.46, -4865.099, 945.5981)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-452.563, 4.602669, -66.42126)",
+							"profile_id": "coastal2",
+							"source_root": "(12809.95, -4800.137, 963.7701)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-449.6044, 3.955988, -72.35973)",
+							"profile_id": "coastal2",
+							"source_root": "(13225.7, -5034.0, 917.275)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-425.4344, 1.596573, -84.15656)",
+							"profile_id": "coastal2",
+							"source_root": "(15139.92, -4760.077, 747.6378)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-420.196, 1.646973, -88.12978)",
+							"profile_id": "coastal2",
+							"source_root": "(15611.97, -4784.979, 751.2614)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-404.6067, 1.641645, -98.59909)",
+							"profile_id": "coastal2",
+							"source_root": "(16962.1, -4778.483, 750.8779)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-397.091, 2.896821, -105.5188)",
+							"profile_id": "coastal2",
+							"source_root": "(17688.59, -4886.753, 841.123)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-364.2376, 3.594308, -128.0124)",
+							"profile_id": "coastal2",
+							"source_root": "(20551.25, -4898.663, 891.2709)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-587.0864, 4.938632, 13.57938)",
+							"profile_id": "coastal2",
+							"source_root": "(1576.941, -5471.411, 987.9252)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-446.1078, 1.435753, -80.42854)",
+							"profile_id": "coastal2",
+							"source_root": "(13759.47, -5372.885, 736.0751)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-520.9324, 1.994951, -36.97057)",
+							"profile_id": "coastal2",
+							"source_root": "(7553.442, -5808.13, 776.2803)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-451.0085, 1.323615, -83.65456)",
+							"profile_id": "coastal2",
+							"source_root": "(13598.15, -5762.657, 728.0126)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-388.8549, 3.130171, -127.4681)",
+							"profile_id": "coastal2",
+							"source_root": "(19064.7, -5860.1, 857.9004)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-382.8408, 2.781697, -130.0569)",
+							"profile_id": "coastal2",
+							"source_root": "(19527.01, -5771.318, 832.8458)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-575.4951, 1.271704, -6.697464)",
+							"profile_id": "coastal2",
+							"source_root": "(3085.141, -6209.812, 724.2803)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-569.5776, 2.294079, -10.87674)",
+							"profile_id": "coastal2",
+							"source_root": "(3605.92, -6219.556, 797.787)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-549.9838, 1.868769, -24.53646)",
+							"profile_id": "coastal2",
+							"source_root": "(5323.081, -6241.21, 767.2081)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-412.1392, 3.226097, -117.1821)",
+							"profile_id": "coastal2",
+							"source_root": "(17264.17, -6188.158, 864.7972)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-406.2097, 2.523153, -122.4433)",
+							"profile_id": "coastal2",
+							"source_root": "(17829.34, -6261.781, 814.257)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-597.087, 1.077119, -0.380733)",
+							"profile_id": "coastal2",
+							"source_root": "(1545.543, -6705.688, 710.29)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-569.0244, 1.855134, -17.78537)",
+							"profile_id": "coastal2",
+							"source_root": "(3917.737, -6608.245, 766.2278)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-558.7122, 1.276233, -27.98588)",
+							"profile_id": "coastal2",
+							"source_root": "(4943.054, -6798.8, 724.606)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-542.7174, 1.011121, -37.91137)",
+							"profile_id": "coastal2",
+							"source_root": "(6295.345, -6743.583, 705.5449)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-496.3027, 1.429402, -70.64458)",
+							"profile_id": "coastal2",
+							"source_root": "(10378.2, -6817.206, 735.6185)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-440.9802, 2.417505, -107.0929)",
+							"profile_id": "coastal2",
+							"source_root": "(15141.0, -6752.244, 806.6612)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-431.2937, 2.72462, -115.6677)",
+							"profile_id": "coastal2",
+							"source_root": "(16063.46, -6871.341, 828.7421)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-421.7981, 1.819706, -118.9992)",
+							"profile_id": "coastal2",
+							"source_root": "(16762.88, -6686.199, 763.6807)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-438.9803, 1.239334, -115.8386)",
+							"profile_id": "coastal2",
+							"source_root": "(15613.06, -7191.82, 721.953)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-414.6145, 4.223475, -132.7911)",
+							"profile_id": "coastal2",
+							"source_root": "(17747.06, -7216.722, 936.5068)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-595.6959, 2.769644, -16.13832)",
+							"profile_id": "coastal2",
+							"source_root": "(2264.455, -7587.005, 831.9792)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-576.8845, 5.669968, -30.97782)",
+							"profile_id": "coastal2",
+							"source_root": "(3982.699, -7710.433, 1040.507)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-572.3336, 4.099345, -33.22877)",
+							"profile_id": "coastal2",
+							"source_root": "(4344.321, -7660.629, 927.582)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-538.8461, 1.484779, -57.33554)",
+							"profile_id": "coastal2",
+							"source_root": "(7309.834, -7742.914, 739.6)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-605.4789, 4.321854, -17.81652)",
+							"profile_id": "coastal2",
+							"source_root": "(1750.173, -8081.799, 943.58)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-600.3188, 3.059675, -19.62557)",
+							"profile_id": "coastal2",
+							"source_root": "(2130.2, -7981.108, 852.8319)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-590.9203, 1.692514, -28.67834)",
+							"profile_id": "coastal2",
+							"source_root": "(3054.826, -8140.265, 754.5358)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-583.1577, 2.48851, -31.45266)",
+							"profile_id": "coastal2",
+							"source_root": "(3628.656, -7991.935, 811.7662)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-536.9641, 3.455588, -65.1823)",
+							"profile_id": "coastal2",
+							"source_root": "(7738.583, -8133.769, 881.2972)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-603.208, 3.824604, -25.59965)",
+							"profile_id": "coastal2",
+							"source_root": "(2199.493, -8453.165, 907.8287)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-598.9477, 2.827981, -29.16387)",
+							"profile_id": "coastal2",
+							"source_root": "(2596.844, -8493.225, 836.1735)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-551.7893, 1.850958, -61.87396)",
+							"profile_id": "coastal2",
+							"source_root": "(6723.011, -8535.45, 765.9276)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-544.0983, 3.425996, -65.74615)",
+							"profile_id": "coastal2",
+							"source_root": "(7336.902, -8455.33, 879.1698)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-559.4923, 2.473181, -65.07281)",
+							"profile_id": "coastal2",
+							"source_root": "(6393.871, -9036.739, 810.6641)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-546.5406, 2.194474, -75.8087)",
+							"profile_id": "coastal2",
+							"source_root": "(7597.833, -9152.588, 790.6257)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-506.1031, 1.885228, -111.1284)",
+							"profile_id": "coastal2",
+							"source_root": "(11429.51, -9621.397, 768.3914)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-494.2538, 2.363662, -123.3547)",
+							"profile_id": "coastal2",
+							"source_root": "(12628.05, -9870.418, 802.7899)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-488.3473, 1.268501, -127.8722)",
+							"profile_id": "coastal2",
+							"source_root": "(13161.82, -9900.733, 724.05)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-472.9996, 1.093606, -137.759)",
+							"profile_id": "coastal2",
+							"source_root": "(14474.06, -9869.335, 711.4755)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-513.3104, 2.726679, 40.93355)",
+							"profile_id": "coastal2",
+							"source_root": "(4861.851, -865.6077, 828.8901)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-510.2201, 2.15374, 31.19319)",
+							"profile_id": "coastal2",
+							"source_root": "(5438.93, -1320.341, 787.697)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-494.6734, 1.795238, 20.60728)",
+							"profile_id": "coastal2",
+							"source_root": "(6791.221, -1322.507, 761.9214)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-405.1443, 1.928633, -39.34392)",
+							"profile_id": "coastal2",
+							"source_root": "(14537.94, -1274.868, 771.5122)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-552.3639, 1.931545, 54.02184)",
+							"profile_id": "coastal2",
+							"source_root": "(2010.021, -1663.557, 771.7216)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-518.9377, 2.166672, 33.12328)",
+							"profile_id": "coastal2",
+							"source_root": "(4842.362, -1557.453, 788.6268)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-509.7799, 2.130256, 24.76162)",
+							"profile_id": "coastal2",
+							"source_root": "(5724.763, -1685.211, 786.0085)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-504.0359, 1.970027, 22.338)",
+							"profile_id": "coastal2",
+							"source_root": "(6164.338, -1597.512, 774.4883)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-499.567, 2.227433, 17.23085)",
+							"profile_id": "coastal2",
+							"source_root": "(6636.395, -1720.94, 792.9954)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-472.1082, 1.397402, 0.035809)",
+							"profile_id": "coastal2",
+							"source_root": "(8964.199, -1635.407, 733.3177)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-423.5978, 2.412836, -33.33691)",
+							"profile_id": "coastal2",
+							"source_root": "(13197.55, -1662.474, 806.3254)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-548.3929, 1.514292, 42.17339)",
+							"profile_id": "coastal2",
+							"source_root": "(2724.603, -2208.155, 741.7219)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-501.4103, 2.103914, 10.94748)",
+							"profile_id": "coastal2",
+							"source_root": "(6780.394, -2169.178, 784.1146)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-496.1861, 2.307437, 7.78466)",
+							"profile_id": "coastal2",
+							"source_root": "(7218.888, -2146.441, 798.7475)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-468.3891, 1.104554, -10.44062)",
+							"profile_id": "coastal2",
+							"source_root": "(9608.405, -2108.547, 712.2626)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-437.7916, 2.513812, -34.00579)",
+							"profile_id": "coastal2",
+							"source_root": "(12380.12, -2275.282, 813.5854)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-346.9603, 6.331968, -93.5667)",
+							"profile_id": "coastal2",
+							"source_root": "(20188.54, -2151.854, 1088.103)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-545.5754, 1.010948, 34.82018)",
+							"profile_id": "coastal2",
+							"source_root": "(3189.08, -2531.882, 705.5325)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-501.2216, 3.395489, 1.865776)",
+							"profile_id": "coastal2",
+							"source_root": "(7158.256, -2701.866, 876.9762)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-435.6772, 2.454112, -41.02746)",
+							"profile_id": "coastal2",
+							"source_root": "(12789.38, -2607.671, 809.2931)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-352.3224, 5.599448, -97.0437)",
+							"profile_id": "coastal2",
+							"source_root": "(20009.9, -2575.19, 1035.437)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-517.5995, 2.031847, 8.866524)",
+							"profile_id": "coastal2",
+							"source_root": "(5901.242, -2946.556, 778.933)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-413.4752, 1.615926, -65.64735)",
+							"profile_id": "coastal2",
+							"source_root": "(15104.19, -3176.088, 749.0292)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-381.794, 4.130928, -85.41643)",
+							"profile_id": "coastal2",
+							"source_root": "(17787.12, -3073.232, 929.8528)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-561.2595, 3.732635, 29.13894)",
+							"profile_id": "coastal2",
+							"source_root": "(2485.326, -3503.063, 901.2164)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-502.5611, 2.448071, -12.25723)",
+							"profile_id": "coastal2",
+							"source_root": "(7648.719, -3596.176, 808.8588)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-479.4183, 1.760949, -25.5409)",
+							"profile_id": "coastal2",
+							"source_root": "(9561.85, -3452.177, 759.4561)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-458.8134, 4.148817, -41.70658)",
+							"profile_id": "coastal2",
+							"source_root": "(11440.33, -3582.1, 931.139)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-438.2758, 2.214203, -52.82206)",
+							"profile_id": "coastal2",
+							"source_root": "(13110.94, -3414.282, 792.0441)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-426.588, 4.667799, -62.84589)",
+							"profile_id": "coastal2",
+							"source_root": "(14210.96, -3538.792, 968.4528)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-410.1263, 3.42273, -72.88798)",
+							"profile_id": "coastal2",
+							"source_root": "(15595.73, -3471.665, 878.9348)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-394.1031, 2.026878, -82.90558)",
+							"profile_id": "coastal2",
+							"source_root": "(16953.44, -3420.778, 778.5759)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-573.8454, 1.188069, 27.43358)",
+							"profile_id": "coastal2",
+							"source_root": "(1805.391, -4112.623, 718.2673)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-542.3008, 1.096256, 8.321358)",
+							"profile_id": "coastal2",
+							"source_root": "(4453.673, -3976.203, 711.666)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-529.3025, 1.556567, 1.757629)",
+							"profile_id": "coastal2",
+							"source_root": "(5491.982, -3841.948, 744.7614)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-521.3694, 1.564034, -4.681053)",
+							"profile_id": "coastal2",
+							"source_root": "(6223.887, -3904.745, 745.2983)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-509.0879, 1.928803, -12.08677)",
+							"profile_id": "coastal2",
+							"source_root": "(7253.534, -3849.527, 771.5244)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-456.7396, 4.925201, -50.61161)",
+							"profile_id": "coastal2",
+							"source_root": "(11923.22, -4028.173, 986.9595)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-448.5916, 3.699394, -55.2853)",
+							"profile_id": "coastal2",
+							"source_root": "(12596.66, -3977.286, 898.8264)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-433.3876, 7.077859, -67.42213)",
+							"profile_id": "coastal2",
+							"source_root": "(13991.17, -4085.555, 1141.731)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-387.8727, 3.044194, -95.79585)",
+							"profile_id": "coastal2",
+							"source_root": "(17844.5, -3936.143, 851.7189)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-575.3679, 1.106981, 25.13634)",
+							"profile_id": "coastal2",
+							"source_root": "(1807.556, -4310.757, 712.4371)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-574.7595, 2.673375, 20.88364)",
+							"profile_id": "coastal2",
+							"source_root": "(2015.434, -4539.207, 825.0577)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-530.1917, 2.568891, -6.337887)",
+							"profile_id": "coastal2",
+							"source_root": "(5765.905, -4359.479, 817.5455)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-455.2203, 5.465178, -58.37602)",
+							"profile_id": "coastal2",
+							"source_root": "(12327.06, -4428.771, 1025.783)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-430.8398, 6.392981, -76.59418)",
+							"profile_id": "coastal2",
+							"source_root": "(14513.03, -4528.379, 1092.49)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-417.5957, 5.092905, -82.2327)",
+							"profile_id": "coastal2",
+							"source_root": "(15528.61, -4329.163, 999.017)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-392.4391, 2.426629, -99.01207)",
+							"profile_id": "coastal2",
+							"source_root": "(17702.66, -4311.84, 807.3171)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-386.5421, 2.982128, -103.141)",
+							"profile_id": "coastal2",
+							"source_root": "(18220.2, -4319.419, 847.2564)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-359.985, 3.280083, -121.7989)",
+							"profile_id": "coastal2",
+							"source_root": "(20553.41, -4357.313, 868.6787)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-356.329, 2.106033, -125.2078)",
+							"profile_id": "coastal2",
+							"source_root": "(20908.54, -4412.531, 784.2669)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-516.6699, 2.575967, -23.44793)",
+							"profile_id": "coastal2",
+							"source_root": "(7261.113, -4831.536, 818.0543)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-437.9393, 3.600008, -76.9996)",
+							"profile_id": "coastal2",
+							"source_root": "(14107.02, -4839.114, 891.6807)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-434.1535, 3.530811, -79.33199)",
+							"profile_id": "coastal2",
+							"source_root": "(14426.42, -4825.039, 886.7056)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-402.7896, 2.870856, -103.1624)",
+							"profile_id": "coastal2",
+							"source_root": "(17254.43, -4976.617, 839.2562)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-390.3595, 1.668063, -110.7782)",
+							"profile_id": "coastal2",
+							"source_root": "(18301.4, -4927.896, 752.7778)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-368.5704, 5.492025, -123.6164)",
+							"profile_id": "coastal2",
+							"source_root": "(20116.0, -4812.046, 1027.713)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-541.8154, 1.865073, -12.95458)",
+							"profile_id": "coastal2",
+							"source_root": "(5341.487, -5222.39, 766.9424)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-488.5583, 1.258996, -50.16702)",
+							"profile_id": "coastal2",
+							"source_root": "(10012.25, -5286.269, 723.3667)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-466.5899, 3.074652, -65.07415)",
+							"profile_id": "coastal2",
+							"source_root": "(11921.05, -5286.269, 853.9087)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-440.4756, 2.323736, -82.72179)",
+							"profile_id": "coastal2",
+							"source_root": "(14187.14, -5281.938, 799.9194)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-399.8502, 2.513096, -110.9259)",
+							"profile_id": "coastal2",
+							"source_root": "(17742.72, -5319.833, 813.5339)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-395.6447, 1.329938, -115.0536)",
+							"profile_id": "coastal2",
+							"source_root": "(18159.56, -5395.622, 728.4672)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-591.4757, 3.966724, 12.60877)",
+							"profile_id": "coastal2",
+							"source_root": "(1354.988, -5706.357, 918.0469)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-587.7597, 3.149254, 7.866989)",
+							"profile_id": "coastal2",
+							"source_root": "(1767.496, -5838.446, 859.2724)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-581.2943, 2.888098, 5.299622)",
+							"profile_id": "coastal2",
+							"source_root": "(2255.794, -5730.176, 840.4958)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-572.9985, 1.37407, -2.240505)",
+							"profile_id": "coastal2",
+							"source_root": "(3053.743, -5843.859, 731.6402)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-565.8474, 5.083082, -5.218647)",
+							"profile_id": "coastal2",
+							"source_root": "(3599.424, -5732.341, 998.3109)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-563.069, 3.089048, -10.21587)",
+							"profile_id": "coastal2",
+							"source_root": "(3966.459, -5917.483, 854.9437)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-546.1557, 1.048686, -22.22053)",
+							"profile_id": "coastal2",
+							"source_root": "(5457.335, -5948.881, 708.2458)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-478.6346, 2.783613, -66.49158)",
+							"profile_id": "coastal2",
+							"source_root": "(11261.69, -5856.852, 832.9835)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-470.4051, 1.676559, -70.91116)",
+							"profile_id": "coastal2",
+							"source_root": "(11929.71, -5787.559, 753.3886)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-420.2516, 2.453968, -104.5981)",
+							"profile_id": "coastal2",
+							"source_root": "(16273.5, -5766.987, 809.2828)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-596.4702, 1.683186, 5.570183)",
+							"profile_id": "coastal2",
+							"source_root": "(1341.995, -6326.743, 753.8651)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-474.2203, 1.81252, -76.2386)",
+							"profile_id": "coastal2",
+							"source_root": "(11917.8, -6258.533, 763.1639)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-469.2783, 2.116584, -78.66401)",
+							"profile_id": "coastal2",
+							"source_root": "(12309.74, -6203.316, 785.0255)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-438.9246, 1.578324, -102.4277)",
+							"profile_id": "coastal2",
+							"source_root": "(15074.95, -6391.705, 746.3257)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-423.774, 3.143807, -111.9077)",
+							"profile_id": "coastal2",
+							"source_root": "(16359.04, -6344.066, 858.8808)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-574.3728, 1.483998, -17.54105)",
+							"profile_id": "coastal2",
+							"source_root": "(3589.679, -6809.627, 739.5438)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-506.7306, 1.076466, -63.35011)",
+							"profile_id": "coastal2",
+							"source_root": "(9463.323, -6804.213, 710.243)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-473.138, 1.2056, -82.79654)",
+							"profile_id": "coastal2",
+							"source_root": "(12246.94, -6604.997, 719.5275)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-447.1136, 2.909021, -101.7299)",
+							"profile_id": "coastal2",
+							"source_root": "(14559.59, -6680.786, 842.0002)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-436.9131, 3.272676, -108.7426)",
+							"profile_id": "coastal2",
+							"source_root": "(15449.57, -6686.199, 868.1462)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-411.9639, 3.664342, -127.8927)",
+							"profile_id": "coastal2",
+							"source_root": "(17707.0, -6818.289, 896.3062)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-599.8845, 5.181144, -8.41885)",
+							"profile_id": "coastal2",
+							"source_root": "(1703.617, -7296.842, 1005.361)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-577.2178, 1.074249, -20.1783)",
+							"profile_id": "coastal2",
+							"source_root": "(3526.883, -7081.385, 710.0837)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-566.5269, 1.129923, -28.50657)",
+							"profile_id": "coastal2",
+							"source_root": "(4499.146, -7145.264, 714.0865)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-524.7809, 3.424518, -58.59943)",
+							"profile_id": "coastal2",
+							"source_root": "(8197.647, -7250.286, 879.0634)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-427.5346, 2.392704, -121.7673)",
+							"profile_id": "coastal2",
+							"source_root": "(16533.35, -7082.468, 804.8766)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-410.7926, 1.765656, -136.8404)",
+							"profile_id": "coastal2",
+							"source_root": "(18137.91, -7303.338, 759.7944)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-399.2178, 4.267789, -141.8011)",
+							"profile_id": "coastal2",
+							"source_root": "(19026.81, -7131.189, 939.6929)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-393.561, 2.900166, -147.7325)",
+							"profile_id": "coastal2",
+							"source_root": "(19602.8, -7255.7, 841.3635)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-587.9965, 2.86241, -21.52673)",
+							"profile_id": "coastal2",
+							"source_root": "(2940.06, -7596.75, 838.6489)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-550.1681, 3.868083, -46.50443)",
+							"profile_id": "coastal2",
+							"source_root": "(6198.984, -7555.607, 910.9548)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-609.8875, 5.669774, -13.98794)",
+							"profile_id": "coastal2",
+							"source_root": "(1333.334, -8031.995, 1040.493)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-565.0627, 1.428138, -48.09896)",
+							"profile_id": "coastal2",
+							"source_root": "(5377.216, -8251.782, 735.5276)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-543.9008, 1.414186, -58.96479)",
+							"profile_id": "coastal2",
+							"source_root": "(7074.888, -8043.904, 734.5245)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-523.2941, 1.360367, -74.40375)",
+							"profile_id": "coastal2",
+							"source_root": "(8924.14, -8130.521, 730.655)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-613.8887, 2.948286, -20.09909)",
+							"profile_id": "coastal2",
+							"source_root": "(1341.995, -8557.104, 844.8232)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-595.4498, 1.544507, -32.48379)",
+							"profile_id": "coastal2",
+							"source_root": "(2938.977, -8549.525, 743.8943)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-529.9811, 2.03672, -77.47311)",
+							"profile_id": "coastal2",
+							"source_root": "(8650.216, -8583.089, 779.2834)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-526.93, 1.41765, -81.29057)",
+							"profile_id": "coastal2",
+							"source_root": "(8985.853, -8687.028, 734.7735)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-606.863, 3.843866, -32.2733)",
+							"profile_id": "coastal2",
+							"source_root": "(2251.463, -8997.763, 909.2137)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-464.2032, 1.690089, -129.06)",
+							"profile_id": "coastal2",
+							"source_root": "(14646.21, -8996.68, 754.3615)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-537.916, 1.578844, -87.55746)",
+							"profile_id": "coastal2",
+							"source_root": "(8585.254, -9503.384, 746.3631)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-475.2475, 1.102309, -131.2291)",
+							"profile_id": "coastal2",
+							"source_root": "(14076.71, -9571.594, 712.1011)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-476.2149, 1.660207, -136.6508)",
+							"profile_id": "coastal2",
+							"source_root": "(14238.03, -9933.215, 752.2129)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-492.8599, 1.072305, -132.6718)",
+							"profile_id": "coastal2",
+							"source_root": "(13087.12, -10368.46, 709.944)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-536.6334, 2.37568, 52.61066)",
+							"profile_id": "coastal2",
+							"source_root": "(3002.856, -1112.463, 803.6539)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-504.1677, 1.795238, 28.68766)",
+							"profile_id": "coastal2",
+							"source_root": "(5900.16, -1225.064, 761.9214)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-499.2034, 1.795238, 26.93871)",
+							"profile_id": "coastal2",
+							"source_root": "(6266.112, -1128.703, 761.9214)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-490.0375, 1.795238, 18.53522)",
+							"profile_id": "coastal2",
+							"source_root": "(7150.678, -1258.628, 761.9214)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-484.2522, 1.549869, 15.0462)",
+							"profile_id": "coastal2",
+							"source_root": "(7635.727, -1232.643, 744.2798)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-419.9054, 1.567647, -27.19818)",
+							"profile_id": "coastal2",
+							"source_root": "(13169.4, -1148.192, 745.558)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-413.8415, 2.268361, -30.83986)",
+							"profile_id": "coastal2",
+							"source_root": "(13677.19, -1120.042, 795.938)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-534.2249, 2.477239, 43.26015)",
+							"profile_id": "coastal2",
+							"source_root": "(3523.635, -1571.528, 810.9559)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-524.5055, 1.884797, 37.17438)",
+							"profile_id": "coastal2",
+							"source_root": "(4347.569, -1541.212, 768.3605)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-351.1507, 9.194351, -83.5166)",
+							"profile_id": "coastal2",
+							"source_root": "(19533.51, -1723.106, 1293.903)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-344.8339, 5.886322, -88.93127)",
+							"profile_id": "coastal2",
+							"source_root": "(20127.91, -1790.233, 1056.062)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-559.9174, 2.085832, 49.19283)",
+							"profile_id": "coastal2",
+							"source_root": "(1755.586, -2255.794, 782.8145)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-545.611, 1.681861, 39.64874)",
+							"profile_id": "coastal2",
+							"source_root": "(2992.029, -2246.049, 753.7698)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-523.526, 1.190738, 25.20844)",
+							"profile_id": "coastal2",
+							"source_root": "(4888.918, -2213.568, 718.459)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-516.0334, 2.429086, 21.58011)",
+							"profile_id": "coastal2",
+							"source_root": "(5481.155, -2126.952, 807.4938)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-513.1617, 2.664371, 18.81248)",
+							"profile_id": "coastal2",
+							"source_root": "(5763.74, -2175.674, 824.4103)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-506.9059, 2.92675, 17.16988)",
+							"profile_id": "coastal2",
+							"source_root": "(6202.233, -2020.848, 843.2748)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-490.6428, 2.145053, 4.823875)",
+							"profile_id": "coastal2",
+							"source_root": "(7668.208, -2098.802, 787.0724)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-477.3217, 1.659225, -6.708599)",
+							"profile_id": "coastal2",
+							"source_root": "(8926.304, -2247.132, 752.1424)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-370.0626, 5.154205, -79.41879)",
+							"profile_id": "coastal2",
+							"source_root": "(18242.93, -2242.801, 1003.424)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-365.3044, 2.176901, -81.3373)",
+							"profile_id": "coastal2",
+							"source_root": "(18603.47, -2164.847, 789.3621)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-543.0027, 1.146835, 31.23635)",
+							"profile_id": "coastal2",
+							"source_root": "(3486.823, -2641.235, 715.3025)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-537.1452, 2.137416, 26.86127)",
+							"profile_id": "coastal2",
+							"source_root": "(4011.932, -2665.054, 786.5233)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-526.1263, 2.155792, 19.31135)",
+							"profile_id": "coastal2",
+							"source_root": "(4972.287, -2669.385, 787.8445)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-515.77, 3.405949, 14.99546)",
+							"profile_id": "coastal2",
+							"source_root": "(5762.657, -2508.063, 877.7283)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-478.7899, 1.268898, -9.515842)",
+							"profile_id": "coastal2",
+							"source_root": "(8952.289, -2473.416, 724.0786)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-367.0284, 8.484305, -87.33762)",
+							"profile_id": "coastal2",
+							"source_root": "(18743.14, -2591.43, 1242.852)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-515.2529, 1.788422, 5.217735)",
+							"profile_id": "coastal2",
+							"source_root": "(6188.158, -3068.901, 761.4313)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-503.5673, 4.680513, -1.001102)",
+							"profile_id": "coastal2",
+							"source_root": "(7134.437, -2967.127, 969.3669)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-498.1175, 3.352175, -4.6628)",
+							"profile_id": "coastal2",
+							"source_root": "(7606.494, -2964.962, 873.8621)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-444.0865, 2.700816, -40.70793)",
+							"profile_id": "coastal2",
+							"source_root": "(12276.18, -2928.15, 827.0306)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-375.795, 3.036829, -89.85114)",
+							"profile_id": "coastal2",
+							"source_root": "(18323.05, -3094.885, 851.1893)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-456.4445, 4.502483, -44.16936)",
+							"profile_id": "coastal2",
+							"source_root": "(11680.69, -3632.987, 956.5669)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-422.1341, 4.765676, -67.25124)",
+							"profile_id": "coastal2",
+							"source_root": "(14653.78, -3621.077, 975.4899)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-400.8751, 3.646239, -81.05826)",
+							"profile_id": "coastal2",
+							"source_root": "(16475.97, -3584.266, 895.0042)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-389.6572, 3.805896, -87.2691)",
+							"profile_id": "coastal2",
+							"source_root": "(17394.1, -3500.898, 906.4837)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-376.1755, 9.868333, -98.05525)",
+							"profile_id": "coastal2",
+							"source_root": "(18631.62, -3598.341, 1342.361)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-353.8436, 2.425484, -110.3883)",
+							"profile_id": "coastal2",
+							"source_root": "(20458.13, -3430.522, 807.2349)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-564.5999, 1.627411, 22.63394)",
+							"profile_id": "coastal2",
+							"source_root": "(2549.205, -4024.924, 749.855)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-505.6759, 2.712472, -18.24197)",
+							"profile_id": "coastal2",
+							"source_root": "(7705.02, -4077.977, 827.8687)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-500.0093, 1.154977, -20.43107)",
+							"profile_id": "coastal2",
+							"source_root": "(8130.521, -3979.451, 715.8879)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-463.3812, 1.574903, -45.08568)",
+							"profile_id": "coastal2",
+							"source_root": "(11304.99, -3967.542, 746.0797)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-452.5163, 3.710373, -50.52927)",
+							"profile_id": "coastal2",
+							"source_root": "(12171.15, -3852.775, 899.6158)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-443.8097, 6.666941, -60.44096)",
+							"profile_id": "coastal2",
+							"source_root": "(13089.28, -4090.969, 1112.187)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-436.768, 6.373831, -64.54591)",
+							"profile_id": "coastal2",
+							"source_root": "(13673.94, -4050.909, 1091.113)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-411.0302, 5.906201, -81.75607)",
+							"profile_id": "coastal2",
+							"source_root": "(15899.97, -4035.751, 1057.491)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-371.8921, 2.924636, -106.4396)",
+							"profile_id": "coastal2",
+							"source_root": "(19224.94, -3924.233, 843.1229)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-544.9884, 1.023136, 4.012146)",
+							"profile_id": "coastal2",
+							"source_root": "(4467.749, -4341.072, 706.4088)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-535.9841, 2.764637, -2.188885)",
+							"profile_id": "coastal2",
+							"source_root": "(5253.789, -4346.486, 831.6192)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-509.2365, 2.311666, -20.53922)",
+							"profile_id": "coastal2",
+							"source_root": "(7585.922, -4358.396, 799.0515)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-499.332, 2.244053, -29.00722)",
+							"profile_id": "coastal2",
+							"source_root": "(8517.044, -4462.335, 794.1903)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-450.2141, 6.253169, -63.68389)",
+							"profile_id": "coastal2",
+							"source_root": "(12839.18, -4542.455, 1082.438)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-439.8877, 6.774958, -70.61833)",
+							"profile_id": "coastal2",
+							"source_root": "(13733.49, -4538.124, 1119.953)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-564.9066, 3.974789, 9.684494)",
+							"profile_id": "coastal2",
+							"source_root": "(3053.743, -4807.716, 918.6268)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-543.3071, 2.482926, -7.429108)",
+							"profile_id": "coastal2",
+							"source_root": "(5029.669, -4953.881, 811.3647)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-537.7117, 4.025759, -9.133125)",
+							"profile_id": "coastal2",
+							"source_root": "(5431.351, -4829.37, 922.2914)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-534.3148, 1.721891, -11.52916)",
+							"profile_id": "coastal2",
+							"source_root": "(5730.176, -4834.784, 756.6479)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-442.3865, 4.714603, -73.30852)",
+							"profile_id": "coastal2",
+							"source_root": "(13693.43, -4799.054, 971.8179)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-416.9807, 1.566279, -94.33348)",
+							"profile_id": "coastal2",
+							"source_root": "(16053.71, -5024.256, 745.4597)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-590.7004, 2.608297, 18.01543)",
+							"profile_id": "coastal2",
+							"source_root": "(1182.839, -5353.396, 820.3787)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-565.5728, 3.367245, -0.764355)",
+							"profile_id": "coastal2",
+							"source_root": "(3435.936, -5456.253, 874.9456)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-538.402, 1.450371, -17.41823)",
+							"profile_id": "coastal2",
+							"source_root": "(5724.763, -5350.148, 737.1262)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-479.817, 1.80603, -58.90116)",
+							"profile_id": "coastal2",
+							"source_root": "(10884.91, -5453.005, 762.6973)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-458.1423, 2.757618, -72.44428)",
+							"profile_id": "coastal2",
+							"source_root": "(12721.17, -5383.712, 831.1145)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-453.7686, 4.03783, -75.41218)",
+							"profile_id": "coastal2",
+							"source_root": "(13101.19, -5383.712, 923.1592)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-409.8429, 3.236762, -102.5073)",
+							"profile_id": "coastal2",
+							"source_root": "(16808.36, -5222.39, 865.5646)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-404.5533, 2.419125, -107.8802)",
+							"profile_id": "coastal2",
+							"source_root": "(17339.96, -5328.494, 806.7776)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-367.2087, 2.071429, -134.2949)",
+							"profile_id": "coastal2",
+							"source_root": "(20628.12, -5392.374, 781.7789)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-540.6075, 2.159833, -23.56496)",
+							"profile_id": "coastal2",
+							"source_root": "(5841.694, -5804.882, 788.135)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-537.0482, 3.627674, -26.01662)",
+							"profile_id": "coastal2",
+							"source_root": "(6152.429, -5807.047, 893.6699)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-480.2669, 1.448563, -62.83611)",
+							"profile_id": "coastal2",
+							"source_root": "(11017.0, -5705.274, 736.9962)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-424.4051, 1.526114, -101.2519)",
+							"profile_id": "coastal2",
+							"source_root": "(15891.31, -5735.589, 742.5719)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-415.8245, 3.328368, -110.2228)",
+							"profile_id": "coastal2",
+							"source_root": "(16763.96, -5922.896, 872.1503)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-408.8959, 3.055296, -112.8315)",
+							"profile_id": "coastal2",
+							"source_root": "(17281.49, -5798.386, 852.517)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-371.6963, 1.701859, -139.1114)",
+							"profile_id": "coastal2",
+							"source_root": "(20555.58, -5860.1, 755.2076)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-592.3898, 2.509732, 3.001488)",
+							"profile_id": "coastal2",
+							"source_root": "(1688.459, -6314.833, 813.2921)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-567.4628, 1.775586, -15.29633)",
+							"profile_id": "coastal2",
+							"source_root": "(3910.158, -6397.119, 760.5084)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-542.3445, 4.485306, -28.59201)",
+							"profile_id": "coastal2",
+							"source_root": "(5941.302, -6174.083, 955.3318)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-538.0286, 4.74568, -31.99381)",
+							"profile_id": "coastal2",
+							"source_root": "(6335.405, -6202.233, 974.0522)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-534.6811, 1.544772, -35.32085)",
+							"profile_id": "coastal2",
+							"source_root": "(6668.876, -6265.029, 743.9134)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-428.203, 3.554038, -110.067)",
+							"profile_id": "coastal2",
+							"source_root": "(16021.23, -6413.359, 888.3755)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-417.2321, 2.791622, -114.8182)",
+							"profile_id": "coastal2",
+							"source_root": "(16865.74, -6253.12, 833.5593)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-371.2406, 2.517383, -148.2287)",
+							"profile_id": "coastal2",
+							"source_root": "(20950.76, -6384.126, 813.8422)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-599.6014, 1.02849, 1.653053)",
+							"profile_id": "coastal2",
+							"source_root": "(1313.845, -6686.199, 706.7937)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-564.4691, 2.12059, -22.55075)",
+							"profile_id": "coastal2",
+							"source_root": "(4381.132, -6707.854, 785.3135)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-554.6171, 2.452227, -29.78202)",
+							"profile_id": "coastal2",
+							"source_root": "(5259.202, -6740.334, 809.1576)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-548.0742, 1.379867, -35.13171)",
+							"profile_id": "coastal2",
+							"source_root": "(5864.43, -6794.469, 732.0571)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-528.0292, 1.445866, -48.26052)",
+							"profile_id": "coastal2",
+							"source_root": "(7587.005, -6766.319, 736.8022)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-479.7756, 1.122364, -80.85844)",
+							"profile_id": "coastal2",
+							"source_root": "(11773.8, -6757.658, 713.5431)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-463.6175, 1.124918, -90.73097)",
+							"profile_id": "coastal2",
+							"source_root": "(13133.67, -6692.696, 713.7267)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-425.8208, 2.825578, -118.5444)",
+							"profile_id": "coastal2",
+							"source_root": "(16505.2, -6821.537, 836.0004)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-417.6264, 2.219512, -123.6862)",
+							"profile_id": "coastal2",
+							"source_root": "(17200.29, -6796.635, 792.4258)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-393.2736, 2.741967, -139.1559)",
+							"profile_id": "coastal2",
+							"source_root": "(19273.66, -6733.838, 829.9893)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-383.5185, 3.021607, -144.4651)",
+							"profile_id": "coastal2",
+							"source_root": "(20068.37, -6655.884, 850.0948)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-373.0025, 3.126056, -150.6911)",
+							"profile_id": "coastal2",
+							"source_root": "(20945.35, -6601.749, 857.6046)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-604.0193, 3.850334, -1.773235)",
+							"profile_id": "coastal2",
+							"source_root": "(1189.335, -7068.393, 909.6786)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-594.1797, 2.136359, -8.486492)",
+							"profile_id": "coastal2",
+							"source_root": "(2045.75, -7070.558, 786.4473)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-575.2455, 3.217288, -25.15639)",
+							"profile_id": "coastal2",
+							"source_root": "(3845.196, -7297.925, 864.1639)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-561.6129, 1.95704, -32.82379)",
+							"profile_id": "coastal2",
+							"source_root": "(4965.79, -7203.729, 773.5546)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-530.2401, 2.178594, -54.54922)",
+							"profile_id": "coastal2",
+							"source_root": "(7709.35, -7229.715, 789.4839)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-467.0086, 2.56191, -97.82028)",
+							"profile_id": "coastal2",
+							"source_root": "(13218.13, -7251.368, 817.0436)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-450.385, 1.45252, -107.4627)",
+							"profile_id": "coastal2",
+							"source_root": "(14596.4, -7153.925, 737.2807)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-608.6369, 4.318472, -7.666309)",
+							"profile_id": "coastal2",
+							"source_root": "(1152.523, -7605.411, 943.3369)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-603.0317, 4.43579, -12.76189)",
+							"profile_id": "coastal2",
+							"source_root": "(1691.707, -7682.283, 951.7718)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-592.6559, 3.105042, -21.31311)",
+							"profile_id": "coastal2",
+							"source_root": "(2654.227, -7772.146, 856.0937)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-581.8203, 3.926093, -26.77318)",
+							"profile_id": "coastal2",
+							"source_root": "(3519.304, -7659.546, 915.1256)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-555.2917, 3.61881, -46.35801)",
+							"profile_id": "coastal2",
+							"source_root": "(5888.25, -7753.741, 893.0325)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-533.7728, 4.050658, -61.06934)",
+							"profile_id": "coastal2",
+							"source_root": "(7762.402, -7760.237, 924.0817)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-559.3699, 4.348005, -47.59431)",
+							"profile_id": "coastal2",
+							"source_root": "(5695.53, -7991.935, 945.4603)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-555.2299, 1.403977, -54.09796)",
+							"profile_id": "coastal2",
+							"source_root": "(6204.398, -8211.723, 733.7905)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-610.8651, 3.214669, -21.6776)",
+							"profile_id": "coastal2",
+							"source_root": "(1585.603, -8528.954, 863.9756)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-562.4625, 2.248318, -54.43129)",
+							"profile_id": "coastal2",
+							"source_root": "(5787.559, -8523.54, 794.4969)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-543.1113, 4.394458, -69.65528)",
+							"profile_id": "coastal2",
+							"source_root": "(7553.442, -8648.051, 948.8001)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-534.4457, 1.460425, -72.84212)",
+							"profile_id": "coastal2",
+							"source_root": "(8197.647, -8487.811, 737.8489)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-604.1412, 3.12687, -34.4842)",
+							"profile_id": "coastal2",
+							"source_root": "(2502.649, -9019.417, 857.663)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-566.6604, 2.592099, -58.04314)",
+							"profile_id": "coastal2",
+							"source_root": "(5683.62, -8907.898, 819.2141)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-527.0337, 1.371886, -85.27847)",
+							"profile_id": "coastal2",
+							"source_root": "(9140.68, -8928.47, 731.4833)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-501.4045, 1.510648, -111.1502)",
+							"profile_id": "coastal2",
+							"source_root": "(11709.92, -9433.008, 741.4599)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-514.7661, 2.418457, 26.398)",
+							"profile_id": "coastal2",
+							"source_root": "(5362.058, -1789.15, 806.7296)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-430.6622, 1.681083, -35.05828)",
+							"profile_id": "coastal2",
+							"source_root": "(12846.76, -2050.081, 753.7139)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-443.018, 3.185518, -35.70046)",
+							"profile_id": "coastal2",
+							"source_root": "(12137.59, -2587.1, 861.8797)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-398.9512, 3.205014, -87.8779)",
+							"profile_id": "coastal2",
+							"source_root": "(16865.74, -3912.324, 863.2815)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-403.1577, 1.045193, -96.08823)",
+							"profile_id": "coastal2",
+							"source_root": "(16946.94, -4570.605, 707.9946)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-379.8751, 3.131052, -108.12)",
+							"profile_id": "coastal2",
+							"source_root": "(18817.85, -4346.486, 857.9637)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-466.9165, 1.357014, -72.31388)",
+							"profile_id": "coastal2",
+							"source_root": "(12193.89, -5730.176, 730.414)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(-612.1677, 2.763653, -27.21776)",
+							"profile_id": "coastal2",
+							"source_root": "(1731.767, -8911.146, 831.5485)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(428.582, 2.102308, 161.3626)",
+							"profile_id": "cat_island",
+							"source_root": "(3843.673, -4827.744, 695.9828)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(434.9299, 1.054403, 165.9682)",
+							"profile_id": "cat_island",
+							"source_root": "(4032.257, -4968.843, 664.5126)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(443.3959, 1.048455, 167.2364)",
+							"profile_id": "cat_island",
+							"source_root": "(4143.959, -5200.389, 664.334)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(457.4625, 5.464504, 176.4952)",
+							"profile_id": "cat_island",
+							"source_root": "(4534.693, -5521.479, 796.9545)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(464.9266, 6.672565, 181.7005)",
+							"profile_id": "cat_island",
+							"source_root": "(4750.412, -5689.259, 833.2343)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(477.2953, 2.578917, 193.1101)",
+							"profile_id": "cat_island",
+							"source_root": "(5187.727, -5942.513, 710.2961)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(498.4983, 4.516342, 199.3511)",
+							"profile_id": "cat_island",
+							"source_root": "(5555.396, -6495.148, 768.4798)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(503.3183, 6.124434, 191.8646)",
+							"profile_id": "cat_island",
+							"source_root": "(5383.546, -6700.013, 816.7731)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(509.8927, 11.28593, 197.2513)",
+							"profile_id": "cat_island",
+							"source_root": "(5596.55, -6840.659, 971.7805)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(513.2616, 11.02582, 201.0466)",
+							"profile_id": "cat_island",
+							"source_root": "(5735.388, -6903.52, 963.9691)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(516.5422, 4.130198, 185.1924)",
+							"profile_id": "cat_island",
+							"source_root": "(5309.831, -7138.684, 756.8833)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(518.3636, 12.97902, 191.0129)",
+							"profile_id": "cat_island",
+							"source_root": "(5492.987, -7139.136, 1022.626)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(519.1281, 5.109156, 205.2181)",
+							"profile_id": "cat_island",
+							"source_root": "(5907.238, -7034.669, 786.2828)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(525.7213, 6.749947, 199.0262)",
+							"profile_id": "cat_island",
+							"source_root": "(5788.299, -7278.878, 835.5582)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(527.1434, 6.239991, 184.3477)",
+							"profile_id": "cat_island",
+							"source_root": "(5379.928, -7450.276, 820.2435)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(535.6638, 3.759153, 206.8841)",
+							"profile_id": "cat_island",
+							"source_root": "(6102.153, -7494.144, 745.7402)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(526.8243, 3.158154, 154.8052)",
+							"profile_id": "cat_island",
+							"source_root": "(4529.719, -7703.982, 727.6913)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(532.8846, 6.014045, 174.9514)",
+							"profile_id": "cat_island",
+							"source_root": "(5161.497, -7698.556, 813.458)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(541.1528, 1.39715, 210.6524)",
+							"profile_id": "cat_island",
+							"source_root": "(6259.08, -7618.057, 674.8058)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(537.8048, 3.15916, 147.0001)",
+							"profile_id": "cat_island",
+							"source_root": "(4403.544, -8088.385, 727.7216)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(542.4542, 1.340069, 151.0604)",
+							"profile_id": "cat_island",
+							"source_root": "(4561.375, -8185.617, 673.0916)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(379.0397, 1.202407, 156.2186)",
+							"profile_id": "cat_island",
+							"source_root": "(3255.311, -3452.487, 668.9574)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(456.3278, 3.280121, 172.6848)",
+							"profile_id": "cat_island",
+							"source_root": "(4415.303, -5522.835, 731.3542)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(462.2501, 1.845713, 185.3215)",
+							"profile_id": "cat_island",
+							"source_root": "(4830.458, -5580.27, 688.2769)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(462.3183, 2.180998, 171.1576)",
+							"profile_id": "cat_island",
+							"source_root": "(4424.8, -5708.253, 698.3459)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(469.7223, 5.131177, 185.8258)",
+							"profile_id": "cat_island",
+							"source_root": "(4911.409, -5790.108, 786.9442)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(484.3358, 4.947778, 191.7144)",
+							"profile_id": "cat_island",
+							"source_root": "(5210.338, -6156.874, 781.4364)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(483.3539, 4.500089, 195.1566)",
+							"profile_id": "cat_island",
+							"source_root": "(5300.333, -6098.083, 767.9916)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(489.8455, 6.098739, 193.3636)",
+							"profile_id": "cat_island",
+							"source_root": "(5306.665, -6300.233, 816.0015)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(510.2656, 2.561768, 189.4572)",
+							"profile_id": "cat_island",
+							"source_root": "(5376.31, -6920.705, 709.781)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(519.8521, 7.962581, 185.4428)",
+							"profile_id": "cat_island",
+							"source_root": "(5346.462, -7231.393, 871.9754)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(524.1649, 8.163413, 191.9252)",
+							"profile_id": "cat_island",
+							"source_root": "(5570.773, -7297.42, 878.0067)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(526.3425, 4.27174, 203.9261)",
+							"profile_id": "cat_island",
+							"source_root": "(5934.373, -7253.101, 761.134)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(529.2356, 6.502782, 162.4767)",
+							"profile_id": "cat_island",
+							"source_root": "(4771.214, -7704.887, 828.1355)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(531.585, 6.818849, 168.7798)",
+							"profile_id": "cat_island",
+							"source_root": "(4972.913, -7716.193, 837.6274)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(529.3973, 1.343908, 142.2608)",
+							"profile_id": "cat_island",
+							"source_root": "(4192.801, -7889.4, 673.2069)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(532.5425, 7.324647, 154.2296)",
+							"profile_id": "cat_island",
+							"source_root": "(4564.089, -7873.12, 852.8173)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(533.1671, 2.561465, 141.2491)",
+							"profile_id": "cat_island",
+							"source_root": "(4197.324, -8006.53, 709.7719)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(421.7149, 2.871027, 160.6233)",
+							"profile_id": "cat_island",
+							"source_root": "(3761.365, -4637.352, 719.0685)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(449.7148, 1.329837, 173.2226)",
+							"profile_id": "cat_island",
+							"source_root": "(4371.888, -5328.373, 672.7843)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(464.5228, 6.961394, 174.6046)",
+							"profile_id": "cat_island",
+							"source_root": "(4543.286, -5740.814, 841.9083)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(470.4305, 6.51009, 173.6234)",
+							"profile_id": "cat_island",
+							"source_root": "(4567.707, -5918.997, 828.355)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(472.662, 4.954731, 180.1051)",
+							"profile_id": "cat_island",
+							"source_root": "(4773.476, -5925.328, 781.6453)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(475.1221, 3.434877, 185.4436)",
+							"profile_id": "cat_island",
+							"source_root": "(4948.492, -5948.392, 736.0018)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(490.6151, 1.82976, 189.5931)",
+							"profile_id": "cat_island",
+							"source_root": "(5205.364, -6355.859, 687.7978)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(497.5328, 6.536682, 194.5107)",
+							"profile_id": "cat_island",
+							"source_root": "(5407.967, -6510.524, 829.1536)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(504.6387, 7.583041, 197.9509)",
+							"profile_id": "cat_island",
+							"source_root": "(5569.868, -6683.732, 860.5773)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(506.122, 2.741565, 202.1734)",
+							"profile_id": "cat_island",
+							"source_root": "(5704.183, -6688.707, 715.1805)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(517.2606, 15.66109, 198.6393)",
+							"profile_id": "cat_island",
+							"source_root": "(5701.921, -7039.644, 1103.173)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(519.4078, 2.291813, 180.5037)",
+							"profile_id": "cat_island",
+							"source_root": "(5200.841, -7262.598, 701.6739)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(526.7671, 6.499709, 176.1711)",
+							"profile_id": "cat_island",
+							"source_root": "(5142.05, -7512.233, 828.0432)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(534.5827, 1.87746, 202.789)",
+							"profile_id": "cat_island",
+							"source_root": "(5975.074, -7499.571, 689.2303)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(532.9565, 1.323997, 183.112)",
+							"profile_id": "cat_island",
+							"source_root": "(5396.208, -7628.006, 672.6089)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(538.3168, 1.621869, 200.7477)",
+							"profile_id": "cat_island",
+							"source_root": "(5949.749, -7624.841, 681.5545)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(539.3031, 4.749288, 205.9601)",
+							"profile_id": "cat_island",
+							"source_root": "(6108.032, -7606.751, 775.4755)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(533.1207, 6.415074, 163.0058)",
+							"profile_id": "cat_island",
+							"source_root": "(4820.961, -7811.615, 825.5015)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(534.4363, 4.882715, 167.5011)",
+							"profile_id": "cat_island",
+							"source_root": "(4961.607, -7809.354, 779.4825)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(535.6294, 5.309299, 172.6179)",
+							"profile_id": "cat_island",
+							"source_root": "(5118.986, -7798.048, 792.2935)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(539.9166, 1.192618, 177.5946)",
+							"profile_id": "cat_island",
+							"source_root": "(5299.882, -7876.738, 668.6635)"
+						},
+						{
+							"adaptive": true,
+							"kind": "palm",
+							"position": "(538.6547, 3.291778, 151.6714)",
+							"profile_id": "cat_island",
+							"source_root": "(4545.095, -8071.2, 731.7043)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-31.81719, 6.353539, 425.7079)",
+							"profile_id": "virgin_islands",
+							"source_root": "(3132.818, -3139.505, 946.3179)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-36.40251, 3.691427, 422.0714)",
+							"profile_id": "virgin_islands",
+							"source_root": "(3418.862, -3100.127, 814.9747)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-105.8459, 3.050884, 341.3836)",
+							"profile_id": "virgin_islands",
+							"source_root": "(8393.798, -1415.811, 783.3716)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-19.71067, 3.019914, 430.2031)",
+							"profile_id": "virgin_islands",
+							"source_root": "(2505.75, -3026.573, 781.8437)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-17.03114, 4.853413, 427.3261)",
+							"profile_id": "virgin_islands",
+							"source_root": "(2464.144, -2837.115, 872.3047)"
+						},
+						{
+							"adaptive": true,
+							"kind": "canopy",
+							"position": "(-21.77675, 4.157859, 424.4344)",
+							"profile_id": "virgin_islands",
+							"source_root": "(2738.301, -2833.401, 837.9875)"
+						}
+					],
+					"camera_pool_restored": false,
+					"canopy_patch_count": 9,
+					"canopy_source_sha256": "e9cbafe21b5b0e6852426c720fb012f6936ac0af520921d25b484dd676cbf398",
+					"canopy_triangles": 3519,
+					"canopy_vertices": 3312,
+					"exact_source": false,
+					"forest_spacing": 6.4,
+					"mode": "mapped",
+					"owned_nodes": 11,
+					"palm_ffp_restored": false,
+					"palm_source_sha256": "04fa5c279a1967c17fa91d573dde6909171dd33fc13546c761cf07ea79a06739",
+					"palm_triangles": 1046,
+					"palm_vertices": 1612,
+					"population_mode": "adaptive",
+					"scope": "Original mesh, CXD and shader stream; mapped roots/building masks are explicit game terrain adaptation. exact_source bypasses anchoring and retains source Z while adapting horizontal axes. All positive patches, no claimed original camera/LOD/pool scheduler. Palm diffuse/ambient is diagnostic, not recovered full FFP.",
+					"simulation_time": 13.0,
+					"texture_mips": "original BC mip payload"
+				}
+			],
+			"waveDescriptorsChanged": false
+		}
+	},
+	"sourceManifestSha256": "622f90ac2a2e33a975093b8c9967fd71a0724358bb83859271d006b373a9cb1c",
+	"viewport": [
+		1600,
+		900
+	],
+	"world": {}
+}

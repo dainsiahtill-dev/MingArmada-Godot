@@ -18,7 +18,7 @@ var _startup_capture_path := ""
 var _startup_game_capture_path := ""
 var _startup_game_capture_mode := ""
 var _active_scene_request: Dictionary = {}
-const RELEASE_GAME_MODES := ["mingqi","career","sail","duel","fleet"]
+const RELEASE_GAME_MODES := ["mingqi","mingqi-continue","sail","duel","fleet"]
 
 static func startup_flags(arguments: PackedStringArray) -> Dictionary:
 	return DevelopmentAccess.startup_flags(arguments)
@@ -38,7 +38,7 @@ func _ready() -> void:
 func _request_startup_game(arguments: PackedStringArray) -> bool:
 	# Ordinary packaged arguments exercise the same visible menu button and
 	# generation/nonce router as an interactive click; no developer access.
-	if _disposed or current_scene or _candidate or not menu or arguments.has("--water-study"): return false
+	if _disposed or current_scene or _candidate or not menu or arguments.has("--water-study") or arguments.has("--sea-island"): return false
 	var mode := ""
 	var has_mode := false
 	var capture := ""
@@ -53,20 +53,24 @@ func _request_startup_game(arguments: PackedStringArray) -> bool:
 	if mode not in RELEASE_GAME_MODES: return false
 	if has_capture and (not capture.is_absolute_path() or capture.begins_with("user://") or capture.begins_with("res://") or capture.get_extension().to_lower()!="png"): return false
 	var button: Button=menu.find_child(mode,true,false)
-	if button==null or button.disabled or not menu.visible: return false
+	if button==null or button.disabled or not button.is_visible_in_tree() or not menu.visible: return false
 	_startup_game_capture_path=capture
-	_startup_game_capture_mode=mode
+	_startup_game_capture_mode="mingqi" if mode == "mingqi-continue" else mode
 	button.pressed.emit()
 	return true
 
 func _request_startup_preview(arguments: PackedStringArray) -> void:
-	# A normal user entry works in release templates without path overrides.
-	if not arguments.has("--water-study") or _disposed or current_scene or _candidate or not menu: return
-	var button: Button = menu.find_child("water-study",true,false)
-	if button == null or button.disabled or not menu.visible: return
+	# One ordinary preview shares the actual game world. Source comparison is
+	# available only after trusted development access has exposed its controls.
+	var public_preview := arguments.has("--sea-island")
+	var source_preview := arguments.has("--water-study")
+	if public_preview == source_preview or _disposed or current_scene or _candidate or not menu: return
+	var button: Button = menu.find_child("fidelity-island" if public_preview else "water-study",true,false)
+	if button == null or button.disabled or not button.is_visible_in_tree() or not menu.visible: return
+	var prefix := "--sea-island-capture=" if public_preview else "--water-study-capture="
 	for argument in arguments:
-		if argument.begins_with("--water-study-capture="):
-			_startup_capture_path = argument.trim_prefix("--water-study-capture=")
+		if argument.begins_with(prefix):
+			_startup_capture_path = argument.trim_prefix(prefix)
 			break
 	button.pressed.emit()
 
@@ -91,7 +95,7 @@ func _capture_startup_preview(path: String, request: Dictionary) -> void:
 	if not _capture_request_current(request) or not is_instance_valid(preview) or current_scene != preview: return
 	if not saved.ok:
 		printerr("ISLAND_WATER_STARTUP_CAPTURE failures=1 reason=",saved.get("reason","capture-failed")); return
-	var metadata := {"route":"release main entry --water-study, actual menu button", "engine":Engine.get_version_info(), "gpu":RenderingServer.get_video_adapter_name(), "renderingMethod":RenderingServer.get_current_rendering_method(), "saved":saved, "snapshot":preview.inspection_snapshot(), "pngSha256":FileAccess.get_sha256(path)}
+	var metadata := {"route":"actual main menu preview", "mode":request.mode,"engine":Engine.get_version_info(), "gpu":RenderingServer.get_video_adapter_name(), "renderingMethod":RenderingServer.get_current_rendering_method(), "saved":saved, "snapshot":preview.inspection_snapshot(), "pngSha256":FileAccess.get_sha256(path)}
 	var file := FileAccess.open(path+".json",FileAccess.WRITE)
 	if file == null:
 		printerr("ISLAND_WATER_STARTUP_CAPTURE failures=1 reason=metadata-write-failed"); return
@@ -184,7 +188,7 @@ func _handle_intent(request: Dictionary) -> void:
 		return
 	menu.apply_status({"phase":"loading","progress":15,"message":"正在准备航程与本地设置。"},prepared.generation,prepared.nonce)
 	_load_prepared.call_deferred(prepared,false)
-	if not startup_capture.is_empty() and prepared.get("mode") == "water-study":
+	if not startup_capture.is_empty() and prepared.get("mode") in ["water-study","fidelity-island"]:
 		_capture_startup_preview.call_deferred(startup_capture,prepared.duplicate(true))
 	if not game_capture.is_empty() and prepared.get("mode")==game_capture_mode and game_capture_mode in RELEASE_GAME_MODES:
 		_capture_startup_game.call_deferred(game_capture,prepared.duplicate(true))

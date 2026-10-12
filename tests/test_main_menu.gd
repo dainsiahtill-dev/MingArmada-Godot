@@ -33,11 +33,14 @@ func _run() -> void:
 	captain.text = "\uFEFF海\t \u3000上  明旗\u00A0"; captain.text_changed.emit(captain.text)
 	menu.apply_view_model({"settings":{"captainName":"后到快照"},"mingqiSlot":"unreadable"},10)
 	check(captain.text.contains("明旗"),"same-generation refresh preserves edited draft")
+	menu.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT); menu.size = Vector2(1600,600); menu.resized.emit()
+	await process_frame; await process_frame
 	menu.find_child("quit",true,false).grab_focus(); await process_frame; await process_frame
-	check(initial_scroll.scroll_vertical > 0,"keyboard focus follows lower native control after stable initial layout")
+	check(initial_scroll.scroll_vertical > 0,"keyboard focus follows lower native control in a short window after stable initial layout")
 	var start = menu.find_child("mingqi",true,false); start.pressed.emit(); start.pressed.emit()
 	await process_frame; await process_frame
 	check(initial_scroll.scroll_vertical == 0,"loading reset keeps status at top after lower-control keyboard scroll")
+	menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	check(intents.size() == 1 and intents[0].type == "start" and intents[0].mode == "mingqi" and intents[0].name == "海 上 明旗","new 1650 normalizes source whitespace and suppresses duplicate click")
 	check(intents[0].generation == 10 and intents[0].nonce > 0,"entry carries owner generation and monotonic nonce")
 	var first: Dictionary = intents[0].duplicate(true)

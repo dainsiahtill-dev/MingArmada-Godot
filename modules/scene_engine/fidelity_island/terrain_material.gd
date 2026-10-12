@@ -1,5 +1,5 @@
 extends RefCounted
-## Original Cat BHI texture/weight inputs, adapted to existing Godot terrain.
+## Original per-island BHI texture/weight inputs, mapped to existing Godot terrain.
 ## Default lighting retains the game's present scene. Source-light diagnostics
 ## are optional; this does not claim original D3D draw or framebuffer parity.
 
@@ -8,6 +8,16 @@ const TerrainShader = preload("res://modules/scene_engine/fidelity_island/terrai
 const SOURCE_PATH := "res://assets/data/fidelity_island/cat-island-original.json"
 const MANIFEST_PATH := "res://assets/data/fidelity_island/manifest.json"
 const TERRAIN_SCENE_PATH := "res://assets/data/fidelity_island/terrain-scene.json"
+const SOURCE_PATHS := {
+	"cat_island": SOURCE_PATH,
+	"coastal2": "res://assets/data/fidelity_island/coastal2-original.json",
+	"virgin_islands": "res://assets/data/fidelity_island/virgin-islands-original.json"
+}
+const SOURCE_HASHES := {
+	"cat_island": "3b5fdc5b3b4bff1be775b869bb338bcdcaf46518755f1353bf036423c33a11ca",
+	"coastal2": "b70f93a85b7dcad6fa9e9f1ab8b0e7a91cd498ccdf3f13c92c4414af0cef0b57",
+	"virgin_islands": "bbd6fb2ac950e44ee2b7758be51ef29c5ac81744983e1eafbbc5cfec2bb39c09"
+}
 const TEXTURE_IDS := [1, 2, 3, 16, 17, 32, 33, 64, 48, 49]
 const NIBBLE_SCALE := 0.06666667014360428
 const NORMAL_SCALE := 0.007874015718698502
@@ -16,18 +26,25 @@ const TEXTURE_UNIFORMS := {
 	17: "tex_grass_beach", 32: "tex_rock", 33: "tex_rock_forest", 64: "tex_forest"
 }
 static var _default_source: Dictionary = {}
+static var _source_cache: Dictionary = {}
 static var _field_cache: Dictionary = {}
 static var _textures: Dictionary = {}
 
-static func load_source() -> Dictionary:
-	if not _default_source.is_empty():
-		return _default_source
-	if not FileAccess.file_exists(SOURCE_PATH):
+static func load_source(id: String = "cat_island") -> Dictionary:
+	if not SOURCE_PATHS.has(id):
 		return {}
-	var result: Variant = JSON.parse_string(FileAccess.get_file_as_string(SOURCE_PATH))
+	if _source_cache.has(id):
+		return _source_cache[id]
+	var path: String = SOURCE_PATHS[id]
+	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path) != SOURCE_HASHES[id]:
+		return {}
+	var result: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if result is Dictionary and valid_source(result):
-		_default_source = result
-	return _default_source
+		_source_cache[id] = result
+		if id == "cat_island":
+			_default_source = result
+		return result
+	return {}
 
 static func valid_source(source: Dictionary) -> bool:
 	for key: String in ["width", "height"]:
@@ -140,7 +157,7 @@ static func build_material_field(source: Dictionary, packed_weights: bool = true
 		heights.set_pixel(x, y, Color(float(decoded.height), 0.0, 0.0, 1.0))
 	return {"weightImages": weight_images, "normalImage": normals, "heightImage": heights,
 		"width": width, "height": height, "packedWeights": packed_weights,
-		"identity": "Original Cat BHI independent nibble weights, original height fade, original normal swizzle; no normalization."}
+		"identity": "Original per-island BHI independent nibble weights, original height fade, original normal swizzle; no normalization."}
 
 static func _source_color(source: Dictionary, id: int) -> Vector3:
 	for texture: Dictionary in source.textures:
@@ -193,17 +210,32 @@ static func _load_textures() -> Dictionary:
 	return _textures
 
 static func create_material(field: Dictionary = {}, mapping: Dictionary = {}) -> ShaderMaterial:
-	var source := load_source() if field.is_empty() else field
+	var source_id := str(mapping.get("id", "cat_island"))
+	var known_profile := SOURCE_PATHS.has(source_id)
+	var source := load_source(source_id if known_profile else "cat_island") if field.is_empty() else field
 	if source.is_empty() or not valid_source(source):
+		return null
+	if not field.is_empty() and known_profile and mapping.has("id") and source != load_source(source_id):
 		return null
 	if mapping.has("sourceCenter") and not Coordinates.valid_mapping(mapping):
 		return null
 	var textures := _load_textures()
 	if textures.is_empty():
 		return null
-	var use_source := Coordinates.valid_mapping(mapping) and str(mapping.get("material_kind", "cat_bhi")) != "game_adapted"
+	# Height authority's source ID selects its matching BHI and native parameters.
+	# Legacy "game_adapted" is a fallback request only when no known ID is supplied.
+	var use_source := Coordinates.valid_mapping(mapping) and (known_profile and mapping.has("id") or str(mapping.get("material_kind", "cat_bhi")) != "game_adapted")
+	if not known_profile and field.is_empty():
+		use_source = false
 	var material := ShaderMaterial.new()
 	material.shader = TerrainShader
+	if not use_source:
+		var height_gain := clampf(float(mapping.get("heightGain",1.0)),0.1,1.0)
+		# Compact source islands have real inland ground just above sea level.
+		# Vegetation begins before distant mountain heights; otherwise a lowered
+		# height profile incorrectly paints most habitable land as white beach.
+		material.set_shader_parameter("game_land_start",1.0*height_gain)
+		material.set_shader_parameter("game_land_end",5.0*height_gain)
 	material.set_shader_parameter("native_sand_color", _source_color(source, 48))
 	material.set_shader_parameter("native_wet_color", _source_color(source, 49))
 	material.set_shader_parameter("native_texture_scale", float(source.terrain.texturescale)*float(source.global.navtexturescaling))
@@ -214,8 +246,8 @@ static func create_material(field: Dictionary = {}, mapping: Dictionary = {}) ->
 	material.set_shader_parameter("use_source_material_field", use_source)
 	if use_source:
 		var packed := bool(mapping.get("packed_weights", true))
-		var is_default := field.is_empty() or source == _default_source
-		var cache_key := FileAccess.get_sha256(SOURCE_PATH) + (":packed" if packed else ":float") if is_default else ""
+		var loaded_source: Dictionary = _source_cache.get(source_id, {})
+		var cache_key := str(SOURCE_HASHES[source_id]) + (":packed" if packed else ":float") if known_profile and source == loaded_source else ""
 		var maps: Dictionary = _field_cache.get(cache_key, {}) if not cache_key.is_empty() else {}
 		if maps.is_empty():
 			maps = build_material_field(source, packed)
@@ -241,7 +273,9 @@ static func create_material(field: Dictionary = {}, mapping: Dictionary = {}) ->
 	for key: String in ["source_light_direction", "source_light_color", "source_ambient"]:
 		if mapping.get(key) is Vector3 and mapping[key].is_finite():
 			material.set_shader_parameter(key, mapping[key])
-	material.set_meta("fidelity_island_scope", "Cat source BHI mapped to unchanged game terrain" if use_source else "Game terrain height/slope adaptation using original Cat material textures")
+	material.set_meta("fidelity_island_source", SOURCE_PATHS.get(source_id, SOURCE_PATH) if field.is_empty() else "custom source field")
+	material.set_meta("fidelity_island_source_id", source_id if known_profile else "")
+	material.set_meta("fidelity_island_scope", "Original "+source_id+" source BHI mapped to unchanged game terrain" if use_source else "Game terrain height/slope adaptation using original Cat material textures")
 	return material
 
 static func configure_chunk(chunk: MeshInstance3D, field: Dictionary = {}, mapping: Dictionary = {}) -> bool:
@@ -257,7 +291,7 @@ static func diagnostics(material: ShaderMaterial) -> Dictionary:
 	if material == null or material.shader != TerrainShader:
 		return {}
 	return {"scope": material.get_meta("fidelity_island_scope", ""),
-		"source": SOURCE_PATH, "originalMipRegistry": MANIFEST_PATH,
+		"source": material.get_meta("fidelity_island_source", SOURCE_PATH), "sourceId": material.get_meta("fidelity_island_source_id", ""), "originalMipRegistry": MANIFEST_PATH,
 		"usesSourceBhi": material.get_shader_parameter("use_source_material_field"),
 		"sourceLighting": material.get_shader_parameter("enable_source_lighting"),
 		"nativeIds": TEXTURE_IDS.duplicate(), "normalAxes": "native[G,R,B] -> Godot[column,up,-row]",

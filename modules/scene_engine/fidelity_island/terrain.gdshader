@@ -1,4 +1,6 @@
 shader_type spatial;
+uniform float game_land_start = 3.0;
+uniform float game_land_end = 12.0;
 render_mode unshaded, cull_disabled, fog_disabled;
 
 // Original BHI/UnderDark RGB algebra with an explicit Godot world adapter.
@@ -132,7 +134,7 @@ void fragment() {
 		float slope = 1.0-clamp(normal.y, 0.0, 1.0);
 		float rock = smoothstep(0.22, 0.64, slope)*smoothstep(0.2, 3.0, height);
 		rock = max(rock, smoothstep(80.0, 140.0, height)*0.6);
-		float land = smoothstep(3.0, 12.0, height)*(1.0-rock);
+		float land = smoothstep(game_land_start, game_land_end, height)*(1.0-rock);
 		float wet = 1.0-smoothstep(-0.3, 1.5, height);
 		float beach = (1.0-land-rock)*(1.0-wet);
 		float seabed = (1.0-land-rock)*wet;
