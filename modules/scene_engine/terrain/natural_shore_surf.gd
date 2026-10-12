@@ -3,8 +3,7 @@ extends Node3D
 ## triangle coastline. Numeric terrain is read once, never changed. All clocks
 ## come from the caller, and geometry is built once rather than on camera moves.
 const Source = preload("res://modules/scene_engine/fidelity_island/mesh_asset.gd")
-const Native = preload("res://modules/scene_engine/fidelity_island/native_math.gd")
-const Authored = preload("res://modules/scene_engine/fidelity_island/shore.gd")
+const PreparedSampler = preload("res://modules/scene_engine/fidelity_island/compiled_shore_sampler.gd")
 const SHADER = preload("res://modules/scene_engine/terrain/natural_shore_surf.gdshader")
 const SOURCE_PATH := "res://assets/data/fidelity_island/shore-scene.json"
 const DEFAULT_SPAN := 12.0
@@ -23,6 +22,9 @@ var _time := 0.0
 var _geometry_builds := 0
 var _surface_wave_count := 0
 var _configured := false
+var _sampler: RefCounted
+var _has_applied_time := false
+var _surface_state: Dictionary = {}
 var _native_uv := Vector4(0.0,0.0,3.0,1.0)
 var _authored_aspect := 1.0
 var _patch_length := 12.0
@@ -42,6 +44,8 @@ func configure(field: RefCounted, options: Dictionary = {}) -> bool:
 		if not is_finite(h): return false
 	_source=Source.read_json(SOURCE_PATH)
 	if _source.get("meshes",[]).size()!=8: return false
+	_sampler=PreparedSampler.new()
+	if not _sampler.configure(_source): return false
 	var texture: Texture2D=Source.texture_from_entry(_source.texture)
 	if texture==null: return false
 	# The source is authored as separate short quads. Preserve its UV bounds
@@ -202,21 +206,20 @@ func _build_patch(packet: Dictionary,texture: Texture2D,ground: Texture2D,bounds
 func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 	var value: Variant=snapshot.get("time")
 	if not _configured or not (value is float or value is int) or not is_finite(float(value)): return
+	if _has_applied_time and float(value)==_time: return
+	_has_applied_time=true
 	_time=float(value); _states.clear()
 	for i in _materials.size():
 		var packet: Dictionary=_packets[i]
-		var source: Dictionary=_source.meshes[packet.sourceIndex]
 		var packet_time: float=_time*float(packet.clockSpeed)+float(packet.clockOffset)
-		var state: Dictionary=Authored.authored_state(source,_source.curves,packet_time)
-		var controller: Dictionary=source.controllers.alpha
-		var native_clock:=Native.ControllerClock.new(controller)
-		var phase: float=(native_clock.advance(packet_time)-float(controller.start_time))/(float(controller.stop_time)-float(controller.start_time))
+		var state: Dictionary=_sampler.sample(int(packet.sourceIndex),packet_time)
+		var phase: float=_sampler.alpha_phase
 		# GAME adaptation: the recovered alpha has a 47.7% full-bright plateau.
 		# Grow then erode during that approach; keep the exact source sample
 		# separately so this envelope is never mistaken for recovered evidence.
 		var envelope: float=smoothstep(0.07,0.29,phase)*(1.0-smoothstep(0.32,0.88,phase))
 		var visible_alpha: float=clampf(state.alpha,0.0,1.0)*envelope*DISPLAY_ALPHA_PEAK
-		_materials[i].set_shader_parameter("texture_matrix",Native.texture_basis(Native.texture_transform(source.texture,state)))
+		_materials[i].set_shader_parameter("texture_matrix",_sampler.texture_matrix)
 		_materials[i].set_shader_parameter("controller_alpha",visible_alpha)
 		var extent: Vector4=packet.uvBounds
 		_materials[i].set_shader_parameter("packet_u_metres",float(packet.span)/(extent.z-extent.x)/float(state.scaleU))
@@ -239,10 +242,14 @@ func sync_surface_state(ocean_material: ShaderMaterial,_state: Dictionary = {}) 
 	for component: Vector4 in components:
 		if not component.is_finite(): return false
 	_surface_wave_count=int(count)
-	for material: ShaderMaterial in _materials:
-		for key: String in ["wave_components","wave_count","simulation_time","shore_height_texture","shore_bounds","has_shore_field","coastal_attenuation","coast_distance_texture","has_coast_distance","normal_texture","surface_visual_scale"]:
-			material.set_shader_parameter(key,ocean_material.get_shader_parameter(key))
-		material.set_shader_parameter("surface_tide",ocean_material.get_shader_parameter("u_tide"))
+	for key: String in ["wave_components","wave_count","simulation_time","shore_height_texture","shore_bounds","has_shore_field","coastal_attenuation","coast_distance_texture","has_coast_distance","normal_texture","surface_visual_scale","surface_tide"]:
+		var current: Variant=ocean_material.get_shader_parameter("u_tide" if key=="surface_tide" else key)
+		if _surface_state.has(key) and _surface_state[key]==current: continue
+		# ShaderMaterial retains PackedArray references. Snapshot changed wave
+		# values so caller mutations cannot make the cache appear already current.
+		if key=="wave_components": current=current.duplicate()
+		for material: ShaderMaterial in _materials: material.set_shader_parameter(key,current)
+		_surface_state[key]=current
 	return true
 
 func diagnostics() -> Dictionary:
@@ -250,4 +257,5 @@ func diagnostics() -> Dictionary:
 func dispose() -> void:
 	for child: Node in get_children(): remove_child(child); child.free()
 	_materials.clear(); _packets.clear(); _states.clear(); _contours.clear(); _source.clear(); _field=null
+	_sampler=null; _has_applied_time=false; _surface_state.clear()
 	_vertices=0; _geometry_builds=0; _surface_wave_count=0; _coast_error=0.0; _configured=false

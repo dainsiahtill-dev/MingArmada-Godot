@@ -332,6 +332,13 @@ func snapshot() -> Dictionary:
 		depart = depart and voyage.status == "loading" and vessel.damage.hull > 0 and vessel.crew.able >= vessel.crew.minimum
 	return {"campaign":state,"naval":native,"story":OpeningStory.project(state),"runtime":{"generation":_generation,"selectedShipId":native.playerId,"orderStatuses":simulation.encounter.orderStatus(),"paused":is_paused(),"pauseReasons":_pauses.keys(),"timeScale":_rate,"canSave":safe.ok,"saveReason":safe.get("reason",""),"status":"error" if _error else "ready","error":_error,"portId":state.currentPortId,"canDock":docks,"canDepart":depart,"departReason":"" if depart else "unsafe-port","eligibility":_eligibility(state,native,policy,docks),"controllableShipIds":policy.controllableShipIds,"policy":policy,"notice":_notice,"noticeRevision":_notice_revision,"acceptedSeconds":_accepted,"rejectedSeconds":_rejected,"handlingMode":_handling_mode,"handlingStatus":simulation.handling_status(),"drafts":_drafts.duplicate(true),"draftResults":_draft_results.duplicate(true)}}
 func render_snapshot() -> Dictionary: return simulation.render_snapshot()
+func requires_immediate_actor_presentation() -> bool:
+	# Reading this buffer does not acknowledge it. The scene presents and
+	# drains the original ordered events exactly once after preparing the rig.
+	for event: Dictionary in _events:
+		if event.get("type") == "fire": return true
+		if event.get("type") == "hit" and float(event.get("damage",{}).get("crew",0.0)) > 0.0: return true
+	return false
 func drain_events() -> Array:
 	var result := _events; _events = []; return result
 func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample_height(x,z,seconds)

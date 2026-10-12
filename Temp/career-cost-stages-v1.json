@@ -1,0 +1,2008 @@
+{
+	"failures": 2,
+	"godot": "4.7.2-stable (official)",
+	"gpu": "",
+	"headless": true,
+	"scenes": [
+		{
+			"entryWallMs": 6223.726,
+			"initialPause": [],
+			"mode": "mingqi",
+			"nodeCount": 5683.0,
+			"phases": [
+				{
+					"samples": [
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.004,
+							"interfaceMs": 2.105,
+							"minimapMs": 0.077,
+							"observeMs": 0.057,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.024,
+									"crewAllocation": 0.57,
+									"crewApply": 0.645,
+									"crewLOD": 0.909,
+									"crewModel": 0.007,
+									"effects": 0.007,
+									"shipApply": 3.956,
+									"shipCopy": 0.036,
+									"shipLOD": 0.008,
+									"wakes": 0.004,
+									"world": 57.984
+								},
+								"methodTotalMs": 64.15,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.154,
+											"crewApply": 0.174,
+											"crewLOD": 0.268,
+											"crewModel": 0.003,
+											"shipApply": 0.665,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.135,
+											"crewApply": 0.152,
+											"crewLOD": 0.202,
+											"crewModel": 0.001,
+											"shipApply": 0.814,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.132,
+											"crewApply": 0.15,
+											"crewLOD": 0.193,
+											"crewModel": 0.001,
+											"shipApply": 0.794,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.131,
+											"crewApply": 0.134,
+											"crewLOD": 0.205,
+											"crewModel": 0.001,
+											"shipApply": 0.89,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.035,
+											"crewLOD": 0.041,
+											"crewModel": 0.001,
+											"shipApply": 0.793,
+											"shipCopy": 0.009,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 67.345,
+							"servicesMs": 0.216,
+							"snapshotMs": 2.009,
+							"wholePhysicsMethodMs": 69.162
+						},
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.003,
+							"interfaceMs": 2.114,
+							"minimapMs": 0.074,
+							"observeMs": 0.063,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.023,
+									"crewAllocation": 0.75,
+									"crewApply": 0.83,
+									"crewLOD": 0.979,
+									"crewModel": 0.011,
+									"effects": 0.007,
+									"shipApply": 4.352,
+									"shipCopy": 0.041,
+									"shipLOD": 0.01,
+									"wakes": 0.005,
+									"world": 59.302
+								},
+								"methodTotalMs": 66.31,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.156,
+											"crewApply": 0.175,
+											"crewLOD": 0.271,
+											"crewModel": 0.003,
+											"shipApply": 0.683,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.134,
+											"crewApply": 0.148,
+											"crewLOD": 0.202,
+											"crewModel": 0.001,
+											"shipApply": 0.835,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.318,
+											"crewApply": 0.243,
+											"crewLOD": 0.248,
+											"crewModel": 0.002,
+											"shipApply": 0.793,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.123,
+											"crewApply": 0.226,
+											"crewLOD": 0.218,
+											"crewModel": 0.003,
+											"shipApply": 1.184,
+											"shipCopy": 0.009,
+											"shipLOD": 0.003
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.019,
+											"crewApply": 0.038,
+											"crewLOD": 0.04,
+											"crewModel": 0.002,
+											"shipApply": 0.857,
+											"shipCopy": 0.012,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 64.816,
+							"servicesMs": 0.197,
+							"snapshotMs": 1.502,
+							"wholePhysicsMethodMs": 69.633
+						},
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.003,
+							"interfaceMs": 2.409,
+							"minimapMs": 0.1,
+							"observeMs": 0.072,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.03,
+									"crewAllocation": 0.641,
+									"crewApply": 0.707,
+									"crewLOD": 0.955,
+									"crewModel": 0.009,
+									"effects": 0.009,
+									"shipApply": 4.24,
+									"shipCopy": 0.041,
+									"shipLOD": 0.007,
+									"wakes": 0.004,
+									"world": 58.293
+								},
+								"methodTotalMs": 64.936,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.189,
+											"crewApply": 0.194,
+											"crewLOD": 0.325,
+											"crewModel": 0.003,
+											"shipApply": 0.771,
+											"shipCopy": 0.006,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.159,
+											"crewApply": 0.169,
+											"crewLOD": 0.211,
+											"crewModel": 0.001,
+											"shipApply": 0.906,
+											"shipCopy": 0.009,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.15,
+											"crewApply": 0.151,
+											"crewLOD": 0.2,
+											"crewModel": 0.002,
+											"shipApply": 0.889,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.118,
+											"crewApply": 0.152,
+											"crewLOD": 0.181,
+											"crewModel": 0.001,
+											"shipApply": 0.879,
+											"shipCopy": 0.01,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.025,
+											"crewApply": 0.041,
+											"crewLOD": 0.038,
+											"crewModel": 0.002,
+											"shipApply": 0.795,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 62.875,
+							"servicesMs": 0.176,
+							"snapshotMs": 1.487,
+							"wholePhysicsMethodMs": 68.343
+						},
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.004,
+							"interfaceMs": 2.154,
+							"minimapMs": 0.084,
+							"observeMs": 0.066,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.025,
+									"crewAllocation": 0.571,
+									"crewApply": 0.65,
+									"crewLOD": 0.899,
+									"crewModel": 0.01,
+									"effects": 0.006,
+									"shipApply": 4.112,
+									"shipCopy": 0.039,
+									"shipLOD": 0.009,
+									"wakes": 0.005,
+									"world": 58.839
+								},
+								"methodTotalMs": 65.165,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.156,
+											"crewApply": 0.179,
+											"crewLOD": 0.286,
+											"crewModel": 0.003,
+											"shipApply": 0.778,
+											"shipCopy": 0.009,
+											"shipLOD": 0.003
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.137,
+											"crewApply": 0.151,
+											"crewLOD": 0.196,
+											"crewModel": 0.002,
+											"shipApply": 0.841,
+											"shipCopy": 0.008,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.141,
+											"crewApply": 0.151,
+											"crewLOD": 0.193,
+											"crewModel": 0.002,
+											"shipApply": 0.787,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.118,
+											"crewApply": 0.136,
+											"crewLOD": 0.186,
+											"crewModel": 0.002,
+											"shipApply": 0.876,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.019,
+											"crewApply": 0.033,
+											"crewLOD": 0.038,
+											"crewModel": 0.001,
+											"shipApply": 0.83,
+											"shipCopy": 0.008,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 64.735,
+							"servicesMs": 0.182,
+							"snapshotMs": 1.495,
+							"wholePhysicsMethodMs": 70.574
+						},
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.003,
+							"interfaceMs": 2.185,
+							"minimapMs": 0.083,
+							"observeMs": 0.071,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.025,
+									"crewAllocation": 0.577,
+									"crewApply": 0.635,
+									"crewLOD": 0.889,
+									"crewModel": 0.006,
+									"effects": 0.007,
+									"shipApply": 3.993,
+									"shipCopy": 0.035,
+									"shipLOD": 0.006,
+									"wakes": 0.005,
+									"world": 54.103
+								},
+								"methodTotalMs": 60.281,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.162,
+											"crewApply": 0.176,
+											"crewLOD": 0.273,
+											"crewModel": 0.002,
+											"shipApply": 0.708,
+											"shipCopy": 0.006,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.149,
+											"crewApply": 0.149,
+											"crewLOD": 0.21,
+											"crewModel": 0.001,
+											"shipApply": 0.854,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.132,
+											"crewApply": 0.146,
+											"crewLOD": 0.194,
+											"crewModel": 0.001,
+											"shipApply": 0.787,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.117,
+											"crewApply": 0.131,
+											"crewLOD": 0.176,
+											"crewModel": 0.001,
+											"shipApply": 0.867,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.017,
+											"crewApply": 0.033,
+											"crewLOD": 0.036,
+											"crewModel": 0.001,
+											"shipApply": 0.777,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 66.876,
+							"servicesMs": 0.176,
+							"snapshotMs": 1.393,
+							"wholePhysicsMethodMs": 70.913
+						},
+						{
+							"acceptedTime": 0.133333333333333,
+							"advanceMs": 0.003,
+							"interfaceMs": 1.965,
+							"minimapMs": 0.074,
+							"observeMs": 0.064,
+							"paused": true,
+							"presentation": {
+								"acceptedTime": 0.133333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.022,
+									"crewAllocation": 0.558,
+									"crewApply": 0.643,
+									"crewLOD": 0.877,
+									"crewModel": 0.007,
+									"effects": 0.006,
+									"shipApply": 3.921,
+									"shipCopy": 0.038,
+									"shipLOD": 0.007,
+									"wakes": 0.004,
+									"world": 56.129
+								},
+								"methodTotalMs": 62.212,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.157,
+											"crewApply": 0.179,
+											"crewLOD": 0.268,
+											"crewModel": 0.002,
+											"shipApply": 0.62,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.134,
+											"crewApply": 0.148,
+											"crewLOD": 0.201,
+											"crewModel": 0.002,
+											"shipApply": 0.87,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.132,
+											"crewApply": 0.146,
+											"crewLOD": 0.196,
+											"crewModel": 0.001,
+											"shipApply": 0.786,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.117,
+											"crewApply": 0.134,
+											"crewLOD": 0.176,
+											"crewModel": 0.001,
+											"shipApply": 0.871,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.036,
+											"crewLOD": 0.036,
+											"crewModel": 0.001,
+											"shipApply": 0.774,
+											"shipCopy": 0.012,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 62.019,
+							"servicesMs": 0.166,
+							"snapshotMs": 2.328,
+							"wholePhysicsMethodMs": 66.807
+						}
+					],
+					"state": "paused"
+				},
+				{
+					"samples": [
+						{
+							"acceptedTime": 0.166666666666667,
+							"advanceMs": 5.091,
+							"interfaceMs": 2.149,
+							"minimapMs": 0.079,
+							"observeMs": 0.044,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.166666666666667,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.024,
+									"crewAllocation": 0.555,
+									"crewApply": 0.634,
+									"crewLOD": 0.886,
+									"crewModel": 0.006,
+									"effects": 0.008,
+									"shipApply": 3.9,
+									"shipCopy": 0.034,
+									"shipLOD": 0.006,
+									"wakes": 0.005,
+									"world": 59.837
+								},
+								"methodTotalMs": 65.895,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.157,
+											"crewApply": 0.175,
+											"crewLOD": 0.27,
+											"crewModel": 0.002,
+											"shipApply": 0.666,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.135,
+											"crewApply": 0.155,
+											"crewLOD": 0.204,
+											"crewModel": 0.001,
+											"shipApply": 0.842,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.128,
+											"crewApply": 0.142,
+											"crewLOD": 0.203,
+											"crewModel": 0.001,
+											"shipApply": 0.811,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.118,
+											"crewApply": 0.128,
+											"crewLOD": 0.173,
+											"crewModel": 0.001,
+											"shipApply": 0.823,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.017,
+											"crewApply": 0.034,
+											"crewLOD": 0.036,
+											"crewModel": 0.001,
+											"shipApply": 0.758,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 72.159,
+							"servicesMs": 0.068,
+							"snapshotMs": 1.328,
+							"wholePhysicsMethodMs": 78.01
+						},
+						{
+							"acceptedTime": 0.2,
+							"advanceMs": 5.558,
+							"interfaceMs": 2.111,
+							"minimapMs": 0.077,
+							"observeMs": 0.071,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.2,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.023,
+									"crewAllocation": 0.58,
+									"crewApply": 0.653,
+									"crewLOD": 0.91,
+									"crewModel": 0.01,
+									"effects": 0.007,
+									"shipApply": 3.975,
+									"shipCopy": 0.038,
+									"shipLOD": 0.007,
+									"wakes": 0.007,
+									"world": 57.659
+								},
+								"methodTotalMs": 63.869,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.156,
+											"crewApply": 0.173,
+											"crewLOD": 0.266,
+											"crewModel": 0.003,
+											"shipApply": 0.662,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.155,
+											"crewApply": 0.154,
+											"crewLOD": 0.202,
+											"crewModel": 0.002,
+											"shipApply": 0.832,
+											"shipCopy": 0.009,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.127,
+											"crewApply": 0.142,
+											"crewLOD": 0.194,
+											"crewModel": 0.001,
+											"shipApply": 0.786,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.124,
+											"crewApply": 0.146,
+											"crewLOD": 0.206,
+											"crewModel": 0.002,
+											"shipApply": 0.883,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.038,
+											"crewLOD": 0.042,
+											"crewModel": 0.002,
+											"shipApply": 0.812,
+											"shipCopy": 0.01,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 77.727,
+							"servicesMs": 0.068,
+							"snapshotMs": 1.395,
+							"wholePhysicsMethodMs": 78.759
+						},
+						{
+							"acceptedTime": 0.233333333333333,
+							"advanceMs": 5.058,
+							"interfaceMs": 2.106,
+							"minimapMs": 0.091,
+							"observeMs": 0.065,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.233333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.024,
+									"crewAllocation": 0.677,
+									"crewApply": 0.824,
+									"crewLOD": 1.141,
+									"crewModel": 0.01,
+									"effects": 0.007,
+									"shipApply": 5.026,
+									"shipCopy": 0.047,
+									"shipLOD": 0.013,
+									"wakes": 0.005,
+									"world": 57.551
+								},
+								"methodTotalMs": 65.325,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.161,
+											"crewApply": 0.189,
+											"crewLOD": 0.287,
+											"crewModel": 0.002,
+											"shipApply": 0.657,
+											"shipCopy": 0.005,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.142,
+											"crewApply": 0.158,
+											"crewLOD": 0.23,
+											"crewModel": 0.001,
+											"shipApply": 0.923,
+											"shipCopy": 0.008,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.136,
+											"crewApply": 0.155,
+											"crewLOD": 0.208,
+											"crewModel": 0.001,
+											"shipApply": 1.285,
+											"shipCopy": 0.01,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.215,
+											"crewApply": 0.275,
+											"crewLOD": 0.371,
+											"crewModel": 0.004,
+											"shipApply": 1.126,
+											"shipCopy": 0.01,
+											"shipLOD": 0.005
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.023,
+											"crewApply": 0.047,
+											"crewLOD": 0.045,
+											"crewModel": 0.002,
+											"shipApply": 1.035,
+											"shipCopy": 0.014,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 67.122,
+							"servicesMs": 0.066,
+							"snapshotMs": 1.368,
+							"wholePhysicsMethodMs": 79.157
+						},
+						{
+							"acceptedTime": 0.266666666666667,
+							"advanceMs": 5.252,
+							"interfaceMs": 2.07,
+							"minimapMs": 0.078,
+							"observeMs": 0.065,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.266666666666667,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.023,
+									"crewAllocation": 0.55,
+									"crewApply": 0.615,
+									"crewLOD": 0.882,
+									"crewModel": 0.007,
+									"effects": 0.007,
+									"shipApply": 3.866,
+									"shipCopy": 0.036,
+									"shipLOD": 0.007,
+									"wakes": 0.004,
+									"world": 59.177
+								},
+								"methodTotalMs": 65.174,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.154,
+											"crewApply": 0.172,
+											"crewLOD": 0.264,
+											"crewModel": 0.002,
+											"shipApply": 0.644,
+											"shipCopy": 0.006,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.131,
+											"crewApply": 0.148,
+											"crewLOD": 0.196,
+											"crewModel": 0.002,
+											"shipApply": 0.832,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.134,
+											"crewApply": 0.139,
+											"crewLOD": 0.195,
+											"crewModel": 0.001,
+											"shipApply": 0.804,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.113,
+											"crewApply": 0.124,
+											"crewLOD": 0.193,
+											"crewModel": 0.001,
+											"shipApply": 0.83,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.032,
+											"crewLOD": 0.034,
+											"crewModel": 0.001,
+											"shipApply": 0.756,
+											"shipCopy": 0.008,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 65.946,
+							"servicesMs": 0.066,
+							"snapshotMs": 1.337,
+							"wholePhysicsMethodMs": 81.021
+						},
+						{
+							"acceptedTime": 0.3,
+							"advanceMs": 4.859,
+							"interfaceMs": 2.03,
+							"minimapMs": 0.079,
+							"observeMs": 0.068,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.3,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.023,
+									"crewAllocation": 0.548,
+									"crewApply": 0.629,
+									"crewLOD": 0.926,
+									"crewModel": 0.01,
+									"effects": 0.006,
+									"shipApply": 3.92,
+									"shipCopy": 0.036,
+									"shipLOD": 0.006,
+									"wakes": 0.004,
+									"world": 56.673
+								},
+								"methodTotalMs": 62.781,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.146,
+											"crewApply": 0.167,
+											"crewLOD": 0.264,
+											"crewModel": 0.003,
+											"shipApply": 0.651,
+											"shipCopy": 0.006,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.127,
+											"crewApply": 0.143,
+											"crewLOD": 0.188,
+											"crewModel": 0.001,
+											"shipApply": 0.816,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.137,
+											"crewApply": 0.149,
+											"crewLOD": 0.255,
+											"crewModel": 0.002,
+											"shipApply": 0.762,
+											"shipCopy": 0.006,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.12,
+											"crewApply": 0.135,
+											"crewLOD": 0.184,
+											"crewModel": 0.002,
+											"shipApply": 0.902,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.035,
+											"crewLOD": 0.035,
+											"crewModel": 0.002,
+											"shipApply": 0.789,
+											"shipCopy": 0.008,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 65.078,
+							"servicesMs": 0.119,
+							"snapshotMs": 1.285,
+							"wholePhysicsMethodMs": 77.792
+						},
+						{
+							"acceptedTime": 0.333333333333333,
+							"advanceMs": 5.495,
+							"interfaceMs": 2.471,
+							"minimapMs": 0.103,
+							"observeMs": 0.072,
+							"paused": false,
+							"presentation": {
+								"acceptedTime": 0.333333333333333,
+								"consumed": 0.0,
+								"crewActive": 84,
+								"kinds": {
+									"fuchuan": 1,
+									"merchant": 3,
+									"patrol": 1
+								},
+								"methodMs": {
+									"allocation": 0.027,
+									"crewAllocation": 0.565,
+									"crewApply": 0.65,
+									"crewLOD": 0.892,
+									"crewModel": 0.006,
+									"effects": 0.008,
+									"shipApply": 3.981,
+									"shipCopy": 0.034,
+									"shipLOD": 0.007,
+									"wakes": 0.004,
+									"world": 62.204
+								},
+								"methodTotalMs": 68.378,
+								"ok": true,
+								"projectiles": 0,
+								"scope": "CPU same-time method replay; excludes camera/event handling, Sea snapshot copy and metadata collection; not FPS/GPU timing",
+								"shipCount": 5,
+								"ships": [
+									{
+										"allocated": 24,
+										"crew": {
+											"active": 24,
+											"clips": {
+												"haul": 1,
+												"idle": 23
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-flagship",
+										"kind": "fuchuan",
+										"methodMs": {
+											"crewAllocation": 0.157,
+											"crewApply": 0.18,
+											"crewLOD": 0.271,
+											"crewModel": 0.002,
+											"shipApply": 0.69,
+											"shipCopy": 0.006,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-a",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.135,
+											"crewApply": 0.15,
+											"crewLOD": 0.201,
+											"crewModel": 0.001,
+											"shipApply": 0.818,
+											"shipCopy": 0.007,
+											"shipLOD": 0.002
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 20,
+										"crew": {
+											"active": 20,
+											"clips": {
+												"idle": 20
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-grain-b",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.134,
+											"crewApply": 0.148,
+											"crewLOD": 0.198,
+											"crewModel": 0.001,
+											"shipApply": 0.796,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 18,
+										"crew": {
+											"active": 18,
+											"clips": {
+												"idle": 18
+											},
+											"impacts": 0,
+											"lod": 0
+										},
+										"id": "mingqi-1650-fast",
+										"kind": "patrol",
+										"methodMs": {
+											"crewAllocation": 0.121,
+											"crewApply": 0.136,
+											"crewLOD": 0.186,
+											"crewModel": 0.001,
+											"shipApply": 0.864,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 0
+									},
+									{
+										"allocated": 8,
+										"crew": {
+											"active": 2,
+											"clips": {
+												"idle": 2
+											},
+											"impacts": 0,
+											"lod": 2
+										},
+										"id": "mingqi-1650-background-grain-01",
+										"kind": "merchant",
+										"methodMs": {
+											"crewAllocation": 0.018,
+											"crewApply": 0.036,
+											"crewLOD": 0.036,
+											"crewModel": 0.001,
+											"shipApply": 0.813,
+											"shipCopy": 0.007,
+											"shipLOD": 0.001
+										},
+										"modelInstances": 3,
+										"shipLOD": 1
+									}
+								],
+								"sourceFire": 0,
+								"wakesSameTimeReentry": true
+							},
+							"seaMs": 72.243,
+							"servicesMs": 0.075,
+							"snapshotMs": 1.563,
+							"wholePhysicsMethodMs": 80.632
+						}
+					],
+					"state": "running"
+				}
+			],
+			"shipCount": 5
+		}
+	],
+	"scope": "Actual game entry and CPU method costs; no FPS/GPU performance claim."
+}

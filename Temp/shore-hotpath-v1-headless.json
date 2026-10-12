@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "scope": "Exact authored shore sampling and same-time cache; headless contracts only",
+  "production_frozen": true,
+  "changed_production": [
+    "modules/scene_engine/terrain/natural_shore_surf.gd",
+    "modules/scene_engine/fidelity_island/compiled_shore_sampler.gd"
+  ],
+  "new_test": "tests/test_natural_shore_hotpath.gd",
+  "native_math_oracle_unchanged": true,
+  "red": {
+    "assertions": 8,
+    "failures": 3,
+    "exit_code": 1,
+    "seconds": 0.5729161,
+    "failed_contracts": ["Prepared stateless sampler exists", "Same-time actual consumer retains its computed state object", "Consumer owns a prepared sampler for its configured lifetime"]
+  },
+  "green": [
+    {"test": "test_natural_shore_hotpath.gd", "assertions": 50, "failures": 0, "exit_code": 0, "seconds": 0.796913},
+    {"test": "test_natural_shore_surf.gd", "assertions": 52, "failures": 0, "exit_code": 0, "seconds": 0.8899693},
+    {"test": "test_fidelity_island_shore.gd", "assertions": 205, "failures": 0, "exit_code": 0, "seconds": 0.6781383},
+    {"test": "test_natural_game_world.gd", "assertions": 158, "failures": 0, "exit_code": 0}
+  ],
+  "packed_array_review_regression": {
+    "red_assertions": 50,
+    "red_failures": 2,
+    "red_exit_code": 1,
+    "cause": "Actual Godot ShaderMaterial and cache retained a PackedArray alias, so caller mutation could make the dirty check appear already current",
+    "fix": "Duplicate wave_components only when its actual value changes, then submit that snapshot to every patch and retain it as the comparison state",
+    "green_assertions": 50,
+    "green_failures": 0,
+    "evidence": "Caller mutation leaves old cache and actual target ShaderMaterial values intact before sync; explicit sync then submits the new values"
+  },
+  "exact_math_evidence": {
+    "original_source_meshes": 8,
+    "actual_source_flags": 40,
+    "translation_period_seconds": 30.0,
+    "alpha_and_scale_period_seconds": 29.96666717529297,
+    "float32_random_bit_cases": 4096,
+    "additional_float32_bit_cases": ["Positive/signed zero", "Binary32 halfway ties", "Subnormal and underflow tie", "Maximum finite binary32"],
+    "oracle_consumed": "Existing Authored.authored_state, Native.ControllerClock, Native.texture_transform and Native.f32 execute independently in the tests",
+    "state_comparison": "Binary32 bits of original translationU/scaleU/alpha; exact alpha phase and all nine matrix-store bytes",
+    "times": "Both period boundaries per all eight phases, before/at/after boundaries, negative time, rewind, 3600/18000/1000000.25 seconds",
+    "real_packet_times": [12.0, 12.000000001, 30.0, 29.96666717529297, 60.0, 6.0]
+  },
+  "caches": {
+    "source_sampling": "Strict equal accepted float64 time, only after a successful initial application; time/focus/render delta is never quantized",
+    "prepared_data": "Per-source controller scalar data and original binary32 key stores; per-sampler reusable four-byte encode/decode and nine-float matrix storage",
+    "clock_semantics": "Stateless original fresh/reset clock at epoch zero; raw uses original double sum plus phase then binary32 store; translation retains its different period",
+    "surface_uniforms": "Each actual ocean parameter value/resource identity independently; read once per synchronization and propagate only changed values. Changed PackedVector4Array wave data is duplicated once before binding/cache storage, so caller mutation cannot alias the snapshot",
+    "same_time_invalidations_verified": ["Tide", "Surface visual scale", "Changed five-wave component data", "New coast Texture2D and has_coast_distance flag"],
+    "lifecycle": "Configure builds full initial t=0; rewind samples every packet; invalid clock leaves accepted state intact; dispose clears sampler and surface cache; reconfigure reproduces complete initial state"
+  },
+  "preserved": [
+    "All source patch and paired-wave population",
+    "Original meshes/topology/UV bounds",
+    "Original texture and eight authored mips",
+    "Original source alpha/UV/controller curves and phases",
+    "Existing game display opacity/lifetime envelope",
+    "Exact injected time and every changed-time packet sample",
+    "Ocean five-wave data and independent live surface synchronization",
+    "All game physics/ships/crew/forest/UI"
+  ],
+  "review": "Independent source/diff review reported no concrete P1/P2; reviewer did not run Godot or timing",
+  "limitations": ["No GPU run by this agent", "Focused headless timings are execution duration, not FPS or a measured gameplay performance gain", "Root will repeat original CPU stages and GPU shore verification after both builders freeze"]
+}

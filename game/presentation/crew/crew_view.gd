@@ -31,11 +31,17 @@ var _loss_budget := 0
 var _water := Callable()
 var _deck_frame := Transform3D.IDENTITY
 var _previous_deck_frame := Transform3D.IDENTITY
+var _impact_managed := false
+var _has_impact_phase := false
+var _impact_phase := 0.0
 
 func configure(ship_kind: String, ship_model: Node3D, asset_library = null) -> bool:
 	if _library != null:
 		dispose()
 	_disposed = false
+	_impact_managed = false
+	_has_impact_phase = false
+	_impact_phase = 0.0
 	_kind = ship_kind
 	_model = ship_model
 	_deck_frame = ship_model.global_transform if is_instance_valid(ship_model) else global_transform
@@ -63,6 +69,8 @@ func set_impact_pool(pool) -> void:
 		_pool.free()
 	_pool = pool
 	_own_pool = false
+	_impact_managed = false
+	_has_impact_phase = false
 
 func set_ship_model(model: Node3D) -> bool:
 	if _disposed or model == _model:
@@ -74,6 +82,10 @@ func set_ship_model(model: Node3D) -> bool:
 	_deck = next
 	if _pool != null:
 		_pool.remove_deck(_ship_id)
+		if _impact_managed and _has_impact_phase:
+			# A LOD deck replacement keeps the physics-owned frame and pending
+			# bone request; it must not advance the pool merely to register faces.
+			_pool.register_deck(_ship_id, _deck.faces, _deck_frame)
 	_reconcile()
 	return true
 
@@ -122,15 +134,9 @@ func apply_snapshot(ship: Dictionary, _wind: Dictionary = {}, consumed: float = 
 	var supplied: float = ship.get("time", _time + delta)
 	if not is_finite(supplied):
 		return
-	if supplied < _time - 1.0e-8:
-		if _pool != null:
-			_pool.remove_ship(_ship_id)
-		_seen.clear()
-		_fire_velocities.clear()
-		_fire_until = {"port": 0.0, "starboard": 0.0}
-		_sheet_until = 0.0
-		_loss_budget = 0
-		_ship.clear()
+	var impacts_current := _impact_managed and _has_impact_phase and supplied == _impact_phase
+	if supplied < _time - 1.0e-8 and not impacts_current:
+		_reset_impact_timeline()
 	# Terminal snapshots remove standing coverage immediately, but their drawn
 	# skins survive until this accepted tick's authoritative hit events transfer them.
 	for instance: Dictionary in _retired.values():
@@ -146,16 +152,48 @@ func apply_snapshot(ship: Dictionary, _wind: Dictionary = {}, consumed: float = 
 		_time = supplied
 	_ship = ship.duplicate(true)
 	_ship_id = ship.get("id", "")
-	_previous_deck_frame = _deck_frame
-	_deck_frame = _model.global_transform
 	if _pool != null:
-		_pool.register_deck(_ship_id, _deck.faces, _deck_frame)
-		if _own_pool:
-			_pool.advance(delta, _time)
+		if not impacts_current:
+			# Standalone callers retain their original stepping. Once managed,
+			# a manual capture at a new phase is the fallback physics owner.
+			_advance_impact_frame(delta, _time, _model.global_transform, false)
 		_pose_impacts()
 	_retire_for_hit = lost > 0
 	_reconcile()
 	_retire_for_hit = false
+
+func advance_impacts(phase: float, consumed: float, authoritative_model_transform: Transform3D) -> void:
+	# Scene physics calls this even with an empty pool. Standing skin animation,
+	# authoritative crew-loss bookkeeping and event transfer remain in render.
+	if _disposed or _deck == null or _pool == null or not is_finite(phase) or not is_finite(consumed) or consumed < 0.0 or not authoritative_model_transform.is_finite():
+		return
+	var rewound := _has_impact_phase and phase < _impact_phase - 1.0e-8
+	if not _has_impact_phase:
+		rewound = phase < _time - 1.0e-8
+	if rewound:
+		_reset_impact_timeline()
+	_impact_managed = true
+	_advance_impact_frame(consumed, phase, authoritative_model_transform, rewound)
+
+func _advance_impact_frame(consumed: float, phase: float, frame: Transform3D, rewound: bool) -> void:
+	_previous_deck_frame = frame if rewound else _deck_frame
+	_deck_frame = frame
+	_pool.register_deck(_ship_id, _deck.faces, _deck_frame)
+	if _own_pool:
+		_pool.advance(consumed, phase)
+	if _impact_managed:
+		_impact_phase = phase
+		_has_impact_phase = true
+
+func _reset_impact_timeline() -> void:
+	if _pool != null:
+		_pool.remove_ship(_ship_id)
+	_seen.clear()
+	_fire_velocities.clear()
+	_fire_until = {"port": 0.0, "starboard": 0.0}
+	_sheet_until = 0.0
+	_loss_budget = 0
+	_ship.clear()
 
 func _actual_count(ship: Dictionary) -> int:
 	var count: float = ship.get("crew", 0.0)
@@ -363,6 +401,9 @@ func dispose() -> void:
 	if _disposed:
 		return
 	_disposed = true
+	_impact_managed = false
+	_has_impact_phase = false
+	_impact_phase = 0.0
 	if _pool != null:
 		_pool.remove_ship(_ship_id)
 		if _own_pool:

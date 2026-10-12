@@ -1,0 +1,513 @@
+{
+	"damage": {
+		"accepted_time": 0.0,
+		"ended": false,
+		"hull_stage": 0,
+		"mast_age": -1.0,
+		"material_count": 240,
+		"sail_quantized": 60,
+		"sail_stage": 3,
+		"sinking_age": -1.0
+	},
+	"effects": {
+		"events": 0,
+		"projectiles": 0,
+		"puffs": 0,
+		"source_effects": [],
+		"source_fire": 0,
+		"source_particles": 0,
+		"splashes": 0,
+		"water": {
+			"accepted_time": 0.0,
+			"droplet_capacity": 0,
+			"droplet_positions": [],
+			"droplets": 0,
+			"fidelity_sources": [],
+			"splashes": 0
+		}
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"inspection": {
+		"chunks": {
+			"builds": 0,
+			"center": {
+				"x": 0,
+				"z": 0
+			},
+			"chunks": 0,
+			"pendingCreates": 0,
+			"pendingDisposes": 0,
+			"scheduling": "synchronous native world"
+		},
+		"export": "",
+		"originalMetrics": {
+			"fps": 0.0,
+			"frames": 0,
+			"p95Ms": 0.0,
+			"seconds": 0.0
+		},
+		"sailors": {
+			"battleId": "visual-damage",
+			"budget": 120,
+			"impacts": {
+				"active": 0,
+				"bodies": [],
+				"cap": 12
+			},
+			"ships": [
+				{
+					"acceptedTime": 0.0,
+					"crew": 45.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"lod": 0,
+					"roles": [
+						{
+							"clip": "idle",
+							"role": "helm",
+							"side": "",
+							"slot": 0
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 1
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "port",
+							"slot": 2
+						},
+						{
+							"clip": "idle",
+							"role": "cannon",
+							"side": "port",
+							"slot": 3
+						},
+						{
+							"clip": "idle",
+							"role": "walk",
+							"side": "",
+							"slot": 4
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 5
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 6
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 7
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 8
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 9
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 10
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 11
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 12
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 13
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 14
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 15
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 16
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 17
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 18
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 19
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 20
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 21
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 22
+						},
+						{
+							"clip": "idle",
+							"role": "idle",
+							"side": "",
+							"slot": 23
+						}
+					],
+					"visible": 24
+				},
+				{
+					"acceptedTime": 0.0,
+					"crew": 30.0,
+					"id": "inspection-voc",
+					"kind": "voc",
+					"lod": 1,
+					"roles": [
+						{
+							"clip": "idle",
+							"role": "helm",
+							"side": "",
+							"slot": 0
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 1
+						},
+						{
+							"clip": "load-cannon",
+							"role": "cannon",
+							"side": "port",
+							"slot": 2
+						},
+						{
+							"clip": "load-cannon",
+							"role": "cannon",
+							"side": "starboard",
+							"slot": 3
+						},
+						{
+							"clip": "idle",
+							"role": "haul",
+							"side": "",
+							"slot": 4
+						},
+						{
+							"clip": "load-cannon",
+							"role": "cannon",
+							"side": "starboard",
+							"slot": 5
+						},
+						{
+							"clip": "load-cannon",
+							"role": "cannon",
+							"side": "port",
+							"slot": 6
+						},
+						{
+							"clip": "load-cannon",
+							"role": "cannon",
+							"side": "starboard",
+							"slot": 7
+						}
+					],
+					"visible": 8
+				}
+			],
+			"simulationTime": 0.0,
+			"tick": 0,
+			"visible": 32
+		},
+		"summary": {
+			"eventCounts": {
+				"blur": 0,
+				"export": 0,
+				"pause": 0,
+				"resume": 0,
+				"visibility-hidden": 0,
+				"visibility-visible": 0
+			},
+			"includedInMetrics": 0,
+			"maxMs": 0.0,
+			"meanMs": 0.0,
+			"overMs": {
+				"25": 0,
+				"50": 0,
+				"100": 0,
+				"500": 0,
+				"1000": 0
+			},
+			"p99Ms": 0.0,
+			"sampleCount": 0,
+			"topIntervals": [],
+			"totalMs": 0.0
+		}
+	},
+	"route": "actual MainScene QA menu, scenario selector and fire buttons",
+	"runtime": {
+		"naval": {
+			"battleId": "visual-damage",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "player",
+			"projectiles": [],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 0,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 45.0,
+					"dimensions": {
+						"draft": 2.0,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 58.0,
+					"id": "player",
+					"kind": "fuchuan",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "验收·定海号",
+					"rudder": 0,
+					"sail": 35.0,
+					"sailAngle": 0,
+					"sailDeployment": 1,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 2.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.0,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 20,
+						"grape": 20,
+						"solid": 40
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 0,
+					"cooldownSeconds": {
+						"port": 60.0,
+						"starboard": 60.0
+					},
+					"crew": 30.0,
+					"dimensions": {
+						"draft": 3.2,
+						"length": 40.0,
+						"width": 11.0
+					},
+					"hull": 100.0,
+					"id": "inspection-voc",
+					"kind": "voc",
+					"maxCrew": 100,
+					"maxHull": 100.0,
+					"maxSail": 100,
+					"name": "弹药与船帆靶舰",
+					"rudder": 0,
+					"sail": 40.0,
+					"sailAngle": 0,
+					"sailDeployment": 0,
+					"stats": {
+						"cannonMultiplier": 0.1,
+						"cargoMass": 0.0,
+						"draftMeters": 3.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 100,
+						"maxHull": 100.0,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1.0,
+						"steeringMultiplier": 1.0
+					},
+					"team": "hostile",
+					"visual": {
+						"heading": 0.0,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 0.0,
+							"y": -0.0000000000000000277555756156289,
+							"z": 70.0
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				}
+			],
+			"status": "active",
+			"tick": 0,
+			"time": 0.0,
+			"wind": {
+				"direction": {
+					"x": -0.8,
+					"y": -0.6
+				},
+				"speed": 14
+			}
+		},
+		"runtime": {
+			"benchmarkSeconds": 0.0,
+			"generation": 2,
+			"handlingMode": "realistic",
+			"notice": "",
+			"pauseReasons": [],
+			"paused": false,
+			"phase": "running",
+			"playback": 1.0,
+			"scenario": "damage",
+			"waypoint": null
+		}
+	},
+	"scope": "Fixed accepted ticks and close camera, no synthesized damage or FPS claim.",
+	"viewport": [
+		1600,
+		900
+	]
+}

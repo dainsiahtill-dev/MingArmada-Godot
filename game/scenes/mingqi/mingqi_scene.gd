@@ -34,6 +34,7 @@ var _activated := false
 var _zoom := 1.0
 var _verified_checkpoint := ""
 var _save_status := ""
+var _pending_presentation_seconds := 0.0
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 func _ready() -> void:
 	_capture_mode = "--capture-mingqi" in OS.get_cmdline_user_args()
@@ -123,25 +124,39 @@ func _command(intent: Dictionary) -> void:
 		"import-save":
 			result = runtime.adopt_save(intent.get("json",""),storage,_utc())
 			if result.ok:
+				_pending_presentation_seconds = 0.0
 				_confirm_checkpoint(); interface.open_menu()
 			_save_status = "存档已验证、保存并载入。准备好后继续航行。" if result.ok else "导入未成功："+_save_failure(result.get("reason","save-invalid"))
 		_: result = runtime.command(intent)
 	if not result.ok: runtime._notify(result.get("reason","command-rejected"))
 	_present(0)
 func _physics_process(delta: float) -> void:
-	if not world or _capture_mode: return
+	if not world or _capture_mode or _disposed: return
 	if interface.captures_keyboard() or services.captures_keyboard():
 		for code in KEYS.values(): runtime.set_held(code,false)
 	sea.observe_projectiles(runtime.simulation.snapshot())
 	var consumed: float = runtime.advance(delta)
-	_present(consumed)
+	_pending_presentation_seconds += consumed
+	# Birth poses and Jolt impacts still follow each accepted physics step.
+	# Updating all source effects and UI here makes catch-up steps draw the
+	# entire scene repeatedly before the engine can produce a single frame.
+	sea.remember_authoritative_poses(runtime.simulation.snapshot(),consumed)
+	if runtime.requires_immediate_actor_presentation():
+		# Preserve the original hit-to-skin transfer and impact birth timing.
+		# These sparse events require a pose before spawning their physical rig.
+		_present(0.0)
+func _process(_delta: float) -> void:
+	if not world or _capture_mode or _disposed: return
+	_present(0.0)
 func _update_camera(native: Dictionary,delta: float) -> void:
 	sea.tactical = tactical; sea.zoom = _zoom; sea._update_camera(native,delta)
 func _sync_view_handles() -> void:
 	world = sea.world; camera = sea.camera; effects = sea.effects
 	library = sea.library; ships = sea.ships; sailors = sea.sailors
 func _present(consumed: float) -> void:
-	if not world: return
+	if not world or _disposed: return
+	consumed += _pending_presentation_seconds
+	_pending_presentation_seconds = 0.0
 	var packet: Dictionary = runtime.snapshot(); var native: Dictionary = packet.naval
 	packet.runtime.hasCheckpoint = not _verified_checkpoint.is_empty()
 	packet.runtime.saveStatus = _save_status
@@ -227,6 +242,7 @@ func _capture(label: String) -> void:
 func _exit_tree() -> void:
 	if _disposed: return
 	_disposed = true
+	_pending_presentation_seconds = 0.0
 	if services: services.dispose()
 	if minimap: minimap.dispose()
 	if sea: sea.dispose()

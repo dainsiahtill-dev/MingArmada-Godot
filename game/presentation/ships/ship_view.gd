@@ -72,7 +72,9 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 	if rewind:
 		_recoil.clear()
 		_seen_events.clear()
-		_source_poses.clear()
+		# Physics may already have recorded the new rewind timeline while the
+		# drawn snapshot still belongs to the future. Keep that accepted history.
+		if not _source_poses.is_empty() and float(_source_poses[-1].time)>supplied+1.0e-8:_source_poses.clear()
 	_snapshot = ship.duplicate(true)
 	_wind = wind.duplicate(true)
 	if is_finite(consumed) and consumed > 0.0:
@@ -119,14 +121,35 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 	set_lod_distance([0.0, 220.0, 650.0][_lod])
 	_record_source_pose()
 
-func _record_source_pose() -> void:
+func remember_authoritative_pose(ship:Dictionary,accepted_time:float)->Variant:
+	# A physics observation records the exact transform that Node3D's normal
+	# position/rotation setters would draw. It never changes the drawn node,
+	# snapshot, animation/damage/recoil clock or authored model-root transform.
+	if _disposed or not is_inside_tree() or _models.is_empty() or not is_finite(accepted_time):return null
+	if String(ship.get("id",""))!=String(_snapshot.get("id","")):return null
+	var visual:Dictionary=ship.get("visual",ship)
+	var next_position:=_vector(visual.get("position",{}))
+	var heading:=float(visual.get("heading",0.0));var pitch:=float(visual.get("pitch",0.0));var heel:=float(visual.get("heel",0.0))
+	if not next_position.is_finite() or not is_finite(heading) or not is_finite(pitch) or not is_finite(heel):return null
+	var local:=Transform3D(Basis.from_euler(Vector3(-pitch,PI/2.0-heading,heel),rotation_order).scaled_local(scale),next_position)
+	var parent:=get_parent_node_3d()
+	var global_pose:Transform3D=local if is_set_as_top_level() or parent==null else parent.global_transform*local
+	var model_pose:Transform3D=global_pose*_models[0].transform
+	if not model_pose.is_finite():return null
+	_record_source_pose(accepted_time,model_pose)
+	return model_pose
+
+func _record_source_pose(accepted_time:float=NAN,model_pose:Variant=null) -> void:
 	if _models.is_empty(): return
-	var record := {"time":_time,"transform":_models[0].global_transform}
-	if not _source_poses.is_empty() and absf(float(_source_poses[-1].time)-_time) <= 1.0e-8:
+	var time:=_time if is_nan(accepted_time) else accepted_time
+	if not is_finite(time):return
+	if not _source_poses.is_empty() and time<float(_source_poses[-1].time)-1.0e-8:_source_poses.clear()
+	var record := {"time":time,"transform":model_pose if model_pose is Transform3D else _models[0].global_transform}
+	if not _source_poses.is_empty() and absf(float(_source_poses[-1].time)-time) <= 1.0e-8:
 		_source_poses[-1] = record
 	else:
 		_source_poses.append(record)
-	while _source_poses.size() > 1 and (_source_poses.size() > SOURCE_POSE_LIMIT or float(_source_poses[0].time) < _time-SOURCE_POSE_SECONDS):
+	while _source_poses.size() > 1 and (_source_poses.size() > SOURCE_POSE_LIMIT or float(_source_poses[0].time) < time-SOURCE_POSE_SECONDS):
 		_source_poses.pop_front()
 
 func _source_pose_at(time: float) -> Variant:

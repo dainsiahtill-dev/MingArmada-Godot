@@ -127,6 +127,25 @@ func apply_settings(settings: Dictionary) -> void:
 func observe_projectiles(native: Dictionary) -> void:
 	if not _disposed: effects.observe_projectiles(native)
 
+func remember_authoritative_poses(native:Dictionary,consumed:float=0.0)->void:
+	# Existing actor/model IDs are authoritative for this lightweight physics
+	# path. Creating actors and presenting meshes/world remains apply_snapshot.
+	if _disposed:return
+	var supplied:Variant=native.get("time",0.0)
+	if not (supplied is int or supplied is float) or not is_finite(float(supplied)):return
+	var next_battle:=String(native.get("battleId",""))
+	if next_battle!=_battle_id:
+		# Old actors may already have a sinking/damaged model-root offset. Until
+		# the normal epoch reset builds the new actors, there is no valid source
+		# pose to capture; delayed events honestly use their native mouth.
+		for view:Node3D in ships.values():view.get("_source_poses").clear()
+		return
+	for ship:Dictionary in native.get("ships",[]):
+		var id:=String(ship.get("id",""))
+		if not ships.has(id) or _kinds.get(id)!=String(ship.get("kind","")):continue
+		var pose:Variant=ships[id].remember_authoritative_pose(ship,float(supplied))
+		if pose is Transform3D and sailors.has(id):sailors[id].advance_impacts(float(supplied),consumed,pose)
+
 func _reset_fleet() -> void:
 	for id: String in ships.keys(): _release_ship(id)
 	if effects:

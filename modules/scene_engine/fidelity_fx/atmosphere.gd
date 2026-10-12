@@ -2,6 +2,7 @@ extends RefCounted
 ## Completed source cloud/fog replay adapted to Godot presentation coordinates.
 ## No independent process clock, physics, gameplay state or synthetic sky mesh.
 const Native = preload("res://modules/scene_engine/fidelity_fx/cloud_native.gd")
+const RenderCompiler = preload("res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd")
 const SourceMath = preload("res://modules/scene_engine/fidelity_island/native_math.gd")
 const SHADER = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gdshader")
 const SOURCE_METRES := 0.01
@@ -28,6 +29,9 @@ var _fog_duration := 33.333335876464844
 var _fog_opacity := 1.0
 var _reduced_motion := false
 var _error := ""
+var _compiled:Dictionary={}
+var _render_compiler:=RenderCompiler.new()
+var _cloud_cache:Array=[]
 
 static func _json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
@@ -69,6 +73,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 	if _assets.size() != 6: return _fail("Five original cloud prototypes and original ground fog JSON required")
 	for source: String in ["domecloud1.nif","domecloud2.nif","domecloud3.nif","domecloud4.nif","domecloud5.nif","fx_groundfog01.nif"]:
 		if not _assets.has(source): return _fail("Original atmosphere source missing: "+source)
+	for source:String in _assets:_compiled[source]=_render_compiler.compile_asset(_assets[source])
 	for entry: Dictionary in asset_manifest.get("textures",[]):
 		var name := str(entry.get("name","")).to_lower()
 		if name not in ["cloud_bw.dds","fx_groundfog_crop01.dds"]: continue
@@ -94,6 +99,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 			if record.is_empty(): return _fail("Unsupported original cloud render state")
 			group.append(record)
 		_clouds.append(group)
+		_cloud_cache.append({})
 	var placements: Array = options.get("fog_placements",[])
 	if placements.size() > 20: return _fail("Original ground-fog system supports prototype plus 19 clones")
 	for i in placements.size():
@@ -104,7 +110,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 			if record.is_empty(): return _fail("Unsupported original fog render state")
 			record.material.set_shader_parameter("display_opacity",_fog_opacity)
 			group.append(record)
-		_fog.append({"meshes":group,"placement":placements[i],"phase":Native.f32(i*_fog_duration*Native.FOG_PHASE_SCALE)})
+		_fog.append({"meshes":group,"placement":placements[i],"phase":Native.f32(i*_fog_duration*Native.FOG_PHASE_SCALE),"stateTime":-INF,"states":[]})
 	return {"ok":true,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"liveOriginalRandState":"unresolved; explicit target CRT seed","skyPlacement":"explicit camera-follow target adaptation","fogWorldPlacement":"explicit target adaptation; original placement unrecovered"}
 
 func _fail(reason: String) -> Dictionary:
@@ -186,11 +192,17 @@ func reset_timeline() -> void:
 	_ring = Native.create_cloud_ring(_seed)
 	_journal.clear()
 	_time = 0.0; _cloud_time = 0.0
+	_clear_render_cache()
+
+func _clear_render_cache()->void:
+	for i in _cloud_cache.size():_cloud_cache[i]={}
+	for instance:Dictionary in _fog:instance.stateTime=-INF;instance.states=[]
 
 func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vector3.ZERO) -> void:
 	if not is_instance_valid(_container) or not is_instance_valid(camera): return
 	var supplied_time: Variant = snapshot.get("time_seconds",snapshot.get("time",0.0))
 	if not (supplied_time is int or supplied_time is float) or not is_finite(float(supplied_time)): return
+	if float(supplied_time)<_time:_clear_render_cache()
 	_time = maxf(0.0,float(supplied_time))
 	# Preserve accepted time even while the optional target motion preference
 	# holds source animation. Rewinds still remove future presentation state.
@@ -202,13 +214,20 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 	var low_bounds: Array[float] = []
 	for i in _ring.nodes.size():
 		var clone: Dictionary = _ring.nodes[i]
-		var outer := {"rotation":clone.rotation,"translation":Native.transform_vector(clone.rotation,[0,1,0]),"scale":1.0}
-		var meshes := Native.original_meshes(_assets[clone.prototype],0.0,outer,false,native_camera)
-		groups.append(meshes)
-		var lowest := INF
-		for mesh: Dictionary in meshes:
-			for vertex: Array in mesh.vertices: lowest=minf(lowest,float(vertex[2])*_sky_radius)
-		low_bounds.append(lowest)
+		# Native cloud geometry is sampled at time=0, animate=false. Its only
+		# dynamic inputs are clone rotation and main-view billboard basis. Camera
+		# translation follows below on every snapshot, including cache hits.
+		var key:Dictionary={"prototype":clone.prototype,"rotation":clone.rotation,"camera":native_camera,"radius":_sky_radius}
+		var cached:Dictionary=_cloud_cache[i]
+		if cached.is_empty() or cached.key!=key:
+			var outer:Dictionary={"rotation":clone.rotation,"translation":_render_compiler._transform_vector(clone.rotation,[0,1,0]),"scale":1.0}
+			var meshes:Array=_render_compiler.render_minimum_states(_compiled[clone.prototype],outer,native_camera)
+			var lowest:=INF
+			for mesh:Dictionary in meshes:lowest=minf(lowest,float(mesh.minimumZ)*_sky_radius)
+			cached={"key":key.duplicate(true),"states":meshes,"lowest":lowest}
+			_cloud_cache[i]=cached
+		groups.append(cached.states)
+		low_bounds.append(float(cached.lowest))
 	var minimum: float = low_bounds.min() if not low_bounds.is_empty() else 0.0
 	var maximum: float = low_bounds.max() if not low_bounds.is_empty() else 0.0
 	for i in groups.size():
@@ -221,8 +240,11 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 			origin.y = _sky_floor+variation*_sky_variation-low_bounds[i]
 		_update_group(_clouds[i],groups[i],Transform3D(Basis.IDENTITY,origin),scale_adaptation)
 	for instance: Dictionary in _fog:
-		var meshes := Native.original_meshes(_assets["fx_groundfog01.nif"],_cloud_time+float(instance.phase),{},true)
-		_update_group(instance.meshes,meshes,instance.placement,1.0)
+		var source_time:float=_cloud_time+float(instance.phase)
+		if source_time!=float(instance.stateTime):
+			instance.states=_render_compiler.render_states(_compiled["fx_groundfog01.nif"],source_time,{},true)
+			instance.stateTime=source_time
+		_update_group(instance.meshes,instance.states,instance.placement,1.0)
 	# Focus is accepted for caller's uniform presentation API. It never replaces
 	# explicit authored fog placement or camera-directed source billboards.
 	_container.set_meta("snapshot_focus",focus)
@@ -272,6 +294,7 @@ func dispose() -> void:
 		_container.free()
 	_container = null
 	_assets.clear(); _textures.clear(); _texture_entries.clear()
+	_compiled.clear();_cloud_cache.clear()
 	_clouds.clear(); _fog.clear(); _ring.clear(); _journal.clear()
 	_time = 0.0; _cloud_time = 0.0; _sky_origin = Vector3.ZERO; _error = ""
 	_fog_opacity = 1.0; _reduced_motion = false

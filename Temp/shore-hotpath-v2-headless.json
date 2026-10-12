@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "production_frozen": true,
+  "scope": "Second exact shore sampler pass; private scalar CPU path only, no GPU or gameplay FPS claim",
+  "changed_production_this_pass": ["modules/scene_engine/fidelity_island/compiled_shore_sampler.gd"],
+  "changed_test": "tests/test_natural_shore_hotpath.gd",
+  "native_math_unchanged_sha256": "134b48506e72542e16dcb302a930de30ee645cbcb061c32bd052252ed619d099",
+  "performance_red": {
+    "source": "Root actual native-after-v4 method measurement before this pass",
+    "shore_ms": [6.6, 7.5],
+    "scope": "Existing all-packet shore CPU method; root owns complete-stage timing"
+  },
+  "changes": [
+    "Replace private reusable byte encode/decode with one reusable PackedFloat32Array slot, preserving every original binary32 store point",
+    "Inline the hot binary32 stores to avoid approximately 13 private GDScript calls per ordinary interior sample",
+    "Prepare the two time-independent subexpressions of Native.native_bezier using the original Float64 expression tree; Horner time operations and final Float32 store retain their original order",
+    "Construct Basis directly from the same nine binary32 matrix slots, with no omitted multiplication, approximate rotation or texture-matrix simplification"
+  ],
+  "source_correction": "Native.native_bezier itself contains only the double polynomial; byte-buffer allocation was in the original f32 helper. Shared Native oracle/API is unchanged.",
+  "green": [
+    {"test": "test_natural_shore_hotpath.gd", "assertions": 59, "failures": 0, "exit_code": 0, "seconds": 1.0607593},
+    {"test": "test_natural_shore_surf.gd", "assertions": 52, "failures": 0, "exit_code": 0, "seconds": 0.7509805},
+    {"test": "test_fidelity_island_shore.gd", "assertions": 205, "failures": 0, "exit_code": 0, "seconds": 0.5551576},
+    {"test": "test_natural_game_world.gd", "assertions": 158, "failures": 0, "exit_code": 0}
+  ],
+  "additional_exactness": [
+    "All eight actual source meshes at every original translation/scale/alpha key's predecessor, exact Float32 and successor, including halfway rounding values",
+    "4096 independent random eight-source times compared against the original Authored/Native execution, including exact alpha phase and all nine matrix bytes",
+    "Existing 4096 random Float32 magnitudes, signed zero, halfway ties, subnormal/underflow tie and finite maximum comparisons against original encode/decode bits",
+    "Original distinct 30 and 29.96666717529297 periods, strict changed-time sampling, rewind, long-time values and real packet offsets/speeds",
+    "All previous same-time surface cache, PackedArray alias, tide/waves/coast-texture and disposal/reconfiguration contracts"
+  ],
+  "paired_cpu_sampler_measurement": {
+    "command_script": "Temp/bench-shore-sampler-v2.gd",
+    "exact_saved_v1_script": "Temp/compiled-shore-sampler-v1-baseline.gd",
+    "v1_sha256": "3035d03ccf4ea4e630f27ded141c790ff9f5f548a6918165a5ca0cc9721c578d",
+    "packet_count": 420,
+    "frames_per_round": 48,
+    "alternating_execution_order": true,
+    "rounds": [
+      {"v1_ms_per_frame": 2.94939583333333, "v2_ms_per_frame": 1.884125, "ratio": 0.638817271898906},
+      {"v1_ms_per_frame": 2.76833333333333, "v2_ms_per_frame": 1.88035416666667, "ratio": 0.679236905478627},
+      {"v1_ms_per_frame": 2.80764583333333, "v2_ms_per_frame": 1.8939375, "ratio": 0.674564247924195},
+      {"v1_ms_per_frame": 2.73366666666667, "v2_ms_per_frame": 1.8875, "ratio": 0.69046457749055},
+      {"v1_ms_per_frame": 2.78427083333333, "v2_ms_per_frame": 1.92510416666667, "ratio": 0.691421302704927}
+    ],
+    "scope": "Same actual seeded wave packets and accepted source times; excludes shader uniform submission, World, physics, other actors and GPU"
+  },
+  "preserved": ["All wave patches/geometry", "Original texture/mips", "Exact source alpha/UV/phase/Basis", "Original display envelope", "Every changed accepted time without quantization", "Independent surface cache invalidations", "Native shared APIs", "World/forest/UI/physics/ships/crew"],
+  "limitations": ["No GPU run by this agent", "The paired sampler CPU reduction is not full-world or gameplay performance", "Root will repeat original stage and actual shoreline GPU checks"]
+}
