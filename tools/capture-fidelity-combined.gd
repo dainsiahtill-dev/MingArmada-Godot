@@ -17,6 +17,8 @@ func _run() -> void:
 		await _capture_water_optics_probe(); _finish(); return
 	if OS.get_cmdline_user_args().has("--particle-visibility-probe"):
 		await _capture_combat(); _finish(); return
+	if OS.get_cmdline_user_args().has("--destruction-visibility-probe"):
+		await _capture_destruction_visibility_probe(); _finish(); return
 	if OS.get_cmdline_user_args().has("--atmosphere-particles"):
 		await _capture_atmosphere_particles(slot,legacy); _finish(); return
 	if OS.get_cmdline_user_args().has("--ship-material-check"):
@@ -561,6 +563,13 @@ func _capture_combat() -> void:
 			game.sea.set_camera_controller(func(): game.sea.camera.position=Vector3(35,23,48); game.sea.camera.look_at(Vector3(0,4,3),Vector3.UP))
 		game._present(0.0)
 		await _capture("source-formal-battle-close",game)
+		if OS.get_cmdline_user_args().has("--atmosphere-particles"):
+			var water_material: ShaderMaterial=game.sea.world.get_ocean().material_override
+			check(water_material.get_shader_parameter("water_legacy_optics")==false,"new production water optics is the default")
+			capture_render_hook=func(): water_material.set_shader_parameter("water_legacy_optics",true)
+			game.set_meta("capture_inspection",{"type":"same-frame optical comparison","uniform":"water_legacy_optics","value":true})
+			await _capture("water-legacy-optics-same-frame",game)
+			capture_render_hook=Callable(); water_material.set_shader_parameter("water_legacy_optics",false); game.remove_meta("capture_inspection")
 	game._command({"type":"resume"})
 	var side: String=game.runtime.nearest_side()
 	button=game.interface.find_child("fire_"+side,true,false)
@@ -609,6 +618,17 @@ func _capture_combat() -> void:
 			game._present(game.runtime.advance(1.0/60.0)); ticks+=1
 		check(absf(float(game.runtime.snapshot().naval.time)-initial_time-float(target)/60.0)<0.03,"actual combat clock reached requested capture tick %d"%target)
 		await _capture("formal-battle-%03d"%target,game)
+		if OS.get_cmdline_user_args().has("--atmosphere-particles") and target==2:
+			capture_render_hook=func():
+				for source_effect: Dictionary in game.sea.effects.get("_source_fire"):
+					for mesh: MeshInstance3D in source_effect.node.get_children():
+						if mesh.get_meta("display_role","")=="game_flash": mesh.visible=false
+			game.set_meta("capture_inspection",{"type":"same-frame optical ablation","owner":"game muzzle flash only"})
+			await _capture("formal-battle-002-no-game-flash",game)
+			capture_render_hook=Callable(); game.remove_meta("capture_inspection")
+			for source_effect: Dictionary in game.sea.effects.get("_source_fire"):
+				for mesh: MeshInstance3D in source_effect.node.get_children():
+					if mesh.get_meta("display_role","")=="game_flash": mesh.visible=true
 		if OS.get_cmdline_user_args().has("--particle-visibility-probe") and target==4:
 			var visible_flash: Array=[]
 			for effect: Dictionary in game.sea.effects.get("_source_fire"):
@@ -645,6 +665,12 @@ func _capture_combat() -> void:
 		game.set_meta("capture_inspection",{"type":"controlled production effect event","scope":"Visual destruction/splash inspection, not an actual battle outcome."})
 		game.sea.effects.apply_events([{"id":"controlled-destruction-inspection","type":"destruction-explosion","time":now-0.06,"position":{"x":0.0,"y":5.0,"z":0.0}}])
 		await _capture("controlled-destruction-inspection",game)
+		var smoke_receipt:=FileAccess.open(output+"/controlled-destruction-state.json",FileAccess.WRITE)
+		if check(smoke_receipt!=null,"controlled destruction state receipt opens"):
+			var state: Array=[]
+			for puff: Dictionary in game.sea.effects.get("_puffs"):
+				state.append({"worldPosition":puff.node.global_position,"pixel":game.sea.camera.unproject_position(puff.node.global_position),"visible":puff.node.is_visible_in_tree(),"size":puff.node.scale,"color":puff.material.albedo_color,"unshaded":puff.material.shading_mode==BaseMaterial3D.SHADING_MODE_UNSHADED})
+			smoke_receipt.store_string(JSON.stringify(state,"\t")); smoke_receipt.close()
 		for variant in range(1,4):
 			var ordinal:=0
 			var id: String="controlled-splash-%d-%d"%[variant,ordinal]
@@ -659,6 +685,36 @@ func _capture_combat() -> void:
 			check(found,"production water presenter chooses original splash variant %d"%variant)
 			await _capture("controlled-splash-%02d-inspection"%variant,game)
 		game.remove_meta("capture_inspection")
+	main._return_from_scene(game); for frame in 5: await process_frame
+
+func _capture_destruction_visibility_probe() -> void:
+	var button: Button=main.menu.find_child("duel",true,false)
+	if not check(button!=null and not button.disabled,"ordinary battle entry for destruction visibility inspection"): return
+	button.pressed.emit()
+	if not await _await_scene("duel"): return
+	var game: Node=main.current_scene
+	game.process_mode=Node.PROCESS_MODE_DISABLED
+	game.sea.apply_settings({"cameraFollow":false,"quality":"high"})
+	game.sea.set_camera_controller(func():
+		game.sea.camera.position=Vector3(-35,23,48)
+		game.sea.camera.look_at(Vector3(-12,6,-5),Vector3.UP))
+	game._present(0.0)
+	await _capture("destruction-visibility-baseline",game)
+	var born: float=game.runtime.snapshot().naval.time
+	# The earlier inspection was inside the intact ship and was depth-occluded.
+	# Inspect the unchanged production presenter over open water; label this
+	# explicitly as a controlled effect, not a simulated ship destruction.
+	game.set_meta("capture_inspection",{"type":"controlled production destruction event","position":[-24,6,-16],"scope":"No ship was destroyed by this inspection event."})
+	game.sea.effects.apply_events([{"id":"controlled-visible-destruction","type":"destruction-explosion","time":born,"position":{"x":-24.0,"y":6.0,"z":-16.0}}])
+	var ticks:=0
+	for target in [4,36,120]:
+		game._command({"type":"resume"})
+		while ticks<target:
+			game.sea.observe_projectiles(game.runtime.snapshot().naval)
+			game._present(game.runtime.advance(1.0/60.0)); ticks+=1
+		check(absf(float(game.runtime.snapshot().naval.time)-born-float(target)/60.0)<0.03,"destruction inspection actual clock %d"%target)
+		await _capture("controlled-visible-destruction-%03d"%target,game)
+	game.remove_meta("capture_inspection")
 	main._return_from_scene(game); for frame in 5: await process_frame
 
 func _capture_menu() -> void:

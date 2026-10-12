@@ -14,6 +14,7 @@ uniform bool mask_dry_terrain = false;
 // Formal game keeps the authoritative five-wave physics profile.
 #include "res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc"
 #include "res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc"
+#include "res://modules/scene_engine/ocean/water_environment_optics.gdshaderinc"
 
 uniform float u_strength = 1.0;
 uniform sampler2D u_scene : hint_screen_texture, repeat_disable, filter_linear;
@@ -168,12 +169,19 @@ void fragment() {
 	float bottom_visibility=reference_bottom_visibility(max(u_tide-opaque_ground,0.0),reference_bottom_window(opaque_world.xz));
 	refracted=mix(water_color,refracted,1.0-bottom_gate*(1.0-bottom_visibility));
 	if(!u_refraction_enabled)refracted=water_color;
-	vec3 view_dir=normalize(u_eye-v_world),reflected_ray=reflect(-view_dir,n);
+	// Keep full texture normals for the blue body, refraction and small glints.
+	// Their old perfect-mirror Fresnel made moderate ripples become broad white
+	// bands. Environment reflection sees the same macro waves with gentler
+	// moving texture slopes, plus an explicit rough-sea angular response.
+	vec3 reflection_normal=n;
+	if(!water_legacy_optics) reflection_normal=reference_water_environment_normal(optical_macro_normal,world_slopes,water_environment_ripple_gain);
+	vec3 view_dir=normalize(u_eye-v_world),reflected_ray=reflect(-view_dir,reflection_normal);
 	vec3 reflection=source_sky(reflected_ray);
 	vec4 rp=u_reflection_vp*vec4(v_world,1);
-	vec2 ruv=vec2(rp.x/rp.w*.5+.5,.5-rp.y/rp.w*.5)+vec2(n.x,-n.z)*.009;
+	vec2 ruv=vec2(rp.x/rp.w*.5+.5,.5-rp.y/rp.w*.5)+vec2(reflection_normal.x,-reflection_normal.z)*.009;
 	if(u_use_reflection&&rp.w>0.0&&all(greaterThan(ruv,vec2(0)))&&all(lessThan(ruv,vec2(1))))reflection=sample_source_reflection(ruv);
 	float f=.02+.98*pow(1.0-max(dot(n,view_dir),0.0),5.0);
+	if(!water_legacy_optics) f=reference_water_environment_fresnel(dot(reflection_normal,view_dir),water_environment_horizon_weight);
 	vec3 col=mix(refracted,reflection,f);
 	vec3 half_vector=normalize(u_sun+view_dir);
 	float reflection_lobe=max(dot(n,half_vector),0.0);

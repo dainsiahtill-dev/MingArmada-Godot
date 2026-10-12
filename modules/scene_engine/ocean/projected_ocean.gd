@@ -60,6 +60,11 @@ func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80
 		_water_material = ShaderMaterial.new()
 		_water_material.shader = WATER_SHADER
 		_water_material.render_priority = 1
+		# Bind the formal optical profile once. Owner updates must not reset the
+		# same-camera legacy comparison or change the full body/detail normals.
+		_water_material.set_shader_parameter("water_legacy_optics",false)
+		_water_material.set_shader_parameter("water_environment_ripple_gain",0.16)
+		_water_material.set_shader_parameter("water_environment_horizon_weight",0.52)
 	_water_material.set_shader_parameter("normal_texture", normal_texture)
 	_water_material.set_shader_parameter("reference_sparkle_texture", REFERENCE_SPARKLE)
 	_water_material.set_shader_parameter("reference_original_sparkle_texture", REFERENCE_ORIGINAL_SPARKLE)

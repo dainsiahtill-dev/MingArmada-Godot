@@ -108,6 +108,9 @@ func _capture(label: String, scene: Node) -> void:
 		metadata.productionShaderHashes[shader_path]=FileAccess.get_sha256(shader_path)
 	var macro_optics_path:="res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc"
 	if FileAccess.file_exists(macro_optics_path): metadata.productionShaderHashes[macro_optics_path]=FileAccess.get_sha256(macro_optics_path)
+	var environment_optics_path:="res://modules/scene_engine/ocean/water_environment_optics.gdshaderinc"
+	if FileAccess.file_exists(environment_optics_path): metadata.productionShaderHashes[environment_optics_path]=FileAccess.get_sha256(environment_optics_path)
+	metadata.productionShaderHashes["res://modules/scene_engine/ocean/projected_ocean.gd"]=FileAccess.get_sha256("res://modules/scene_engine/ocean/projected_ocean.gd")
 	var file:=FileAccess.open(path.get_basename()+".json",FileAccess.WRITE)
 	if not check(file!=null,"PNG metadata file opens"): return
 	file.store_string(JSON.stringify(metadata,"\t")); file.close(); captures.append(metadata)

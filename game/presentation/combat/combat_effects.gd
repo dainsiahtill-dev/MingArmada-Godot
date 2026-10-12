@@ -79,6 +79,7 @@ func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: 
 		mesh.mesh = QuadMesh.new(); mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		material.albedo_texture = texture
 		material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		material.texture_repeat = false
 		material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED

@@ -22,6 +22,7 @@ func _run() -> void:
 		check(material.albedo_texture!=null and material.albedo_texture.get_image().has_mipmaps(),"destruction texture retains original DDS mip chain")
 		check(material.billboard_mode==BaseMaterial3D.BILLBOARD_ENABLED and material.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA,"destruction sprites face the active camera with fractional coverage")
 		check(mesh.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,"translucent smoke does not cast a solid quad shadow")
+		check(material.shading_mode==BaseMaterial3D.SHADING_MODE_UNSHADED,"smoke coverage stays readable instead of depending on billboard face lighting")
 		alphas.append(material.albedo_color.a)
 	check(event==immutable,"visual enhancement preserves destruction authority payload")
 	effects.apply_snapshot({"time":10.06,"projectiles":[]},4.0)

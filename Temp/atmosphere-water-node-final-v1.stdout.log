@@ -1,0 +1,28 @@
+✔ actual shader wraps its two bilinear neighbours at every native mip (1.6816ms)
+✔ actual wrapped weights preserve seam continuity with unequal edge pixels (0.1609ms)
+MACRO_WAVE_OPTICS_EVIDENCE {"sourceSha256":"60dfea29be698ca5dcb2f41fdd4534e38ebbbf1697a63b36dfd58cf52a7e3cdf","long":{"wavelength":251.32741228718345,"phase":0.35,"visibility":0.9869915111095692},"short":{"wavelength":42.26527815777071,"phase":2.1,"visibility":0}}
+MACRO_GRAZING_EVIDENCE {"sourceSha256":"60dfea29be698ca5dcb2f41fdd4534e38ebbbf1697a63b36dfd58cf52a7e3cdf","nearHorizon":1,"farHorizon":0,"farSteep":1,"middleDistance":0.5,"middleAngle":0.4999999999999999,"combinedMiddle":0.75}
+✔ resolved near macro normals retain full optical amplitude (0.6765ms)
+✔ unresolved phase footprints cannot reappear at or above the cutoff (0.1414ms)
+✔ one full phase cycle across a pixel filters even when endpoint cosines agree (0.1282ms)
+✔ visibility stays finite, bounded, monotone and continuous over zero to twenty radians (7.1696ms)
+✔ the same world footprint keeps the retained 251m wave and hides the 42m wave (0.675ms)
+✔ anisotropic projection respects wave direction rather than isotropic pixel distance (0.1329ms)
+✔ grazing adaptation leaves every near view through 180m intact (0.1656ms)
+✔ steep views retain macro optics at every distance (0.1767ms)
+✔ distant horizon views reject the unresolved grazing macro reflection (0.1814ms)
+✔ grazing visibility is bounded and decreases continuously with distance (3.9517ms)
+✔ grazing visibility rises continuously with angle and is sign symmetric (3.3448ms)
+✔ rough environment preserves normal-incidence reflection and bounds back-facing white bands (3.2759ms)
+✔ environment envelope varies continuously with incidence and material tuning (5.2615ms)
+✔ full mirror tuning retains the independent physical Schlick limiting cases (1.003ms)
+✔ a real grazing ripple keeps blue water instead of replacing it with sky (0.8181ms)
+✔ formal shader separates environment from full body, refraction and point-glint normals (0.4636ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.2835
