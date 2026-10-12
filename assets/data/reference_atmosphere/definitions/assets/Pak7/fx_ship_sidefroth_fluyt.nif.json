@@ -1,0 +1,681 @@
+{
+  "block_count": 16,
+  "block_types": {
+    "NiAlphaProperty": 1,
+    "NiFloatData": 2,
+    "NiMaterialProperty": 1,
+    "NiNode": 1,
+    "NiSourceTexture": 1,
+    "NiStringExtraData": 1,
+    "NiTextureTransformController": 2,
+    "NiTexturingProperty": 1,
+    "NiTriStrips": 1,
+    "NiTriStripsData": 1,
+    "NiVertexColorProperty": 2,
+    "NiZBufferProperty": 2
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "sidefrothSTAR01",
+            "ref": 3,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 18,
+        "name": "Scene Root",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 1,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 3,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 1,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 15,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 4,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 26,
+        "has_shader": false,
+        "name": "sidefrothSTAR01",
+        "num_extra_data_list": 1,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "",
+            "ref": 14,
+            "type": "NiZBufferProperty"
+          },
+          {
+            "name": "",
+            "ref": 8,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 6,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "side froth 001",
+            "ref": 5,
+            "type": "NiMaterialProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": -137.31651306152344,
+          "y": 622.9141845703125,
+          "z": 20.075824737548828
+        }
+      },
+      "id": 3,
+      "name": "sidefrothSTAR01",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "sidefrothSTAR01",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n"
+      },
+      "id": 4,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 4,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0.40000003576278687,
+          "g": 0.34117648005485535,
+          "r": 0.1568627506494522,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "side froth 001",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        }
+      },
+      "id": 5,
+      "name": "side froth 001",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "side froth 001",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 2
+      },
+      "id": 6,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 4333,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 0
+      },
+      "id": 7,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 7,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 3,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -115,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 13,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 2,
+            "v": 2
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 9,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 8,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 8,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 12,
+          "type": "NiFloatData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 10,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 1,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "",
+          "ref": 8,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 9,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 11,
+          "type": "NiFloatData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "",
+          "ref": 8,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 10,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 10,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 0
+            },
+            {
+              "time": 25,
+              "type": "Key",
+              "value": 2
+            }
+          ],
+          "num_keys": 2,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 11,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 11,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 0
+            },
+            {
+              "time": 25,
+              "type": "Key",
+              "value": 1
+            }
+          ],
+          "num_keys": 2,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 12,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 12,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "FX_waterfroth_003.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "unknown_link": null,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 13,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 1,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 14,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 14,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "effective_triangle_count": 214,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 136.69863891601562,
+          "y": 11.29058837890625,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 16384,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_points": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "normals": {
+          "count": 150,
+          "omitted_geometry_buffer": true
+        },
+        "num_strips": 1,
+        "num_triangles": 284,
+        "num_uv_sets": 1,
+        "num_vertices": 150,
+        "points": {
+          "count": 1,
+          "omitted_geometry_buffer": true
+        },
+        "radius": 680.545654296875,
+        "strip_lengths": [
+          286
+        ],
+        "uv_sets": {
+          "count": 1,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 150,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 150,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 15,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 15,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          419.11468505859375,
+          658.6995849609375,
+          20.075824737548828
+        ],
+        "min": [
+          -145.71739196777344,
+          -636.118408203125,
+          -20.075824737548828
+        ]
+      }
+    }
+  ],
+  "bytes": 8907,
+  "bytes_consumed": 8907,
+  "finite_vertices": true,
+  "manifest_sha256": "5fc186a81bdb19168e5e86687677ae09eb625becd39707098a0b94eee90549d4",
+  "name": "fx_ship_sidefroth_fluyt.nif",
+  "raw": "raw/fpk/Pak7/fx_ship_sidefroth_fluyt.nif",
+  "roots": [
+    0
+  ],
+  "sha256": "5fc186a81bdb19168e5e86687677ae09eb625becd39707098a0b94eee90549d4",
+  "triangle_indices_valid": true,
+  "version": "10.1.0.0",
+  "whole_file_consumed": true
+}

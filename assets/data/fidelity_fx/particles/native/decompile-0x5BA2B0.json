@@ -1,0 +1,14 @@
+{
+  "address": "0x5BA2B0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5BA2B0(_DWORD *this, int a2, int a3)\n{\n  int v4; // eax\n  _BYTE v6[52]; // [esp+4h] [ebp-D0h] BYREF\n  float v7[13]; // [esp+38h] [ebp-9Ch] BYREF\n  float v8[13]; // [esp+6Ch] [ebp-68h] BYREF\n  float v9[13]; // [esp+A0h] [ebp-34h] BYREF\n\n  v4 = *(this + 20);\n  if ( v4 )\n  {\n    qmemcpy(v7, (const void *)(v4 + 108), sizeof(v7));\n    qmemcpy(v9, (const void *)(*(this + 5) + 108), sizeof(v9));\n    sub_555100(v9, v8);\n    sub_546160(v8, v6, v7);\n    return (*(int (__thiscall **)(_DWORD *, _BYTE *, int, int))(*this + 76))(this, v6, a2, a3);\n  }\n  else\n  {\n    sub_5550D0(v6);\n    return (*(int (__thiscall **)(_DWORD *, _BYTE *, int, int))(*this + 76))(this, v6, a2, a3);\n  }\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

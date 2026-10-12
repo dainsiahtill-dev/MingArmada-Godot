@@ -1,0 +1,45 @@
+diff --git a/docs/superpowers/plans/second-voyage-integration-work/save_codec.gd.baseline b/game/domain/persistence/save_codec.gd
+index 01aadd1..35cb88d 100644
+--- a/docs/superpowers/plans/second-voyage-integration-work/save_codec.gd.baseline
++++ b/game/domain/persistence/save_codec.gd
+@@ -2,6 +2,7 @@ extends RefCounted
+ ## Pure v2 codec. Disk/slot/rollback coordinator lives outside domain.
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+ const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
++const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
+ const MAX_SAFE = 9007199254740991
+ const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
+ const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+@@ -225,6 +226,7 @@ func _validate(v,schema,path: String) -> bool:
+ 		"details":
+ 			var all=_detail_schemas()
+ 			if not v is Dictionary or not all.has(v.get("kind")):return _fail(path)
++			if v.kind=="story-choice" and v.get("sceneId")==SecondVoyageAftermath.SCENE_ID:return _validate(v,_aftermath_schema(),path)
+ 			return _validate(v,all[v.kind],path)
+ 		"work":
+ 			if not v is Dictionary:return _fail(path)
+@@ -260,6 +262,14 @@ func _detail_schemas() -> Dictionary:
+ 		"prize-port":{"kind":["one",["prize-port"]],"shipId":"id","portId":"id","action":["one",["sell","incorporate"]],"silver":"count","crewToShipId":["null","id"],"movedAble":"count","movedWounded":"count","movedPrisoners":"count"},
+ 		"casualty":{"kind":["one",["casualty"]],"battleId":"id","tick":"count","controlsSequence":"sequence","shipId":"id","ableBefore":"count","ableAfter":"count","woundedBefore":"count","woundedAfter":"count","prisonersBefore":"count","prisonersAfter":"count","dead":"count","sunk":"bool","ordinalBefore":"count","ordinalAfter":"count"}
+ 	}
++func _aftermath_schema() -> Dictionary:
++	var schema=_detail_schemas()["story-choice"].duplicate(true)
++	schema.sceneId=["one",[SecondVoyageAftermath.SCENE_ID]]
++	schema.choiceId=["one",SecondVoyageAftermath.CHOICES]
++	schema.portId=["one",["xiamen","kinmen","forward-supply"]]
++	schema.routeId=["one",[null]];schema.intelligence=["one",[null]]
++	schema.aftermath={"contractId":["one",["convoy-002"]],"revenue":"count","silverBefore":"count","silverAfter":"count","supportBefore":["range",-100,100],"supportAfter":["range",-100,100],"beneficiaries":["array",{"shipId":"id","able":"count","wounded":"count"},128],"beneficiaryCount":"count","portWitness":{"flagshipId":"id","position":{"x":"finite","z":"finite"},"speed":["range",0,0.75],"hull":["range",0,100],"anchored":["one",[true]],"pendingAttacks":["one",[false]],"activeBoardings":["one",[0]],"hostileWithin600":["one",[false]]}}
++	return schema
+ func _relations(s: Dictionary) -> bool:
+ 	if not _check(_count(s.seed) and _count(s.randomState),"seed") or not _check(s.simulationSeconds==s.macroSeconds+s.macroRemainder,"simulationSeconds") or not _check(floor(s.macroSeconds/1800.0)<=100116877,"calendar","calendar-overflow"):return false
+ 	if not _check(_equal(s.calendar,_date_at(s.macroSeconds)),"calendar"):return false
+@@ -438,6 +448,9 @@ func _receipt_relations(s: Dictionary,r: Dictionary) -> bool:
+ 	return true
+ 
+ func _story_receipt(s: Dictionary,r: Dictionary,d: Dictionary) -> bool:
++	if d.sceneId==SecondVoyageAftermath.SCENE_ID:
++		var reason=SecondVoyageAftermath.receipt_error(s,r)
++		return _check(reason.is_empty(),"second-voyage-aftermath."+reason)
+ 	var definition=OpeningStory.choice_definition(d.sceneId,d.choiceId)
+ 	if not _check(not definition.is_empty(),"story-choice-definition"):return false
+ 	if not _check(r.id==OpeningStory.receipt_id(s,d.sceneId) and d.portId==definition.portId and d.silverCost==definition.silverCost and _equal(d.reputationEffects,definition.reputationEffects) and d.routeId==definition.routeId and _equal(_event(s,r.id).causeIds,[r.commandId,r.id]),"story-choice-definition"):return false

@@ -1,0 +1,43 @@
+diff --git a/docs/superpowers/plans/second-voyage-integration-work/campaign.gd.baseline b/game/domain/mingqi/campaign.gd
+index 01e3746..9738543 100644
+--- a/docs/superpowers/plans/second-voyage-integration-work/campaign.gd.baseline
++++ b/game/domain/mingqi/campaign.gd
+@@ -3,6 +3,7 @@ extends RefCounted
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+ const SaveCodec = preload("res://game/domain/persistence/save_codec.gd")
+ const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
++const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
+ const MAX_SAFE = 9007199254740991
+ const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
+ const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+@@ -256,14 +257,17 @@ func command(input: Dictionary, context: Dictionary={}) -> Dictionary:
+ 	match c.type:
+ 		"story-choice":
+ 			var definition=OpeningStory.choice_definition(c.sceneId,c.choiceId)
+-			if s.currentPortId!=definition.portId:return _failure("not-in-story-port")
++			var second_return=c.sceneId==SecondVoyageAftermath.SCENE_ID
++			if second_return:
++				if not s.currentPortId in ["xiamen","kinmen","forward-supply"]:return _failure("not-in-story-port")
++			elif s.currentPortId!=definition.portId:return _failure("not-in-story-port")
+ 			_docked(s,native,policy,s.flagshipId)
+ 			if not _error.is_empty():return _failure(_error)
+ 			if definition.routeId!=null:
+ 				for suffix in ["grain-a","grain-b"]:
+ 					var v=s.vessels[s.campaignId+"-"+suffix]
+ 					if not route_for_vessel(Catalog.DATA.routes[definition.routeId],v).ok:return _failure("route-too-shallow")
+-			var result=OpeningStory.apply(s,c.sceneId,c.choiceId)
++			var result=SecondVoyageAftermath.apply(s,c.choiceId,_aftermath_port_witness(s,native)) if second_return else OpeningStory.apply(s,c.sceneId,c.choiceId)
+ 			if not result.ok:return _failure(result.reason)
+ 			if definition.routeId!=null:
+ 				for suffix in ["grain-a","grain-b"]:
+@@ -905,6 +909,10 @@ func _docked(s: Dictionary,native: Dictionary,policy: Dictionary,id: String):
+ 	var anchored=false
+ 	if native.get("isAnchored") is Callable:anchored=native.isAnchored.call(id)==true
+ 	if not _require(not ship.is_empty() and ship.hull>0 and (berth or _distance(ship.visual.position,s.ports[s.currentPortId].position)<=55) and anchored,"ship-not-docked"):return
++func _aftermath_port_witness(s: Dictionary,native: Dictionary) -> Dictionary:
++	# Called only after _docked accepted this same native snapshot and actual anchor.
++	var flag=_ship(native.snapshot,s.flagshipId)
++	return {"flagshipId":flag.id,"position":{"x":flag.visual.position.x,"z":flag.visual.position.z},"speed":_distance(flag.visual.velocity,{"x":0,"z":0}),"hull":flag.hull,"anchored":true,"pendingAttacks":false,"activeBoardings":0,"hostileWithin600":false}
+ func quote_port_service(request: Dictionary) -> Dictionary:return _quote_port(_state,request)
+ func _quote_port(s: Dictionary,c: Dictionary) -> Dictionary:
+ 	if not c.get("type") in ["repair","refit","treat-wounded"]:return {"ok":false,"reason":"invalid-service"}

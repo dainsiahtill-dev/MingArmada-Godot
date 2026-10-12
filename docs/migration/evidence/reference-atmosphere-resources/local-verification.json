@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scope": "reference_atmosphere_resource_import_only",
+  "verified_at_utc": "2026-10-11 14:36:10 UTC",
+  "gpu": false,
+  "performance": false,
+  "commands": [
+    {
+      "name": "node-contract",
+      "cmd": "rtk proxy node tests/test_reference_atmosphere_import.mjs",
+      "chunk_id": "f1248f",
+      "wall_time_seconds": 5.2958654,
+      "exit_code": 0,
+      "original_token_count": 47,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"test\":\"reference_atmosphere_import\",\"checks\":8123,\"failures\":0,\"systems\":276,\"textures\":85,\"unresolved\":13}\n"
+    },
+    {
+      "name": "godot-rgba",
+      "cmd": "rtk proxy C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe --headless --path C:/Users/dains/Documents/Git/ming-armada --script res://tests/test_reference_atmosphere_resources.gd",
+      "chunk_id": "ccb8ed",
+      "wall_time_seconds": 3.1476741,
+      "exit_code": 0,
+      "original_token_count": 63,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n{\"checks\":1988,\"failures\":0,\"systems\":276,\"test\":\"reference_atmosphere_resources\",\"textures\":85}\r\n"
+    },
+    {
+      "name": "idempotent-read-only",
+      "cmd": "rtk proxy node tools/import-reference-atmosphere.mjs --verify-only",
+      "chunk_id": "c6ad05",
+      "wall_time_seconds": 4.1721430999999995,
+      "exit_code": 0,
+      "original_token_count": 509,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"mode\":\"verify\",\"outputs\":156,\"coverage\":{\"schema_version\":1,\"atmosphere\":{\"systems\":276,\"particle_roots\":16,\"parsed_assets\":33,\"authored_particle_capacity\":3692,\"capacity_boundary\":\"particle_capacity preserves static data.fields.num_vertices; it is not a verified original dynamic maximum. Runtime spawning needs an explicit game capacity policy.\",\"system_types\":{\"NiParticleSystem\":276},\"modifier_types\":{\"NiPSysAgeDeathModifier\":276,\"NiPSysBoxEmitter\":276,\"NiPSysSpawnModifier\":276,\"NiPSysGrowFadeModifier\":142,\"NiPSysColorModifier\":276,\"NiPSysGravityModifier\":32,\"NiPSysPositionModifier\":276,\"NiPSysBoundUpdateModifier\":276,\"NiPSysRotationModifier\":2},\"controller_types\":{\"NiPSysResetOnLoopCtlr\":176,\"NiPSysEmitterCtlr\":276,\"NiPSysUpdateCtlr\":276},\"studied_texture_dependencies\":53,\"studied_texture_dependencies_imported\":53},\"sources\":{\"parsed_assets\":65,\"water_effect_assets\":23,\"water_surface_assets\":3,\"shoreline_assets\":6},\"textures\":{\"whole_fpk_png\":3840,\"catalogued_fpk_png\":3840,\"imported\":85,\"external\":84,\"embedded\":1,\"unresolved_binding_slots\":13,\"ambiguous_binding_slots\":0,\"duplicate_filenames\":0,\"unbound_filename_candidates\":180,\"raw_sha256_verified\":85,\"decoded_original_png_equal\":85,\"with_transparent_pixels\":64,\"with_partial_alpha\":65},\"runtime\":{\"all_276_behaviors_restored\":false,\"original_game_gpu_verified\":false,\"resource_definitions_verified\":true,\"unit_conversion_imposed\":false,\"unknowns\":[\"variation sampling distribution/clamping\",\"angular sampling convention\",\"color-key age mapping\",\"modifier implementation formulas except native-recovered GrowFade\",\"spawn quantization/capacity behavior\",\"controller cycle flags runtime evaluator\",\"camera-facing billboard implementation\",\"runtime shader attachment and quality overrides\"],\"boundary\":\"Full authored resource import only. Runtime modifier ordering/formulas, cycle evaluation, shader overrides and scheduling need a separate implementation and live Godot acceptance.\"}}}\n"
+    }
+  ]
+}

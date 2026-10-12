@@ -1,0 +1,14 @@
+{
+  "address": "0x5AC760",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "unsigned int __thiscall sub_5AC760(int this)\n{\n  _WORD *v2; // esi\n  unsigned int result; // eax\n  _DWORD *v4; // esi\n  int v5; // ecx\n  _DWORD *i; // esi\n  int *v7; // eax\n  char v8; // al\n\n  v2 = *(_WORD **)(this + 188);\n  result = (*(int (__thiscall **)(_WORD *, _DWORD))(*(_DWORD *)v2 + 52))(v2, 0);\n  v2[42] = 0;\n  v2[43] = 0;\n  v4 = *(_DWORD **)(this + 212);\n  for ( *(float *)(this + 244) = -flt_6C0820; v4; result = (*(int (__thiscall **)(int))(*(_DWORD *)v5 + 60))(v5) )\n  {\n    v5 = v4[2];\n    v4 = (_DWORD *)*v4;\n  }\n  for ( i = *(_DWORD **)(this + 16); i; i = (_DWORD *)i[14] )\n  {\n    v7 = (int *)(*(int (__thiscall **)(_DWORD *))(*i + 4))(i);\n    if ( v7 )\n    {\n      while ( v7 != &dword_726B88 )\n      {\n        v7 = (int *)v7[1];\n        if ( !v7 )\n          goto LABEL_7;\n      }\n      v8 = 1;\n    }\n    else\n    {\nLABEL_7:\n      v8 = 0;\n    }\n    result = v8 != 0 ? (unsigned int)i : 0;\n    if ( result )\n      result = (*(int (__thiscall **)(unsigned int))(*(_DWORD *)result + 104))(result);\n  }\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

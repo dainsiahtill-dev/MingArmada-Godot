@@ -1,0 +1,14 @@
+{
+  "address": "0x5B7D20",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "void __thiscall sub_5B7D20(_WORD *this, int a2, int a3)\n{\n  unsigned __int16 v4; // bx\n\n  if ( ++*(this + 15) > *(this + 14) )\n  {\n    v4 = *(_WORD *)(a3 + 68);\n    sub_545760((float *)(a3 + 16), v4, *(float **)(a3 + 32));\n    if ( v4 )\n    {\n      if ( *(float *)(a3 + 28) == flt_7113D4 )\n        *(float *)(a3 + 28) = **(float **)(a3 + 72) * **(float **)(a3 + 64);\n    }\n    *(this + 15) = 0;\n  }\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

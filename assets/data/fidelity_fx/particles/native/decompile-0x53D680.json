@@ -1,0 +1,14 @@
+{
+  "address": "0x53D680",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; execution fixtures separately scoped",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int sub_53D680()\n{\n  int v0; // eax\n  int v1; // esi\n\n  v0 = sub_531358(0x2Cu);\n  v1 = v0;\n  if ( !v0 )\n    return 0;\n  sub_53E1F0(v0);\n  *(_DWORD *)v1 = &off_709E00;\n  *(_WORD *)(v1 + 32) = 0;\n  *(_DWORD *)(v1 + 36) = 0;\n  *(_DWORD *)(v1 + 40) = 1;\n  return v1;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

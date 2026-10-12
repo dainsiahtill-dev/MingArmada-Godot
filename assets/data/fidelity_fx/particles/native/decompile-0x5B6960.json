@@ -1,0 +1,14 @@
+{
+  "address": "0x5B6960",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5B6960(int this, int a2)\n{\n  unsigned __int16 v3; // di\n  int result; // eax\n\n  v3 = *(_WORD *)(this + 68) - 1;\n  sub_556820(a2);\n  result = *(_DWORD *)(this + 80);\n  qmemcpy((void *)(result + 40 * (unsigned __int16)a2), (const void *)(result + 40 * v3), 0x28u);\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

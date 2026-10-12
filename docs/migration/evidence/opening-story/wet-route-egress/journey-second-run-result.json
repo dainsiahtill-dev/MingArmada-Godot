@@ -1,0 +1,49 @@
+{
+  "observedBy": "root unified exec session86853",
+  "exitCode": 1,
+  "consoleCompletion": "CONTINUED_VOYAGE_COMPLETE assertions=77 failures=2 writeOk=true",
+  "artifactSha256": "92b76d0daa85d64cf0ff5c2cecdd4f80e3accd3feecf8843ddbe34fd58a310e4",
+  "delivered": 20,
+  "lost": 0,
+  "actualClaim": {
+    "kind": "convoy",
+    "contractId": "convoy-002",
+    "loaded": 20,
+    "delivered": 20,
+    "pending": 0,
+    "lost": 0,
+    "baseReward": 200,
+    "bonus": 50,
+    "leasePaid": 0,
+    "ships": [
+      {
+        "shipId": "mingqi-1650-grain-a",
+        "wounded": 0.0,
+        "dead": 0,
+        "transferred": 0,
+        "hull": 100.0,
+        "sail": 100.0
+      },
+      {
+        "shipId": "mingqi-1650-grain-b",
+        "wounded": 0.0,
+        "dead": 0,
+        "transferred": 0,
+        "hull": 100.0,
+        "sail": 100.0
+      }
+    ],
+    "people": [
+      {
+        "personId": "steward-a",
+        "alive": true
+      },
+      {
+        "personId": "steward-b",
+        "alive": true
+      }
+    ]
+  },
+  "actualSafeReturn": false,
+  "scope": "Actual on-time delivery and claim passed; safe Xiamen docking and final normal full-fleet checkpoint failed. Preserved, no complete phase acceptance."
+}

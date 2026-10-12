@@ -1,0 +1,111 @@
+--- a/tools/capture-opening-return.gd
++++ b/tools/capture-opening-return.gd
+@@ -105,21 +105,22 @@
+ func unchanged_sources() -> bool:
+ 	return check(current_source_hashes() == source_hashes, "sources unchanged during capture") and check(FileAccess.get_sha256(journey_path) == summary.journeySha256, "immutable journey file unchanged")
+ 
+-func preserve_material(before: Dictionary, after: Dictionary, label: String) -> bool:
++func preserve_material(before: Dictionary, after: Dictionary, label: String, export_context: Dictionary = {}) -> bool:
+ 	# Normal native restoration allocates an epoch and refreshes projection stamps.
+ 	# Observe those owner changes; reject any material gameplay mutation.
+ 	for field: String in ["campaignId", "seed", "randomState", "simulationSeconds", "macroRemainder", "macroSeconds", "clockCompensation", "calendar", "chapterId", "captain", "debt", "flagshipId", "currentPortId", "voyages", "ports", "orders", "contracts", "boardings", "works", "prizes", "casualtyOrdinals", "reputations", "people", "intelligence", "chronicle", "settlements"]:
+ 		if not check(Codec._equal(before.get(field), after.get(field)), label + " preserves " + field): return false
+ 	if not check(before.vessels.keys() == after.vessels.keys(), label + " preserves vessel membership"): return false
+ 	for id: String in before.vessels:
+-		if not preserve_vessel(before.vessels[id], after.vessels[id], label + " preserves " + id): return false
++		if not preserve_vessel(before.vessels[id], after.vessels[id], label + " preserves " + id, export_context): return false
+ 	for epoch: String in before.nearTicks:
+ 		if not check(after.nearTicks.get(epoch) == before.nearTicks[epoch], label + " preserves historical native epoch " + epoch): return false
+ 	return true
+ 
+-func preserve_vessel(before: Dictionary, after: Dictionary, label: String) -> bool:
++func preserve_vessel(before: Dictionary, after: Dictionary, label: String, export_context: Dictionary = {}) -> bool:
+ 	for field: String in before:
+ 		if field in ["revision", "controlsProjection", "controlsObserved"]: continue
++		if field == "representation" and allows_saved_ownership(before, after, export_context): continue
+ 		var original: Variant = before[field]
+ 		var observed: Variant = after.get(field)
+ 		if field == "pose" and original is Dictionary and observed is Dictionary:
+@@ -127,6 +128,18 @@
+ 		elif not check(Codec._equal(original, observed), label + "." + field): return false
+ 	return true
+ 
++func allows_saved_ownership(before: Dictionary, after: Dictionary, context: Dictionary) -> bool:
++	if context.get("kind") != "normal-ui-save-checkpoint" or not context.get("safe", false) or context.get("portId") == null: return false
++	if before.get("ownerId") != "enemy" or before.get("damage", {}).get("hull") != 0 or after.get("damage", {}).get("hull") != 0: return false
++	if before.get("representation") != "near" or after.get("representation") != "route": return false
++	if before.id in context.get("nativeIds", []) or before.id in context.get("capturedShipIds", []): return false
++	if before.size() != after.size(): return false
++	# This absent sunk enemy receives no native observations. Its exact complete
++	# record must therefore differ in ownership representation alone, even stamps.
++	for field: String in before:
++		if not after.has(field) or field != "representation" and not Codec._equal(before[field], after[field]): return false
++	return true
++
+ func focus_control(id: String) -> Control:
+ 	var control: Control = scene.interface.find_child(id, true, false)
+ 	if not check(control != null, "real native control exists: " + id): return null
+@@ -370,17 +383,28 @@
+ 		var safe: Dictionary = scene.runtime.check_safety()
+ 		if not safe.get("ok", false): summary.saveReadback = {"skipped": true, "reason": safe.get("reason", "save-unverified")}
+ 		else:
+-			var expected: Dictionary = scene.runtime.snapshot().campaign
++			var expected_packet: Dictionary = scene.runtime.snapshot()
++			var expected: Dictionary = expected_packet.campaign
++			var export_context := {"kind": "normal-ui-save-checkpoint", "safe": expected_packet.runtime.canSave, "portId": expected.currentPortId, "nativeIds": expected_packet.naval.ships.map(func(ship): return ship.id), "capturedShipIds": expected_packet.runtime.policy.capturedShipIds.duplicate()}
+ 			if not await button("menu_open") or not await button("save_and_menu"): await finish(); return
+ 			if not check(main.current_scene == null and main.menu.visible, "normal save-and-menu route completes"): await finish(); return
+ 			var read: Dictionary = storage.read_checkpoint()
+ 			if not check(read.get("ok", false), "normal UI save checkpoint readback"): await finish(); return
+-			if not preserve_material(expected, Codec.decode(read.json).state, "saved checkpoint"): await finish(); return
++			var save_witness_path := directory + "/normal-ui-save-v2.json"
++			var save_witness := FileAccess.open(save_witness_path, FileAccess.WRITE)
++			if not check(save_witness != null, "preserve actual UI disk checkpoint before comparison"): await finish(); return
++			save_witness.store_string(read.json); save_witness.flush()
++			var witness_okay := save_witness.get_error() == OK; save_witness.close()
++			if not check(witness_okay and FileAccess.get_file_as_string(save_witness_path) == read.json, "exact UI disk checkpoint witness readback"): await finish(); return
++			var disk_state: Dictionary = Codec.decode(read.json).state
++			summary.saveReadback = {"diskRead": true, "normalUiSavePath": save_witness_path, "normalUiSaveSha256": FileAccess.get_sha256(save_witness_path), "exportOwnershipContext": export_context.duplicate(true)}
++			if not preserve_material(expected, disk_state, "saved checkpoint", export_context): await finish(); return
++			summary.saveReadback.checkpointStateVerified = true
+ 			entry = main.menu.find_child("mingqi-continue", true, false)
+ 			main.menu._scroll.ensure_control_visible(entry); await frames(3); await click(entry)
+ 			if not await resume_entry(): await finish(); return
+-			if not preserve_material(expected, scene.runtime.snapshot().campaign, "normal second Continue"): await finish(); return
+-			summary.saveReadback = {"ok": true, "slotSha256": FileAccess.get_sha256(storage.path)}
++			if not preserve_material(disk_state, scene.runtime.snapshot().campaign, "normal second Continue"): await finish(); return
++			summary.saveReadback.ok = true; summary.saveReadback.slotSha256 = FileAccess.get_sha256(storage.path)
+ 			if not await button("nav_convoy") or not await focus_control("contract_convoy-002"): await finish(); return
+ 			if not await capture("save-readback-1280", Vector2i(1280, 720)): await finish(); return
+ 	unchanged_sources()
+@@ -431,6 +455,7 @@
+ 	check(transport_plan(shape).get("reason") == "journey-original-transport-missing", "missing transport remains rejected")
+ 	await _presenter_tests()
+ 	_casualty_tests()
++	_saved_ownership_tests()
+ 	print("OPENING_RETURN_GUARD_TESTS assertions=", assertions, " failures=", failures)
+ 	quit(1 if failures else 0)
+ 
+@@ -480,3 +505,22 @@
+ 	check(casualty_consequence_matches(changed, ordinary + injury), "positive casualties still require actual one dead and two wounded")
+ 	check(not casualty_consequence_matches(changed, ordinary + " 此趟死亡1人、受伤3人。"), "positive casualties reject wrong real number")
+ 	check(not casualty_consequence_matches(changed, ordinary), "positive casualties cannot use zero/omitted casualty branch")
++
++func _saved_ownership_tests() -> void:
++	# Compare-only fixtures: no Campaign object, import, state repair or save.
++	var before := {"id": "qa-enemy", "ownerId": "enemy", "representation": "near", "damage": {"hull": 0}, "cargo": {}}
++	var after: Dictionary = before.duplicate(true); after.representation = "route"
++	var context := {"kind": "normal-ui-save-checkpoint", "safe": true, "portId": "kinmen", "nativeIds": ["qa-flag"], "capturedShipIds": []}
++	check(allows_saved_ownership(before, after, context), "normal save allows only absent uncaptured sunk enemy near-to-route ownership")
++	check(not allows_saved_ownership(before, after, {}), "restore and generic material checks stay strict by default")
++	var changed: Dictionary = before.duplicate(true); changed.damage.hull = 1
++	check(not allows_saved_ownership(changed, after, context), "live enemy cannot use saved ownership exception")
++	changed = context.duplicate(true); changed.nativeIds.append("qa-enemy")
++	check(not allows_saved_ownership(before, after, changed), "present native enemy cannot use saved ownership exception")
++	changed = context.duplicate(true); changed.capturedShipIds.append("qa-enemy")
++	check(not allows_saved_ownership(before, after, changed), "captured enemy cannot use saved ownership exception")
++	changed = after.duplicate(true); changed.cargo.grain = 1
++	check(not allows_saved_ownership(before, changed, context), "ownership exception cannot hide any other material field change")
++	check(not allows_saved_ownership(after, before, context), "reverse route-to-near change stays forbidden")
++	changed = context.duplicate(true); changed.safe = false
++	check(not allows_saved_ownership(before, after, changed), "unsafe export cannot use saved ownership exception")

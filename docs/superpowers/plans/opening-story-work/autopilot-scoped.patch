@@ -1,0 +1,122 @@
+--- before/modules/naval_simulation/encounter.gd
++++ after/modules/naval_simulation/encounter.gd
+@@ -484,10 +484,13 @@
+ 			if not ship.sunk and not hasActiveOrder(ship.state.id) and not ship.state.id in policy.get("lockedShipIds", []) and not ship.state.id in policy.get("disabledMotionShipIds", []):
+ 				if (not _controlled(ship.state.id) and ships.any(func(t): return not t.sunk and _enemy(ship, t))) if _continuous() else ship.state.team == "hostile": _ai(ship)
+ 	var player = _ship(player_id)
++	var navigation_assists: Dictionary = {}
+ 	for ship in ships:
+ 		if ship.sunk or not ship.state.has("navigation") or ship.state.id in policy.get("lockedShipIds", []) or ship.state.id in policy.get("disabledMotionShipIds", []): continue
+ 		var fighting = ship.state.team == "hostile" and ship.state.cannonsPerSide > 0 and not player.is_empty() and not player.sunk and _distance(_visual(ship).position, _visual(player).position) <= 260
+-		if not fighting or hasActiveOrder(ship.state.id): _autopilot(ship)
++		if not fighting or hasActiveOrder(ship.state.id):
++			var assist: Dictionary = _autopilot(ship)
++			if not assist.is_empty(): navigation_assists[ship.state.id] = assist
+ 		var decision = decisions.get(ship.state.id, {})
+ 		if decision.has("maxDeployment"): ship.state.sailDeployment = minf(ship.state.sailDeployment, decision.maxDeployment)
+ 		if decision.get("fire", false):
+@@ -506,6 +509,7 @@
+ 		ship.core.set_sail_deployment(ship.state.sailDeployment); ship.core.set_sail_condition(ship.state.sail / ship.state.maxSail); ship.core.set_sail_angle(ship.state.sailAngle)
+ 		var controls = {"throttle": 0.0, "rudderAngleDeg": ship.state.rudder * 30, "crewSteeringForce": minf(ship.state.crew, ship.state.maxCrew) * 200 * ship.state.stats.steeringMultiplier, "time": tick * DT}
+ 		if ship.has("manualHandling"): controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
++		elif navigation_assists.has(ship.state.id): controls.manualAssist = navigation_assists[ship.state.id]
+ 		ship.core.step(DT, controls)
+ 		_shore(ship)
+ 	_contacts()
+@@ -627,7 +631,7 @@
+ 	for ahead in [0, 15, 30, 45]:
+ 		if not _wet_hull(ship, visual.position.x + cos(heading) * ahead, visual.position.z + sin(heading) * ahead, heading): return false
+ 	return true
+-func _autopilot(ship: Dictionary) -> void:
++func _autopilot(ship: Dictionary) -> Dictionary:
+ 	var waypoint = ship.state.navigation
+ 	var visual = _visual(ship)
+ 	var sampler: Callable = config.get("sampleTerrainHeight", Callable())
+@@ -642,7 +646,7 @@
+ 			ship.erase("tack")
+ 		var current = ship.route
+ 		while current.points.size() > 1 and _distance(current.points[0], visual.position) < 45: current.points.pop_front(); ship.erase("tack")
+-		if current.points.is_empty(): ship.state.rudder = 0; ship.state.sailDeployment = 0; return
++		if current.points.is_empty(): ship.state.rudder = 0; ship.state.sailDeployment = 0; return {}
+ 		waypoint = current.points[0]
+ 		if tick - current.checked > 1800: current.checked = tick; current.distance = _distance(waypoint, visual.position)
+ 	var distance = _distance(waypoint, visual.position)
+@@ -669,6 +673,19 @@
+ 	elif ship.lowSpeedTurn: ship.sailRecovery = 0; ship.state.sailDeployment = maxf(0, ship.state.sailDeployment - DT)
+ 	else: ship.sailRecovery = minf(1, ship.sailRecovery + DT * 0.25); ship.state.sailDeployment = minf(deployment, ship.sailRecovery)
+ 	ship.state.autoTrim = true
++	return _navigation_steerage(ship,visual,desired,error,blocked,distance,intermediate)
++func _navigation_steerage(ship: Dictionary,visual: Dictionary,desired: float,error: float,blocked: bool,distance: float,intermediate: bool) -> Dictionary:
++	if not config.get("referenceHandling",false) or blocked or _speed(visual)>=1.2 or absf(error)<=PI/36 or ship.state.crew<=0 or ship.state.hull<=0 or ship.state.id in policy.get("capturedShipIds",[]):return {}
++	var reach=Navigation.PLANNED_TARGET_REACH_METERS if config.get("routePlanning",false) else 30
++	if not intermediate and distance<=reach:return {}
++	# Use the existing crew/hull-scaled, bounded steering request. Every hull
++	# orientation of the recovery turn and the outgoing course must remain wet.
++	var p=visual.position;var steps=maxi(1,int(ceil(absf(error)/(PI/18))))
++	for index in steps+1:
++		if not _wet_hull(ship,p.x,p.z,visual.heading+error*index/steps):return {}
++	for ahead in [15,30,45]:
++		if not _wet_hull(ship,p.x+cos(desired)*ahead,p.z+sin(desired)*ahead,desired):return {}
++	return Manual.build(ship.state.kind,ship.state.rudder,_speed(visual),ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,false,ship.state.sailDeployment,true)
+ func _footprint_height(ship: Dictionary, x: float, z: float, heading: float) -> float:
+ 	var sampler: Callable = config.sampleTerrainHeight
+ 	var highest = -INF; var dims = ship.state.dimensions
+--- before/tests/test_autopilot_port_approach.gd
++++ after/tests/test_autopilot_port_approach.gd
+@@ -0,0 +1,56 @@
++extends SceneTree
++const Encounter=preload("res://modules/naval_simulation/encounter.gd")
++const Manual=preload("res://modules/physics_engine/ships/manual_handling.gd")
++var assertions:=0
++var failures:=0
++func check(ok: bool,label: String) -> void:
++	assertions+=1
++	if not ok: failures+=1;printerr("FAIL: ",label)
++func case_for(heading: float,reference: bool=true,position: Dictionary={"x":347.597,"z":126.349}) -> RefCounted:
++	return Encounter.new({"mode":"continuous","routePlanning":true,"referenceHandling":reference,"battleId":"isolated-port-approach","playerId":"merchant","controllableShipIds":["merchant"],"hostileTargets":{},"sampleTerrainHeight":func(_x: float,_z: float)->float:return -24.0,"oceanWaves":[],"wind":{"direction":{"x":-1.0,"y":0.0},"speed":12.0},"ships":[{"id":"merchant","kind":"merchant","team":"player","position":position,"heading":heading,"speed":0.2,"crew":20,"sail":100,"hull":100,"sailDeployment":0.1987,"autoTrim":true,"stats":{"maxHull":100,"maxCrew":30,"draftMeters":1.6,"cargoMass":2000}}]})
++func run_approach(heading: float) -> Dictionary:
++	var e:=case_for(heading);check(e.last_error.is_empty(),"healthy single-merchant actual physics fixture is valid")
++	var target:={"x":282.1499288930165,"z":107.48568719733964}
++	check(e.navigate("merchant",target).ok,"actual native navigation accepts unobstructed port")
++	var samples=[];var arrived=false;var nearest=INF;var low_turn_ticks=0;var minimum_sails=1.0
++	for i in 36000:
++		e.step(1.0/60.0)
++		var s: Dictionary=e.snapshot().ships[0];var p: Dictionary=s.visual.position;var v: Dictionary=s.visual.velocity
++		var distance:=Vector2(p.x-target.x,p.z-target.z).length();var speed:=Vector2(v.x,v.z).length()
++		nearest=minf(nearest,distance);minimum_sails=minf(minimum_sails,s.sailDeployment)
++		if e.ships[0].lowSpeedTurn:low_turn_ticks+=1
++		if i%600==0:samples.append({"time":e.snapshot().time,"position":p,"distance":distance,"speed":speed,"heading":s.visual.heading,"rudder":s.rudder,"sails":s.sailDeployment,"lowSpeedTurn":e.ships[0].lowSpeedTurn,"tack":e.ships[0].get("tack")})
++		if distance<=25.0 and speed<=0.75:arrived=true;break
++	var final: Dictionary=e.snapshot().ships[0]
++	return {"initialHeading":heading,"arrived":arrived,"seconds":e.snapshot().time,"nearest":nearest,"lowTurnTicks":low_turn_ticks,"minimumSails":minimum_sails,"final":final,"samples":samples}
++func _initialize() -> void:
++	for heading in [-1.4386,0.0,PI]:
++		var result:=run_approach(heading)
++		print("AUTOPILOT_PORT_DIAGNOSTICS ",JSON.stringify(result,"",false,true))
++		check(result.arrived,"actual single healthy merchant recovers and reaches port at business arrival speed from heading "+str(heading))
++		check(result.final.hull==100 and result.final.sail==100 and result.final.crew==20,"isolated controller test changes no health crew or sails")
++	var target:={"x":282.1499288930165,"z":107.48568719733964}
++	var e:=case_for(0.0);check(e.navigate("merchant",target).ok,"bounded steering request fixture has real navigation")
++	var request: Dictionary=e._autopilot(e.ships[0])
++	check(not request.is_empty() and not Manual.sanitize(request).is_empty(),"actual autopilot delegates a valid existing steering request")
++	check(absf(request.targetYawRateRad)<=6*PI/180 and request.maxYawAccelerationRad<=8*PI/180 and request.powerFraction<=20.0/30.0 and request.brakeDeceleration==0,"merchant recovery respects existing hull crew yaw budgets and adds no brake or drive")
++	var original:=case_for(0.0,false);original.navigate("merchant",target)
++	check(original._autopilot(original.ships[0]).is_empty(),"original default-false navigation receives no recovery assist")
++	var visual: Dictionary=e.snapshot().ships[0].visual
++	check(e._navigation_steerage(e.ships[0],visual,2*PI/3,2*PI/3,true,68.0,false).is_empty(),"collision-blocked course cannot use recovery assist")
++	check(e._navigation_steerage(e.ships[0],visual,2*PI/3,2*PI/3,false,18.0,false).is_empty(),"final target braking radius cannot acquire turn recovery")
++	var unplanned:=case_for(0.0,true,{"x":target.x+25,"z":target.z});unplanned.config.routePlanning=false;unplanned.navigate("merchant",target)
++	check(unplanned._autopilot(unplanned.ships[0]).is_empty(),"non-planning native 30m braking range also suppresses recovery")
++	check(e._navigation_steerage(e.ships[0],visual,visual.heading,0.0,false,68.0,false).is_empty(),"aligned low speed does not receive artificial steering")
++	var locked:=case_for(0.0);locked.navigate("merchant",target);locked.policy.lockedShipIds=["merchant"];locked.step(1.0/60.0)
++	check(locked.snapshot().ships[0].rudder==0 and locked.snapshot().ships[0].sailDeployment==0,"service-locked ship stays stopped instead of receiving autonomous recovery")
++	var disabled:=case_for(0.0);disabled.navigate("merchant",target);disabled.policy.disabledMotionShipIds=["merchant"];disabled.step(1.0/60.0)
++	check(disabled.snapshot().ships[0].rudder==0 and disabled.snapshot().ships[0].sailDeployment==0 and not disabled.snapshot().ships[0].has("navigation"),"disabled-motion authority cancels navigation and recovery")
++	var captured:=case_for(0.0);captured.navigate("merchant",target);captured.policy.capturedShipIds=["merchant"]
++	check(captured._autopilot(captured.ships[0]).is_empty(),"captured ship does not get crew recovery")
++	var dry:=case_for(0.0);dry.navigate("merchant",target)
++	dry.config.sampleTerrainHeight=func(x: float,z: float)->float:return 4.0 if x>335 and x<360 and z>137 else -24.0
++	var dry_visual: Dictionary=dry.snapshot().ships[0].visual
++	check(dry._navigation_steerage(dry.ships[0],dry_visual,2*PI/3,2*PI/3,false,68.0,false).is_empty(),"recovery turn rejects dry swept hull orientations even when initial footprint is wet")
++	print("AUTOPILOT_PORT_APPROACH_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

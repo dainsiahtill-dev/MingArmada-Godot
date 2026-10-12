@@ -1,0 +1,70 @@
+--- before/tools/play-opening-story-journey.gd
++++ after/tools/play-opening-story-journey.gd
+@@ -55,7 +55,7 @@
+ func navigation_diagnostics(id: String) -> Dictionary:
+ 	for live: Dictionary in runtime.simulation.encounter.ships:
+ 		if live.state.id==id:
+-			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}
++			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"wetRouteEgress":live.get("wetRouteEgress"),"egressClearance":live.get("egressClearance"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}.duplicate(true)
+ 	return {}
+ func hold(key: String, pressed: bool) -> void:
+ 	if held_keys.get(key,false)!=pressed:
+@@ -92,7 +92,7 @@
+ 		printerr("JOURNEY_OUTPUT_REJECTED ",guarded.reason); quit(2); return
+ 	if "--preflight" in args:
+ 		print("OPENING_JOURNEY_PREFLIGHT_PASS acceptedSeconds=0 output=",guarded.path); quit(0); return
+-	for path: String in ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]:
++	for path: String in ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/navigation/wet_route_egress.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]:
+ 		source_hashes[path]=FileAccess.get_sha256("res://"+path)
+ 	source_hashes["tools/qa-journey-checkpoint.gd"]=FileAccess.get_sha256("res://tools/qa-journey-checkpoint.gd")
+ 	var geography: Array=JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
+--- before/tools/play-continued-voyage.gd
++++ after/tools/play-continued-voyage.gd
+@@ -10,7 +10,7 @@
+ const CheckpointAudit = preload("res://tools/qa-journey-checkpoint.gd")
+ const STEP := 0.2
+ const MAXIMUM_SECONDS := 2400.0
+-const SOURCES = ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]
++const SOURCES = ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/navigation/wet_route_egress.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]
+ var runtime := Runtime.new()
+ var assertions := 0
+ var failures := 0
+@@ -48,7 +48,7 @@
+ func navigation_diagnostics(id: String) -> Dictionary:
+ 	for live: Dictionary in runtime.simulation.encounter.ships:
+ 		if live.state.id==id:
+-			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}
++			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"wetRouteEgress":live.get("wetRouteEgress"),"egressClearance":live.get("egressClearance"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}.duplicate(true)
+ 	return {}
+ func rally_fleet(port_id: String) -> void:
+ 	var packet: Dictionary = runtime.snapshot()
+@@ -86,6 +86,7 @@
+ 	var record: Dictionary = parsed
+ 	if not check(record.get("failures",-1)==0 and record.get("actualSafeReturn",false) and record.get("terrain")=="same formal game terrain","successful actual formal first safe return"): finish(); return
+ 	if not check(record.get("sourceHashes",{}).has("modules/naval_simulation/navigation/approach_clearance.gd"),"fresh first voyage records approach clearance source"): finish(); return
++	if not check(record.get("sourceHashes",{}).has("modules/naval_simulation/navigation/wet_route_egress.gd"),"fresh first voyage records wet route egress source"): finish(); return
+ 	result.upstreamQaContext = []
+ 	for path: String in record.sourceHashes:
+ 		var current_hash := FileAccess.get_sha256("res://"+path)
+--- before/tools/capture-opening-clarity.gd
++++ after/tools/capture-opening-clarity.gd
+@@ -46,7 +46,7 @@
+ 			check(not FileAccess.file_exists(full), "unused isolated opening slot")
+ 	if failures: await finish(); return
+ 	slot_owned = true
+-	for path: String in ["tools/capture-opening-clarity.gd", "tools/capture-opening-story.gd", "tools/qa-journey-paths.gd", "game/ui/mingqi/mingqi_interface.gd", "modules/naval_simulation/encounter.gd", "modules/naval_simulation/navigation/approach_clearance.gd"]:
++	for path: String in ["tools/capture-opening-clarity.gd", "tools/capture-opening-story.gd", "tools/qa-journey-paths.gd", "game/ui/mingqi/mingqi_interface.gd", "modules/naval_simulation/encounter.gd", "modules/naval_simulation/navigation/approach_clearance.gd", "modules/naval_simulation/navigation/wet_route_egress.gd"]:
+ 		clarity_sources[path] = FileAccess.get_sha256("res://" + path)
+ 	await super.run()
+ 
+--- before/tools/capture-return-clarity.gd
++++ after/tools/capture-return-clarity.gd
+@@ -13,7 +13,7 @@
+ 
+ func current_source_hashes() -> Dictionary:
+ 	var result := super.current_source_hashes()
+-	for path: String in ["tools/capture-return-clarity.gd", "tools/qa-journey-paths.gd", "modules/naval_simulation/navigation/approach_clearance.gd"]:
++	for path: String in ["tools/capture-return-clarity.gd", "tools/qa-journey-paths.gd", "modules/naval_simulation/navigation/approach_clearance.gd", "modules/naval_simulation/navigation/wet_route_egress.gd"]:
+ 		result[path] = FileAccess.get_sha256("res://" + path)
+ 	return result
+ 

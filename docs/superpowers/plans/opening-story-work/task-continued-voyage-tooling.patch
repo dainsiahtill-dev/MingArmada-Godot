@@ -1,0 +1,630 @@
+--- baseline/tools/play-opening-story-journey.gd
++++ current/tools/play-opening-story-journey.gd
+@@ -6,6 +6,7 @@
+ const Layout=preload("res://game/scenes/common/reference_geography.gd")
+ const Catalog=preload("res://game/domain/mingqi/catalog.gd")
+ const Gunnery=preload("res://modules/naval_simulation/combat/cannon_system.gd")
++const Paths=preload("res://tools/qa-journey-paths.gd")
+ var runtime:=Runtime.new()
+ var heights:=Height.new()
+ var serial:=0
+@@ -13,26 +14,56 @@
+ var failures:=0
+ var stages: Array=[]
+ var source_hashes: Dictionary={}
++var commands: Array=[]
++var checks: Array=[]
++var held_keys: Dictionary={}
+ func _initialize() -> void: run.call_deferred()
+ func check(value: bool,detail: String) -> void:
+ 	assertions+=1
++	checks.append({"ok":value,"detail":detail})
+ 	if not value: failures+=1; printerr("FAIL: ",detail)
++static func write_verified(path: String, bytes: String) -> Dictionary:
++	if FileAccess.file_exists(path) or DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
++		return {"ok":false,"reason":"evidence-already-exists","writeError":ERR_ALREADY_EXISTS,"readbackExact":false}
++	var directory_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
++	if directory_error!=OK: return {"ok":false,"reason":"directory-write-failed","writeError":directory_error,"readbackExact":false}
++	var file := FileAccess.open(path,FileAccess.WRITE)
++	if file==null: return {"ok":false,"reason":"evidence-open-failed","writeError":FileAccess.get_open_error(),"readbackExact":false}
++	file.store_string(bytes); file.flush()
++	var write_error := file.get_error()
++	file.close()
++	var exact := FileAccess.get_file_as_string(path)==bytes
++	return {"ok":write_error==OK and exact,"writeError":write_error,"readbackExact":exact}
+ func command(type: String,fields: Dictionary={}) -> Dictionary:
+ 	serial+=1
+ 	var input: Dictionary={"type":type,"commandId":"journey-"+str(serial),"expectedRevision":runtime.snapshot().campaign.revision}
+ 	input.merge(fields)
+-	return runtime.command(input)
++	var result: Dictionary=runtime.command(input)
++	commands.append({"simulationSeconds":runtime.snapshot().campaign.simulationSeconds,"input":input,"result":result})
++	return result
+ func native(type: String,fields: Dictionary={}) -> Dictionary:
+ 	var input: Dictionary={"type":type}; input.merge(fields)
+-	return runtime.command(input)
++	var result: Dictionary=runtime.command(input)
++	commands.append({"simulationSeconds":runtime.snapshot().campaign.simulationSeconds,"input":input,"result":result})
++	return result
+ func stamp(packet: Dictionary,label: String) -> void:
+ 	var ships: Array=[]
+ 	for ship: Dictionary in packet.naval.ships:
+-		ships.append({"id":ship.id,"position":ship.visual.position,"velocity":ship.visual.velocity,"heading":ship.visual.heading,"hull":ship.hull,"sail":ship.sail,"crew":ship.crew,"ammo":ship.ammo,"navigation":ship.get("navigation")})
++		ships.append({"id":ship.id,"position":ship.visual.position,"velocity":ship.visual.velocity,"heading":ship.visual.heading,"hull":ship.hull,"sail":ship.sail,"crew":ship.crew,"ammo":ship.ammo,"navigation":ship.get("navigation"),"nativeDiagnostics":ship,"navigationDiagnostics":navigation_diagnostics(ship.id)})
+ 	stages.append({"label":label,"time":packet.campaign.simulationSeconds,"ships":ships,"voyages":packet.campaign.voyages,"contract":packet.campaign.contracts["convoy-001"],"storyObjective":packet.story.objective,"evaluation":runtime.campaign.evaluate_convoy("convoy-001")})
+ 	print("STORY_JOURNEY ",label," time=",snappedf(packet.campaign.simulationSeconds,.1)," delivered=",runtime.campaign.evaluate_convoy("convoy-001").delivered)
++func navigation_diagnostics(id: String) -> Dictionary:
++	for live: Dictionary in runtime.simulation.encounter.ships:
++		if live.state.id==id:
++			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}
++	return {}
++func hold(key: String, pressed: bool) -> void:
++	if held_keys.get(key,false)!=pressed:
++		held_keys[key]=pressed
++		commands.append({"simulationSeconds":runtime.snapshot().campaign.simulationSeconds,"input":{"type":"held-key","key":key,"pressed":pressed}})
++	runtime.set_held(key,pressed)
+ func release_helm() -> void:
+-	for key: String in ["KeyW","KeyS","KeyA","KeyD"]: runtime.set_held(key,false)
++	for key: String in ["KeyW","KeyS","KeyA","KeyD"]: hold(key,false)
+ func captain_gun_course(flagship: Dictionary,enemy: Dictionary,distance: float) -> void:
+ 	var bearing:=atan2(float(enemy.visual.position.z)-float(flagship.visual.position.z),float(enemy.visual.position.x)-float(flagship.visual.position.x))
+ 	var heading: float=flagship.visual.heading
+@@ -49,13 +80,21 @@
+ 	var error:=wrapf(desired-heading,-PI,PI)
+ 	# Real assisted helm keys only. Approach beyond range; brake and turn a
+ 	# downwind gun side into the target. The native hull/shore/shot rules apply.
+-	runtime.set_held("KeyW",distance>230.0)
+-	runtime.set_held("KeyS",distance<=230.0)
+-	runtime.set_held("KeyA",error<-.04)
+-	runtime.set_held("KeyD",error>.04)
++	hold("KeyW",distance>230.0)
++	hold("KeyS",distance<=230.0)
++	hold("KeyA",error<-.04)
++	hold("KeyD",error>.04)
+ func run() -> void:
+-	for path: String in ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","tools/play-opening-story-journey.gd"]:
++	var wall_start:=Time.get_ticks_usec()
++	var args: Array=Array(OS.get_cmdline_user_args())
++	var guarded: Dictionary=Paths.output(args)
++	if not guarded.ok:
++		printerr("JOURNEY_OUTPUT_REJECTED ",guarded.reason); quit(2); return
++	if "--preflight" in args:
++		print("OPENING_JOURNEY_PREFLIGHT_PASS acceptedSeconds=0 output=",guarded.path); quit(0); return
++	for path: String in ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]:
+ 		source_hashes[path]=FileAccess.get_sha256("res://"+path)
++	source_hashes["tools/qa-journey-checkpoint.gd"]=FileAccess.get_sha256("res://tools/qa-journey-checkpoint.gd")
+ 	var geography: Array=JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
+ 	check(heights.configure_ports(geography,true,Layout.options()),"same formal geography configures the captain journey")
+ 	var flat:= "--flat" in OS.get_cmdline_user_args()
+@@ -180,12 +219,14 @@
+ 	if manual_fire:
+ 		check(player_fires>0,"real assisted helm obtains a native fired volley, beyond queued=true")
+ 		check(player_hits>0,"real projectile flight hits the hostile through native collision receipts")
+-	var directory:="res://docs/migration/evidence/opening-story"
+-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
+-	var file:=FileAccess.open(directory+"/journey-"+("flat" if flat else "formal")+("-outer" if outer else "")+("-manual-fire" if manual_fire else "-tactical" if tactical else "")+("-range200" if tactical and not manual_fire and tactical_range==200 else "")+("-return" if return_to_port else "")+".json",FileAccess.WRITE)
+-	check(file!=null,"captain journey records reproducible actual progress")
+-	if file:
+-		file.store_string(JSON.stringify({"mode":"headless native gameplay; no visual/performance claim","terrain":"flat control" if flat else "same formal game terrain","flagshipRoute":"xiamen-kinmen-outer" if outer else "xiamen-kinmen-deep","tactics":"real W/S/A/D assisted helm and same UI firing advice" if manual_fire else "existing keep-distance order and same UI firing advice" if tactical else "voyage navigation and same UI firing advice","maximumAcceptedSeconds":maximum_seconds,"keepDistanceMeters":tactical_range if tactical and not manual_fire else null,"actualSafeReturn":safely_returned,"confirmedCheckpointJson":confirmed_checkpoint,"combatProof":{"nativeFlagshipFireReceipts":player_fires,"nativeFlagshipHitHostileReceipts":player_hits},"sourceHashes":source_hashes,"assertions":assertions,"failures":failures,"stages":stages,"final":final},"\t",false,true)); file.close()
++	for path: String in source_hashes:
++		check(source_hashes[path]==FileAccess.get_sha256("res://"+path),"frozen source throughout first voyage: "+path)
++	var still_unused: Dictionary=Paths.output(args)
++	if not still_unused.ok:
++		printerr("JOURNEY_OUTPUT_REJECTED ",still_unused.reason); runtime.dispose(); quit(2); return
++	var bytes := JSON.stringify({"mode":"headless native gameplay; no visual/performance claim","terrain":"flat control" if flat else "same formal game terrain","flagshipRoute":"xiamen-kinmen-outer" if outer else "xiamen-kinmen-deep","tactics":"real W/S/A/D assisted helm and same UI firing advice" if manual_fire else "existing keep-distance order and same UI firing advice" if tactical else "voyage navigation and same UI firing advice","maximumAcceptedSeconds":maximum_seconds,"wallClockSeconds":(Time.get_ticks_usec()-wall_start)/1000000.0,"acceptedSimulationSeconds":final.runtime.acceptedSeconds,"keepDistanceMeters":tactical_range if tactical and not manual_fire else null,"actualSafeReturn":safely_returned,"confirmedCheckpointJson":confirmed_checkpoint,"combatProof":{"nativeFlagshipFireReceipts":player_fires,"nativeFlagshipHitHostileReceipts":player_hits},"sourceHashes":source_hashes,"arguments":args,"commands":commands,"checks":checks,"assertions":assertions,"failures":failures,"stages":stages,"final":final},"\t",false,true)
++	var written := write_verified(guarded.path,bytes)
++	check(written.ok,"captain evidence flushed without error and exact bytes read back: "+str(written))
+ 	runtime.dispose()
+-	print("OPENING_STORY_JOURNEY_COMPLETE assertions=",assertions," failures=",failures)
++	print("OPENING_STORY_JOURNEY_COMPLETE assertions=",assertions," failures=",failures," writeOk=",written.ok)
+ 	quit(1 if failures else 0)
+--- /dev/null
++++ current/tools/play-continued-voyage.gd
+@@ -0,0 +1,224 @@
++extends SceneTree
++## Real checkpoint -> convoy-002 -> supply delivery -> Xiamen safe checkpoint.
++## Captain intents only. No teleport, HP/cargo/receipt edits, respawn or Storage.
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
++const Codec = preload("res://game/domain/persistence/save_codec.gd")
++const Height = preload("res://modules/scene_engine/terrain/height_field.gd")
++const Layout = preload("res://game/scenes/common/reference_geography.gd")
++const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const Paths = preload("res://tools/qa-journey-paths.gd")
++const CheckpointAudit = preload("res://tools/qa-journey-checkpoint.gd")
++const STEP := 0.2
++const MAXIMUM_SECONDS := 2400.0
++const SOURCES = ["game/domain/mingqi/opening_story.gd","game/domain/mingqi/campaign.gd","game/domain/mingqi/catalog.gd","game/domain/persistence/save_codec.gd","game/runtime/mingqi_runtime.gd","game/runtime/near_field_bridge.gd","game/runtime/native_readiness.gd","modules/contracts/navigation_contract.gd","modules/naval_simulation/encounter.gd","modules/naval_simulation/navigation/approach_clearance.gd","modules/naval_simulation/combat/cannon_system.gd","modules/naval_simulation/tactics/order_controller.gd","game/runtime/sailing_simulation.gd","modules/scene_engine/terrain/height_field.gd","game/scenes/common/reference_geography.gd","game/data/mingqi_geography.json","tools/qa-journey-paths.gd","tools/play-opening-story-journey.gd","tools/play-continued-voyage.gd"]
++var runtime := Runtime.new()
++var assertions := 0
++var failures := 0
++var serial := 0
++var checks: Array = []
++var commands: Array = []
++var stages: Array = []
++var result: Dictionary = {}
++var output_path := ""
++var arguments: Array = []
++var wall_start := 0
++var ready := false
++func _initialize() -> void: run.call_deferred()
++func check(value: bool, detail: String) -> bool:
++	assertions += 1; checks.append({"ok":value,"detail":detail})
++	if not value: failures += 1; printerr("FAIL: ",detail)
++	return value
++func command(kind: String, fields: Dictionary = {}, business: bool = true) -> Dictionary:
++	var input: Dictionary = {"type":kind}
++	if business:
++		serial += 1; input.commandId = "continued-voyage-" + str(serial); input.expectedRevision = runtime.snapshot().campaign.revision
++	input.merge(fields)
++	var receipt: Dictionary = runtime.command(input)
++	commands.append({"simulationSeconds":runtime.snapshot().campaign.simulationSeconds,"input":input,"result":receipt})
++	check(receipt.get("ok",false),"real " + kind + " accepted: " + str(receipt.get("reason","")))
++	return receipt
++func stamp(label: String) -> void:
++	var packet: Dictionary = runtime.snapshot()
++	var ships: Array = []
++	for ship: Dictionary in packet.naval.ships:
++		ships.append({"id":ship.id,"position":ship.visual.position,"velocity":ship.visual.velocity,"heading":ship.visual.heading,"navigation":ship.get("navigation"),"nativeDiagnostics":ship,"navigationDiagnostics":navigation_diagnostics(ship.id),"campaignVessel":packet.campaign.vessels.get(ship.id)})
++	stages.append({"label":label,"simulationSeconds":packet.campaign.simulationSeconds,"acceptedSimulationSeconds":packet.runtime.acceptedSeconds,"ships":ships,"voyages":packet.campaign.voyages,"contract":packet.campaign.contracts.get("convoy-002"),"evaluation":runtime.campaign.evaluate_convoy("convoy-002"),"runtime":packet.runtime})
++	print("CONTINUED_VOYAGE ",label," time=",packet.campaign.simulationSeconds," delivered=",runtime.campaign.evaluate_convoy("convoy-002").delivered)
++func navigation_diagnostics(id: String) -> Dictionary:
++	for live: Dictionary in runtime.simulation.encounter.ships:
++		if live.state.id==id:
++			return {"route":live.get("route"),"approachRecovery":live.get("approachRecovery"),"lowSpeedTurn":live.get("lowSpeedTurn"),"sailRecovery":live.get("sailRecovery"),"motion":live.core.get_snapshot()}
++	return {}
++func rally_fleet(port_id: String) -> void:
++	var packet: Dictionary = runtime.snapshot()
++	for member: Dictionary in packet.naval.ships:
++		if member.id in packet.runtime.controllableShipIds and member.hull > 0 and member.id != packet.campaign.flagshipId:
++			var order: Dictionary = {"id":"continued-voyage-"+str(serial+1),"shipIds":[member.id],"intent":{"kind":"rally","point":Catalog.DATA.ports[port_id].position},"issuedAt":packet.campaign.simulationSeconds}
++			command("assign-order",{"order":order})
++func casualty_evidence(before: Dictionary, after: Dictionary) -> Dictionary:
++	var ships: Array = []; var people: Array = []; var receipts: Array = []
++	for id: String in after.vessels:
++		var old: Dictionary = before.vessels.get(id,{})
++		var now: Dictionary = after.vessels[id]
++		ships.append({"id":id,"beforeHull":old.get("damage",{}).get("hull"),"afterHull":now.damage.hull,"beforeCrew":old.get("crew"),"afterCrew":now.crew,"newlySunk":not old.is_empty() and old.damage.hull>0 and now.damage.hull<=0})
++	for id: String in after.people:
++		people.append({"id":id,"before":before.people.get(id),"after":after.people[id],"newlyDead":before.people.has(id) and before.people[id].alive and not after.people[id].alive})
++	var old_ids: Array = before.chronicle.map(func(entry): return entry.id)
++	for entry: Dictionary in after.chronicle:
++		if not entry.id in old_ids and entry.kind in ["near-casualties","crew-transition","near-sink","cargo-loss"]: receipts.append({"chronicle":entry,"settlement":after.settlements.get(entry.id)})
++	return {"ships":ships,"people":people,"newCasualtyReceipts":receipts,"settlementReceipt":after.settlements.get(after.campaignId+":convoy-002:claim")}
++func run() -> void:
++	wall_start = Time.get_ticks_usec(); arguments = Array(OS.get_cmdline_user_args())
++	var output: Dictionary = Paths.output(arguments)
++	var journey: Dictionary = Paths.input_journey(arguments)
++	if not output.ok or not journey.ok:
++		printerr("CONTINUED_VOYAGE_PREFLIGHT_REJECTED ",output.get("reason",journey.get("reason",""))); quit(2); return
++	output_path = output.path
++	if "--preflight" in arguments:
++		print("CONTINUED_VOYAGE_PREFLIGHT_PASS acceptedSeconds=0 input=",journey.path," output=",output_path); quit(0); return
++	var source_bytes := FileAccess.get_file_as_string(journey.path)
++	var parsed = JSON.parse_string(source_bytes)
++	result = {"mode":"headless native gameplay; no GPU, visual or performance claim","terrain":"same formal game terrain","journeyPath":journey.path,"journeySha256":source_bytes.sha256_text(),"arguments":arguments,"maximumAcceptedSeconds":MAXIMUM_SECONDS,"stepSeconds":STEP,"sourceHashes":{},"confirmedCheckpointJson":"","actualSafeReturn":false}
++	for path: String in SOURCES: result.sourceHashes[path] = FileAccess.get_sha256("res://"+path)
++	result.sourceHashes["tools/qa-journey-checkpoint.gd"] = FileAccess.get_sha256("res://tools/qa-journey-checkpoint.gd")
++	if not check(parsed is Dictionary,"input journey is JSON object"): finish(); return
++	var record: Dictionary = parsed
++	if not check(record.get("failures",-1)==0 and record.get("actualSafeReturn",false) and record.get("terrain")=="same formal game terrain","successful actual formal first safe return"): finish(); return
++	if not check(record.get("sourceHashes",{}).has("modules/naval_simulation/navigation/approach_clearance.gd"),"fresh first voyage records approach clearance source"): finish(); return
++	for path: String in record.sourceHashes:
++		if not check(FileAccess.get_sha256("res://"+path)==record.sourceHashes[path],"frozen first journey source: "+path): finish(); return
++	var checkpoint: String = record.get("confirmedCheckpointJson","")
++	var decoded: Dictionary = Codec.decode(checkpoint)
++	if not check(decoded.get("ok",false) and Codec._equal(decoded.get("state"),record.get("final",{}).get("campaign")),"normal full-precision confirmed checkpoint equals actual first final campaign"): finish(); return
++	result.confirmedSourceCheckpointJson = checkpoint
++	result.confirmedSourceCheckpointSha256 = checkpoint.sha256_text()
++	var original: Dictionary = decoded.state
++	if not check(original.currentPortId=="kinmen" and original.contracts["convoy-002"].status=="offered","checkpoint is exact Kinmen preaccept state"): finish(); return
++	var heights := Height.new()
++	var geography: Array = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
++	if not check(heights.configure_ports(geography,true,Layout.options()),"identical formal reference geography configures"): finish(); return
++	runtime.enable_reference_enhancements()
++	if not check(runtime.configure(heights.sample_height).get("ok",false),"real continuous native runtime configures"): finish(); return
++	ready = true
++	if not check(runtime.adopt_save(checkpoint,null).get("ok",false),"normal strict Codec-backed checkpoint adoption"): finish(); return
++	result.preacceptCampaign = runtime.snapshot().campaign
++	result.preacceptMaterialAudit = CheckpointAudit.assess(original,result.preacceptCampaign)
++	result.rawCheckpointEqualsPostAdoptExactly = Codec._equal(original,result.preacceptCampaign)
++	if not check(result.preacceptMaterialAudit.ok,"normal adoption preserves exact preaccept material; all lawful owner stamps recorded"): finish(); return
++	stamp("adopted-preaccept")
++	runtime.set_pause("loading",false)
++	if not command("accept-convoy",{"contractId":"convoy-002"}).ok: finish(); return
++	var accepted: Dictionary = runtime.snapshot().campaign
++	var contract: Dictionary = accepted.contracts["convoy-002"]
++	var load_receipt: Dictionary = accepted.settlements[accepted.campaignId+"-convoy-002-accept"]
++	if not check(contract.status=="active" and load_receipt.details.loaded==20 and load_receipt.details.leasePaid==0 and accepted.ports.kinmen.stock.grain==original.ports.kinmen.stock.grain-20 and accepted.captain.silver==original.captain.silver,"actual existing convoy loads twenty real grain without second lease"): finish(); return
++	if not check(contract.deadlineAt==accepted.simulationSeconds+1200,"unchanged actual 1200-second deadline"): finish(); return
++	for id: String in contract.voyageIds:
++		if not check(accepted.voyages[id].routeId=="kinmen-supply-deep","real catalog supply voyage route"): finish(); return
++	stamp("accepted-twenty-grain")
++	if not command("depart").ok: finish(); return
++	var route: Array = Catalog.DATA.routes["kinmen-supply-deep"].points
++	var return_route: Array = [route[2],route[1],Catalog.DATA.routes["xiamen-kinmen-outer"].points[1],Catalog.DATA.routes["xiamen-kinmen-outer"].points[0]]
++	result.routes = {"outboundCatalogRoute":"kinmen-supply-deep","outboundPoints":route,"returnCatalogRoutes":["kinmen-supply-deep reversed","xiamen-kinmen-outer reversed"],"returnPoints":return_route}
++	var waypoint := 1
++	if not command("navigate",{"point":route[waypoint]},false).ok: finish(); return
++	var fast_id: String = accepted.campaignId+"-fast"
++	if fast_id in runtime.snapshot().runtime.controllableShipIds and accepted.vessels[fast_id].damage.hull>0 and accepted.vessels[fast_id].crew.able>=accepted.vessels[fast_id].crew.minimum:
++		var protected: String = accepted.voyages[contract.voyageIds[0]].vesselId
++		var order: Dictionary = {"id":"continued-voyage-"+str(serial+1),"shipIds":[fast_id],"intent":{"kind":"protect","targetId":protected},"issuedAt":accepted.simulationSeconds}
++		if not command("assign-order",{"order":order}).ok: finish(); return
++	stamp("actual-departure")
++	var starting_seconds: float = runtime.snapshot().campaign.simulationSeconds
++	var next_stamp := starting_seconds+15.0
++	var claimed := false
++	var safely_returned := false
++	var return_started := false
++	var return_waypoint := 0
++	var last_moor_revision := -1
++	var accepted_steps := 0
++	var accepted_seconds := 0.0
++	for iteration in int(MAXIMUM_SECONDS/STEP):
++		var consumed: float = runtime.advance(STEP)
++		if consumed<=0.0:
++			check(false,"native runtime unexpectedly rejected bounded step"); break
++		if absf(consumed-STEP)>1e-9:
++			check(false,"native accepted time differs from requested 0.2-second step"); break
++		accepted_steps+=1; accepted_seconds+=consumed
++		var packet: Dictionary = runtime.snapshot()
++		var flagship: Dictionary = runtime._ship(packet.naval,packet.campaign.flagshipId)
++		if flagship.is_empty() or flagship.hull<=0: stamp("flagship-lost"); break
++		var position := Vector2(float(flagship.visual.position.x),float(flagship.visual.position.z))
++		if not return_started:
++			var target := Vector2(float(route[waypoint].x),float(route[waypoint].z))
++			if position.distance_to(target)<35.0 and waypoint<route.size()-1:
++				waypoint += 1
++				if not command("navigate",{"point":route[waypoint]},false).ok: break
++		var evaluation: Dictionary = runtime.campaign.evaluate_convoy("convoy-002")
++		if not claimed and evaluation.reason!="in-progress":
++			if not command("claim-convoy",{"contractId":"convoy-002"}).ok: break
++			claimed = true; stamp("real-terminal-settlement")
++			return_started = true
++			if not command("navigate",{"point":return_route[return_waypoint]},false).ok: break
++			rally_fleet("xiamen")
++			stamp("return-to-xiamen")
++		if return_started:
++			var return_target := Vector2(float(return_route[return_waypoint].x),float(return_route[return_waypoint].z))
++			if position.distance_to(return_target)<35.0 and return_waypoint<return_route.size()-1:
++				return_waypoint += 1
++				if not command("navigate",{"point":return_route[return_waypoint]},false).ok: break
++			var all_near := true
++			for member: Dictionary in packet.naval.ships:
++				if not member.id in packet.runtime.controllableShipIds or member.hull<=0: continue
++				var delta := Vector2(float(member.visual.position.x)-float(Catalog.DATA.ports.xiamen.position.x),float(member.visual.position.z)-float(Catalog.DATA.ports.xiamen.position.z))
++				all_near = all_near and delta.length()<=55.0 and Vector2(float(member.visual.velocity.x),float(member.visual.velocity.z)).length()<=0.75
++				if not runtime.simulation.encounter.isAnchored(member.id): last_moor_revision = -1
++			if packet.runtime.canDock.xiamen.ok and (not safely_returned or all_near and last_moor_revision<0):
++				if not command("dock",{"portId":"xiamen"}).ok: break
++				safely_returned = runtime.snapshot().campaign.currentPortId=="xiamen"
++				last_moor_revision = runtime.snapshot().campaign.revision
++				stamp("actual-xiamen-dock")
++			if safely_returned and runtime.snapshot().runtime.canSave:
++				var exported: Dictionary = runtime.export_save("2026-10-12T00:00:00.000Z")
++				if check(exported.get("ok",false),"normal full-fleet Xiamen checkpoint export"):
++					result.confirmedCheckpointJson = exported.json
++					var saved: Dictionary = Codec.decode(exported.json)
++					check(saved.get("ok",false) and Codec._equal(saved.get("state"),runtime.snapshot().campaign),"normal final decoded checkpoint equals exact live campaign")
++					stamp("full-fleet-xiamen-checkpoint")
++					break
++		if packet.campaign.simulationSeconds>=next_stamp: stamp("voyage-progress"); next_stamp+=15.0
++		if iteration%60==0: await process_frame
++	var final: Dictionary = runtime.snapshot()
++	var evaluation: Dictionary = runtime.campaign.evaluate_convoy("convoy-002")
++	check(evaluation.reason!="in-progress","real voyage reaches terminal actual arrival/loss outcome")
++	check(evaluation.delivered==20 and evaluation.lost==0,"actual twenty delivered and zero cargo lost")
++	check(final.campaign.contracts["convoy-002"].status=="settled","actual contract claimed through authority")
++	check(safely_returned and final.campaign.currentPortId=="xiamen","actual safe Xiamen docking through authority")
++	check(not result.confirmedCheckpointJson.is_empty(),"normal confirmed full-fleet final checkpoint exists")
++	if original.vessels[original.campaignId+"-enemy"].damage.hull<=0:
++		check(final.campaign.vessels[original.campaignId+"-enemy"].damage.hull<=0,"checkpoint dead enemy remains dead without respawn")
++	result.actualSafeReturn = safely_returned
++	result.evaluation = evaluation
++	result.casualties = casualty_evidence(original,final.campaign)
++	result.acceptedSimulationSeconds = final.campaign.simulationSeconds-starting_seconds
++	result.acceptedSteps = accepted_steps
++	result.sumRuntimeAcceptedSeconds = accepted_seconds
++	check(absf(accepted_seconds-result.acceptedSimulationSeconds)<1e-6,"aggregated accepted native time equals campaign elapsed simulation time")
++	check(FileAccess.get_file_as_string(journey.path)==source_bytes,"immutable input journey remains byte exact")
++	for path: String in result.sourceHashes:
++		check(result.sourceHashes[path]==FileAccess.get_sha256("res://"+path),"frozen source throughout continued voyage: "+path)
++	finish()
++func finish() -> void:
++	result.wallClockSeconds = (Time.get_ticks_usec()-wall_start)/1000000.0
++	result.assertions = assertions; result.failures = failures; result.checks = checks; result.commands = commands; result.stages = stages
++	result.final = runtime.snapshot() if ready else {}
++	var guard: Dictionary = Paths.output(arguments)
++	if not guard.ok: printerr("CONTINUED_VOYAGE_OUTPUT_REJECTED ",guard.reason); runtime.dispose(); quit(2); return
++	var directory := ProjectSettings.globalize_path(output_path.get_base_dir())
++	if DirAccess.make_dir_recursive_absolute(directory)!=OK: printerr("FAIL: evidence directory creation"); runtime.dispose(); quit(2); return
++	var file := FileAccess.open(output_path,FileAccess.WRITE)
++	if file==null: printerr("FAIL: evidence write"); runtime.dispose(); quit(2); return
++	file.store_string(JSON.stringify(result,"\t",false,true)); file.flush()
++	var written := file.get_error()==OK; file.close()
++	runtime.dispose()
++	print("CONTINUED_VOYAGE_COMPLETE assertions=",assertions," failures=",failures," writeOk=",written)
++	quit(1 if failures or not written else 0)
+--- /dev/null
++++ current/tools/qa-journey-paths.gd
+@@ -0,0 +1,39 @@
++extends RefCounted
++## QA-only evidence paths. No Storage, Runtime, directories or output creation.
++const ROOT := "res://docs/migration/evidence/opening-story/"
++static func _argument(args: Array, name: String) -> Dictionary:
++	var values: Array = []
++	for arg: String in args:
++		if arg.begins_with(name + "="): values.append(arg.substr(name.length() + 1))
++	return {"ok":true,"path":values[0]} if values.size() == 1 else {"ok":false,"reason":"one-explicit-" + name + "-required"}
++static func _confined(path: String) -> Dictionary:
++	if not path.begins_with(ROOT) or not path.ends_with(".json") or "\\" in path: return {"ok":false,"reason":"workspace-evidence-json-required"}
++	var suffix := path.substr(ROOT.length())
++	var components := suffix.split("/", true)
++	for part: String in components:
++		if part in ["", ".", ".."] or part.ends_with(".") or part.ends_with(" "): return {"ok":false,"reason":"ambiguous-path"}
++		for forbidden: String in [":","<",">","\"","|","?","*"]:
++			if forbidden in part: return {"ok":false,"reason":"ambiguous-path"}
++		var stem: String = part.get_slice(".",0).to_upper()
++		if stem in ["CON","PRN","AUX","NUL","COM1","COM2","COM3","COM4","COM5","COM6","COM7","COM8","COM9","LPT1","LPT2","LPT3","LPT4","LPT5","LPT6","LPT7","LPT8","LPT9"]: return {"ok":false,"reason":"reserved-device-path"}
++	# Junctions/symlinks must not turn a workspace path into an outside write.
++	var cursor := ProjectSettings.globalize_path("res://").trim_suffix("/")
++	for part: String in path.trim_prefix("res://").split("/"):
++		var directory := DirAccess.open(cursor)
++		if directory != null and directory.is_link(part): return {"ok":false,"reason":"linked-evidence-path"}
++		cursor = cursor.path_join(part)
++	return {"ok":true,"path":path}
++static func output(args: Array) -> Dictionary:
++	var selected := _argument(args, "--output")
++	if not selected.ok: return selected
++	var confined := _confined(selected.path)
++	if not confined.ok: return confined
++	if FileAccess.file_exists(selected.path) or DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(selected.path)): return {"ok":false,"reason":"evidence-already-exists"}
++	return selected
++static func input_journey(args: Array) -> Dictionary:
++	var selected := _argument(args, "--journey")
++	if not selected.ok: return selected
++	var confined := _confined(selected.path)
++	if not confined.ok: return confined
++	if not FileAccess.file_exists(selected.path): return {"ok":false,"reason":"journey-not-found"}
++	return selected
+--- /dev/null
++++ current/tools/test-journey-output-guard.gd
+@@ -0,0 +1,31 @@
++extends SceneTree
++## Cheap path checks only. Never creates or advances a Runtime.
++var assertions := 0
++var failures := 0
++func check(value: bool, detail: String) -> void:
++	assertions += 1
++	if not value: failures += 1; printerr("FAIL: ", detail)
++func _initialize() -> void:
++	var script = load("res://tools/qa-journey-paths.gd")
++	check(script != null, "journey guard exists")
++	if script != null:
++		var fresh := "res://docs/migration/evidence/opening-story/qa-guard-unused-" + str(Time.get_ticks_usec()) + ".json"
++		check(script.output(["--output=" + fresh]).ok, "fresh workspace evidence path accepted without creating it")
++		check(not FileAccess.file_exists(fresh), "validation creates no output")
++		check(not script.output([]).ok, "explicit output required")
++		check(not script.output(["--output=" + fresh,"--output=" + fresh]).ok, "duplicate output rejected")
++		check(not script.output(["--output=user://save.json"]).ok, "user slots rejected")
++		check(not script.output(["--output=C:/outside.json"]).ok, "absolute outside path rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/../outside.json"]).ok, "traversal rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/new\\outside.json"]).ok, "backslash ambiguity rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/journey-formal-manual-fire-return.json"]).ok, "historical journey overwrite rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/new.txt"]).ok, "JSON evidence extension required")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/empty//new.json"]).ok, "empty path component rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/CON.json"]).ok, "Windows device name rejected")
++		check(not script.output(["--output=res://docs/migration/evidence/opening-story/new:stream.json"]).ok, "Windows alternate stream rejected")
++		check(not script.input_journey([]).ok, "explicit input journey required")
++		check(not script.input_journey(["--journey=user://save.json"]).ok, "input confined to workspace evidence")
++		check(not script.input_journey(["--journey=" + fresh]).ok, "missing input rejected")
++		check(script.input_journey(["--journey=res://docs/migration/evidence/opening-story/journey-formal-manual-fire-return.json"]).ok, "existing historical evidence readable without mutation")
++	print("JOURNEY_OUTPUT_GUARD_TESTS assertions=", assertions, " failures=", failures)
++	quit(1 if failures else 0)
+--- /dev/null
++++ current/tools/verify-journey-preflight.py
+@@ -0,0 +1,57 @@
++"""Cheap headless QA guard checks. Never runs a voyage or a GPU scene."""
++from pathlib import Path
++import argparse
++import hashlib
++import json
++import subprocess
++import time
++
++ROOT = Path(__file__).resolve().parents[1]
++DEFAULT_GODOT = "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe"
++OLD = "res://docs/migration/evidence/opening-story/journey-formal-manual-fire-return.json"
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--godot", default=DEFAULT_GODOT)
++    parser.add_argument("--report", default="build/port-approach-work/qa-tooling-preflight.json")
++    args = parser.parse_args()
++    historical = ROOT / OLD.removeprefix("res://")
++    historical_sha = hashlib.sha256(historical.read_bytes()).hexdigest()
++    token = str(time.time_ns())
++    first_output = f"res://docs/migration/evidence/opening-story/qa-preflight-unused-first-{token}.json"
++    second_output = f"res://docs/migration/evidence/opening-story/qa-preflight-unused-second-{token}.json"
++    rows = []
++
++    def run(script, user_args, code, marker):
++        command = ["rtk", "proxy", args.godot, "--headless", "--path", str(ROOT), "--script", f"res://tools/{script}", "--", *user_args]
++        finished = subprocess.run(command, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=30)
++        output = finished.stdout + finished.stderr
++        passed = finished.returncode == code and marker in output and not any(value in output for value in ("SCRIPT ERROR:", "ERROR:", "STORY_JOURNEY ", "CONTINUED_VOYAGE actual-", "JOURNEY_COMPLETE"))
++        rows.append({"command":command,"exitCode":finished.returncode,"expectedExitCode":code,"marker":marker,"passed":passed,"output":output})
++
++    run("test-journey-output-guard.gd", [], 0, "JOURNEY_OUTPUT_GUARD_TESTS assertions=18 failures=0")
++    run("test-journey-checkpoint.gd", [], 0, "JOURNEY_CHECKPOINT_TESTS assertions=10 failures=0")
++    run("play-opening-story-journey.gd", [f"--output={first_output}", "--preflight"], 0, "OPENING_JOURNEY_PREFLIGHT_PASS acceptedSeconds=0")
++    run("play-continued-voyage.gd", [f"--journey={OLD}", f"--output={second_output}", "--preflight"], 0, "CONTINUED_VOYAGE_PREFLIGHT_PASS acceptedSeconds=0")
++    # No --preflight on rejections: prove normal execution stops at guard.
++    run("play-opening-story-journey.gd", [f"--output={OLD}"], 2, "JOURNEY_OUTPUT_REJECTED evidence-already-exists")
++    run("play-opening-story-journey.gd", ["--output=C:/outside.json"], 2, "JOURNEY_OUTPUT_REJECTED workspace-evidence-json-required")
++    run("play-opening-story-journey.gd", [], 2, "JOURNEY_OUTPUT_REJECTED one-explicit---output-required")
++    run("play-continued-voyage.gd", [f"--journey={OLD}", f"--output={OLD}"], 2, "CONTINUED_VOYAGE_PREFLIGHT_REJECTED evidence-already-exists")
++    run("play-continued-voyage.gd", [f"--journey={OLD}", "--output=C:/outside.json"], 2, "CONTINUED_VOYAGE_PREFLIGHT_REJECTED workspace-evidence-json-required")
++    run("play-continued-voyage.gd", [f"--output={second_output}"], 2, "CONTINUED_VOYAGE_PREFLIGHT_REJECTED one-explicit---journey-required")
++    historical_unchanged = hashlib.sha256(historical.read_bytes()).hexdigest() == historical_sha
++    no_outputs_created = all(not (ROOT / path.removeprefix("res://")).exists() for path in (first_output, second_output))
++    report = {"mode":"headless path guards and preflight only; no runtime advancement, voyage, user Storage, GPU or performance claim","cases":rows,"historicalJourneySha256":historical_sha,"historicalUnchanged":historical_unchanged,"preflightCreatedNoOutputs":no_outputs_created,"assertions":len(rows)+2,"failures":sum(not row["passed"] for row in rows)+int(not historical_unchanged)+int(not no_outputs_created)}
++    report_path = ROOT / args.report
++    if not report_path.resolve().is_relative_to(ROOT / "build" / "port-approach-work"):
++        raise ValueError("selftest report must remain in build/port-approach-work")
++    report_path.parent.mkdir(parents=True, exist_ok=True)
++    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
++    print(f"JOURNEY_PREFLIGHT_VERIFIER assertions={report['assertions']} failures={report['failures']} report={report_path}")
++    return 1 if report["failures"] else 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ current/tools/qa-journey-checkpoint.gd
+@@ -0,0 +1,39 @@
++extends RefCounted
++## Mirrors reviewed capture material checks. Pure reads; never repairs state.
++const Codec = preload("res://game/domain/persistence/save_codec.gd")
++static func differences(before: Variant, after: Variant, path: String = "state") -> Array:
++	var result: Array = []
++	if before is Dictionary and after is Dictionary:
++		var keys: Array = before.keys()
++		for key: String in after:
++			if not key in keys: keys.append(key)
++		for key: String in keys:
++			if not before.has(key) or not after.has(key): result.append({"path":path+"."+key,"beforeExists":before.has(key),"afterExists":after.has(key),"before":before.get(key),"after":after.get(key)})
++			else: result.append_array(differences(before[key],after[key],path+"."+key))
++	elif before is Array and after is Array:
++		if before.size()!=after.size(): result.append({"path":path,"before":before,"after":after})
++		else:
++			for index in before.size(): result.append_array(differences(before[index],after[index],path+"["+str(index)+"]"))
++	elif not Codec._equal(before,after): result.append({"path":path,"before":before,"after":after})
++	return result
++static func assess(before: Dictionary, after: Dictionary) -> Dictionary:
++	var violations: Array = []
++	if before.keys()!=after.keys(): violations.append("campaign field membership")
++	for field: String in before:
++		if field in ["revision","nextId","nearTicks","vessels"]: continue
++		if not Codec._equal(before[field],after.get(field)): violations.append("state."+field)
++	for field: String in ["revision","nextId"]:
++		if after.get(field,-1)<before.get(field,0): violations.append("state."+field+" decreased")
++	for epoch: String in before.nearTicks:
++		if not Codec._equal(before.nearTicks[epoch],after.nearTicks.get(epoch)): violations.append("state.nearTicks."+epoch)
++	if before.vessels.keys()!=after.vessels.keys(): violations.append("vessel membership")
++	for id: String in before.vessels:
++		var old: Dictionary = before.vessels[id]
++		var now: Dictionary = after.vessels.get(id,{})
++		if old.keys()!=now.keys(): violations.append("state.vessels."+id+" field membership")
++		for field: String in old:
++			if field in ["revision","controlsProjection","controlsObserved"]: continue
++			if field=="pose" and old.pose is Dictionary and now.get("pose") is Dictionary:
++				if not Codec._equal(old.pose.position,now.pose.position) or old.pose.heading!=now.pose.heading or absf(float(old.pose.speed)-float(now.pose.speed))>=1e-8: violations.append("state.vessels."+id+".pose")
++			elif not Codec._equal(old[field],now.get(field)): violations.append("state.vessels."+id+"."+field)
++	return {"ok":violations.is_empty(),"violations":violations,"differences":differences(before,after),"allowedOwnerChanges":["campaign revision","native epoch allocation nextId","new nearTicks epochs; old epochs exact","vessel revision","vessel controlsProjection","vessel controlsObserved","pose speed native roundoff below 1e-8; position and heading exact"]}
+--- /dev/null
++++ current/tools/test-journey-checkpoint.gd
+@@ -0,0 +1,31 @@
++extends SceneTree
++var assertions := 0
++var failures := 0
++func check(value: bool, label: String) -> void:
++	assertions += 1
++	if not value: failures += 1; printerr("FAIL: ",label)
++func _initialize() -> void:
++	var script = load("res://tools/qa-journey-checkpoint.gd")
++	check(script!=null,"material audit helper exists")
++	if script!=null:
++		var before: Dictionary = {"revision":3,"nextId":4,"simulationSeconds":12.0,"nearTicks":{"old":20},"vessels":{"ship":{"revision":1,"controlsProjection":{"sequence":2},"controlsObserved":{"sequence":2},"pose":{"position":{"x":1.0,"z":2.0},"heading":3.0,"speed":0.1},"cargo":{"grain":10},"damage":{"hull":80}}}}
++		var after: Dictionary = before.duplicate(true)
++		after.revision=5; after.nextId=5; after.nearTicks.fresh=0; after.vessels.ship.revision=2; after.vessels.ship.controlsProjection.sequence=3; after.vessels.ship.controlsObserved.sequence=3
++		check(script.assess(before,after).ok,"normal owner stamps permitted and reported")
++		check(not script.assess(before,after).differences.is_empty(),"actual stamp differences recorded")
++		var changed: Dictionary = after.duplicate(true); changed.vessels.ship.cargo.grain=11
++		check(not script.assess(before,changed).ok,"cargo mutation rejected")
++		changed=after.duplicate(true); changed.vessels.ship.damage.hull=81
++		check(not script.assess(before,changed).ok,"HP mutation rejected")
++		changed=after.duplicate(true); changed.nearTicks.old=21
++		check(not script.assess(before,changed).ok,"old native epoch mutation rejected")
++		changed=after.duplicate(true); changed.vessels.ship.pose.position.x+=1e-10
++		check(not script.assess(before,changed).ok,"position change rejected exactly")
++		changed=after.duplicate(true); changed.vessels.ship.pose.speed+=1e-10
++		check(script.assess(before,changed).ok,"native pose speed numerical roundoff permitted")
++		changed=after.duplicate(true); changed.vessels.ship.pose.speed+=1e-7
++		check(not script.assess(before,changed).ok,"material pose speed change rejected")
++		changed=after.duplicate(true); changed.simulationSeconds+=0.2
++		check(not script.assess(before,changed).ok,"simulation advancement rejected")
++	print("JOURNEY_CHECKPOINT_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)
+--- /dev/null
++++ current/tools/diagnose-journey-adopt.gd
+@@ -0,0 +1,42 @@
++extends SceneTree
++## Detached zero-advance adoption only. Immutable historical source; no Storage.
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
++const Codec = preload("res://game/domain/persistence/save_codec.gd")
++const Height = preload("res://modules/scene_engine/terrain/height_field.gd")
++const Layout = preload("res://game/scenes/common/reference_geography.gd")
++const CheckpointAudit = preload("res://tools/qa-journey-checkpoint.gd")
++const INPUT := "res://docs/migration/evidence/opening-story/journey-formal-manual-fire-return.json"
++const OUTPUT := "res://build/port-approach-work/qa-tooling-adopt-diagnostic.json"
++var runtime := Runtime.new()
++var assertions := 0
++var failures := 0
++func _initialize() -> void: run.call_deferred()
++func check(value: bool, label: String) -> bool:
++	assertions+=1
++	if not value: failures+=1; printerr("FAIL: ",label)
++	return value
++func run() -> void:
++	if not check(not FileAccess.file_exists(OUTPUT),"fresh build diagnostic output"): runtime.dispose(); quit(1); return
++	var source := FileAccess.get_file_as_string(INPUT)
++	var record: Dictionary = JSON.parse_string(source)
++	var checkpoint: String = record.confirmedCheckpointJson
++	var decoded: Dictionary = Codec.decode(checkpoint)
++	if not check(decoded.get("ok",false) and Codec._equal(decoded.get("state"),record.final.campaign),"original raw full-precision checkpoint equals immutable first final exactly"): runtime.dispose(); quit(1); return
++	var height := Height.new()
++	check(height.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,Layout.options()),"formal geography")
++	runtime.enable_reference_enhancements()
++	check(runtime.configure(height.sample_height).get("ok",false),"native configure")
++	var adopted: Dictionary = runtime.adopt_save(checkpoint,null)
++	check(adopted.get("ok",false),"normal native adoption")
++	var packet: Dictionary = runtime.snapshot()
++	var audit: Dictionary = CheckpointAudit.assess(decoded.state,packet.campaign)
++	check(audit.ok,"exact material campaign preserved")
++	check(packet.campaign.simulationSeconds==decoded.state.simulationSeconds and packet.runtime.acceptedSeconds==0.0,"zero accepted native advance")
++	check(FileAccess.get_file_as_string(INPUT)==source,"historical input byte exact")
++	var result: Dictionary = {"mode":"headless detached normal adoption diagnosis only; zero runtime.advance calls; no convoy acceptance, Storage, GPU or performance claim","journeyPath":INPUT,"journeySha256":source.sha256_text(),"rawCheckpointSha256":checkpoint.sha256_text(),"rawCheckpointEqualsFirstFinalExactly":Codec._equal(decoded.state,record.final.campaign),"rawCheckpointEqualsPostAdoptExactly":Codec._equal(decoded.state,packet.campaign),"materialAudit":audit,"preacceptCampaign":packet.campaign,"nativeAcceptedSeconds":packet.runtime.acceptedSeconds,"assertions":assertions,"failures":failures}
++	var file := FileAccess.open(OUTPUT,FileAccess.WRITE)
++	if file!=null: file.store_string(JSON.stringify(result,"\t",false,true)); file.close()
++	else: failures+=1
++	runtime.dispose()
++	print("JOURNEY_ADOPT_DIAGNOSTIC assertions=",assertions," failures=",failures," differences=",audit.differences.size()," acceptedSeconds=",packet.runtime.acceptedSeconds)
++	quit(1 if failures else 0)
+--- /dev/null
++++ current/tools/test-first-journey-evidence.gd
+@@ -0,0 +1,23 @@
++extends SceneTree
++## Fresh build-only evidence write checks. No Runtime advance.
++var assertions := 0
++var failures := 0
++func check(value: bool, label: String) -> void:
++	assertions+=1
++	if not value: failures+=1; printerr("FAIL: ",label)
++func _initialize() -> void:
++	var driver = load("res://tools/play-opening-story-journey.gd")
++	var methods: Array = driver.get_script_method_list()
++	var available: bool = methods.any(func(method): return method.name=="write_verified")
++	check(available,"first journey has verified writer")
++	if available:
++		var path := "res://build/port-approach-work/qa-first-evidence-write-"+str(Time.get_ticks_usec())+".json"
++		var bytes := JSON.stringify({"fullPrecision":1.2345678901234567},"\t",false,true)
++		var written: Dictionary = driver.write_verified(path,bytes)
++		check(written.ok and written.writeError==OK and written.readbackExact,"fresh bytes flushed and verified exactly")
++		check(FileAccess.get_file_as_string(path)==bytes,"exact full precision evidence readback")
++		check(not driver.write_verified(path,"replacement").ok and FileAccess.get_file_as_string(path)==bytes,"existing evidence never overwritten")
++		check(not driver.write_verified("res://build/port-approach-work",bytes).ok,"directory output rejected")
++		print("FIRST_JOURNEY_EVIDENCE_FIXTURE path=",path)
++	print("FIRST_JOURNEY_EVIDENCE_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

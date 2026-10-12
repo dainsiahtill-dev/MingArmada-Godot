@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x5B8880",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "void __thiscall sub_5B8880(int this, float a2, int a3)\n{\n  int i; // esi\n  float *v6; // edx\n  bool v7; // c0\n  bool v8; // c3\n  int v9; // eax\n  float v10; // [esp+0h] [ebp-1Ch]\n  float v11; // [esp+24h] [ebp+8h]\n\n  for ( i = 0; (unsigned __int16)i < *(_WORD *)(a3 + 68); ++i )\n  {\n    v6 = (float *)(*(_DWORD *)(a3 + 80) + 40 * (unsigned __int16)i);\n    v11 = a2 - v6[8] + v6[6];\n    v7 = v11 < (double)v6[7];\n    v8 = v11 == v6[7];\n    v6[6] = v11;\n    if ( !v7 && !v8 )\n    {\n      if ( *(_BYTE *)(this + 28) )\n      {\n        v9 = *(_DWORD *)(this + 32);\n        if ( v9 )\n        {\n          v10 = a2 + v6[7] - v11;\n          (*(void (__stdcall **)(_DWORD, _DWORD, int, _DWORD))(*(_DWORD *)v9 + 68))(\n            LODWORD(a2),\n            LODWORD(v10),\n            i,\n            *(_DWORD *)(this + 20));\n        }\n      }\n      (*(void (__thiscall **)(int, int))(*(_DWORD *)a3 + 64))(a3, i);\n    }\n  }\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

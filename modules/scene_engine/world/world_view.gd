@@ -6,6 +6,8 @@ const ProjectedOcean = preload("res://modules/scene_engine/ocean/projected_ocean
 const VegetationLibrary = preload("res://modules/scene_engine/assets/vegetation_library.gd")
 const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const IslandDetails = preload("res://modules/scene_engine/world/island_details.gd")
+const FidelityMaterial = preload("res://modules/scene_engine/fidelity_island/terrain_material.gd")
+const FidelityVegetation = preload("res://modules/scene_engine/fidelity_island/vegetation.gd")
 const PIER_DECK_HEIGHT := 4.2 # Above the authored offshore 3.5m wave envelope.
 var _height_sampler: Callable
 var _camera: Camera3D
@@ -32,6 +34,10 @@ var _near_shore_center := Vector2i(2147483647,2147483647)
 var _shore_spray: Node3D
 var _visual_style := 1
 var _island_details: Node3D
+var _fidelity_profiles: Array = []
+var _fidelity_materials: Array[ShaderMaterial] = []
+var _fidelity_vegetation: Array[Node3D] = []
+var _fidelity_shores: Array[Node3D] = []
 
 func configure(height_sampler: Callable, wave_descriptors: Array = [], options: Dictionary = {}) -> bool:
 	dispose()
@@ -68,12 +74,45 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 	if _visual_style == 1: _ocean.set_projection_padding(0.10)
 	_configure_shore(effective_waves)
 	_build_ports()
+	if not _configure_fidelity_islands(options):
+		dispose(); return false
 	if _visual_style == 1 and bool(options.get("island_details",true)) and not _ports.is_empty():
 		_island_details = IslandDetails.new(); add_child(_island_details); _owned.append(_island_details)
-		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false),"terrain_support":_island_supported,"existing_buildings":_port_building_sites}):
+		if not _island_details.configure(_height_sampler,_ports,{"quality":options.get("quality","balanced"),"focus_distance":_chunk_size*(_radius+1),"reduced_motion":options.get("reduced_motion",false),"terrain_support":_island_supported,"existing_buildings":_port_building_sites,"native_forest":not _fidelity_profiles.is_empty()}):
 			dispose(); return false
 	_update_window(Vector2.ZERO)
 	if _island_details: _island_details.apply_snapshot({"time":0.0,"focus":Vector2.ZERO})
+	return true
+
+func _configure_fidelity_islands(options: Dictionary) -> bool:
+	if _visual_style != 1 or not options.get("fidelity_islands",true): return true
+	var owner: Object = _height_sampler.get_object()
+	if owner == null or not owner.has_method("reference_profiles"): return true
+	var profiles: Array = owner.reference_profiles()
+	if profiles.is_empty(): return true
+	for source: Dictionary in profiles:
+		var mapping: Dictionary = source.duplicate(true)
+		if mapping.get("id") != "cat_island": mapping.material_kind = "game_adapted"
+		var material: ShaderMaterial = FidelityMaterial.create_material({},mapping)
+		if material == null: return false
+		_fidelity_profiles.append(mapping)
+		_fidelity_materials.append(material)
+	if _vegetation:
+		var trees := FidelityVegetation.new()
+		add_child(trees); _owned.append(trees)
+		if not trees.configure(_fidelity_profiles,_height_sampler,{"mode":"mapped","existing_buildings":_port_building_sites}): return false
+		_fidelity_vegetation.append(trees)
+	var shore_path := "res://modules/scene_engine/fidelity_island/shore.gd"
+	if not ResourceLoader.exists(shore_path): return false
+	var shore_script: GDScript = load(shore_path)
+	for mapping: Dictionary in _fidelity_profiles:
+		# Original Cat surf is bound to its own silhouette. Other port shapes keep
+		# their existing sampler-driven shoreline instead of receiving false surf.
+		if mapping.get("id") != "cat_island": continue
+		var surf: Node3D = shore_script.new()
+		add_child(surf); _owned.append(surf)
+		if not surf.configure(mapping,_height_sampler,{"mode":"mapped"}): return false
+		_fidelity_shores.append(surf)
 	return true
 
 func _configure_shore(wave_descriptors: Array = []) -> void:
@@ -133,6 +172,11 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	_ocean.update_projection()
 	if _island_details:
 		_island_details.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
+	for trees: Node3D in _fidelity_vegetation:
+		trees.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
+	for surf: Node3D in _fidelity_shores:
+		surf.sync_surface_state(_ocean.material_override as ShaderMaterial)
+		surf.apply_snapshot(_simulation_time)
 	# consumed is accepted for shared presentation API; this world does not bill it.
 	if consumed < 0.0:
 		return
@@ -163,7 +207,7 @@ func _update_window(focus: Vector2) -> void:
 		_chunks[coordinate] = chunk
 		_sync_chunk_surface(chunk)
 		_builds += 1
-		if _vegetation:
+		if _vegetation and _fidelity_profiles.is_empty():
 			_vegetation_library.populate(chunk, _height_sampler, coordinate, _chunk_size, _resolution, _ports)
 	_update_distant_islands(focus, active)
 	_update_near_shore_field(center)
@@ -234,6 +278,15 @@ func _update_distant_islands(focus: Vector2, near_chunks: Dictionary) -> void:
 		_sync_chunk_surface(chunk)
 
 func _sync_chunk_surface(chunk: Node3D) -> void:
+	if not _fidelity_profiles.is_empty():
+		var point := Vector2(chunk.position.x,chunk.position.z)
+		var closest := 0
+		var distance := INF
+		for index in _fidelity_profiles.size():
+			var center: Vector2 = _fidelity_profiles[index].islandCenter
+			var candidate := point.distance_squared_to(center)
+			if candidate < distance: closest=index; distance=candidate
+		chunk.material_override = _fidelity_materials[closest]
 	if _visual_style == 1 and is_instance_valid(_ocean):
 		chunk.sync_surface_state(_ocean.material_override as ShaderMaterial)
 
@@ -347,6 +400,15 @@ func get_chunks() -> Array:
 func get_distant_chunks() -> Array:
 	return _distant_chunks.values()
 
+func fidelity_diagnostics() -> Dictionary:
+	var materials: Array=[]
+	for material: ShaderMaterial in _fidelity_materials: materials.append(FidelityMaterial.diagnostics(material))
+	var vegetation: Array=[]
+	for trees: Node3D in _fidelity_vegetation: vegetation.append(trees.diagnostics())
+	var shore: Array=[]
+	for surf: Node3D in _fidelity_shores: shore.append(surf.diagnostics())
+	return {"profiles":_fidelity_profiles.duplicate(true),"materials":materials,"vegetation":vegetation,"shore":shore,"heightSamplerChanged":false,"waveDescriptorsChanged":false}
+
 func dispose() -> void:
 	_disposed = true
 	for node in _owned:
@@ -357,6 +419,10 @@ func dispose() -> void:
 	_distant_chunks.clear()
 	_port_visuals.clear()
 	_port_building_sites.clear()
+	_fidelity_profiles.clear()
+	_fidelity_materials.clear()
+	_fidelity_vegetation.clear()
+	_fidelity_shores.clear()
 	_ocean = null
 	_shore_field = null
 	_near_shore_texture = null

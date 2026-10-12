@@ -1,0 +1,14 @@
+{
+  "address": "0x53A000",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; execution fixtures separately scoped",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "float *__thiscall sub_53A000(float *this, float *a2, float *a3)\n{\n  double v3; // st7\n  double v4; // st6\n\n  v3 = *(this + 8) * a3[2] + *(this + 6) * *a3 + *(this + 7) * a3[1];\n  v4 = *(this + 5) * a3[2] + *(this + 3) * *a3 + *(this + 4) * a3[1];\n  *a2 = *(this + 2) * a3[2] + *(this + 1) * a3[1] + *a3 * *this;\n  a2[1] = v4;\n  a2[2] = v3;\n  return a2;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

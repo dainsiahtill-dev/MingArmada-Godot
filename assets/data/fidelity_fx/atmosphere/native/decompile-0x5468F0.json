@@ -1,0 +1,14 @@
+{
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x5468F0",
+  "evidence": "Read-only IDA static decompilation",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int sub_5468F0()\n{\n  int v0; // esi\n\n  v0 = sub_531358(0xF8u);\n  if ( !v0 )\n    return 0;\n  sub_5390B0(0);\n  *(_WORD *)(v0 + 236) = 1;\n  *(_BYTE *)(v0 + 244) = 1;\n  *(_DWORD *)v0 = &off_6BFC78;\n  *(_DWORD *)(v0 + 240) = 0;\n  return v0;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

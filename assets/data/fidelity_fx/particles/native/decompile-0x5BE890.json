@@ -1,0 +1,14 @@
+{
+  "address": "0x5BE890",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5BE890(int this, float *a2, char a3)\n{\n  int v4; // ebx\n  float *v5; // eax\n  float *v6; // eax\n  _DWORD *v7; // esi\n  int result; // eax\n  float v9[3]; // [esp+10h] [ebp-30h] BYREF\n  int v10[9]; // [esp+1Ch] [ebp-24h] BYREF\n\n  v4 = this + 1920;\n  sub_5BE7B0(this + 1920, (int)a2);\n  if ( a3 )\n    (*(void (__stdcall **)(_DWORD, int, int))(**(_DWORD **)(this + 96) + 176))(*(_DWORD *)(this + 96), 256, v4);\n  (*(void (__thiscall **)(_DWORD, float *))(**(_DWORD **)(this + 1484) + 52))(*(_DWORD *)(this + 1484), a2);\n  sub_539F80(a2, (float *)v10, a2[12]);\n  v5 = sub_53A060(v9, (float *)(this + 732), (float *)v10);\n  *(float *)(this + 756) = *v5;\n  *(float *)(this + 760) = v5[1];\n  *(float *)(this + 764) = v5[2];\n  v6 = sub_53A060(v9, (float *)(this + 744), (float *)v10);\n  v7 = (_DWORD *)(this + 768);\n  *v7 = *(_DWORD *)v6;\n  v7[1] = *((_DWORD *)v6 + 1);\n  result = *((_DWORD *)v6 + 2);\n  v7[2] = result;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

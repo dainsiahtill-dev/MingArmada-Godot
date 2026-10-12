@@ -2,6 +2,8 @@
 // approved native color palette, advected normal texture and alpha surf layers.
 shader_type spatial;
 render_mode unshaded, fog_disabled, cull_disabled, depth_draw_always;
+// Default preserves the formal game. Source-island observers cover kilometres.
+uniform float display_fog_density = 0.0015;
 #include "res://modules/scene_engine/reference_island_water/source_common.gdshaderinc"
 #include "res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc"
 
@@ -177,7 +179,7 @@ void fragment() {
 		float surf=coastal_breaker_foam(reference_coast_distance(v_world.xz),shore_depth,dry_height,v_world.xz,u_time,foam_noise,shore_noise);
 		col=mix(col,vec3(.89,.96,.94),max(edge_foam*.67,surf*.92));
 	}
-	float fog=1.0-exp(-length(u_eye-v_world)*.0015);
+	float fog=1.0-exp(-length(u_eye-v_world)*display_fog_density);
 	// Source default framebuffer also clamps display RGB; no manual 8-bit
 	// rounding is applied to filtered scene/reflection samples.
 	ALBEDO=reference_to_linear(clamp(mix(col,source_sky(normalize(v_world-u_eye)),fog),vec3(0.0),vec3(1.0)));

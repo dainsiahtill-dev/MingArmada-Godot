@@ -1,0 +1,13 @@
+{
+  "address": "0x53FE50",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "_DWORD *__thiscall sub_53FE50(_DWORD *this)\n{\n  int v2; // eax\n  bool v3; // cc\n  int v5; // [esp+Ch] [ebp-4h] BYREF\n\n  sub_53E1F0(this);\n  *this = &off_6BF3E4;\n  *(this + 10) = &off_6BF3E0;\n  *(this + 12) = 7;\n  *(this + 15) = 1;\n  *(this + 13) = 0;\n  *(this + 14) = 0;\n  *(this + 11) = sub_53137D(0x1Cu);\n  v2 = *(this + 12);\n  v5 = 0;\n  if ( !v2 )\n    sub_5D5F90(*(this + 15));\n  sub_5D6F40(0, &v5);\n  v3 = *(this + 12) <= 1u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 1);\n  sub_5D6F40(1, &v5);\n  v3 = *(this + 12) <= 2u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 2);\n  sub_5D6F40(2, &v5);\n  v3 = *(this + 12) <= 3u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 3);\n  sub_5D6F40(3, &v5);\n  v3 = *(this + 12) <= 4u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 4);\n  sub_5D6F40(4, &v5);\n  v3 = *(this + 12) <= 5u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 5);\n  sub_5D6F40(5, &v5);\n  v3 = *(this + 12) <= 6u;\n  v5 = 0;\n  if ( v3 )\n    sub_5D5F90(*(this + 15) + 6);\n  sub_5D6F40(6, &v5);\n  *(this + 16) = 0;\n  *((_BYTE *)this + 36) = 0;\n  *(this + 17) = 0;\n  *(this + 8) = 2;\n  return this;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

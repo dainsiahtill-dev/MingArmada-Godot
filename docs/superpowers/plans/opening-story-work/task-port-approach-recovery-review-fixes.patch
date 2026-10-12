@@ -1,0 +1,246 @@
+--- review-1/modules/naval_simulation/encounter.gd
++++ b/modules/naval_simulation/encounter.gd
+@@ -325,8 +325,10 @@
+ 	if input.get("type") == "controls":
+ 		if not [input.get("rudder"), input.get("sailDeployment")].all(_finite) or absf(input.rudder) > 1 or input.sailDeployment < 0 or input.sailDeployment > 1 or input.has("sailAngle") and (not _finite(input.sailAngle) or absf(input.sailAngle) > PI / 2) or input.has("autoTrim") and not input.autoTrim is bool: return _no("Invalid controls")
+ 		if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
++		var changed = input.rudder != state.rudder or input.sailDeployment != state.sailDeployment or input.has("sailAngle") and input.sailAngle != state.sailAngle or input.has("autoTrim") and input.autoTrim != state.autoTrim
++		if changed and state.has("navigation"):
++			ship.erase("approachRecovery"); ship.approachManualOverride = state.navigation.duplicate(true)
+ 		ship.erase("manualHandling"); state.controlsSequence += 1; state.rudder = input.rudder; state.sailDeployment = input.sailDeployment
+-		ship.erase("approachRecovery"); ship.approachManualOverride = true
+ 		if input.has("sailAngle"): state.sailAngle = input.sailAngle
+ 		if input.has("autoTrim"): state.autoTrim = input.autoTrim
+ 		return _ok()
+@@ -489,7 +491,7 @@
+ 	var player = _ship(player_id)
+ 	var navigation_assists: Dictionary = {}
+ 	for ship in ships:
+-		if ship.has("approachRecovery") and (not _approach_authorized(ship) or ship.approachRecovery != ship.state.get("navigation")): ship.erase("approachRecovery")
++		if ship.has("approachRecovery") and (not _approach_authorized(ship) or ship.approachRecovery.goal != ship.state.get("navigation")): ship.erase("approachRecovery")
+ 		if ship.sunk or not ship.state.has("navigation") or ship.state.id in policy.get("lockedShipIds", []) or ship.state.id in policy.get("disabledMotionShipIds", []): continue
+ 		var fighting = ship.state.team == "hostile" and ship.state.cannonsPerSide > 0 and not player.is_empty() and not player.sunk and _distance(_visual(ship).position, _visual(player).position) <= 260
+ 		if not fighting or hasActiveOrder(ship.state.id):
+@@ -650,7 +652,9 @@
+ 			ship.erase("tack")
+ 		var current = ship.route
+ 		while current.points.size() > 1 and _distance(current.points[0], visual.position) < 45: current.points.pop_front(); ship.erase("tack")
+-		if current.points.is_empty(): ship.state.rudder = 0; ship.state.sailDeployment = 0; return {}
++		if current.points.is_empty():
++			if ship.has("approachRecovery") and _approach_authorized(ship): return _hold_approach(ship)
++			ship.state.rudder = 0; ship.state.sailDeployment = 0; return {}
+ 		waypoint = current.points[0]
+ 		if tick - current.checked > 1800: current.checked = tick; current.distance = _distance(waypoint, visual.position)
+ 	var distance = _distance(waypoint, visual.position)
+@@ -665,11 +669,19 @@
+ 		candidates.sort_custom(func(a, b): return absf(_wrap(a - visual.heading)) < absf(_wrap(b - visual.heading)))
+ 		blocked = candidates.is_empty(); desired = visual.heading if blocked else candidates[0]
+ 	if blocked or ship.has("approachRecovery"):
++		var owned = ship.has("approachRecovery") and _approach_authorized(ship) and ship.approachRecovery.goal == ship.state.navigation
++		if owned:
++			var motion: Dictionary=ship.core.get_snapshot()
++			if ship.approachRecovery.holding:
++				if _speed(visual)>0.05 or absf(motion.yawRate)>0.005: return _hold_approach(ship)
++				ship.erase("approachRecovery")
++			elif tick-ship.approachRecovery.startedTick >= int(Approach.TURN_SECONDS/DT): return _hold_approach(ship)
+ 		recovery = _final_approach_clear(ship, visual, waypoint, distance)
+ 		if recovery:
+ 			desired = atan2(waypoint.z - visual.position.z, waypoint.x - visual.position.x)
+ 			blocked = false
+-			ship.approachRecovery = ship.state.navigation.duplicate(true)
++			if not ship.has("approachRecovery"): ship.approachRecovery = {"goal":ship.state.navigation.duplicate(true),"startedTick":tick,"holding":false}
++		elif owned: return _hold_approach(ship)
+ 		else: ship.erase("approachRecovery")
+ 	var speed = _speed(visual)
+ 	var yaw = _wrap(visual.heading - ship.previous.heading) / DT
+@@ -691,11 +703,16 @@
+ 			return Manual.build(ship.state.kind,ship.state.rudder,speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+ 		ship.erase("approachRecovery")
+ 	return _navigation_steerage(ship,visual,desired,error,blocked,distance,intermediate)
++func _hold_approach(ship: Dictionary) -> Dictionary:
++	if not ship.has("approachRecovery"): ship.approachRecovery={"goal":ship.state.navigation.duplicate(true),"startedTick":tick,"holding":true}
++	ship.approachRecovery.holding=true
++	ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
++	return Manual.build(ship.state.kind,0.0,_speed(_visual(ship)),ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+ func _final_approach_clear(ship: Dictionary, visual: Dictionary, waypoint: Dictionary, distance: float) -> bool:
+ 	var id: String = ship.state.id
+ 	if not _approach_authorized(ship) or distance <= 25.0 or distance > 55.0 or _speed(visual) > 0.75: return false
+ 	if not ship.has("route") or ship.route.points.size() != 1 or waypoint != ship.state.navigation: return false
+-	if ship.has("approachRecovery") and ship.approachRecovery != ship.state.navigation: return false
++	if ship.has("approachRecovery") and ship.approachRecovery.goal != ship.state.navigation: return false
+ 	var physics: Dictionary = ship.core.get_config()
+ 	var course = atan2(waypoint.z-visual.position.z,waypoint.x-visual.position.x)
+ 	if wind.speed > 0 and absf(_wrap(course-atan2(wind.direction.y,wind.direction.x))) < (physics.noGoZoneDeg+physics.noGoFadeDeg)*PI/180: return false
+@@ -716,7 +733,7 @@
+ 	var sail_coefficient: float = 1.4*physics.sailPressureScale+cl+0.08+0.08*cl*cl+0.5
+ 	var sail_acceleration: float = 0.5*1.225*pow(wind.speed+1.2,2)*spec.sailArea*sail_coefficient*pow(ship.state.stats.speedMultiplier,2)/mass
+ 	var sail_start: float = ship.get("sailRecovery",1.0) if absf(_wrap(course-visual.heading)) <= PI/36 else 0.0
+-	var own = {"position":visual.position,"velocity":visual.velocity,"heading":visual.heading,"yawRate":motion.yawRate,"dimensions":ship.state.dimensions,"course":course,"distance":distance,"speed":speed,"brake":braking,"turn_rate":absf(budget.targetYawRateRad)*budget.powerFraction*dry_fraction*0.75,"yaw_damping":maxf(0.1,physics.yawDamp),"sail_acceleration":sail_acceleration,"lateral_acceleration":crew_acceleration+rudder_acceleration,"sail_start":sail_start}
++	var own = {"position":visual.position,"velocity":visual.velocity,"heading":visual.heading,"yawRate":motion.yawRate,"dimensions":ship.state.dimensions,"course":course,"distance":distance,"speed":speed,"brake":braking,"yaw_damping":physics.yawDamp,"sail_acceleration":sail_acceleration,"lateral_acceleration":crew_acceleration+rudder_acceleration,"sail_start":sail_start}
+ 	var peers: Array = []
+ 	for peer in ships:
+ 		if peer.state.id == id or peer.sunk: continue
+@@ -727,7 +744,7 @@
+ func _approach_authorized(ship: Dictionary) -> bool:
+ 	var id: String = ship.state.id
+ 	if not config.get("routePlanning",false) or not config.get("referenceHandling",false) or not ship.state.has("navigation"): return false
+-	if ship.has("manualHandling") or ship.get("approachManualOverride",false) or hasActiveOrder(id): return false
++	if ship.has("manualHandling") or ship.get("approachManualOverride") == ship.state.get("navigation") or hasActiveOrder(id): return false
+ 	if ship.sunk or ship.state.hull <= 0 or ship.state.crew <= 0 or ship.state.sail <= 0 or not _controlled(id) or has_pending_combat(): return false
+ 	return not id in policy.get("capturedShipIds",[]) and not status in ["surrendered","defeat","victory"]
+ func _navigation_steerage(ship: Dictionary,visual: Dictionary,desired: float,error: float,blocked: bool,distance: float,intermediate: bool) -> Dictionary:
+@@ -1000,6 +1017,8 @@
+ 		for ship in ships:
+ 			if next_policy.navigation.has(ship.state.id) and not hasActiveOrder(ship.state.id) and not ship.state.id in policy.get("lockedShipIds", []):
+ 				var point = next_policy.navigation[ship.state.id]
++				if point != ship.state.get("navigation"):
++					ship.erase("approachRecovery"); ship.erase("approachManualOverride")
+ 				if point != null: ship.state.navigation = point.duplicate(true)
+ 				else: ship.state.erase("navigation"); ship.erase("tack")
+ 	for id in anchors + policy.get("lockedShipIds", []): _stop_service(_ship(id))
+--- review-1/modules/naval_simulation/navigation/approach_clearance.gd
++++ b/modules/naval_simulation/navigation/approach_clearance.gd
+@@ -4,13 +4,19 @@
+ # necessary when their controls or the environment change.
+ const ANGLE_STEP = PI / 90.0
+ const TRAVEL_SECONDS = 1.0
+-const MAX_HORIZON = 60.0
++const TURN_SECONDS = 40.0
++const STOP_SECONDS = 19.0
++const MAX_HORIZON = TURN_SECONDS + STOP_SECONDS + TRAVEL_SECONDS
+ static func assess(own: Dictionary, peers: Array, terrain: Callable, sea_level: float) -> Dictionary:
+ 	var error = wrapf(own.course - own.heading, -PI, PI)
+-	if own.brake <= 0.0 or own.turn_rate <= 0.0: return {"ok":false,"reason":"insufficient-braking"}
++	if own.brake <= 0.0 or own.yaw_damping <= 0.0: return {"ok":false,"reason":"insufficient-braking"}
+ 	var stop_time: float = own.speed / own.brake
+-	var horizon: float = absf(error) / own.turn_rate + stop_time + TRAVEL_SECONDS + 2.0
+-	if horizon > MAX_HORIZON: return {"ok":false,"reason":"turn-horizon"}
++	var yaw_stop_time: float = maxf(0.0,log(maxf(absf(own.yawRate),0.005)/0.005)/own.yaw_damping)
++	if maxf(stop_time,yaw_stop_time)>STOP_SECONDS: return {"ok":false,"reason":"stop-reserve"}
++	# Encounter enforces a forty-second maximum turn, then neutral braking.
++	# This horizon does not assume the proportional controller reaches its
++	# target at a full-rudder constant rate. The final second is outgoing travel.
++	var horizon = MAX_HORIZON
+ 	var radius = sqrt(own.dimensions.length * own.dimensions.length + own.dimensions.width * own.dimensions.width) / 2.0
+ 	# Brake must overcome bounded lateral crew/rudder acceleration. This radius
+ 	# covers all directions of residual travel; no instantaneous pivot is assumed.
+@@ -31,6 +37,7 @@
+ 	var acceleration: float = own.lateral_acceleration + own.sail_acceleration*own.sail_start
+ 	var future_speed: float = own.speed + acceleration*TRAVEL_SECONDS + own.sail_acceleration*0.25*TRAVEL_SECONDS*TRAVEL_SECONDS/2.0
+ 	if future_speed > 1.2: return {"ok":false,"reason":"travel-speed-bound"}
++	if future_speed/own.brake>STOP_SECONDS: return {"ok":false,"reason":"stop-reserve"}
+ 	var travel: float = minf(own.distance,own.speed*TRAVEL_SECONDS+acceleration*TRAVEL_SECONDS*TRAVEL_SECONDS/2.0+own.sail_acceleration*0.25*pow(TRAVEL_SECONDS,3)/6.0)
+ 	var stop_distance: float = future_speed * future_speed / (2.0 * own.brake)
+ 	var travel_pad: float = padding + stop_distance + travel * sin(PI / 36.0)
+--- review-1/tests/test_port_approach_recovery.gd
++++ b/tests/test_port_approach_recovery.gd
+@@ -5,6 +5,9 @@
+ const Height = preload("res://modules/scene_engine/terrain/height_field.gd")
+ const Layout = preload("res://game/scenes/common/reference_geography.gd")
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const Sailing = preload("res://game/runtime/sailing_simulation.gd")
++const Campaign = preload("res://game/domain/mingqi/campaign.gd")
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
+ const ID = "mingqi-1650-grain-a"
+ const INPUT = "res://docs/migration/evidence/opening-story/journey-formal-manual-fire-return.json"
+ var assertions = 0
+@@ -40,10 +43,99 @@
+ 	check(e.navigate(ID,{"x":282.1499288930165,"z":107.48568719733964}).ok,"real navigation accepts fixture destination")
+ 	return e
+ func request(e: RefCounted) -> Dictionary: return e._autopilot(e._ship(ID))
++func reconcile_goal(e: RefCounted, goal: Dictionary) -> void:
++	var setups: Array = []
++	for ship: Dictionary in e.ships:
++		var s: Dictionary = ship.state
++		var p: Dictionary = ship.core.get_snapshot()
++		setups.append({"id":s.id,"kind":s.kind,"team":"player" if s.id==ID else s.team,"position":p.position,"heading":p.heading,"hull":s.hull,"sail":s.sail,"crew":s.crew,"rudder":s.rudder,"sailDeployment":s.sailDeployment,"stats":s.stats})
++	var policy: Dictionary=e.policy.duplicate(true);policy.navigation={ID:goal}
++	check(e.reconcileShips(setups,policy).ok,"actual atomic reconciliation installs authorized goal")
++func small_turn() -> RefCounted:
++	var e=fixture();request(e)
++	check(e.update_ship_stats(ID,{"crew":30,"stats":{"cargoMass":0.0}}).ok,"full-power native small-error fixture")
++	var ship: Dictionary=e._ship(ID);var p: Dictionary=e._visual(ship)
++	var course=atan2(ship.state.navigation.z-p.position.z,ship.state.navigation.x-p.position.x)
++	ship.core.correct_horizontal_motion(p.position,{"x":0.0,"z":0.0},course-10*PI/180)
++	ship.previous=e._visual(ship)
++	return e
++func review_regressions() -> void:
++	var e=fixture();e.navigate(ID,null)
++	var simulation=Sailing.new(e);simulation.advance(1.0/60.0)
++	var target={"x":282.1499288930165,"z":107.48568719733964}
++	reconcile_goal(e,target)
++	check(not request(e).is_empty(),"P2 idle Sailing controls followed by actual reconcile can acquire recovery")
++	e=fixture();request(e);var state: Dictionary=e._ship(ID).state
++	e.command({"type":"controls","shipId":ID,"rudder":state.rudder,"sailDeployment":state.sailDeployment,"sailAngle":state.sailAngle,"autoTrim":state.autoTrim})
++	check(not request(e).is_empty(),"P2 no-op controls do not cancel navigation ownership")
++	e.command({"type":"controls","shipId":ID,"rudder":-1.0,"sailDeployment":0.0});reconcile_goal(e,target)
++	check(request(e).is_empty(),"P2 deliberate same-goal override survives routine reconciliation")
++	var next_target=target.duplicate();next_target.x+=0.1;reconcile_goal(e,next_target)
++	check(not request(e).is_empty(),"P2 authorized new goal clears only obsolete manual fence")
++	# Full Runtime startup/select/idle/depart/Bridge path. This never supplies a
++	# native navigation command, so the idle-fence regression cannot be hidden.
++	var campaign=Campaign.new(1650,"regression","approach-runtime")
++	check(campaign.command({"type":"accept-convoy","commandId":"accept","expectedRevision":0}).ok,"runtime fixture loads actual contract")
++	var runtime=Runtime.new();check(runtime.configure(func(_x: float,_z: float)->float:return -24.0,campaign).ok,"actual Runtime configured for idle departure")
++	var flag="approach-runtime-flagship"
++	check(runtime.simulation.encounter.set_player_id(flag).ok,"actual idle flagship selected")
++	runtime.simulation.refresh_snapshot();runtime.advance(1.0/60.0)
++	check(runtime.command({"type":"depart","commandId":"depart","expectedRevision":runtime.campaign.snapshot().revision}).ok,"actual Runtime departs after idle input tick")
++	check(runtime.bridge.sync().ok,"actual Bridge reconciles departed goals")
++	check(not runtime.simulation.encounter._ship(flag).get("approachManualOverride",false),"P2 idle selected runtime vessel does not carry poisoned manual fence after departure")
++	runtime.dispose()
++	e=small_turn();request(e)
++	var horizon: float=e._ship(ID).approachClearance.get("horizon",0.0)
++	var elapsed=0.0
++	for index in 1800:
++		e.step(1.0/60.0);elapsed+=1.0/60.0
++		var p: Dictionary=e._visual(e._ship(ID));var goal: Dictionary=e._ship(ID).state.navigation
++		if absf(wrapf(atan2(goal.z-p.position.z,goal.x-p.position.x)-p.heading,-PI,PI))<=PI/36:break
++	check(horizon>=elapsed,"P2 predicted horizon covers actual native PD ten-to-five degree turn")
++	print("REVIEW_SMALL_TURN horizon=",horizon," actualSeconds=",elapsed)
++	e=fixture();check(e.update_ship_stats(ID,{"crew":10,"stats":{"cargoMass":100000.0}}).ok,"reduced crew and loaded native timeout fixture")
++	var owned=request(e)
++	check(not owned.is_empty(),"reduced-power loaded turn can acquire bounded owner")
++	for index in 2401:e.step(1.0/60.0)
++	var timed_out=request(e)
++	check(e._ship(ID).state.sailDeployment==0 and timed_out.get("targetYawRateRad",1)==0 and timed_out.get("brakeDeceleration",0)>0,"P2 forty actual seconds force neutral furled braking when slow turn remains unaligned")
++	print("REVIEW_TIMEOUT actualSeconds=",e.tick/60.0," owner=",e._ship(ID).get("approachRecovery",{})," yaw=",e._ship(ID).core.get_snapshot().yawRate)
++	var timeout_owner: Dictionary=e._ship(ID).get("approachRecovery",{}).duplicate(true)
++	request(e)
++	check(e._ship(ID).get("approachRecovery",{})==timeout_owner,"P2 timeout cannot reset ownership clock while yaw is still settling")
++	e=small_turn();var own_ship: Dictionary=e._ship(ID)
++	for index in 60:own_ship.core.step(1.0/60.0,{"manualAssist":{"targetYawRateRad":-4*PI/180,"maxYawAccelerationRad":8*PI/180,"powerFraction":1.0,"neutralYawDamping":0.0,"brakeDeceleration":0.2,"coastInNoGo":true,"responseRate":6.0}})
++	own_ship.previous=e._visual(own_ship)
++	check(own_ship.core.get_snapshot().yawRate<0,"opposing-yaw fixture uses actual solver acceleration")
++	request(e)
++	check(own_ship.approachClearance.get("horizon",0)==60.0,"P2 opposing-yaw actual state receives full bounded prediction interval")
++	e=small_turn();var peer: Dictionary=e._ship("mingqi-1650-flagship");var position: Dictionary=e._visual(e._ship(ID)).position
++	peer.core.correct_horizontal_motion({"x":position.x-110,"z":position.z},{"x":7.0,"z":0.0},0.0)
++	var late_request=request(e)
++	check(e._ship(ID).approachClearance.get("reason")=="predicted-peer" and e._ship(ID).state.sailDeployment==0 and late_request.get("brakeDeceleration",0)>0,"P2 late crossing within true turn interval rejects and brakes owned turn")
++	for hazard in ["peer","depth"]:
++		e=fixture();request(e)
++		for index in 1200:e.step(1.0/60.0)
++		var ship: Dictionary=e._ship(ID);var p: Dictionary=e._visual(ship)
++		# Geometry fixture: the old blocker has departed, then a new hazard is
++		# observed outside the current cone. This is not voyage replay evidence.
++		e._ship("mingqi-1650-background-grain-01").core.correct_horizontal_motion({"x":1000.0,"z":1000.0},{"x":0.0,"z":0.0})
++		var error=absf(wrapf(atan2(target.z-p.position.z,target.x-p.position.x)-p.heading,-PI,PI))
++		check(error>PI/36 and error<40*PI/180 and not e._ship_ahead(ship,p,p.heading),"mid-turn hazard fixture has old cone clear and remaining5-40degrees")
++		if hazard=="peer":
++			peer=e._ship("mingqi-1650-flagship");peer.core.correct_horizontal_motion({"x":p.position.x-80,"z":p.position.z},{"x":5.0,"z":0.0},0.0)
++		else:e.config.sampleTerrainHeight=func(_x: float,_z: float)->float:return -1.5
++		var rejected=request(e)
++		check(ship.state.sailDeployment==0 and rejected.get("brakeDeceleration",0)>0 and rejected.get("targetYawRateRad",1)==0,"P2 owned "+hazard+" clearance rejection stays furled with neutral bounded braking")
++		if hazard=="peer":
++			check(e.command({"type":"controls","shipId":ID,"rudder":-1.0,"sailDeployment":0.2}).ok,"manual helm can supersede safety holding")
++			var manual_request=request(e)
++			check(not ship.has("approachRecovery") and manual_request.get("brakeDeceleration",0)==0,"safety hold yields to actual manual control authority")
+ func _initialize() -> void:
+ 	actual = JSON.parse_string(FileAccess.get_file_as_string(INPUT))
+ 	check(actual.assertions == 29 and actual.failures == 0,"fixture uses immutable actual successful29/0 journey")
+ 	check(height_field.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,Layout.options()),"formal depth field configured")
++	review_regressions()
+ 	var e = fixture()
+ 	var ship: Dictionary = e._ship(ID)
+ 	var visual: Dictionary = e._visual(ship)

@@ -1,0 +1,14 @@
+{
+  "address": "0x5AE520",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5AE520(int this, float a2)\n{\n  __int16 v3; // cx\n  int result; // eax\n  int v5; // ecx\n\n  *(float *)(this + 24) = -flt_6C0820;\n  v3 = *(_WORD *)(this + 12);\n  *(float *)(this + 28) = flt_6C0820;\n  *(_WORD *)(this + 12) = v3 & 0xFFF9 | 4;\n  LOBYTE(result) = sub_565BA0((float *)this, a2);\n  v5 = *(_DWORD *)(this + 52);\n  *(_DWORD *)(this + 28) = 0;\n  *(_DWORD *)(this + 24) = 0;\n  if ( v5 )\n  {\n    if ( !(_BYTE)result )\n      return (*(int (__thiscall **)(int, _DWORD))(*(_DWORD *)v5 + 128))(v5, *(_DWORD *)(this + 44));\n  }\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

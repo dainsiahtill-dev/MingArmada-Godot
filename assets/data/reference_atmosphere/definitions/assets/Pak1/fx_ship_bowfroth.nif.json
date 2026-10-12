@@ -1,0 +1,4918 @@
+{
+  "block_count": 90,
+  "block_types": {
+    "NiAlphaProperty": 1,
+    "NiColorData": 4,
+    "NiFloatData": 3,
+    "NiMaterialProperty": 3,
+    "NiNode": 7,
+    "NiPSysAgeDeathModifier": 4,
+    "NiPSysBoundUpdateModifier": 4,
+    "NiPSysBoxEmitter": 4,
+    "NiPSysColorModifier": 4,
+    "NiPSysData": 4,
+    "NiPSysEmitterCtlr": 4,
+    "NiPSysEmitterCtlrData": 4,
+    "NiPSysGravityModifier": 4,
+    "NiPSysGrowFadeModifier": 4,
+    "NiPSysPositionModifier": 4,
+    "NiPSysSpawnModifier": 4,
+    "NiPSysUpdateCtlr": 4,
+    "NiParticleSystem": 4,
+    "NiSourceTexture": 3,
+    "NiStringExtraData": 5,
+    "NiTextureTransformController": 3,
+    "NiTexturingProperty": 3,
+    "NiTriShape": 1,
+    "NiTriShapeData": 1,
+    "NiVertexColorProperty": 2,
+    "NiZBufferProperty": 2
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Dummy_bowfroth",
+            "ref": 3,
+            "type": "NiNode"
+          },
+          {
+            "name": "Box03",
+            "ref": 82,
+            "type": "NiTriShape"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 2,
+        "name": "Scene Root",
+        "num_children": 2,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 1,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 3,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 1,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Gravity01",
+            "ref": 4,
+            "type": "NiNode"
+          },
+          {
+            "name": "SuperSpray port 01",
+            "ref": 5,
+            "type": "NiNode"
+          },
+          {
+            "name": "SuperSpray port 02",
+            "ref": 29,
+            "type": "NiNode"
+          },
+          {
+            "name": "SuperSpray star 01",
+            "ref": 50,
+            "type": "NiNode"
+          },
+          {
+            "name": "SuperSpray star 02",
+            "ref": 66,
+            "type": "NiNode"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 2,
+        "name": "Dummy_bowfroth",
+        "num_children": 5,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": 0,
+          "m_12": -1,
+          "m_13": -0.0,
+          "m_21": 1,
+          "m_22": 0,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": -0.0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 3,
+      "name": "Dummy_bowfroth",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "children": [],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 16,
+        "name": "Gravity01",
+        "num_children": 0,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": -0.25881922245025635,
+          "m_12": 0.9659257531166077,
+          "m_13": 0,
+          "m_21": 0.9659257531166077,
+          "m_22": 0.2588191628456116,
+          "m_23": -1.522506352102937e-7,
+          "m_31": -1.4752075117030472e-7,
+          "m_32": -3.769635981143438e-8,
+          "m_33": -1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -10.688185691833496,
+          "y": -2.520833969116211,
+          "z": 174.87574768066406
+        }
+      },
+      "id": 4,
+      "name": "Gravity01",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 4,
+            "name": "Gravity01",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "SuperSpray",
+            "ref": 8,
+            "type": "NiParticleSystem"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 6,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 2,
+        "name": "SuperSpray port 01",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": -0.7660446166992188,
+          "m_12": 0.6427875757217407,
+          "m_13": -5.960464477539063e-8,
+          "m_21": -0.45451951026916504,
+          "m_22": -0.541675329208374,
+          "m_23": 0.7071067094802856,
+          "m_31": 0.4545193910598755,
+          "m_32": 0.5416752099990845,
+          "m_33": 0.7071068286895752,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -8.40677261352539,
+          "y": 11.751419067382812,
+          "z": 8.869183540344238
+        }
+      },
+      "id": 5,
+      "name": "SuperSpray port 01",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 5,
+            "name": "SuperSpray port 01",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n"
+      },
+      "id": 6,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 1,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 7,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 7,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": {
+          "name": "",
+          "ref": 9,
+          "type": "NiPSysEmitterCtlr"
+        },
+        "data": {
+          "name": "",
+          "ref": 19,
+          "type": "NiPSysData"
+        },
+        "extra_data_list": [],
+        "flags": 14,
+        "has_shader": false,
+        "modifiers": [
+          {
+            "name": "NiPSysAgeDeath:2",
+            "ref": 20,
+            "type": "NiPSysAgeDeathModifier"
+          },
+          {
+            "name": "NiPSysBoxEmitter:0",
+            "ref": 21,
+            "type": "NiPSysBoxEmitter"
+          },
+          {
+            "name": "NiPSysSpawnModifier:1",
+            "ref": 22,
+            "type": "NiPSysSpawnModifier"
+          },
+          {
+            "name": "NiPSysGrowFadeModifier:3",
+            "ref": 23,
+            "type": "NiPSysGrowFadeModifier"
+          },
+          {
+            "name": "NiPSysColorModifier:4",
+            "ref": 24,
+            "type": "NiPSysColorModifier"
+          },
+          {
+            "name": "NiPSysGravityModifier:7",
+            "ref": 26,
+            "type": "NiPSysGravityModifier"
+          },
+          {
+            "name": "NiPSysPositionModifier:5",
+            "ref": 27,
+            "type": "NiPSysPositionModifier"
+          },
+          {
+            "name": "NiPSysBoundUpdateModifier:6",
+            "ref": 28,
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ],
+        "name": "SuperSpray",
+        "num_extra_data_list": 0,
+        "num_modifiers": 8,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "Default",
+            "ref": 18,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 17,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 0.9999999403953552,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "world_space": true
+      },
+      "id": 8,
+      "name": "SuperSpray",
+      "parent_nodes": [
+        5
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 5,
+            "name": "SuperSpray port 01",
+            "type": "NiNode"
+          },
+          {
+            "id": 8,
+            "name": "SuperSpray",
+            "type": "NiParticleSystem"
+          }
+        ]
+      ],
+      "type": "NiParticleSystem"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 11,
+          "type": "NiPSysEmitterCtlrData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "modifier_name": "NiPSysBoxEmitter:0",
+        "next_controller": {
+          "name": "",
+          "ref": 10,
+          "type": "NiPSysUpdateCtlr"
+        },
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 9,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiPSysEmitterCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlr"
+    },
+    {
+      "fields": {
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 10,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 10,
+            "name": "",
+            "type": "NiPSysUpdateCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysUpdateCtlr"
+    },
+    {
+      "fields": {
+        "float_keys": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 4
+            }
+          ],
+          "num_keys": 1,
+          "type": "KeyGroup"
+        },
+        "num_visibility_keys": 2,
+        "visibility_keys": [
+          {
+            "time": 0,
+            "type": "Key",
+            "value": 1
+          },
+          {
+            "time": 25,
+            "type": "Key",
+            "value": 0
+          }
+        ]
+      },
+      "id": 11,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 11,
+            "name": "",
+            "type": "NiPSysEmitterCtlrData"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlrData"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 15,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 1,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 13,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 12,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 12,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 14,
+          "type": "NiFloatData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 2,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 2.083125114440918,
+        "target": {
+          "name": "",
+          "ref": 12,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 13,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 0
+            },
+            {
+              "time": 2.083125114440918,
+              "type": "Key",
+              "value": -6.2831854820251465
+            }
+          ],
+          "num_keys": 2,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 14,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 14,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "FX_waterfroth_002.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "unknown_link": null,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 15,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 15,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 4333,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 0
+      },
+      "id": 16,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 16,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 2
+      },
+      "id": 17,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 17,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0.40000003576278687,
+          "g": 0.34117648005485535,
+          "r": 0.1568627506494522,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        }
+      },
+      "id": 18,
+      "name": "Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 18,
+            "name": "Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 32768,
+        "extra_vectors_flags": 0,
+        "has_normals": false,
+        "has_radii": true,
+        "has_rotations": false,
+        "has_sizes": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "num_active": 0,
+        "num_uv_sets": 0,
+        "num_vertices": 10,
+        "particle_descriptions": [
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          }
+        ],
+        "radii": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "radius": 0,
+        "sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "unknown_short_1": 0,
+        "unknown_short_2": 0,
+        "uv_sets": {
+          "count": 0,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 19,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 19,
+            "name": "",
+            "type": "NiPSysData"
+          }
+        ]
+      ],
+      "type": "NiPSysData",
+      "vertex_bounds_local": {
+        "max": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysAgeDeath:2",
+        "order": 0,
+        "spawn_modifier": {
+          "name": "NiPSysSpawnModifier:1",
+          "ref": 22,
+          "type": "NiPSysSpawnModifier"
+        },
+        "spawn_on_death": false,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 20,
+      "name": "NiPSysAgeDeath:2",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 20,
+            "name": "NiPSysAgeDeath:2",
+            "type": "NiPSysAgeDeathModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysAgeDeathModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "declination": 0,
+        "declination_variation": 0.7155849933624268,
+        "depth": 0,
+        "emitter_object": {
+          "name": "SuperSpray port 01",
+          "ref": 5,
+          "type": "NiNode"
+        },
+        "height": 0,
+        "initial_color": {
+          "a": 1,
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color4"
+        },
+        "initial_radius": 75,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "name": "NiPSysBoxEmitter:0",
+        "order": 1000,
+        "planar_angle": 0,
+        "planar_angle_variation": 0.6457718014717102,
+        "speed": 153.49826049804688,
+        "speed_variation": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        },
+        "width": 0
+      },
+      "id": 21,
+      "name": "NiPSysBoxEmitter:0",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 21,
+            "name": "NiPSysBoxEmitter:0",
+            "type": "NiPSysBoxEmitter"
+          }
+        ]
+      ],
+      "type": "NiPSysBoxEmitter"
+    },
+    {
+      "fields": {
+        "active": true,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "max_num_to_spawn": 1,
+        "min_num_to_spawn": 1,
+        "name": "NiPSysSpawnModifier:1",
+        "num_spawn_generations": 0,
+        "order": 1000,
+        "percentage_spawned": 1,
+        "spawn_dir_chaos": 0,
+        "spawn_speed_chaos": -0.0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 22,
+      "name": "NiPSysSpawnModifier:1",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 22,
+            "name": "NiPSysSpawnModifier:1",
+            "type": "NiPSysSpawnModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysSpawnModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "fade_generation": 0,
+        "fade_time": 0.2081250101327896,
+        "grow_generation": 0,
+        "grow_time": 0.2081250101327896,
+        "name": "NiPSysGrowFadeModifier:3",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 23,
+      "name": "NiPSysGrowFadeModifier:3",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 23,
+            "name": "NiPSysGrowFadeModifier:3",
+            "type": "NiPSysGrowFadeModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGrowFadeModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "data": {
+          "name": "",
+          "ref": 25,
+          "type": "NiColorData"
+        },
+        "name": "NiPSysColorModifier:4",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 24,
+      "name": "NiPSysColorModifier:4",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 24,
+            "name": "NiPSysColorModifier:4",
+            "type": "NiPSysColorModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysColorModifier"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 0.5,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 1,
+              "type": "Key",
+              "value": {
+                "a": 0,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            }
+          ],
+          "num_keys": 3,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 25,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 25,
+            "name": "",
+            "type": "NiColorData"
+          }
+        ]
+      ],
+      "type": "NiColorData"
+    },
+    {
+      "fields": {
+        "active": true,
+        "decay": 0,
+        "force_type": 0,
+        "gravity_axis": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 1
+        },
+        "gravity_object": {
+          "name": "Gravity01",
+          "ref": 4,
+          "type": "NiNode"
+        },
+        "name": "NiPSysGravityModifier:7",
+        "order": 4000,
+        "strength": 161.28001403808594,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        },
+        "turbulence": 0,
+        "turbulence_scale": 1
+      },
+      "id": 26,
+      "name": "NiPSysGravityModifier:7",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 26,
+            "name": "NiPSysGravityModifier:7",
+            "type": "NiPSysGravityModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGravityModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysPositionModifier:5",
+        "order": 6000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 27,
+      "name": "NiPSysPositionModifier:5",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 27,
+            "name": "NiPSysPositionModifier:5",
+            "type": "NiPSysPositionModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysPositionModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysBoundUpdateModifier:6",
+        "order": 7000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 8,
+          "type": "NiParticleSystem"
+        },
+        "update_skip": 0
+      },
+      "id": 28,
+      "name": "NiPSysBoundUpdateModifier:6",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 28,
+            "name": "NiPSysBoundUpdateModifier:6",
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysBoundUpdateModifier"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "SuperSpray",
+            "ref": 31,
+            "type": "NiParticleSystem"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 30,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 2,
+        "name": "SuperSpray port 02",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": -0.7660446166992188,
+          "m_12": 0.6427875757217407,
+          "m_13": -5.960464477539063e-8,
+          "m_21": -0.45451951026916504,
+          "m_22": -0.541675329208374,
+          "m_23": 0.7071067094802856,
+          "m_31": 0.4545193910598755,
+          "m_32": 0.5416752099990845,
+          "m_33": 0.7071068286895752,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -8.40677261352539,
+          "y": 14.180328369140625,
+          "z": 8.869183540344238
+        }
+      },
+      "id": 29,
+      "name": "SuperSpray port 02",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 29,
+            "name": "SuperSpray port 02",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n"
+      },
+      "id": 30,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 30,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": {
+          "name": "",
+          "ref": 32,
+          "type": "NiPSysEmitterCtlr"
+        },
+        "data": {
+          "name": "",
+          "ref": 40,
+          "type": "NiPSysData"
+        },
+        "extra_data_list": [],
+        "flags": 14,
+        "has_shader": false,
+        "modifiers": [
+          {
+            "name": "NiPSysAgeDeath:2",
+            "ref": 41,
+            "type": "NiPSysAgeDeathModifier"
+          },
+          {
+            "name": "NiPSysBoxEmitter:0",
+            "ref": 42,
+            "type": "NiPSysBoxEmitter"
+          },
+          {
+            "name": "NiPSysSpawnModifier:1",
+            "ref": 43,
+            "type": "NiPSysSpawnModifier"
+          },
+          {
+            "name": "NiPSysGrowFadeModifier:3",
+            "ref": 44,
+            "type": "NiPSysGrowFadeModifier"
+          },
+          {
+            "name": "NiPSysColorModifier:4",
+            "ref": 45,
+            "type": "NiPSysColorModifier"
+          },
+          {
+            "name": "NiPSysGravityModifier:7",
+            "ref": 47,
+            "type": "NiPSysGravityModifier"
+          },
+          {
+            "name": "NiPSysPositionModifier:5",
+            "ref": 48,
+            "type": "NiPSysPositionModifier"
+          },
+          {
+            "name": "NiPSysBoundUpdateModifier:6",
+            "ref": 49,
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ],
+        "name": "SuperSpray",
+        "num_extra_data_list": 0,
+        "num_modifiers": 8,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "froth 001",
+            "ref": 39,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 35,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 17,
+            "type": "NiVertexColorProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 0.9999999403953552,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "world_space": true
+      },
+      "id": 31,
+      "name": "SuperSpray",
+      "parent_nodes": [
+        29
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 29,
+            "name": "SuperSpray port 02",
+            "type": "NiNode"
+          },
+          {
+            "id": 31,
+            "name": "SuperSpray",
+            "type": "NiParticleSystem"
+          }
+        ]
+      ],
+      "type": "NiParticleSystem"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 34,
+          "type": "NiPSysEmitterCtlrData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "modifier_name": "NiPSysBoxEmitter:0",
+        "next_controller": {
+          "name": "",
+          "ref": 33,
+          "type": "NiPSysUpdateCtlr"
+        },
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 32,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 32,
+            "name": "",
+            "type": "NiPSysEmitterCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlr"
+    },
+    {
+      "fields": {
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 33,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 33,
+            "name": "",
+            "type": "NiPSysUpdateCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysUpdateCtlr"
+    },
+    {
+      "fields": {
+        "float_keys": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 3.5199999809265137
+            }
+          ],
+          "num_keys": 1,
+          "type": "KeyGroup"
+        },
+        "num_visibility_keys": 2,
+        "visibility_keys": [
+          {
+            "time": 0,
+            "type": "Key",
+            "value": 1
+          },
+          {
+            "time": 25,
+            "type": "Key",
+            "value": 0
+          }
+        ]
+      },
+      "id": 34,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 34,
+            "name": "",
+            "type": "NiPSysEmitterCtlrData"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlrData"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 38,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 1,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 36,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 35,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 35,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 37,
+          "type": "NiFloatData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 2,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 8.333333969116211,
+        "target": {
+          "name": "",
+          "ref": 35,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 36,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 36,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 0
+            },
+            {
+              "time": 8.333333969116211,
+              "type": "Key",
+              "value": -25.132741928100586
+            }
+          ],
+          "num_keys": 2,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 37,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 37,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "FX_waterfroth_001.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "unknown_link": null,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 38,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 38,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0.40000003576278687,
+          "g": 0.34117648005485535,
+          "r": 0.1568627506494522,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "froth 001",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        }
+      },
+      "id": 39,
+      "name": "froth 001",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 39,
+            "name": "froth 001",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 32768,
+        "extra_vectors_flags": 0,
+        "has_normals": false,
+        "has_radii": true,
+        "has_rotations": false,
+        "has_sizes": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "num_active": 0,
+        "num_uv_sets": 0,
+        "num_vertices": 10,
+        "particle_descriptions": [
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          }
+        ],
+        "radii": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "radius": 0,
+        "sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "unknown_short_1": 0,
+        "unknown_short_2": 0,
+        "uv_sets": {
+          "count": 0,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 40,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 40,
+            "name": "",
+            "type": "NiPSysData"
+          }
+        ]
+      ],
+      "type": "NiPSysData",
+      "vertex_bounds_local": {
+        "max": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysAgeDeath:2",
+        "order": 0,
+        "spawn_modifier": {
+          "name": "NiPSysSpawnModifier:1",
+          "ref": 43,
+          "type": "NiPSysSpawnModifier"
+        },
+        "spawn_on_death": false,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 41,
+      "name": "NiPSysAgeDeath:2",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 41,
+            "name": "NiPSysAgeDeath:2",
+            "type": "NiPSysAgeDeathModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysAgeDeathModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "declination": 0,
+        "declination_variation": 0.7155849933624268,
+        "depth": 0,
+        "emitter_object": {
+          "name": "SuperSpray port 02",
+          "ref": 29,
+          "type": "NiNode"
+        },
+        "height": 0,
+        "initial_color": {
+          "a": 1,
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color4"
+        },
+        "initial_radius": 75,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "name": "NiPSysBoxEmitter:0",
+        "order": 1000,
+        "planar_angle": 0,
+        "planar_angle_variation": 0.6457718014717102,
+        "speed": 153.49826049804688,
+        "speed_variation": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        },
+        "width": 0
+      },
+      "id": 42,
+      "name": "NiPSysBoxEmitter:0",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 42,
+            "name": "NiPSysBoxEmitter:0",
+            "type": "NiPSysBoxEmitter"
+          }
+        ]
+      ],
+      "type": "NiPSysBoxEmitter"
+    },
+    {
+      "fields": {
+        "active": true,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "max_num_to_spawn": 1,
+        "min_num_to_spawn": 1,
+        "name": "NiPSysSpawnModifier:1",
+        "num_spawn_generations": 0,
+        "order": 1000,
+        "percentage_spawned": 1,
+        "spawn_dir_chaos": 0,
+        "spawn_speed_chaos": -0.0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 43,
+      "name": "NiPSysSpawnModifier:1",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 43,
+            "name": "NiPSysSpawnModifier:1",
+            "type": "NiPSysSpawnModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysSpawnModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "fade_generation": 0,
+        "fade_time": 0.2081250101327896,
+        "grow_generation": 0,
+        "grow_time": 0.2081250101327896,
+        "name": "NiPSysGrowFadeModifier:3",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 44,
+      "name": "NiPSysGrowFadeModifier:3",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 44,
+            "name": "NiPSysGrowFadeModifier:3",
+            "type": "NiPSysGrowFadeModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGrowFadeModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "data": {
+          "name": "",
+          "ref": 46,
+          "type": "NiColorData"
+        },
+        "name": "NiPSysColorModifier:4",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 45,
+      "name": "NiPSysColorModifier:4",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 45,
+            "name": "NiPSysColorModifier:4",
+            "type": "NiPSysColorModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysColorModifier"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 0.5,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 1,
+              "type": "Key",
+              "value": {
+                "a": 0,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            }
+          ],
+          "num_keys": 3,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 46,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 46,
+            "name": "",
+            "type": "NiColorData"
+          }
+        ]
+      ],
+      "type": "NiColorData"
+    },
+    {
+      "fields": {
+        "active": true,
+        "decay": 0,
+        "force_type": 0,
+        "gravity_axis": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 1
+        },
+        "gravity_object": {
+          "name": "Gravity01",
+          "ref": 4,
+          "type": "NiNode"
+        },
+        "name": "NiPSysGravityModifier:7",
+        "order": 4000,
+        "strength": 161.28001403808594,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        },
+        "turbulence": 0,
+        "turbulence_scale": 1
+      },
+      "id": 47,
+      "name": "NiPSysGravityModifier:7",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 47,
+            "name": "NiPSysGravityModifier:7",
+            "type": "NiPSysGravityModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGravityModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysPositionModifier:5",
+        "order": 6000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 48,
+      "name": "NiPSysPositionModifier:5",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 48,
+            "name": "NiPSysPositionModifier:5",
+            "type": "NiPSysPositionModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysPositionModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysBoundUpdateModifier:6",
+        "order": 7000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 31,
+          "type": "NiParticleSystem"
+        },
+        "update_skip": 0
+      },
+      "id": 49,
+      "name": "NiPSysBoundUpdateModifier:6",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 49,
+            "name": "NiPSysBoundUpdateModifier:6",
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysBoundUpdateModifier"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "SuperSpray",
+            "ref": 52,
+            "type": "NiParticleSystem"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 51,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 2,
+        "name": "SuperSpray star 01",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 0.6427876949310303,
+          "m_12": 0.7660443186759949,
+          "m_13": -5.960464477539063e-8,
+          "m_21": -0.5416751503944397,
+          "m_22": 0.4545196294784546,
+          "m_23": 0.7071067094802856,
+          "m_31": 0.5416751503944397,
+          "m_32": -0.45451951026916504,
+          "m_33": 0.7071068286895752,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -8.406770706176758,
+          "y": -13.701602935791016,
+          "z": 8.869183540344238
+        }
+      },
+      "id": 50,
+      "name": "SuperSpray star 01",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 50,
+            "name": "SuperSpray star 01",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n"
+      },
+      "id": 51,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 51,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": {
+          "name": "",
+          "ref": 53,
+          "type": "NiPSysEmitterCtlr"
+        },
+        "data": {
+          "name": "",
+          "ref": 56,
+          "type": "NiPSysData"
+        },
+        "extra_data_list": [],
+        "flags": 14,
+        "has_shader": false,
+        "modifiers": [
+          {
+            "name": "NiPSysAgeDeath:2",
+            "ref": 57,
+            "type": "NiPSysAgeDeathModifier"
+          },
+          {
+            "name": "NiPSysBoxEmitter:0",
+            "ref": 58,
+            "type": "NiPSysBoxEmitter"
+          },
+          {
+            "name": "NiPSysSpawnModifier:1",
+            "ref": 59,
+            "type": "NiPSysSpawnModifier"
+          },
+          {
+            "name": "NiPSysGrowFadeModifier:3",
+            "ref": 60,
+            "type": "NiPSysGrowFadeModifier"
+          },
+          {
+            "name": "NiPSysColorModifier:4",
+            "ref": 61,
+            "type": "NiPSysColorModifier"
+          },
+          {
+            "name": "NiPSysGravityModifier:7",
+            "ref": 63,
+            "type": "NiPSysGravityModifier"
+          },
+          {
+            "name": "NiPSysPositionModifier:5",
+            "ref": 64,
+            "type": "NiPSysPositionModifier"
+          },
+          {
+            "name": "NiPSysBoundUpdateModifier:6",
+            "ref": 65,
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ],
+        "name": "SuperSpray",
+        "num_extra_data_list": 0,
+        "num_modifiers": 8,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 35,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 17,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "froth 001",
+            "ref": 39,
+            "type": "NiMaterialProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 0.9999998211860657,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "world_space": true
+      },
+      "id": 52,
+      "name": "SuperSpray",
+      "parent_nodes": [
+        50
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 50,
+            "name": "SuperSpray star 01",
+            "type": "NiNode"
+          },
+          {
+            "id": 52,
+            "name": "SuperSpray",
+            "type": "NiParticleSystem"
+          }
+        ]
+      ],
+      "type": "NiParticleSystem"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 55,
+          "type": "NiPSysEmitterCtlrData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "modifier_name": "NiPSysBoxEmitter:0",
+        "next_controller": {
+          "name": "",
+          "ref": 54,
+          "type": "NiPSysUpdateCtlr"
+        },
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 53,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 53,
+            "name": "",
+            "type": "NiPSysEmitterCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlr"
+    },
+    {
+      "fields": {
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 54,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 54,
+            "name": "",
+            "type": "NiPSysUpdateCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysUpdateCtlr"
+    },
+    {
+      "fields": {
+        "float_keys": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 4.800000190734863
+            }
+          ],
+          "num_keys": 1,
+          "type": "KeyGroup"
+        },
+        "num_visibility_keys": 2,
+        "visibility_keys": [
+          {
+            "time": 0,
+            "type": "Key",
+            "value": 1
+          },
+          {
+            "time": 25,
+            "type": "Key",
+            "value": 0
+          }
+        ]
+      },
+      "id": 55,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 55,
+            "name": "",
+            "type": "NiPSysEmitterCtlrData"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlrData"
+    },
+    {
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 32768,
+        "extra_vectors_flags": 0,
+        "has_normals": false,
+        "has_radii": true,
+        "has_rotations": false,
+        "has_sizes": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "num_active": 0,
+        "num_uv_sets": 0,
+        "num_vertices": 10,
+        "particle_descriptions": [
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          }
+        ],
+        "radii": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "radius": 0,
+        "sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "unknown_short_1": 0,
+        "unknown_short_2": 0,
+        "uv_sets": {
+          "count": 0,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 56,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 56,
+            "name": "",
+            "type": "NiPSysData"
+          }
+        ]
+      ],
+      "type": "NiPSysData",
+      "vertex_bounds_local": {
+        "max": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysAgeDeath:2",
+        "order": 0,
+        "spawn_modifier": {
+          "name": "NiPSysSpawnModifier:1",
+          "ref": 59,
+          "type": "NiPSysSpawnModifier"
+        },
+        "spawn_on_death": false,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 57,
+      "name": "NiPSysAgeDeath:2",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 57,
+            "name": "NiPSysAgeDeath:2",
+            "type": "NiPSysAgeDeathModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysAgeDeathModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "declination": 0,
+        "declination_variation": 0.7155849933624268,
+        "depth": 0,
+        "emitter_object": {
+          "name": "SuperSpray star 01",
+          "ref": 50,
+          "type": "NiNode"
+        },
+        "height": 0,
+        "initial_color": {
+          "a": 1,
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color4"
+        },
+        "initial_radius": 75,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "name": "NiPSysBoxEmitter:0",
+        "order": 1000,
+        "planar_angle": 0,
+        "planar_angle_variation": 0.6457718014717102,
+        "speed": 153.49826049804688,
+        "speed_variation": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        },
+        "width": 0
+      },
+      "id": 58,
+      "name": "NiPSysBoxEmitter:0",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 58,
+            "name": "NiPSysBoxEmitter:0",
+            "type": "NiPSysBoxEmitter"
+          }
+        ]
+      ],
+      "type": "NiPSysBoxEmitter"
+    },
+    {
+      "fields": {
+        "active": true,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "max_num_to_spawn": 1,
+        "min_num_to_spawn": 1,
+        "name": "NiPSysSpawnModifier:1",
+        "num_spawn_generations": 0,
+        "order": 1000,
+        "percentage_spawned": 1,
+        "spawn_dir_chaos": 0,
+        "spawn_speed_chaos": -0.0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 59,
+      "name": "NiPSysSpawnModifier:1",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 59,
+            "name": "NiPSysSpawnModifier:1",
+            "type": "NiPSysSpawnModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysSpawnModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "fade_generation": 0,
+        "fade_time": 0.2081250101327896,
+        "grow_generation": 0,
+        "grow_time": 0.2081250101327896,
+        "name": "NiPSysGrowFadeModifier:3",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 60,
+      "name": "NiPSysGrowFadeModifier:3",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 60,
+            "name": "NiPSysGrowFadeModifier:3",
+            "type": "NiPSysGrowFadeModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGrowFadeModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "data": {
+          "name": "",
+          "ref": 62,
+          "type": "NiColorData"
+        },
+        "name": "NiPSysColorModifier:4",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 61,
+      "name": "NiPSysColorModifier:4",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 61,
+            "name": "NiPSysColorModifier:4",
+            "type": "NiPSysColorModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysColorModifier"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 0.5,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 1,
+              "type": "Key",
+              "value": {
+                "a": 0,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            }
+          ],
+          "num_keys": 3,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 62,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 62,
+            "name": "",
+            "type": "NiColorData"
+          }
+        ]
+      ],
+      "type": "NiColorData"
+    },
+    {
+      "fields": {
+        "active": true,
+        "decay": 0,
+        "force_type": 0,
+        "gravity_axis": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 1
+        },
+        "gravity_object": {
+          "name": "Gravity01",
+          "ref": 4,
+          "type": "NiNode"
+        },
+        "name": "NiPSysGravityModifier:7",
+        "order": 4000,
+        "strength": 161.28001403808594,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        },
+        "turbulence": 0,
+        "turbulence_scale": 1
+      },
+      "id": 63,
+      "name": "NiPSysGravityModifier:7",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 63,
+            "name": "NiPSysGravityModifier:7",
+            "type": "NiPSysGravityModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGravityModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysPositionModifier:5",
+        "order": 6000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 64,
+      "name": "NiPSysPositionModifier:5",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 64,
+            "name": "NiPSysPositionModifier:5",
+            "type": "NiPSysPositionModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysPositionModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysBoundUpdateModifier:6",
+        "order": 7000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 52,
+          "type": "NiParticleSystem"
+        },
+        "update_skip": 0
+      },
+      "id": 65,
+      "name": "NiPSysBoundUpdateModifier:6",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 65,
+            "name": "NiPSysBoundUpdateModifier:6",
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysBoundUpdateModifier"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "SuperSpray",
+            "ref": 68,
+            "type": "NiParticleSystem"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 67,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 2,
+        "name": "SuperSpray star 02",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 0.6427876949310303,
+          "m_12": 0.7660443186759949,
+          "m_13": -5.960464477539063e-8,
+          "m_21": -0.5416751503944397,
+          "m_22": 0.4545196294784546,
+          "m_23": 0.7071067094802856,
+          "m_31": 0.5416751503944397,
+          "m_32": -0.45451951026916504,
+          "m_33": 0.7071068286895752,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -8.406770706176758,
+          "y": -18.018138885498047,
+          "z": 8.869183540344238
+        }
+      },
+      "id": 66,
+      "name": "SuperSpray star 02",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 66,
+            "name": "SuperSpray star 02",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n"
+      },
+      "id": 67,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 67,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": {
+          "name": "",
+          "ref": 69,
+          "type": "NiPSysEmitterCtlr"
+        },
+        "data": {
+          "name": "",
+          "ref": 72,
+          "type": "NiPSysData"
+        },
+        "extra_data_list": [],
+        "flags": 14,
+        "has_shader": false,
+        "modifiers": [
+          {
+            "name": "NiPSysAgeDeath:2",
+            "ref": 73,
+            "type": "NiPSysAgeDeathModifier"
+          },
+          {
+            "name": "NiPSysBoxEmitter:0",
+            "ref": 74,
+            "type": "NiPSysBoxEmitter"
+          },
+          {
+            "name": "NiPSysSpawnModifier:1",
+            "ref": 75,
+            "type": "NiPSysSpawnModifier"
+          },
+          {
+            "name": "NiPSysGrowFadeModifier:3",
+            "ref": 76,
+            "type": "NiPSysGrowFadeModifier"
+          },
+          {
+            "name": "NiPSysColorModifier:4",
+            "ref": 77,
+            "type": "NiPSysColorModifier"
+          },
+          {
+            "name": "NiPSysGravityModifier:7",
+            "ref": 79,
+            "type": "NiPSysGravityModifier"
+          },
+          {
+            "name": "NiPSysPositionModifier:5",
+            "ref": 80,
+            "type": "NiPSysPositionModifier"
+          },
+          {
+            "name": "NiPSysBoundUpdateModifier:6",
+            "ref": 81,
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ],
+        "name": "SuperSpray",
+        "num_extra_data_list": 0,
+        "num_modifiers": 8,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 17,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "Default",
+            "ref": 18,
+            "type": "NiMaterialProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 0.9999998211860657,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "world_space": true
+      },
+      "id": 68,
+      "name": "SuperSpray",
+      "parent_nodes": [
+        66
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Dummy_bowfroth",
+            "type": "NiNode"
+          },
+          {
+            "id": 66,
+            "name": "SuperSpray star 02",
+            "type": "NiNode"
+          },
+          {
+            "id": 68,
+            "name": "SuperSpray",
+            "type": "NiParticleSystem"
+          }
+        ]
+      ],
+      "type": "NiParticleSystem"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 71,
+          "type": "NiPSysEmitterCtlrData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "modifier_name": "NiPSysBoxEmitter:0",
+        "next_controller": {
+          "name": "",
+          "ref": 70,
+          "type": "NiPSysUpdateCtlr"
+        },
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 69,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 69,
+            "name": "",
+            "type": "NiPSysEmitterCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlr"
+    },
+    {
+      "fields": {
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 70,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 70,
+            "name": "",
+            "type": "NiPSysUpdateCtlr"
+          }
+        ]
+      ],
+      "type": "NiPSysUpdateCtlr"
+    },
+    {
+      "fields": {
+        "float_keys": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": 3.200000047683716
+            }
+          ],
+          "num_keys": 1,
+          "type": "KeyGroup"
+        },
+        "num_visibility_keys": 2,
+        "visibility_keys": [
+          {
+            "time": 0,
+            "type": "Key",
+            "value": 1
+          },
+          {
+            "time": 25,
+            "type": "Key",
+            "value": 0
+          }
+        ]
+      },
+      "id": 71,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 71,
+            "name": "",
+            "type": "NiPSysEmitterCtlrData"
+          }
+        ]
+      ],
+      "type": "NiPSysEmitterCtlrData"
+    },
+    {
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 32768,
+        "extra_vectors_flags": 0,
+        "has_normals": false,
+        "has_radii": true,
+        "has_rotations": false,
+        "has_sizes": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "num_active": 0,
+        "num_uv_sets": 0,
+        "num_vertices": 10,
+        "particle_descriptions": [
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          },
+          {
+            "translation": {
+              "type": "Vector3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "type": "ParticleDesc",
+            "unknown_float_1": 0,
+            "unknown_float_2": 0,
+            "unknown_float_3": 0,
+            "unknown_floats_1": [
+              1,
+              0,
+              0
+            ],
+            "unknown_int_1": 0
+          }
+        ],
+        "radii": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "radius": 0,
+        "sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "unknown_short_1": 0,
+        "unknown_short_2": 0,
+        "uv_sets": {
+          "count": 0,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 10,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 72,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 72,
+            "name": "",
+            "type": "NiPSysData"
+          }
+        ]
+      ],
+      "type": "NiPSysData",
+      "vertex_bounds_local": {
+        "max": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysAgeDeath:2",
+        "order": 0,
+        "spawn_modifier": {
+          "name": "NiPSysSpawnModifier:1",
+          "ref": 75,
+          "type": "NiPSysSpawnModifier"
+        },
+        "spawn_on_death": false,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 73,
+      "name": "NiPSysAgeDeath:2",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 73,
+            "name": "NiPSysAgeDeath:2",
+            "type": "NiPSysAgeDeathModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysAgeDeathModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "declination": 0,
+        "declination_variation": 0.7155849933624268,
+        "depth": 0,
+        "emitter_object": {
+          "name": "SuperSpray star 02",
+          "ref": 66,
+          "type": "NiNode"
+        },
+        "height": 0,
+        "initial_color": {
+          "a": 1,
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color4"
+        },
+        "initial_radius": 75,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "name": "NiPSysBoxEmitter:0",
+        "order": 1000,
+        "planar_angle": 0,
+        "planar_angle_variation": 0.6457718014717102,
+        "speed": 153.49826049804688,
+        "speed_variation": 0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        },
+        "width": 0
+      },
+      "id": 74,
+      "name": "NiPSysBoxEmitter:0",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 74,
+            "name": "NiPSysBoxEmitter:0",
+            "type": "NiPSysBoxEmitter"
+          }
+        ]
+      ],
+      "type": "NiPSysBoxEmitter"
+    },
+    {
+      "fields": {
+        "active": true,
+        "life_span": 0.625,
+        "life_span_variation": 0,
+        "max_num_to_spawn": 1,
+        "min_num_to_spawn": 1,
+        "name": "NiPSysSpawnModifier:1",
+        "num_spawn_generations": 0,
+        "order": 1000,
+        "percentage_spawned": 1,
+        "spawn_dir_chaos": 0,
+        "spawn_speed_chaos": -0.0,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 75,
+      "name": "NiPSysSpawnModifier:1",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 75,
+            "name": "NiPSysSpawnModifier:1",
+            "type": "NiPSysSpawnModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysSpawnModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "fade_generation": 0,
+        "fade_time": 0.2081250101327896,
+        "grow_generation": 0,
+        "grow_time": 0.2081250101327896,
+        "name": "NiPSysGrowFadeModifier:3",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 76,
+      "name": "NiPSysGrowFadeModifier:3",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 76,
+            "name": "NiPSysGrowFadeModifier:3",
+            "type": "NiPSysGrowFadeModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGrowFadeModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "data": {
+          "name": "",
+          "ref": 78,
+          "type": "NiColorData"
+        },
+        "name": "NiPSysColorModifier:4",
+        "order": 3000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 77,
+      "name": "NiPSysColorModifier:4",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 77,
+            "name": "NiPSysColorModifier:4",
+            "type": "NiPSysColorModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysColorModifier"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 0.5,
+              "type": "Key",
+              "value": {
+                "a": 1,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            },
+            {
+              "time": 1,
+              "type": "Key",
+              "value": {
+                "a": 0,
+                "b": 0.8509804606437683,
+                "g": 0.7647059559822083,
+                "r": 0.6392157077789307,
+                "type": "Color4"
+              }
+            }
+          ],
+          "num_keys": 3,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 78,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 78,
+            "name": "",
+            "type": "NiColorData"
+          }
+        ]
+      ],
+      "type": "NiColorData"
+    },
+    {
+      "fields": {
+        "active": true,
+        "decay": 0,
+        "force_type": 0,
+        "gravity_axis": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 1
+        },
+        "gravity_object": {
+          "name": "Gravity01",
+          "ref": 4,
+          "type": "NiNode"
+        },
+        "name": "NiPSysGravityModifier:7",
+        "order": 4000,
+        "strength": 161.28001403808594,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        },
+        "turbulence": 0,
+        "turbulence_scale": 1
+      },
+      "id": 79,
+      "name": "NiPSysGravityModifier:7",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 79,
+            "name": "NiPSysGravityModifier:7",
+            "type": "NiPSysGravityModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysGravityModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysPositionModifier:5",
+        "order": 6000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        }
+      },
+      "id": 80,
+      "name": "NiPSysPositionModifier:5",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 80,
+            "name": "NiPSysPositionModifier:5",
+            "type": "NiPSysPositionModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysPositionModifier"
+    },
+    {
+      "fields": {
+        "active": true,
+        "name": "NiPSysBoundUpdateModifier:6",
+        "order": 7000,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 68,
+          "type": "NiParticleSystem"
+        },
+        "update_skip": 0
+      },
+      "id": 81,
+      "name": "NiPSysBoundUpdateModifier:6",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 81,
+            "name": "NiPSysBoundUpdateModifier:6",
+            "type": "NiPSysBoundUpdateModifier"
+          }
+        ]
+      ],
+      "type": "NiPSysBoundUpdateModifier"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 89,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 83,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Box03",
+        "num_extra_data_list": 1,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "front froth object",
+            "ref": 88,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 84,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 17,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 7,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 24,
+          "z": 0
+        }
+      },
+      "id": 82,
+      "name": "Box03",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 82,
+            "name": "Box03",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\n\r\n"
+      },
+      "id": 83,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 83,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 3,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -115,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 87,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0,
+            "v": -2
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 85,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 84,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 84,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 86,
+          "type": "NiFloatData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 1,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 25,
+        "target": {
+          "name": "",
+          "ref": 84,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 85,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 85,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 1,
+          "keys": [
+            {
+              "time": 0,
+              "type": "Key",
+              "value": -2
+            },
+            {
+              "time": 25,
+              "type": "Key",
+              "value": -8
+            }
+          ],
+          "num_keys": 2,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 86,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 86,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "FX_waterfroth_003.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "unknown_link": null,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 87,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 87,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0.40000003576278687,
+          "g": 0.34117648005485535,
+          "r": 0.1568627506494522,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "front froth object",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.6392157077789307,
+          "g": 0.6039215922355652,
+          "r": 0.4941176772117615,
+          "type": "Color3"
+        }
+      },
+      "id": 88,
+      "name": "front froth object",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 88,
+            "name": "front froth object",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "effective_triangle_count": 40,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": -26.59579849243164,
+          "z": 26.643665313720703
+        },
+        "compress_flags": 0,
+        "consistency_flags": 16384,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": true,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 30,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 120,
+        "num_triangles": 40,
+        "num_uv_sets": 1,
+        "num_vertices": 30,
+        "radius": 169.17530822753906,
+        "triangles": {
+          "count": 40,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 1,
+          "omitted_geometry_buffer": true
+        },
+        "vertex_colors": {
+          "count": 30,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 30,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 89,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 89,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          166.31973266601562,
+          79.82959747314453,
+          53.28733444213867
+        ],
+        "min": [
+          -166.31973266601562,
+          -133.0211944580078,
+          -0.0000035469286103761988
+        ]
+      }
+    }
+  ],
+  "bytes": 11040,
+  "bytes_consumed": 11040,
+  "finite_vertices": true,
+  "manifest_sha256": "372314be98c71f8a536c85a23cffea23c880dce3165d0af8fa92634ba7a63a4f",
+  "name": "fx_ship_bowfroth.nif",
+  "raw": "raw/fpk/Pak1/fx_ship_bowfroth.nif",
+  "roots": [
+    0
+  ],
+  "sha256": "372314be98c71f8a536c85a23cffea23c880dce3165d0af8fa92634ba7a63a4f",
+  "triangle_indices_valid": true,
+  "version": "10.1.0.0",
+  "whole_file_consumed": true
+}

@@ -1,0 +1,4549 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"imageSha256": "27daca1ceb54578cbad3a02f8eeb9129d329e0f5cf20ae0913ca5812dc134ed5",
+	"journey": {
+		"actualSafeReturn": true,
+		"captureSourceHashes": {
+			"game/data/mingqi_geography.json": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d",
+			"game/domain/mingqi/campaign.gd": "beead54a168dc323eb0fe928fc436e9cf0d64d40e5d2b851fdcd477021b068c1",
+			"game/domain/mingqi/opening_story.gd": "98faf1ab779dc4f7efea711f4a4405d323561363ca2f71e6b83a4def0bb5cce9",
+			"game/domain/persistence/save_codec.gd": "0fc832fe40f3bfc9c8136e563791a73a17bed9ec883bb966d885ddbe720ea445",
+			"game/persistence/save_coordinator.gd": "de67d6c90f52f8d8d5b9c4566e397e2e1385f2c472a1ca3d4f391e83778fbf41",
+			"game/runtime/game_router.gd": "e90da63206954eb09a0516884c7af14d312eae73e1eedaa505ee8866323c8299",
+			"game/runtime/mingqi_runtime.gd": "2824661d6a63af6580874eeb89037ddc2434791605b26831a705c129dfef4dea",
+			"game/runtime/native_readiness.gd": "af304b2851171d104f2ad61ecbd1ea425b21c4acf3cba72bf8e7299fd5346938",
+			"game/runtime/near_field_bridge.gd": "19cea28a36f55766126f066a5941f21477688a96f35e1815709629dcbabfbb9f",
+			"game/runtime/sailing_simulation.gd": "0d198629a6d908dbaaac5294d8c86c45f3934b407193a7cf8a038c387abc007d",
+			"game/scenes/common/reference_geography.gd": "3c9ab9f07af12857b7423176d7525fcc2133924319130692175ffc2b2c348eed",
+			"game/scenes/main/main_scene.gd": "9010b369d4b78a827a8abbff634fe1e9c2da2ac77f3cf93b0f4cfff8a79ce1e5",
+			"game/scenes/mingqi/mingqi_scene.gd": "c214cbcd1d9f5d5be3a1b65d3752d9730bc8d9a3d5145d4a8ce32de02efd8ff5",
+			"game/ui/menu/main_menu.gd": "9843255eb5114b0a6babbc70a404cde46c2ab27cafe183f24c26d9129cf8337d",
+			"game/ui/mingqi/mingqi_interface.gd": "0d39c357434dd52ea2f62ddbb9bc027c3f1c591ab4faa991310e5dd931d64dd8",
+			"modules/contracts/navigation_contract.gd": "d7eb3ca4a32f25dbe68ff4a40ec8a403ccbc1b8e2bc2e72d285cbef0804ac548",
+			"modules/naval_simulation/combat/cannon_system.gd": "444d341190c6ae401579670af62e14a5125d145a351ffe3cafa743170017c928",
+			"modules/naval_simulation/encounter.gd": "51f6ba1eca84b5c925000c5db7d8a33b2718f9d770613263f9548e28c7d68faf",
+			"modules/naval_simulation/navigation/approach_clearance.gd": "6a303f0ff243d446a4200fa06215959991ac1584250f03928764d905eac25df3",
+			"modules/naval_simulation/tactics/order_controller.gd": "36a3c5913fd33294bb0c8a9ed1df4ba4d9568520dd807222eb04f6bee764b3fd",
+			"project.godot": "492f9ce1ce56d88a9c6ea77474a35ac6680db114a02266847036aa6b4c374a6b",
+			"tools/capture-opening-return.gd": "ec1247ad92bd0a8f71e78013c990ebc50ebabaa269a38f52e36d1fb8773e3c55",
+			"tools/capture-return-clarity.gd": "0eab3d2bebb438fdc3d8f866d9369e355e860460cb3a886a391be06544b77fb9",
+			"tools/play-opening-story-journey.gd": "2391e92f4990da386dff8b60b1622864e7d6aad4f12c7b6aae042e803ad695cc",
+			"tools/qa-journey-paths.gd": "e7ba67b3f07bf3cfedb84338e7a2a9eca617ff8d51507e761dd2360f353f4421"
+		},
+		"inputCampaignSimulationSeconds": 599.8,
+		"inputNativeSaveSha256": "b2e5e22206821d0db58267928a6bc14d3f78083e474688c890537252541905c2",
+		"journeyFailures": 0.0,
+		"journeyPath": "res://docs/migration/evidence/opening-story/port-approach-and-voyage-clarity/journey-first.json",
+		"journeySha256": "c07a1ccd6dafa04d6030b1ad1de70529ce8231e18ff46dfa3f0f65130cb1f21e",
+		"journeySourceHashes": {
+			"game/data/mingqi_geography.json": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d",
+			"game/domain/mingqi/campaign.gd": "beead54a168dc323eb0fe928fc436e9cf0d64d40e5d2b851fdcd477021b068c1",
+			"game/domain/mingqi/catalog.gd": "785d499ab148c010f4ae6d3203603411e6ff064b6ab87d20dfadeb841b1393de",
+			"game/domain/mingqi/opening_story.gd": "98faf1ab779dc4f7efea711f4a4405d323561363ca2f71e6b83a4def0bb5cce9",
+			"game/domain/persistence/save_codec.gd": "0fc832fe40f3bfc9c8136e563791a73a17bed9ec883bb966d885ddbe720ea445",
+			"game/runtime/mingqi_runtime.gd": "2824661d6a63af6580874eeb89037ddc2434791605b26831a705c129dfef4dea",
+			"game/runtime/native_readiness.gd": "af304b2851171d104f2ad61ecbd1ea425b21c4acf3cba72bf8e7299fd5346938",
+			"game/runtime/near_field_bridge.gd": "19cea28a36f55766126f066a5941f21477688a96f35e1815709629dcbabfbb9f",
+			"game/runtime/sailing_simulation.gd": "0d198629a6d908dbaaac5294d8c86c45f3934b407193a7cf8a038c387abc007d",
+			"game/scenes/common/reference_geography.gd": "3c9ab9f07af12857b7423176d7525fcc2133924319130692175ffc2b2c348eed",
+			"modules/contracts/navigation_contract.gd": "d7eb3ca4a32f25dbe68ff4a40ec8a403ccbc1b8e2bc2e72d285cbef0804ac548",
+			"modules/naval_simulation/combat/cannon_system.gd": "444d341190c6ae401579670af62e14a5125d145a351ffe3cafa743170017c928",
+			"modules/naval_simulation/encounter.gd": "51f6ba1eca84b5c925000c5db7d8a33b2718f9d770613263f9548e28c7d68faf",
+			"modules/naval_simulation/navigation/approach_clearance.gd": "6a303f0ff243d446a4200fa06215959991ac1584250f03928764d905eac25df3",
+			"modules/naval_simulation/tactics/order_controller.gd": "36a3c5913fd33294bb0c8a9ed1df4ba4d9568520dd807222eb04f6bee764b3fd",
+			"modules/scene_engine/terrain/height_field.gd": "e56eca684547c4d7a075f0bf19fdc1de960c2094803c8247539917fa8ac2c366",
+			"tools/play-continued-voyage.gd": "acd135f62bda6be1d4cc70d4a0bc6675ba47cdde735b6a451c168c43ab3e783d",
+			"tools/play-opening-story-journey.gd": "2391e92f4990da386dff8b60b1622864e7d6aad4f12c7b6aae042e803ad695cc",
+			"tools/qa-journey-checkpoint.gd": "1045a527a7882effbe2499cd82546c91e11b302b2b1c3a749adc276190882b47",
+			"tools/qa-journey-paths.gd": "e7ba67b3f07bf3cfedb84338e7a2a9eca617ff8d51507e761dd2360f353f4421"
+		},
+		"originalTransportPlan": {
+			"ok": true,
+			"quantityPerShip": 10,
+			"shipIds": [
+				"mingqi-1650-grain-a",
+				"mingqi-1650-grain-b"
+			],
+			"sunk": 0,
+			"surviving": 2
+		},
+		"preflight": {
+			"ok": true
+		},
+		"restoration": "SaveCodec.encode exact immutable final.campaign; Router validation; formal geography Runtime.adopt_save; actual MainScene Continue."
+	},
+	"presentation": {
+		"menuOpen": false,
+		"minimapVisible": false,
+		"panelOpen": true
+	},
+	"renderingMethod": "forward_plus",
+	"scope": "Actual completed native captain-driver journey restored through MainScene Continue and strict native safety. Real mouse UI and Campaign transactions. This is automated native-game acceptance; no original-game footage, all-chapters, visual-equivalence or performance claim.",
+	"snapshot": {
+		"campaign": {
+			"boardings": {},
+			"calendar": {
+				"day": 1.0,
+				"month": 1.0,
+				"year": 1650.0
+			},
+			"campaignId": "mingqi-1650",
+			"captain": {
+				"birthYear": 1631.0,
+				"name": "林船长",
+				"silver": 915.0
+			},
+			"casualtyOrdinals": {
+				"mingqi-1650-enemy": 12.0
+			},
+			"chapterId": "opening-1650",
+			"chronicle": [
+				{
+					"causeIds": [
+						"background-load-01",
+						"mingqi-1650-background-grain-01",
+						"mingqi-1650-background-voyage"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "background-load-01",
+					"kind": "background-load",
+					"message": "厦门库存100出库10，林家商船载粮10。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"journey-1",
+						"mingqi-1650:story:old-ledger"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:story:old-ledger",
+					"kind": "story-choice",
+					"message": "许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"journey-2",
+						"mingqi-1650-convoy-001-accept"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650-convoy-001-accept",
+					"kind": "accept-convoy",
+					"message": "支付租费50两，厦门出库40粮，粮船甲乙各载20粮。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"journey-3",
+						"mingqi-1650:story:pilot-plan"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:story:pilot-plan",
+					"kind": "story-choice",
+					"message": "陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"journey-4",
+						"mingqi-1650-depart-journey-4"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650-depart-journey-4",
+					"kind": "depart",
+					"message": "护粮船队安全离港。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"journey-5",
+						"mingqi-1650-order-journey-5"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650-order-journey-5",
+					"kind": "assign-order",
+					"message": "战术命令protect已交原生执行。",
+					"simTime": 0.0
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-2"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-2",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 244.0
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-4"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-4",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 244.15
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-6"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-6",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 244.316666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-8"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-8",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 244.483333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14838:27395:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 247.283333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-9"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-9",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 247.283333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14844:27407:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 247.383333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-10"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-10",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 247.383333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14853:27425:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 247.533333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-11"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-11",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 247.533333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14862:27443:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 247.683333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-12"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-12",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 247.683333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-14"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-14",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 254.0
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-16"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-16",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 254.15
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-18"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-18",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 254.316666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-20"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-20",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 254.483333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15431:28581:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 257.166666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-21"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-21",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 257.166666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15441:28601:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 257.333333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-22"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-22",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 257.333333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15452:28623:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 257.516666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-23"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-23",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 257.516666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15463:28645:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 257.7
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-24"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-24",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 257.7
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-26"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-26",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 264.0
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-28"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-28",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 264.15
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-30"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-30",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 264.316666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-32"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-32",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 264.483333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16036:29791:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 267.25
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-33"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-33",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 267.25
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16045:29809:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 267.4
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-34"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-34",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 267.4
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16055:29829:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"simTime": 267.566666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-35"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-35",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 267.566666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16066:29851:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"simTime": 267.75
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-36"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-36",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 267.75
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-38"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-38",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 274.0
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-40"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-40",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 274.15
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-42"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-42",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 274.316666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-44"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-44",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"simTime": 274.483333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"mingqi-1650:native:1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16632:30983:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡24。",
+					"simTime": 277.183333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-enemy",
+						"event-45"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-45",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"simTime": 277.183333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-enemy",
+						"event-46"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-46",
+					"kind": "near-sink",
+					"message": "敌炮舰：sink。",
+					"simTime": 277.183333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-47"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-47",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"simTime": 277.483333333333
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-48"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-48",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"simTime": 277.666666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-49"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-49",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"simTime": 277.85
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-flagship",
+						"event-50",
+						"mingqi-1650:native:1:episode-1"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-50",
+					"kind": "near-battle-ended",
+					"message": "借用福船明旗号：victory（hostiles-neutralized）。",
+					"simTime": 277.85
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-background-grain-01",
+						"mingqi-1650-background-voyage"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650-background-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "林家运粮商船到达金门，实卸10货。",
+					"simTime": 318.45
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-grain-b",
+						"mingqi-1650-grain-b-voyage"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650-grain-b-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "粮船乙到达金门，实卸20货。",
+					"simTime": 327.416666666667
+				},
+				{
+					"causeIds": [
+						"mingqi-1650-grain-a",
+						"mingqi-1650-grain-a-voyage"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:mingqi-1650-grain-a-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "粮船甲到达金门，实卸20货。",
+					"simTime": 599.733333333333
+				},
+				{
+					"causeIds": [
+						"journey-6",
+						"mingqi-1650:convoy-001:claim"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:convoy-001:claim",
+					"kind": "claim-convoy",
+					"message": "实交40粮，损失0，基础400两，奖金100两。",
+					"simTime": 599.8
+				},
+				{
+					"causeIds": [
+						"journey-7",
+						"mingqi-1650:dock:journey-7"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:dock:journey-7",
+					"kind": "dock",
+					"message": "dock已按实际港口状态受理。",
+					"simTime": 599.8
+				},
+				{
+					"causeIds": [
+						"journey-8",
+						"mingqi-1650:story:first-return"
+					],
+					"date": {
+						"day": 1.0,
+						"month": 1.0,
+						"year": 1650.0
+					},
+					"id": "mingqi-1650:story:first-return",
+					"kind": "story-choice",
+					"message": "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。",
+					"simTime": 599.8
+				}
+			],
+			"clockCompensation": 0.0,
+			"contracts": {
+				"convoy-001": {
+					"bonusQuantity": 40.0,
+					"criticalPersonIds": [
+						"steward-a",
+						"steward-b"
+					],
+					"deadlineAt": 1800.0,
+					"id": "convoy-001",
+					"minimumDelivery": 1.0,
+					"receiptId": "mingqi-1650:convoy-001:claim",
+					"secret": false,
+					"status": "settled",
+					"voyageIds": [
+						"mingqi-1650-grain-a-voyage",
+						"mingqi-1650-grain-b-voyage"
+					]
+				},
+				"convoy-002": {
+					"bonusQuantity": 20.0,
+					"criticalPersonIds": [
+						"steward-a",
+						"steward-b"
+					],
+					"deadlineAt": 0.0,
+					"id": "convoy-002",
+					"minimumDelivery": 1.0,
+					"receiptId": null,
+					"secret": false,
+					"status": "offered",
+					"voyageIds": []
+				}
+			},
+			"currentPortId": "kinmen",
+			"debt": {
+				"creditorId": "house-lin",
+				"dueAt": 18000.0,
+				"principal": 400.0
+			},
+			"flagshipId": "mingqi-1650-flagship",
+			"intelligence": [
+				{
+					"confidence": 0.65,
+					"observedAt": 599.8,
+					"portId": "forward-supply",
+					"sourceId": "mingqi-1650:story:first-return",
+					"stock": {
+						"grain": 0.0
+					}
+				}
+			],
+			"macroRemainder": 0.8,
+			"macroSeconds": 599.0,
+			"nearTicks": {
+				"mingqi-1650:mingqi-1650:native:1": 35988.0,
+				"mingqi-1650:mingqi-1650:native:10": 0
+			},
+			"nextId": 11.0,
+			"orders": [
+				{
+					"id": "journey-5",
+					"intent": {
+						"kind": "protect",
+						"targetId": "mingqi-1650-grain-a"
+					},
+					"issuedAt": 0.0,
+					"shipIds": [
+						"mingqi-1650-fast"
+					]
+				}
+			],
+			"people": {
+				"steward-a": {
+					"alive": true,
+					"id": "steward-a",
+					"name": "林管事",
+					"role": "steward",
+					"shipId": "mingqi-1650-grain-a"
+				},
+				"steward-b": {
+					"alive": true,
+					"id": "steward-b",
+					"name": "陈管事",
+					"role": "steward",
+					"shipId": "mingqi-1650-grain-b"
+				}
+			},
+			"ports": {
+				"forward-supply": {
+					"consumption": {},
+					"id": "forward-supply",
+					"name": "近岸补给点",
+					"position": {
+						"x": -60.0,
+						"z": 320.0
+					},
+					"production": {},
+					"stock": {
+						"grain": 0.0
+					}
+				},
+				"kinmen": {
+					"consumption": {
+						"grain": 2.0
+					},
+					"id": "kinmen",
+					"name": "金门",
+					"position": {
+						"x": 282.149928893017,
+						"z": 107.48568719734
+					},
+					"production": {},
+					"stock": {
+						"grain": 50.0
+					}
+				},
+				"xiamen": {
+					"consumption": {
+						"grain": 1.0
+					},
+					"id": "xiamen",
+					"name": "厦门",
+					"position": {
+						"x": -306.257095844739,
+						"z": -38.2821369805923
+					},
+					"production": {
+						"grain": 4.0
+					},
+					"stock": {
+						"grain": 50.0
+					}
+				}
+			},
+			"prizes": {},
+			"randomState": 1650.0,
+			"reputations": {
+				"crewSupport": 60.0,
+				"intimidation": 0.0,
+				"merchantCredit": 9.0,
+				"militaryTrust": 2.0
+			},
+			"revision": 36600.0,
+			"seed": 1650.0,
+			"settlements": {
+				"background-load-01": {
+					"commandId": "background-load-01",
+					"id": "background-load-01",
+					"kind": "background-load",
+					"message": "厦门库存100出库10，林家商船载粮10。",
+					"revision": 0.0
+				},
+				"mingqi-1650-convoy-001-accept": {
+					"commandId": "journey-2",
+					"details": {
+						"contractId": "convoy-001",
+						"kind": "convoy-load",
+						"leasePaid": 50.0,
+						"loaded": 40.0,
+						"ships": [
+							{
+								"able": 20.0,
+								"shipId": "mingqi-1650-grain-a",
+								"wounded": 0.0
+							},
+							{
+								"able": 20.0,
+								"shipId": "mingqi-1650-grain-b",
+								"wounded": 0.0
+							},
+							{
+								"able": 60.0,
+								"shipId": "mingqi-1650-flagship",
+								"wounded": 0.0
+							},
+							{
+								"able": 18.0,
+								"shipId": "mingqi-1650-fast",
+								"wounded": 0.0
+							}
+						]
+					},
+					"id": "mingqi-1650-convoy-001-accept",
+					"kind": "accept-convoy",
+					"message": "支付租费50两，厦门出库40粮，粮船甲乙各载20粮。",
+					"revision": 4.0
+				},
+				"mingqi-1650-depart-journey-4": {
+					"commandId": "journey-4",
+					"id": "mingqi-1650-depart-journey-4",
+					"kind": "depart",
+					"message": "护粮船队安全离港。",
+					"revision": 6.0
+				},
+				"mingqi-1650-order-journey-5": {
+					"commandId": "journey-5",
+					"id": "mingqi-1650-order-journey-5",
+					"kind": "assign-order",
+					"message": "战术命令protect已交原生执行。",
+					"revision": 7.0
+				},
+				"mingqi-1650:convoy-001:claim": {
+					"commandId": "journey-6",
+					"details": {
+						"baseReward": 400.0,
+						"bonus": 100.0,
+						"contractId": "convoy-001",
+						"delivered": 40.0,
+						"kind": "convoy",
+						"leasePaid": 50.0,
+						"loaded": 40.0,
+						"lost": 0.0,
+						"pending": 0.0,
+						"people": [
+							{
+								"alive": true,
+								"personId": "steward-a"
+							},
+							{
+								"alive": true,
+								"personId": "steward-b"
+							}
+						],
+						"ships": [
+							{
+								"dead": 0.0,
+								"hull": 100.0,
+								"sail": 100.0,
+								"shipId": "mingqi-1650-grain-a",
+								"transferred": 0.0,
+								"wounded": 0.0
+							},
+							{
+								"dead": 0.0,
+								"hull": 100.0,
+								"sail": 100.0,
+								"shipId": "mingqi-1650-grain-b",
+								"transferred": 0.0,
+								"wounded": 0.0
+							},
+							{
+								"dead": 0.0,
+								"hull": 100.0,
+								"sail": 100.0,
+								"shipId": "mingqi-1650-flagship",
+								"transferred": 0.0,
+								"wounded": 0.0
+							},
+							{
+								"dead": 0.0,
+								"hull": 100.0,
+								"sail": 100.0,
+								"shipId": "mingqi-1650-fast",
+								"transferred": 0.0,
+								"wounded": 0.0
+							}
+						]
+					},
+					"id": "mingqi-1650:convoy-001:claim",
+					"kind": "claim-convoy",
+					"message": "实交40粮，损失0，基础400两，奖金100两。",
+					"revision": 36595.0
+				},
+				"mingqi-1650:dock:journey-7": {
+					"commandId": "journey-7",
+					"id": "mingqi-1650:dock:journey-7",
+					"kind": "dock",
+					"message": "dock已按实际港口状态受理。",
+					"revision": 36596.0
+				},
+				"mingqi-1650:mingqi-1650-background-voyage:arrival": {
+					"commandId": "mingqi-1650:mingqi-1650-background-voyage:arrival",
+					"details": {
+						"arrivedAt": 318.45,
+						"destinationId": "kinmen",
+						"grain": 10.0,
+						"kind": "shipment-arrived",
+						"vesselId": "mingqi-1650-background-grain-01",
+						"voyageId": "mingqi-1650-background-voyage"
+					},
+					"id": "mingqi-1650:mingqi-1650-background-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "林家运粮商船到达金门，实卸10货。",
+					"revision": 19432.0
+				},
+				"mingqi-1650:mingqi-1650-grain-a-voyage:arrival": {
+					"commandId": "mingqi-1650:mingqi-1650-grain-a-voyage:arrival",
+					"details": {
+						"arrivedAt": 599.733333333333,
+						"destinationId": "kinmen",
+						"grain": 20.0,
+						"kind": "shipment-arrived",
+						"vesselId": "mingqi-1650-grain-a",
+						"voyageId": "mingqi-1650-grain-a-voyage"
+					},
+					"id": "mingqi-1650:mingqi-1650-grain-a-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "粮船甲到达金门，实卸20货。",
+					"revision": 36590.0
+				},
+				"mingqi-1650:mingqi-1650-grain-b-voyage:arrival": {
+					"commandId": "mingqi-1650:mingqi-1650-grain-b-voyage:arrival",
+					"details": {
+						"arrivedAt": 327.416666666667,
+						"destinationId": "kinmen",
+						"grain": 20.0,
+						"kind": "shipment-arrived",
+						"vesselId": "mingqi-1650-grain-b",
+						"voyageId": "mingqi-1650-grain-b-voyage"
+					},
+					"id": "mingqi-1650:mingqi-1650-grain-b-voyage:arrival",
+					"kind": "shipment-arrived",
+					"message": "粮船乙到达金门，实卸20货。",
+					"revision": 19979.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:14838:27395:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:14838:27395:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 29.0,
+						"ableBefore": 30.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 27395.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 1.0,
+						"ordinalBefore": 0.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 14838.0,
+						"woundedAfter": 1.0,
+						"woundedBefore": 0.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14838:27395:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 15091.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:14844:27407:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:14844:27407:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 28.0,
+						"ableBefore": 29.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 27407.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 2.0,
+						"ordinalBefore": 1.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 14844.0,
+						"woundedAfter": 1.0,
+						"woundedBefore": 1.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14844:27407:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 15097.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:14853:27425:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:14853:27425:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 27.0,
+						"ableBefore": 28.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 27425.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 3.0,
+						"ordinalBefore": 2.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 14853.0,
+						"woundedAfter": 2.0,
+						"woundedBefore": 1.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14853:27425:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 15106.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:14862:27443:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:14862:27443:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 26.0,
+						"ableBefore": 27.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 27443.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 4.0,
+						"ordinalBefore": 3.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 14862.0,
+						"woundedAfter": 2.0,
+						"woundedBefore": 2.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:14862:27443:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 15115.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:15431:28581:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:15431:28581:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 25.0,
+						"ableBefore": 26.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 28581.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 5.0,
+						"ordinalBefore": 4.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 15431.0,
+						"woundedAfter": 3.0,
+						"woundedBefore": 2.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15431:28581:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 15694.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:15441:28601:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:15441:28601:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 24.0,
+						"ableBefore": 25.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 28601.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 6.0,
+						"ordinalBefore": 5.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 15441.0,
+						"woundedAfter": 3.0,
+						"woundedBefore": 3.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15441:28601:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 15704.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:15452:28623:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:15452:28623:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 23.0,
+						"ableBefore": 24.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 28623.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 7.0,
+						"ordinalBefore": 6.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 15452.0,
+						"woundedAfter": 4.0,
+						"woundedBefore": 3.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15452:28623:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 15715.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:15463:28645:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:15463:28645:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 22.0,
+						"ableBefore": 23.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 28645.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 8.0,
+						"ordinalBefore": 7.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 15463.0,
+						"woundedAfter": 4.0,
+						"woundedBefore": 4.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:15463:28645:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 15726.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:16036:29791:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:16036:29791:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 21.0,
+						"ableBefore": 22.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 29791.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 9.0,
+						"ordinalBefore": 8.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 16036.0,
+						"woundedAfter": 5.0,
+						"woundedBefore": 4.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16036:29791:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 16309.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:16045:29809:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:16045:29809:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 20.0,
+						"ableBefore": 21.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 29809.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 10.0,
+						"ordinalBefore": 9.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 16045.0,
+						"woundedAfter": 5.0,
+						"woundedBefore": 5.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16045:29809:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 16318.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:16055:29829:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:16055:29829:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 19.0,
+						"ableBefore": 20.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 29829.0,
+						"dead": 0.0,
+						"kind": "casualty",
+						"ordinalAfter": 11.0,
+						"ordinalBefore": 10.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 16055.0,
+						"woundedAfter": 6.0,
+						"woundedBefore": 5.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16055:29829:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤1、亡0。",
+					"revision": 16328.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:16066:29851:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:16066:29851:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 18.0,
+						"ableBefore": 19.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 29851.0,
+						"dead": 1.0,
+						"kind": "casualty",
+						"ordinalAfter": 12.0,
+						"ordinalBefore": 11.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": false,
+						"tick": 16066.0,
+						"woundedAfter": 6.0,
+						"woundedBefore": 6.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16066:29851:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡1。",
+					"revision": 16339.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:casualty:16632:30983:mingqi-1650-enemy": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:casualty:16632:30983:mingqi-1650-enemy",
+					"details": {
+						"ableAfter": 0.0,
+						"ableBefore": 18.0,
+						"battleId": "mingqi-1650:native:1",
+						"controlsSequence": 30983.0,
+						"dead": 24.0,
+						"kind": "casualty",
+						"ordinalAfter": 12.0,
+						"ordinalBefore": 12.0,
+						"prisonersAfter": 0.0,
+						"prisonersBefore": 0.0,
+						"shipId": "mingqi-1650-enemy",
+						"sunk": true,
+						"tick": 16632.0,
+						"woundedAfter": 0.0,
+						"woundedBefore": 6.0
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:casualty:16632:30983:mingqi-1650-enemy",
+					"kind": "near-casualties",
+					"message": "敌炮舰实际伤0、亡24。",
+					"revision": 16915.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-10": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-10",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-10",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15097.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-11": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-11",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-11",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15106.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-12": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-12",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-12",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15115.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-14": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-14",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-14",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 15501.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-16": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-16",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-16",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 15510.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-18": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-18",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-18",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 15520.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-2": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-2",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-2",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 14891.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-20": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-20",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-20",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 15530.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-21": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-21",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-21",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15694.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-22": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-22",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-22",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15704.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-23": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-23",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-23",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15715.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-24": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-24",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-24",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15726.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-26": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-26",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-26",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16111.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-28": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-28",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-28",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16120.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-30": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-30",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-30",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16130.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-32": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-32",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-32",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16140.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-33": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-33",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-33",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 16309.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-34": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-34",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-34",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 16318.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-35": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-35",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-35",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 16328.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-36": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-36",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-36",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 16339.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-38": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-38",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-38",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16721.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-4": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-4",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-4",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 14900.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-40": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-40",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-40",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16730.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-42": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-42",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-42",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16740.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-44": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-44",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-44",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 16750.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-45": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-45",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-45",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 16915.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-46": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-46",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-46",
+					"kind": "near-sink",
+					"message": "敌炮舰：sink。",
+					"revision": 16915.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-47": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-47",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-47",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"revision": 16933.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-48": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-48",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-48",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"revision": 16944.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-49": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-49",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-49",
+					"kind": "near-splash",
+					"message": "借用福船明旗号：splash。",
+					"revision": 16955.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-50": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-50",
+					"details": {
+						"battleId": "mingqi-1650:native:1",
+						"episodeId": "mingqi-1650:native:1:episode-1",
+						"kind": "battle-ended",
+						"outcome": "victory",
+						"reason": "hostiles-neutralized"
+					},
+					"id": "mingqi-1650:mingqi-1650:native:1:event-50",
+					"kind": "near-battle-ended",
+					"message": "借用福船明旗号：victory（hostiles-neutralized）。",
+					"revision": 16955.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-6": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-6",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-6",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 14910.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-8": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-8",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-8",
+					"kind": "near-fire",
+					"message": "借用福船明旗号：fire。",
+					"revision": 14920.0
+				},
+				"mingqi-1650:mingqi-1650:native:1:event-9": {
+					"commandId": "mingqi-1650:mingqi-1650:native:1:event-9",
+					"id": "mingqi-1650:mingqi-1650:native:1:event-9",
+					"kind": "near-hit",
+					"message": "敌炮舰中弹，损失0粮。",
+					"revision": 15091.0
+				},
+				"mingqi-1650:story:first-return": {
+					"commandId": "journey-8",
+					"details": {
+						"choiceId": "buy-intelligence",
+						"convoyReceiptId": "mingqi-1650:convoy-001:claim",
+						"intelligence": {
+							"confidence": 0.65,
+							"observedAt": 599.8,
+							"portId": "forward-supply",
+							"sourceId": "mingqi-1650:story:first-return",
+							"stock": {
+								"grain": 0.0
+							}
+						},
+						"kind": "story-choice",
+						"portId": "kinmen",
+						"reputationEffects": {
+							"crewSupport": 0.0,
+							"merchantCredit": 3.0,
+							"militaryTrust": 2.0
+						},
+						"routeId": null,
+						"sceneId": "first-return",
+						"silverCost": 60.0
+					},
+					"id": "mingqi-1650:story:first-return",
+					"kind": "story-choice",
+					"message": "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。",
+					"revision": 36597.0
+				},
+				"mingqi-1650:story:old-ledger": {
+					"commandId": "journey-1",
+					"details": {
+						"choiceId": "settle-wages",
+						"convoyReceiptId": null,
+						"intelligence": null,
+						"kind": "story-choice",
+						"portId": "xiamen",
+						"reputationEffects": {
+							"crewSupport": 10.0,
+							"merchantCredit": 0.0,
+							"militaryTrust": 0.0
+						},
+						"routeId": null,
+						"sceneId": "old-ledger",
+						"silverCost": 80.0
+					},
+					"id": "mingqi-1650:story:old-ledger",
+					"kind": "story-choice",
+					"message": "许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+					"revision": 3.0
+				},
+				"mingqi-1650:story:pilot-plan": {
+					"commandId": "journey-3",
+					"details": {
+						"choiceId": "hire-pilot",
+						"convoyReceiptId": null,
+						"intelligence": null,
+						"kind": "story-choice",
+						"portId": "xiamen",
+						"reputationEffects": {
+							"crewSupport": 0.0,
+							"merchantCredit": 1.0,
+							"militaryTrust": 0.0
+						},
+						"routeId": "xiamen-kinmen-shallow",
+						"sceneId": "pilot-plan",
+						"silverCost": 45.0
+					},
+					"id": "mingqi-1650:story:pilot-plan",
+					"kind": "story-choice",
+					"message": "陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。",
+					"revision": 5.0
+				}
+			},
+			"simulationSeconds": 599.8,
+			"vessels": {
+				"mingqi-1650-background-grain-01": {
+					"cargo": {
+						"grain": 0.0
+					},
+					"combat": {
+						"ammo": {
+							"chain": 0.0,
+							"grape": 0.0,
+							"solid": 0.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": -0.145299734039226,
+						"sailAngle": -0.858880857349171,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:10",
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:10",
+						"revision": 2.0,
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsRevision": 2.0,
+					"crew": {
+						"able": 16.0,
+						"minimum": 8.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-background-grain-01",
+					"name": "林家运粮商船",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": -1.43182269828975,
+						"position": {
+							"x": 301.676978717619,
+							"z": 95.7671252408038
+						},
+						"speed": 0.0968387951367653
+					},
+					"profileId": "background",
+					"representation": "near",
+					"revision": 35988.0,
+					"voyageId": "mingqi-1650-background-voyage"
+				},
+				"mingqi-1650-enemy": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24.0,
+							"grape": 24.0,
+							"solid": 40.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 1.0,
+						"sailAngle": 0.252872416189812,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:1",
+						"sequence": 50344.0,
+						"tick": 35988.0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:1",
+						"revision": 0.0,
+						"sequence": 50344.0,
+						"tick": 35988.0
+					},
+					"controlsRevision": 0.0,
+					"crew": {
+						"able": 0.0,
+						"minimum": 12.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 0.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 87.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-enemy",
+					"name": "敌炮舰",
+					"ownerId": "enemy",
+					"pose": {
+						"heading": 2.62858545807761,
+						"position": {
+							"x": 334.004233313127,
+							"z": -208.471268807935
+						},
+						"speed": 0.126096267571042
+					},
+					"profileId": "enemy",
+					"representation": "near",
+					"revision": 34848.0,
+					"voyageId": null
+				},
+				"mingqi-1650-fast": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24.0,
+							"grape": 24.0,
+							"solid": 40.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.0,
+						"sailAngle": -0.601993774455912,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:10",
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:10",
+						"revision": 2.0,
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsRevision": 2.0,
+					"crew": {
+						"able": 18.0,
+						"minimum": 8.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-fast",
+					"name": "雇佣快船逐浪号",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": -1.92942017880441,
+						"position": {
+							"x": 282.070866349725,
+							"z": 121.606213147603
+						},
+						"speed": 0.0
+					},
+					"profileId": "fast",
+					"representation": "near",
+					"revision": 35988.0,
+					"voyageId": null
+				},
+				"mingqi-1650-flagship": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 24.0,
+							"grape": 24.0,
+							"solid": 36.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.0,
+						"sailAngle": 1.21262389729866,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:10",
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:10",
+						"revision": 2.0,
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsRevision": 2.0,
+					"crew": {
+						"able": 60.0,
+						"minimum": 20.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-flagship",
+					"name": "借用福船明旗号",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.712880094234507,
+						"position": {
+							"x": 292.310860564938,
+							"z": 60.399813372382
+						},
+						"speed": 0.0
+					},
+					"profileId": "flagship",
+					"representation": "near",
+					"revision": 35988.0,
+					"voyageId": null
+				},
+				"mingqi-1650-grain-a": {
+					"cargo": {
+						"grain": 0.0
+					},
+					"combat": {
+						"ammo": {
+							"chain": 0.0,
+							"grape": 0.0,
+							"solid": 0.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.0,
+						"sailAngle": 1.00928248444366,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:10",
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:10",
+						"revision": 3.0,
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsRevision": 3.0,
+					"crew": {
+						"able": 20.0,
+						"minimum": 8.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-grain-a",
+					"name": "粮船甲",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 1.12302768470248,
+						"position": {
+							"x": 273.640667870834,
+							"z": 83.9811666796678
+						},
+						"speed": 0.0
+					},
+					"profileId": "grain",
+					"representation": "near",
+					"revision": 35989.0,
+					"voyageId": "mingqi-1650-grain-a-voyage"
+				},
+				"mingqi-1650-grain-b": {
+					"cargo": {
+						"grain": 0.0
+					},
+					"combat": {
+						"ammo": {
+							"chain": 0.0,
+							"grape": 0.0,
+							"solid": 0.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.0,
+						"sailAngle": 1.46901767568595,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": {
+						"battleId": "mingqi-1650:native:10",
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsProjection": {
+						"battleId": "mingqi-1650:native:10",
+						"revision": 3.0,
+						"sequence": 1,
+						"tick": 0
+					},
+					"controlsRevision": 3.0,
+					"crew": {
+						"able": 20.0,
+						"minimum": 8.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-grain-b",
+					"name": "粮船乙",
+					"ownerId": "house-lin",
+					"pose": {
+						"heading": 0.203557302217893,
+						"position": {
+							"x": 257.352821847437,
+							"z": 104.239891506518
+						},
+						"speed": 0.0
+					},
+					"profileId": "grain",
+					"representation": "near",
+					"revision": 35989.0,
+					"voyageId": "mingqi-1650-grain-b-voyage"
+				},
+				"mingqi-1650-heritage": {
+					"cargo": {},
+					"combat": {
+						"ammo": {
+							"chain": 0.0,
+							"grape": 0.0,
+							"solid": 0.0
+						},
+						"ammoType": "solid",
+						"cooldownSeconds": {
+							"port": 0.0,
+							"starboard": 0.0
+						}
+					},
+					"controls": {
+						"autoTrim": true,
+						"rudder": 0.0,
+						"sailAngle": 0.785398163397448,
+						"sailDeployment": 0.0
+					},
+					"controlsObserved": null,
+					"controlsProjection": null,
+					"controlsRevision": 0.0,
+					"crew": {
+						"able": 12.0,
+						"minimum": 8.0,
+						"prisoners": 0.0,
+						"wounded": 0.0
+					},
+					"damage": {
+						"fire": 0.0,
+						"flooding": 0.0,
+						"hull": 100.0,
+						"mast": 100.0,
+						"portGuns": 100.0,
+						"sail": 100.0,
+						"starboardGuns": 100.0
+					},
+					"id": "mingqi-1650-heritage",
+					"name": "继承商船承家号",
+					"ownerId": "captain",
+					"pose": {
+						"heading": 0.0,
+						"position": {
+							"x": -290.626935191677,
+							"z": -101.374910560135
+						},
+						"speed": 0.0
+					},
+					"profileId": "heritage",
+					"representation": "route",
+					"revision": 0.0,
+					"voyageId": null
+				}
+			},
+			"voyages": {
+				"mingqi-1650-background-voyage": {
+					"departedAt": 0.0,
+					"destinationId": "kinmen",
+					"escortIds": [],
+					"eta": 318.45,
+					"id": "mingqi-1650-background-voyage",
+					"leg": 2.0,
+					"originId": "xiamen",
+					"progress": 1.0,
+					"routeId": "xiamen-kinmen-outer",
+					"status": "arrived",
+					"vesselId": "mingqi-1650-background-grain-01"
+				},
+				"mingqi-1650-grain-a-voyage": {
+					"departedAt": 0.0,
+					"destinationId": "kinmen",
+					"escortIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-fast"
+					],
+					"eta": 599.733333333333,
+					"id": "mingqi-1650-grain-a-voyage",
+					"leg": 2.0,
+					"originId": "xiamen",
+					"progress": 1.0,
+					"routeId": "xiamen-kinmen-shallow",
+					"status": "arrived",
+					"vesselId": "mingqi-1650-grain-a"
+				},
+				"mingqi-1650-grain-b-voyage": {
+					"departedAt": 0.0,
+					"destinationId": "kinmen",
+					"escortIds": [
+						"mingqi-1650-flagship",
+						"mingqi-1650-fast"
+					],
+					"eta": 327.416666666667,
+					"id": "mingqi-1650-grain-b-voyage",
+					"leg": 2.0,
+					"originId": "xiamen",
+					"progress": 1.0,
+					"routeId": "xiamen-kinmen-shallow",
+					"status": "arrived",
+					"vesselId": "mingqi-1650-grain-b"
+				}
+			},
+			"works": {}
+		},
+		"naval": {
+			"battleId": "mingqi-1650:native:10",
+			"oceanWaves": [
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": 0.6
+					},
+					"speed": 0.9,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 0.8,
+						"y": -0.6
+					},
+					"speed": 0.1,
+					"wavelength": 251.327412287183
+				},
+				{
+					"amplitude": 1.0,
+					"direction": {
+						"x": 1.0,
+						"y": 0.0
+					},
+					"speed": -0.6,
+					"wavelength": 125.663706143592
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": 0.739940073395944
+					},
+					"speed": 2.05,
+					"wavelength": 42.2652781577707
+				},
+				{
+					"amplitude": 0.25,
+					"direction": {
+						"x": 0.672672793996313,
+						"y": -0.739940073395944
+					},
+					"speed": -0.05,
+					"wavelength": 42.2652781577707
+				}
+			],
+			"playerId": "mingqi-1650-flagship",
+			"projectiles": [],
+			"ships": [
+				{
+					"ammo": {
+						"chain": 24.0,
+						"grape": 24.0,
+						"solid": 36.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 4,
+					"controlsSequence": 1,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 60.0,
+					"dimensions": {
+						"draft": 3.2,
+						"length": 32.0,
+						"width": 9.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-flagship",
+					"kind": "fuchuan",
+					"maxCrew": 80,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "借用福船明旗号",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": 1.21262389729866,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 3.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 80,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": 0.712880094234507,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 292.310860564938,
+							"y": 0.173254230888505,
+							"z": 60.399813372382
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0.0,
+						"grape": 0.0,
+						"solid": 0.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 1,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 20.0,
+					"dimensions": {
+						"draft": 1.2,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-grain-a",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "粮船甲",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": 1.00928248444366,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 1.12302768470248,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 273.640667870834,
+							"y": 0.33913429571817,
+							"z": 83.9811666796678
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0.0,
+						"grape": 0.0,
+						"solid": 0.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 1,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 20.0,
+					"dimensions": {
+						"draft": 1.2,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-grain-b",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "粮船乙",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": 1.46901767568595,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": 0.203557302217893,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 257.352821847437,
+							"y": 0.33633192957038,
+							"z": 104.239891506518
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 24.0,
+						"grape": 24.0,
+						"solid": 40.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 3,
+					"controlsSequence": 1,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 18.0,
+					"dimensions": {
+						"draft": 1.0,
+						"length": 24.0,
+						"width": 6.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-fast",
+					"kind": "patrol",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "雇佣快船逐浪号",
+					"rudder": 0.0,
+					"sail": 100.0,
+					"sailAngle": -0.601993774455912,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.0,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "player",
+					"visual": {
+						"heading": -1.92942017880441,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 282.070866349725,
+							"y": 1.35212434802008,
+							"z": 121.606213147603
+						},
+						"velocity": {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0
+						}
+					}
+				},
+				{
+					"ammo": {
+						"chain": 0.0,
+						"grape": 0.0,
+						"solid": 0.0
+					},
+					"ammoType": "solid",
+					"autoTrim": true,
+					"cannonsPerSide": 0,
+					"controlsSequence": 1,
+					"cooldownSeconds": {
+						"port": 0.0,
+						"starboard": 0.0
+					},
+					"crew": 16.0,
+					"dimensions": {
+						"draft": 1.2,
+						"length": 36.0,
+						"width": 10.0
+					},
+					"hull": 100.0,
+					"id": "mingqi-1650-background-grain-01",
+					"kind": "merchant",
+					"maxCrew": 30,
+					"maxHull": 100,
+					"maxSail": 100,
+					"name": "林家运粮商船",
+					"rudder": -0.145299734039226,
+					"sail": 100.0,
+					"sailAngle": -0.858880857349171,
+					"sailDeployment": 0.0,
+					"stats": {
+						"cannonMultiplier": 1.0,
+						"cargoMass": 0.0,
+						"draftMeters": 1.2,
+						"hullMultiplier": 1.0,
+						"maxCrew": 30,
+						"maxHull": 100,
+						"reloadMultiplier": 1.0,
+						"speedMultiplier": 1,
+						"steeringMultiplier": 1.0
+					},
+					"team": "neutral",
+					"visual": {
+						"heading": -1.43182269828975,
+						"heel": 0.0,
+						"pitch": 0.0,
+						"position": {
+							"x": 301.676978717619,
+							"y": 0.528728239875629,
+							"z": 95.7671252408038
+						},
+						"velocity": {
+							"x": 0.013414759869849,
+							"y": 0.0,
+							"z": -0.0959051430381848
+						}
+					}
+				}
+			],
+			"status": "sailing",
+			"tick": 0,
+			"time": 0.0,
+			"wind": {
+				"direction": {
+					"x": -1.0,
+					"y": 0.0
+				},
+				"speed": 12.0
+			}
+		},
+		"runtime": {
+			"acceptedSeconds": 0.0,
+			"canDepart": true,
+			"canDock": {
+				"forward-supply": {
+					"ok": false,
+					"reason": "unsafe-port"
+				},
+				"kinmen": {
+					"ok": true
+				},
+				"xiamen": {
+					"ok": false,
+					"reason": "unsafe-port"
+				}
+			},
+			"canSave": true,
+			"controllableShipIds": [
+				"mingqi-1650-flagship",
+				"mingqi-1650-grain-a",
+				"mingqi-1650-grain-b",
+				"mingqi-1650-fast"
+			],
+			"departReason": "",
+			"draftResults": [],
+			"drafts": [],
+			"eligibility": {
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"allocate-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"buy": {
+					"ok": true,
+					"reason": ""
+				},
+				"incorporate-prize:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"incorporate-prize:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-operational"
+				},
+				"refit:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"refit:mingqi-1650-fast": {
+					"ok": true,
+					"reason": ""
+				},
+				"refit:mingqi-1650-flagship": {
+					"ok": true,
+					"reason": ""
+				},
+				"refit:mingqi-1650-grain-a": {
+					"ok": true,
+					"reason": ""
+				},
+				"refit:mingqi-1650-grain-b": {
+					"ok": true,
+					"reason": ""
+				},
+				"refit:mingqi-1650-heritage": {
+					"ok": true,
+					"reason": ""
+				},
+				"release-prisoners:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"release-prisoners:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"release-prisoners:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"release-prisoners:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"release-prisoners:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"release-prisoners:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "ship-unavailable"
+				},
+				"repair:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"repair:mingqi-1650-fast": {
+					"ok": true,
+					"reason": ""
+				},
+				"repair:mingqi-1650-flagship": {
+					"ok": true,
+					"reason": ""
+				},
+				"repair:mingqi-1650-grain-a": {
+					"ok": true,
+					"reason": ""
+				},
+				"repair:mingqi-1650-grain-b": {
+					"ok": true,
+					"reason": ""
+				},
+				"repair:mingqi-1650-heritage": {
+					"ok": true,
+					"reason": ""
+				},
+				"repayDebt": {
+					"ok": false,
+					"reason": "not-in-port"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-unavailable"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"resolve-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"sell": {
+					"ok": true,
+					"reason": ""
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"sell-prize:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-prize-receiver"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"start-boarding:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "invalid-boarding"
+				},
+				"story": {
+					"first-return": {
+						"ok": false,
+						"reason": "story-completed"
+					},
+					"old-ledger": {
+						"ok": false,
+						"reason": "story-completed"
+					},
+					"pilot-plan": {
+						"ok": false,
+						"reason": "story-completed"
+					}
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-background-grain-01:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-enemy:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-fast:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-flagship:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-a:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-grain-b:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"take-prize-cargo:mingqi-1650-heritage:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "prize-not-close"
+				},
+				"treat-wounded:mingqi-1650-background-grain-01": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-enemy": {
+					"ok": false,
+					"reason": "ship-not-docked"
+				},
+				"treat-wounded:mingqi-1650-fast": {
+					"ok": false,
+					"reason": "no-wounded"
+				},
+				"treat-wounded:mingqi-1650-flagship": {
+					"ok": false,
+					"reason": "no-wounded"
+				},
+				"treat-wounded:mingqi-1650-grain-a": {
+					"ok": false,
+					"reason": "no-wounded"
+				},
+				"treat-wounded:mingqi-1650-grain-b": {
+					"ok": false,
+					"reason": "no-wounded"
+				},
+				"treat-wounded:mingqi-1650-heritage": {
+					"ok": false,
+					"reason": "no-wounded"
+				}
+			},
+			"error": false,
+			"generation": 2,
+			"handlingMode": "assisted",
+			"handlingStatus": {
+				"phase": "idle"
+			},
+			"notice": "已恢复航程；准备后继续。",
+			"noticeRevision": 1,
+			"orderStatuses": [],
+			"pauseReasons": [],
+			"paused": false,
+			"policy": {
+				"capturedShipIds": [],
+				"controllableShipIds": [
+					"mingqi-1650-flagship",
+					"mingqi-1650-grain-a",
+					"mingqi-1650-grain-b",
+					"mingqi-1650-fast"
+				],
+				"disabledMotionShipIds": [],
+				"hostileTargets": {
+					"mingqi-1650-background-grain-01": [],
+					"mingqi-1650-fast": [],
+					"mingqi-1650-flagship": [],
+					"mingqi-1650-grain-a": [],
+					"mingqi-1650-grain-b": []
+				},
+				"lockedShipIds": []
+			},
+			"portId": "kinmen",
+			"rejectedSeconds": 0.0,
+			"saveReason": "",
+			"selectedShipId": "mingqi-1650-flagship",
+			"status": "ready",
+			"timeScale": 1.0
+		},
+		"story": {
+			"chapter": {
+				"id": "opening-1650",
+				"summary": "从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。",
+				"title": "旧账新帆"
+			},
+			"debt": {
+				"canRepay": false,
+				"creditorName": "林家商行",
+				"principal": 400.0,
+				"reason": "not-in-port"
+			},
+			"history": [
+				{
+					"choiceId": "settle-wages",
+					"id": "mingqi-1650:story:old-ledger",
+					"message": "许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+					"sceneId": "old-ledger",
+					"simTime": 0.0
+				},
+				{
+					"choiceId": "hire-pilot",
+					"id": "mingqi-1650:story:pilot-plan",
+					"message": "陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。",
+					"sceneId": "pilot-plan",
+					"simTime": 0.0
+				},
+				{
+					"choiceId": "buy-intelligence",
+					"id": "mingqi-1650:story:first-return",
+					"message": "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。",
+					"sceneId": "first-return",
+					"simTime": 599.8
+				}
+			],
+			"objective": {
+				"detail": "近岸据点需要20粮，金门现有50粮；两艘原租粮船各运10，先核对人数、空舱与安全锚定。",
+				"id": "accept-convoy-002",
+				"panel": "convoy",
+				"title": "承接军需补给"
+			},
+			"relations": [
+				{
+					"id": "xu-fu",
+					"name": "许福",
+					"role": "老水手",
+					"stance": "工钱结清，愿意与你共担风险。"
+				},
+				{
+					"id": "chen-ahai",
+					"name": "陈阿海",
+					"role": "领航员",
+					"stance": "已受规划费，认可你的委托；两艘粮船按浅水航路安排。"
+				},
+				{
+					"id": "lin-steward",
+					"name": "林管事",
+					"role": "商行管事",
+					"stance": "已按实际送达与损失结账。 留守账房给了你当时的补给库存情报。"
+				}
+			],
+			"scenes": [
+				{
+					"choices": [
+						{
+							"consequence": "支付80两；船员拥护+10，影响接舷初始士气。",
+							"enabled": false,
+							"id": "settle-wages",
+							"label": "先结工钱 · 80两",
+							"reason": "story-completed",
+							"silverCost": 80
+						},
+						{
+							"consequence": "保留银两；船员拥护-4。",
+							"enabled": false,
+							"id": "keep-reserve",
+							"label": "留作应急",
+							"reason": "story-completed",
+							"silverCost": 0
+						}
+					],
+					"id": "old-ledger",
+					"npc": {
+						"id": "xu-fu",
+						"name": "许福",
+						"role": "老水手"
+					},
+					"reply": "许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+					"selectedChoiceId": "settle-wages",
+					"status": "completed",
+					"text": [
+						"厦门，1650年。父亲留下的承家号和旧账册还在；林家商行原有400两本金，现在未偿400两。如今明旗号和快船都是借用，得先做成一趟生意。",
+						"承家号的老水手许福翻到欠薪那页：船要修，人也要吃饭。你打算先拿80两安下弟兄的心，还是留住银子防备海上的变故？"
+					],
+					"title": "旧账与工钱"
+				},
+				{
+					"choices": [
+						{
+							"consequence": "支付45两代规划两艘粮船并建立人情，商人信用+1；逐船核对吃水后改走浅水线，原有免费选路仍可用。",
+							"enabled": false,
+							"id": "hire-pilot",
+							"label": "请陈阿海规划 · 45两",
+							"reason": "story-completed",
+							"silverCost": 45
+						},
+						{
+							"consequence": "无需花费；两艘粮船走深水线。",
+							"enabled": false,
+							"id": "stay-deep",
+							"label": "沿深水外线走",
+							"reason": "story-completed",
+							"silverCost": 0
+						}
+					],
+					"id": "pilot-plan",
+					"npc": {
+						"id": "chen-ahai",
+						"name": "陈阿海",
+						"role": "领航员"
+					},
+					"reply": "陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。",
+					"selectedChoiceId": "hire-pilot",
+					"status": "completed",
+					"text": [
+						"陈阿海用指头沿着海图划出两条路：两艘粮船已经装货，深水外线宽敞，浅水线能绕过部分火力，但必须逐船核对吃水。",
+						"45两是代规划两艘粮船及建立委托人情的费用；你仍可自行免费逐船选路。这个选择只改粮船路线，旗舰仍由你操纵，浅滩仍会挡住吃水更深的船。"
+					],
+					"title": "粮船走哪条路"
+				},
+				{
+					"choices": [
+						{
+							"consequence": "支付80两；船员拥护+8，影响接舷初始士气。",
+							"enabled": false,
+							"id": "crew-dividend",
+							"label": "与船员分红 · 80两",
+							"reason": "story-completed",
+							"silverCost": 80
+						},
+						{
+							"consequence": "支付60两；军方信任+2、商人信用+3，记录当前补给点粮食库存。",
+							"enabled": false,
+							"id": "buy-intelligence",
+							"label": "购买补给情报 · 60两",
+							"reason": "story-completed",
+							"silverCost": 60
+						},
+						{
+							"consequence": "保留银两，声望不变。",
+							"enabled": false,
+							"id": "keep-capital",
+							"label": "留下下趟本钱",
+							"reason": "story-completed",
+							"silverCost": 0
+						}
+					],
+					"id": "first-return",
+					"npc": {
+						"id": "lin-clerk",
+						"name": "林账房",
+						"role": "林家商行账房"
+					},
+					"reply": "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。",
+					"selectedChoiceId": "buy-intelligence",
+					"status": "completed",
+					"text": [
+						"留守金门的林账房核过交差账：实交40粮，损失0粮；船员死亡0人、伤员0人。这一趟完整交付了粮食。",
+						"许福关心弟兄的伤亡，账房关心下一趟的本钱。你可以给船员分红、购买补给点情报，或把银子留在船上。下一份委托按真实交差结果开放。",
+						"近岸据点需要20粮，金门现有50粮；两艘原租粮船各运10，先核对人数、空舱与安全锚定。"
+					],
+					"title": "第一趟交差之后"
+				}
+			]
+		}
+	},
+	"sourceHashes": {
+		"game/data/mingqi_geography.json": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d",
+		"game/domain/mingqi/campaign.gd": "beead54a168dc323eb0fe928fc436e9cf0d64d40e5d2b851fdcd477021b068c1",
+		"game/domain/mingqi/opening_story.gd": "98faf1ab779dc4f7efea711f4a4405d323561363ca2f71e6b83a4def0bb5cce9",
+		"game/domain/persistence/save_codec.gd": "0fc832fe40f3bfc9c8136e563791a73a17bed9ec883bb966d885ddbe720ea445",
+		"game/persistence/save_coordinator.gd": "de67d6c90f52f8d8d5b9c4566e397e2e1385f2c472a1ca3d4f391e83778fbf41",
+		"game/runtime/game_router.gd": "e90da63206954eb09a0516884c7af14d312eae73e1eedaa505ee8866323c8299",
+		"game/runtime/mingqi_runtime.gd": "2824661d6a63af6580874eeb89037ddc2434791605b26831a705c129dfef4dea",
+		"game/runtime/native_readiness.gd": "af304b2851171d104f2ad61ecbd1ea425b21c4acf3cba72bf8e7299fd5346938",
+		"game/runtime/near_field_bridge.gd": "19cea28a36f55766126f066a5941f21477688a96f35e1815709629dcbabfbb9f",
+		"game/runtime/sailing_simulation.gd": "0d198629a6d908dbaaac5294d8c86c45f3934b407193a7cf8a038c387abc007d",
+		"game/scenes/common/reference_geography.gd": "3c9ab9f07af12857b7423176d7525fcc2133924319130692175ffc2b2c348eed",
+		"game/scenes/main/main_scene.gd": "9010b369d4b78a827a8abbff634fe1e9c2da2ac77f3cf93b0f4cfff8a79ce1e5",
+		"game/scenes/mingqi/mingqi_scene.gd": "c214cbcd1d9f5d5be3a1b65d3752d9730bc8d9a3d5145d4a8ce32de02efd8ff5",
+		"game/ui/menu/main_menu.gd": "9843255eb5114b0a6babbc70a404cde46c2ab27cafe183f24c26d9129cf8337d",
+		"game/ui/mingqi/mingqi_interface.gd": "0d39c357434dd52ea2f62ddbb9bc027c3f1c591ab4faa991310e5dd931d64dd8",
+		"modules/contracts/navigation_contract.gd": "d7eb3ca4a32f25dbe68ff4a40ec8a403ccbc1b8e2bc2e72d285cbef0804ac548",
+		"modules/naval_simulation/combat/cannon_system.gd": "444d341190c6ae401579670af62e14a5125d145a351ffe3cafa743170017c928",
+		"modules/naval_simulation/encounter.gd": "51f6ba1eca84b5c925000c5db7d8a33b2718f9d770613263f9548e28c7d68faf",
+		"modules/naval_simulation/navigation/approach_clearance.gd": "6a303f0ff243d446a4200fa06215959991ac1584250f03928764d905eac25df3",
+		"modules/naval_simulation/tactics/order_controller.gd": "36a3c5913fd33294bb0c8a9ed1df4ba4d9568520dd807222eb04f6bee764b3fd",
+		"project.godot": "492f9ce1ce56d88a9c6ea77474a35ac6680db114a02266847036aa6b4c374a6b",
+		"tools/capture-opening-return.gd": "ec1247ad92bd0a8f71e78013c990ebc50ebabaa269a38f52e36d1fb8773e3c55",
+		"tools/capture-return-clarity.gd": "0eab3d2bebb438fdc3d8f866d9369e355e860460cb3a886a391be06544b77fb9",
+		"tools/play-opening-story-journey.gd": "2391e92f4990da386dff8b60b1622864e7d6aad4f12c7b6aae042e803ad695cc",
+		"tools/qa-journey-paths.gd": "e7ba67b3f07bf3cfedb84338e7a2a9eca617ff8d51507e761dd2360f353f4421"
+	},
+	"ui": [
+		{
+			"disabled": null,
+			"name": "contract_convoy-001",
+			"rect": [
+				808.0,
+				-75.0,
+				430.0,
+				49.0
+			],
+			"text": "首程护粮 · 已结算\n实际报酬已结算 · 奖励按实交粮、人船状况结算",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "contract_accept_convoy-001",
+			"rect": [
+				808.0,
+				-16.0,
+				430.0,
+				39.0
+			],
+			"text": "接下委托",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "contract_claim_convoy-001",
+			"rect": [
+				808.0,
+				33.0,
+				430.0,
+				39.0
+			],
+			"text": "领取实际报酬",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "contract_convoy-002",
+			"rect": [
+				808.0,
+				82.0,
+				430.0,
+				49.0
+			],
+			"text": "补给护粮 · 待接\n接单后开始计时 · 奖励按实交粮、人船状况结算",
+			"visible": false
+		},
+		{
+			"disabled": false,
+			"name": "contract_accept_convoy-002",
+			"rect": [
+				808.0,
+				141.0,
+				430.0,
+				39.0
+			],
+			"text": "接下委托",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "contract_claim_convoy-002",
+			"rect": [
+				808.0,
+				190.0,
+				430.0,
+				39.0
+			],
+			"text": "领取实际报酬",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "depart_reason",
+			"rect": [
+				808.0,
+				288.0,
+				430.0,
+				20.0
+			],
+			"text": "离港条件已核验。",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_mingqi-1650-grain-a-voyage",
+			"rect": [
+				808.0,
+				798.0,
+				430.0,
+				23.0
+			],
+			"text": "金门 · 已抵达 · 抵达已记录，交付与报酬按实际回执核对",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_route_mingqi-1650-grain-a-voyage_label",
+			"rect": [
+				808.0,
+				831.0,
+				430.0,
+				23.0
+			],
+			"text": "航路",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "voyage_route_mingqi-1650-grain-a-voyage",
+			"rect": [
+				808.0,
+				864.0,
+				430.0,
+				39.0
+			],
+			"text": "厦门—金门浅水捷径 · 2.4m",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_mingqi-1650-grain-b-voyage",
+			"rect": [
+				808.0,
+				1047.0,
+				430.0,
+				23.0
+			],
+			"text": "金门 · 已抵达 · 抵达已记录，交付与报酬按实际回执核对",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_route_mingqi-1650-grain-b-voyage_label",
+			"rect": [
+				808.0,
+				1080.0,
+				430.0,
+				23.0
+			],
+			"text": "航路",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "voyage_route_mingqi-1650-grain-b-voyage",
+			"rect": [
+				808.0,
+				1113.0,
+				430.0,
+				39.0
+			],
+			"text": "厦门—金门浅水捷径 · 2.4m",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_mingqi-1650-background-voyage",
+			"rect": [
+				808.0,
+				1564.0,
+				430.0,
+				23.0
+			],
+			"text": "金门 · 已抵达 · 抵达已记录，交付与报酬按实际回执核对",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "voyage_route_mingqi-1650-background-voyage_label",
+			"rect": [
+				808.0,
+				1597.0,
+				430.0,
+				23.0
+			],
+			"text": "航路",
+			"visible": false
+		},
+		{
+			"disabled": true,
+			"name": "voyage_route_mingqi-1650-background-voyage",
+			"rect": [
+				808.0,
+				1630.0,
+				430.0,
+				39.0
+			],
+			"text": "厦门—金门外海线 · 8.0m",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "story_chapter",
+			"rect": [
+				808.0,
+				-545.0,
+				430.0,
+				31.0
+			],
+			"text": "旧账新帆",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_premise",
+			"rect": [
+				808.0,
+				-504.0,
+				430.0,
+				49.0
+			],
+			"text": "从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_objective",
+			"rect": [
+				808.0,
+				-393.0,
+				430.0,
+				75.0
+			],
+			"text": "承接军需补给\n近岸据点需要20粮，金门现有50粮；两艘原租粮船各运10，先核对人数、空舱与安全锚定。",
+			"visible": true
+		},
+		{
+			"disabled": false,
+			"name": "story_objective_open",
+			"rect": [
+				808.0,
+				-308.0,
+				430.0,
+				39.0
+			],
+			"text": "前往目标页面",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_title_old-ledger",
+			"rect": [
+				824.0,
+				-243.0,
+				398.0,
+				28.0
+			],
+			"text": "旧账与工钱",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_npc_old-ledger",
+			"rect": [
+				824.0,
+				-206.0,
+				398.0,
+				22.0
+			],
+			"text": "许福 · 老水手",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_outcome_old-ledger",
+			"rect": [
+				824.0,
+				-175.0,
+				398.0,
+				101.0
+			],
+			"text": "你的决定：先结工钱 · 80两\n\n许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_title_pilot-plan",
+			"rect": [
+				824.0,
+				-32.0,
+				398.0,
+				28.0
+			],
+			"text": "粮船走哪条路",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_npc_pilot-plan",
+			"rect": [
+				824.0,
+				5.0,
+				398.0,
+				22.0
+			],
+			"text": "陈阿海 · 领航员",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_outcome_pilot-plan",
+			"rect": [
+				824.0,
+				36.0,
+				398.0,
+				101.0
+			],
+			"text": "你的决定：请陈阿海规划 · 45两\n\n陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_title_first-return",
+			"rect": [
+				824.0,
+				179.0,
+				398.0,
+				28.0
+			],
+			"text": "第一趟交差之后",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_npc_first-return",
+			"rect": [
+				824.0,
+				216.0,
+				398.0,
+				22.0
+			],
+			"text": "林账房 · 林家商行账房",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_outcome_first-return",
+			"rect": [
+				824.0,
+				247.0,
+				398.0,
+				127.0
+			],
+			"text": "你的决定：购买补给情报 · 60两\n\n你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_debt",
+			"rect": [
+				808.0,
+				452.0,
+				430.0,
+				23.0
+			],
+			"text": "还欠林家商行 400两。周转银与偿债，都要由你决定。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_relation_xu-fu",
+			"rect": [
+				808.0,
+				694.0,
+				430.0,
+				49.0
+			],
+			"text": "许福 · 老水手\n工钱结清，愿意与你共担风险。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_relation_chen-ahai",
+			"rect": [
+				808.0,
+				753.0,
+				430.0,
+				49.0
+			],
+			"text": "陈阿海 · 领航员\n已受规划费，认可你的委托；两艘粮船按浅水航路安排。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_relation_lin-steward",
+			"rect": [
+				808.0,
+				812.0,
+				430.0,
+				75.0
+			],
+			"text": "林管事 · 商行管事\n已按实际送达与损失结账。 留守账房给了你当时的补给库存情报。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "story_history",
+			"rect": [
+				808.0,
+				949.0,
+				430.0,
+				231.0
+			],
+			"text": "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。 实际粮食库存0，采集于航程时间599.80秒，可信度65%。\n\n陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。\n\n许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。",
+			"visible": true
+		},
+		{
+			"disabled": null,
+			"name": "save_reason",
+			"rect": [
+				390.0,
+				24.0,
+				1.0,
+				387.0
+			],
+			"text": "安全条件已核验，可保存航程。",
+			"visible": false
+		},
+		{
+			"disabled": null,
+			"name": "save_status",
+			"rect": [
+				390.0,
+				24.0,
+				1.0,
+				23.0
+			],
+			"text": "",
+			"visible": false
+		}
+	],
+	"viewport": [
+		1280,
+		720
+	]
+}

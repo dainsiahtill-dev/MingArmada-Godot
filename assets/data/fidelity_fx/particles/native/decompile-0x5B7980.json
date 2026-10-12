@@ -1,0 +1,14 @@
+{
+  "address": "0x5B7980",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "float *__thiscall sub_5B7980(float *this, float *a2, float *a3, float *a4)\n{\n  double v5; // st7\n  float v6; // edx\n  float v7; // ecx\n  float *v8; // eax\n  float *result; // eax\n  float v10; // [esp+Ch] [ebp-14h]\n  float v11; // [esp+10h] [ebp-10h]\n  float v12; // [esp+14h] [ebp-Ch] BYREF\n  float v13; // [esp+18h] [ebp-8h]\n  float v14; // [esp+1Ch] [ebp-4h]\n\n  v11 = (double)rand() * flt_7115D4;\n  v10 = (double)rand() * flt_7115D4;\n  v5 = ((double)rand() * flt_7115D4 - flt_7113DC) * *(this + 23);\n  v12 = (v10 - flt_7113DC) * *(this + 21);\n  v13 = (v11 - flt_7113DC) * *(this + 22);\n  v6 = v13;\n  *a3 = v12;\n  v14 = v5;\n  v7 = v14;\n  a3[1] = v6;\n  a3[2] = v7;\n  v8 = sub_500820(a2, &v12, a3);\n  *a3 = *v8;\n  a3[1] = v8[1];\n  a3[2] = v8[2];\n  result = sub_53A000(a2, &v12, a4);\n  *a4 = *result;\n  a4[1] = result[1];\n  a4[2] = result[2];\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

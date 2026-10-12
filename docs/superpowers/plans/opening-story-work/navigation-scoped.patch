@@ -1,0 +1,133 @@
+--- before/game/runtime/near_field_bridge.gd
++++ after/game/runtime/near_field_bridge.gd
+@@ -1,6 +1,7 @@
+ extends RefCounted
+ ## Business/native handoff from NearFieldBridge.ts. A context is a single-use fence.
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const Navigation = preload("res://modules/contracts/navigation_contract.gd")
+ var campaign: RefCounted
+ var simulation: RefCounted
+ var _near_ids: Array = []
+@@ -52,7 +53,12 @@
+ 				var route: Dictionary = Catalog.DATA.routes.get(voyage.routeId,{})
+ 				if route.is_empty(): return {"ok":false,"reason":"unknown-route"}
+ 				var location: Dictionary = campaign.locate_route(vessel,route)
+-				navigation[vessel.id] = route.points[location.leg+1].duplicate()
++				var target_index: int = location.leg+1
++				# Native autopilot brakes within its reach radius. Pass intermediate
++				# catalog points there; retain the final port for real arrival checks.
++				if target_index < route.points.size()-1 and _distance(vessel.pose.position,route.points[target_index]) <= Navigation.PLANNED_TARGET_REACH_METERS:
++					target_index += 1
++				navigation[vessel.id] = route.points[target_index].duplicate()
+ 			else: navigation[vessel.id] = null
+ 	policy.navigation = navigation; policy.anchorShipIds = anchors.duplicate()
+ 	if fresh_startup: policy.orders = []
+--- before/modules/naval_simulation/encounter.gd
++++ after/modules/naval_simulation/encounter.gd
+@@ -1,4 +1,5 @@
+ extends RefCounted
++const Navigation = preload("res://modules/contracts/navigation_contract.gd")
+ # Native port of frozen naval-core NavalEncounter. Detached scalar snapshots only.
+ const Physics = preload("res://modules/physics_engine/ships/ship_dynamics.gd")
+ const Types = preload("res://modules/contracts/physics_types.gd")
+@@ -660,7 +661,7 @@
+ 	ship.state.rudder = clampf(error * 1.8 - yaw * 6, -1, 1)
+ 	var intermediate = config.get("routePlanning", false) and ship.has("route") and ship.route.points.size() > 1
+ 	var approach = 7 if intermediate else clampf((distance - 10) * 0.02, 0, 7)
+-	var deployment = 0 if distance <= (18 if config.get("routePlanning", false) else 30) and not intermediate else clampf((approach - speed) * 2, 0, 1)
++	var deployment = 0 if distance <= (Navigation.PLANNED_TARGET_REACH_METERS if config.get("routePlanning", false) else 30) and not intermediate else clampf((approach - speed) * 2, 0, 1)
+ 	if speed >= 1.2: ship.lowSpeedTurn = false; ship.sailRecovery = 1
+ 	elif absf(error) > PI / 3: ship.lowSpeedTurn = true
+ 	elif absf(error) < 40 * PI / 180: ship.lowSpeedTurn = false
+--- before/modules/contracts/navigation_contract.gd
++++ after/modules/contracts/navigation_contract.gd
+@@ -0,0 +1,3 @@
++extends RefCounted
++## Native route-planning target reach; intermediate business points share this boundary.
++const PLANNED_TARGET_REACH_METERS := 18.0
+--- before/tests/test_voyage_waypoint_handoff.gd
++++ after/tests/test_voyage_waypoint_handoff.gd
+@@ -0,0 +1,83 @@
++extends SceneTree
++const Campaign=preload("res://game/domain/mingqi/campaign.gd")
++const Catalog=preload("res://game/domain/mingqi/catalog.gd")
++const Runtime=preload("res://game/runtime/mingqi_runtime.gd")
++var assertions:=0
++var failures:=0
++func check(ok: bool,label: String) -> void:
++	assertions+=1
++	if not ok: failures+=1; printerr("FAIL: ",label)
++func ship(r: RefCounted,id: String) -> Dictionary:
++	for row in r.simulation.snapshot().ships:
++		if row.id==id:return row
++	return {}
++func fixture(distance: float,final_target: bool=false,speed: float=0.0) -> RefCounted:
++	var c:=Campaign.new(1650,"导航测试船长","waypoint-unit")
++	check(c.command({"type":"accept-convoy","commandId":"accept","expectedRevision":0}).ok,"actual source contract loads grain")
++	for suffix in ["grain-a","grain-b"]:
++		check(c.command({"type":"choose-route","commandId":"route-"+suffix,"expectedRevision":c.snapshot().revision,"voyageId":"waypoint-unit-"+suffix+"-voyage","routeId":"xiamen-kinmen-shallow"}).ok,"existing route authority accepts shallow cargo draft")
++	check(c.command({"type":"depart","commandId":"depart","expectedRevision":c.snapshot().revision}).ok,"actual contract departs")
++	# Deterministic starting pose is the unit fixture, never runtime acceptance teleport.
++	var route: Dictionary=Catalog.DATA.routes["xiamen-kinmen-shallow"]
++	var target: Dictionary=route.points.back() if final_target else route.points[2]
++	var v: Dictionary=c._state.vessels["waypoint-unit-grain-a"]
++	v.pose.position={"x":target.x-distance,"z":target.z};v.pose.heading=0;v.pose.speed=speed
++	var r:=Runtime.new()
++	check(r.configure(func(_x: float,_z: float)->float:return -24.0,c).ok,"actual flat native encounter and bridge build fixture")
++	return r
++func _initialize() -> void:
++	var route: Dictionary=Catalog.DATA.routes["xiamen-kinmen-shallow"]
++	var r:=fixture(14.0);var id="waypoint-unit-grain-a"
++	var before: Dictionary=r.campaign.snapshot();var native_before: Dictionary=ship(r,id)
++	var location: Dictionary=r.campaign.locate_route(before.vessels[id],route)
++	check(location.leg==1 and location.progress<1,"exact business projection still points to incoming leg before intermediate target")
++	check(not native_before.has("navigation"),"fresh startup deliberately holds native navigation")
++	var policy: Dictionary=r.campaign.native_policy(r.bridge.near_ids())
++	check(r.bridge.sync().ok,"actual native projection synchronizes underway transport")
++	var native: Dictionary=ship(r,id);var after: Dictionary=r.campaign.snapshot()
++	print("VOYAGE_WAYPOINT_DIAGNOSTICS ",JSON.stringify({"position":native.visual.position,"businessLocation":location,"nativeNavigation":native.get("navigation"),"incomingPoint":route.points[2],"followingPoint":route.points[3]},"",false,true))
++	check(native.get("navigation")==route.points[3],"native-reached intermediate waypoint hands off to following catalog waypoint")
++	check(after.vessels[id].pose==before.vessels[id].pose and native.visual.position==native_before.visual.position,"projection preserves actual pose")
++	check(after.vessels[id].cargo==before.vessels[id].cargo and after.voyages["waypoint-unit-grain-a-voyage"].escortIds==before.voyages["waypoint-unit-grain-a-voyage"].escortIds,"waypoint handoff preserves actual cargo and escort assignments")
++	check(after.vessels[id].ownerId==before.vessels[id].ownerId and r.campaign.native_policy(r.bridge.near_ids())==policy,"waypoint handoff preserves ownership and native permission")
++	check(after.vessels[id].controls==before.vessels[id].controls and native.sailDeployment==native_before.sailDeployment and native.rudder==native_before.rudder and native.autoTrim==native_before.autoTrim,"projection changes only navigation target and preserves current controls")
++	check(after.voyages["waypoint-unit-grain-a-voyage"].status=="underway" and after.ports.kinmen.stock==before.ports.kinmen.stock,"intermediate reach never fabricates port arrival or delivery")
++	var origin:=Vector2(native.visual.position.x,native.visual.position.z)
++	for tick in 1200:r.advance(1.0/60.0)
++	native=ship(r,id);after=r.campaign.snapshot()
++	var delta:=Vector2(native.visual.position.x,native.visual.position.z)-origin
++	check(r.simulation.snapshot().tick==1200 and after.simulationSeconds>19.9,"actual subsequent native ticks and accepted business time progress")
++	check(delta.dot((Vector2(route.points[3].x,route.points[3].z)-origin).normalized())>14.0,"transport sails through the previously stalled waypoint along next leg")
++	check(native.hull==100 and after.vessels[id].cargo.grain==20,"continuity test does not invent combat loss or cargo delivery")
++	var planned=r.simulation.encounter.navigationStatus(id)
++	check(planned is Dictionary and not planned.points.is_empty(),"existing native wet route planner remains active toward following target")
++	r.dispose()
++	for distance in [18.0,19.0]:
++		r=fixture(distance);check(r.bridge.sync().ok,"reach boundary projection succeeds")
++		native=ship(r,id)
++		check(native.get("navigation")==route.points[3] if distance==18.0 else native.get("navigation")==route.points[2],"18m inclusive native reach advances intermediate; outside reach keeps old target")
++		r.dispose()
++	r=fixture(14.0,true,2.0);before=r.campaign.snapshot()
++	check(r.bridge.sync().ok,"moving final approach projects actual native vessel")
++	native=ship(r,id);after=r.campaign.snapshot()
++	check(native.get("navigation")==route.points.back(),"final port target is retained even inside native reach")
++	check(after.voyages["waypoint-unit-grain-a-voyage"].status=="underway" and after.vessels[id].cargo.grain==20 and after.ports.kinmen.stock==before.ports.kinmen.stock,"inside final reach with actual speed above arrival threshold cannot unload")
++	r.dispose()
++	r=fixture(26.0,true);before=r.campaign.snapshot()
++	check(r.bridge.sync().ok,"outside final arrival range projects normally")
++	check(ship(r,id).get("navigation")==route.points.back(),"outside final port range still targets actual port")
++	check(r.campaign.snapshot().voyages["waypoint-unit-grain-a-voyage"].status=="underway" and r.campaign.snapshot().ports.kinmen.stock==before.ports.kinmen.stock,"low actual speed beyond 25m cannot invent arrival")
++	r.dispose()
++	r=fixture(14.0,true);before=r.campaign.snapshot()
++	check(r.bridge.sync().ok,"inside final range at actual low speed projects normally")
++	after=r.campaign.snapshot()
++	check(after.voyages["waypoint-unit-grain-a-voyage"].status=="arrived" and after.vessels[id].cargo.grain==0,"existing real 25m and low speed rule still delivers")
++	check(after.ports.kinmen.stock.grain==before.ports.kinmen.stock.grain+20 and after.settlements.has("waypoint-unit:waypoint-unit-grain-a-voyage:arrival"),"real final delivery retains stock conservation and arrival receipt")
++	r.dispose()
++	r=fixture(14.0);check(r.bridge.sync().ok,"live route before fresh projection")
++	var context: Dictionary=r.bridge.command_context()
++	check(context.native.project.call(r.campaign.snapshot(),[],"fresh-startup").ok,"fresh startup uses actual atomic native projector")
++	check(not ship(r,id).has("navigation"),"fresh startup still clears every automatic navigation target")
++	r.dispose()
++	print("VOYAGE_WAYPOINT_HANDOFF_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

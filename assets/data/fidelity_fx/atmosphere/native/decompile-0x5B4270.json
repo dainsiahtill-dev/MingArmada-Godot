@@ -1,0 +1,15 @@
+{
+  "source": "IDA MCP Hex-Rays static pseudocode",
+  "session_id": "1927fac5-0a49-4ffa-931f-2c2147e6b63c",
+  "binary_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x5B4270",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5B4270(int this, int a2, int a3)\n{\n  unsigned __int16 i; // bx\n  int v5; // edx\n  int v6; // esi\n  __int16 v7; // di\n  int v8; // edx\n  double v9; // st7\n  int result; // eax\n  float v11; // [esp+8h] [ebp-4h]\n  float v12; // [esp+14h] [ebp+8h]\n\n  for ( i = 0; i < *(_WORD *)(a3 + 68); *(float *)(result + 4 * v6) = v9 )\n  {\n    v5 = *(_DWORD *)(a3 + 80);\n    v6 = i;\n    v7 = *(_WORD *)(v5 + 40 * i + 36);\n    v8 = v5 + 40 * i;\n    v12 = 1.0;\n    if ( v7 == *(_WORD *)(this + 32) && *(float *)(v8 + 24) < (double)*(float *)(this + 28) )\n      v12 = *(float *)(v8 + 24) / *(float *)(this + 28);\n    v9 = flt_6BE62C;\n    v11 = *(float *)(v8 + 28) - *(float *)(v8 + 24);\n    if ( v7 == *(_WORD *)(this + 40) && v11 < (double)*(float *)(this + 36) )\n      v9 = v11 / *(float *)(this + 36);\n    if ( v9 > v12 )\n      v9 = v12;\n    if ( v9 < flt_6C4C04 )\n      v9 = flt_6C4C04;\n    result = *(_DWORD *)(a3 + 72);\n    ++i;\n  }\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

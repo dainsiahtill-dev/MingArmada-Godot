@@ -1,0 +1,45 @@
+{
+  "alpha_policy": "Straight RGBA pixels preserved. Raw NiAlphaProperty flags/threshold and blend factors remain in each property path; importer never premultiplies, darkens, white-tints or guesses a billboard material.",
+  "consumer_example": {
+    "effect": "raw/fpk/Pak2/fx_cannon_fire_01.nif",
+    "first_system": "raw/fpk/Pak2/fx_cannon_fire_01.nif#9",
+    "read_color": "modifiers[type=NiPSysColorModifier].data_resolved.fields.data.keys",
+    "read_emission": "emitters[*].emission_controllers[*].data.fields.float_keys.keys",
+    "read_texture": "texture_paths[*].properties[*].texture_bindings.base_texture.files[*].resource",
+    "read_visibility": "emitters[*].emission_controllers[*].data.fields.visibility_keys",
+    "systems": [
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#9",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#33",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#55",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#75",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#92",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#114",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#135",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#152",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#169",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#186",
+      "raw/fpk/Pak2/fx_cannon_fire_01.nif#207"
+    ]
+  },
+  "coordinates": {
+    "angles": "raw declination/planar_angle fields; degree conversion not imposed",
+    "clock": "raw authored NIF times; controller frequency/phase/start/stop retained",
+    "space": "unknown authoring/world unit; no conversion imposed"
+  },
+  "entry": "res://assets/data/reference_atmosphere/definitions/systems.json",
+  "raw_record": "Every original particle-contract system key remains unchanged. Added keys: id, particle_capacity, source_asset, texture_paths.",
+  "schema_version": 1,
+  "source_asset": "Complete parsed NIF/KF JSON. Preserve raw fields, controller data refs and all full arrays.",
+  "system_id": "raw/fpk/PakN/asset.nif#numericBlockId",
+  "texture_paths": "One item per original property_chains parent path; .properties retains declared_owner_id/property, adds .texture_bindings[slot].files[] with raw/resource/SHA/RGBA. All ambiguous variants remain separate.",
+  "unimplemented_behavior": [
+    "variation sampling distribution/clamping",
+    "angular sampling convention",
+    "color-key age mapping",
+    "modifier implementation formulas except native-recovered GrowFade",
+    "spawn quantization/capacity behavior",
+    "controller cycle flags runtime evaluator",
+    "camera-facing billboard implementation",
+    "runtime shader attachment and quality overrides"
+  ]
+}

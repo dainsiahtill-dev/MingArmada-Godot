@@ -1,0 +1,14 @@
+[
+  {
+    "test": "test_opening_story.gd",
+    "exitCode": 1,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_TESTS assertions=4 failures=3\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nFAIL: old ledger executes through actual native fence\nFAIL: positive repayment executes through actual native fence\nFAIL: opening story projection exists\n"
+  },
+  {
+    "test": "test_opening_story_save.gd",
+    "exitCode": 1,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_SAVE_TESTS assertions=2 failures=1\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nFAIL: first real debt repayment supported\n"
+  }
+]

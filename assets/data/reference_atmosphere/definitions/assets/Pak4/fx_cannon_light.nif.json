@@ -1,0 +1,437 @@
+{
+  "all_buffers_exported": true,
+  "block_count": 7,
+  "block_types": {
+    "NiLightColorController": 1,
+    "NiNode": 2,
+    "NiPointLight": 1,
+    "NiPosData": 1,
+    "NiVertexColorProperty": 1,
+    "NiZBufferProperty": 1
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Omni01",
+            "ref": 3,
+            "type": "NiNode"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [
+          {
+            "name": "",
+            "ref": 4,
+            "type": "NiPointLight"
+          }
+        ],
+        "extra_data_list": [],
+        "flags": 18,
+        "name": "Scene Root",
+        "num_children": 1,
+        "num_effects": 1,
+        "num_extra_data_list": 0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 1,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 3,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 1,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "",
+            "ref": 4,
+            "type": "NiPointLight"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 18,
+        "name": "Omni01",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -0.0000025006454507092712,
+          "y": -0.0000031178860808722675,
+          "z": -0.000012080185115337372
+        }
+      },
+      "id": 3,
+      "name": "Omni01",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Omni01",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "affected_nodes": [],
+        "ambient_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "collision_object": null,
+        "constant_attenuation": 0,
+        "controller": {
+          "name": "",
+          "ref": 5,
+          "type": "NiLightColorController"
+        },
+        "diffuse_color": {
+          "b": 0.6784313917160034,
+          "g": 0.9215686917304993,
+          "r": 1,
+          "type": "Color3"
+        },
+        "dimmer": 1,
+        "extra_data_list": [],
+        "flags": 18,
+        "linear_attenuation": 0,
+        "name": "",
+        "num_affected_nodes": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "quadratic_attenuation": 9.074615263671149e-7,
+        "rotation": {
+          "m_11": 0,
+          "m_12": 0,
+          "m_13": -1,
+          "m_21": 1,
+          "m_22": 0,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": -1,
+          "m_33": 0,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "specular_color": {
+          "b": 0.6784313917160034,
+          "g": 0.9215686917304993,
+          "r": 1,
+          "type": "Color3"
+        },
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 4,
+      "name": "",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Omni01",
+            "type": "NiNode"
+          },
+          {
+            "id": 4,
+            "name": "",
+            "type": "NiPointLight"
+          }
+        ]
+      ],
+      "type": "NiPointLight"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiPosData"
+        },
+        "flags": 44,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 0.4583333432674408,
+        "target": {
+          "name": "",
+          "ref": 4,
+          "type": "NiPointLight"
+        },
+        "target_color": 0
+      },
+      "id": 5,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "",
+            "type": "NiLightColorController"
+          }
+        ]
+      ],
+      "type": "NiLightColorController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 2,
+          "keys": [
+            {
+              "backward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "time": 0,
+              "type": "Key",
+              "value": {
+                "type": "Vector3",
+                "x": 1,
+                "y": 0.9215686917304993,
+                "z": 0.6784313917160034
+              }
+            },
+            {
+              "backward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "time": 0.0416666679084301,
+              "type": "Key",
+              "value": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "backward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "time": 0.0833333358168602,
+              "type": "Key",
+              "value": {
+                "type": "Vector3",
+                "x": 1,
+                "y": 0.9215686917304993,
+                "z": 0.6784313917160034
+              }
+            },
+            {
+              "backward": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "time": 0.4583333432674408,
+              "type": "Key",
+              "value": {
+                "type": "Vector3",
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          ],
+          "num_keys": 4,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 6,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "type": "NiPosData"
+    }
+  ],
+  "bytes": 788,
+  "bytes_consumed": 788,
+  "finite_vertices": true,
+  "manifest_sha256": "2913b8fd6f9ac3a39c830ec8773c3c40f07a9783588920b9c944ee2dd94870ec",
+  "name": "fx_cannon_light.nif",
+  "raw": "raw/fpk/Pak4/fx_cannon_light.nif",
+  "role": "explicit_context",
+  "roots": [
+    0
+  ],
+  "sha256": "2913b8fd6f9ac3a39c830ec8773c3c40f07a9783588920b9c944ee2dd94870ec",
+  "triangle_indices_valid": true,
+  "version": "10.1.0.0",
+  "whole_file_consumed": true
+}

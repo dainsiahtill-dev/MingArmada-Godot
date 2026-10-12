@@ -69,6 +69,7 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	world = World.new(); _own(world)
 	if not _configure_world(): dispose(); return false
 	effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
+	effects.set_camera(camera)
 	effects.set_surface_filter(_surface_is_water)
 	wakes = Wakes.new(); _own(wakes); wakes.configure(_water)
 	wakes.configure_surface_filter(_surface_is_water)
@@ -123,6 +124,7 @@ func _reset_fleet() -> void:
 	if effects:
 		_owned.erase(effects); effects.free()
 		effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
+		effects.set_camera(camera)
 		effects.set_surface_filter(_surface_is_water)
 	if wakes:
 		wakes.configure(_water)
@@ -155,8 +157,8 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	if next_battle != _battle_id and not _battle_id.is_empty(): _reset_fleet()
 	_battle_id = next_battle
 	_snapshot = native.duplicate(true)
-	effects.apply_snapshot(native,consumed)
 	_update_camera(native, consumed)
+	effects.apply_snapshot(native,consumed)
 	var requests: Array = []
 	for ship: Dictionary in native.get("ships", []):
 		var p: Dictionary = ship.visual.position

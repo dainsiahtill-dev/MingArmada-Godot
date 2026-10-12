@@ -1,0 +1,14 @@
+{
+  "address": "0x5ACBE0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5ACBE0(_DWORD *this, int a2)\n{\n  int v2; // esi\n  _DWORD *v4; // eax\n  bool v5; // zf\n  int result; // eax\n\n  v2 = a2;\n  v4 = (_DWORD *)*(this + 53);\n  if ( v4 )\n  {\n    while ( *(_DWORD *)(v4[2] + 16) <= *(_DWORD *)(a2 + 16) )\n    {\n      v4 = (_DWORD *)*v4;\n      if ( !v4 )\n      {\n        ++*(_DWORD *)(a2 + 4);\n        sub_5ACA60(this + 52, &a2);\n        goto LABEL_10;\n      }\n    }\n    ++*(_DWORD *)(a2 + 4);\n    sub_5ACAD0(this + 52, (int)v4, &a2);\nLABEL_10:\n    v5 = (*(_DWORD *)(v2 + 4))-- == 1;\n    if ( v5 )\n      (**(void (__thiscall ***)(int, int))v2)(v2, 1);\n  }\n  else\n  {\n    if ( a2 )\n      ++*(_DWORD *)(a2 + 4);\n    sub_4A9550(&a2);\n    if ( v2 )\n    {\n      v5 = (*(_DWORD *)(v2 + 4))-- == 1;\n      if ( v5 )\n        (**(void (__thiscall ***)(int, int))v2)(v2, 1);\n    }\n  }\n  result = sub_571280(*(_DWORD *)(v2 + 12), v2);\n  *(_DWORD *)(v2 + 20) = this;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

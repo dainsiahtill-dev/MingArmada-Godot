@@ -1,0 +1,14 @@
+{
+  "address": "0x546160",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "void *__thiscall sub_546160(float *this, void *a2, float *a3)\n{\n  float *v4; // eax\n  double v5; // st7\n  double v6; // st6\n  float v8; // [esp+8h] [ebp-70h] BYREF\n  float v9; // [esp+Ch] [ebp-6Ch]\n  float v10; // [esp+10h] [ebp-68h]\n  float v11; // [esp+18h] [ebp-60h]\n  float v12; // [esp+1Ch] [ebp-5Ch]\n  float v13[9]; // [esp+20h] [ebp-58h] BYREF\n  _DWORD v14[13]; // [esp+44h] [ebp-34h] BYREF\n\n  *(float *)&v14[12] = a3[12] * *(this + 12);\n  qmemcpy(v14, sub_539E70(this, v13, a3), 0x24u);\n  v4 = sub_53A000(this, &v8, a3 + 9);\n  v5 = *(this + 12);\n  v6 = v5 * *v4;\n  v11 = v5 * v4[1];\n  v12 = v5 * v4[2];\n  v8 = v6 + *(this + 9);\n  *(float *)&v14[9] = v8;\n  v9 = v11 + *(this + 10);\n  *(float *)&v14[10] = v9;\n  v10 = v12 + *(this + 11);\n  *(float *)&v14[11] = v10;\n  qmemcpy(a2, v14, 0x34u);\n  return a2;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

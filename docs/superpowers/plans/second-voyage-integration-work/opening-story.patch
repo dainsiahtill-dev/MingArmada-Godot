@@ -1,0 +1,67 @@
+diff --git a/docs/superpowers/plans/second-voyage-integration-work/opening_story.gd.baseline b/game/domain/mingqi/opening_story.gd
+index 7c5d6c9..c74680d 100644
+--- a/docs/superpowers/plans/second-voyage-integration-work/opening_story.gd.baseline
++++ b/game/domain/mingqi/opening_story.gd
+@@ -1,10 +1,12 @@
+ extends RefCounted
+ ## Original opening dialogue. Receipts are the only persistent story authority.
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
+ const SCENES = ["old-ledger","pilot-plan","first-return"]
+ const CHOICES = {"old-ledger":["settle-wages","keep-reserve"],"pilot-plan":["hire-pilot","stay-deep"],"first-return":["crew-dividend","buy-intelligence","keep-capital"]}
+ 
+ static func choice_definition(scene_id: String,choice_id: String) -> Dictionary:
++	if scene_id==SecondVoyageAftermath.SCENE_ID:return SecondVoyageAftermath.choice_definition(choice_id)
+ 	if not scene_id in SCENES or not choice_id in CHOICES[scene_id]: return {}
+ 	var definition={"portId":"kinmen" if scene_id=="first-return" else "xiamen","silverCost":0,"reputationEffects":{"crewSupport":0,"militaryTrust":0,"merchantCredit":0},"routeId":null,"buyIntelligence":false}
+ 	match choice_id:
+@@ -32,6 +34,7 @@ static func _original_loading(state: Dictionary) -> bool:
+ 		if not id in ct.voyageIds or voyage.get("status")!="loading": return false
+ 	return true
+ static func scene_reason(state: Dictionary,scene_id: String) -> String:
++	if scene_id==SecondVoyageAftermath.SCENE_ID:return SecondVoyageAftermath.quote(state,"keep-capital").get("reason","")
+ 	if not scene_id in SCENES: return "unknown-scene"
+ 	if not _receipt(state,scene_id).is_empty(): return "story-completed"
+ 	var ct: Dictionary=state.get("contracts",{}).get("convoy-001",{})
+@@ -58,6 +61,7 @@ static func _route_reason(state: Dictionary,route_id: String) -> String:
+ 		if profile.baseDraftMeters+quantity*profile.cargoDraftMetersPerUnit>=route.minimumDepth: return "route-too-shallow"
+ 	return ""
+ static func choice_reason(state: Dictionary,scene_id: String,choice_id: String) -> String:
++	if scene_id==SecondVoyageAftermath.SCENE_ID:return SecondVoyageAftermath.quote(state,choice_id).get("reason","")
+ 	var definition=choice_definition(scene_id,choice_id)
+ 	if definition.is_empty(): return "unknown-choice"
+ 	var reason=scene_reason(state,scene_id)
+@@ -66,6 +70,7 @@ static func choice_reason(state: Dictionary,scene_id: String,choice_id: String)
+ 	if definition.buyIntelligence and state.intelligence.size()>=4096: return "intelligence-buffer-full"
+ 	return _route_reason(state,definition.routeId) if definition.routeId!=null else ""
+ static func apply(state: Dictionary,scene_id: String,choice_id: String) -> Dictionary:
++	if scene_id==SecondVoyageAftermath.SCENE_ID:return {"ok":false,"reason":"native-context-required"}
+ 	var reason=choice_reason(state,scene_id,choice_id)
+ 	if not reason.is_empty(): return {"ok":false,"reason":reason}
+ 	var definition=choice_definition(scene_id,choice_id)
+@@ -146,6 +151,7 @@ static func _objective(state: Dictionary) -> Dictionary:
+ 	return {"id":"fleet-next-voyage","title":"整备下一次出航","detail":"两趟交差结果已记录，检查船只、人员与剩余本金。","panel":"ship"}
+ static func project(state: Dictionary) -> Dictionary:
+ 	var scenes=[]; var history=[]
++	var aftermath=SecondVoyageAftermath.project(state)
+ 	var names={"old-ledger":{"id":"xu-fu","name":"许福","role":"老水手"},"pilot-plan":{"id":"chen-ahai","name":"陈阿海","role":"领航员"},"first-return":{"id":"lin-clerk","name":"林账房","role":"林家商行账房"}}
+ 	var titles={"old-ledger":"旧账与工钱","pilot-plan":"粮船走哪条路","first-return":"第一趟交差之后"}
+ 	for id in SCENES:
+@@ -155,6 +161,7 @@ static func project(state: Dictionary) -> Dictionary:
+ 			choices.append({"id":choice_id,"label":label[0],"consequence":label[1],"silverCost":choice_definition(id,choice_id).silverCost,"enabled":unavailable.is_empty(),"reason":unavailable})
+ 		var text=_scene_text(state,id) if completed or reason.is_empty() else [_locked_prompt(state,id,reason)]
+ 		scenes.append({"id":id,"title":titles[id],"npc":names[id],"text":text,"status":"completed" if completed else "available" if reason.is_empty() else "locked","selectedChoiceId":receipt.get("details",{}).get("choiceId",""),"reply":receipt.get("message",""),"choices":choices})
++	if not aftermath.is_empty():scenes.append(aftermath.scene)
+ 	for event in state.get("chronicle",[]):
+ 		var receipt: Dictionary=state.settlements.get(event.id,{})
+ 		if receipt.get("kind")=="story-choice":
+@@ -173,4 +180,8 @@ static func project(state: Dictionary) -> Dictionary:
+ 	if return_choice=="buy-intelligence": lin_stance+=" 留守账房给了你当时的补给库存情报。"
+ 	if state.debt.principal==0: lin_stance+=" 400两本金已清偿。"
+ 	var principal=state.debt.principal; var repay_reason="" if state.currentPortId=="xiamen" and principal>0 and state.captain.silver>0 else "debt-paid" if principal==0 else "not-in-port" if state.currentPortId!="xiamen" else "insufficient-silver"
+-	return {"chapter":{"id":"opening-1650","title":"旧账新帆","summary":"从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。"},"objective":_objective(state),"scenes":scenes,"relations":[{"id":"xu-fu","name":"许福","role":"老水手","stance":xu_stance},{"id":"chen-ahai","name":"陈阿海","role":"领航员","stance":ahai_stance},{"id":"lin-steward","name":"林管事","role":"商行管事","stance":lin_stance}],"history":history,"debt":{"principal":principal,"creditorName":"林家商行","canRepay":repay_reason.is_empty(),"reason":repay_reason}}.duplicate(true)
++	var relations=[{"id":"xu-fu","name":"许福","role":"老水手","stance":xu_stance},{"id":"chen-ahai","name":"陈阿海","role":"领航员","stance":ahai_stance},{"id":"lin-steward","name":"林管事","role":"商行管事","stance":lin_stance}]
++	if not aftermath.get("relationNote","").is_empty():relations.append({"id":"verified-convoy-crew","name":"已核验随航船员","role":"本航承运船","stance":aftermath.relationNote})
++	var projection={"chapter":{"id":"opening-1650","title":"旧账新帆","summary":"从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。"},"objective":aftermath.objective if not aftermath.is_empty() else _objective(state),"scenes":scenes,"relations":relations,"history":history,"debt":{"principal":principal,"creditorName":"林家商行","canRepay":repay_reason.is_empty(),"reason":repay_reason}}
++	if not aftermath.is_empty():projection.bill=aftermath.bill
++	return projection.duplicate(true)

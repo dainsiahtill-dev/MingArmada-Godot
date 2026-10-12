@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x57F490",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "char __thiscall sub_57F490(int this, int a2)\n{\n  int v3; // eax\n  int v4; // eax\n  double v5; // st7\n  int v6; // esi\n  int v7; // eax\n  int v9; // [esp+4h] [ebp-4h] BYREF\n\n  v3 = *(_DWORD *)(this + 52);\n  if ( v3 )\n  {\n    LOBYTE(v3) = sub_565BA0((float *)this, *(float *)&a2);\n    if ( !(_BYTE)v3 )\n    {\n      v4 = sub_580250(&a2, &v9);\n      v5 = sub_567C60(*(float *)(this + 44), v4, v9, a2, (int *)(this + 68));\n      v6 = *(_DWORD *)(this + 52);\n      v7 = *(_DWORD *)(v6 + 92);\n      *(float *)(v6 + 88) = v5;\n      v3 = v7 + 1;\n      *(_DWORD *)(v6 + 92) = v3;\n    }\n  }\n  return v3;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

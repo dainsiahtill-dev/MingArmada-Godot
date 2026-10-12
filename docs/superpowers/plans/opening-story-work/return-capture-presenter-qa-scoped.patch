@@ -1,0 +1,79 @@
+--- a/tools/capture-opening-return.gd
++++ b/tools/capture-opening-return.gd
+@@ -31,6 +31,16 @@
+ var output_owned := false
+ var isolated_owned := false
+ 
++class PresenterProbe extends Node:
++	const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
++	const Overlay = preload("res://game/scenes/common/sea_chart_overlay.gd")
++	var interface := Interface.new()
++	var minimap := Overlay.new()
++	var presentations := 0
++	func _present(_delta: float) -> void:
++		presentations += 1
++		minimap.present({"ships": []}, {}, interface.is_panel_open())
++
+ func _initialize() -> void:
+ 	if "--self-test" in OS.get_cmdline_user_args(): _guard_tests.call_deferred()
+ 	else: run.call_deferred()
+@@ -145,8 +155,14 @@
+ 	if not control: return false
+ 	if not check(control is Button and not control.disabled, "real native button enabled: " + id): return false
+ 	await click(control)
++	if present_current_scene(): await frames(2)
+ 	return true
+ 
++func present_current_scene() -> bool:
++	if not is_instance_valid(main) or not is_instance_valid(scene) or main.current_scene != scene: return false
++	scene._present(0)
++	return true
++
+ func ui_snapshot() -> Array[Dictionary]:
+ 	var result: Array[Dictionary] = []
+ 	for node in scene.interface.find_children("*", "Control", true, false):
+@@ -158,6 +174,9 @@
+ 
+ func capture(label: String, dimensions: Vector2i) -> bool:
+ 	if not unchanged_sources(): return false
++	if not check(present_current_scene(), "capture presents the actual active MainScene"): return false
++	var panel_open: bool = scene.interface.is_panel_open() or scene.interface.is_menu_open()
++	if panel_open and not check(scene.minimap != null and scene.minimap.chart != null and not scene.minimap.chart.visible, "open operation/menu panel hides actual compact chart: " + label): return false
+ 	await frames(6); await RenderingServer.frame_post_draw
+ 	var pixels: Image = root.get_texture().get_image()
+ 	if not check(pixels != null and not pixels.is_empty(), "real GPU viewport has pixels: " + label): return false
+@@ -165,6 +184,7 @@
+ 	var destination := directory + "/" + label + ".png"
+ 	if not check(pixels.save_png(destination) == OK, "actual GPU screenshot: " + label): return false
+ 	var metadata: Dictionary = {"snapshot": scene.runtime.snapshot(), "ui": ui_snapshot(), "imageSha256": FileAccess.get_sha256(destination), "viewport": [pixels.get_width(), pixels.get_height()], "engine": Engine.get_version_info(), "gpu": RenderingServer.get_video_adapter_name(), "renderingMethod": RenderingServer.get_current_rendering_method(), "journey": summary.duplicate(true), "sourceHashes": source_hashes.duplicate(true), "scope": "Actual completed native captain-driver journey restored through MainScene Continue and strict native safety. Real mouse UI and Campaign transactions. This is automated native-game acceptance; no original-game footage, all-chapters, visual-equivalence or performance claim."}
++	metadata.presentation = {"panelOpen": scene.interface.is_panel_open(), "menuOpen": scene.interface.is_menu_open(), "minimapVisible": scene.minimap.chart.visible}
+ 	if not write_json(directory + "/" + label + ".json", metadata): return false
+ 	captures.append({"label": label, "image": destination, "metadata": directory + "/" + label + ".json", "imageSha256": metadata.imageSha256})
+ 	return true
+@@ -378,5 +398,26 @@
+ 	check(transport_plan(shape).get("reason") == "journey-transports-sunk", "both sunk transports remain rejected")
+ 	shape.vessels.erase("guard-shape-grain-b")
+ 	check(transport_plan(shape).get("reason") == "journey-original-transport-missing", "missing transport remains rejected")
++	await _presenter_tests()
+ 	print("OPENING_RETURN_GUARD_TESTS assertions=", assertions, " failures=", failures)
+ 	quit(1 if failures else 0)
++
++func _presenter_tests() -> void:
++	# Actual UI panel flags and native overlay visibility, with no game campaign,
++	# sea world, GPU window or saved state. Probe only replaces heavy scene owner.
++	main = load("res://game/scenes/main/main_scene.gd").new()
++	var probe := PresenterProbe.new()
++	probe.add_child(probe.minimap); root.add_child(probe)
++	scene = probe; main.current_scene = probe
++	probe.interface.close_panel(); probe._present(0)
++	check(probe.minimap.chart.visible, "native compact chart initially visible without an operation panel")
++	probe.interface.open_panel("story")
++	present_current_scene()
++	check(not probe.minimap.chart.visible, "frozen-scene QA presenter refresh hides actual native chart after journal opens")
++	var count := probe.presentations
++	main.current_scene = null
++	present_current_scene()
++	check(probe.presentations == count, "QA refresh does not present a retired scene after MainScene switches")
++	probe.interface.free(); probe.free(); main.free()
++	scene = null; main = null
++	check(not present_current_scene(), "QA refresh ignores freed current scene")

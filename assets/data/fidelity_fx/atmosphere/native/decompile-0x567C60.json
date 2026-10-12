@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x567C60",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "double __cdecl sub_567C60(float a1, int a2, int a3, int a4, int *a5)\n{\n  int *v6; // edx\n  unsigned int v7; // ebx\n  unsigned int v8; // esi\n  int v9; // edi\n  double v10; // st7\n  int v11; // eax\n  int v12; // eax\n  int v13; // ebp\n  float v14; // [esp+0h] [ebp-24h]\n  unsigned int v15; // [esp+20h] [ebp-4h]\n\n  if ( a4 == 1 )\n    return *(float *)(a2 + 8);\n  v6 = a5;\n  v7 = a4 - 1;\n  a4 = *(int *)(*a5 * *(unsigned __int8 *)(a2 + 4) + a2);\n  v15 = v7;\n  if ( a1 < (double)*(float *)&a4 )\n  {\n    *a5 = 0;\n    a4 = *(int *)a2;\n  }\n  v8 = *v6 + 1;\n  if ( (int)(v7 - *v6) < 4 )\n  {\n    v10 = *(float *)&a4;\nLABEL_14:\n    while ( v8 <= v7 )\n    {\n      v10 = *(float *)(v8 * *(unsigned __int8 *)(a2 + 4) + a2);\n      if ( a1 <= v10 )\n        break;\n      v13 = *v6;\n      a4 = *(int *)(v8 * *(unsigned __int8 *)(a2 + 4) + a2);\n      ++v8;\n      *v6 = v13 + 1;\n    }\n  }\n  else\n  {\n    v9 = *v6 + 3;\n    while ( 1 )\n    {\n      v10 = *(float *)(v8 * *(unsigned __int8 *)(a2 + 4) + a2);\n      if ( a1 <= v10 )\n        break;\n      v11 = *v6;\n      a4 = *(int *)(v8 * *(unsigned __int8 *)(a2 + 4) + a2);\n      v12 = v11 + 1;\n      *v6 = v12;\n      v10 = *(float *)(*(unsigned __int8 *)(a2 + 4) * (v9 - 1) + a2);\n      if ( a1 <= v10 )\n      {\n        ++v8;\n        break;\n      }\n      a4 = *(int *)(*(unsigned __int8 *)(a2 + 4) * (v9 - 1) + a2);\n      *v6 = v12 + 1;\n      v10 = *(float *)(v9 * *(unsigned __int8 *)(a2 + 4) + a2);\n      if ( a1 <= v10 )\n      {\n        v8 += 2;\n        break;\n      }\n      a4 = *(int *)(v9 * *(unsigned __int8 *)(a2 + 4) + a2);\n      *v6 = v12 + 2;\n      v10 = *(float *)(*(unsigned __int8 *)(a2 + 4) * (v9 + 1) + a2);\n      if ( a1 <= v10 )\n      {\n        v8 += 3;\n        break;\n      }\n      a4 = *(int *)(*(unsigned __int8 *)(a2 + 4) * (v9 + 1) + a2);\n      *v6 = v12 + 3;\n      v7 = v15;\n      v8 += 4;\n      v9 += 4;\n      if ( v8 > v15 - 3 )\n        goto LABEL_14;\n    }\n  }\n  v14 = (a1 - *(float *)&a4) / (v10 - *(float *)&a4);\n  ((void (__cdecl *)(_DWORD, int, unsigned int, int *))dword_726830[a3])(\n    LODWORD(v14),\n    a2 + *(unsigned __int8 *)(a2 + 4) * *v6,\n    a2 + v8 * *(unsigned __int8 *)(a2 + 4),\n    &a4);\n  return *(float *)&a4;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

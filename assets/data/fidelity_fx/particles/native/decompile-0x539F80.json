@@ -1,0 +1,14 @@
+{
+  "address": "0x539F80",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "float *__thiscall sub_539F80(float *this, float *a2, float a3)\n{\n  float v4[9]; // [esp+0h] [ebp-24h] BYREF\n\n  v4[0] = a3 * *this;\n  v4[1] = a3 * *(this + 1);\n  v4[2] = a3 * *(this + 2);\n  v4[3] = a3 * *(this + 3);\n  v4[4] = a3 * *(this + 4);\n  v4[5] = a3 * *(this + 5);\n  v4[6] = a3 * *(this + 6);\n  v4[7] = a3 * *(this + 7);\n  v4[8] = a3 * *(this + 8);\n  qmemcpy(a2, v4, 0x24u);\n  return a2;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

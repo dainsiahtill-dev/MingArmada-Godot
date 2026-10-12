@@ -1,0 +1,15 @@
+{
+  "source": "IDA MCP Hex-Rays static pseudocode",
+  "session_id": "1927fac5-0a49-4ffa-931f-2c2147e6b63c",
+  "binary_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x4DA0D0",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __stdcall sub_4DA0D0(int a1)\n{\n  int v2; // eax\n  int v3; // ecx\n  int *v4; // esi\n  int v5; // edi\n  bool v6; // zf\n  int *v7; // ebx\n  int v8; // eax\n  int v9; // ecx\n  int v10; // edi\n  int i; // edi\n  int result; // eax\n  double v13; // st7\n  int v14; // [esp+10h] [ebp+4h]\n\n  v2 = sub_4FEC10();\n  v3 = *(_DWORD *)(a1 + 676);\n  v4 = (int *)(a1 + 676);\n  v5 = v2;\n  if ( v3 != v2 )\n  {\n    if ( v3 )\n    {\n      v6 = (*(_DWORD *)(v3 + 4))-- == 1;\n      if ( v6 )\n        (**(void (__thiscall ***)(int, int))v3)(v3, 1);\n    }\n    *v4 = v5;\n    if ( v5 )\n      ++*(_DWORD *)(v5 + 4);\n  }\n  v7 = (int *)(a1 + 680);\n  v14 = 19;\n  do\n  {\n    v8 = sub_535C60(*v4);\n    v9 = *v7;\n    v10 = v8;\n    if ( *v7 != v8 )\n    {\n      if ( v9 )\n      {\n        v6 = (*(_DWORD *)(v9 + 4))-- == 1;\n        if ( v6 )\n          (**(void (__thiscall ***)(int, int))v9)(v9, 1);\n      }\n      *v7 = v10;\n      if ( v10 )\n        ++*(_DWORD *)(v10 + 4);\n    }\n    ++v7;\n    --v14;\n  }\n  while ( v14 );\n  *(float *)(a1 + 592) = sub_4FFBA0(*v4);\n  for ( i = 0; (unsigned int)i < 0x14; ++i )\n  {\n    sub_531A50(*v4);\n    sub_531830(*v4);\n    result = sub_5313F0(0, 1);\n    v13 = (double)i;\n    *((float *)++v4 - 21) = v13 * *(float *)(a1 + 592) * flt_7115BC;\n  }\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

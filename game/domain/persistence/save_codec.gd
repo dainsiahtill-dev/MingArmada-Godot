@@ -1,9 +1,13 @@
 extends RefCounted
 ## Pure v2 codec. Disk/slot/rollback coordinator lives outside domain.
 const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
+const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
 const MAX_SAFE = 9007199254740991
+const MAX_SIGNED_BITS = 9223372036854775807
+const MIN_SIGNED_BITS = -9223372036854775807 - 1
 const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
-const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize"]
+const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
 const RECEIPTS = BUSINESS + ["background-load","shipment-arrived","shipment-lost","shipment-interrupted","shipment-late","person-died","cargo-loss","near-hit","near-fire","near-splash","near-sink","near-victory","near-defeat","near-surrender","near-battle-ended","boarding-won","boarding-lost","boarding-cut","work-completed","near-casualties","crew-transition"]
 var error = ""
 var _json = ""
@@ -137,9 +141,31 @@ func _value(depth: int):
 	var regex=RegEx.new();regex.compile("^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?")
 	var found=regex.search(_json.substr(_at))
 	if not _check(found!=null,"json","invalid-json"):return null
-	var token=found.get_string();_at+=token.length();var number=token.to_float()
+	var token=found.get_string();_at+=token.length();var number=_saved_number(token)
 	if not _check(is_finite(number),"json.number"):return null
 	return number
+
+static func _saved_number(token: String) -> float:
+	var baseline=token.to_float()
+	# Integer spellings keep the existing conversion and safe-count validation.
+	if not is_finite(baseline) or not (token.contains(".") or token.contains("e") or token.contains("E")):
+		return baseline
+	if JSON.stringify(baseline,"",false,true)==token:return baseline
+	# Godot's String parser can miss the own full-precision encoder's float by
+	# a few ULPs. Restore only a unique nearby float that reproduces the raw
+	# token exactly; alternate spellings and unmatched ranges keep the fallback.
+	var raw_bits: int=PackedFloat64Array([baseline]).to_byte_array().decode_s64(0)
+	var restored=baseline;var matches=0
+	for offset in range(-8,9):
+		if offset==0:continue
+		if offset>0 and raw_bits>MAX_SIGNED_BITS-offset:continue
+		if offset<0 and raw_bits<MIN_SIGNED_BITS-offset:continue
+		var bytes=PackedByteArray();bytes.resize(8);bytes.encode_s64(0,raw_bits+offset)
+		var neighbor=bytes.decode_double(0)
+		if is_finite(neighbor) and JSON.stringify(neighbor,"",false,true)==token:
+			restored=neighbor;matches+=1
+			if matches>1:return baseline
+	return restored if matches==1 else baseline
 
 func _validate(v,schema,path: String) -> bool:
 	if schema is Dictionary:
@@ -181,6 +207,7 @@ func _validate(v,schema,path: String) -> bool:
 	match schema:
 		"finite":return _check(_finite(v),path)
 		"count":return _check(_count(v),path)
+		"debtPrincipal":return _check(_count(v) and v<=400,path)
 		"positive":return _check(_count(v) and v>0,path)
 		"time":return _check(_finite(v) and v>=0 and v<=MAX_SAFE,path)
 		"positiveTime":return _check(_finite(v) and v>0 and v<=MAX_SAFE,path)
@@ -223,6 +250,7 @@ func _validate(v,schema,path: String) -> bool:
 		"details":
 			var all=_detail_schemas()
 			if not v is Dictionary or not all.has(v.get("kind")):return _fail(path)
+			if v.kind=="story-choice" and v.get("sceneId")==SecondVoyageAftermath.SCENE_ID:return _validate(v,_aftermath_schema(),path)
 			return _validate(v,all[v.kind],path)
 		"work":
 			if not v is Dictionary:return _fail(path)
@@ -238,10 +266,12 @@ func _state_schema() -> Dictionary:
 	var voyage={"id":"id","vesselId":"id","originId":"id","destinationId":"id","routeId":"id","leg":"count","progress":["range",0,1],"departedAt":"time","eta":"time","escortIds":["ids",64],"status":["one",["loading","underway","arrived","lost","interrupted"]]}
 	var point={"control":["range",0,100],"action":["one",["advance","hold"]]}
 	var boarding={"id":"id","attackerId":"id","targetId":"id","points":{"bow":point,"deck":point,"helm":point},"morale":{"attacker":["range",0,100],"defender":["range",0,100]},"status":["one",["active","won","lost","cut"]],"participants":["ids",128],"elapsedSeconds":"count","remainder":"remainder","clockCompensation":"compensation"}
-	return {"campaignId":"commandId","revision":"count","seed":["range",0,4294967295],"randomState":["range",0,4294967295],"nextId":"positive","simulationSeconds":"time","macroRemainder":"remainder","macroSeconds":"count","clockCompensation":"compensation","calendar":_calendar_schema(),"chapterId":["one",["opening-1650"]],"captain":{"name":"name","birthYear":["one",[1631]],"silver":"count"},"debt":{"principal":["one",[400]],"creditorId":["one",["house-lin"]],"dueAt":["one",[18000]]},"flagshipId":"id","currentPortId":["null","id"],"vessels":["record",vessel,128],"voyages":["record",voyage,4096],"ports":["record",{"id":"id","name":"text","position":position,"stock":"cargo","production":"cargo","consumption":"cargo"},128],"orders":["array","order",4096],"contracts":["record",{"id":["one",["convoy-001","convoy-002"]],"voyageIds":["ids",64],"deadlineAt":"time","minimumDelivery":["one",[1]],"bonusQuantity":"count","criticalPersonIds":["ids",128],"secret":["one",[false]],"status":["one",["offered","active","delivered","failed","settled"]],"receiptId":["null","id"]},2],"boardings":["record",boarding,128],"works":["record","work",128],"prizes":["record",{"targetId":"id","boardingId":"id","originalOwnerId":"id","status":["one",["held","crewed","incorporated","released","abandoned","sold"]],"resolutionReceiptId":["null","id"]},128],"casualtyOrdinals":["record","count",128],"reputations":{"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100],"crewSupport":["range",-100,100],"intimidation":["range",-100,100]},"people":["record",{"id":"id","name":"text","shipId":["null","id"],"alive":"bool","role":["one",["steward","pilot","deputy"]]},128],"intelligence":["array",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"},4096],"chronicle":["array",{"id":"id","simTime":"time","date":_calendar_schema(),"causeIds":["array","id",128],"kind":["one",RECEIPTS],"message":"text"},4096],"settlements":["record",{"id":"id","commandId":"id","revision":"count","kind":["one",RECEIPTS],"message":"text","details?":"details"},4096],"nearTicks":["record","count",128]}
+	return {"campaignId":"commandId","revision":"count","seed":["range",0,4294967295],"randomState":["range",0,4294967295],"nextId":"positive","simulationSeconds":"time","macroRemainder":"remainder","macroSeconds":"count","clockCompensation":"compensation","calendar":_calendar_schema(),"chapterId":["one",["opening-1650"]],"captain":{"name":"name","birthYear":["one",[1631]],"silver":"count"},"debt":{"principal":"debtPrincipal","creditorId":["one",["house-lin"]],"dueAt":["one",[18000]]},"flagshipId":"id","currentPortId":["null","id"],"vessels":["record",vessel,128],"voyages":["record",voyage,4096],"ports":["record",{"id":"id","name":"text","position":position,"stock":"cargo","production":"cargo","consumption":"cargo"},128],"orders":["array","order",4096],"contracts":["record",{"id":["one",["convoy-001","convoy-002"]],"voyageIds":["ids",64],"deadlineAt":"time","minimumDelivery":["one",[1]],"bonusQuantity":"count","criticalPersonIds":["ids",128],"secret":["one",[false]],"status":["one",["offered","active","delivered","failed","settled"]],"receiptId":["null","id"]},2],"boardings":["record",boarding,128],"works":["record","work",128],"prizes":["record",{"targetId":"id","boardingId":"id","originalOwnerId":"id","status":["one",["held","crewed","incorporated","released","abandoned","sold"]],"resolutionReceiptId":["null","id"]},128],"casualtyOrdinals":["record","count",128],"reputations":{"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100],"crewSupport":["range",-100,100],"intimidation":["range",-100,100]},"people":["record",{"id":"id","name":"text","shipId":["null","id"],"alive":"bool","role":["one",["steward","pilot","deputy"]]},128],"intelligence":["array",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"},4096],"chronicle":["array",{"id":"id","simTime":"time","date":_calendar_schema(),"causeIds":["array","id",128],"kind":["one",RECEIPTS],"message":"text"},4096],"settlements":["record",{"id":"id","commandId":"id","revision":"count","kind":["one",RECEIPTS],"message":"text","details?":"details"},4096],"nearTicks":["record","count",128]}
 func _detail_schemas() -> Dictionary:
 	var bucket={"able":"count","wounded":"count","prisoners":"count"}
 	return {
+		"story-choice":{"kind":["one",["story-choice"]],"sceneId":["one",OpeningStory.SCENES],"choiceId":"id","portId":"id","silverCost":"count","reputationEffects":{"crewSupport":["range",-100,100],"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100]},"routeId":["null","id"],"convoyReceiptId":["null","id"],"intelligence":["null",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"}]},
+		"repay-debt":{"kind":["one",["repay-debt"]],"portId":["one",["xiamen"]],"amount":"positive","beforePrincipal":"debtPrincipal","afterPrincipal":"debtPrincipal","creditAward":"count"},
 		"crew-transition":{"kind":["one",["crew-transition"]],"reason":["one",["boarding-attrition","boarding-victory","allocation","release-prisoners","treatment","prize-release","prize-rescue","prize-sale"]],"causeId":"id","changes":["array",{"shipId":"id","before":bucket,"after":bucket},2,1]},
 		"battle-ended":{"kind":["one",["battle-ended"]],"battleId":"id","episodeId":"id","outcome":["one",["victory","defeat","disengaged"]],"reason":"text"},
 		"shipment-arrived":{"kind":["one",["shipment-arrived"]],"voyageId":"id","vesselId":"id","destinationId":"id","grain":"count","arrivedAt":"time"},
@@ -256,6 +286,14 @@ func _detail_schemas() -> Dictionary:
 		"prize-port":{"kind":["one",["prize-port"]],"shipId":"id","portId":"id","action":["one",["sell","incorporate"]],"silver":"count","crewToShipId":["null","id"],"movedAble":"count","movedWounded":"count","movedPrisoners":"count"},
 		"casualty":{"kind":["one",["casualty"]],"battleId":"id","tick":"count","controlsSequence":"sequence","shipId":"id","ableBefore":"count","ableAfter":"count","woundedBefore":"count","woundedAfter":"count","prisonersBefore":"count","prisonersAfter":"count","dead":"count","sunk":"bool","ordinalBefore":"count","ordinalAfter":"count"}
 	}
+func _aftermath_schema() -> Dictionary:
+	var schema=_detail_schemas()["story-choice"].duplicate(true)
+	schema.sceneId=["one",[SecondVoyageAftermath.SCENE_ID]]
+	schema.choiceId=["one",SecondVoyageAftermath.CHOICES]
+	schema.portId=["one",["xiamen","kinmen","forward-supply"]]
+	schema.routeId=["one",[null]];schema.intelligence=["one",[null]]
+	schema.aftermath={"contractId":["one",["convoy-002"]],"revenue":"count","silverBefore":"count","silverAfter":"count","supportBefore":["range",-100,100],"supportAfter":["range",-100,100],"beneficiaries":["array",{"shipId":"id","able":"count","wounded":"count"},128],"beneficiaryCount":"count","portWitness":{"flagshipId":"id","position":{"x":"finite","z":"finite"},"speed":["range",0,0.75],"hull":["range",0,100],"anchored":["one",[true]],"pendingAttacks":["one",[false]],"activeBoardings":["one",[0]],"hostileWithin600":["one",[false]]}}
+	return schema
 func _relations(s: Dictionary) -> bool:
 	if not _check(_count(s.seed) and _count(s.randomState),"seed") or not _check(s.simulationSeconds==s.macroSeconds+s.macroRemainder,"simulationSeconds") or not _check(floor(s.macroSeconds/1800.0)<=100116877,"calendar","calendar-overflow"):return false
 	if not _check(_equal(s.calendar,_date_at(s.macroSeconds)),"calendar"):return false
@@ -328,7 +366,7 @@ func _relations(s: Dictionary) -> bool:
 			commands[r.commandId]=true
 			var prefixes={"buy":"trade","sell":"trade","depart":"depart","choose-route":"route","assign-order":"order"}
 			if prefixes.has(r.kind) and not _check(r.id==s.campaignId+"-"+prefixes[r.kind]+"-"+r.commandId,"receipt-id"):return false
-			if r.kind in ["dock","repair","refit","release-prisoners","start-boarding","board-action","treat-wounded","take-prize-cargo"] and not _check(r.id==s.campaignId+":"+r.kind+":"+r.commandId,"receipt-id"):return false
+			if r.kind in ["dock","repair","refit","release-prisoners","start-boarding","board-action","treat-wounded","take-prize-cargo","repay-debt"] and not _check(r.id==s.campaignId+":"+r.kind+":"+r.commandId,"receipt-id"):return false
 		elif not _check(r.commandId==r.id,"traffic-command"):return false
 		if not _receipt_relations(s,r):return false
 	if not _contract_relations(s):return false
@@ -348,7 +386,7 @@ func _relations(s: Dictionary) -> bool:
 			if not _check(s.vessels.has(id),"order-ship"):return false
 		if o.intent.has("targetId") and not _check(s.vessels.has(o.intent.targetId) and not o.intent.targetId in o.shipIds,"order-target"):return false
 		if not _check(s.settlements.get(s.campaignId+"-order-"+o.id,{}).get("kind")=="assign-order","order-receipt"):return false
-	return _business_relations(s) and _crew_history(s)
+	return _business_relations(s) and _crew_history(s) and _opening_history(s)
 static func _date_at(seconds: float) -> Dictionary:
 	var days=int(floor(seconds/1800.0));var year=1650
 	var cycles=int(floor(days/146097.0));days-=cycles*146097;year+=cycles*400
@@ -366,14 +404,16 @@ func _terminal_owner(s: Dictionary,id: String):
 		"sold":return "port-prize"
 	return null
 func _receipt_relations(s: Dictionary,r: Dictionary) -> bool:
-	var required={"accept-convoy":"convoy-load","claim-convoy":"convoy","allocate-prize":"prize","repair":"work","refit":"work","treat-wounded":"treatment","take-prize-cargo":"prize-cargo","resolve-prize":"prize-resolution","sell-prize":"prize-port","incorporate-prize":"prize-port","near-casualties":"casualty","shipment-arrived":"shipment-arrived","boarding-won":"boarding","boarding-lost":"boarding","boarding-cut":"boarding","near-battle-ended":"battle-ended","crew-transition":"crew-transition"}
+	var required={"story-choice":"story-choice","repay-debt":"repay-debt","accept-convoy":"convoy-load","claim-convoy":"convoy","allocate-prize":"prize","repair":"work","refit":"work","treat-wounded":"treatment","take-prize-cargo":"prize-cargo","resolve-prize":"prize-resolution","sell-prize":"prize-port","incorporate-prize":"prize-port","near-casualties":"casualty","shipment-arrived":"shipment-arrived","boarding-won":"boarding","boarding-lost":"boarding","boarding-cut":"boarding","near-battle-ended":"battle-ended","crew-transition":"crew-transition"}
 	var d=r.get("details",{})
 	if required.has(r.kind) and not _check(d.get("kind")==required[r.kind],"receipt-details"):return false
 	if r.kind=="work-completed" and not _check(d.get("kind") in ["work","treatment"],"receipt-details"):return false
 	if d.is_empty():return true
-	var allowed={"crew-transition":["crew-transition"],"battle-ended":["near-battle-ended"],"shipment-arrived":["shipment-arrived"],"convoy-load":["accept-convoy"],"convoy":["claim-convoy"],"prize":["allocate-prize"],"boarding":["board-action","boarding-won","boarding-lost","boarding-cut"],"work":["repair","refit","work-completed"],"treatment":["treat-wounded","work-completed"],"prize-cargo":["take-prize-cargo"],"prize-resolution":["resolve-prize"],"prize-port":["sell-prize","incorporate-prize"],"casualty":["near-casualties"]}
+	var allowed={"story-choice":["story-choice"],"repay-debt":["repay-debt"],"crew-transition":["crew-transition"],"battle-ended":["near-battle-ended"],"shipment-arrived":["shipment-arrived"],"convoy-load":["accept-convoy"],"convoy":["claim-convoy"],"prize":["allocate-prize"],"boarding":["board-action","boarding-won","boarding-lost","boarding-cut"],"work":["repair","refit","work-completed"],"treatment":["treat-wounded","work-completed"],"prize-cargo":["take-prize-cargo"],"prize-resolution":["resolve-prize"],"prize-port":["sell-prize","incorporate-prize"],"casualty":["near-casualties"]}
 	if not _check(r.kind in allowed[d.kind],"receipt-detail-kind-mismatch"):return false
 	match d.kind:
+		"story-choice":return _story_receipt(s,r,d)
+		"repay-debt":return _check(d.beforePrincipal>0 and d.amount<=d.beforePrincipal and d.afterPrincipal==d.beforePrincipal-d.amount and d.creditAward==(6 if d.afterPrincipal==0 else 0),"debt-payment-definition")
 		"shipment-arrived":
 			if not _check(s.voyages.has(d.voyageId) and s.vessels.has(d.vesselId),"shipment-arrived"):return false
 			var v=s.voyages[d.voyageId]
@@ -430,11 +470,68 @@ func _receipt_relations(s: Dictionary,r: Dictionary) -> bool:
 		"crew-transition":
 			return _crew_detail_relations(s,r,d)
 	return true
+
+func _story_receipt(s: Dictionary,r: Dictionary,d: Dictionary) -> bool:
+	if d.sceneId==SecondVoyageAftermath.SCENE_ID:
+		var reason=SecondVoyageAftermath.receipt_error(s,r)
+		return _check(reason.is_empty(),"second-voyage-aftermath."+reason)
+	var definition=OpeningStory.choice_definition(d.sceneId,d.choiceId)
+	if not _check(not definition.is_empty(),"story-choice-definition"):return false
+	if not _check(r.id==OpeningStory.receipt_id(s,d.sceneId) and d.portId==definition.portId and d.silverCost==definition.silverCost and _equal(d.reputationEffects,definition.reputationEffects) and d.routeId==definition.routeId and _equal(_event(s,r.id).causeIds,[r.commandId,r.id]),"story-choice-definition"):return false
+	var claim_id=s.campaignId+":convoy-001:claim"
+	if d.sceneId=="first-return":
+		var claim=s.settlements.get(claim_id,{})
+		if not _check(d.convoyReceiptId==claim_id and claim.get("kind")=="claim-convoy" and claim.get("details",{}).get("kind")=="convoy" and _precedes(s,claim_id,r.id) and claim.revision<r.revision,"story-return-history"):return false
+	elif not _check(d.convoyReceiptId==null,"story-unclaimed-history"):return false
+	if d.sceneId in ["old-ledger","pilot-plan"]:
+		var accepted=s.settlements.get(s.campaignId+"-convoy-001-accept",{})
+		if d.sceneId=="pilot-plan" and not _check(accepted.get("kind")=="accept-convoy" and _precedes(s,accepted.id,r.id) and accepted.revision<r.revision,"story-pilot-history"):return false
+		for event in s.chronicle:
+			var receipt=s.settlements[event.id]
+			if receipt.kind=="depart" or receipt.kind=="claim-convoy" and receipt.get("details",{}).get("contractId")=="convoy-001":
+				if not _check(_precedes(s,r.id,event.id),"story-before-first-voyage"):return false
+		for suffix in ["grain-a","grain-b"]:
+			var vid=s.campaignId+"-"+suffix+"-voyage"
+			for terminal in ["arrival","lost"]:
+				var id=s.campaignId+":"+vid+":"+terminal
+				if s.settlements.has(id) and not _check(_precedes(s,r.id,id),"story-before-first-voyage"):return false
+	if not definition.buyIntelligence:return _check(d.intelligence==null,"story-intelligence-definition")
+	var intel=d.intelligence;var matching=0
+	if not _check(intel is Dictionary and intel.portId=="forward-supply" and intel.sourceId==r.id and intel.observedAt==_event(s,r.id).simTime and intel.confidence==0.65 and intel.stock.size()==1 and intel.stock.has("grain"),"story-intelligence-definition"):return false
+	for entry in s.intelligence:
+		if entry.sourceId==r.id:
+			matching+=1
+			if not _check(_equal(entry,intel),"story-intelligence-receipt"):return false
+	return _check(matching==1,"story-intelligence-receipt")
+
+func _opening_history(s: Dictionary) -> bool:
+	var remaining=400;var paid=0;var prior_revision=-1;var payoff=false
+	for event in s.chronicle:
+		var receipt=s.settlements[event.id]
+		if receipt.kind!="repay-debt":continue
+		var d=receipt.details
+		if not _check(d.beforePrincipal==remaining and d.amount<=remaining and receipt.revision>prior_revision and _equal(event.causeIds,[receipt.commandId,receipt.id]),"debt-payment-history"):return false
+		remaining-=d.amount;paid+=d.amount;prior_revision=receipt.revision
+		if not _check(d.afterPrincipal==remaining and d.creditAward==(6 if remaining==0 else 0) and not payoff,"debt-payoff-history"):return false
+		payoff=remaining==0
+	if not _check(paid<=400 and s.debt.principal==400-paid and s.debt.principal==remaining,"debt-current-principal"):return false
+	for entry in s.intelligence:
+		if entry.sourceId.begins_with(s.campaignId+":story:"):
+			var receipt=s.settlements.get(entry.sourceId,{})
+			if not _check(receipt.get("kind")=="story-choice" and receipt.get("details",{}).get("choiceId")=="buy-intelligence" and _equal(receipt.details.intelligence,entry),"story-intelligence-source"):return false
+	return true
 func _contract_relations(s: Dictionary) -> bool:
 	if not _check(s.contracts.has("convoy-001"),"convoy-001"):return false
 	for c in s.contracts.values():
-		if not _check(c.bonusQuantity==(40 if c.id=="convoy-001" else 20) and c.criticalPersonIds==["steward-a","steward-b"],"contract-canonical"):return false
+		if not _check(c.bonusQuantity==(40 if c.id=="convoy-001" else 20),"contract-canonical"):return false
 		var load=s.settlements.get(s.campaignId+"-"+c.id+"-accept",{})
+		var critical=["steward-a","steward-b"]
+		if c.id=="convoy-002" and load.get("details",{}).get("ships",[]).size()==1:
+			critical=[]
+			for pid in ["steward-a","steward-b"]:
+				var person=s.people.get(pid,{});var death=s.settlements.get(s.campaignId+":person:"+pid+":death",{})
+				if person.get("shipId")==load.details.ships[0].shipId and (death.is_empty() or not _precedes(s,death.id,load.id)):critical.append(pid)
+		if not _check(c.criticalPersonIds==critical,"contract-critical-persons"):return false
 		var vessel_ids={}
 		for vid in c.voyageIds:
 			if not _check(s.voyages.has(vid) and not vessel_ids.has(s.voyages[vid].vesselId),"contract-voyage"):return false
@@ -447,15 +544,23 @@ func _contract_relations(s: Dictionary) -> bool:
 			if not _check(load.is_empty() and c.receiptId==null and (c.voyageIds.size()==2 and c.deadlineAt==1800 if c.id=="convoy-001" else c.voyageIds.is_empty() and c.deadlineAt==0),"offered-contract"):return false
 			if c.id=="convoy-002" and not _check(s.contracts["convoy-001"].status=="settled","convoy-002-unlock"):return false
 			continue
-		if not _check(load.get("kind")=="accept-convoy" and c.voyageIds.size()==2,"contract-load"):return false
+		if not _check(load.get("kind")=="accept-convoy" and (c.voyageIds.size()==2 if c.id=="convoy-001" else c.voyageIds.size() in [1,2]),"contract-load"):return false
 		var expected=[]
 		for suffix in ["grain-a","grain-b","flagship","fast"] if c.id=="convoy-001" else ["grain-a","grain-b"]:expected.append(s.campaignId+"-"+suffix)
 		var actual=[]
 		for v in load.details.ships:actual.append(v.shipId)
+		if c.id=="convoy-002" and c.voyageIds.size()==1:
+			if not _check(actual.size()==1 and actual[0] in expected,"contract-single-carrier"):return false
+			var missing=expected[1] if actual[0]==expected[0] else expected[0]
+			if not _sunk_before_load(s,missing,load.id):return false
+			expected=[actual[0]]
 		if not _check(_equal(actual,expected) and c.deadlineAt==(1800 if c.id=="convoy-001" else _event(s,load.id).simTime+1200),"contract-load-ships-deadline"):return false
-		for vid in c.voyageIds:
+		for index in c.voyageIds.size():
+			var vid=c.voyageIds[index]
 			if not _check(s.voyages.has(vid),"contract-voyage"):return false
 			var v=s.voyages[vid]
+			if not _check(v.vesselId==expected[index],"contract-vessel-load"):return false
+			if c.id=="convoy-002" and not _check(v.id==s.campaignId+"-convoy-002-"+str(index)+"-voyage" and v.routeId=="kinmen-supply-deep","contract-second-voyage"):return false
 			if not _check(v.originId==("xiamen" if c.id=="convoy-001" else "kinmen") and v.destinationId==("kinmen" if c.id=="convoy-001" else "forward-supply"),"contract-route"):return false
 		if c.status in ["settled","failed"]:
 			var claim=s.settlements.get(s.campaignId+":"+c.id+":claim",{})
@@ -466,6 +571,16 @@ func _contract_relations(s: Dictionary) -> bool:
 			if not _check(c.receiptId==load.id,"contract-receipt"):return false
 		if c.id=="convoy-002" and not _check(s.contracts["convoy-001"].status=="settled","convoy-002-unlock"):return false
 	return true
+func _sunk_before_load(s: Dictionary,id: String,load_id: String) -> bool:
+	if not _check(s.vessels[id].damage.hull==0,"contract-single-sunk-hull"):return false
+	var loss=s.campaignId+":"+id+"-voyage:lost"
+	for event in s.chronicle:
+		if not _precedes(s,event.id,load_id):continue
+		var r=s.settlements[event.id];var d=r.get("details",{})
+		if r.kind=="shipment-lost" and r.id==loss:return true
+		if r.kind=="near-casualties" and d.get("kind")=="casualty" and d.get("shipId")==id and d.get("sunk")==true:return true
+		if r.kind=="near-sink" and id in event.causeIds:return true
+	return _fail("contract-single-loss-history")
 static func _duration(w: Dictionary) -> float:return 30*w.quantity if w.kind=="treatment" else 120 if w.kind=="refit" else max(1,ceil((w.hull+w.sail)/2.0))
 func _business_relations(s: Dictionary) -> bool:
 	var active={}
@@ -476,6 +591,10 @@ func _business_relations(s: Dictionary) -> bool:
 		for r in s.settlements.values():
 			if r.kind==("treat-wounded" if w.kind=="treatment" else w.kind) and r.get("details",{}).get("workId")==w.id and r.details.status=="active":payments+=1;payment=r
 		if not _check(payments==1,"work-payment"):return false
+		if w.kind=="treatment" and s.vessels[w.shipId].ownerId=="house-lin":
+			var lease=s.settlements.get(s.campaignId+"-convoy-001-accept",{});var leased=[]
+			for ship in lease.get("details",{}).get("ships",[]):leased.append(ship.shipId)
+			if not _check(lease.get("kind")=="accept-convoy" and w.shipId in leased and _precedes(s,lease.id,payment.id) and lease.revision<payment.revision,"treatment-lease-history"):return false
 		if w.kind=="treatment" and not _check(w.cost==4*w.quantity and (w.status!="active" or w.quantity<=s.vessels[w.shipId].crew.wounded),"treatment"):return false
 		if w.kind=="treatment" and not _check(_event(s,payment.id).simTime==w.startAt and (w.status!="completed" or _event(s,w.id+":completed").get("simTime",-1)>=w.completeAt),"treatment-time"):return false
 		var vessel=s.vessels[w.shipId];var prize=s.prizes.get(vessel.id,{})

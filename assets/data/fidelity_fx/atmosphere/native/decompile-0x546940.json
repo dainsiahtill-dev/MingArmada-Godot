@@ -1,0 +1,13 @@
+{
+  "address": "0x546940",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "__int16 __thiscall sub_546940(int this, int a2)\n{\n  __int16 result; // ax\n\n  sub_537F10(a2);\n  if ( *(_DWORD *)(a2 + 28) >= 0xA000102u )\n    return (*(int (__thiscall **)(_DWORD, int, int))(**(_DWORD **)(a2 + 348) + 8))(*(_DWORD *)(a2 + 348), this + 236, 2);\n  result = word_7253F8;\n  *(_WORD *)(this + 236) = word_7253F8;\n  if ( *(_DWORD *)(a2 + 28) < 0x4020003u )\n  {\n    result = *(_WORD *)(this + 236) & 0x1FFF;\n    *(_WORD *)(this + 236) = result | (2 * (*(_WORD *)(this + 236) & 0xE000));\n  }\n  *(_WORD *)(this + 236) = *(unsigned __int8 *)(this + 237);\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

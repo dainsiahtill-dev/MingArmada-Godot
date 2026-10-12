@@ -1,0 +1,2582 @@
+{
+  "name": "timeofday.nif",
+  "raw": "raw/fpk/Pak6/timeofday.nif",
+  "sha256": "dceef8bcf49f36cc59ca14580fb1f639dd1532f4ad40b6cc419b4165d4a2f2f8",
+  "manifest_sha256": "dceef8bcf49f36cc59ca14580fb1f639dd1532f4ad40b6cc419b4165d4a2f2f8",
+  "bytes": 3954,
+  "bytes_consumed": 3954,
+  "whole_file_consumed": true,
+  "version": "10.1.0.0",
+  "roots": [
+    0
+  ],
+  "block_count": 39,
+  "block_types": {
+    "NiNode": 7,
+    "NiZBufferProperty": 1,
+    "NiVertexColorProperty": 1,
+    "NiPathController": 3,
+    "NiLookAtController": 3,
+    "NiRollController": 3,
+    "NiFloatData": 6,
+    "NiPosData": 7,
+    "NiDirectionalLight": 3,
+    "NiLightColorController": 4,
+    "NiAmbientLight": 1
+  },
+  "finite_vertices": true,
+  "triangle_indices_valid": true,
+  "blocks": [
+    {
+      "id": 0,
+      "type": "NiNode",
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Scene Root",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 2,
+        "translation": {
+          "type": "Vector3",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": 1.0,
+          "m_21": 0.0,
+          "m_31": 0.0,
+          "m_12": 0.0,
+          "m_22": 1.0,
+          "m_32": 0.0,
+          "m_13": 0.0,
+          "m_23": 0.0,
+          "m_33": 1.0
+        },
+        "scale": 1.0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "ref": 2,
+            "type": "NiVertexColorProperty",
+            "name": ""
+          },
+          {
+            "ref": 1,
+            "type": "NiZBufferProperty",
+            "name": ""
+          }
+        ],
+        "collision_object": null,
+        "num_children": 7,
+        "children": [
+          {
+            "ref": 3,
+            "type": "NiNode",
+            "name": "Sky"
+          },
+          {
+            "ref": 8,
+            "type": "NiNode",
+            "name": "Sky.Target"
+          },
+          {
+            "ref": 14,
+            "type": "NiNode",
+            "name": "Fog"
+          },
+          {
+            "ref": 19,
+            "type": "NiNode",
+            "name": "Fog.Target"
+          },
+          {
+            "ref": 25,
+            "type": "NiNode",
+            "name": "Scene"
+          },
+          {
+            "ref": 30,
+            "type": "NiNode",
+            "name": "Scene.Target"
+          },
+          {
+            "ref": 36,
+            "type": "NiAmbientLight",
+            "name": ""
+          }
+        ],
+        "num_effects": 4,
+        "effects": [
+          {
+            "ref": 33,
+            "type": "NiDirectionalLight",
+            "name": ""
+          },
+          {
+            "ref": 22,
+            "type": "NiDirectionalLight",
+            "name": ""
+          },
+          {
+            "ref": 11,
+            "type": "NiDirectionalLight",
+            "name": ""
+          },
+          {
+            "ref": 36,
+            "type": "NiAmbientLight",
+            "name": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "type": "NiZBufferProperty",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 3,
+        "function": 3
+      }
+    },
+    {
+      "id": 2,
+      "type": "NiVertexColorProperty",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 18080,
+        "vertex_mode": 0,
+        "lighting_mode": 1
+      }
+    },
+    {
+      "id": 3,
+      "type": "NiNode",
+      "name": "Sky",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Sky",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Sky",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 4,
+          "type": "NiPathController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 398.35772705078125,
+          "y": 40.72752380371094,
+          "z": 19.03463363647461
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.13887399435043335,
+          "m_21": -0.046980101615190506,
+          "m_31": 0.9891950488090515,
+          "m_12": 0.9903100728988647,
+          "m_22": -0.006588153075426817,
+          "m_32": 0.1387176364660263,
+          "m_13": 0.0,
+          "m_23": 0.9988741278648376,
+          "m_33": 0.04743979126214981
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 1,
+        "children": [
+          {
+            "ref": 11,
+            "type": "NiDirectionalLight",
+            "name": ""
+          }
+        ],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 4,
+      "type": "NiPathController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 4,
+            "name": "",
+            "type": "NiPathController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 5,
+          "type": "NiLookAtController",
+          "name": ""
+        },
+        "flags": 40,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 3,
+          "type": "NiNode",
+          "name": "Sky"
+        },
+        "unknown_short_2": 18,
+        "unknown_int_1": 1,
+        "unknown_float_2": 0.5,
+        "unknown_float_3": 0.019999999552965164,
+        "unknown_short": 0,
+        "pos_data": {
+          "ref": 9,
+          "type": "NiPosData",
+          "name": ""
+        },
+        "float_data": {
+          "ref": 10,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "NiLookAtController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "",
+            "type": "NiLookAtController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 6,
+          "type": "NiRollController",
+          "name": ""
+        },
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 3.4028234663852886e+38,
+        "stop_time": -3.4028234663852886e+38,
+        "target": {
+          "ref": 3,
+          "type": "NiNode",
+          "name": "Sky"
+        },
+        "unknown_1": 4,
+        "look_at_node": {
+          "ref": 8,
+          "type": "NiNode",
+          "name": "Sky.Target"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "NiRollController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "",
+            "type": "NiRollController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 12.01270866394043,
+        "target": {
+          "ref": 3,
+          "type": "NiNode",
+          "name": "Sky"
+        },
+        "data": {
+          "ref": 7,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 7,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "NiNode",
+      "name": "Sky.Target",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 8,
+            "name": "Sky.Target",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Sky.Target",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 16,
+        "translation": {
+          "type": "Vector3",
+          "x": -1.671630859375,
+          "y": -15.369726181030273,
+          "z": -0.14996424317359924
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.0041152238845825195,
+          "m_21": -0.0,
+          "m_31": -0.9999915361404419,
+          "m_12": 0.0,
+          "m_22": 1.0,
+          "m_32": -0.0,
+          "m_13": 0.9999915361404419,
+          "m_23": 0.0,
+          "m_33": -0.0041152238845825195
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 0,
+        "children": [],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 9,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 398.35772705078125,
+                "y": 40.72752380371094,
+                "z": 19.03463363647461
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -1.1387546062469482,
+                "y": -1.9121428728103638,
+                "z": 2.0117030143737793
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.3333333432674408,
+              "value": {
+                "type": "Vector3",
+                "x": 293.634765625,
+                "y": -135.1182861328125,
+                "z": 204.03627014160156
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.6666666865348816,
+              "value": {
+                "type": "Vector3",
+                "x": 52.11515808105469,
+                "y": -247.74075317382812,
+                "z": 275.4413757324219
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              }
+            },
+            {
+              "type": "Key",
+              "time": 1.0,
+              "value": {
+                "type": "Vector3",
+                "x": -213.19146728515625,
+                "y": -244.44259643554688,
+                "z": 199.83871459960938
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -2.8849375247955322,
+                "y": 0.035864055156707764,
+                "z": -0.8221011757850647
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 10,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 1,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 5.960464477539063e-08
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.08305184543132782
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.5001872777938843
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.5006994009017944
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "NiDirectionalLight",
+      "name": "",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Sky",
+            "type": "NiNode"
+          },
+          {
+            "id": 11,
+            "name": "",
+            "type": "NiDirectionalLight"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 12,
+          "type": "NiLightColorController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": 0.0,
+          "m_21": 1.0,
+          "m_31": 0.0,
+          "m_12": 0.0,
+          "m_22": 0.0,
+          "m_32": -1.0,
+          "m_13": -1.0,
+          "m_23": 0.0,
+          "m_33": 0.0
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_affected_nodes": 0,
+        "affected_nodes": [],
+        "dimmer": 1.0,
+        "ambient_color": {
+          "type": "Color3",
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0
+        },
+        "diffuse_color": {
+          "type": "Color3",
+          "r": 0.11764706671237946,
+          "g": 0.062745101749897,
+          "b": 0.24705883860588074
+        },
+        "specular_color": {
+          "type": "Color3",
+          "r": 0.11764706671237946,
+          "g": 0.062745101749897,
+          "b": 0.24705883860588074
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "NiLightColorController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 12,
+            "name": "",
+            "type": "NiLightColorController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 11,
+          "type": "NiDirectionalLight",
+          "name": ""
+        },
+        "target_color": 0,
+        "data": {
+          "ref": 13,
+          "type": "NiPosData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.11764706671237946,
+                "y": 0.062745101749897,
+                "z": 0.24705883860588074
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 5.038333415985107,
+              "value": {
+                "type": "Vector3",
+                "x": 0.4480555057525635,
+                "y": 0.4323692321777344,
+                "z": 0.5304084420204163
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.15317831933498383,
+                "z": 0.24225296080112457
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.16669481992721558,
+                "z": 0.2636294364929199
+              }
+            },
+            {
+              "type": "Key",
+              "time": 10.52125072479248,
+              "value": {
+                "type": "Vector3",
+                "x": 0.40392160415649414,
+                "y": 0.4901960492134094,
+                "z": 0.7529411911964417
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 18.032501220703125,
+              "value": {
+                "type": "Vector3",
+                "x": 0.4215361773967743,
+                "y": 0.35029855370521545,
+                "z": 0.3988298773765564
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": -0.23820394277572632,
+                "z": -0.28191110491752625
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": -0.1892469972372055,
+                "z": -0.22397121787071228
+              }
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.11764706671237946,
+                "y": 0.062745101749897,
+                "z": 0.24705883860588074
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 14,
+      "type": "NiNode",
+      "name": "Fog",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 14,
+            "name": "Fog",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Fog",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 15,
+          "type": "NiPathController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 398.35772705078125,
+          "y": 40.72752380371094,
+          "z": 19.03463363647461
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.13887399435043335,
+          "m_21": -0.046980101615190506,
+          "m_31": 0.9891950488090515,
+          "m_12": 0.9903100728988647,
+          "m_22": -0.006588153075426817,
+          "m_32": 0.1387176364660263,
+          "m_13": 0.0,
+          "m_23": 0.9988741278648376,
+          "m_33": 0.04743979126214981
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 1,
+        "children": [
+          {
+            "ref": 22,
+            "type": "NiDirectionalLight",
+            "name": ""
+          }
+        ],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 15,
+      "type": "NiPathController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 15,
+            "name": "",
+            "type": "NiPathController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 16,
+          "type": "NiLookAtController",
+          "name": ""
+        },
+        "flags": 40,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 14,
+          "type": "NiNode",
+          "name": "Fog"
+        },
+        "unknown_short_2": 18,
+        "unknown_int_1": 1,
+        "unknown_float_2": 0.5,
+        "unknown_float_3": 0.019999999552965164,
+        "unknown_short": 0,
+        "pos_data": {
+          "ref": 20,
+          "type": "NiPosData",
+          "name": ""
+        },
+        "float_data": {
+          "ref": 21,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "NiLookAtController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 16,
+            "name": "",
+            "type": "NiLookAtController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 17,
+          "type": "NiRollController",
+          "name": ""
+        },
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 3.4028234663852886e+38,
+        "stop_time": -3.4028234663852886e+38,
+        "target": {
+          "ref": 14,
+          "type": "NiNode",
+          "name": "Fog"
+        },
+        "unknown_1": 4,
+        "look_at_node": {
+          "ref": 19,
+          "type": "NiNode",
+          "name": "Fog.Target"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "type": "NiRollController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 17,
+            "name": "",
+            "type": "NiRollController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 12.01270866394043,
+        "target": {
+          "ref": 14,
+          "type": "NiNode",
+          "name": "Fog"
+        },
+        "data": {
+          "ref": 18,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 18,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 18,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 19,
+      "type": "NiNode",
+      "name": "Fog.Target",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 19,
+            "name": "Fog.Target",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Fog.Target",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 16,
+        "translation": {
+          "type": "Vector3",
+          "x": -1.671630859375,
+          "y": -15.369726181030273,
+          "z": -0.14996424317359924
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.0041152238845825195,
+          "m_21": -0.0,
+          "m_31": -0.9999915361404419,
+          "m_12": 0.0,
+          "m_22": 1.0,
+          "m_32": -0.0,
+          "m_13": 0.9999915361404419,
+          "m_23": 0.0,
+          "m_33": -0.0041152238845825195
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 0,
+        "children": [],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 20,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 20,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 398.35772705078125,
+                "y": 40.72752380371094,
+                "z": 19.03463363647461
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -1.1387546062469482,
+                "y": -1.9121428728103638,
+                "z": 2.0117030143737793
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.3333333432674408,
+              "value": {
+                "type": "Vector3",
+                "x": 293.634765625,
+                "y": -135.1182861328125,
+                "z": 204.03627014160156
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.6666666865348816,
+              "value": {
+                "type": "Vector3",
+                "x": 52.11515808105469,
+                "y": -247.74075317382812,
+                "z": 275.4413757324219
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              }
+            },
+            {
+              "type": "Key",
+              "time": 1.0,
+              "value": {
+                "type": "Vector3",
+                "x": -213.19146728515625,
+                "y": -244.44259643554688,
+                "z": 199.83871459960938
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -2.8849375247955322,
+                "y": 0.035864055156707764,
+                "z": -0.8221011757850647
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 21,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 21,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 1,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 5.960464477539063e-08
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.08305184543132782
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.5001872777938843
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.5006994009017944
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 22,
+      "type": "NiDirectionalLight",
+      "name": "",
+      "parent_nodes": [
+        14
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 14,
+            "name": "Fog",
+            "type": "NiNode"
+          },
+          {
+            "id": 22,
+            "name": "",
+            "type": "NiDirectionalLight"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 23,
+          "type": "NiLightColorController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": 0.0,
+          "m_21": 1.0,
+          "m_31": 0.0,
+          "m_12": 0.0,
+          "m_22": 0.0,
+          "m_32": -1.0,
+          "m_13": -1.0,
+          "m_23": 0.0,
+          "m_33": 0.0
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_affected_nodes": 0,
+        "affected_nodes": [],
+        "dimmer": 0.8999999761581421,
+        "ambient_color": {
+          "type": "Color3",
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0
+        },
+        "diffuse_color": {
+          "type": "Color3",
+          "r": 0.04313725233078003,
+          "g": 0.08627451211214066,
+          "b": 0.25882354378700256
+        },
+        "specular_color": {
+          "type": "Color3",
+          "r": 0.04313725233078003,
+          "g": 0.08627451211214066,
+          "b": 0.25882354378700256
+        }
+      }
+    },
+    {
+      "id": 23,
+      "type": "NiLightColorController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 23,
+            "name": "",
+            "type": "NiLightColorController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 22,
+          "type": "NiDirectionalLight",
+          "name": ""
+        },
+        "target_color": 0,
+        "data": {
+          "ref": 24,
+          "type": "NiPosData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 24,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 24,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.04313725233078003,
+                "y": 0.08627451211214066,
+                "z": 0.25882354378700256
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 5.591041564941406,
+              "value": {
+                "type": "Vector3",
+                "x": 0.6607042551040649,
+                "y": 0.5254902243614197,
+                "z": 0.4392157196998596
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.28320637345314026,
+                "z": 0.2758978307247162
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.3246367871761322,
+                "z": 0.31625908613204956
+              }
+            },
+            {
+              "type": "Key",
+              "time": 12.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.458823561668396,
+                "y": 0.6941176652908325,
+                "z": 0.8509804606437683
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 18.45541763305664,
+              "value": {
+                "type": "Vector3",
+                "x": 0.60392165184021,
+                "y": 0.5254902243614197,
+                "z": 0.4392157196998596
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": -0.32699015736579895,
+                "z": -0.3185517191886902
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": -0.2808530032634735,
+                "z": -0.27360519766807556
+              }
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.04313725233078003,
+                "y": 0.08627451211214066,
+                "z": 0.25882354378700256
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 25,
+      "type": "NiNode",
+      "name": "Scene",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 25,
+            "name": "Scene",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Scene",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 26,
+          "type": "NiPathController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 398.35772705078125,
+          "y": 40.72752380371094,
+          "z": 19.03463363647461
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.13887399435043335,
+          "m_21": -0.046980101615190506,
+          "m_31": 0.9891950488090515,
+          "m_12": 0.9903100728988647,
+          "m_22": -0.006588153075426817,
+          "m_32": 0.1387176364660263,
+          "m_13": 0.0,
+          "m_23": 0.9988741278648376,
+          "m_33": 0.04743979126214981
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 1,
+        "children": [
+          {
+            "ref": 33,
+            "type": "NiDirectionalLight",
+            "name": ""
+          }
+        ],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 26,
+      "type": "NiPathController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 26,
+            "name": "",
+            "type": "NiPathController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 27,
+          "type": "NiLookAtController",
+          "name": ""
+        },
+        "flags": 40,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 25,
+          "type": "NiNode",
+          "name": "Scene"
+        },
+        "unknown_short_2": 18,
+        "unknown_int_1": 1,
+        "unknown_float_2": 0.5,
+        "unknown_float_3": 0.019999999552965164,
+        "unknown_short": 0,
+        "pos_data": {
+          "ref": 31,
+          "type": "NiPosData",
+          "name": ""
+        },
+        "float_data": {
+          "ref": 32,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 27,
+      "type": "NiLookAtController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 27,
+            "name": "",
+            "type": "NiLookAtController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": {
+          "ref": 28,
+          "type": "NiRollController",
+          "name": ""
+        },
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 3.4028234663852886e+38,
+        "stop_time": -3.4028234663852886e+38,
+        "target": {
+          "ref": 25,
+          "type": "NiNode",
+          "name": "Scene"
+        },
+        "unknown_1": 4,
+        "look_at_node": {
+          "ref": 30,
+          "type": "NiNode",
+          "name": "Scene.Target"
+        }
+      }
+    },
+    {
+      "id": 28,
+      "type": "NiRollController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 28,
+            "name": "",
+            "type": "NiRollController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 12.01270866394043,
+        "target": {
+          "ref": 25,
+          "type": "NiNode",
+          "name": "Scene"
+        },
+        "data": {
+          "ref": 29,
+          "type": "NiFloatData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 29,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 29,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.0,
+              "forward": 0.0,
+              "backward": 0.0
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.0,
+              "forward": -0.0,
+              "backward": 0.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 30,
+      "type": "NiNode",
+      "name": "Scene.Target",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 30,
+            "name": "Scene.Target",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "Scene.Target",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": null,
+        "flags": 16,
+        "translation": {
+          "type": "Vector3",
+          "x": -1.671630859375,
+          "y": -15.369726181030273,
+          "z": -0.14996424317359924
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": -0.0041152238845825195,
+          "m_21": -0.0,
+          "m_31": -0.9999915361404419,
+          "m_12": 0.0,
+          "m_22": 1.0,
+          "m_32": -0.0,
+          "m_13": 0.9999915361404419,
+          "m_23": 0.0,
+          "m_33": -0.0041152238845825195
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_children": 0,
+        "children": [],
+        "num_effects": 0,
+        "effects": []
+      }
+    },
+    {
+      "id": 31,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 31,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 4,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 398.35772705078125,
+                "y": 40.72752380371094,
+                "z": 19.03463363647461
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -1.1387546062469482,
+                "y": -1.9121428728103638,
+                "z": 2.0117030143737793
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.3333333432674408,
+              "value": {
+                "type": "Vector3",
+                "x": 293.634765625,
+                "y": -135.1182861328125,
+                "z": 204.03627014160156
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -189.95303344726562,
+                "y": -158.2573699951172,
+                "z": 140.6680145263672
+              }
+            },
+            {
+              "type": "Key",
+              "time": 0.6666666865348816,
+              "value": {
+                "type": "Vector3",
+                "x": 52.11515808105469,
+                "y": -247.74075317382812,
+                "z": 275.4413757324219
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -278.05126953125,
+                "y": -59.976707458496094,
+                "z": -2.302812099456787
+              }
+            },
+            {
+              "type": "Key",
+              "time": 1.0,
+              "value": {
+                "type": "Vector3",
+                "x": -213.19146728515625,
+                "y": -244.44259643554688,
+                "z": 199.83871459960938
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -2.8849375247955322,
+                "y": 0.035864055156707764,
+                "z": -0.8221011757850647
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 32,
+      "type": "NiFloatData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 32,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 1,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": 5.960464477539063e-08
+            },
+            {
+              "type": "Key",
+              "time": 1.9891667366027832,
+              "value": 0.08305184543132782
+            },
+            {
+              "type": "Key",
+              "time": 12.000208854675293,
+              "value": 0.5001872777938843
+            },
+            {
+              "type": "Key",
+              "time": 12.01270866394043,
+              "value": 0.5006994009017944
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 33,
+      "type": "NiDirectionalLight",
+      "name": "",
+      "parent_nodes": [
+        25
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 25,
+            "name": "Scene",
+            "type": "NiNode"
+          },
+          {
+            "id": 33,
+            "name": "",
+            "type": "NiDirectionalLight"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 34,
+          "type": "NiLightColorController",
+          "name": ""
+        },
+        "flags": 22,
+        "translation": {
+          "type": "Vector3",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": 0.0,
+          "m_21": 1.0,
+          "m_31": 0.0,
+          "m_12": 0.0,
+          "m_22": 0.0,
+          "m_32": -1.0,
+          "m_13": -1.0,
+          "m_23": 0.0,
+          "m_33": 0.0
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_affected_nodes": 0,
+        "affected_nodes": [],
+        "dimmer": 1.7855976819992065,
+        "ambient_color": {
+          "type": "Color3",
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0
+        },
+        "diffuse_color": {
+          "type": "Color3",
+          "r": 0.04313725605607033,
+          "g": 0.08627451211214066,
+          "b": 0.12156863510608673
+        },
+        "specular_color": {
+          "type": "Color3",
+          "r": 0.04313725605607033,
+          "g": 0.08627451211214066,
+          "b": 0.12156863510608673
+        }
+      }
+    },
+    {
+      "id": 34,
+      "type": "NiLightColorController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 34,
+            "name": "",
+            "type": "NiLightColorController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 33,
+          "type": "NiDirectionalLight",
+          "name": ""
+        },
+        "target_color": 0,
+        "data": {
+          "ref": 35,
+          "type": "NiPosData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 35,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 35,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 7,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.04313725605607033,
+                "y": 0.08627451211214066,
+                "z": 0.12156863510608673
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 6.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.5777521133422852,
+                "y": 0.45485061407089233,
+                "z": 0.3330073058605194
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.5717647671699524,
+                "y": 0.5090345144271851,
+                "z": 0.4330294728279114
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.38117650151252747,
+                "y": 0.33935633301734924,
+                "z": 0.2886863052845001
+              }
+            },
+            {
+              "type": "Key",
+              "time": 10.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.9960784912109375,
+                "y": 0.934665322303772,
+                "z": 0.8432844281196594
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.02036147192120552,
+                "y": 0.36343294382095337,
+                "z": 0.4446617662906647
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.01018073596060276,
+                "y": 0.18171647191047668,
+                "z": 0.22233088314533234
+              }
+            },
+            {
+              "type": "Key",
+              "time": 12.0,
+              "value": {
+                "type": "Vector3",
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 14.545000076293945,
+              "value": {
+                "type": "Vector3",
+                "x": 0.9748970866203308,
+                "y": 0.8307228684425354,
+                "z": 0.8240929841995239
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.04902886226773262,
+                "y": -0.18297384679317474,
+                "z": -0.4241666793823242
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -0.0665598064661026,
+                "y": -0.24839867651462555,
+                "z": -0.5758333206176758
+              }
+            },
+            {
+              "type": "Key",
+              "time": 18.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.8844113349914551,
+                "y": 0.5686274766921997,
+                "z": 0.0
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.3223079741001129,
+                "y": -0.367662250995636,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": -0.5597244501113892,
+                "y": -0.6384872794151306,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.04313725605607033,
+                "y": 0.08627451211214066,
+                "z": 0.12156863510608673
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 36,
+      "type": "NiAmbientLight",
+      "name": "",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 36,
+            "name": "",
+            "type": "NiAmbientLight"
+          }
+        ]
+      ],
+      "fields": {
+        "name": "",
+        "num_extra_data_list": 0,
+        "extra_data_list": [],
+        "controller": {
+          "ref": 37,
+          "type": "NiLightColorController",
+          "name": ""
+        },
+        "flags": 18,
+        "translation": {
+          "type": "Vector3",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "type": "Matrix33",
+          "m_11": 1.0,
+          "m_21": 0.0,
+          "m_31": 0.0,
+          "m_12": 0.0,
+          "m_22": 1.0,
+          "m_32": 0.0,
+          "m_13": 0.0,
+          "m_23": 0.0,
+          "m_33": 1.0
+        },
+        "scale": 1.0,
+        "num_properties": 0,
+        "properties": [],
+        "collision_object": null,
+        "num_affected_nodes": 0,
+        "affected_nodes": [],
+        "dimmer": 1.0,
+        "ambient_color": {
+          "type": "Color3",
+          "r": 0.1725490242242813,
+          "g": 0.1725490242242813,
+          "b": 0.29019609093666077
+        },
+        "diffuse_color": {
+          "type": "Color3",
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0
+        },
+        "specular_color": {
+          "type": "Color3",
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0
+        }
+      }
+    },
+    {
+      "id": 37,
+      "type": "NiLightColorController",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 37,
+            "name": "",
+            "type": "NiLightColorController"
+          }
+        ]
+      ],
+      "fields": {
+        "next_controller": null,
+        "flags": 44,
+        "frequency": 1.0,
+        "phase": 0.0,
+        "start_time": 0.0,
+        "stop_time": 24.0,
+        "target": {
+          "ref": 36,
+          "type": "NiAmbientLight",
+          "name": ""
+        },
+        "target_color": 1,
+        "data": {
+          "ref": 38,
+          "type": "NiPosData",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": 38,
+      "type": "NiPosData",
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 38,
+            "name": "",
+            "type": "NiPosData"
+          }
+        ]
+      ],
+      "fields": {
+        "data": {
+          "type": "KeyGroup",
+          "num_keys": 5,
+          "interpolation": 2,
+          "keys": [
+            {
+              "type": "Key",
+              "time": 0.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.1725490242242813,
+                "y": 0.1725490242242813,
+                "z": 0.29019609093666077
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 2.8308334350585938,
+              "value": {
+                "type": "Vector3",
+                "x": 0.26274511218070984,
+                "y": 0.26274511218070984,
+                "z": 0.4705882668495178
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.184439018368721,
+                "y": 0.16599512100219727,
+                "z": 0.22132684290409088
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.2077178806066513,
+                "y": 0.1869461089372635,
+                "z": 0.24926148355007172
+              }
+            },
+            {
+              "type": "Key",
+              "time": 6.018958568572998,
+              "value": {
+                "type": "Vector3",
+                "x": 0.5647059082984924,
+                "y": 0.5254902243614197,
+                "z": 0.760784387588501
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 18.031875610351562,
+              "value": {
+                "type": "Vector3",
+                "x": 0.5647059082984924,
+                "y": 0.5254902243614197,
+                "z": 0.760784387588501
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "type": "Key",
+              "time": 24.0,
+              "value": {
+                "type": "Vector3",
+                "x": 0.1725490242242813,
+                "y": 0.1725490242242813,
+                "z": 0.29019609093666077
+              },
+              "forward": {
+                "type": "Vector3",
+                "x": -0.0,
+                "y": -0.0,
+                "z": -0.0
+              },
+              "backward": {
+                "type": "Vector3",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

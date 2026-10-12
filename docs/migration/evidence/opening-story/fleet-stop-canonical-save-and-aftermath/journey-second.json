@@ -1,0 +1,168 @@
+{
+	"mode": "headless native gameplay; no GPU, visual or performance claim",
+	"terrain": "same formal game terrain",
+	"journeyPath": "res://docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/journey-first.json",
+	"journeySha256": "92594ef187ed23be996473a2351b98198a237a738eeca8f30e2667105eaa80ff",
+	"arguments": [
+		"--journey=res://docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/journey-first.json",
+		"--output=res://docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/journey-second.json"
+	],
+	"maximumAcceptedSeconds": 2400.0,
+	"stepSeconds": 0.2,
+	"sourceHashes": {
+		"game/domain/mingqi/opening_story.gd": "4135a4a47a107ac4ba097ed19213a25e6f85ee0097f23bc940971df92f57aafa",
+		"game/domain/mingqi/second_voyage_aftermath.gd": "ed878a22ced050aa11a22c4a874e31a9eb29f3d22812408e1e21304486a26beb",
+		"game/domain/mingqi/campaign.gd": "fe5c7b04a52096f022fc893d2d1f8518535c32fd21b99909c454ee877342b5f3",
+		"game/domain/mingqi/catalog.gd": "785d499ab148c010f4ae6d3203603411e6ff064b6ab87d20dfadeb841b1393de",
+		"game/domain/persistence/save_codec.gd": "842aba8c5af25a182bf4da823a6b6784f3d6486e20b0fa793785784106114f52",
+		"game/runtime/mingqi_runtime.gd": "2824661d6a63af6580874eeb89037ddc2434791605b26831a705c129dfef4dea",
+		"game/runtime/near_field_bridge.gd": "19cea28a36f55766126f066a5941f21477688a96f35e1815709629dcbabfbb9f",
+		"game/runtime/native_readiness.gd": "af304b2851171d104f2ad61ecbd1ea425b21c4acf3cba72bf8e7299fd5346938",
+		"modules/contracts/navigation_contract.gd": "d7eb3ca4a32f25dbe68ff4a40ec8a403ccbc1b8e2bc2e72d285cbef0804ac548",
+		"modules/naval_simulation/encounter.gd": "62e0aa00ef732b59571e1782db83b4cc9531df7a3ecf6d1c5daf7acd2cf1a2c0",
+		"modules/naval_simulation/navigation/approach_clearance.gd": "6a303f0ff243d446a4200fa06215959991ac1584250f03928764d905eac25df3",
+		"modules/naval_simulation/navigation/wet_route_egress.gd": "9b63a8ec7cb2dfa115c8f0d411f6e65e1010f53d3a909e72f9f2b7b93b9ee586",
+		"modules/naval_simulation/combat/cannon_system.gd": "444d341190c6ae401579670af62e14a5125d145a351ffe3cafa743170017c928",
+		"modules/naval_simulation/tactics/order_controller.gd": "36a3c5913fd33294bb0c8a9ed1df4ba4d9568520dd807222eb04f6bee764b3fd",
+		"game/runtime/sailing_simulation.gd": "0d198629a6d908dbaaac5294d8c86c45f3934b407193a7cf8a038c387abc007d",
+		"modules/scene_engine/terrain/height_field.gd": "e56eca684547c4d7a075f0bf19fdc1de960c2094803c8247539917fa8ac2c366",
+		"game/scenes/common/reference_geography.gd": "3c9ab9f07af12857b7423176d7525fcc2133924319130692175ffc2b2c348eed",
+		"game/data/mingqi_geography.json": "149c0b04d61d26c8b5898e6c502f7abbbb92bd26df9cc811913f7c4a037e1a9d",
+		"tools/qa-journey-paths.gd": "e7ba67b3f07bf3cfedb84338e7a2a9eca617ff8d51507e761dd2360f353f4421",
+		"tools/play-opening-story-journey.gd": "9ded1cfc534b51448fa7ebad155d3fdd106df8b64559a09951dafec85d2f6168",
+		"tools/play-continued-voyage.gd": "5652ee35e16e322e5b75287a542e2fa4fdeb9134837c920ec95098836d537189",
+		"tools/qa-journey-checkpoint.gd": "1045a527a7882effbe2499cd82546c91e11b302b2b1c3a749adc276190882b47"
+	},
+	"confirmedCheckpointJson": "",
+	"actualSafeReturn": false,
+	"upstreamQaContext": [
+		{
+			"path": "tools/play-continued-voyage.gd",
+			"role": "unexecuted QA reference in first journey source inventory",
+			"recordedFirstHash": "5652ee35e16e322e5b75287a542e2fa4fdeb9134837c920ec95098836d537189",
+			"currentHash": "5652ee35e16e322e5b75287a542e2fa4fdeb9134837c920ec95098836d537189",
+			"drift": false,
+			"executedByFirstJourney": false
+		}
+	],
+	"wallClockSeconds": 0.072587,
+	"assertions": 28,
+	"failures": 1,
+	"checks": [
+		{
+			"ok": true,
+			"detail": "input journey is JSON object"
+		},
+		{
+			"ok": true,
+			"detail": "successful actual formal first safe return"
+		},
+		{
+			"ok": true,
+			"detail": "fresh first voyage records approach clearance source"
+		},
+		{
+			"ok": true,
+			"detail": "fresh first voyage records wet route egress source"
+		},
+		{
+			"ok": true,
+			"detail": "fresh first voyage records aftermath domain source"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/domain/mingqi/opening_story.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/domain/mingqi/second_voyage_aftermath.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/domain/mingqi/campaign.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/domain/mingqi/catalog.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/domain/persistence/save_codec.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/runtime/mingqi_runtime.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/runtime/near_field_bridge.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/runtime/native_readiness.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/contracts/navigation_contract.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/naval_simulation/encounter.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/naval_simulation/navigation/approach_clearance.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/naval_simulation/navigation/wet_route_egress.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/naval_simulation/combat/cannon_system.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/naval_simulation/tactics/order_controller.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/runtime/sailing_simulation.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: modules/scene_engine/terrain/height_field.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/scenes/common/reference_geography.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: game/data/mingqi_geography.json"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: tools/qa-journey-paths.gd"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: tools/play-opening-story-journey.gd"
+		},
+		{
+			"ok": true,
+			"detail": "executing continued driver self source recorded as upstream QA context"
+		},
+		{
+			"ok": true,
+			"detail": "frozen first journey source: tools/qa-journey-checkpoint.gd"
+		},
+		{
+			"ok": false,
+			"detail": "normal full-precision confirmed checkpoint equals actual first final campaign"
+		}
+	],
+	"commands": [],
+	"stages": [],
+	"final": {}
+}

@@ -1,0 +1,70 @@
+--- a/game/ui/mingqi/mingqi_interface.gd
++++ b/game/ui/mingqi/mingqi_interface.gd
+@@ -622,14 +622,16 @@
+ 
+ func _contract_timing(contract: Dictionary) -> String:
+ 	match str(contract.get("status", "")):
+-		"offered": return "接单后开始计时"
+-		"active":
+-			var remaining := float(contract.get("deadlineAt", 0)) - float(_state().get("simulationSeconds", 0))
+-			return "期限剩余 %.0f秒" % ceil(remaining) if remaining >= 0 else "已逾期 %.0f秒" % ceil(-remaining)
++		"offered": return "接单前也计时 · " + _deadline_timing(contract) if float(contract.get("deadlineAt", 0)) > 0 else "接单后开始计时"
++		"active": return _deadline_timing(contract)
+ 		"delivered": return "交付已记录，待核对报酬"
+ 		"failed": return "失败结果已记录"
+ 		"settled": return "实际报酬已结算"
+ 	return "等待委托核验"
++
++func _deadline_timing(contract: Dictionary) -> String:
++	var remaining := float(contract.get("deadlineAt", 0)) - float(_state().get("simulationSeconds", 0))
++	return "期限剩余 %.0f秒" % ceil(remaining) if remaining >= 0 else "已逾期 %.0f秒" % ceil(-remaining)
+ 
+ func _voyage_detail(voyage: Dictionary) -> String:
+ 	match str(voyage.get("status", "")):
+--- a/tests/test_voyage_ui_clarity.gd
++++ b/tests/test_voyage_ui_clarity.gd
+@@ -2,6 +2,8 @@
+ ## Actual Control labels consume snapshots; fixed deadlines must count down as clock advances.
+ var assertions := 0
+ var failures := 0
++const Campaign = preload("res://game/domain/mingqi/campaign.gd")
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
+ 
+ func check(value: bool, message: String) -> void:
+ 	assertions += 1
+@@ -12,7 +14,35 @@
+ func _initialize() -> void:
+ 	_run.call_deferred()
+ 
++func _delayed_acceptance(seconds: float, timing: String) -> void:
++	var campaign := Campaign.new()
++	check(campaign.advance(seconds).ok, "real campaign advances before acceptance at " + str(seconds))
++	var runtime := Runtime.new()
++	check(runtime.configure(func(_x: float, _z: float) -> float: return -24.0, campaign).ok, "delayed campaign configures real runtime")
++	var ui = load("res://game/ui/mingqi/mingqi_interface.gd").new()
++	root.add_child(ui)
++	await process_frame
++	var results: Array = []
++	ui.command_requested.connect(func(intent: Dictionary):
++		results.append(runtime.command(intent))
++		ui.apply_snapshot(runtime.snapshot()))
++	ui.apply_snapshot(runtime.snapshot())
++	ui.open_panel("convoy")
++	var label: String = ui.find_child("contract_convoy-001", true, false).text
++	check(label.contains("接单前也计时") and label.contains(timing), "first offered deadline remains visible before delayed acceptance at " + str(seconds))
++	var accept = ui.find_child("contract_accept_convoy-001", true, false)
++	check(not accept.disabled, "existing delayed acceptance remains available")
++	accept.pressed.emit()
++	check(results.size() == 1 and results[0].ok, "actual UI to runtime delayed acceptance succeeds")
++	check(runtime.snapshot().campaign.contracts["convoy-001"].deadlineAt == 1800, "delayed acceptance preserves actual first deadline")
++	check(ui.find_child("contract_convoy-001", true, false).text.contains(timing), "accepted first contract preserves same remaining or overdue timing")
++	ui.free()
++	runtime.dispose()
++	await process_frame
++
+ func _run() -> void:
++	await _delayed_acceptance(1000, "剩余 800秒")
++	await _delayed_acceptance(1900, "逾期 100秒")
+ 	var ui = load("res://game/ui/mingqi/mingqi_interface.gd").new()
+ 	root.add_child(ui)
+ 	await process_frame

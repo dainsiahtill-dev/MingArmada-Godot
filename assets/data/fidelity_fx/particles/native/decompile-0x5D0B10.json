@@ -1,0 +1,14 @@
+{
+  "address": "0x5D0B10",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; execution fixtures separately scoped",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5D0B10(int this, int a2, int a3, int a4, int a5, int a6, int a7, int a8)\n{\n  int v9; // edi\n\n  (*(void (__thiscall **)(_DWORD, int))(**(_DWORD **)(this + 24) + 4))(*(_DWORD *)(this + 24), a5);\n  sub_5CD770(a6, *(_DWORD *)(a5 + 40), *(_DWORD *)(a5 + 44));\n  v9 = sub_5D7E70(a2, a3, a4, a5, a6, a7, a8);\n  *(_DWORD *)(this + 268) = (*(int (__thiscall **)(_DWORD, int))(**(_DWORD **)(this + 24) + 116))(\n                              *(_DWORD *)(this + 24),\n                              137);\n  return v9;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

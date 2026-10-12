@@ -1,0 +1,34 @@
+{
+  "personallyViewed": [
+    "actual-casualties-1280.png",
+    "actual-casualties-1600.png",
+    "first-return-consequence-1280.png",
+    "first-return-consequence-1600.png",
+    "next-commission-accepted-1280.png",
+    "next-commission-accepted-1600.png",
+    "next-commission-offered-1280.png",
+    "next-commission-offered-1600.png",
+    "save-readback-1280.png",
+    "steward-consequence-1280.png",
+    "steward-consequence-1600.png",
+    "transport-route-mingqi-1650-grain-a-1280.png",
+    "transport-route-mingqi-1650-grain-a-1600.png",
+    "transport-route-mingqi-1650-grain-b-1280.png",
+    "transport-route-mingqi-1650-grain-b-1600.png",
+    "xiamen-repayment-hint-1280.png",
+    "xiamen-repayment-hint-1600.png"
+  ],
+  "observedBy": "root tools.view_image, all 17 complete current native return PNGs",
+  "exitCode": 0,
+  "consoleCompletion": "OPENING_RETURN_CAPTURE_COMPLETE captures=17 assertions=831 failures=0 preflightOnly=false",
+  "fileAssertions": 829,
+  "fileFailures": 0,
+  "countDifference": "Two final write/readback checks occur after result serialization.",
+  "observations": [
+    "1600/1280 journal, wrong-port paragraph and next commission remain readable.",
+    "Active second commission shows1200 remaining; both transports carry actual10 grain each and1.40m draft.",
+    "Final save-readback screenshot retains first settled,second active,915 silver,400 debt.",
+    "Actual normal raw save/disk hash and Continue reported successful; no extra lease or revived enemy."
+  ],
+  "scope": "Current-source MainScene UI, actual mouse transactions, normal UI save/read/Continue. No final second delivery claim from these loading captures."
+}

@@ -11,6 +11,10 @@ func _initialize():
 	var c=Campaign.new()
 	check(c.restore(json),"source web save restore")
 	var expected=JSON.parse_string(json).state
+	check(FileAccess.get_sha256("res://tests/fixtures/web-save-v2.json")=="ef7b64268d13c1ed92a1f6cabb3ad2418ad3ca1e34e6a18faa800dc26904c147","independent numeric oracle binds unchanged web fixture")
+	# Raw -93.58935220948257 has independently verified Python binary64 bits.
+	# Godot's native JSON parser rounds this fixture leaf one ULP toward zero.
+	expected.vessels["fixture-1650-grain-a"].pose.position.z="646354f2b76557c0".hex_decode().decode_double(0)
 	check(c.snapshot()==expected,"source save state exact")
 	var encoded=c.serialize()
 	check(not encoded.is_empty(),"native full state serialize")

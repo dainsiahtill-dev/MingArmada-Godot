@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "preparedAtUtc": "2026-10-12T02:38:18.438109+00:00",
+  "sourceFrozenAtUtc": "2026-10-12T01:56:38.496170+00:00",
+  "qaFrozenAtUtc": "2026-10-12T02:38:18.438109+00:00",
+  "artifacts": {
+    "source-freeze.json": {
+      "source": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/source-freeze.json",
+      "selected": "docs/migration/evidence/opening-story/fleet-stop-native-record-and-aftermath/source-freeze.json",
+      "sha256": "ff1bb6be3ce3cdd09156c9007f68679bbc7bb730a697b5cde8bba76b31f48312",
+      "role": "unchanged-production-source-freeze-original-timestamp"
+    },
+    "all-tests-verified.json": {
+      "source": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/all-tests-verified.json",
+      "selected": "docs/migration/evidence/opening-story/fleet-stop-native-record-and-aftermath/all-tests-verified.json",
+      "sha256": "a1ef439174636cdf60037beb4c434dd90d9337c99a615e1134aef8d4870a7d06",
+      "role": "actual114-script-production-suite-on-unchanged-source"
+    },
+    "all-tests-run-result.json": {
+      "source": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/all-tests-run-result.json",
+      "selected": "docs/migration/evidence/opening-story/fleet-stop-native-record-and-aftermath/all-tests-run-result.json",
+      "sha256": "49752cae806e44cfd2cd392ff866f0ddef0c4e4fe15db8bfd5472c968c4c3ae9",
+      "role": "actual-root-observed-suite-process-witness"
+    },
+    "journey-first.json": {
+      "source": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/journey-first.json",
+      "selected": "docs/migration/evidence/opening-story/fleet-stop-native-record-and-aftermath/journey-first.json",
+      "sha256": "92594ef187ed23be996473a2351b98198a237a738eeca8f30e2667105eaa80ff",
+      "role": "actual-first-journey-with-unchanged-executed-source"
+    },
+    "journey-first-run-result.json": {
+      "source": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/journey-first-run-result.json",
+      "selected": "docs/migration/evidence/opening-story/fleet-stop-native-record-and-aftermath/journey-first-run-result.json",
+      "sha256": "d8d9febd87a34a6cbe5b148ce1dbbed7a9991a0d72b67621fb3df0e1b27a929f",
+      "role": "actual-root-observed-first-process-session59515"
+    }
+  },
+  "previousFrozenReferences": {
+    "source": {
+      "path": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/source-freeze.json",
+      "sha256": "ff1bb6be3ce3cdd09156c9007f68679bbc7bb730a697b5cde8bba76b31f48312"
+    },
+    "qa": {
+      "path": "docs/migration/evidence/opening-story/fleet-stop-canonical-save-and-aftermath/qa-source-freeze-final.json",
+      "sha256": "b4f00fdc8c77e7cf8efc91fbd8c9d527427a83ffb9a90651fdadabdbbebcb409"
+    }
+  },
+  "qaChangedFiles": [
+    "tools/capture-opening-return.gd",
+    "tools/play-continued-voyage.gd",
+    "tools/play-second-voyage-aftermath.gd"
+  ],
+  "productionChangedFiles": [],
+  "firstUnexecutedQaReference": "tools/play-continued-voyage.gd",
+  "scope": "Verbatim successful product/suite/first inheritance, with actual session witnesses; no fabricated rerun/backdated freeze. Failed continuation is diagnostic only. Fresh continuation and45 current QA/GPU PNGs still required."
+}

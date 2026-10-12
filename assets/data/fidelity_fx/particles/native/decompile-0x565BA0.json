@@ -1,0 +1,14 @@
+{
+  "address": "0x565BA0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "char __thiscall sub_565BA0(float *this, float a2)\n{\n  double v3; // st7\n\n  if ( (*(_BYTE *)(this + 3) & 8) == 0 || *(this + 9) == a2 && !*((_BYTE *)this + 64) )\n    return 1;\n  if ( *((_BYTE *)this + 48) )\n  {\n    v3 = ((double (__thiscall *)(float *, _DWORD))*(_DWORD *)(*(_DWORD *)this + 76))(this, LODWORD(a2));\n    if ( *(this + 11) == v3 && !*((_BYTE *)this + 64) )\n      return 1;\n    *(this + 11) = v3;\n  }\n  *((_BYTE *)this + 64) = 0;\n  return 0;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

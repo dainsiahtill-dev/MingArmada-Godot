@@ -1,0 +1,14 @@
+{
+  "address": "0x4D98C0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "float *__thiscall sub_4D98C0(int this)\n{\n  float *result; // eax\n  float *v3; // esi\n  float *v4; // eax\n  double v5; // st7\n  double v6; // st6\n  float v7; // ecx\n  double v8; // st7\n  int v9; // ecx\n  float v10; // [esp+8h] [ebp-18h] BYREF\n  float v11; // [esp+Ch] [ebp-14h]\n  float v12; // [esp+10h] [ebp-10h]\n  float v13; // [esp+18h] [ebp-8h]\n  float v14; // [esp+1Ch] [ebp-4h]\n\n  result = *(float **)(this + 36);\n  if ( result )\n  {\n    v3 = result + 27;\n    *(float *)(this + 156) = *(float *)(this + 104) * result[39];\n    v4 = sub_53A000(result + 27, &v10, (float *)(this + 92));\n    v5 = v3[12];\n    v6 = v5 * *v4;\n    v13 = v5 * v4[1];\n    v14 = v5 * v4[2];\n    v10 = v6 + v3[9];\n    v11 = v13 + v3[10];\n    v7 = v11;\n    v8 = v14 + v3[11];\n    *(float *)(this + 144) = v10;\n    *(float *)(this + 148) = v7;\n    v12 = v8;\n    *(float *)(this + 152) = v12;\n    result = sub_4D97E0((float *)(this + 56), (float *)(this + 108), v3);\n  }\n  else\n  {\n    qmemcpy((void *)(this + 108), (const void *)(this + 56), 0x34u);\n  }\n  v9 = *(_DWORD *)(this + 176);\n  if ( v9 )\n    return (float *)(*(int (__thiscall **)(int))(*(_DWORD *)v9 + 56))(v9);\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

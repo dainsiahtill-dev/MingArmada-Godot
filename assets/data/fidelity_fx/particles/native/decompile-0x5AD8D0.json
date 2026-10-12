@@ -1,0 +1,14 @@
+{
+  "address": "0x5AD8D0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5AD8D0(_DWORD *this, _DWORD *a2, _DWORD *a3)\n{\n  _DWORD *v3; // eax\n\n  v3 = (_DWORD *)*(this + 19);\n  if ( v3 )\n  {\n    *a2 = v3[3];\n    *a3 = v3[5];\n    return v3[4];\n  }\n  else\n  {\n    *a2 = 0;\n    *a3 = 0;\n    return 0;\n  }\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

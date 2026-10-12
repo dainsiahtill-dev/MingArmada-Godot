@@ -1,0 +1,14 @@
+{
+  "address": "0x555100",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_555100(float *this, float *a2)\n{\n  const void *v3; // eax\n  double v4; // st7\n  float *v5; // eax\n  double v6; // st6\n  double v7; // st7\n  float v9; // [esp+10h] [ebp-48h]\n  float v10; // [esp+14h] [ebp-44h]\n  float v11; // [esp+18h] [ebp-40h]\n  float v12[3]; // [esp+1Ch] [ebp-3Ch] BYREF\n  float v13[3]; // [esp+28h] [ebp-30h] BYREF\n  _BYTE v14[36]; // [esp+34h] [ebp-24h] BYREF\n\n  v3 = (const void *)sub_53A1C0(v14);\n  v4 = flt_6BE62C;\n  qmemcpy(a2, v3, 0x24u);\n  a2[12] = v4 / *(this + 12);\n  v12[0] = -*(this + 9);\n  v12[1] = -*(this + 10);\n  v12[2] = -*(this + 11);\n  v5 = sub_53A000(a2, v13, v12);\n  v6 = a2[12];\n  v9 = v6 * *v5;\n  v10 = v6 * v5[1];\n  v7 = v6 * v5[2];\n  a2[9] = v9;\n  a2[10] = v10;\n  v11 = v7;\n  a2[11] = v11;\n  return LODWORD(v9);\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

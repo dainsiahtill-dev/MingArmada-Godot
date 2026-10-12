@@ -60,6 +60,7 @@ func _ready() -> void:
 	if not minimap.configure(geography,heights.sample_height,{"bounds":Rect2(-850,-350,1550,1000)}): _reject_startup("minimap-startup-failed"); return
 	minimap.chart_requested.connect(func(): interface.open_panel("convoy"); _present(0.0))
 	_present(0)
+	if initial_save.is_empty(): interface.open_panel("story")
 	if not initial_save.is_empty(): interface.open_menu()
 	startup_receipt = {"ok":true}
 	if not startup_options.get("staged",false): activate_entry()

@@ -1,0 +1,3763 @@
+{
+  "block_count": 78,
+  "block_types": {
+    "NiAlphaController": 8,
+    "NiAlphaProperty": 8,
+    "NiFloatData": 3,
+    "NiMaterialProperty": 8,
+    "NiNode": 1,
+    "NiSourceTexture": 1,
+    "NiTextureTransformController": 16,
+    "NiTexturingProperty": 8,
+    "NiTriShape": 8,
+    "NiTriShapeData": 8,
+    "NiVertexColorProperty": 8,
+    "NiZBufferProperty": 1
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Surf",
+            "ref": 1,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 15,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 24,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 33,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 42,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 51,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 60,
+            "type": "NiTriShape"
+          },
+          {
+            "name": "Surf",
+            "ref": 69,
+            "type": "NiTriShape"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 26,
+        "name": "",
+        "num_children": 8,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 14,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 11,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 10,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 3,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 1,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 1,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 1,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 4,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 3,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 3,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 5,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 3,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 4,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 4,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 3,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 5,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 2,
+          "keys": [
+            {
+              "backward": 0,
+              "forward": -0.0,
+              "time": 0,
+              "type": "Key",
+              "value": 0.2886075973510742
+            },
+            {
+              "backward": 0.8274872303009033,
+              "forward": 0.5839053392410278,
+              "time": 9.733333587646484,
+              "type": "Key",
+              "value": 0.872512936592102
+            },
+            {
+              "backward": 0.2064138799905777,
+              "forward": 0.8274872303009033,
+              "time": 22.433334350585938,
+              "type": "Key",
+              "value": 1.7000000476837158
+            },
+            {
+              "backward": -0.11337794363498688,
+              "forward": -0.08927392959594727,
+              "time": 25.766666412353516,
+              "type": "Key",
+              "value": 1.8200000524520874
+            },
+            {
+              "backward": 0,
+              "forward": -0.0,
+              "time": 30,
+              "type": "Key",
+              "value": 1.72327721118927
+            }
+          ],
+          "num_keys": 5,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 6,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 2,
+          "keys": [
+            {
+              "backward": -1.75,
+              "forward": 0,
+              "time": 0,
+              "type": "Key",
+              "value": 3
+            },
+            {
+              "backward": -0.1000000387430191,
+              "forward": -1.75,
+              "time": 7.400000095367432,
+              "type": "Key",
+              "value": 1.25
+            },
+            {
+              "backward": -0.049999967217445374,
+              "forward": -0.1000000387430191,
+              "time": 12.40000057220459,
+              "type": "Key",
+              "value": 1.149999976158142
+            },
+            {
+              "backward": -0.10000000149011612,
+              "forward": -0.049999967217445374,
+              "time": 15.633334159851074,
+              "type": "Key",
+              "value": 1.100000023841858
+            },
+            {
+              "backward": -0.2200000286102295,
+              "forward": -0.10000000149011612,
+              "time": 23.33333396911621,
+              "type": "Key",
+              "value": 1
+            },
+            {
+              "backward": 0.0700000524520874,
+              "forward": -0.2200000286102295,
+              "time": 25.33333396911621,
+              "type": "Key",
+              "value": 0.7799999713897705
+            },
+            {
+              "backward": 0,
+              "forward": 0.0700000524520874,
+              "time": 29.96666717529297,
+              "type": "Key",
+              "value": 0.8500000238418579
+            }
+          ],
+          "num_keys": 7,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 7,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 7,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "surf_bart3.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "unknown_link": null,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 8,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 8,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 9,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 10,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 10,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 12,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 11,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 11,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 0,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 11,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 12,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 12,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "fields": {
+        "data": {
+          "interpolation": 2,
+          "keys": [
+            {
+              "backward": 0,
+              "forward": -0.0,
+              "time": 0,
+              "type": "Key",
+              "value": 0
+            },
+            {
+              "backward": 0.0005061483243480325,
+              "forward": 0.0001166653964901343,
+              "time": 2.1666667461395264,
+              "type": "Key",
+              "value": 0.00005768308255937882
+            },
+            {
+              "backward": 0,
+              "forward": 1.8123722076416016,
+              "time": 11.566666603088379,
+              "type": "Key",
+              "value": 1
+            },
+            {
+              "backward": -1,
+              "forward": -0.0,
+              "time": 25.866666793823242,
+              "type": "Key",
+              "value": 1
+            },
+            {
+              "backward": 0,
+              "forward": -0.0,
+              "time": 29.96666717529297,
+              "type": "Key",
+              "value": 0
+            }
+          ],
+          "num_keys": 5,
+          "type": "KeyGroup"
+        }
+      },
+      "id": 13,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "",
+            "type": "NiFloatData"
+          }
+        ]
+      ],
+      "type": "NiFloatData"
+    },
+    {
+      "effective_triangle_count": 26,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 7413.55029296875,
+          "y": -3102.574462890625,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 52,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 78,
+        "num_triangles": 26,
+        "num_uv_sets": 2,
+        "num_vertices": 52,
+        "radius": 5805.63623046875,
+        "triangles": {
+          "count": 26,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 52,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 14,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 14,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          12475.505859375,
+          -83.27235412597656,
+          0
+        ],
+        "min": [
+          2351.5947265625,
+          -6121.87646484375,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 23,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 21,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 20,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 19,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 16,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 15,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 15,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 17,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 16,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 16,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 18,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 2.0999999046325684,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 16,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 17,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 17,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 2.0999999046325684,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 16,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 18,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 18,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 19,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 19,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 20,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 20,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 22,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 21,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 21,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 2.0999999046325684,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 21,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 22,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 22,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 32,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 9830.7275390625,
+          "y": -2103.134521484375,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 64,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 96,
+        "num_triangles": 32,
+        "num_uv_sets": 2,
+        "num_vertices": 64,
+        "radius": 2934.192138671875,
+        "triangles": {
+          "count": 32,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 64,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 23,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 23,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          12399.876953125,
+          -114.54946899414062,
+          0
+        ],
+        "min": [
+          7261.578125,
+          -4091.7197265625,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 32,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 30,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 29,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 28,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 25,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 24,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 24,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 26,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 25,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 25,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 27,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 4.349999904632568,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 25,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 26,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 26,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 4.349999904632568,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 25,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 27,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 27,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 28,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 28,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 29,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 29,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 31,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 30,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 30,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 4.349999904632568,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 30,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 31,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 31,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 24,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 9460.8037109375,
+          "y": -3388.0205078125,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 48,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 72,
+        "num_triangles": 24,
+        "num_uv_sets": 2,
+        "num_vertices": 48,
+        "radius": 4735.39599609375,
+        "triangles": {
+          "count": 24,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 48,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 32,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 32,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          13678.5712890625,
+          -654.93603515625,
+          0
+        ],
+        "min": [
+          5243.03564453125,
+          -6121.10498046875,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 41,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 39,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 38,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 37,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 34,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 33,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 33,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 35,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 34,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 34,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 36,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 6.599999904632568,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 34,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 35,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 35,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 6.599999904632568,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 34,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 36,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 36,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 37,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 37,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 38,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 38,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 40,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 39,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 39,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 6.599999904632568,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 39,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 40,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 40,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 8,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 3849.73388671875,
+          "y": -3955.622314453125,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 16,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 24,
+        "num_triangles": 8,
+        "num_uv_sets": 2,
+        "num_vertices": 16,
+        "radius": 3109.765380859375,
+        "triangles": {
+          "count": 8,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 16,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 41,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 41,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          6261.7109375,
+          -1992.7144775390625,
+          0
+        ],
+        "min": [
+          1437.757080078125,
+          -5918.5302734375,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 50,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 48,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 47,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 46,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 43,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 42,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 42,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 44,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 43,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 43,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 45,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 15,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 43,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 44,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 44,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 15,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 43,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 45,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 45,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 46,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 46,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 47,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 47,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 49,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 48,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 48,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 15,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 48,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 49,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 49,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 26,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 7413.55029296875,
+          "y": -3102.574462890625,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 52,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 78,
+        "num_triangles": 26,
+        "num_uv_sets": 2,
+        "num_vertices": 52,
+        "radius": 5805.63623046875,
+        "triangles": {
+          "count": 26,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 52,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 50,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 50,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          12475.505859375,
+          -83.27235412597656,
+          0
+        ],
+        "min": [
+          2351.5947265625,
+          -6121.87646484375,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 59,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 57,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 56,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 55,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 52,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 51,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 51,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 53,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 52,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 52,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 54,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 17.25,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 52,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 53,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 53,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 17.25,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 52,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 54,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 54,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 55,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 55,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 56,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 56,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 58,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 57,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 57,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 17.25,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 57,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 58,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 58,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 32,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 9830.7275390625,
+          "y": -2103.134521484375,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 64,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 96,
+        "num_triangles": 32,
+        "num_uv_sets": 2,
+        "num_vertices": 64,
+        "radius": 2934.192138671875,
+        "triangles": {
+          "count": 32,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 64,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 59,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 59,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          12399.876953125,
+          -114.54946899414062,
+          0
+        ],
+        "min": [
+          7261.578125,
+          -4091.7197265625,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 68,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 66,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 65,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 64,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 61,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 60,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 60,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 62,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 61,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 61,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 63,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 19.5,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 61,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 62,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 62,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 19.5,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 61,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 63,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 63,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 64,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 64,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 65,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 65,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 67,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 66,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 66,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 19.5,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 66,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 67,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 67,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 24,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 9460.8037109375,
+          "y": -3388.0205078125,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 48,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 72,
+        "num_triangles": 24,
+        "num_uv_sets": 2,
+        "num_vertices": 48,
+        "radius": 4735.39599609375,
+        "triangles": {
+          "count": 24,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 48,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 68,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 68,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          13678.5712890625,
+          -654.93603515625,
+          0
+        ],
+        "min": [
+          5243.03564453125,
+          -6121.10498046875,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 77,
+          "type": "NiTriShapeData"
+        },
+        "extra_data_list": [],
+        "flags": 26,
+        "has_shader": false,
+        "name": "Surf",
+        "num_extra_data_list": 0,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "5 - Default",
+            "ref": 75,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 74,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 73,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 70,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 69,
+      "name": "Surf",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "",
+            "type": "NiNode"
+          },
+          {
+            "id": 69,
+            "name": "Surf",
+            "type": "NiTriShape"
+          }
+        ]
+      ],
+      "type": "NiTriShape"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "center_offset": {
+            "type": "TexCoord",
+            "u": 0.5,
+            "v": 0.5
+          },
+          "clamp_mode": 0,
+          "filter_mode": 2,
+          "has_texture_transform": true,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 8,
+            "type": "NiSourceTexture"
+          },
+          "tiling": {
+            "type": "TexCoord",
+            "u": 3,
+            "v": 1
+          },
+          "transform_type": 1,
+          "translation": {
+            "type": "TexCoord",
+            "u": 0.2886075973510742,
+            "v": 0
+          },
+          "type": "TexDesc",
+          "uv_set": 0,
+          "w_rotation": 0
+        },
+        "controller": {
+          "name": "",
+          "ref": 71,
+          "type": "NiTextureTransformController"
+        },
+        "extra_data_list": [],
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 70,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 70,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 7,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": {
+          "name": "",
+          "ref": 72,
+          "type": "NiTextureTransformController"
+        },
+        "operation": 3,
+        "phase": 21.75,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "",
+          "ref": 70,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 71,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 71,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 6,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "operation": 0,
+        "phase": 21.75,
+        "start_time": 0,
+        "stop_time": 30,
+        "target": {
+          "name": "",
+          "ref": 70,
+          "type": "NiTexturingProperty"
+        },
+        "texture_slot": 0,
+        "unknown_2": 0
+      },
+      "id": 72,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 72,
+            "name": "",
+            "type": "NiTextureTransformController"
+          }
+        ]
+      ],
+      "type": "NiTextureTransformController"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 6893,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 20
+      },
+      "id": 73,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 73,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 74,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 74,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "alpha": 0,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": {
+          "name": "",
+          "ref": 76,
+          "type": "NiAlphaController"
+        },
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "glossiness": 10,
+        "name": "5 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        }
+      },
+      "id": 75,
+      "name": "5 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 75,
+            "name": "5 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "data": {
+          "name": "",
+          "ref": 13,
+          "type": "NiFloatData"
+        },
+        "flags": 40,
+        "frequency": 1,
+        "next_controller": null,
+        "phase": 21.75,
+        "start_time": 0,
+        "stop_time": 29.96666717529297,
+        "target": {
+          "name": "5 - Default",
+          "ref": 75,
+          "type": "NiMaterialProperty"
+        }
+      },
+      "id": 76,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 76,
+            "name": "",
+            "type": "NiAlphaController"
+          }
+        ]
+      ],
+      "type": "NiAlphaController"
+    },
+    {
+      "effective_triangle_count": 8,
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 3849.73388671875,
+          "y": -3955.622314453125,
+          "z": 0
+        },
+        "compress_flags": 0,
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_triangles": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "keep_flags": 0,
+        "match_groups": [],
+        "normals": {
+          "count": 16,
+          "omitted_geometry_buffer": true
+        },
+        "num_match_groups": 0,
+        "num_triangle_points": 24,
+        "num_triangles": 8,
+        "num_uv_sets": 2,
+        "num_vertices": 16,
+        "radius": 3109.765380859375,
+        "triangles": {
+          "count": 8,
+          "omitted_geometry_buffer": true
+        },
+        "uv_sets": {
+          "count": 2,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 16,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 77,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 77,
+            "name": "",
+            "type": "NiTriShapeData"
+          }
+        ]
+      ],
+      "type": "NiTriShapeData",
+      "vertex_bounds_local": {
+        "max": [
+          6261.7109375,
+          -1992.7144775390625,
+          0
+        ],
+        "min": [
+          1437.757080078125,
+          -5918.5302734375,
+          0
+        ]
+      }
+    }
+  ],
+  "bytes": 20336,
+  "bytes_consumed": 20336,
+  "finite_vertices": true,
+  "manifest_sha256": "13da3d86d81f34514920a71a070b93cbee7907c5a9191c4a89d16de91404fb30",
+  "name": "virgin_islands_s.nif",
+  "raw": "raw/fpk/Pak5/virgin_islands_s.nif",
+  "roots": [
+    0
+  ],
+  "sha256": "13da3d86d81f34514920a71a070b93cbee7907c5a9191c4a89d16de91404fb30",
+  "triangle_indices_valid": true,
+  "version": "10.1.0.0",
+  "whole_file_consumed": true
+}

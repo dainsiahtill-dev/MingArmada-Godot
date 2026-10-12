@@ -13,6 +13,7 @@ var _uz := 0.0
 
 func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Dictionary = {}) -> bool:
 	if options.has("reference_islands") and not options.reference_islands is bool: return false
+	if options.has("reference_art") and (not options.reference_art is Dictionary or not ReferenceProfile.valid_art_options(options.reference_art)): return false
 	if options.has("reference_profiles"):
 		if not options.reference_profiles is Dictionary: return false
 		for id: Variant in options.reference_profiles:
@@ -34,7 +35,7 @@ func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Di
 			var id: String=str(port.get("referenceProfile",layout.get(port.get("id",""),ReferenceProfile.IDS[index%ReferenceProfile.IDS.size()])))
 			var data: Dictionary=ReferenceProfile.load_source(id)
 			var profile:=ReferenceProfile.new()
-			if data.is_empty() or not profile.configure(port,data,id): return false
+			if data.is_empty() or not profile.configure(port,data,id,options.get("reference_art",{})): return false
 			profiles.append(profile)
 	_ports = ports.duplicate(true)
 	_reference_profiles=profiles

@@ -1,0 +1,14 @@
+{
+  "address": "0x5AC2A0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "char __thiscall sub_5AC2A0(int this)\n{\n  char result; // al\n\n  sub_4D98C0();\n  result = *(_BYTE *)(this + 204);\n  if ( result )\n  {\n    *(float *)(this + 144) = flt_725430;\n    *(float *)(this + 148) = flt_725434;\n    *(float *)(this + 152) = flt_725438;\n    qmemcpy((void *)(this + 108), &unk_7159B0, 0x24u);\n    return this - 112;\n  }\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

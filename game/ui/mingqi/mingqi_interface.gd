@@ -5,8 +5,8 @@ signal view_requested(tactical: bool)
 
 const Chart = preload("res://game/ui/mingqi/mingqi_chart.gd")
 const Gunnery = preload("res://modules/naval_simulation/combat/cannon_system.gd")
-const BUSINESS = ["accept-convoy", "buy", "sell", "depart", "choose-route", "assign-order", "claim-convoy", "dock", "repair", "refit", "start-boarding", "board-action", "allocate-prize", "release-prisoners", "treat-wounded", "take-prize-cargo", "resolve-prize", "sell-prize", "incorporate-prize"]
-const PANELS = {"ship": "旗舰与操船", "convoy": "船队与海图", "port": "靠港与贸易", "boarding": "接舷与俘获", "tactics": "船队战术"}
+const BUSINESS = ["accept-convoy", "buy", "sell", "depart", "choose-route", "assign-order", "claim-convoy", "dock", "repair", "refit", "start-boarding", "board-action", "allocate-prize", "release-prisoners", "treat-wounded", "take-prize-cargo", "resolve-prize", "sell-prize", "incorporate-prize", "story-choice", "repay-debt"]
+const PANELS = {"ship": "旗舰与操船", "convoy": "船队与海图", "port": "靠港与贸易", "boarding": "接舷与俘获", "tactics": "船队战术", "story": "航海日志"}
 const GOODS = {"grain": "粮食", "water": "淡水", "wood": "木材", "iron": "铁料", "powder": "火药", "cloth": "布匹", "silk": "丝绸", "porcelain": "瓷器", "tea": "茶", "sugar": "糖", "salt": "盐", "spices": "香料"}
 const ORDER_NAMES = {"protect": "护航", "intercept": "拦截", "keep-distance": "保持距离", "focus": "集火", "prepare-boarding": "准备接舷", "rally": "集结"}
 const STATUS_NAMES = {"offered": "待接", "active": "进行中", "delivered": "已交付", "failed": "失败", "settled": "已结算", "loading": "装载中", "underway": "航行中", "arrived": "已抵达", "lost": "损失", "interrupted": "中断", "held": "待接管", "crewed": "已押船", "incorporated": "已编入", "released": "已释放", "abandoned": "已救人弃船", "sold": "已售出", "won": "已获胜", "cut": "已断缆", "completed": "已完成", "blocked": "受阻", "history": "历史指令"}
@@ -17,7 +17,7 @@ var _operation: PanelContainer
 var _menu: PanelContainer
 var _panels: Dictionary = {}
 var _watchers: Array[Callable] = []
-var _form: Dictionary = {"trade_quantity": 1, "treatment_quantity": 1, "prize_crew": 12, "prize_quantity": 1, "tactics_range": 180, "point_x": 0, "point_z": 0, "tactics_kind": "protect", "prize_good": "grain"}
+var _form: Dictionary = {"trade_quantity": 1, "treatment_quantity": 1, "prize_crew": 12, "prize_quantity": 1, "debt_quantity": 1, "tactics_range": 180, "point_x": 0, "point_z": 0, "tactics_kind": "protect", "prize_good": "grain"}
 var _selected: Array = []
 var _panel := "ship"
 var _panel_open := true
@@ -32,6 +32,7 @@ var _serial := 0
 var _mount := 0
 var _theme: Theme
 var _chart_height: Callable
+var _repay_refreshing := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -51,8 +52,9 @@ func apply_snapshot(packet: Dictionary) -> void:
 	signature += JSON.stringify(_runtime().get("controllableShipIds", _runtime().get("policy", {}).get("controllableShipIds", [])))
 	for key in ["vessels", "voyages", "contracts", "boardings", "works", "prizes"]:
 		for item in _state().get(key, {}).values(): signature += "|" + str(item.get("id", item.get("targetId", ""))) + ":" + str(item.get("status", ""))
+	signature += _story_signature()
 	if generation != _generation:
-		_form = {"trade_quantity": 1, "treatment_quantity": 1, "prize_crew": 12, "prize_quantity": 1, "tactics_range": 180, "point_x": 0, "point_z": 0, "tactics_kind": "protect", "prize_good": "grain"}
+		_form = {"trade_quantity": 1, "treatment_quantity": 1, "prize_crew": 12, "prize_quantity": 1, "debt_quantity": 1, "tactics_range": 180, "point_x": 0, "point_z": 0, "tactics_kind": "protect", "prize_good": "grain"}
 		_selected.clear()
 		_pending.clear()
 		_recent.clear()
@@ -89,7 +91,7 @@ func _cargo(cargo: Dictionary) -> String:
 		if cargo[good] > 0: texts.append(str(GOODS.get(good, good)) + " " + str(int(cargo[good])))
 	return "、".join(texts) if not texts.is_empty() else "空舱"
 func _authorized(id: String) -> bool: return id in _runtime().get("controllableShipIds", _runtime().get("policy", {}).get("controllableShipIds", []))
-func _operational() -> bool: return not _state().is_empty() and not _runtime().get("error", false) and _runtime().get("status", "ready") != "loading"
+func _operational() -> bool: return not _state().is_empty() and not _runtime().get("error", false) and not _runtime().get("status", "ready") in ["loading", "disposed", "error"]
 func _reason(value) -> String:
 	var reasons := {"unsafe-port": "进入港口附近，收帆停稳并脱离交战。", "unsafe-dock": "靠港条件尚未满足，请安全停船。", "not-in-port": "请先靠泊港口。", "ship-not-docked": "所选船只尚未安全锚泊。", "save-safe-port-required": "请先将船队停在安全港口。", "save-active-boarding": "请先结束接舷战。", "save-local-hostile-threat": "附近有敌舰，请脱离威胁。", "save-pending-attacks": "炮击尚未结束，请稍候。", "save-pending-input": "操船尚未结束，请停船后重试。", "save-flagship-unavailable": "旗舰已沉没，当前航程无法保存。", "insufficient-silver": "银两不足。", "insufficient-stock": "港口库存不足。", "insufficient-capacity": "货舱余量不足。", "insufficient-cargo": "可售货物不足。", "invalid-quantity": "请输入有效的正整数。", "contract-cargo": "委托货物不能自行交易。", "ship-working": "船只仍在作业。", "no-damage": "船体与帆装无需修理。", "no-wounded": "所选船只没有伤员。", "insufficient-wounded": "治伤人数超过实际伤员。", "refit-forbidden": "帆装改造限厦门港的自有船只。", "no-prisoners": "所选船只没有俘虏。", "route-too-shallow": "航路水深不足，船只吃水过深。", "stale-revision": "航况已变化，请重新确认后下令。", "fast-forward-danger": "附近有威胁或浅水危险，无法快进。", "target-not-weakened": "敌舰尚未削弱。", "invalid-boarding": "检查两船距离、船速、船员与作业状态。", "prize-market-unavailable": "战利船市场仅在厦门与金门。", "prize-not-close": "两船须相距不超过 36 米且相对速度不超过 3 m/s。", "prize-cargo-not-empty": "售船前须清空货物。", "ship-ordered": "相关船只仍有航行或战术指令。", "unauthorized-order": "所选船只当前不受指挥。", "target-unavailable": "目标已离开或不可用。", "runtime-unavailable": "航程暂时无法接受操作。", "save-unverified": "等待航况核验。"}
 	var text := str(value)
@@ -123,9 +125,10 @@ func _send(payload: Dictionary, captured: String) -> void:
 	_pending[key] = true
 	_serial += 1
 	if intent.get("type") in BUSINESS:
-		intent.commandId = "ui:%s:%d:%d" % [_state().get("campaignId", "voyage"), get_instance_id(), _serial]
-		intent.expectedRevision = int(_state().get("revision", 0))
-		if intent.type == "assign-order": intent.order.id = intent.commandId
+		# Dictionary dot assignment creates StringName keys; pure domain commands require String keys.
+		intent["commandId"] = "ui:%s:%d:%d" % [_state().get("campaignId", "voyage"), get_instance_id(), _serial]
+		intent["expectedRevision"] = int(_state().get("revision", 0))
+		if intent.type == "assign-order": intent["order"]["id"] = intent["commandId"]
 	command_requested.emit(intent)
 
 func captures_keyboard() -> bool:
@@ -174,6 +177,7 @@ func close_menu() -> void:
 	_send({"type": "menu", "value": false}, _token())
 
 func _build() -> void:
+	var editor := _capture_editor()
 	_mount += 1
 	if _screen:
 		remove_child(_screen)
@@ -182,6 +186,7 @@ func _build() -> void:
 	_panels.clear()
 	_screen = Control.new()
 	_screen.name = "MingqiScreen"
+	_screen.set_meta("generation", _generation)
 	_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_screen.theme = _theme
@@ -210,6 +215,14 @@ func _build() -> void:
 		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Color("a9c3bd"))
 	_watchers.append(func(): broadside.visible = not _native(str(_state().get("flagshipId",""))).is_empty())
 	_text(head, "time_state", func(): return ("已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Color("a9c3bd"))
+	var goal := _row(head)
+	goal.name = "objective_row"
+	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 13, Color("e3c88d"))
+	var goal_button := _local_button(goal, "objective_open", "查看", func(): open_panel(str(_story().get("objective", {}).get("panel", "story"))))
+	goal_button.custom_minimum_size = Vector2(48, 28)
+	_watchers.append(func():
+		goal.visible = not str(_story().get("objective", {}).get("title", "")).is_empty()
+		goal_button.disabled = not PANELS.has(str(_story().get("objective", {}).get("panel", ""))))
 	var time := _row(head)
 	_button(time, "pause", "暂停", func(): return {"type": "pause", "value": not _runtime().get("paused", false)}, func(): return _operational())
 	_watchers.append(func():
@@ -220,7 +233,7 @@ func _build() -> void:
 	for button in time.get_children(): button.custom_minimum_size = Vector2(60, 32)
 	var nav := HFlowContainer.new()
 	head.add_child(nav)
-	var nav_names := {"ship": "旗舰", "convoy": "船队海图", "port": "港口贸易", "boarding": "接舷俘获", "tactics": "战术"}
+	var nav_names := {"ship": "旗舰", "convoy": "船队海图", "port": "港口贸易", "boarding": "接舷俘获", "tactics": "战术", "story": "航海日志"}
 	for key in PANELS:
 		var button := _local_button(nav, "nav_" + key, nav_names[key], func(): open_panel(key))
 		button.custom_minimum_size = Vector2(0, 32)
@@ -236,6 +249,7 @@ func _build() -> void:
 	_text(heading, "panel_heading", func(): return PANELS.get(_panel, "航程操作"), 24, Color("e3c88d"))
 	_local_button(heading, "panel_close", "收起", close_panel)
 	var scroll := ScrollContainer.new()
+	scroll.name = "operation_scroll"
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	operation_column.add_child(scroll)
@@ -253,12 +267,255 @@ func _build() -> void:
 	_build_port(_panels.port)
 	_build_boarding(_panels.boarding)
 	_build_tactics(_panels.tactics)
+	_build_story(_panels.story)
 	_build_menu()
 	for key in _panels: _panels[key].visible = key == _panel
 	_operation.visible = _panel_open
 	_menu.visible = _menu_open
 	for update in _watchers: update.call()
 	_queue_layout()
+	if not editor.is_empty(): _restore_editor.call_deferred(editor, _token())
+
+func _capture_editor() -> Dictionary:
+	if not _screen or str(_screen.get_meta("generation", "")) != _generation: return {}
+	var focus := _screen.get_viewport().gui_get_focus_owner()
+	if focus == null or not _screen.is_ancestor_of(focus): return {}
+	if focus is LineEdit and focus.get_parent() is SpinBox:
+		return {"id": str(focus.get_parent().name), "kind": "number", "text": focus.text, "caret": focus.caret_column}
+	if focus is TextEdit:
+		return {"id": str(focus.name), "kind": "text", "text": focus.text, "line": focus.get_caret_line(), "column": focus.get_caret_column()}
+	return {}
+
+func _restore_editor(editor: Dictionary, captured: String) -> void:
+	if captured != _token() or not _screen: return
+	var field = _screen.find_child(str(editor.id), true, false)
+	if editor.kind == "number" and field is SpinBox and field.editable:
+		var line: LineEdit = field.get_line_edit()
+		var draft := str(editor.text).strip_edges()
+		if draft.is_valid_int() and float(draft) >= field.min_value and float(draft) <= field.max_value:
+			field.set_block_signals(true)
+			field.value = int(draft)
+			field.set_block_signals(false)
+			_form[str(field.name)] = int(draft)
+		line.grab_focus()
+		# SpinBox queues its own editor sync on mounting/focus; restore after that sync.
+		line.set_deferred("text", editor.text)
+		line.set_deferred("caret_column", int(editor.caret))
+	elif editor.kind == "text" and field is TextEdit and field.editable:
+		field.text = editor.text
+		field.grab_focus()
+		field.set_caret_line(int(editor.line))
+		field.set_caret_column(int(editor.column))
+
+func _story() -> Dictionary:
+	var data: Variant = _packet.get("story", {})
+	return data if data is Dictionary else {}
+
+func _story_scene(id: String) -> Dictionary:
+	for scene in _story().get("scenes", []):
+		if str(scene.get("id", "")) == id: return scene
+	return {}
+
+func _story_choice(scene_id: String, choice_id: String) -> Dictionary:
+	for choice in _story_scene(scene_id).get("choices", []):
+		if str(choice.get("id", "")) == choice_id: return choice
+	return {}
+
+func _story_native(scene_id: String) -> Dictionary:
+	var fact: Variant = _runtime().get("eligibility", {}).get("story", {}).get(scene_id, {})
+	if not fact is Dictionary or not fact.has("ok"): return {"ok": false, "reason": "save-unverified"}
+	return {"ok": fact.ok, "reason": fact.get("reason", "") if fact.ok or not str(fact.get("reason", "")).is_empty() else "save-unverified"}
+
+func _story_signature() -> String:
+	var structure: Array = [not _story().is_empty(), _story().get("chapter", {}).get("id", "")]
+	for scene in _story().get("scenes", []):
+		var row: Array = [scene.get("id", ""), scene.get("status", "locked"), scene.get("selectedChoiceId", ""), _story_native(str(scene.get("id", "")))]
+		for choice in scene.get("choices", []): row.append([choice.get("id", ""), choice.get("enabled", false), choice.get("reason", ""), choice.get("silverCost", 0)])
+		structure.append(row)
+	for relation in _story().get("relations", []): structure.append(str(relation.get("id", "")))
+	return "|story:" + JSON.stringify(structure)
+
+func _story_choice_ok(scene_id: String, choice_id: String) -> bool:
+	var choice := _story_choice(scene_id, choice_id)
+	return _operational() and _story_scene(scene_id).get("status", "locked") == "available" and choice.get("enabled", false) and _story_native(scene_id).get("ok", false) and int(choice.get("silverCost", 0)) <= int(_state().get("captain", {}).get("silver", 0))
+
+func _story_choice_reason(scene_id: String, choice_id: String) -> String:
+	var choice := _story_choice(scene_id, choice_id)
+	if not _operational(): return _reason("runtime-unavailable")
+	if not choice.get("enabled", false): return _story_reason(scene_id, choice.get("reason", ""), choice) if not str(choice.get("reason", "")).is_empty() else "条件尚未满足。"
+	if not _story_native(scene_id).get("ok", false): return _story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified"), choice)
+	if int(choice.get("silverCost", 0)) > int(_state().get("captain", {}).get("silver", 0)): return _story_reason(scene_id, "insufficient-silver", choice)
+	return ""
+
+func _story_reason(scene_id: String, value, choice: Dictionary = {}) -> String:
+	if scene_id != "second-return": return _reason(value)
+	match str(value):
+		"not-in-story-port", "not-in-port": return "在厦门、金门或近岸补给点安全锚泊后，再打开船上账册。"
+		"second-convoy-unclaimed": return "先完成第二趟并领取实际报酬。"
+		"no-dividend-proceeds": return "本航没有可分报酬。"
+		"no-verified-beneficiaries": return "暂无可核验的存活随航船员，不能发放。"
+		"insufficient-silver": return "当前银两不足支付%d两。" % int(choice.get("silverCost", 0))
+		"story-completed": return "本次安排已记账，仍可自行港务或偿债。"
+		"unverified-support-history", "unexplained-crew-support": return "船员拥护来源尚未核清，仍可留作船本或安排偿债。"
+	return _reason(value)
+
+func _story_bill(scene_id: String) -> String:
+	var scene := _story_scene(scene_id)
+	var bill: Dictionary = scene.get("bill", {})
+	if bill.is_empty(): return "交差账单尚未载入。"
+	if scene.get("status") == "completed":
+		return "实交%d粮 · 实损%d粮\n基础%d两 + 奖金%d两 = 本航实收%d两\n现银%d两 · 欠款%d两 · 现有拥护%d\n本次安排已记账；实际支出见下方决定，后续港务与偿债仍由你选择。" % [int(bill.get("delivered", 0)), int(bill.get("lost", 0)), int(bill.get("baseReward", 0)), int(bill.get("bonus", 0)), int(bill.get("revenue", 0)), int(bill.get("silver", 0)), int(bill.get("principal", 0)), int(bill.get("supportBefore", 0))]
+	var delta := int(bill.get("supportDelta", 0))
+	var gain := ("+" if delta >= 0 else "") + str(delta)
+	var exclusions := "\n".join(PackedStringArray(bill.get("exclusions", [])))
+	return "实交%d粮 · 实损%d粮\n基础%d两 + 奖金%d两 = 本航实收%d两\n现银%d两 · 欠款%d两；两成分红%d两，支付后余银%d两\n分红可惠及已核验%d人；现有拥护%d，分红后%d，实际拥护%s\n当前伤员%d人，承运船已核实死亡%d人\n%s" % [int(bill.get("delivered", 0)), int(bill.get("lost", 0)), int(bill.get("baseReward", 0)), int(bill.get("bonus", 0)), int(bill.get("revenue", 0)), int(bill.get("silver", 0)), int(bill.get("principal", 0)), int(bill.get("dividend", 0)), int(bill.get("remainingSilver", 0)), int(bill.get("beneficiaryCount", 0)), int(bill.get("supportBefore", 0)), int(bill.get("supportAfter", 0)), gain, int(bill.get("currentWounded", 0)), int(bill.get("verifiedDeaths", 0)), str(bill.get("scopeNote", "本次仅含已核验承运船。"))] + ("\n" + exclusions if not exclusions.is_empty() else "")
+
+func _story_lines(scene_id: String, only_first: bool = false) -> String:
+	var text: Array = _story_scene(scene_id).get("text", [])
+	if only_first: return str(text[0]) if not text.is_empty() else "先完成当前目标，再回来商议这一页。"
+	return "\n\n".join(PackedStringArray(text))
+
+func _story_choice_effect(scene_id: String, choice_id: String) -> String:
+	var choice := _story_choice(scene_id, choice_id)
+	var label := str(choice.get("label", "")).replace("+-", "-")
+	var cost := int(choice.get("silverCost", 0))
+	var compact := label.replace(" ", "").replace("\t", "").replace("　", "")
+	if cost > 0 and not compact.contains("%d两" % cost): label += " · %d两" % cost
+	return label + "\n" + str(choice.get("consequence", "")).replace("+-", "-")
+
+func _story_relation(id: String) -> String:
+	for relation in _story().get("relations", []):
+		if str(relation.get("id", "")) == id:
+			return "%s · %s\n%s" % [relation.get("name", ""), relation.get("role", ""), relation.get("stance", "")]
+	return ""
+
+func _repay_limit() -> int:
+	return maxi(0, mini(int(_story().get("debt", {}).get("principal", 0)), int(_state().get("captain", {}).get("silver", 0))))
+
+func _debt_quantity() -> int:
+	var field = _screen.find_child("debt_quantity", true, false) if _screen else null
+	if field is SpinBox:
+		if not field.get_line_edit().has_focus(): return int(field.value)
+		var draft: String = field.get_line_edit().text.strip_edges()
+		return int(draft) if draft.is_valid_int() else 0
+	return int(_form.get("debt_quantity", 1))
+
+func _repay_ok() -> bool:
+	var debt: Dictionary = _story().get("debt", {})
+	var native: Dictionary = _runtime().get("eligibility", {}).get("repayDebt", {})
+	return _operational() and int(debt.get("principal", 0)) > 0 and debt.get("canRepay", false) and native.get("ok", false) and _debt_quantity() >= 1 and _debt_quantity() <= _repay_limit()
+
+func _repay_reason() -> String:
+	var debt: Dictionary = _story().get("debt", {})
+	if not debt.has("principal"): return "债务账目尚未载入。"
+	if int(debt.principal) <= 0: return "已还清。"
+	if not _operational(): return _reason("runtime-unavailable")
+	if not debt.get("canRepay", false): return _debt_reason(debt.get("reason", "")) if not str(debt.get("reason", "")).is_empty() else "条件尚未满足。"
+	var fact: Dictionary = _runtime().get("eligibility", {}).get("repayDebt", {"ok": false, "reason": "save-unverified"})
+	if not fact.get("ok", false): return _debt_reason(fact.get("reason", "")) if not str(fact.get("reason", "")).is_empty() else _reason("save-unverified")
+	if _repay_limit() < 1: return _reason("insufficient-silver")
+	if _debt_quantity() < 1 or _debt_quantity() > _repay_limit(): return "请输入1至%d之间的整数。" % _repay_limit()
+	return ""
+
+func _debt_reason(value) -> String:
+	return "请先靠泊厦门林家商行，再偿还欠款。" if str(value) == "not-in-port" else _reason(value)
+
+func _build_story(parent: Control) -> void:
+	if _story().is_empty():
+		_text(parent, "story_fallback", func(): return "这段航程暂未载入航海日志。旗舰、船队、贸易与接舷仍可照常查看。")
+		return
+	_text(parent, "story_chapter", func(): return _story().get("chapter", {}).get("title", "航海日志"), 22, Color("e3c88d"))
+	_text(parent, "story_premise", func(): return _story().get("chapter", {}).get("summary", ""))
+	_heading(parent, "下一步")
+	_text(parent, "story_objective", func():
+		var objective: Dictionary = _story().get("objective", {})
+		return str(objective.get("title", "")) + "\n" + str(objective.get("detail", "")))
+	_local_button(parent, "story_objective_open", "前往目标页面", func(): open_panel(str(_story().get("objective", {}).get("panel", "story"))))
+	# Put the newest decision within reach, retaining all earlier scenes below it.
+	var display_scenes: Array = []
+	for scene in _story().get("scenes", []):
+		if scene.get("id") == "second-return": display_scenes.append(scene)
+	for scene in _story().get("scenes", []):
+		if scene.get("id") != "second-return": display_scenes.append(scene)
+	for source_scene in display_scenes:
+		var scene_id := str(source_scene.get("id", ""))
+		var section := _column(_box(parent, "story_scene_" + scene_id))
+		_text(section, "story_title_" + scene_id, func(): return _story_scene(scene_id).get("title", ""), 20, Color("e3c88d"))
+		_text(section, "story_npc_" + scene_id, func():
+			var npc: Dictionary = _story_scene(scene_id).get("npc", {})
+			return str(npc.get("name", "")) + " · " + str(npc.get("role", "")), 15, Color("a9c3bd"))
+		if scene_id == "second-return":
+			_text(section, "story_bill_" + scene_id, func(): return _story_bill(scene_id), 15, Color("e3c88d"))
+		match source_scene.get("status", "locked"):
+			"completed":
+				_text(section, "story_outcome_" + scene_id, func():
+					var scene := _story_scene(scene_id)
+					var choice := _story_choice(scene_id, str(scene.get("selectedChoiceId", "")))
+					return "你的决定：%s\n\n%s" % [choice.get("label", "已作出选择"), scene.get("reply", "")])
+			"available":
+				_text(section, "story_dialogue_" + scene_id, func(): return _story_lines(scene_id))
+				var native_label := _text(section, "story_native_" + scene_id, func():
+					return _reason("runtime-unavailable") if not _operational() else (_story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified")) if not _story_native(scene_id).get("ok", false) else ""), 15, Color("ffd99a"))
+				_watchers.append(func(): native_label.visible = not native_label.text.is_empty())
+				for source_choice in source_scene.get("choices", []):
+					var choice_id := str(source_choice.get("id", ""))
+					var choices := _column(section)
+					_text(choices, "story_choice_effect_" + scene_id + "_" + choice_id, func(): return _story_choice_effect(scene_id, choice_id))
+					var button := _button(choices, "story_choice_" + scene_id + "_" + choice_id, str(source_choice.get("label", "作出决定")), func(): return {"type": "story-choice", "sceneId": scene_id, "choiceId": choice_id}, func(): return _story_choice_ok(scene_id, choice_id))
+					button.clip_text = true
+					button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+					_watchers.append(func():
+						button.text = str(_story_choice(scene_id, choice_id).get("label", "作出决定"))
+						button.tooltip_text = _story_choice_reason(scene_id, choice_id))
+					var reason := _text(choices, "story_choice_reason_" + scene_id + "_" + choice_id, func(): return _story_choice_reason(scene_id, choice_id), 14, Color("ffd99a"))
+					_watchers.append(func(): reason.visible = not reason.text.is_empty())
+			_:
+				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Color("a9c3bd"))
+	_heading(parent, "账册与债务")
+	_text(parent, "story_debt", func():
+		var debt: Dictionary = _story().get("debt", {})
+		if not debt.has("principal"): return "债务账目尚未载入。"
+		return "债务已还清。" if int(debt.principal) <= 0 else "还欠%s %d两。周转银与偿债，都要由你决定。" % [debt.get("creditorName", "债主"), int(debt.principal)])
+	var quantity := _number(parent, "debt_quantity", "本次偿还（两）", 1, maxi(1, _repay_limit()))
+	_watchers.append(func():
+		_repay_refreshing = true
+		var line := quantity.get_line_edit()
+		var draft := line.text
+		var focused := line.has_focus()
+		var caret := line.caret_column
+		var limit := _repay_limit()
+		quantity.set_block_signals(true)
+		var minimum := 1 if limit > 0 else 0
+		if quantity.min_value != minimum: quantity.min_value = minimum
+		if quantity.max_value != limit: quantity.max_value = limit
+		var editable := limit > 0 and _operational() and int(_story().get("debt", {}).get("principal", 0)) > 0
+		if quantity.editable != editable: quantity.editable = editable
+		quantity.set_block_signals(false)
+		if focused and quantity.editable:
+			line.text = draft
+			line.caret_column = caret
+		_repay_refreshing = false)
+	var captured := _token()
+	quantity.get_line_edit().text_changed.connect(func(_draft):
+		if captured == _token() and not _repay_refreshing: _refresh())
+	_text(parent, "repay_limit", func(): return "当前最多可还%d两；付款只减少这本账册记下的实际欠款。" % _repay_limit(), 14, Color("a9c3bd"))
+	_button(parent, "repay_debt", "偿还欠款", func(): return {"type": "repay-debt", "quantity": _debt_quantity()}, _repay_ok)
+	var reason := _text(parent, "repay_debt_reason", _repay_reason, 15, Color("ffd99a"))
+	_watchers.append(func(): reason.visible = not reason.text.is_empty())
+	_heading(parent, "同行的人")
+	for relation in _story().get("relations", []):
+		var relation_id := str(relation.get("id", ""))
+		_text(parent, "story_relation_" + relation_id, func(): return _story_relation(relation_id))
+	_heading(parent, "最近的航海记录")
+	_text(parent, "story_history", func():
+		var messages: PackedStringArray = []
+		var history: Array = _story().get("history", []).duplicate()
+		history.reverse()
+		for entry in history:
+			var message := str(entry.get("message", ""))
+			if not message.strip_edges().is_empty(): messages.append(message)
+			if messages.size() == 6: break
+		return "\n\n".join(messages) if not messages.is_empty() else "这一页还没有新的航海记录。")
 
 func _navigation_text() -> String:
 	var ship := _native(str(_state().get("flagshipId", "")))
@@ -343,7 +600,7 @@ func _build_convoy(parent: Control) -> void:
 	for id in _state().get("contracts", {}):
 		_text(parent, "contract_" + id, func():
 			var contract: Dictionary = _state().get("contracts", {}).get(id, {})
-			return ("首程护粮" if id == "convoy-001" else "补给护粮") + " · " + _status(contract.get("status", "")) + "\n期限 %.0f秒 · 奖励按实交粮、人船状况结算" % contract.get("deadlineAt", 0))
+			return ("首程护粮" if id == "convoy-001" else "补给护粮") + " · " + _status(contract.get("status", "")) + "\n" + _contract_timing(contract) + " · 奖励按实交粮、人船状况结算")
 		_button(parent, "contract_accept_" + id, "接下委托", func(): return {"type": "accept-convoy", "contractId": id}, func(): return _operational() and _state().get("contracts", {}).get(id, {}).get("status") == "offered" and _state().get("currentPortId") != null)
 		_button(parent, "contract_claim_" + id, "领取实际报酬", func(): return {"type": "claim-convoy", "contractId": id}, func(): return _claim_ready(id))
 	_button(parent, "depart", "离港起航", func(): return {"type": "depart"}, func(): return _runtime().get("canDepart", false) == true)
@@ -362,7 +619,7 @@ func _build_convoy(parent: Control) -> void:
 		if voyage_id == null: continue
 		_text(parent, "voyage_" + str(voyage_id), func():
 			var voyage: Dictionary = _state().get("voyages", {}).get(voyage_id, {})
-			return "%s · %s · 航段 %d / %.0f%% · 预计 %.0f秒" % [_port_name(voyage.get("destinationId")), _status(voyage.get("status", "")), int(voyage.get("leg", 0)) + 1, float(voyage.get("progress", 0)) * 100, voyage.get("eta", 0)])
+			return "%s · %s · %s" % [_port_name(voyage.get("destinationId")), _status(voyage.get("status", "")), _voyage_detail(voyage)])
 		var lanes: Dictionary = {}
 		var voyage: Dictionary = _state().get("voyages", {}).get(voyage_id, {})
 		for route_id in _catalog.get("routes", {}):
@@ -393,6 +650,36 @@ func _build_convoy(parent: Control) -> void:
 		for info in _state().get("intelligence", []): entries.append("%s · 粮估计 %d · %.0f秒采集 · 可信度 %.0f%%" % [_port_name(info.get("portId")), info.get("stock", {}).get("grain", 0), info.get("observedAt", 0), float(info.get("confidence", 0)) * 100])
 		return "\n".join(entries) if not entries.is_empty() else "尚无采集情报。")
 	_receipts(parent, "fleet_receipts", ["accept-convoy", "claim-convoy", "shipment-arrived", "choose-route", "depart"])
+
+func _contract_timing(contract: Dictionary) -> String:
+	match str(contract.get("status", "")):
+		"offered": return "接单前也计时 · " + _deadline_timing(contract) if float(contract.get("deadlineAt", 0)) > 0 else "接单后开始计时"
+		"active": return _deadline_timing(contract)
+		"delivered": return "交付已记录，待核对报酬"
+		"failed": return "失败结果已记录"
+		"settled": return "实际报酬已结算"
+	return "等待委托核验"
+
+func _deadline_timing(contract: Dictionary) -> String:
+	var remaining := float(contract.get("deadlineAt", 0)) - float(_state().get("simulationSeconds", 0))
+	return "期限剩余 %.0f秒" % ceil(remaining) if remaining >= 0 else "已逾期 %.0f秒" % ceil(-remaining)
+
+func _voyage_detail(voyage: Dictionary) -> String:
+	match str(voyage.get("status", "")):
+		"underway":
+			var remaining := float(voyage.get("eta", 0)) - float(_state().get("simulationSeconds", 0))
+			var timing := "预计还需 %.0f秒" % ceil(remaining) if remaining > 0 else "预计时间已过，尚未抵达"
+			return "航段 %d / %.0f%% · %s" % [int(voyage.get("leg", 0)) + 1, float(voyage.get("progress", 0)) * 100, timing]
+		"loading":
+			for contract in _state().get("contracts", {}).values():
+				if voyage.get("id") in contract.get("voyageIds", []) and contract.get("status") == "offered": return "请先接下委托，再核对航线、吃水与离港条件"
+			if not _operational(): return _reason("runtime-unavailable")
+			if _runtime().get("canDepart", false): return "离港条件已核验，等待离港起航"
+			return "等待出航整备 · " + _reason(_runtime().get("departReason", "save-unverified"))
+		"arrived": return "抵达已记录，交付与报酬按实际回执核对"
+		"lost": return "船只损失已记录，请核对货物与人员回执"
+		"interrupted": return "航程中断，请核对船员与船况"
+	return "等待航程核验"
 
 func _route_name(id: String) -> String:
 	return {"xiamen-kinmen-deep": "厦门—金门深水道", "xiamen-kinmen-shallow": "厦门—金门浅水捷径", "xiamen-kinmen-outer": "厦门—金门外海线", "kinmen-supply-deep": "金门—近岸补给线"}.get(id, id)
@@ -440,8 +727,8 @@ func _build_port(parent: Control) -> void:
 		var names := {"repair": "请求修理", "refit": "申请帆装改造", "release-prisoners": "释放俘虏", "treat-wounded": "申请治伤"}
 		_button(parent, "service_" + type.replace("-", "_"), names[type], func():
 			var intent := {"type": type, "shipId": _form.get("service_ship", "")}
-			if type == "refit": intent.slot = "sails"
-			if type == "treat-wounded": intent.quantity = int(_form.treatment_quantity)
+			if type == "refit": intent["slot"] = "sails"
+			if type == "treat-wounded": intent["quantity"] = int(_form.treatment_quantity)
 			return intent, func(): return _service_ok(type))
 		_text(parent, "service_reason_" + type.replace("-", "_"), func():
 			var quote := _service_quote(type)
@@ -661,9 +948,9 @@ func _order_valid() -> bool:
 	return not hostile if _form.tactics_kind == "protect" else true if _form.tactics_kind == "keep-distance" else hostile
 func _order_payload() -> Dictionary:
 	var intent := {"kind": _form.tactics_kind}
-	if _form.tactics_kind == "rally": intent.point = {"x": float(_form.point_x), "z": float(_form.point_z)}
-	else: intent.targetId = _form.get("tactics_target", "")
-	if _form.tactics_kind == "keep-distance": intent.range = float(_form.tactics_range)
+	if _form.tactics_kind == "rally": intent["point"] = {"x": float(_form.point_x), "z": float(_form.point_z)}
+	else: intent["targetId"] = _form.get("tactics_target", "")
+	if _form.tactics_kind == "keep-distance": intent["range"] = float(_form.tactics_range)
 	return {"type": "assign-order", "order": {"id": "", "shipIds": _selected.duplicate(), "intent": intent, "issuedAt": float(_state().get("simulationSeconds", 0))}}
 
 func _build_menu() -> void:
@@ -771,8 +1058,11 @@ func _local_button(parent: Node, id: String, text: String, action: Callable) -> 
 	button.custom_minimum_size = Vector2(80, 36)
 	parent.add_child(button)
 	var captured := _token()
+	var button_ref: WeakRef = weakref(button)
 	button.pressed.connect(func():
-		if captured == _token() and not button.disabled: action.call())
+		if captured != _token(): return
+		var live: Variant = button_ref.get_ref()
+		if live is Button and not live.disabled: action.call())
 	return button
 func _button(parent: Node, id: String, text: String, payload: Callable, enabled: Callable) -> Button:
 	var captured := _token()

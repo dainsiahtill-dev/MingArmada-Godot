@@ -101,7 +101,7 @@ func _request(entry: String) -> void:
 	if _phase != "menu" or _generation < 0: return
 	if entry == "continue" and _model.get("hasLegacySave",false) != true: return
 	if entry in ["qa","practice"] and not _qa_enabled(): return
-	if entry not in MODES and entry not in ["ships","practice","water-study","quit"]: return
+	if entry not in MODES and entry not in ["ships","practice","water-study","fidelity-island","quit"]: return
 	var payload: Dictionary = {"type":"start" if entry in MODES else entry,"name":_draft_name}
 	if entry in MODES:
 		if entry == "mingqi" and _qa_enabled():
@@ -235,6 +235,7 @@ func build() -> void:
 	_entry(battles,"duel","单舰炮战","一对一交锋"); _entry(battles,"fleet","舰队遭遇","一对二挑战")
 	_entry(column,"sail","自由试航","练习风帆与操舵")
 	_entry(column,"water-study","海岛与海面","晴天、夕阳与潮起潮落")
+	_entry(column,"fidelity-island","新海岛实景","白沙、森林、棕榈与动态岸浪")
 	_entry(column,"ships","检阅船只","福船、渔舟与远洋商船")
 	_entry(column,"qa","画面验收","真实引擎 · 可重复场景")
 	_entry(column,"practice","玩法验收","决斗、陆战、寻宝与宴会")

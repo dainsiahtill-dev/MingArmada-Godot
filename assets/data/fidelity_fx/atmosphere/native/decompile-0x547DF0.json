@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x547DF0",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_547DF0(float *this)\n{\n  int result; // eax\n  double v2; // st7\n  double v3; // st6\n  double v4; // st7\n  double v5; // st6\n  double v6; // st7\n  double v7; // st5\n  double v8; // st7\n  double v9; // st6\n  double v10; // st7\n  double v11; // st6\n  double v12; // st7\n  double v13; // st6\n  double v14; // st7\n  double v15; // st6\n  double v16; // rt2\n  double v17; // st6\n  float v18; // [esp+0h] [ebp-Ch]\n  float v19; // [esp+4h] [ebp-8h]\n  float v20; // [esp+8h] [ebp-4h]\n  float v21; // [esp+8h] [ebp-4h]\n\n  result = *((_DWORD *)this + 17);\n  v19 = cos(*(this + 2));\n  v18 = sin(*(this + 2));\n  if ( !result )\n  {\n    v10 = v18 * *(this + 3);\n    v11 = v19 * *(this + 3);\n    *(this + 14) = 0.0;\n    *(this + 8) = v11;\n    *(this + 11) = v10;\n    v12 = v19 * *(this + 4);\n    v13 = v18 * *(this + 4);\n    *(this + 15) = 0.0;\n    *(this + 9) = -v13;\n    *(this + 12) = v12;\n    v14 = *(this + 1) - *(this + 6);\n    v15 = *this - *(this + 5);\n    v21 = v15;\n    v16 = v15 * v18 + v14 * v19 + *(this + 6);\n    v17 = v14;\n    v8 = v16;\n    v9 = v21 * v19 - v17 * v18;\n    goto LABEL_5;\n  }\n  if ( !--result )\n  {\n    v2 = -(v18 * *(this + 4));\n    v3 = v19 * *(this + 3);\n    *(this + 14) = 0.0;\n    *(this + 8) = v3;\n    *(this + 11) = v2;\n    v4 = v19 * *(this + 4);\n    v5 = v18 * *(this + 3);\n    *(this + 15) = 0.0;\n    *(this + 9) = v5;\n    *(this + 12) = v4;\n    v6 = *(this + 1) - *(this + 6);\n    v20 = -*(this + 5) - *this;\n    v7 = v6 * v18;\n    v8 = (v19 * v6 - v20 * v18) * *(this + 4) + *(this + 6);\n    v9 = (v20 * v19 + v7) * *(this + 3);\nLABEL_5:\n    *(this + 10) = v9 + *(this + 5);\n    *(this + 13) = v8;\n    *(this + 16) = 1.0;\n  }\n  *((_BYTE *)this + 28) = 0;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -4,6 +4,7 @@ const Foam = preload("res://game/presentation/water/pirates_foam.gdshader")
 const Volume = preload("res://game/presentation/water/splash_volume.gd")
 const VolumeShader = preload("res://game/presentation/water/splash_volume.gdshader")
 const Reference = preload("res://game/presentation/water/reference_splash.gd")
+const FidelityReference = preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
 const FROTH := "res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png"
 const COLUMN := "res://assets/textures/pirates_reference/fx_water_splash_004.dds.png"
 const STREAK := "res://assets/textures/pirates_reference/fx_streakin_001.dds.png"
@@ -19,6 +20,11 @@ var _time := -1.0
 var _splashes: Array = []
 var _seen: Dictionary = {}
 var _surface_filter: Callable
+var _reference_camera: Camera3D
+func configure_reference_backend(camera: Camera3D) -> void:
+	_reference_camera = camera
+	for splash: Dictionary in _splashes:
+		if splash.has("fidelity"): splash.reference.set_camera(camera)
 
 func configure_surface_filter(sea_at: Callable) -> void:
 	_surface_filter = sea_at
@@ -84,9 +90,15 @@ func add_event(event: Dictionary) -> void:
 	if not is_finite(birth_height): birth_height = Volume.height(_water,origin,stamp)
 	var splash := {"node":node,"ring":ring,"spray":spray,"mist":mist,"ring_material":ring_material,"spray_material":spray_material,"origin":origin,"time":stamp,"column":column,"shell":shell,"drops":drops,"birth_origin":Vector3(origin.x,birth_height,origin.y),"seed":absi(id.hash()),"active_drops":0,"scale":size,"surface_only":surface_only,"froth":froth}
 	if not surface_only:
-		var reference := Reference.new(); reference.name = "ReferenceSplash"; node.add_child(reference)
-		if reference.configure(splash.birth_origin,size,splash.seed,_water,_surface_filter): splash.reference = reference
-		else: reference.free()
+		if is_instance_valid(_reference_camera):
+			var reference := FidelityReference.new(); reference.name = "FidelityReferenceSplash"; node.add_child(reference)
+			var variant := 1+posmod(splash.seed,3)
+			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_surface_filter,"camera":_reference_camera}): splash.reference = reference; splash.fidelity = true
+			else: reference.free()
+		else:
+			var reference := Reference.new(); reference.name = "ReferenceSplash"; node.add_child(reference)
+			if reference.configure(splash.birth_origin,size,splash.seed,_water,_surface_filter): splash.reference = reference
+			else: reference.free()
 	if not id.is_empty(): _seen[id] = stamp
 	_splashes.append(splash); _update(splash,age)
 
@@ -190,7 +202,10 @@ func diagnostics() -> Dictionary:
 	var positions: Array[Vector3] = []
 	for splash: Dictionary in _splashes:
 		drops += int(splash.active_drops); positions.append_array(splash.droplet_positions)
-	return {"splashes":_splashes.size(),"accepted_time":_time,"droplets":drops,"droplet_capacity":_splashes.size()*Volume.DROPLETS,"droplet_positions":positions}
+	var sources: Array=[]
+	for splash: Dictionary in _splashes:
+		if splash.has("fidelity"): sources.append(splash.reference.diagnostics())
+	return {"splashes":_splashes.size(),"accepted_time":_time,"droplets":drops,"droplet_capacity":_splashes.size()*Volume.DROPLETS,"droplet_positions":positions,"fidelity_sources":sources}
 
 func _clear() -> void:
 	for splash: Dictionary in _splashes: splash.node.free()
@@ -198,6 +213,6 @@ func _clear() -> void:
 	_seen.clear()
 
 func dispose() -> void:
-	_clear(); _water = Callable(); _surface_filter = Callable(); _time = -1.0
+	_clear(); _water = Callable(); _surface_filter = Callable(); _reference_camera = null; _time = -1.0
 
 func _exit_tree() -> void: dispose()

@@ -1,0 +1,1119 @@
+extends RefCounted
+## Current 1650 opening slice. All state is detached JSON data; no scene/time globals.
+const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+const SaveCodec = preload("res://game/domain/persistence/save_codec.gd")
+const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
+const MAX_SAFE = 9007199254740991
+const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
+const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+const NEEDS_NATIVE = ["dock","repair","refit","treat-wounded","start-boarding","board-action","allocate-prize","release-prisoners","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+var _state: Dictionary
+var _error = ""
+var _reconciling = false
+
+func _init(seed: int = 1650, captain_name: String = "林船长", campaign_id: String = "mingqi-1650"):
+	if not _count(seed) or seed > 4294967295 or not _valid_id(campaign_id) or captain_name.strip_edges().is_empty() or captain_name.length()>24 or _has_controls(captain_name):
+		_error = "invalid-options"
+		_state = {}
+		return
+	_state = _initial(seed, captain_name, campaign_id)
+
+func snapshot() -> Dictionary: return _state.duplicate(true)
+func serialize(now_utc: String = "2026-10-11T00:00:00.000Z") -> String:
+	return SaveCodec.encode(_state, now_utc)
+func restore(json: String) -> bool:
+	var decoded = SaveCodec.decode(json)
+	if not decoded.get("ok",false): return false
+	_state = decoded.state.duplicate(true)
+	return true
+func _initial(seed: int, captain_name: String, cid: String) -> Dictionary:
+	var vessels = {}
+	for role in Catalog.DATA.roles:
+		var suffix = role.suffix
+		var voyage_id = null
+		if suffix in ["grain-a","grain-b"]: voyage_id = cid+"-"+suffix+"-voyage"
+		elif suffix == "background-grain-01": voyage_id = cid+"-background-voyage"
+		var background = suffix == "background-grain-01"
+		vessels[cid+"-"+suffix] = {"id":cid+"-"+suffix,"name":role.name,"ownerId":role.ownerId,"profileId":role.profileId,"cargo":{"grain":10} if background else {},"pose":{"position":role.position.duplicate(true),"heading":0,"speed":0},"controls":{"rudder":0,"sailAngle":PI/4,"sailDeployment":0.7 if background else 0,"autoTrim":true},"controlsRevision":0,"controlsProjection":null,"controlsObserved":null,"combat":{"ammo":{"solid":40,"chain":24,"grape":24} if role.armed else {"solid":0,"chain":0,"grape":0},"ammoType":"solid","cooldownSeconds":{"port":0,"starboard":0}},"crew":{"able":role.able,"minimum":role.minimum,"wounded":0,"prisoners":0},"damage":{"hull":100,"sail":100,"portGuns":100,"starboardGuns":100,"mast":100,"fire":0,"flooding":0},"voyageId":voyage_id,"representation":role.representation,"revision":0}
+	var voyages = {}
+	for suffix in ["grain-a","grain-b","background"]:
+		var background = suffix == "background"
+		var vid = cid+"-"+suffix+"-voyage"
+		voyages[vid] = {"id":vid,"vesselId":cid+"-"+("background-grain-01" if background else suffix),"originId":"xiamen","destinationId":"kinmen","routeId":"xiamen-kinmen-outer" if background else "xiamen-kinmen-deep","leg":0,"progress":0,"departedAt":0,"eta":1500 if background else 1200,"escortIds":[] if background else [cid+"-flagship",cid+"-fast"],"status":"underway" if background else "loading"}
+	var receipt = {"id":"background-load-01","commandId":"background-load-01","revision":0,"kind":"background-load","message":"厦门库存100出库10，林家商船载粮10。"}
+	return {"campaignId":cid,"revision":0,"seed":seed,"randomState":seed,"nextId":1,"simulationSeconds":0,"macroRemainder":0,"macroSeconds":0,"clockCompensation":0,"calendar":{"year":1650,"month":1,"day":1},"chapterId":"opening-1650","captain":{"name":captain_name,"birthYear":1631,"silver":650},"debt":{"principal":400,"creditorId":"house-lin","dueAt":18000},"flagshipId":cid+"-flagship","currentPortId":"xiamen","vessels":vessels,"voyages":voyages,"ports":Catalog.DATA.ports.duplicate(true),"orders":[],"contracts":{"convoy-001":{"id":"convoy-001","voyageIds":[cid+"-grain-a-voyage",cid+"-grain-b-voyage"],"deadlineAt":1800,"minimumDelivery":1,"bonusQuantity":40,"criticalPersonIds":["steward-a","steward-b"],"secret":false,"status":"offered","receiptId":null}},"reputations":{"militaryTrust":0,"merchantCredit":0,"crewSupport":50,"intimidation":0},"people":{"steward-a":{"id":"steward-a","name":"林管事","shipId":cid+"-grain-a","alive":true,"role":"steward"},"steward-b":{"id":"steward-b","name":"陈管事","shipId":cid+"-grain-b","alive":true,"role":"steward"}},"intelligence":[],"settlements":{"background-load-01":receipt},"nearTicks":{},"boardings":{},"works":{},"prizes":{},"casualtyOrdinals":{},"chronicle":[{"id":"background-load-01","simTime":0,"date":{"year":1650,"month":1,"day":1},"causeIds":["background-load-01",cid+"-background-grain-01",cid+"-background-voyage"],"kind":receipt.kind,"message":receipt.message}]}
+
+static func _count(n) -> bool: return typeof(n) in [TYPE_INT,TYPE_FLOAT] and is_finite(float(n)) and n>=0 and n<=MAX_SAFE and n==floor(float(n))
+static func _finite(n) -> bool: return typeof(n) in [TYPE_INT,TYPE_FLOAT] and is_finite(float(n))
+static func _has_controls(s: String) -> bool:
+	for i in s.length():
+		if s.unicode_at(i)<32 or s.unicode_at(i)==127: return true
+	return false
+static func _utf16_length(s: String) -> int:
+	var count=0
+	for i in s.length():count+=2 if s.unicode_at(i)>65535 else 1
+	return count
+static func _valid_id(s, maximum: int=128) -> bool: return s is String and not s.strip_edges().is_empty() and _utf16_length(s)<=maximum and not _has_controls(s) and not s in ["__proto__","prototype","constructor"]
+static func _exact(d, keys: Array) -> bool:
+	if not d is Dictionary or d.size()!=keys.size(): return false
+	for k in keys:
+		if not d.has(k): return false
+	return true
+static func _sum(d: Dictionary) -> float:
+	var n = 0.0
+	for q in d.values(): n += q
+	return n
+static func _distance(a: Dictionary,b: Dictionary) -> float: return sqrt(pow(a.x-b.x,2)+pow(a.z-b.z,2))
+static func _failure(code: String) -> Dictionary: return {"ok":false,"code":code,"reason":code}
+func _require(condition: bool, code: String) -> bool:
+	if not condition and _error.is_empty(): _error = code
+	return condition
+static func calendar_at(seconds: float) -> Dictionary:
+	var days = int(floor(seconds/1800.0))
+	var year = 1650
+	var cycles = int(floor(days/146097.0))
+	days -= cycles*146097
+	year += cycles*400
+	while true:
+		var length = 366 if year%4==0 and (year%100!=0 or year%400==0) else 365
+		if days<length: break
+		days -= length
+		year += 1
+	var months = [31,29 if year%4==0 and (year%100!=0 or year%400==0) else 28,31,30,31,30,31,31,30,31,30,31]
+	var month = 0
+	while days>=months[month]:
+		days -= months[month]
+		month += 1
+	return {"year":year,"month":month+1,"day":days+1}
+func _record(s: Dictionary,id: String,kind: String,message: String,causes: Array,details = null):
+	if s.settlements.has(id): return
+	if not _require(s.chronicle.size()<4096,"event-buffer-full"): return
+	var receipt = {"id":id,"commandId":id,"revision":s.revision,"kind":kind,"message":message}
+	if details!=null: receipt.details=details.duplicate(true)
+	s.settlements[id]=receipt
+	s.chronicle.append({"id":id,"simTime":s.simulationSeconds,"date":s.calendar.duplicate(true),"causeIds":causes.duplicate(true),"kind":kind,"message":message})
+func effective_draft(v: Dictionary) -> float:
+	var p = Catalog.DATA.profiles.get(v.profileId,{})
+	if not _require(not p.is_empty(),"Unknown vessel profile"): return NAN
+	for q in v.cargo.values():
+		if not _require(_count(q),"Invalid cargo quantity"): return NAN
+	var units = _sum(v.cargo)
+	if not _require(_count(units) and units<=p.capacity,"Cargo exceeds capacity"): return NAN
+	return p.baseDraftMeters+units*p.cargoDraftMetersPerUnit
+static func locate_route(v: Dictionary,r: Dictionary) -> Dictionary:
+	var best = {"leg":0,"progress":0}
+	var closest = INF
+	for leg in r.points.size()-1:
+		var a=r.points[leg]; var b=r.points[leg+1]
+		var dx=b.x-a.x; var dz=b.z-a.z; var length2=dx*dx+dz*dz
+		var progress = clamp(((v.pose.position.x-a.x)*dx+(v.pose.position.z-a.z)*dz)/length2,0,1) if length2 else 1
+		var separation = sqrt(pow(v.pose.position.x-a.x-progress*dx,2)+pow(v.pose.position.z-a.z-progress*dz,2))
+		if separation<closest:
+			closest=separation;best={"leg":leg,"progress":progress}
+	if best.progress>=1-1e-10 and best.leg<r.points.size()-2: return {"leg":best.leg+1,"progress":0}
+	return best
+func route_for_vessel(r: Dictionary,v: Dictionary) -> Dictionary:
+	_error=""
+	if not _finite(r.get("minimumDepth")) or r.minimumDepth<=0 or not r.get("points") is Array or r.points.size()<2:return {"ok":false,"reason":"Unknown or invalid route depth/geometry"}
+	for point in r.points:
+		if not point is Dictionary or not _finite(point.get("x")) or not _finite(point.get("z")):return {"ok":false,"reason":"Unknown or invalid route depth/geometry"}
+	var draft=effective_draft(v)
+	if not _error.is_empty(): return {"ok":false,"reason":_error}
+	return {"ok":true} if draft<r.minimumDepth else {"ok":false,"reason":"Draft %.1fm requires deeper water than %.1fm"%[draft,r.minimumDepth]}
+func quote_trade(type: String, good: String, quantity) -> Dictionary:
+	return _quote_trade(_state,type,good,quantity)
+func _quote_trade(s: Dictionary,type: String,good: String,quantity) -> Dictionary:
+	if not type in ["buy","sell"] or not _count(quantity) or quantity<=0: return {"ok":false,"reason":"invalid-quantity"}
+	if good!="grain": return {"ok":false,"reason":"unsupported-good"}
+	if s.currentPortId==null or not s.ports.has(s.currentPortId): return {"ok":false,"reason":"not-in-port"}
+	var v=s.vessels.get(s.flagshipId,{})
+	if v.is_empty(): return {"ok":false,"reason":"unknown-ship"}
+	if v.voyageId!=null: return {"ok":false,"reason":"contract-cargo"}
+	if v.ownerId!="captain" and not (v.ownerId=="house-lin" and v.profileId=="flagship"): return {"ok":false,"reason":"not-authorized"}
+	if v.pose.speed>0.5 or v.damage.hull<=0 or v.damage.fire>0 or v.damage.flooding>0 or v.controls.sailDeployment>0: return {"ok":false,"reason":"unsafe-port"}
+	var profile=Catalog.DATA.profiles.get(v.profileId,{})
+	if profile.is_empty(): return {"ok":false,"reason":"unknown-profile"}
+	var stock=s.ports[s.currentPortId].stock.get("grain",0);var cargo=v.cargo.get("grain",0);var occupied=_sum(v.cargo)
+	for n in [stock,cargo,occupied,s.captain.silver]:
+		if not _count(n): return {"ok":false,"reason":"invalid-resources"}
+	if type=="buy" and quantity>stock: return {"ok":false,"reason":"insufficient-stock"}
+	if type=="buy" and quantity>profile.capacity-occupied: return {"ok":false,"reason":"insufficient-capacity"}
+	if type=="sell" and quantity>cargo: return {"ok":false,"reason":"insufficient-cargo"}
+	if occupied>profile.capacity or not _count(stock+(quantity if type=="sell" else 0)): return {"ok":false,"reason":"numeric-overflow"}
+	var total=0
+	for unit in int(quantity):
+		total += max(2,10+floor((100-(stock-1 if type=="buy" else stock))/20.0))+(1 if type=="buy" else -1)
+		stock += -1 if type=="buy" else 1
+	if not _count(total) or total<=0 or (type=="sell" and not _count(s.captain.silver+total)): return {"ok":false,"reason":"numeric-overflow"}
+	if type=="buy" and total>s.captain.silver: return {"ok":false,"reason":"insufficient-silver"}
+	return {"ok":true,"total":total}
+
+func _valid_order(o) -> bool:
+	if not _exact(o,["id","shipIds","intent","issuedAt"]) or not _valid_id(o.id) or not o.shipIds is Array or o.shipIds.is_empty() or o.shipIds.size()>64 or not _finite(o.issuedAt) or o.issuedAt<0 or not o.intent is Dictionary: return false
+	var seen={}
+	for id in o.shipIds:
+		if not _valid_id(id,256) or seen.has(id): return false
+		seen[id]=true
+	var i=o.intent
+	if i.get("kind")=="rally": return _exact(i,["kind","point"]) and _exact(i.point,["x","z"]) and _finite(i.point.x) and _finite(i.point.z)
+	if i.get("kind")=="keep-distance": return _exact(i,["kind","targetId","range"]) and _valid_id(i.targetId,256) and _finite(i.range) and i.range>0 and i.range<=10000
+	return i.get("kind") in ["protect","intercept","focus","prepare-boarding"] and _exact(i,["kind","targetId"]) and _valid_id(i.targetId,256)
+func _valid_command(c: Dictionary) -> bool:
+	if not _valid_id(c.get("commandId")) or not _count(c.get("expectedRevision")): return false
+	var fields=["type","commandId","expectedRevision"]
+	match c.get("type"):
+		"story-choice":
+			fields.append_array(["sceneId","choiceId"])
+			if not c.get("sceneId") is String or not c.get("choiceId") is String or OpeningStory.choice_definition(c.sceneId,c.choiceId).is_empty():return false
+		"repay-debt":
+			fields.append("quantity")
+			if not _count(c.get("quantity")) or c.quantity<=0:return false
+		"accept-convoy":
+			if c.has("contractId"):
+				fields.append("contractId")
+				if not c.contractId in ["convoy-001","convoy-002"]: return false
+		"depart": pass
+		"buy","sell":
+			fields.append_array(["good","quantity"])
+			if not c.get("good") in GOODS or not _count(c.get("quantity")) or c.quantity<=0:return false
+		"choose-route": fields.append_array(["voyageId","routeId"])
+		"assign-order":
+			fields.append("order")
+			if not _valid_order(c.get("order")):return false
+		"dock":fields.append("portId")
+		"repair","release-prisoners","incorporate-prize":fields.append("shipId")
+		"treat-wounded":
+			fields.append_array(["shipId","quantity"])
+			if not _count(c.get("quantity")) or c.quantity<=0:return false
+		"sell-prize":fields.append_array(["shipId","crewToShipId"])
+		"resolve-prize":
+			fields.append_array(["targetId","choice"])
+			if c.get("choice")=="abandon":fields.append("toShipId")
+			elif c.get("choice")!="release":return false
+		"take-prize-cargo":
+			fields.append_array(["targetId","toShipId","cargo"])
+			if not c.get("cargo") is Dictionary:return false
+			for g in c.cargo:
+				if not g in GOODS or not _count(c.cargo[g]):return false
+			if not _count(_sum(c.cargo)) or _sum(c.cargo)<=0:return false
+		"refit":
+			fields.append_array(["shipId","slot"])
+			if c.get("slot")!="sails":return false
+		"claim-convoy":fields.append("contractId")
+		"start-boarding":fields.append_array(["targetId","fromShipId"])
+		"allocate-prize":
+			fields.append_array(["targetId","fromShipId","crew"])
+			if not _count(c.get("crew")) or c.crew<=0:return false
+		"board-action":
+			fields.append_array(["encounterId","point","action"])
+			if not c.get("point") in ["bow","deck","helm"] or not c.get("action") in ["advance","hold","cut-lines"]:return false
+		_:return false
+	if not _exact(c,fields):return false
+	for key in ["shipId","targetId","fromShipId","toShipId","crewToShipId","voyageId"]:
+		if c.has(key) and not _valid_id(c[key],256):return false
+	for key in ["routeId","portId","contractId","encounterId"]:
+		if c.has(key) and not _valid_id(c[key]):return false
+	return true
+
+func command(input: Dictionary, context: Dictionary={}) -> Dictionary:
+	_error=""
+	if _reconciling:return _failure("reentrant-handoff")
+	if not SaveCodec.command_data(input) or not _valid_command(input):return _failure("invalid-command")
+	var c=input.duplicate(true)
+	for r in _state.settlements.values():
+		if r.kind in BUSINESS and r.commandId==c.commandId:return {"ok":true,"receipt":r.duplicate(true)}
+	if c.expectedRevision!=_state.revision:return _failure("stale-revision")
+	var refs=[]
+	if c.type=="assign-order":
+		refs.append_array(c.order.shipIds)
+		if c.order.intent.has("targetId"):refs.append(c.order.intent.targetId)
+	else:
+		for k in ["shipId","fromShipId","targetId","toShipId","crewToShipId"]:
+			if c.has(k):refs.append(c[k])
+	for id in refs:
+		if not _state.vessels.has(id):return _failure("unknown-ship")
+	if c.type=="choose-route" and not _state.voyages.has(c.voyageId):return _failure("unknown-voyage")
+	if c.type=="dock" and not _state.ports.has(c.portId):return _failure("unknown-port")
+	if c.type=="claim-convoy" and not _state.contracts.has(c.contractId):return _failure("unknown-contract")
+	if _state.chronicle.size()>=4096:return _failure("event-buffer-full")
+	if not _count(_state.revision+1) or not _count(_state.nextId+1):return _failure("numeric-overflow")
+	var s=_state.duplicate(true)
+	var native=context.get("native",{})
+	if not native.is_empty():
+		if not _native_valid(native):return {"ok":false,"code":"native-context-rejected","reason":_error}
+		_sync(s,native.snapshot,native.get("events",[]))
+	var policy=native_policy(_near_ids(s),s)
+	if (c.type in NEEDS_NATIVE or c.type=="accept-convoy" and c.get("contractId")=="convoy-002") and native.is_empty():return _failure("native-context-required")
+	if not _error.is_empty():return _failure(_error)
+	var working=[]
+	for w in s.works.values():
+		if w.status=="active":working.append(w.shipId)
+	if c.type=="depart" and not working.is_empty():return _failure("ship-working")
+	if c.type=="assign-order":
+		for id in c.order.shipIds:
+			if id in working:return _failure("ship-working")
+	var id="";var message="";var details=null;var anchors=[]
+	match c.type:
+		"story-choice":
+			var definition=OpeningStory.choice_definition(c.sceneId,c.choiceId)
+			if s.currentPortId!=definition.portId:return _failure("not-in-story-port")
+			_docked(s,native,policy,s.flagshipId)
+			if not _error.is_empty():return _failure(_error)
+			if definition.routeId!=null:
+				for suffix in ["grain-a","grain-b"]:
+					var v=s.vessels[s.campaignId+"-"+suffix]
+					if not route_for_vessel(Catalog.DATA.routes[definition.routeId],v).ok:return _failure("route-too-shallow")
+			var result=OpeningStory.apply(s,c.sceneId,c.choiceId)
+			if not result.ok:return _failure(result.reason)
+			if definition.routeId!=null:
+				for suffix in ["grain-a","grain-b"]:
+					var voyage=s.voyages[s.campaignId+"-"+suffix+"-voyage"]
+					voyage.merge(locate_route(s.vessels[voyage.vesselId],Catalog.DATA.routes[definition.routeId]),true)
+			id=OpeningStory.receipt_id(s,c.sceneId);details=result.details;message=result.message
+		"repay-debt":
+			if s.currentPortId!="xiamen":return _failure("not-in-port")
+			_docked(s,native,policy,s.flagshipId)
+			if not _error.is_empty():return _failure(_error)
+			if c.quantity>s.debt.principal:return _failure("exceeds-debt")
+			if c.quantity>s.captain.silver:return _failure("insufficient-silver")
+			var before=s.debt.principal; var after=before-c.quantity; var award=6 if after==0 else 0
+			s.captain.silver-=c.quantity;s.debt.principal=after;s.reputations.merchantCredit=clamp(s.reputations.merchantCredit+award,-100,100)
+			id=s.campaignId+":repay-debt:"+c.commandId;message="向林家商行偿还%d两本金，剩余%d两。"%[c.quantity,after]
+			details={"kind":"repay-debt","portId":"xiamen","amount":c.quantity,"beforePrincipal":before,"afterPrincipal":after,"creditAward":award}
+		"accept-convoy":
+			var cid=c.get("contractId","convoy-001")
+			var contract=s.contracts.get(cid,{})
+			if contract.is_empty():return _failure("contract-unavailable")
+			id=s.campaignId+"-"+cid+"-accept"
+			if contract.status!="offered" or s.settlements.has(id):return _failure("already-accepted")
+			if cid=="convoy-002":
+				if s.currentPortId!="kinmen":return _failure("not-in-port")
+				_safe_dock(s,native,policy,"kinmen")
+				if s.ports.kinmen.stock.get("grain",0)<20:return _failure("insufficient-stock")
+				var ships=[]
+				for suffix in ["grain-a","grain-b"]:
+					var vessel=s.vessels[s.campaignId+"-"+suffix]
+					if vessel.damage.hull<=0:
+						if not genuine_sunk_transport(vessel.id,s):return _failure("unverified-transport-loss:"+vessel.id)
+					else:ships.append(vessel)
+				if ships.is_empty():return _failure("convoy-transports-sunk")
+				var quantity=20 if ships.size()==1 else 10
+				for v in ships:
+					if not genuine_lease(v.id,s):return _failure("convoy-ship-not-leased:"+v.id)
+					_docked(s,native,policy,v.id)
+					if not _error.is_empty():return _failure(_error+":"+v.id)
+					if v.crew.able<v.crew.minimum:return _failure("convoy-ship-crew-insufficient:"+v.id)
+					if v.id in working or v.id in _boarding_ids(s) or _sum(v.cargo)>0 or v.voyageId!=null and not s.voyages[v.voyageId].status in ["arrived","lost"]:return _failure("convoy-ship-not-ready:"+v.id)
+					var loaded=v.duplicate(true);loaded.cargo.grain=quantity
+					if not route_for_vessel(Catalog.DATA.routes["kinmen-supply-deep"],loaded).ok:return _failure("route-too-shallow:"+v.id)
+				contract.voyageIds=[]
+				if ships.size()==1:
+					contract.criticalPersonIds=[]
+					for pid in s.contracts["convoy-001"].criticalPersonIds:
+						if s.people[pid].alive and s.people[pid].shipId==ships[0].id:contract.criticalPersonIds.append(pid)
+				for i in ships.size():
+					var v=ships[i];var vid=s.campaignId+"-convoy-002-"+str(i)+"-voyage"
+					s.voyages[vid]={"id":vid,"vesselId":v.id,"originId":"kinmen","destinationId":"forward-supply","routeId":"kinmen-supply-deep","leg":0,"progress":0,"departedAt":0,"eta":s.simulationSeconds+1200,"escortIds":[s.flagshipId,s.campaignId+"-fast"],"status":"loading"}
+					v.voyageId=vid;v.cargo.grain=quantity;contract.voyageIds.append(vid)
+				s.ports.kinmen.stock.grain-=20;contract.status="active";contract.receiptId=id;contract.deadlineAt=s.simulationSeconds+1200
+				details={"kind":"convoy-load","contractId":cid,"loaded":20,"leasePaid":0,"ships":_load_people(ships)};message="金门实出20粮，每船10，复用已付租船。" if ships.size()==2 else "金门实出20粮，由幸存原租粮船独运；沉船与伤亡保留，航程风险由一船承担。"
+			else:
+				if s.currentPortId!="xiamen":return _failure("not-in-port")
+				if s.ports.xiamen.stock.get("grain",0)<40:return _failure("insufficient-stock")
+				if s.captain.silver<50:return _failure("insufficient-silver")
+				var ships=[]
+				for vid in contract.voyageIds:
+					if not s.voyages.has(vid) or not s.vessels.has(s.voyages[vid].vesselId):return _failure("invalid-convoy")
+					var v=s.vessels[s.voyages[vid].vesselId]
+					if v.ownerId!="house-lin" or v.cargo.get("grain",0)>0 or _sum(v.cargo)+20>Catalog.DATA.profiles[v.profileId].capacity:return _failure("invalid-convoy")
+					ships.append(v)
+				if ships.size()!=2:return _failure("invalid-convoy")
+				s.ports.xiamen.stock.grain-=40;s.captain.silver-=50
+				details={"kind":"convoy-load","contractId":cid,"loaded":40,"leasePaid":50,"ships":_load_people(ships+[s.vessels[s.flagshipId],s.vessels[s.campaignId+"-fast"]])}
+				for v in ships:v.cargo.grain=20;v.revision+=1
+				contract.status="active";contract.receiptId=id;message="支付租费50两，厦门出库40粮，粮船甲乙各载20粮。"
+		"depart":
+			var contract={};var flag=s.vessels[s.flagshipId]
+			for ct in s.contracts.values():
+				if ct.status=="active":
+					for vid in ct.voyageIds:
+						if s.voyages[vid].status=="loading":contract=ct;break
+				if not contract.is_empty():break
+			if not flag.id in policy.controllableShipIds:return _failure("unauthorized-departure")
+			if flag.crew.able<flag.crew.minimum or flag.id in policy.disabledMotionShipIds:return _failure("flagship-crew-insufficient")
+			if flag.id in policy.lockedShipIds:return _failure("flagship-working")
+			if s.currentPortId==null or flag.pose.speed>0.75 or flag.damage.hull<=0:return _failure("unsafe-departure")
+			if not native.is_empty():_safe_dock(s,native,policy,s.currentPortId)
+			if _distance(flag.pose.position,s.ports[s.currentPortId].position)>100:return _failure("outside-origin-anchorage")
+			if native.is_empty() and s.vessels[s.campaignId+"-enemy"].representation=="near":return _failure("unsafe-departure")
+			for vid in contract.get("voyageIds",[]):
+				var voyage=s.voyages[vid];var v=s.vessels[voyage.vesselId]
+				if voyage.status!="loading" or v.damage.hull<=0 or v.crew.able<v.crew.minimum:return _failure("invalid-convoy")
+				voyage.merge(locate_route(v,Catalog.DATA.routes[voyage.routeId]),true);voyage.status="underway";voyage.departedAt=s.simulationSeconds
+			s.currentPortId=null
+			for v in s.vessels.values():
+				if v.id!=s.campaignId+"-heritage" and (v.voyageId!=null or v.profileId in ["flagship","fast"]):v.controls.sailDeployment=0.7;v.controlsRevision+=1
+			id=s.campaignId+"-depart-"+c.commandId;message="护粮船队安全离港。"
+		"choose-route":
+			var voyage=s.voyages[c.voyageId];var route=Catalog.DATA.routes.get(c.routeId,{})
+			if route.is_empty() or route.originId!=voyage.originId or route.destinationId!=voyage.destinationId:return _failure("invalid-route")
+			var authorized=false
+			for ct in s.contracts.values():
+				if ct.status=="active" and voyage.id in ct.voyageIds:authorized=true
+			if not voyage.status in ["loading","underway"] or not authorized:return _failure("unauthorized-voyage")
+			var v=s.vessels[voyage.vesselId]
+			if not route_for_vessel(route,v).ok:return _failure("route-too-shallow")
+			voyage.routeId=route.id;voyage.merge(locate_route(v,route),true)
+			id=s.campaignId+"-route-"+c.commandId;message=v.name+"选择"+route.id+"，保持当前位置。"
+		"claim-convoy":
+			var ct=s.contracts[c.contractId]
+			if ct.status in ["settled","failed"] or s.settlements.has(s.campaignId+":"+ct.id+":claim"):return _failure("already-claimed")
+			var result=_evaluate_convoy(s,ct.id)
+			if result.reason=="in-progress":return _failure("convoy-in-progress")
+			if not _count(s.captain.silver+result.reward):return _failure("numeric-overflow")
+			details=_convoy_details(s,ct.id);s.captain.silver+=result.reward;s.reputations.merchantCredit=min(100,s.reputations.merchantCredit+(5 if result.bonusEligible else 1 if result.delivered>0 else 0))
+			id=s.campaignId+":"+ct.id+":claim";ct.receiptId=id;ct.status="settled" if result.delivered>0 else "failed"
+			message="实交%d粮，损失%d，基础%d两，奖金%d两。"%[result.delivered,result.lost,result.delivered*10,result.reward-result.delivered*10]
+			if ct.id=="convoy-001" and result.delivered>0:s.contracts["convoy-002"]={"id":"convoy-002","voyageIds":[],"deadlineAt":0,"minimumDelivery":1,"bonusQuantity":20,"criticalPersonIds":ct.criticalPersonIds.duplicate(),"secret":false,"status":"offered","receiptId":null}
+		"buy","sell":
+			var quote=_quote_trade(s,c.type,c.good,c.quantity)
+			if not quote.ok:return _failure(quote.reason)
+			var v=s.vessels[s.flagshipId];var p=s.ports[s.currentPortId];var direction=1 if c.type=="buy" else -1
+			s.captain.silver-=direction*quote.total;v.cargo[c.good]=v.cargo.get(c.good,0)+direction*c.quantity;p.stock[c.good]=p.stock.get(c.good,0)-direction*c.quantity;v.revision+=1
+			id=s.campaignId+"-trade-"+c.commandId;message=("买入" if c.type=="buy" else "卖出")+str(int(c.quantity))+"粮，"+str(int(quote.total))+"两。"
+		"assign-order":
+			if not context.get("applyOrder") is Callable:return _failure("native-context-required")
+			var order=c.order
+			if order.id!=c.commandId:return _failure("order-id-mismatch")
+			for o in s.orders:
+				if o.id==order.id:return _failure("order-id-conflict")
+			for ship_id in order.shipIds:
+				if not ship_id in policy.controllableShipIds or ship_id in policy.lockedShipIds:return _failure("unauthorized-order")
+			if order.intent.has("targetId"):
+				var target=s.vessels[order.intent.targetId]
+				if target.representation!="near" or target.damage.hull<=0 or target.crew.able<=0 or target.id in order.shipIds or target.id in policy.capturedShipIds:return _failure("target-unavailable")
+				for sid in order.shipIds:
+					if (target.id in policy.hostileTargets.get(sid,[]))==(order.intent.kind=="protect"):return _failure("invalid-order-target")
+			if s.orders.size()>=4096:return _failure("order-buffer-full")
+			order.issuedAt=s.simulationSeconds;s.orders.append(order.duplicate(true));id=s.campaignId+"-order-"+c.commandId;message="战术命令"+order.intent.kind+"已交原生执行。"
+		"dock","repair","refit","treat-wounded","release-prisoners":
+			var result=_port_command(s,c,native,policy);anchors=result.get("anchors",[]);details=result.get("details");id=s.campaignId+":"+c.type+":"+c.commandId;message=c.type+"已按实际港口状态受理。"
+		"start-boarding","board-action","allocate-prize":
+			if c.type=="allocate-prize":
+				if native.get("pendingAttacks",false):return _failure("unsafe-prize")
+				for sid in [c.fromShipId,c.targetId]:
+					if _ordered(s,native,sid):return _failure("ship-ordered")
+			details=_boarding_command(s,c,native.snapshot,policy);id=s.campaignId+":prize:"+c.targetId if c.type=="allocate-prize" else s.campaignId+":"+c.type+":"+c.commandId;message=c.type+"已按真实甲板状态受理。"
+		"take-prize-cargo","resolve-prize","sell-prize","incorporate-prize":
+			var result=_prize_command(s,c,native,policy);details=result.get("details");id=result.get("id","");message=c.type+"已按实际俘获状态受理。"
+		_:return _failure("not-implemented")
+	if not _error.is_empty():return _failure(_error)
+	if s.chronicle.size()>=4096:return _failure("event-buffer-full")
+	s.revision+=1;s.nextId+=1
+	var receipt={"id":id,"commandId":c.commandId,"revision":s.revision,"kind":c.type,"message":message}
+	if details!=null:receipt.details=details
+	s.settlements[id]=receipt
+	var causes=[c.commandId,id]
+	if c.type=="release-prisoners":causes.append(c.shipId)
+	s.chronicle.append({"id":id,"simTime":s.simulationSeconds,"date":s.calendar.duplicate(true),"causeIds":causes,"kind":c.type,"message":message})
+	if not native.is_empty() and c.type!="assign-order":
+		if not _project(s,native,anchors):return {"ok":false,"code":"native-projection-rejected","reason":_error}
+	if c.type=="assign-order":
+		_reconciling=true
+		var result=context.applyOrder.call({"id":c.order.id,"shipIds":c.order.shipIds.duplicate(),"intent":c.order.intent.duplicate(true)})
+		_reconciling=false
+		if not result is Dictionary or result.get("ok")!=true:return {"ok":false,"code":"native-order-rejected","reason":result.get("reason","Native order rejected") if result is Dictionary else "Native order rejected"}
+	_state=s
+	return {"ok":true,"receipt":receipt.duplicate(true)}
+
+static func _load_people(ships: Array) -> Array:
+	var result=[]
+	for v in ships:result.append({"shipId":v.id,"able":v.crew.able,"wounded":v.crew.wounded})
+	return result
+static func _near_ids(s: Dictionary) -> Array:
+	var ids=[]
+	for v in s.vessels.values():
+		if v.representation=="near":ids.append(v.id)
+	return ids
+func evaluate_convoy(id: String) -> Dictionary:return _evaluate_convoy(_state,id)
+func _evaluate_convoy(s: Dictionary,cid: String) -> Dictionary:
+	if not s.contracts.has(cid) or not cid in ["convoy-001","convoy-002"]:return {"delivered":0,"lost":0,"reward":0,"bonusEligible":false,"reason":"unknown-contract"}
+	var ct=s.contracts[cid];var quantity=40 if cid=="convoy-001" else 20;var bonus=100 if cid=="convoy-001" else 50
+	var loaded=0
+	for r in s.settlements.values():
+		if r.get("details",{}).get("kind")=="convoy-load" and r.details.contractId==cid:loaded=r.details.loaded;break
+	var delivered=0;var pending=0;var last_arrival=0;var finished=loaded>0 and not ct.voyageIds.is_empty()
+	for vid in ct.voyageIds:
+		var voyage=s.voyages.get(vid,{})
+		var receipt=s.settlements.get(s.campaignId+":"+vid+":arrival",{}).get("details",{})
+		if receipt.get("kind")=="shipment-arrived":delivered+=receipt.grain;last_arrival=max(last_arrival,receipt.arrivedAt)
+		elif not voyage.is_empty() and voyage.status!="lost":pending+=s.vessels[voyage.vesselId].cargo.get("grain",0)
+		finished=finished and not voyage.is_empty() and voyage.status in ["arrived","lost"]
+	var eligible=finished and delivered==quantity and last_arrival<=ct.deadlineAt
+	for pid in ct.criticalPersonIds:eligible=eligible and s.people.get(pid,{}).get("alive",false)
+	return {"delivered":delivered,"lost":max(0,loaded-delivered-pending),"reward":delivered*10+(bonus if eligible else 0),"bonusEligible":eligible,"reason":"in-progress" if not finished else "no-delivery" if not delivered else "full-delivery" if eligible else "partial-or-late"}
+func _convoy_details(s: Dictionary,cid: String) -> Dictionary:
+	var result=_evaluate_convoy(s,cid);var ct=s.contracts[cid];var load={};var revision=0
+	for r in s.settlements.values():
+		if r.get("details",{}).get("kind")=="convoy-load" and r.details.contractId==cid:load=r.details;revision=r.revision;break
+	if not _require(not load.is_empty(),"missing-load-receipt"):return {}
+	var ships=[]
+	for before in load.ships:
+		var v=s.vessels[before.shipId];var outgoing=0;var incoming=0
+		for r in s.settlements.values():
+			if r.revision<=revision or r.revision>s.revision:continue
+			var d=r.get("details",{})
+			if d.get("kind")=="prize" and d.fromShipId==v.id:outgoing+=d.crew
+			if d.get("kind")=="prize-resolution" and d.choice=="abandon":
+				if d.targetId==v.id:outgoing+=d.movedWounded
+				if d.toShipId==v.id:incoming+=d.movedWounded
+			if d.get("kind")=="prize-port" and d.action=="sell":
+				if d.shipId==v.id:outgoing+=d.movedAble+d.movedWounded
+				if d.crewToShipId==v.id:incoming+=d.movedAble+d.movedWounded
+		ships.append({"shipId":v.id,"wounded":v.crew.wounded,"dead":max(0,before.able+before.wounded+incoming-v.crew.able-v.crew.wounded-outgoing),"transferred":outgoing,"hull":v.damage.hull,"sail":v.damage.sail})
+	var people=[]
+	for pid in ct.criticalPersonIds:people.append({"personId":pid,"alive":s.people[pid].alive})
+	return {"kind":"convoy","contractId":cid,"loaded":load.loaded,"delivered":result.delivered,"pending":max(0,load.loaded-result.delivered-result.lost),"lost":result.lost,"baseReward":result.delivered*10,"bonus":result.reward-result.delivered*10,"leasePaid":load.leasePaid,"ships":ships,"people":people}
+
+func _speed(v: Dictionary) -> float:return 0 if v.crew.able<v.crew.minimum else 2*max(0.25,v.damage.sail/100.0)*max(0.25,v.damage.hull/100.0)
+func _remaining(v: Dictionary,voyage: Dictionary) -> float:
+	var points=Catalog.DATA.routes[voyage.routeId].points
+	var length=_distance(v.pose.position,points[int(voyage.leg)+1])
+	for leg in range(int(voyage.leg)+1,points.size()-1):length+=_distance(points[leg],points[leg+1])
+	return length
+func _arrive(s: Dictionary,v: Dictionary,voyage: Dictionary,neutral_rudder: bool=false,preserve_controls: bool=false):
+	var id=s.campaignId+":"+voyage.id+":arrival"
+	if s.settlements.has(id):return
+	var p=s.ports[voyage.destinationId];var delivered=0;var grain=v.cargo.get("grain",0)
+	for good in v.cargo:
+		var quantity=v.cargo[good];var next=p.stock.get(good,0)+quantity
+		if not _require(_count(next),"numeric-overflow"):return
+		p.stock[good]=next;v.cargo[good]=0;delivered+=quantity
+	voyage.status="arrived";voyage.progress=1;voyage.eta=s.simulationSeconds;v.pose.speed=0
+	if not preserve_controls:v.controls.sailDeployment=0
+	if neutral_rudder:v.controls.rudder=0
+	v.controlsRevision+=1
+	_record(s,id,"shipment-arrived",v.name+"到达"+p.name+"，实卸"+str(int(delivered))+"货。",[v.id,voyage.id],{"kind":"shipment-arrived","voyageId":voyage.id,"vesselId":v.id,"destinationId":p.id,"grain":grain,"arrivedAt":s.simulationSeconds})
+func _inspect(s: Dictionary,v: Dictionary,neutral_rudder: bool=false,preserve_controls: bool=false):
+	if v.voyageId==null:return
+	var voyage=s.voyages.get(v.voyageId,{})
+	if voyage.is_empty() or voyage.status!="underway":return
+	if v.damage.hull<=0:
+		voyage.status="lost";v.pose.speed=0;var lost=_sum(v.cargo)
+		for good in v.cargo:v.cargo[good]=0
+		_record(s,s.campaignId+":"+voyage.id+":lost","shipment-lost",v.name+"沉没，损失"+str(int(lost))+"货。",[v.id,voyage.id]);return
+	var route=Catalog.DATA.routes.get(voyage.routeId,{})
+	if not _require(not route.is_empty(),"unknown-route"):return
+	if v.representation=="near":voyage.merge(locate_route(v,route),true)
+	if _distance(v.pose.position,s.ports[voyage.destinationId].position)<=25 and v.pose.speed<=0.75:_arrive(s,v,voyage,neutral_rudder,preserve_controls)
+	else:voyage.eta=s.simulationSeconds+(_remaining(v,voyage)/_speed(v) if _speed(v)>0 else 86400)
+	for ct in s.contracts.values():
+		if ct.status=="active" and voyage.id in ct.voyageIds and s.simulationSeconds>ct.deadlineAt:_record(s,s.campaignId+":"+voyage.id+":late","shipment-late",v.name+"未按期抵达。",[v.id,voyage.id,ct.id])
+func _traffic(s: Dictionary,seconds: float,near_ids: Array):
+	for v in s.vessels.values():
+		_inspect(s,v)
+		var voyage=s.voyages.get(v.voyageId,{}) if v.voyageId!=null else {}
+		if voyage.is_empty() or voyage.status!="underway" or v.representation!="route" or v.id in near_ids:continue
+		var route=Catalog.DATA.routes[voyage.routeId];var rate=_speed(v)
+		if voyage.leg==0 and voyage.progress==0:voyage.merge(locate_route(v,route),true)
+		if rate<=0:
+			voyage.status="interrupted";_record(s,s.campaignId+":"+voyage.id+":interrupted","shipment-interrupted",v.name+"缺少可用船员，航路中断。",[v.id,voyage.id]);continue
+		var travel=seconds*rate
+		while travel>0:
+			var target=route.points[int(voyage.leg)+1];var length=_distance(v.pose.position,target)
+			if length>travel:
+				var fraction=travel/length
+				v.pose.heading=atan2(target.z-v.pose.position.z,target.x-v.pose.position.x)
+				v.pose.position={"x":v.pose.position.x+(target.x-v.pose.position.x)*fraction,"z":v.pose.position.z+(target.z-v.pose.position.z)*fraction}
+				voyage.progress=clamp(1-_distance(v.pose.position,target)/_distance(route.points[int(voyage.leg)],target),0,1)
+				travel=0;v.pose.speed=rate
+			else:
+				v.pose.position=target.duplicate();travel-=length
+				if voyage.leg==route.points.size()-2:_arrive(s,v,voyage);break
+				voyage.leg+=1;voyage.progress=0
+		if voyage.status=="underway":voyage.eta=s.simulationSeconds+_remaining(v,voyage)/rate
+		v.revision+=1
+func advance(seconds: float,near_ids: Array=[],context: Dictionary={}) -> Dictionary:
+	_error=""
+	if _reconciling or not is_finite(seconds) or seconds<=0 or seconds>86400:return {"ok":false,"acceptedSeconds":0,"code":"invalid-advance","reason":"Invalid or reentrant advance"}
+	var s=_state.duplicate(true);var corrected=seconds-s.clockCompensation;var accumulated=s.macroRemainder+corrected;var compensation=(accumulated-s.macroRemainder)-corrected
+	var total=s.macroSeconds+accumulated
+	if not is_finite(total) or total>MAX_SAFE:return {"ok":false,"acceptedSeconds":0,"code":"numeric-overflow","reason":"Clock overflow"}
+	var completed=int(floor(total)-s.macroSeconds);var remainder=accumulated-completed
+	if remainder<0:remainder=0;compensation=0
+	for second in completed:
+		s.macroSeconds+=1;s.simulationSeconds=s.macroSeconds;s.calendar=calendar_at(s.macroSeconds);s.revision+=1;_traffic(s,1,near_ids)
+		if not _error.is_empty():return {"ok":false,"acceptedSeconds":0,"code":_error,"reason":_error}
+	s.macroRemainder=remainder;s.clockCompensation=compensation;s.simulationSeconds=s.macroSeconds+remainder;_state=s
+	var business=false
+	for b in s.boardings.values():business=business or b.status=="active"
+	for w in s.works.values():business=business or w.status=="active"
+	if not business:return {"ok":true,"acceptedSeconds":seconds}
+	var native=context.get("native",{})
+	if native.is_empty():return {"ok":false,"acceptedSeconds":seconds,"code":"native-context-required","reason":"Business progression requires actual Native projection"}
+	if not _native_valid(native):return {"ok":false,"acceptedSeconds":seconds,"code":"native-context-rejected","reason":_error}
+	var staged=s.duplicate(true)
+	var epoch=staged.campaignId+":"+native.snapshot.battleId
+	if native.snapshot.tick<staged.nearTicks.get(epoch,0):return {"ok":false,"acceptedSeconds":seconds,"code":"business-advance-rejected","reason":"stale-business-context"}
+	for ship in native.snapshot.ships:
+		if not staged.vessels.has(ship.id):return {"ok":false,"acceptedSeconds":seconds,"code":"business-advance-rejected","reason":"stale-business-context"}
+		var observed=staged.vessels[ship.id].controlsObserved
+		if observed!=null and observed.battleId==native.snapshot.battleId and ship.controlsSequence<observed.sequence:return {"ok":false,"acceptedSeconds":seconds,"code":"business-advance-rejected","reason":"stale-business-context"}
+	_sync(staged,native.snapshot,native.get("events",[]))
+	var policy=native_policy(near_ids if not near_ids.is_empty() else _near_ids(staged),staged)
+	_advance_boarding(staged,seconds,native.snapshot,policy)
+	var anchors=_complete_works(staged,native,policy)
+	if not _error.is_empty():return {"ok":false,"acceptedSeconds":seconds,"code":"business-advance-rejected","reason":_error}
+	if not _project(staged,native,anchors):return {"ok":false,"acceptedSeconds":seconds,"code":"native-projection-rejected","reason":_error}
+	_state=staged
+	return {"ok":true,"acceptedSeconds":seconds}
+
+func _native_valid(native: Dictionary, phase: String="live") -> bool:
+	if not native.get("snapshot") is Dictionary or not native.get("validateCurrent") is Callable:return _require(false,"native-context-required")
+	if native.has("supportsPrizeRetirement") and not native.supportsPrizeRetirement is bool:return _require(false,"invalid-native-retirement-capability")
+	if native.has("hasActiveOrder") and not native.hasActiveOrder is Callable:return _require(false,"invalid-native-order-query")
+	var observed=_state.vessels[_state.flagshipId].controlsObserved
+	if phase=="live" and observed!=null and observed.battleId!=native.snapshot.get("battleId"):return _require(false,"stale-native-context")
+	var result=native.validateCurrent.call()
+	return _require(result is Dictionary and result.get("ok")==true,result.get("reason","stale-native-context") if result is Dictionary else "native-context-required")
+func _project(s: Dictionary,native: Dictionary,anchors: Array,phase: String="live") -> bool:
+	if not _native_valid(native,phase):return false
+	if not native.get("project") is Callable:return _require(false,"native-context-required")
+	var epoch=s.campaignId+":"+native.snapshot.battleId
+	if not s.nearTicks.has(epoch) and s.nearTicks.size()>=128:return _require(false,"near-epoch-buffer-full")
+	_reconciling=true
+	var result=native.project.call(s.duplicate(true),anchors.duplicate(),phase)
+	_reconciling=false
+	if not _require(result is Dictionary and result.get("ok")==true,result.get("reason","Native projection rejected") if result is Dictionary else "Native projection rejected"):return false
+	if not _require(result.get("snapshot") is Dictionary and result.snapshot.get("ships") is Array,"invalid-native-projection"):return false
+	var seen={}
+	for ship in result.snapshot.ships:
+		if not _require(ship is Dictionary and s.vessels.has(ship.get("id")) and not seen.has(ship.id) and _count(ship.get("controlsSequence")),"invalid-native-projection"):return false
+		seen[ship.id]=true
+		var v=s.vessels[ship.id]
+		v.controlsProjection={"revision":v.controlsRevision,"battleId":result.snapshot.battleId,"tick":result.snapshot.tick,"sequence":ship.controlsSequence};v.controlsObserved={"battleId":result.snapshot.battleId,"tick":result.snapshot.tick,"sequence":ship.controlsSequence};v.pose.speed=_distance(ship.visual.velocity,{"x":0,"z":0})
+	s.nearTicks[s.campaignId+":"+result.snapshot.battleId]=result.snapshot.tick
+	return true
+func allocate_native_epoch() -> String:
+	if _reconciling or _state.nearTicks.size()>=128 or not _count(_state.nextId+1) or not _count(_state.revision+1):return ""
+	var epoch=_state.campaignId+":native:"+str(int(_state.nextId))
+	if _state.nearTicks.has(_state.campaignId+":"+epoch):return ""
+	for v in _state.vessels.values():
+		if v.controlsObserved!=null and v.controlsObserved.battleId==epoch or v.controlsProjection!=null and v.controlsProjection.battleId==epoch:return ""
+	for id in _state.settlements:
+		if id.begins_with(_state.campaignId+":"+epoch+":"):return ""
+	var s=_state.duplicate(true);s.nextId+=1;s.revision+=1;_state=s
+	return epoch
+func project_native(native: Dictionary) -> Dictionary:
+	_error=""
+	if _reconciling:return {"ok":false,"reason":"reentrant-handoff"}
+	if not _count(_state.revision+1):return {"ok":false,"reason":"numeric-overflow"}
+	var epoch=native.get("snapshot",{}).get("battleId","");var prefix=_state.campaignId+":native:"
+	var ordinal=int(epoch.trim_prefix(prefix))
+	if not epoch.begins_with(prefix) or ordinal<1 or ordinal>=_state.nextId or epoch!=prefix+str(ordinal) or _state.nearTicks.has(_state.campaignId+":"+epoch):return {"ok":false,"reason":"Native epoch must be freshly allocated"}
+	var s=_state.duplicate(true)
+	if not _project(s,native,[],"fresh-startup"):return {"ok":false,"reason":_error}
+	s.revision+=1;_state=s;return {"ok":true}
+func sync_near(snapshot_data: Dictionary,events: Array) -> Dictionary:
+	_error=""
+	if _reconciling:return {"ok":false,"reason":"reentrant-handoff"}
+	var s=_state.duplicate(true);_sync(s,snapshot_data.duplicate(true),events.duplicate(true))
+	if not _error.is_empty():return {"ok":false,"reason":_error}
+	s.revision+=1;_state=s;return {"ok":true}
+func reconcile_near(before: Dictionary,events: Array,near_ids: Array,apply_native: Callable,arrival_controls: Variant=[],explicit_controls: Variant=[]) -> Dictionary:
+	_error=""
+	if _reconciling:return {"ok":false,"reason":"Reentrant handoff"}
+	if not _state.flagshipId in near_ids:return {"ok":false,"reason":"Invalid near membership"}
+	for id in near_ids:
+		if not _state.vessels.has(id):return {"ok":false,"reason":"Invalid near membership"}
+	if not arrival_controls is Array or not explicit_controls is Array:return {"ok":false,"reason":"Invalid arrival control ownership"}
+	var seen=[];var identities=arrival_controls+explicit_controls;var policy=native_policy(near_ids) if not identities.is_empty() else {}
+	if not identities.is_empty():
+		if not before.get("ships") is Array:return {"ok":false,"reason":"invalid-near-snapshot"}
+		for ship in before.ships:
+			if not ship is Dictionary or not _valid_id(ship.get("id"),4096):return {"ok":false,"reason":"unknown-or-duplicate-near-vessel"}
+	for id in identities:
+		if not id is String or id in seen or not id in near_ids or not id in [_state.campaignId+"-grain-a",_state.campaignId+"-grain-b"] or not genuine_lease(id):return {"ok":false,"reason":"Invalid arrival control ownership"}
+		seen.append(id)
+		var v=_state.vessels[id];var voyage=_state.voyages.get(v.voyageId,{});var live=_ship(before,id);var projection=v.controlsProjection
+		if v.profileId!="grain" or v.damage.hull<=0 or v.crew.able<v.crew.minimum or not id in policy.controllableShipIds or id in policy.capturedShipIds+policy.lockedShipIds+policy.disabledMotionShipIds:return {"ok":false,"reason":"Invalid arrival control ownership"}
+		if voyage.get("status")!="underway" or voyage.get("vesselId")!=id or live.is_empty() or not [live.get("hull"),live.get("crew")].all(_finite) or live.hull<=0 or live.crew<v.crew.minimum:return {"ok":false,"reason":"Invalid arrival control ownership"}
+		if projection==null or projection.battleId!=before.get("battleId") or projection.revision!=v.controlsRevision or not _count(live.get("controlsSequence")) or not _count(before.get("tick")) or before.tick<projection.tick:return {"ok":false,"reason":"Invalid arrival control ownership"}
+		if id in arrival_controls:
+			var port=_state.ports.get(voyage.get("destinationId"),{});var target=live.get("navigation")
+			if not target is Dictionary or port.is_empty() or not [target.get("x"),target.get("z")].all(_finite) or _distance(target,port.position)!=0 or projection.sequence!=live.controlsSequence:return {"ok":false,"reason":"Invalid arrival control ownership"}
+		elif live.controlsSequence<=projection.sequence:return {"ok":false,"reason":"Invalid arrival control ownership"}
+	var s=_state.duplicate(true);_sync(s,before,events,arrival_controls,explicit_controls)
+	for v in s.vessels.values():effective_draft(v);v.representation="near" if v.id in near_ids else "route"
+	if not _error.is_empty():return {"ok":false,"reason":_error}
+	var vessels=[]
+	for id in near_ids:vessels.append(s.vessels[id].duplicate(true))
+	_reconciling=true;var result=apply_native.call(vessels,s.duplicate(true));_reconciling=false
+	if not result is Dictionary or result.get("ok")!=true:return result if result is Dictionary else {"ok":false,"reason":"Native handoff rejected"}
+	for id in near_ids:
+		var observed=_ship(before,id)
+		var v=s.vessels[id];var sequence=observed.controlsSequence+1 if not observed.is_empty() else 0
+		v.controlsProjection={"revision":v.controlsRevision,"battleId":before.battleId,"tick":before.tick,"sequence":sequence};v.controlsObserved={"battleId":before.battleId,"tick":before.tick,"sequence":sequence}
+	s.revision+=1;_state=s;return {"ok":true}
+
+func _sync(s: Dictionary,snap: Dictionary,events: Array,arrival_controls: Array=[],explicit_controls: Array=[]):
+	if not _require(_valid_id(snap.get("battleId"),4096) and _count(snap.get("tick")) and _finite(snap.get("time")) and snap.time>=0 and snap.get("ships") is Array,"invalid-near-snapshot"):return
+	var epoch=s.campaignId+":"+snap.battleId;var current=s.vessels[s.flagshipId].controlsObserved
+	if not _require(not(current!=null and current.battleId!=snap.battleId and s.nearTicks.has(epoch)) and (not s.nearTicks.has(epoch) or snap.tick>=s.nearTicks[epoch]),"stale-near-snapshot"):return
+	if not _require(s.nearTicks.has(epoch) or s.nearTicks.size()<128,"near-epoch-buffer-full"):return
+	var ids=[]
+	for ship in snap.ships:
+		if not _require(ship is Dictionary and s.vessels.has(ship.get("id")) and not ship.id in ids,"unknown-or-duplicate-near-vessel"):return
+		ids.append(ship.id);var v=s.vessels[ship.id];var p=Catalog.DATA.profiles[v.profileId]
+		if not _require(_count(ship.get("controlsSequence")) and ship.controlsSequence<MAX_SAFE,"invalid-near-controls-sequence"):return
+		var observed=v.controlsObserved
+		if observed!=null and observed.battleId==snap.battleId and (ship.controlsSequence<observed.sequence or snap.tick==observed.tick and ship.controlsSequence==observed.sequence):continue
+		if not _require(ship.get("visual") is Dictionary and ship.visual.get("position") is Dictionary and ship.visual.get("velocity") is Dictionary,"invalid-near-fields"):return
+		for n in [ship.visual.position.get("x"),ship.visual.position.get("z"),ship.visual.get("heading"),ship.visual.velocity.get("x"),ship.visual.velocity.get("z"),ship.get("hull"),ship.get("sail"),ship.get("crew"),ship.get("rudder"),ship.get("sailAngle"),ship.get("sailDeployment")]:
+			if not _require(_finite(n),"invalid-near-fields"):return
+		if not _require(ship.hull>=0 and ship.hull<=p.maxHull and ship.sail>=0 and ship.sail<=p.maxSail and ship.crew>=0 and ship.crew<=p.maxCrew and abs(ship.rudder)<=1 and abs(ship.sailAngle)<=PI/2 and ship.sailDeployment>=0 and ship.sailDeployment<=1 and ship.get("autoTrim") is bool,"invalid-near-fields"):return
+		if not _require(ship.get("ammo") is Dictionary and ship.get("ammoType") in ["solid","chain","grape"] and ship.get("cooldownSeconds") is Dictionary,"invalid-near-combat"):return
+		for good in ["solid","chain","grape"]:
+			if not _require(_count(ship.ammo.get(good)),"invalid-near-combat"):return
+		for side in ["port","starboard"]:
+			if not _require(_finite(ship.cooldownSeconds.get(side)) and ship.cooldownSeconds[side]>=0 and ship.cooldownSeconds[side]<=120,"invalid-near-combat"):return
+		v.pose={"position":{"x":ship.visual.position.x,"z":ship.visual.position.z},"heading":ship.visual.heading,"speed":_distance(ship.visual.velocity,{"x":0,"z":0})}
+		_casualties(s,ship,snap.battleId,snap.tick)
+		v.damage.hull=ship.hull;v.damage.sail=ship.sail
+		var projection=v.controlsProjection;var pending=v.controlsRevision>(projection.revision if projection!=null else 0)
+		var before_projection=projection!=null and projection.battleId==snap.battleId and snap.tick<=projection.tick and ship.controlsSequence<=projection.sequence
+		if not pending and not before_projection:v.controls={"rudder":ship.rudder,"sailAngle":ship.sailAngle,"sailDeployment":ship.sailDeployment,"autoTrim":ship.autoTrim}
+		v.controlsObserved={"battleId":snap.battleId,"tick":snap.tick,"sequence":ship.controlsSequence};v.combat={"ammo":ship.ammo.duplicate(),"ammoType":ship.ammoType,"cooldownSeconds":ship.cooldownSeconds.duplicate()};v.representation="near";v.revision+=1
+	for e in events:
+		if not _require(e is Dictionary and _valid_id(e.get("id"),4096) and _finite(e.get("time")) and e.time>=0 and e.time<=snap.time+1e-8 and s.vessels.has(e.get("shipId")) and e.get("type") in ["fire","hit","splash","sink","victory","defeat","surrender","battle-ended"],"invalid-near-event"):return
+		var id=s.campaignId+":"+snap.battleId+":"+e.id
+		if s.settlements.has(id):continue
+		if e.type=="battle-ended":
+			if not _require(e.get("battleId")==snap.battleId and _valid_id(e.get("episodeId"),512) and e.get("outcome") in ["victory","defeat","disengaged"] and _valid_id(e.get("reason"),512),"invalid-near-episode"):return
+			_record(s,id,"near-battle-ended",s.vessels[e.shipId].name+"："+e.outcome+"（"+e.reason+"）。",[e.shipId,e.id,e.episodeId],{"kind":"battle-ended","battleId":e.battleId,"episodeId":e.episodeId,"outcome":e.outcome,"reason":e.reason})
+		elif e.type=="hit":
+			if not _require(s.vessels.has(e.get("targetId")) and e.get("ammo") in ["solid","chain","grape"] and e.get("damage") is Dictionary,"invalid-near-hit"):return
+			for field in ["hull","sail","crew"]:
+				if not _require(_finite(e.damage.get(field)) and e.damage[field]>=0,"invalid-near-hit"):return
+			var v=s.vessels[e.targetId];var loss=min(5,v.cargo.get("grain",0)) if e.ammo=="solid" else 0
+			if loss>0:v.cargo.grain-=loss;v.revision+=1
+			_record(s,id,"cargo-loss" if loss else "near-hit",v.name+"中弹，损失"+str(int(loss))+"粮。",[e.shipId,e.targetId,e.id])
+		else:_record(s,id,"near-"+e.type,s.vessels[e.shipId].name+"："+e.type+"。",[e.shipId,e.id])
+	for id in ids:effective_draft(s.vessels[id]);_inspect(s,s.vessels[id],id in arrival_controls,id in explicit_controls)
+	for person in s.people.values():
+		if person.alive and person.shipId!=null:
+			var v=s.vessels.get(person.shipId,{})
+			if not v.is_empty() and (v.damage.hull<=0 or v.crew.able+v.crew.wounded+v.crew.prisoners==0):person.alive=false;_record(s,s.campaignId+":person:"+person.id+":death","person-died",person.name+"随实际船损遇难。",[person.id,v.id])
+	s.nearTicks[epoch]=snap.tick
+func _casualties(s: Dictionary,ship: Dictionary,battle: String,tick):
+	var v=s.vessels[ship.id];var c=v.crew;var ordinal=s.casualtyOrdinals.get(ship.id,0);var sunk=ship.hull==0;var after=0 if sunk else floor(ship.crew);var loss=c.able-after
+	if not _require(sunk or loss>=0,"unexpected-native-crew-increase"):return
+	if loss==0 and (not sunk or c.wounded+c.prisoners==0):return
+	var next=ordinal if sunk else ordinal+loss;var new_wounded=0 if sunk else ceil(next/2.0)-ceil(ordinal/2.0);var wounded=0 if sunk else c.wounded+new_wounded;var prisoners=0 if sunk else c.prisoners;var dead=c.able+c.wounded+c.prisoners if sunk else loss-new_wounded
+	for n in [after,wounded,prisoners,dead,ordinal,next]:
+		if not _require(_count(n),"numeric-overflow"):return
+	if not _require(after+wounded+prisoners<=Catalog.DATA.profiles[v.profileId].maxCrew,"numeric-overflow"):return
+	var id=s.campaignId+":"+battle+":casualty:"+str(int(tick))+":"+str(int(ship.controlsSequence))+":"+ship.id
+	if not _require(not s.settlements.has(id),"duplicate-casualty-observation"):return
+	_record(s,id,"near-casualties",v.name+"实际伤%d、亡%d。"%[new_wounded,dead],[ship.id,battle],{"kind":"casualty","battleId":battle,"tick":tick,"controlsSequence":ship.controlsSequence,"shipId":ship.id,"ableBefore":c.able,"ableAfter":after,"woundedBefore":c.wounded,"woundedAfter":wounded,"prisonersBefore":c.prisoners,"prisonersAfter":prisoners,"dead":dead,"sunk":sunk,"ordinalBefore":ordinal,"ordinalAfter":next})
+	c.able=after;c.wounded=wounded;c.prisoners=prisoners;s.casualtyOrdinals[ship.id]=next
+
+func genuine_lease(id: String,state: Dictionary={}) -> bool:
+	var s=_state if state.is_empty() else state;var vessel=s.vessels.get(id,{})
+	if vessel.get("ownerId")!="house-lin" or not id in [s.campaignId+"-grain-a",s.campaignId+"-grain-b",s.campaignId+"-flagship",s.campaignId+"-fast"]:return false
+	var receipt=s.settlements.get(s.campaignId+"-convoy-001-accept",{});var d=receipt.get("details",{})
+	if receipt.get("kind")!="accept-convoy" or d.get("kind")!="convoy-load" or d.get("contractId")!="convoy-001" or d.get("loaded")!=40 or d.get("leasePaid")!=50:return false
+	var expected=[s.campaignId+"-grain-a",s.campaignId+"-grain-b",s.campaignId+"-flagship",s.campaignId+"-fast"];var actual=[]
+	for ship in d.get("ships",[]):actual.append(ship.get("shipId"))
+	return actual==expected
+func genuine_sunk_transport(id: String,state: Dictionary={}) -> bool:
+	var s=_state if state.is_empty() else state
+	if not id in [s.campaignId+"-grain-a",s.campaignId+"-grain-b"] or s.vessels.get(id,{}).get("damage",{}).get("hull",1)>0:return false
+	var lost_id=s.campaignId+":"+id+"-voyage:lost"
+	for event in s.chronicle:
+		var receipt=s.settlements.get(event.id,{});var d=receipt.get("details",{})
+		if receipt.get("kind")=="shipment-lost" and receipt.id==lost_id:return true
+		if receipt.get("kind")=="near-casualties" and d.get("kind")=="casualty" and d.get("shipId")==id and d.get("sunk")==true:return true
+		if receipt.get("kind")=="near-sink" and id in event.causeIds:return true
+	return false
+func native_policy(near_ids: Array,state: Dictionary={}) -> Dictionary:
+	var s=_state if state.is_empty() else state
+	var allowed=[];var motion=[];var service=[]
+	for v in s.vessels.values():
+		if v.ownerId=="captain" and _owned(s,v.id) and v.damage.hull>0:
+			motion.append(v.id)
+			if v.crew.able>=v.crew.minimum:allowed.append(v.id)
+			elif s.currentPortId!=null and v.pose.speed<=0.75 and v.controls.rudder==0 and v.controls.sailDeployment==0 and (_distance(v.pose.position,s.ports[s.currentPortId].position)<=55 or _heritage_berth(s,v.id)):allowed.append(v.id);service.append(v.id)
+	for ct in s.contracts.values():
+		var leased=false
+		for r in s.settlements.values():
+			if r.kind=="accept-convoy" and (r.get("details",{}).get("contractId")==ct.id if r.get("details",{}).get("kind")=="convoy-load" else r.id==s.campaignId+"-"+ct.id+"-accept"):leased=true;break
+		if leased and ct.status in ["active","delivered","failed","settled"]:
+			for vid in ct.voyageIds:
+				var voyage=s.voyages.get(vid,{})
+				if voyage.is_empty():continue
+				for id in voyage.escortIds+[voyage.vesselId]:
+					var v=s.vessels.get(id,{})
+					if not v.is_empty() and (_owned(s,id) if v.ownerId=="captain" else genuine_lease(id,s)) and v.damage.hull>0:
+						if not id in motion:motion.append(id)
+						if v.crew.able>=v.crew.minimum and not id in allowed:allowed.append(id)
+						elif v.crew.able<v.crew.minimum and s.currentPortId!=null and v.pose.speed<=0.75 and v.controls.rudder==0 and v.controls.sailDeployment==0 and _distance(v.pose.position,s.ports[s.currentPortId].position)<=55:
+							if not id in allowed:allowed.append(id)
+							if not id in service:service.append(id)
+	var ids=[];var enemies=[];var held=[];var hostile={};var locked=[];var disabled=[]
+	for id in near_ids:
+		if s.vessels.has(id):ids.append(id)
+	for id in ids:
+		var p=prize_state(id,s)
+		if not p.is_empty() and p.status in ["held","crewed","incorporated"]:held.append(id)
+		if s.vessels[id].ownerId=="enemy" and s.vessels[id].damage.hull>0 and not id in held:enemies.append(id)
+	for id in ids:
+		var targets=[]
+		if id in enemies:
+			for other in ids:
+				if other in allowed:targets.append(other)
+		elif id in allowed:targets=enemies.duplicate()
+		hostile[id]=targets
+		if id in service:locked.append(id)
+		else:
+			for w in s.works.values():
+				if w.shipId==id and w.status=="active":locked.append(id);break
+		if id in motion and s.vessels[id].crew.able<s.vessels[id].crew.minimum:disabled.append(id)
+	var control=[]
+	for id in ids:
+		if id in allowed:control.append(id)
+	return {"controllableShipIds":control,"hostileTargets":hostile,"capturedShipIds":held,"lockedShipIds":locked,"disabledMotionShipIds":disabled}
+func _owned(s: Dictionary,id: String) -> bool:
+	for role in Catalog.DATA.roles:
+		if id==s.campaignId+"-"+role.suffix and role.ownerId=="captain":return true
+	return prize_state(id,s).get("status") in ["crewed","incorporated"]
+static func _ship(snap: Dictionary,id: String) -> Dictionary:
+	for ship in snap.get("ships",[]):
+		if ship.id==id:return ship
+	return {}
+func _boarding_ids(s: Dictionary) -> Array:
+	var ids=[]
+	for b in s.boardings.values():
+		if b.status=="active":
+			for id in [b.attackerId,b.targetId]+b.participants:
+				if not id in ids:ids.append(id)
+	return ids
+func _close(snap: Dictionary,a: String,b: String) -> bool:
+	var x=_ship(snap,a);var y=_ship(snap,b)
+	return not x.is_empty() and not y.is_empty() and x.hull>0 and y.hull>0 and _distance(x.visual.position,y.visual.position)<=36 and _distance(x.visual.velocity,y.visual.velocity)<=3
+func _winning(s: Dictionary,b: Dictionary) -> bool:
+	var r=s.settlements.get(s.campaignId+":"+b.id+":won",{});var d=r.get("details",{})
+	return b.status=="won" and r.get("kind")=="boarding-won" and d.get("kind")=="boarding" and d.outcome=="won" and d.encounterId==b.id and d.targetId==b.targetId and d.attackerId==b.attackerId
+func _buckets(s: Dictionary,id: String) -> Dictionary:
+	var c=s.vessels[id].crew
+	return {"able":c.able,"wounded":c.wounded,"prisoners":c.prisoners}
+func _crew_transition(s: Dictionary,cause: String,reason: String,before: Array):
+	var changes=[];var causes=[cause]
+	for item in before:changes.append({"shipId":item.shipId,"before":item.before,"after":_buckets(s,item.shipId)});causes.append(item.shipId)
+	_record(s,cause+":crew","crew-transition","实际人员变更。",causes,{"kind":"crew-transition","reason":reason,"causeId":cause,"changes":changes})
+func _finish_boarding(s: Dictionary,b: Dictionary,status: String):
+	var before=_buckets(s,b.targetId);b.status=status
+	if status=="won":
+		var v=s.vessels[b.targetId];v.crew.prisoners+=v.crew.able;v.crew.able=0;v.revision+=1;s.prizes[v.id]={"targetId":v.id,"boardingId":b.id,"originalOwnerId":v.ownerId,"status":"held","resolutionReceiptId":null}
+	var id=s.campaignId+":"+b.id+":"+status
+	_record(s,id,"boarding-"+status,"甲板争夺"+status+"。",[b.id,b.attackerId,b.targetId],{"kind":"boarding","encounterId":b.id,"targetId":b.targetId,"attackerId":b.attackerId,"outcome":status})
+	if status=="won":_crew_transition(s,id,"boarding-victory",[{"shipId":b.targetId,"before":before}])
+func _boarding_command(s: Dictionary,c: Dictionary,snap: Dictionary,policy: Dictionary):
+	var locked=[]
+	for w in s.works.values():
+		if w.status=="active":locked.append(w.shipId)
+	if c.type=="start-boarding":
+		var source=s.vessels[c.fromShipId];var target=s.vessels[c.targetId];var guard=_boarding_ids(s)
+		var won=false
+		for b in s.boardings.values():
+			if b.targetId==target.id and b.status=="won":won=true
+		if not _require(s.currentPortId==null and source.id!=target.id and source.id in policy.controllableShipIds and target.id in policy.hostileTargets.get(source.id,[]) and _close(snap,source.id,target.id) and source.crew.able>=source.crew.minimum+1 and not source.id in locked and not target.id in locked and not source.id in guard and not target.id in guard and not won,"invalid-boarding"):return null
+		var p=Catalog.DATA.profiles[target.profileId]
+		if not _require(target.damage.hull/p.maxHull<=0.65 or target.crew.able/float(p.complement)<=0.6,"target-not-weakened"):return null
+		var id=s.campaignId+":boarding:"+str(int(s.nextId))
+		if not _require(s.boardings.size()<128,"boarding-buffer-full"):return null
+		s.boardings[id]={"id":id,"attackerId":source.id,"targetId":target.id,"points":{"bow":{"control":0,"action":"hold"},"deck":{"control":0,"action":"hold"},"helm":{"control":0,"action":"hold"}},"morale":{"attacker":clamp(s.reputations.crewSupport,10,90),"defender":clamp(100*target.crew.able/float(p.complement),10,90)},"status":"active","participants":[source.id],"elapsedSeconds":0,"remainder":0,"clockCompensation":0}
+	elif c.type=="board-action":
+		var b=s.boardings.get(c.encounterId,{})
+		if not _require(not b.is_empty() and b.status=="active" and b.attackerId in policy.controllableShipIds,"boarding-unavailable"):return null
+		if c.action=="cut-lines":_finish_boarding(s,b,"cut");return {"kind":"boarding","encounterId":b.id,"targetId":b.targetId,"attackerId":b.attackerId,"outcome":"cut"}
+		b.points[c.point].action=c.action
+	elif c.type=="allocate-prize":
+		var source=s.vessels[c.fromShipId];var target=s.vessels[c.targetId];var won=false
+		for b in s.boardings.values():
+			if b.targetId==target.id and _winning(s,b):won=true
+		var p=prize_state(target.id,s)
+		if not _require(won and not p.is_empty() and p.status=="held" and target.ownerId!="captain" and source.id in policy.controllableShipIds and not source.id in locked and not target.id in locked and _close(snap,source.id,target.id),"prize-unavailable"):return null
+		if not _require(c.crew>=max(12,target.crew.minimum) and source.crew.able-c.crew>=source.crew.minimum and target.crew.able+target.crew.wounded+target.crew.prisoners+c.crew<=Catalog.DATA.profiles[target.profileId].maxCrew and target.crew.able+c.crew>=ceil(target.crew.prisoners/5.0),"insufficient-prize-crew"):return null
+		var before=[{"shipId":source.id,"before":_buckets(s,source.id)},{"shipId":target.id,"before":_buckets(s,target.id)}]
+		source.crew.able-=c.crew;source.revision+=1;target.crew.able+=c.crew;target.ownerId="captain";target.revision+=1;p.status="crewed";s.prizes[target.id]=p
+		_crew_transition(s,s.campaignId+":prize:"+target.id,"allocation",before)
+		return {"kind":"prize","targetId":target.id,"fromShipId":source.id,"crew":c.crew,"prisoners":target.crew.prisoners}
+	return null
+func _advance_boarding(s: Dictionary,seconds: float,snap: Dictionary,policy: Dictionary):
+	for b in s.boardings.values():
+		if b.status!="active":continue
+		var corrected=seconds-b.clockCompensation;var total=b.remainder+corrected;b.clockCompensation=(total-b.remainder)-corrected
+		var consumed=int(floor(b.elapsedSeconds+total)-b.elapsedSeconds);b.remainder=total-consumed
+		if b.remainder<0:b.remainder=0;b.clockCompensation=0
+		for tick in consumed:
+			if b.status!="active":break
+			b.elapsedSeconds+=1
+			var participants=[]
+			for id in policy.controllableShipIds:
+				if id==b.targetId or not _close(snap,id,b.targetId) or s.vessels[id].crew.able<=s.vessels[id].crew.minimum:continue
+				var busy=false
+				for w in s.works.values():busy=busy or w.shipId==id and w.status=="active"
+				for other in s.boardings.values():busy=busy or other.id!=b.id and other.status=="active" and (other.targetId==id or other.attackerId==id or id in other.participants)
+				if not busy:participants.append(id)
+			participants.sort();b.participants=participants
+			var attackers=0
+			for id in participants:attackers+=max(0,s.vessels[id].crew.able-s.vessels[id].crew.minimum)
+			var target=s.vessels[b.targetId]
+			if b.morale.attacker<=0 or attackers==0 or target.damage.hull<=0 or s.vessels[b.attackerId].damage.hull<=0:_finish_boarding(s,b,"lost");break
+			var advancing=[];var net=0.0
+			for point in ["bow","deck","helm"]:
+				if b.points[point].action=="advance":advancing.append(point)
+			for point in advancing:
+				var old=b.points[point].control;var delta=clamp((attackers/float(advancing.size())*b.morale.attacker-target.crew.able/3.0*b.morale.defender)/100.0,-5,5)
+				b.points[point].control=clamp(old+delta,0,100);net+=b.points[point].control-old
+			var morale=clamp(net/6.0,-2,2);b.morale.attacker=clamp(b.morale.attacker+morale,0,100)
+			if morale>0:b.morale.defender=clamp(b.morale.defender-morale,0,100)
+			var occupied=b.points.bow.control==100 and b.points.deck.control==100 and b.points.helm.control==100
+			if occupied:b.morale.defender=clamp(b.morale.defender-2,0,100)
+			if int(b.elapsedSeconds)%10==0 and target.crew.able>0:
+				for donor in participants:
+					if s.vessels[donor].crew.able>s.vessels[donor].crew.minimum:
+						var before=[{"shipId":donor,"before":_buckets(s,donor)},{"shipId":target.id,"before":_buckets(s,target.id)}]
+						s.vessels[donor].crew.able-=1;s.vessels[donor].crew.wounded+=1;s.vessels[donor].revision+=1;target.crew.able-=1;target.crew.wounded+=1;target.revision+=1
+						_crew_transition(s,s.campaignId+":"+b.id+":attrition:"+str(int(b.elapsedSeconds)),"boarding-attrition",before);break
+			if b.elapsedSeconds>=20 and occupied and b.morale.defender<=20:_finish_boarding(s,b,"won")
+
+func _heritage_berth(s: Dictionary,id: String) -> bool:
+	var v=s.vessels[id]
+	return s.currentPortId=="xiamen" and id==s.campaignId+"-heritage" and v.ownerId=="captain" and v.voyageId==null and _distance(v.pose.position,Catalog.DATA.spawn.heritage)<=10 and v.pose.speed<=0.05 and v.controls.rudder==0 and v.controls.sailDeployment==0 and not _ordered(s,{},id) and not id in _boarding_ids(s)
+func _safe_dock(s: Dictionary,native: Dictionary,policy: Dictionary,port: String):
+	var p=s.ports.get(port,{});var flag=_ship(native.snapshot,s.flagshipId)
+	if not _require(not p.is_empty() and not flag.is_empty() and flag.hull>0 and _distance(flag.visual.position,p.position)<=55 and _distance(flag.visual.velocity,{"x":0,"z":0})<=0.75 and not native.get("pendingAttacks",false) and _boarding_ids(s).is_empty(),"unsafe-port"):return
+	for ship in native.snapshot.ships:
+		if ship.hull>0 and flag.id in policy.hostileTargets.get(ship.id,[]) and _distance(ship.visual.position,flag.visual.position)<=600:_require(false,"unsafe-port");return
+func _docked(s: Dictionary,native: Dictionary,policy: Dictionary,id: String):
+	if not _require(s.currentPortId!=null,"not-in-port"):return
+	_safe_dock(s,native,policy,s.currentPortId)
+	var ship=_ship(native.snapshot,id);var berth=_heritage_berth(s,id)
+	if berth and ship.is_empty():return
+	var anchored=false
+	if native.get("isAnchored") is Callable:anchored=native.isAnchored.call(id)==true
+	if not _require(not ship.is_empty() and ship.hull>0 and (berth or _distance(ship.visual.position,s.ports[s.currentPortId].position)<=55) and anchored,"ship-not-docked"):return
+func quote_port_service(request: Dictionary) -> Dictionary:return _quote_port(_state,request)
+func _quote_port(s: Dictionary,c: Dictionary) -> Dictionary:
+	if not c.get("type") in ["repair","refit","treat-wounded"]:return {"ok":false,"reason":"invalid-service"}
+	var v=s.vessels.get(c.get("shipId"),{})
+	if v.is_empty():return {"ok":false,"reason":"unknown-ship"}
+	if s.currentPortId==null or not s.ports.has(s.currentPortId):return {"ok":false,"reason":"not-in-port"}
+	if v.damage.hull<=0:return {"ok":false,"reason":"ship-not-docked"}
+	for w in s.works.values():
+		if w.shipId==v.id and w.status=="active":return {"ok":false,"reason":"ship-working"}
+	if v.id in _boarding_ids(s):return {"ok":false,"reason":"ship-boarding"}
+	if s.works.size()>=128:return {"ok":false,"reason":"work-buffer-full"}
+	var p=Catalog.DATA.profiles[v.profileId];var light=s.currentPortId=="forward-supply";var hull=0;var sail=0;var cost=0;var duration=0;var quantity=0;var target=null
+	if c.type=="treat-wounded":
+		if not _count(v.crew.able+v.crew.wounded+v.crew.prisoners) or v.crew.able+v.crew.wounded+v.crew.prisoners>p.maxCrew:return {"ok":false,"reason":"invalid-treatment-reservation"}
+		quantity=c.get("quantity")
+		if not _count(quantity) or quantity<=0:return {"ok":false,"reason":"invalid-quantity"}
+		cost=4*quantity;duration=30*quantity
+		if not _count(cost) or not _count(duration):return {"ok":false,"reason":"numeric-overflow"}
+		if not v.crew.wounded:return {"ok":false,"reason":"no-wounded"}
+		if quantity>v.crew.wounded:return {"ok":false,"reason":"insufficient-wounded"}
+	elif c.type=="refit":
+		if c.get("slot")!="sails" or s.currentPortId!="xiamen" or v.ownerId!="captain" or p.refitProfileId==null:return {"ok":false,"reason":"refit-forbidden"}
+		cost=150;duration=120;target=p.refitProfileId
+	else:
+		hull=min(20 if light else p.maxHull,p.maxHull-v.damage.hull);sail=min(20 if light else p.maxSail,p.maxSail-v.damage.sail);cost=ceil((hull+sail)*2);duration=max(1,ceil((hull+sail)/2.0))
+		if not cost:return {"ok":false,"reason":"no-damage"}
+	if not _finite(s.simulationSeconds+duration) or s.simulationSeconds+duration>MAX_SAFE:return {"ok":false,"reason":"numeric-overflow"}
+	if s.captain.silver<cost:return {"ok":false,"reason":"insufficient-silver"}
+	return {"ok":true,"cost":cost,"duration":duration,"hull":hull,"sail":sail,"targetProfileId":target,"quantity":quantity}
+func _port_command(s: Dictionary,c: Dictionary,native: Dictionary,policy: Dictionary) -> Dictionary:
+	if c.type=="dock":
+		_safe_dock(s,native,policy,c.portId)
+		if not _require(s.flagshipId in policy.controllableShipIds,"flagship-not-authorized"):return {}
+		s.currentPortId=c.portId;var anchors=[]
+		for ship in native.snapshot.ships:
+			if ship.id in policy.controllableShipIds and _distance(ship.visual.position,s.ports[c.portId].position)<=55:
+				anchors.append(ship.id);var v=s.vessels[ship.id];v.pose.speed=0;v.controls.rudder=0;v.controls.sailDeployment=0;v.controlsRevision+=1
+		return {"anchors":anchors}
+	var v=s.vessels[c.shipId];_docked(s,native,policy,v.id)
+	if not _require(v.id in policy.controllableShipIds or _heritage_berth(s,v.id) or c.type=="treat-wounded" and (v.ownerId=="captain" or genuine_lease(v.id,s)),"ship-not-authorized"):return {}
+	for w in s.works.values():
+		if w.shipId==v.id and w.status=="active":_require(false,"ship-working");return {}
+	if c.type=="release-prisoners":
+		if not _require(v.crew.prisoners>0,"no-prisoners"):return {}
+		var before=_buckets(s,v.id);v.crew.prisoners=0;v.revision+=1;_crew_transition(s,s.campaignId+":release-prisoners:"+c.commandId,"release-prisoners",[{"shipId":v.id,"before":before}]);return {"anchors":[v.id]}
+	var quote=_quote_port(s,c)
+	if not _require(quote.ok,quote.get("reason","invalid-service")):return {}
+	var id=s.campaignId+":work:"+str(int(s.nextId));s.captain.silver-=quote.cost;v.representation="near"
+	var work={"id":id,"shipId":v.id,"portId":s.currentPortId,"startAt":s.simulationSeconds,"completeAt":s.simulationSeconds+quote.duration,"cost":quote.cost,"status":"active","kind":"treatment" if c.type=="treat-wounded" else c.type,"hull":quote.hull,"sail":quote.sail,"targetProfileId":quote.targetProfileId}
+	if c.type=="treat-wounded":work.quantity=quote.quantity
+	s.works[id]=work
+	var d={"kind":"treatment" if c.type=="treat-wounded" else "work","workId":id,"shipId":v.id,"cost":quote.cost,"duration":quote.duration,"status":"active"}
+	if c.type=="treat-wounded":d.quantity=quote.quantity
+	return {"anchors":[v.id],"details":d}
+func _complete_works(s: Dictionary,native: Dictionary,policy: Dictionary) -> Array:
+	var anchors=[]
+	for w in s.works.values():
+		if w.status!="active":continue
+		_docked(s,native,policy,w.shipId);anchors.append(w.shipId)
+		if s.simulationSeconds<w.completeAt:continue
+		var v=s.vessels[w.shipId];var before=_buckets(s,v.id)
+		if w.kind=="treatment":
+			if not _require(w.quantity<=v.crew.wounded and _count(v.crew.able+w.quantity) and v.crew.able+v.crew.wounded+v.crew.prisoners<=Catalog.DATA.profiles[v.profileId].maxCrew,"invalid-treatment-reservation"):return anchors
+			v.crew.wounded-=w.quantity;v.crew.able+=w.quantity
+		elif w.kind=="refit":v.profileId=w.targetProfileId
+		else:
+			var p=Catalog.DATA.profiles[v.profileId];v.damage.hull=min(p.maxHull,v.damage.hull+w.hull);v.damage.sail=min(p.maxSail,v.damage.sail+w.sail)
+		v.revision+=1;w.status="completed"
+		var details={"kind":"treatment" if w.kind=="treatment" else "work","workId":w.id,"shipId":v.id,"cost":w.cost,"duration":w.completeAt-w.startAt,"status":"completed"}
+		if w.kind=="treatment":details.quantity=w.quantity
+		_record(s,w.id+":completed","work-completed","船坞作业完成。",[w.id,v.id],details)
+		if w.kind=="treatment":_crew_transition(s,w.id+":completed","treatment",[{"shipId":v.id,"before":before}])
+	return anchors
+
+func prize_state(target_id: String,state: Dictionary={}) -> Dictionary:
+	var s=_state if state.is_empty() else state
+	var target=s.vessels.get(target_id,{})
+	if target.is_empty():return {}
+	for role in Catalog.DATA.roles:
+		if target_id==s.campaignId+"-"+role.suffix and role.ownerId!="enemy":return {}
+	var b={}
+	for boarding in s.boardings.values():
+		if boarding.targetId==target_id and _winning(s,boarding):b=boarding;break
+	if b.is_empty():return {}
+	var allocation=s.settlements.get(s.campaignId+":prize:"+target_id,{});var d=allocation.get("details",{})
+	var allocated=allocation.get("kind")=="allocate-prize" and d.get("kind")=="prize" and d.targetId==target_id and d.fromShipId!=target_id and d.crew>=max(12,target.crew.minimum)
+	var recorded=s.prizes.get(target_id,{})
+	if not recorded.is_empty():
+		if recorded.targetId!=target_id or recorded.boardingId!=b.id or recorded.originalOwnerId!="enemy":return {}
+		if recorded.status in ["held","crewed"]:
+			if recorded.resolutionReceiptId!=null or recorded.status=="held" and (allocated or target.ownerId!="enemy") or recorded.status=="crewed" and (not allocated or target.ownerId!="captain"):return {}
+		else:
+			var id=s.campaignId+":prize-disposition:"+target_id;var receipt=s.settlements.get(id,{});var detail=receipt.get("details",{})
+			if recorded.resolutionReceiptId!=id:return {}
+			if recorded.status in ["released","abandoned"]:
+				if allocated or target.ownerId!=("released-prize" if recorded.status=="released" else "abandoned-prize") or receipt.get("kind")!="resolve-prize" or detail.get("kind")!="prize-resolution" or detail.targetId!=target_id or detail.boardingId!=b.id or detail.choice!=("release" if recorded.status=="released" else "abandon"):return {}
+			elif not allocated or target.ownerId!=("port-prize" if recorded.status=="sold" else "captain") or receipt.get("kind")!=("sell-prize" if recorded.status=="sold" else "incorporate-prize") or detail.get("kind")!="prize-port" or detail.shipId!=target_id or detail.action!=("sell" if recorded.status=="sold" else "incorporate"):return {}
+		return recorded.duplicate(true)
+	if target.ownerId!=("captain" if allocated else "enemy"):return {}
+	return {"targetId":target_id,"boardingId":b.id,"originalOwnerId":"enemy","status":"crewed" if allocated else "held","resolutionReceiptId":null}
+func is_retired_prize(id: String) -> bool:return prize_state(id).get("status")=="sold"
+func quote_prize_sale(id: String,state: Dictionary={}) -> int:
+	var s=_state if state.is_empty() else state;var v=s.vessels.get(id,{})
+	if v.is_empty():return 0
+	var p=Catalog.DATA.profiles.get(v.profileId,{})
+	if p.is_empty() or not _finite(v.damage.hull) or not _finite(v.damage.sail) or v.damage.hull<0 or v.damage.hull>p.maxHull or v.damage.sail<0 or v.damage.sail>p.maxSail:return 0
+	return int(max(1,floor(200*v.damage.hull/p.maxHull+100*v.damage.sail/p.maxSail)))
+func _ordered(s: Dictionary,native: Dictionary,id: String) -> bool:
+	var ship=_ship(native.get("snapshot",{}),id)
+	if ship.get("navigation")!=null:return true
+	if native.get("hasActiveOrder") is Callable:return native.hasActiveOrder.call(id)==true
+	for o in s.orders:
+		if id in o.shipIds:return true
+	return false
+func _idle(s: Dictionary,native: Dictionary,ids: Array):
+	if not _require(not native.get("pendingAttacks",false),"unsafe-prize"):return
+	var boarding=_boarding_ids(s)
+	for id in ids:
+		var v=s.vessels.get(id,{});var ship=_ship(native.snapshot,id)
+		if not _require(not v.is_empty() and not ship.is_empty() and ship.hull>0 and v.damage.hull>0 and v.damage.fire<=0 and v.damage.flooding<=0,"prize-unavailable"):return
+		if not _require(v.voyageId==null,"contract-cargo"):return
+		for ct in s.contracts.values():
+			if ct.status in ["active","delivered"]:
+				for pid in ct.criticalPersonIds:
+					if s.people.get(pid,{}).get("shipId")==id and s.people[pid].alive:_require(false,"contract-person");return
+		if not _require(not id in boarding,"ship-boarding"):return
+		for w in s.works.values():
+			if w.shipId==id and w.status=="active":_require(false,"ship-working");return
+		if not _require(not _ordered(s,native,id),"ship-ordered"):return
+func _receiver(s: Dictionary,policy: Dictionary,id: String,owned_only: bool=false) -> Dictionary:
+	var v=s.vessels[id];var leased=not owned_only and id==s.flagshipId and v.ownerId=="house-lin" and v.profileId=="flagship" and id in policy.controllableShipIds
+	if not _require((v.ownerId=="captain" or leased) and id in policy.controllableShipIds and not id in policy.lockedShipIds,"receiver-not-authorized"):return {}
+	if not _require(v.crew.able>=v.crew.minimum,"insufficient-receiver-crew"):return {}
+	return v
+func _capacity(receiver: Dictionary,added: Dictionary) -> bool:
+	var n=receiver.crew.able+receiver.crew.wounded+receiver.crew.prisoners+added.able+added.wounded+added.prisoners
+	if not _require(_count(n) and n<=Catalog.DATA.profiles[receiver.profileId].maxCrew,"insufficient-crew-capacity"):return false
+	return _require(receiver.crew.able+added.able>=ceil((receiver.crew.prisoners+added.prisoners)/5.0),"insufficient-prisoner-guards")
+func _transfer_people(s: Dictionary,source: String,to: String):
+	for person in s.people.values():
+		if person.alive and person.shipId==source:person.shipId=to
+func _prize_command(s: Dictionary,c: Dictionary,native: Dictionary,policy: Dictionary) -> Dictionary:
+	var target_id=c.get("targetId",c.get("shipId",""));var p=prize_state(target_id,s);var target=s.vessels[target_id]
+	if not _require(not p.is_empty(),"prize-unavailable"):return {}
+	if not _require(p.resolutionReceiptId==null and not s.settlements.has(s.campaignId+":prize-disposition:"+target_id),"prize-already-resolved"):return {}
+	var port=c.type in ["sell-prize","incorporate-prize"]
+	if not _require(p.status==("crewed" if port else "held"),"prize-not-crewed" if port else "prize-already-crewed"):return {}
+	_idle(s,native,[target_id])
+	if not port and not _require(target.crew.able==0,"prize-not-held"):return {}
+	var id=s.campaignId+":prize-disposition:"+target_id
+	if c.type=="take-prize-cargo":
+		var to=_receiver(s,policy,c.toShipId)
+		if to.is_empty():return {}
+		_idle(s,native,[to.id])
+		if not _require(target_id!=to.id and _close(native.snapshot,target_id,to.id),"prize-not-close"):return {}
+		var quantity=_sum(c.cargo);var occupied=_sum(to.cargo)
+		if not _require(_count(quantity) and _count(occupied) and quantity+occupied<=Catalog.DATA.profiles[to.profileId].capacity,"insufficient-capacity"):return {}
+		for good in c.cargo:
+			if not _require(c.cargo[good]<=target.cargo.get(good,0),"insufficient-cargo"):return {}
+		for good in c.cargo:target.cargo[good]=target.cargo.get(good,0)-c.cargo[good];to.cargo[good]=to.cargo.get(good,0)+c.cargo[good]
+		target.revision+=1;to.revision+=1;s.prizes[target_id]=p
+		return {"id":s.campaignId+":take-prize-cargo:"+c.commandId,"details":{"kind":"prize-cargo","targetId":target_id,"toShipId":to.id,"cargo":c.cargo.duplicate(true)}}
+	if c.type=="resolve-prize":
+		var wounded=0;var prisoners=0;var restored=0;var before=[{"shipId":target_id,"before":_buckets(s,target_id)}]
+		if c.choice=="release":restored=target.crew.prisoners;target.crew.able+=restored;target.crew.prisoners=0;target.ownerId="released-prize";p.status="released"
+		else:
+			var to=_receiver(s,policy,c.toShipId)
+			if to.is_empty():return {}
+			_idle(s,native,[to.id])
+			if not _require(target_id!=to.id and _close(native.snapshot,target_id,to.id),"prize-not-close") or not _capacity(to,{"able":0,"wounded":target.crew.wounded,"prisoners":target.crew.prisoners}):return {}
+			before.append({"shipId":to.id,"before":_buckets(s,to.id)});wounded=target.crew.wounded;prisoners=target.crew.prisoners;to.crew.wounded+=wounded;to.crew.prisoners+=prisoners;to.revision+=1;target.crew.wounded=0;target.crew.prisoners=0;target.ownerId="abandoned-prize";p.status="abandoned";_transfer_people(s,target_id,to.id)
+		target.revision+=1;p.resolutionReceiptId=id;s.prizes[target_id]=p;_crew_transition(s,id,"prize-release" if c.choice=="release" else "prize-rescue",before)
+		return {"id":id,"details":{"kind":"prize-resolution","targetId":target_id,"boardingId":p.boardingId,"choice":c.choice,"toShipId":c.toShipId if c.choice=="abandon" else null,"movedWounded":wounded,"movedPrisoners":prisoners,"restoredAble":restored}}
+	if not _require(port,"unknown-prize-command") or not _require(s.currentPortId in ["xiamen","kinmen"],"prize-market-unavailable"):return {}
+	if not _require(target.ownerId=="captain" and target_id!=s.flagshipId,"prize-not-owned"):return {}
+	_docked(s,native,policy,target_id);var ship=_ship(native.snapshot,target_id)
+	if not _require(not ship.is_empty() and _distance(ship.visual.velocity,{"x":0,"z":0})<=0.75 and target.crew.able>=target.crew.minimum and target.crew.able>=ceil(target.crew.prisoners/5.0) and target.crew.able+target.crew.wounded+target.crew.prisoners<=Catalog.DATA.profiles[target.profileId].maxCrew,"prize-not-operational"):return {}
+	var silver=0;var able=0;var wounded=0;var prisoners=0;var receiver_id=null
+	if c.type=="sell-prize":
+		if not _require(native.get("supportsPrizeRetirement")==true,"native-retirement-unavailable") or not _require(_sum(target.cargo)==0,"prize-cargo-not-empty") or not _require(c.crewToShipId!=target_id,"invalid-prize-receiver"):return {}
+		var to=_receiver(s,policy,c.crewToShipId,true)
+		if to.is_empty():return {}
+		_idle(s,native,[to.id]);_docked(s,native,policy,to.id);var native_to=_ship(native.snapshot,to.id)
+		if not _require(not native_to.is_empty() and _distance(native_to.visual.position,s.ports[s.currentPortId].position)<=55 and _distance(native_to.visual.velocity,{"x":0,"z":0})<=0.75,"ship-not-docked") or not _capacity(to,target.crew):return {}
+		silver=quote_prize_sale(target_id,s)
+		if not _require(_count(s.captain.silver+silver),"numeric-overflow"):return {}
+		var before=[{"shipId":target.id,"before":_buckets(s,target.id)},{"shipId":to.id,"before":_buckets(s,to.id)}]
+		able=target.crew.able;wounded=target.crew.wounded;prisoners=target.crew.prisoners;receiver_id=to.id;to.crew.able+=able;to.crew.wounded+=wounded;to.crew.prisoners+=prisoners;to.revision+=1;target.crew.able=0;target.crew.wounded=0;target.crew.prisoners=0;target.ownerId="port-prize";_transfer_people(s,target_id,to.id);s.captain.silver+=silver;p.status="sold";_crew_transition(s,id,"prize-sale",before)
+	else:p.status="incorporated"
+	target.revision+=1;p.resolutionReceiptId=id;s.prizes[target_id]=p
+	return {"id":id,"details":{"kind":"prize-port","shipId":target_id,"portId":s.currentPortId,"action":"sell" if c.type=="sell-prize" else "incorporate","silver":silver,"crewToShipId":receiver_id,"movedAble":able,"movedWounded":wounded,"movedPrisoners":prisoners}}
+
+## Source public API aliases; caller-facing data retains web field names.
+func allocateNativeEpoch() -> String:return allocate_native_epoch()
+func projectNative(context: Dictionary) -> Dictionary:return project_native(context)
+func syncNear(observation: Dictionary,events: Array) -> Dictionary:return sync_near(observation,events)
+func reconcileNear(before: Dictionary,events: Array,near_ids: Array,apply_native: Callable) -> Dictionary:return reconcile_near(before,events,near_ids,apply_native)
+func nativePolicy(near_ids: Array,state: Dictionary={}) -> Dictionary:return native_policy(near_ids,state)
+func quoteTrade(type: String,good: String,quantity) -> Dictionary:return quote_trade(type,good,quantity)
+func quotePortService(request: Dictionary) -> Dictionary:return quote_port_service(request)
+func quotePrizeSale(id: String) -> int:return quote_prize_sale(id)
+func active_boarding_ship_ids() -> Array:return _boarding_ids(_state).duplicate()
+func genuine_heritage_berth(id: String) -> bool:return _state.vessels.has(id) and _heritage_berth(_state,id)
+func is_winning_boarding(id: String) -> bool:return _state.boardings.has(id) and _winning(_state,_state.boardings[id])
+func near_field_setup(vessel: Dictionary,team: String="neutral") -> Dictionary:
+	_error=""
+	if not Catalog.DATA.profiles.has(vessel.get("profileId")):return {}
+	var p=Catalog.DATA.profiles[vessel.profileId];var draft=effective_draft(vessel)
+	if not _error.is_empty():return {}
+	var setup={"id":vessel.id,"name":vessel.name,"kind":p.modelKind,"team":team,"position":vessel.pose.position.duplicate(),"heading":vessel.pose.heading,"speed":vessel.pose.speed,"hull":vessel.damage.hull,"sail":vessel.damage.sail,"crew":vessel.crew.able,"ammo":vessel.combat.ammo.duplicate(),"ammoType":vessel.combat.ammoType,"cooldownSeconds":vessel.combat.cooldownSeconds.duplicate(),"stats":{"maxHull":p.maxHull,"maxCrew":p.maxCrew,"speedMultiplier":p.speedMultiplier,"cargoMass":_sum(vessel.cargo)*100,"draftMeters":draft}}
+	setup.merge(vessel.controls.duplicate())
+	return setup

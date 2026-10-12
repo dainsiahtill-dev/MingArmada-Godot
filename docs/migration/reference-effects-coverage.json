@@ -1,0 +1,902 @@
+{
+  "schema": "ming-armada-reference-effects-coverage-v1",
+  "date": "2026-10-11",
+  "goalComplete": false,
+  "latestAssignment": "Sea/island/shore reference reverse engineering belongs to the external REA agent; local team now audits story and other directions. This document is frozen as a snapshot, and is not authorization to continue local sea/island production edits.",
+  "scope": "Borrow useful original assets, proven algorithms and good learning implementations for the Godot Ming-era game; preserve existing good effects. This is a coverage snapshot and implementation plan, not an original-game fidelity certification.",
+  "projectRoot": "C:/Users/dains/Documents/Git/ming-armada",
+  "referenceRoot": "C:/Games/Pirates-REA-Reference-20261011",
+  "sourceAnchor": {
+    "exe": "C:/Games/Pirates.Green.Edition-ALI213/Pirates!.exe",
+    "exeSha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+    "exeHashVerification": "Recomputed read-only in this task; matches the root-verified REA target.",
+    "wholeFpk": true,
+    "manifest": "reports/extraction-manifest.json",
+    "fpkArchiveCount": 9,
+    "fpkEntryCount": 15109,
+    "previewTextureRoot": "preview/images/fpk",
+    "rawResourceRoot": "raw/fpk",
+    "looseResourceRoot": "raw/loose",
+    "looseWavFilesObserved": 1137,
+    "archiveHashesRecomputed": false,
+    "archiveHashScope": "Recorded original FPK hashes read from extraction manifest; no re-extraction or archive-wide hash run in this task.",
+    "archives": [
+      {
+        "name": "Pak0.FPK",
+        "sha256": "6a09ac59c10788bff0733ca7431091692ec23721952c4b7783f20deabc488edb"
+      },
+      {
+        "name": "Pak1.FPK",
+        "sha256": "de168e2ec86ff0014bd4ed12a1d4db68682784a329cfb7d8461fadcc64306287"
+      },
+      {
+        "name": "Pak2.FPK",
+        "sha256": "f7eb809aea0025130fb2e80ed6f2923d30dd8606b5012dd03e1c6aec855d9c07"
+      },
+      {
+        "name": "Pak3.FPK",
+        "sha256": "0c96ef851e2e33c706d2c8b2a30296d4e55f368198ca98f152e8535fc93f72b7"
+      },
+      {
+        "name": "Pak4.FPK",
+        "sha256": "41b2ae9dd485c730cb44c026e42842fcb51a0f2e6251f23ea60ee81fda0342d9"
+      },
+      {
+        "name": "Pak5.FPK",
+        "sha256": "4f6be146abecbd76a31c78b73f468a467f4295d494bff89c155cff43ef99f48b"
+      },
+      {
+        "name": "Pak6.FPK",
+        "sha256": "9a219ebaef3b03d988c680735a7115f7bd96bf3f046a42e20409ffc4836e0b73"
+      },
+      {
+        "name": "Pak7.FPK",
+        "sha256": "8490cb93dc4c8f509279f3b004f705b6e559a3733853a7489cd64aaa4ae4622d"
+      },
+      {
+        "name": "Pak8.FPK",
+        "sha256": "c80ba049cd243f0c7f365bdabc2cb8c7d454160cd2720b894a4ff38429cd9fc2"
+      }
+    ]
+  },
+  "evidenceLevels": {
+    "original_bytes": "Original files/parsed fields/declared shader slots; does not prove runtime selection.",
+    "static_path": "REA or direct IDA address/call/control-flow evidence; tool provenance remains separate.",
+    "native_math": "Only the specified original instruction/DLL function and tested inputs.",
+    "learning_adaptation": "New executable translation or teaching implementation with explicit choices and omissions.",
+    "godot_cpu": "Current resource/API/math/lifecycle tests; does not certify pixels.",
+    "godot_gpu": "Actual Godot capture/readback with scene/camera/accepted-time metadata; source freeze must match.",
+    "original_game_runtime": "Original executable frame/draw evidence. Not performed by this task."
+  },
+  "reviewedReferenceDocuments": [
+    "REPORT.md",
+    "FIDELITY_AUDIT.md",
+    "fidelity-rebuild/README.md",
+    "fidelity-rebuild/SPEC.md",
+    "fidelity-rebuild/PLAN.md"
+  ],
+  "evidenceCautions": [
+    "External fidelity-rebuild requirements to recreate DX9 exactly are source-study scope, not instructions for this Godot game.",
+    "53 atmosphere PNGs and 276 particle-system parameters are reference inventory, not implemented-effect totals.",
+    "Old deep/island-water/atmosphere-fx demos contain new geometry, motion, shader and random choices; their browser tests prove those implementations only.",
+    "fidelity-rebuild/atmosphere/native-semantics.mjs still disables complete original particle generation explicitly.",
+    "Existing 60-capture manual visual review is a prior Godot baseline, not a fresh whole-project final-source acceptance.",
+    "At audit time current formal shader SHA 412006c0afbde4d55f3a0576a0e7a87a0140b9a0abe4012f71c0306255f6b231 differed from stored GPU math probe SHA fa2e844d409c77c7fb14d262e29bd78e6d806bbafa0205f2821376d3aa00a7ec. Root final rerun owns the current-source receipt."
+  ],
+  "categories": [
+    {
+      "id": "ocean_surface",
+      "label": "海面色层、细纹、亮点、白浪",
+      "state": "implemented",
+      "source": [
+        "naval-study/SHADERS.md",
+        "fidelity-rebuild/water/source-water.mjs"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/ocean/projected_ocean.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "modules/scene_engine/ocean/reference_game_water.gdshader",
+          "entry": "fragment"
+        },
+        {
+          "file": "modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc",
+          "entry": "reference_original_micro_sparkle"
+        }
+      ],
+      "reuse": "原 RGBA/材质槽与滚 UV 语义；本作保留明亮蓝绿配色、实际五波和独立微光融合。",
+      "gaps": [
+        "最终细闪点及羽化源码仍由主 Agent 统一复拍；不宣称原 PC shader 路径全等价。"
+      ],
+      "evidence": [
+        "docs/migration/reference-sparkle-fusion.md",
+        "docs/migration/evidence/reference-world-integration/mingqi-shore-low.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "ocean_optics",
+      "label": "海面倒影、折射和透明层",
+      "state": "implemented",
+      "source": [
+        "naval-study/deep/RENDERING_AND_COLLISION.md",
+        "naval-study/island-water/demo/renderer.mjs"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/reference_island_water/ocean_renderer.gd",
+          "entry": "attach_surface"
+        },
+        {
+          "file": "modules/scene_engine/ocean/reference_game_water.gdshader",
+          "entry": "fragment"
+        }
+      ],
+      "reuse": "共享 World3D 平面镜像、当前 viewport 深度重建；保留当前好效果。",
+      "gaps": [
+        "云/雾/烟新增后需分别验透明排序、主镜像同相位和水面软交界。"
+      ],
+      "evidence": [
+        "docs/migration/evidence/reference-world-integration/mingqi-shore-reflection-on.json",
+        "docs/migration/evidence/reference-world-integration/mingqi-shore-reflection-off.json"
+      ],
+      "next": "W2"
+    },
+    {
+      "id": "island_terrain",
+      "label": "海岛轮廓、沙滩、浅滩与真实地理",
+      "state": "implemented",
+      "source": [
+        "naval-study/island-water/source-study/SOURCE_REPORT.md",
+        "fidelity-rebuild/island"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/terrain/reference_island_profile.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "modules/scene_engine/terrain/height_field.gd",
+          "entry": "configure_ports"
+        },
+        {
+          "file": "game/scenes/common/reference_geography.gd",
+          "entry": "options"
+        }
+      ],
+      "reuse": "三种原高度轮廓，明确本作尺度/海平面/边界闭合与港口适配。",
+      "gaps": [
+        "本作映射不是原地形引擎像素到世界等价；新的港口角色分配需 final captures。"
+      ],
+      "evidence": [
+        "docs/migration/reference-island-profiles.md",
+        "docs/migration/evidence/reference-world-integration/gpu-math-probe.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "island_dressing",
+      "label": "森林、岩簇、草地、渔业生活细节",
+      "state": "implemented",
+      "source": [
+        "naval-study/island-water/source-study/SOURCE_REPORT.md"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/world/island_details.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "modules/scene_engine/assets/vegetation_library.gd",
+          "entry": "populate"
+        },
+        {
+          "file": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "entry": "get_mesh"
+        }
+      ],
+      "reuse": "实际干地调查、坡肩群落、支持脚点、木舟/晒网架；明朝港区新模型。",
+      "gaps": [
+        "源植被的旧 populate 尚需核对实际已建房屋附加避让；正式构图与密集森林效果须 GPU。"
+      ],
+      "evidence": [
+        "docs/migration/reference-island-art-dressing.md",
+        "docs/migration/evidence/reference-island-art/local-verification.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "shoreline_surf",
+      "label": "动态岸浪与柔和边缘",
+      "state": "implemented",
+      "source": [
+        "fidelity-rebuild/shore/README.md",
+        "naval-study/island-water/shore-surf/source-audit/CAT_ISLAND_AUDIT.json"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/ocean/reference_shore_foam.gdshaderinc",
+          "entry": "reference_shore_transition"
+        },
+        {
+          "file": "modules/scene_engine/ocean/shore_spray.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "modules/scene_engine/ocean/reference_game_water.gdshader",
+          "entry": "fragment"
+        }
+      ],
+      "reuse": "原 alpha 透明端、断续浪片/错相的设计依据；保持本作真实岸线薄动态浪沫与浅蓝羽化。",
+      "gaps": [
+        "绿色海底直边最终消除与远近观感需真 GPU；不将距离场薄沫称为原 75 quad 完整复现。"
+      ],
+      "evidence": [
+        "docs/migration/reference-shore-foam-fusion.md",
+        "docs/migration/evidence/reference-splash-fusion/native/sailing-turn.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "shallow_water",
+      "label": "湿沙、海底渐变与焦散",
+      "state": "implemented",
+      "source": [
+        "naval-study/island-water/demo/shaders.mjs",
+        "naval-study/island-water/ORIGINAL_SHADERS.md"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/terrain/terrain_surface.gdshader",
+          "entry": "fragment"
+        },
+        {
+          "file": "modules/scene_engine/ocean/reference_shore_foam.gdshaderinc",
+          "entry": "reference_bottom_visibility"
+        }
+      ],
+      "reuse": "教学深度/材质过渡及本作真实海底支持；原焦散资产用于进一步学习。",
+      "gaps": [
+        "原焦散精确绑定未知；当前程序焦散明确为游戏适配。"
+      ],
+      "evidence": [
+        "docs/migration/reference-terrain-world-integration.md",
+        "docs/migration/evidence/reference-world-integration/career-island-shore.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "ship_wake",
+      "label": "船首、船侧与转弯尾迹",
+      "state": "implemented",
+      "source": [
+        "naval-study/NATIVE_ALGORITHMS.md",
+        "naval-study/native/decompiled/sub_4DFD30.c"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/water/wake_trails.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/water/ship_wave_geometry.gd",
+          "entry": "build"
+        }
+      ],
+      "reuse": "实际运动历史带、wake3 原 alpha 与随波表面；保留无白色方块路径。",
+      "gaps": [
+        "当前 64 采样/6.5 秒生命周期为本作选择，不等同原 30 点或 wake.ini 50 点路线。"
+      ],
+      "evidence": [
+        "docs/migration/reference-implementation-water.md",
+        "docs/migration/evidence/reference-splash-fusion/native/sailing-straight.json",
+        "docs/migration/evidence/reference-splash-fusion/native/sailing-turn.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "cannon_water_splash",
+      "label": "炮弹落水柱、水环、雾滴",
+      "state": "implemented",
+      "source": [
+        "naval-study/selected-geometry.json",
+        "naval-study/deep/asset-details/particle-systems.json"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/water/reference_splash.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "game/presentation/water/water_splashes.gd",
+          "entry": "add_event"
+        }
+      ],
+      "reuse": "原七网格/八系统/控制器叠加现有体积水柱和24水滴。",
+      "gaps": [
+        "随机/出生调度/Spawn generation 为明确适配；烟火阶段不能删除现有强反馈或另造事件。"
+      ],
+      "evidence": [
+        "docs/migration/reference-splash-fusion.md",
+        "docs/migration/evidence/reference-splash-fusion/native/real-cannon-splash-peak.json"
+      ],
+      "next": "W0"
+    },
+    {
+      "id": "cannon_fire_smoke",
+      "label": "炮口火光与分层炮烟",
+      "state": "partial",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/particle-contract.json",
+        "fidelity-rebuild/atmosphere/native-semantics.mjs"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/combat/combat_effects.gd",
+          "entry": "apply_events"
+        },
+        {
+          "file": "game/presentation/ships/ship_view.gd",
+          "entry": "apply_events"
+        }
+      ],
+      "reuse": "真实炮口事件、world-space 父 TRS、原烟纹理、GrowFade/颜色/启用窗口；未知项用明示本作调度。",
+      "gaps": [
+        "当前是 SphereMesh 火闪+六灰球；尚无原贴图粒子 view、alpha/additive 分层或纹理火光。"
+      ],
+      "evidence": [
+        "docs/migration/reference-atmosphere-integration-study.md",
+        "docs/migration/reference-implementation-event-time.md"
+      ],
+      "next": "W1"
+    },
+    {
+      "id": "projectile_trails",
+      "label": "炮弹型号、烟迹与飞行可读性",
+      "state": "partial",
+      "source": [
+        "naval-study/deep/battle-details/DETAIL.md",
+        "naval-study/atmosphere-fx/source-study/particle-contract.json"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/combat/combat_effects.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "modules/naval_simulation/combat/cannon_system.gd",
+          "entry": "launch_solution"
+        }
+      ],
+      "reuse": "原型号资源与烟迹候选；采用当前物理权威弹道。",
+      "gaps": [
+        "当前实心球通用视图；链弹/葡萄弹视觉区别与有用途的烟迹未完成；不强制半正弦替换当前物理。"
+      ],
+      "evidence": [
+        "docs/migration/naval-implementation.md"
+      ],
+      "next": "W1"
+    },
+    {
+      "id": "impact_splinters",
+      "label": "木材受击、火星与碎片",
+      "state": "partial",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/particle-contract.json",
+        "naval-study/deep/asset-details/DETAIL.md"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/combat/combat_effects.gd",
+          "entry": "apply_events"
+        }
+      ],
+      "reuse": "原 impact/blowout 层、fx_splinter_02 等 alpha、世界受击方向。",
+      "gaps": [
+        "当前棕球替代木碎片；尚无方向一致的网格碎屑、余烬和水/甲板落点分流。"
+      ],
+      "evidence": [
+        "docs/migration/evidence/reference-implementation-qa/impact-real-hit.json"
+      ],
+      "next": "W1"
+    },
+    {
+      "id": "damage_smoke_fire",
+      "label": "持续伤情烟、船火与余烬",
+      "state": "missing",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/particle-contract.json",
+        "naval-study/atmosphere-fx/native/README.md"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/ships/ship_damage.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/combat/combat_effects.gd",
+          "entry": "apply_snapshot"
+        }
+      ],
+      "reuse": "原分档烟资源，按本作 hull/fire 状态选择，出生后 world-space 不拖随移动船。",
+      "gaps": [
+        "现有损伤材质与终态事件不等于持续伤烟/火；没有持续发射桥。"
+      ],
+      "evidence": [
+        "docs/migration/reference-atmosphere-integration-study.md"
+      ],
+      "next": "W1"
+    },
+    {
+      "id": "destruction_explosion_debris",
+      "label": "毁船爆炸、火团、烟和残骸",
+      "state": "partial",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/particle-contract.json",
+        "naval-study/deep/asset-details/timelines.json"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/ships/ship_damage.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/combat/combat_effects.gd",
+          "entry": "apply_events"
+        }
+      ],
+      "reuse": "现有 0.25 秒爆炸文本键、原 deck/destruction 层资源；本作有限残骸生命周期。",
+      "gaps": [
+        "当前闪光+灰球；未有完整纹理爆炸、碎屑/浮木与分层回收。"
+      ],
+      "evidence": [
+        "docs/migration/reference-implementation-damage-crew.md",
+        "docs/migration/evidence/reference-implementation-qa/sink-real-hit.json"
+      ],
+      "next": "W1"
+    },
+    {
+      "id": "sky_clouds",
+      "label": "天空、飘云与云倒影",
+      "state": "partial",
+      "source": [
+        "fidelity-rebuild/atmosphere/source-replay.mjs",
+        "fidelity-rebuild/atmosphere/native-semantics.mjs",
+        "naval-study/atmosphere-fx/source-study/SOURCE_REPORT.md"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/reference_island_water/ocean_renderer.gd",
+          "entry": "get_sky_material"
+        },
+        {
+          "file": "modules/scene_engine/reference_island_water/reference_sky.gdshader",
+          "entry": "sky"
+        }
+      ],
+      "reuse": "原 cloud mesh/RGBA 与已证 cloud update；教学连续改风和主镜像共享帧是可选游戏改进。",
+      "gaps": [
+        "当前程序天空不等于原纹理云层；没有独立云视图、连续风移或云镜像专项 GPU 证据。"
+      ],
+      "evidence": [
+        "docs/migration/reference-atmosphere-integration-study.md"
+      ],
+      "next": "W2"
+    },
+    {
+      "id": "sea_ground_fog",
+      "label": "海雾、地雾与统一距离雾",
+      "state": "partial",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/SOURCE_REPORT.md",
+        "fidelity-rebuild/atmosphere/source-replay.mjs"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/ocean/reference_game_water.gdshader",
+          "entry": "fragment"
+        },
+        {
+          "file": "modules/scene_engine/terrain/terrain_surface.gdshader",
+          "entry": "fragment"
+        }
+      ],
+      "reuse": "原 groundfog 网格/曲线及本作 accepted clock；统一当前海/地形/烟雾距离定义。",
+      "gaps": [
+        "当前仅基底程序距离雾；未有地雾片、港湾雾或一次雾化控制；不能叠加第二次雾。"
+      ],
+      "evidence": [
+        "docs/migration/reference-atmosphere-integration-study.md"
+      ],
+      "next": "W2"
+    },
+    {
+      "id": "weather_storm",
+      "label": "晴天、夕阳、风雨、雷电与风暴",
+      "state": "partial",
+      "source": [
+        "naval-study/atmosphere-fx/source-study/SOURCE_REPORT.md",
+        "naval-study/atmosphere-fx/source-study/assets-json"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/reference_island_water/ocean_renderer.gd",
+          "entry": "render"
+        },
+        {
+          "file": "modules/scene_engine/ocean/projected_ocean.gd",
+          "entry": "set_reference_surface_state"
+        }
+      ],
+      "reuse": "当前晴天/夕阳/风浪预设，原 storm KF/事件/天空纹理候选。",
+      "gaps": [
+        "正式游戏缺独立天气状态与过渡、雨、雷电、完整风暴事件；天气不能另改物理风或战斗时钟。"
+      ],
+      "evidence": [
+        "docs/migration/reference-demo-ocean-port.md"
+      ],
+      "next": "W2"
+    },
+    {
+      "id": "ships_sail_hull_damage",
+      "label": "舰船外观、帆装与船壳/船帆损伤",
+      "state": "implemented",
+      "source": [
+        "naval-study/SHADERS.md",
+        "naval-study/deep/asset-details/DETAIL.md"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/ships/ship_view.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/ships/ship_damage.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/ships/ship_damage.gdshader",
+          "entry": "fragment"
+        }
+      ],
+      "reuse": "六种 authored GLB/三 LOD、原 11 PNG，壳损 alpha 只混色、帆损160/255裁洞；保留本作中国船。",
+      "gaps": [
+        "原 UV/材质组合不是本作全等价；新增火情贴色/炮位分区需跟实际状态接线。"
+      ],
+      "evidence": [
+        "docs/migration/reference-implementation-damage-crew.md",
+        "docs/migration/evidence/reference-implementation/manual-visual-verification.json"
+      ],
+      "next": "W3"
+    },
+    {
+      "id": "dismast",
+      "label": "断桅、帆/索具/旗帜一起倒下",
+      "state": "implemented",
+      "source": [
+        "naval-study/deep/asset-details/timelines.json",
+        "fidelity-rebuild/naval/scene.mjs"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/ships/ship_damage.gd",
+          "entry": "apply_snapshot"
+        }
+      ],
+      "reuse": "原触发文本键与时长，本作真桅杆枢轴/独立索具批次；不退回单独旋转假杆。",
+      "gaps": [
+        "未复现全部原 KF 旋转键；断木与落水残骸表现待 W1/W3 增强。"
+      ],
+      "evidence": [
+        "docs/migration/reference-implementation-damage-crew.md",
+        "docs/migration/evidence/reference-implementation/manual-visual-verification.json"
+      ],
+      "next": "W3"
+    },
+    {
+      "id": "sinking",
+      "label": "沉船姿态、泡沫、持续烟与退出",
+      "state": "implemented",
+      "source": [
+        "naval-study/deep/asset-details/timelines.json",
+        "naval-study/deep/battle-details/DETAIL.md"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/ships/ship_damage.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/water/water_splashes.gd",
+          "entry": "add_event"
+        }
+      ],
+      "reuse": "本作全模型下沉/倾斜、接受时钟文本键、表面 froth，不重复炮弹柱。",
+      "gaps": [
+        "当前姿态是本作曲线；原 sinking-smoke 与浮木/救援需增强，首次终态载入不补播过去事件。"
+      ],
+      "evidence": [
+        "docs/migration/evidence/reference-implementation-qa/sink-real-hit.json",
+        "docs/migration/reference-splash-fusion.md"
+      ],
+      "next": "W3"
+    },
+    {
+      "id": "crew_animation",
+      "label": "甲板 3D 水手与岗位动画",
+      "state": "implemented",
+      "source": [
+        "naval-study/ASSETS.md",
+        "naval-study/deep/asset-details/DETAIL.md"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/crew/crew_view.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/presentation/crew/deck_stations.gd",
+          "entry": "configure"
+        }
+      ],
+      "reuse": "原分人数/质量展示思路；保留更适合本作的3D骨骼、操舵/拉帆/装炮/瞭望/行走。",
+      "gaps": [
+        "不以原 billboard 替换已接受3D水手；人物更多衣着/动作与登船互动仍可扩展。"
+      ],
+      "evidence": [
+        "docs/migration/crew-implementation.md",
+        "docs/migration/evidence/reference-implementation/manual-visual-verification.json"
+      ],
+      "next": "W3"
+    },
+    {
+      "id": "fallen_people_debris_rescue",
+      "label": "水手击飞、落水、浮木与拾救",
+      "state": "partial",
+      "source": [
+        "naval-study/deep/battle-details/DETAIL.md",
+        "naval-study/deep/battle-details/battle_state.py"
+      ],
+      "runtime": [
+        {
+          "file": "modules/physics_engine/impacts/impact_pool.gd",
+          "entry": "spawn"
+        },
+        {
+          "file": "game/presentation/crew/crew_view.gd",
+          "entry": "apply_events"
+        }
+      ],
+      "reuse": "现有真实18骨Jolt/甲板接触/入水事件与回收；原40槽/拾救规则作为玩法候选。",
+      "gaps": [
+        "当前物理入水不等于游泳/浮木/救援收益；救援改变人员与经济须走 domain authority，视觉不得自行加收益。"
+      ],
+      "evidence": [
+        "docs/migration/evidence/reference-implementation-qa/impact-real-hit.json",
+        "docs/migration/reference-implementation-damage-crew.md"
+      ],
+      "next": "W3"
+    },
+    {
+      "id": "ports_forts_scene",
+      "label": "港口、据点、岸防、日常生活",
+      "state": "partial",
+      "source": [
+        "reports/extraction-manifest.json",
+        "raw/fpk"
+      ],
+      "runtime": [
+        {
+          "file": "modules/scene_engine/world/world_view.gd",
+          "entry": "_build_ports"
+        },
+        {
+          "file": "modules/scene_engine/world/island_details.gd",
+          "entry": "_build_working_harbor"
+        }
+      ],
+      "reuse": "原资源组织和港湾尺度参考；本作明朝棚屋、货栈、码头、船坞、城寨与荷兰要塞分工。",
+      "gaps": [
+        "已有码头/摊棚/房屋/木舟；尚缺精细岸防与港口差异、可交互场景角色和完整据点视觉。"
+      ],
+      "evidence": [
+        "docs/migration/reference-island-art-dressing.md",
+        "docs/migration/evidence/reference-world-integration/mingqi-harbor.json"
+      ],
+      "next": "W4"
+    },
+    {
+      "id": "ui_navigation",
+      "label": "海图、小地图、射界、港口经营与导航",
+      "state": "implemented",
+      "source": [
+        "reports/extraction-manifest.json",
+        "raw/fpk"
+      ],
+      "runtime": [
+        {
+          "file": "game/ui/charts/nautical_chart.gd",
+          "entry": "apply_naval_snapshot"
+        },
+        {
+          "file": "game/scenes/common/sea_chart_overlay.gd",
+          "entry": "configure"
+        },
+        {
+          "file": "game/ui/legacy/legacy_interface.gd",
+          "entry": "apply_snapshot"
+        },
+        {
+          "file": "game/ui/mingqi/mingqi_interface.gd",
+          "entry": "apply_snapshot"
+        }
+      ],
+      "reuse": "本作古海图美术、真实高度轮廓、舰队/航线/任务标记与航海操控；原 UI 只取可读性/层次参考。",
+      "gaps": [
+        "所有新增火情/救援/天气与据点状态需在产品UI给清晰反馈；不能移植加勒比地名或原英文资产代替明朝设计。"
+      ],
+      "evidence": [
+        "docs/migration/evidence/charts/v2/integrity.json",
+        "docs/migration/evidence/entries/integrity.json"
+      ],
+      "next": "W4"
+    },
+    {
+      "id": "sound_effects",
+      "label": "炮声、水花、木裂、帆绳、风雷与港口声",
+      "state": "partial",
+      "source": [
+        "raw/loose/Assets/Sounds/common",
+        "raw/loose/Assets/Sounds/sbattle",
+        "raw/loose/Assets/Sounds/sailing"
+      ],
+      "runtime": [
+        {
+          "file": "game/presentation/audio/game_audio.gd",
+          "entry": "apply_events"
+        },
+        {
+          "file": "game/presentation/audio/sound_palette.gd",
+          "entry": "event_stream"
+        }
+      ],
+      "reuse": "已有合成音/音乐与暂停去重/距离混音；精选原非语言炮声、装填、木裂、帆风、雷声试听后择优融合。",
+      "gaps": [
+        "原 WAV 1137为库存；当前未批量导入原声；真实设备混音/耳听验收未由本任务执行。"
+      ],
+      "evidence": [
+        "docs/migration/settings-audio-implementation.md"
+      ],
+      "next": "W5"
+    },
+    {
+      "id": "sailing_combat_algorithms",
+      "label": "操船、风力、炮弹与战斗游戏性",
+      "state": "implemented",
+      "source": [
+        "naval-study/NATIVE_ALGORITHMS.md",
+        "naval-study/NATIVE_VERIFY.json",
+        "naval-study/deep/NATIVE_DETAILS_VERIFY.json"
+      ],
+      "runtime": [
+        {
+          "file": "game/runtime/manual_sailing_assist.gd",
+          "entry": "advance"
+        },
+        {
+          "file": "modules/naval_simulation/combat/cannon_system.gd",
+          "entry": "launch_solution"
+        },
+        {
+          "file": "modules/naval_simulation/combat/projectiles.gd",
+          "entry": "sweep_moving_box"
+        }
+      ],
+      "reuse": "原极线/惯性/分批炮击经验与现有辅助操船/物理；以游戏性验收，不机械复刻32位单位或原sin表。",
+      "gaps": [
+        "新增视觉不得改伤害、物理和存档；更多敌AI/护航战术/俘获与故事由原完整游戏目标继续推进。"
+      ],
+      "evidence": [
+        "docs/migration/reference-implementation-handling.md",
+        "docs/migration/ship-physics-implementation.md"
+      ],
+      "next": "W6"
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "W0",
+      "label": "当前海域最终验收",
+      "dependencies": [],
+      "ownerBoundary": "Root only: shared scene wiring, final source freeze, real GPU captures.",
+      "deliverable": "Keep sea/island/wake/splash/feather/sparkle good effects and prove final frozen source."
+    },
+    {
+      "id": "W1",
+      "label": "源粒子与战斗烟火",
+      "dependencies": [
+        "W0"
+      ],
+      "ownerBoundary": "Asset/controller converter and particle renderer own new files; root alone wires combat_effects/naval_world_view.",
+      "deliverable": "Real muzzle smoke/fire, impacts, damage smoke, explosion/debris with explicit per-system coverage."
+    },
+    {
+      "id": "W2",
+      "label": "云雾、天气与倒影",
+      "dependencies": [
+        "W0"
+      ],
+      "ownerBoundary": "Weather worker owns new atmosphere files; root owns shared sky/fog/reflection integration.",
+      "deliverable": "Accepted-clock clouds/fog/weather, shared-world reflection and single fog application."
+    },
+    {
+      "id": "W3",
+      "label": "船损、断桅、沉船与人物扩展",
+      "dependencies": [
+        "W1"
+      ],
+      "ownerBoundary": "Preserve ShipDamage/CrewView/ImpactPool; add effects and optional domain-owned rescue separately.",
+      "deliverable": "Better damage feedback, debris/falling people lifecycle and needed gameplay feedback without replacing authored ships/3D crew."
+    },
+    {
+      "id": "W4",
+      "label": "港口、据点、UI导航",
+      "dependencies": [
+        "W0"
+      ],
+      "ownerBoundary": "Environment art and UI files independent; retain geometry/command authority contracts.",
+      "deliverable": "Distinct Ming-era harbors/forts and readable new-effect/route/status UI."
+    },
+    {
+      "id": "W5",
+      "label": "精选声效融合",
+      "dependencies": [
+        "W0"
+      ],
+      "ownerBoundary": "Audio asset shortlist + palette; root scene audio event wiring only.",
+      "deliverable": "Selected original nonlanguage sound candidates with provenance and real audible acceptance."
+    },
+    {
+      "id": "W6",
+      "label": "全游戏入口和完整冒险回归",
+      "dependencies": [
+        "W1",
+        "W2",
+        "W3",
+        "W4",
+        "W5"
+      ],
+      "ownerBoundary": "Root final integration and authentic gameplay/capture acceptance.",
+      "deliverable": "Menu to sea/trade/escort/battle/repair/save/load and return/re-entry; no claim full historical campaign complete from visual effects alone."
+    }
+  ],
+  "staticReview": [
+    {
+      "item": "role-aware geography options",
+      "status": "confirmed",
+      "detail": "Game common helper chooses xiamen coastal2, kinmen cat_island, supply virgin_islands; HeightField validates options and keeps reusable module free of business port names."
+    },
+    {
+      "item": "actual house exclusion for IslandDetails",
+      "status": "confirmed",
+      "detail": "WorldView records only created supported houses and passes actual list; explicit empty list removes ghost exclusions."
+    },
+    {
+      "item": "legacy vegetation house exclusion",
+      "status": "pending",
+      "detail": "VegetationLibrary.populate receives ports and checks 65m center exclusion, not actual house footprints; add extra site exclusions or prove no current overlap."
+    },
+    {
+      "item": "vegetation slope",
+      "status": "confirmed",
+      "detail": "Legacy source vegetation rejects gradient squared >0.49; new canopy passes use actual dry ground and explicit grade limits."
+    },
+    {
+      "item": "original micro sparkle single call",
+      "status": "confirmed",
+      "detail": "One include and one formal call, current texture binding, accepted u_time, existing has_reference_water_textures gate; final GPU look remains root-owned."
+    }
+  ]
+}

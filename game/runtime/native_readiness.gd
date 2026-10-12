@@ -53,10 +53,15 @@ static func facts(state: Dictionary,native: Dictionary,policy: Dictionary,docks:
 		var berth: bool = id == state.campaignId+"-heritage" and Bridge.ordinary_heritage_berth(state)
 		var authorized: bool = id in policy.controllableShipIds or berth
 		for type in ["repair","refit","treat-wounded","release-prisoners"]:
-			var allowed: bool = authorized or type == "treat-wounded" and vessel.ownerId == "captain"
+			var allowed: bool = authorized or type == "treat-wounded" and (vessel.ownerId == "captain" or session.genuine_lease(id,state))
 			var ready: bool = docked and allowed and not _working(state,id) and not _boarded(state,id)
+			var reason="ship-not-docked" if not docked else "unauthorized-port-service" if not allowed else "ship-unavailable"
+			if type == "treat-wounded" and ready:
+				var quote: Dictionary=session.quote_port_service({"type":"treat-wounded","shipId":id,"quantity":1})
+				ready=quote.get("ok",false)
+				if not ready:reason=quote.get("reason","ship-unavailable")
 			if type == "release-prisoners": ready = ready and vessel.crew.prisoners > 0
-			result[type+":"+id] = _fact(ready,"ship-not-docked" if not docked else "unauthorized-port-service" if not allowed else "ship-unavailable")
+			result[type+":"+id] = _fact(ready,reason)
 		var prize: Dictionary = session.prize_state(id,state)
 		var unresolved: bool = not prize.is_empty() and prize.get("resolutionReceiptId") == null and not state.settlements.has(state.campaignId+":prize-disposition:"+id)
 		var idle := _idle(state,native,encounter,id)

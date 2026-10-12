@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x54FFE0",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "double __thiscall sub_54FFE0(int this, float a2)\n{\n  bool v3; // zf\n  double v4; // st7\n  unsigned __int16 v5; // bx\n  double v6; // st7\n  double result; // st7\n  double v8; // st6\n  int v9; // ecx\n  float v10; // edx\n  float v11; // eax\n  double v12; // st7\n  float v13; // [esp+8h] [ebp-8h]\n  float v14; // [esp+Ch] [ebp-4h]\n  float v15; // [esp+14h] [ebp+4h]\n  float v16; // [esp+14h] [ebp+4h]\n\n  if ( *(float *)(this + 32) == -flt_6C0820 )\n    *(float *)(this + 32) = a2;\n  if ( *(float *)(this + 36) == -flt_6C0820 )\n  {\n    v3 = (*(_BYTE *)(this + 12) & 1) == 0;\n    *(_DWORD *)(this + 40) = 0;\n    if ( v3 )\n      v4 = a2;\n    else\n      v4 = flt_7113D4;\n  }\n  else\n  {\n    v4 = a2 - *(float *)(this + 36);\n  }\n  v5 = *(_WORD *)(this + 12);\n  v6 = v4 * *(float *)(this + 16) + *(float *)(this + 40);\n  *(float *)(this + 36) = a2;\n  *(float *)(this + 40) = v6;\n  result = v6 + *(float *)(this + 20);\n  v14 = result;\n  v8 = *(float *)(this + 28);\n  v9 = (v5 >> 1) & 3;\n  if ( flt_725C74 == v8 && flt_725C70 == *(float *)(this + 24) && flt_725C6C == result && dword_715A34 == v9 )\n    return flt_725C68;\n  v10 = *(float *)(this + 28);\n  flt_725C6C = result;\n  v11 = *(float *)(this + 24);\n  dword_715A34 = (v5 >> 1) & 3;\n  flt_725C74 = v10;\n  flt_725C70 = v11;\n  if ( !v9 )\n  {\n    v16 = *(float *)(this + 28) - *(float *)(this + 24);\n    if ( v16 != flt_7113D4 )\n    {\n      result = fmod(v14 - *(float *)(this + 24), v16) + *(float *)(this + 24);\n      if ( result < *(float *)(this + 24) )\n        result = result + v16;\n      goto LABEL_25;\n    }\nLABEL_24:\n    result = *(float *)(this + 24);\n    goto LABEL_25;\n  }\n  if ( v9 == 1 )\n  {\n    v15 = *(float *)(this + 28) - *(float *)(this + 24);\n    if ( v15 != flt_7113D4 )\n    {\n      v13 = v15 + v15;\n      v12 = fmod(v14, v13);\n      if ( v12 < flt_7113D4 )\n        v12 = v12 + v13;\n      if ( v12 > v15 )\n        v12 = v13 - v12;\n      result = v12 + *(float *)(this + 24);\n      goto LABEL_25;\n    }\n    goto LABEL_24;\n  }\nLABEL_25:\n  if ( result <= *(float *)(this + 28) )\n  {\n    if ( result < *(float *)(this + 24) )\n      result = *(float *)(this + 24);\n  }\n  else\n  {\n    result = *(float *)(this + 28);\n  }\n  if ( (v5 & 0x10) != 0 )\n    result = *(float *)(this + 28) - (result - *(float *)(this + 24));\n  flt_725C68 = result;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -8,7 +8,7 @@ const LegacyRuntime = preload("res://game/runtime/legacy_runtime.gd")
 const Menu = preload("res://game/ui/menu/main_menu.gd")
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","practice","water-study"]
+const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","practice","water-study","fidelity-island"]
 var generation := 1
 var mingqi_storage: RefCounted
 var legacy_storage: RefCounted
@@ -129,8 +129,8 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 	var mode: String = candidate.mode
 	if mode in ["qa","practice"] and not (DevelopmentAccess.host_allows() and (dev or qa)): return _no("entry-developer-only")
 	var node: Node
-	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice","qa","water-study"]:
-		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn","qa":"res://game/scenes/visual_qa/visual_qa.tscn","water-study":"res://game/scenes/reference_island_water/reference_island_water.tscn"}
+	if mode in ["mingqi","career"] or not entry_factory.is_valid() and mode in ["ships","practice","qa","water-study","fidelity-island"]:
+		var paths := {"mingqi":"res://game/scenes/mingqi/mingqi_scene.tscn","career":"res://game/scenes/legacy/legacy_scene.tscn","ships":"res://game/scenes/ship_book/ship_book.tscn","practice":"res://game/scenes/practice/practice.tscn","qa":"res://game/scenes/visual_qa/visual_qa.tscn","water-study":"res://game/scenes/reference_island_water/reference_island_water.tscn","fidelity-island":"res://game/scenes/fidelity_island/fidelity_island.tscn"}
 		var scene_path: String = paths[mode]
 		var resource = load(scene_path)
 		if not resource is PackedScene: return _no("entry-resource-unavailable")

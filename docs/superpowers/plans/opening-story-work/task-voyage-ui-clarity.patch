@@ -1,0 +1,196 @@
+--- a/game/ui/mingqi/mingqi_interface.gd
++++ b/game/ui/mingqi/mingqi_interface.gd
+@@ -387,12 +387,15 @@
+ 	if not debt.has("principal"): return "债务账目尚未载入。"
+ 	if int(debt.principal) <= 0: return "已还清。"
+ 	if not _operational(): return _reason("runtime-unavailable")
+-	if not debt.get("canRepay", false): return _reason(debt.get("reason", "")) if not str(debt.get("reason", "")).is_empty() else "条件尚未满足。"
++	if not debt.get("canRepay", false): return _debt_reason(debt.get("reason", "")) if not str(debt.get("reason", "")).is_empty() else "条件尚未满足。"
+ 	var fact: Dictionary = _runtime().get("eligibility", {}).get("repayDebt", {"ok": false, "reason": "save-unverified"})
+-	if not fact.get("ok", false): return _reason(fact.get("reason", "")) if not str(fact.get("reason", "")).is_empty() else _reason("save-unverified")
++	if not fact.get("ok", false): return _debt_reason(fact.get("reason", "")) if not str(fact.get("reason", "")).is_empty() else _reason("save-unverified")
+ 	if _repay_limit() < 1: return _reason("insufficient-silver")
+ 	if _debt_quantity() < 1 or _debt_quantity() > _repay_limit(): return "请输入1至%d之间的整数。" % _repay_limit()
+ 	return ""
++
++func _debt_reason(value) -> String:
++	return "请先靠泊厦门林家商行，再偿还欠款。" if str(value) == "not-in-port" else _reason(value)
+ 
+ func _build_story(parent: Control) -> void:
+ 	if _story().is_empty():
+@@ -566,7 +569,7 @@
+ 	for id in _state().get("contracts", {}):
+ 		_text(parent, "contract_" + id, func():
+ 			var contract: Dictionary = _state().get("contracts", {}).get(id, {})
+-			return ("首程护粮" if id == "convoy-001" else "补给护粮") + " · " + _status(contract.get("status", "")) + "\n期限 %.0f秒 · 奖励按实交粮、人船状况结算" % contract.get("deadlineAt", 0))
++			return ("首程护粮" if id == "convoy-001" else "补给护粮") + " · " + _status(contract.get("status", "")) + "\n" + _contract_timing(contract) + " · 奖励按实交粮、人船状况结算")
+ 		_button(parent, "contract_accept_" + id, "接下委托", func(): return {"type": "accept-convoy", "contractId": id}, func(): return _operational() and _state().get("contracts", {}).get(id, {}).get("status") == "offered" and _state().get("currentPortId") != null)
+ 		_button(parent, "contract_claim_" + id, "领取实际报酬", func(): return {"type": "claim-convoy", "contractId": id}, func(): return _claim_ready(id))
+ 	_button(parent, "depart", "离港起航", func(): return {"type": "depart"}, func(): return _runtime().get("canDepart", false) == true)
+@@ -585,7 +588,7 @@
+ 		if voyage_id == null: continue
+ 		_text(parent, "voyage_" + str(voyage_id), func():
+ 			var voyage: Dictionary = _state().get("voyages", {}).get(voyage_id, {})
+-			return "%s · %s · 航段 %d / %.0f%% · 预计 %.0f秒" % [_port_name(voyage.get("destinationId")), _status(voyage.get("status", "")), int(voyage.get("leg", 0)) + 1, float(voyage.get("progress", 0)) * 100, voyage.get("eta", 0)])
++			return "%s · %s · %s" % [_port_name(voyage.get("destinationId")), _status(voyage.get("status", "")), _voyage_detail(voyage)])
+ 		var lanes: Dictionary = {}
+ 		var voyage: Dictionary = _state().get("voyages", {}).get(voyage_id, {})
+ 		for route_id in _catalog.get("routes", {}):
+@@ -616,6 +619,36 @@
+ 		for info in _state().get("intelligence", []): entries.append("%s · 粮估计 %d · %.0f秒采集 · 可信度 %.0f%%" % [_port_name(info.get("portId")), info.get("stock", {}).get("grain", 0), info.get("observedAt", 0), float(info.get("confidence", 0)) * 100])
+ 		return "\n".join(entries) if not entries.is_empty() else "尚无采集情报。")
+ 	_receipts(parent, "fleet_receipts", ["accept-convoy", "claim-convoy", "shipment-arrived", "choose-route", "depart"])
++
++func _contract_timing(contract: Dictionary) -> String:
++	match str(contract.get("status", "")):
++		"offered": return "接单前也计时 · " + _deadline_timing(contract) if float(contract.get("deadlineAt", 0)) > 0 else "接单后开始计时"
++		"active": return _deadline_timing(contract)
++		"delivered": return "交付已记录，待核对报酬"
++		"failed": return "失败结果已记录"
++		"settled": return "实际报酬已结算"
++	return "等待委托核验"
++
++func _deadline_timing(contract: Dictionary) -> String:
++	var remaining := float(contract.get("deadlineAt", 0)) - float(_state().get("simulationSeconds", 0))
++	return "期限剩余 %.0f秒" % ceil(remaining) if remaining >= 0 else "已逾期 %.0f秒" % ceil(-remaining)
++
++func _voyage_detail(voyage: Dictionary) -> String:
++	match str(voyage.get("status", "")):
++		"underway":
++			var remaining := float(voyage.get("eta", 0)) - float(_state().get("simulationSeconds", 0))
++			var timing := "预计还需 %.0f秒" % ceil(remaining) if remaining > 0 else "预计时间已过，尚未抵达"
++			return "航段 %d / %.0f%% · %s" % [int(voyage.get("leg", 0)) + 1, float(voyage.get("progress", 0)) * 100, timing]
++		"loading":
++			for contract in _state().get("contracts", {}).values():
++				if voyage.get("id") in contract.get("voyageIds", []) and contract.get("status") == "offered": return "请先接下委托，再核对航线、吃水与离港条件"
++			if not _operational(): return _reason("runtime-unavailable")
++			if _runtime().get("canDepart", false): return "离港条件已核验，等待离港起航"
++			return "等待出航整备 · " + _reason(_runtime().get("departReason", "save-unverified"))
++		"arrived": return "抵达已记录，交付与报酬按实际回执核对"
++		"lost": return "船只损失已记录，请核对货物与人员回执"
++		"interrupted": return "航程中断，请核对船员与船况"
++	return "等待航程核验"
+ 
+ func _route_name(id: String) -> String:
+ 	return {"xiamen-kinmen-deep": "厦门—金门深水道", "xiamen-kinmen-shallow": "厦门—金门浅水捷径", "xiamen-kinmen-outer": "厦门—金门外海线", "kinmen-supply-deep": "金门—近岸补给线"}.get(id, id)
+--- /dev/null
++++ b/tests/test_voyage_ui_clarity.gd
+@@ -0,0 +1,118 @@
++extends SceneTree
++## Actual Control labels consume snapshots; fixed deadlines must count down as clock advances.
++var assertions := 0
++var failures := 0
++const Campaign = preload("res://game/domain/mingqi/campaign.gd")
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
++
++func check(value: bool, message: String) -> void:
++	assertions += 1
++	if not value:
++		failures += 1
++		printerr("FAIL voyage UI clarity: ", message)
++
++func _initialize() -> void:
++	_run.call_deferred()
++
++func _delayed_acceptance(seconds: float, timing: String) -> void:
++	var campaign := Campaign.new()
++	check(campaign.advance(seconds).ok, "real campaign advances before acceptance at " + str(seconds))
++	var runtime := Runtime.new()
++	check(runtime.configure(func(_x: float, _z: float) -> float: return -24.0, campaign).ok, "delayed campaign configures real runtime")
++	var ui = load("res://game/ui/mingqi/mingqi_interface.gd").new()
++	root.add_child(ui)
++	await process_frame
++	var results: Array = []
++	ui.command_requested.connect(func(intent: Dictionary):
++		results.append(runtime.command(intent))
++		ui.apply_snapshot(runtime.snapshot()))
++	ui.apply_snapshot(runtime.snapshot())
++	ui.open_panel("convoy")
++	var label: String = ui.find_child("contract_convoy-001", true, false).text
++	check(label.contains("接单前也计时") and label.contains(timing), "first offered deadline remains visible before delayed acceptance at " + str(seconds))
++	var accept = ui.find_child("contract_accept_convoy-001", true, false)
++	check(not accept.disabled, "existing delayed acceptance remains available")
++	accept.pressed.emit()
++	check(results.size() == 1 and results[0].ok, "actual UI to runtime delayed acceptance succeeds")
++	check(runtime.snapshot().campaign.contracts["convoy-001"].deadlineAt == 1800, "delayed acceptance preserves actual first deadline")
++	check(ui.find_child("contract_convoy-001", true, false).text.contains(timing), "accepted first contract preserves same remaining or overdue timing")
++	ui.free()
++	runtime.dispose()
++	await process_frame
++
++func _run() -> void:
++	await _delayed_acceptance(1000, "剩余 800秒")
++	await _delayed_acceptance(1900, "逾期 100秒")
++	var ui = load("res://game/ui/mingqi/mingqi_interface.gd").new()
++	root.add_child(ui)
++	await process_frame
++	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mingqi-reference.json"))
++	var state: Dictionary = fixture.initial.duplicate(true)
++	var packet := {"campaign": state, "naval": {"ships": []}, "runtime": {"generation": 91, "status": "ready", "canDepart": false, "departReason": "unsafe-port", "eligibility": {"repayDebt": {"ok": false, "reason": "not-in-port"}}}, "story": {"debt": {"principal": 240, "creditorName": "林家商行", "canRepay": false, "reason": "not-in-port"}}}
++	state.currentPortId = "kinmen"
++	ui.apply_snapshot(packet)
++	ui.open_panel("story")
++	check(ui.find_child("repay_debt_reason", true, false).text.contains("厦门林家商行"), "anchored Kinmen debt refusal identifies the actual creditor port")
++	check(ui.find_child("repay_debt", true, false).disabled, "wrong-port copy keeps repayment disabled")
++	state.currentPortId = "xiamen"
++	packet.story.debt.canRepay = true
++	packet.story.debt.reason = ""
++	packet.runtime.eligibility.repayDebt = {"ok": false, "reason": "unsafe-port"}
++	ui.apply_snapshot(packet)
++	check(ui.find_child("repay_debt_reason", true, false).text.contains("停稳") and ui.find_child("repay_debt", true, false).disabled, "unsafe Xiamen retains real safety refusal")
++	packet.runtime.eligibility.repayDebt = {"ok": false, "reason": "not-in-port"}
++	ui.apply_snapshot(packet)
++	check(ui.find_child("repay_debt_reason", true, false).text.contains("厦门林家商行"), "native wrong-port debt reason identifies Xiamen too")
++	var contract: Dictionary = state.contracts["convoy-001"]
++	var voyage_id: String = contract.voyageIds[0]
++	var voyage: Dictionary = state.voyages[voyage_id]
++	contract.deadlineAt = 0
++	ui.apply_snapshot(packet)
++	ui.open_panel("convoy")
++	check(ui.find_child("contract_convoy-001", true, false).text.contains("接单后开始计时"), "offered zero deadline is acceptance timing rather than expiry")
++	check(not ui.find_child("voyage_" + voyage_id, true, false).text.contains("预计"), "loading voyage never shows stale ETA")
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("接下委托"), "offered loading voyage identifies acceptance prerequisite")
++	contract.status = "active"
++	contract.deadlineAt = 1800
++	voyage.status = "underway"
++	voyage.eta = 1800
++	state.simulationSeconds = 1500
++	ui.apply_snapshot(packet)
++	check(ui.find_child("contract_convoy-001", true, false).text.contains("剩余 300秒"), "active contract displays remaining deadline")
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("预计还需 300秒"), "underway ETA is relative to campaign time")
++	var before = ui.find_child("contract_convoy-001", true, false)
++	state.simulationSeconds = 1600
++	ui.apply_snapshot(packet)
++	check(ui.find_child("contract_convoy-001", true, false) == before and before.text.contains("剩余 200秒"), "clock advance refreshes same contract label without stale duration")
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("预计还需 200秒"), "clock advance refreshes voyage countdown")
++	state.simulationSeconds = 1900
++	ui.apply_snapshot(packet)
++	check(before.text.contains("逾期 100秒"), "expired active contract shows actual overdue duration")
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("尚未抵达"), "passed ETA never asserts arrival")
++	voyage.status = "loading"
++	ui.apply_snapshot(packet)
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("停稳") and not ui.find_child("voyage_" + voyage_id, true, false).text.contains("已核验"), "loading voyage reports failed runtime preparation")
++	packet.runtime.canDepart = true
++	ui.apply_snapshot(packet)
++	check(ui.find_child("voyage_" + voyage_id, true, false).text.contains("已核验"), "loading readiness uses actual runtime departure approval")
++	packet.runtime.status = "loading"
++	ui.apply_snapshot(packet)
++	check(not ui.find_child("voyage_" + voyage_id, true, false).text.contains("已核验"), "unavailable runtime cannot promise departure readiness")
++	packet.runtime.status = "ready"
++	for status in ["arrived", "lost", "interrupted"]:
++		voyage.status = status
++		ui.apply_snapshot(packet)
++		var label: String = ui.find_child("voyage_" + voyage_id, true, false).text
++		check(not label.contains("预计") and not label.contains("航段"), status + " displays outcome rather than stale travel forecast")
++	for status in ["delivered", "failed", "settled"]:
++		contract.status = status
++		ui.apply_snapshot(packet)
++		var label: String = ui.find_child("contract_convoy-001", true, false).text
++		check(not label.contains("逾期") and not label.contains("剩余") and not label.contains("期限"), status + " keeps recorded outcome without misleading deadline")
++	var source := packet.duplicate(true)
++	ui.apply_snapshot(packet)
++	check(packet == source and ui.get("_packet") == source, "presenters never rewrite campaign deadlines or voyage outcomes")
++	ui.free()
++	await process_frame
++	print("VOYAGE_UI_CLARITY_TESTS assertions=", assertions, " failures=", failures)
++	quit(1 if failures else 0)

@@ -9,6 +9,7 @@ const CoastalWaves = preload("res://modules/physics_engine/ocean/coastal_wave_fi
 const WaveDescriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const PhysicsTypes = preload("res://modules/contracts/physics_types.gd")
 const Readiness = preload("res://game/runtime/native_readiness.gd")
+const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
 const STEP := 1.0/60.0
 const MAX_TICKS := 24
 const MAX_PENDING_SECONDS := 2.0
@@ -295,14 +296,29 @@ func _dock_fact(state: Dictionary,native: Dictionary,policy: Dictionary,port_id:
 		if enemy.hull > 0 and state.flagshipId in policy.hostileTargets.get(enemy.id,[]) and _distance(flag.visual.position,enemy.visual.position) <= 600: return _no("unsafe-port")
 	return {"ok":true}
 func _eligibility(state: Dictionary,native: Dictionary,policy: Dictionary,docks: Dictionary) -> Dictionary:
-	return Readiness.facts(state,native,policy,docks,campaign,simulation.encounter)
+	var facts: Dictionary = Readiness.facts(state,native,policy,docks,campaign,simulation.encounter)
+	var story: Dictionary = OpeningStory.project(state)
+	# Read the log anywhere; commit its business actions only at the same live
+	# anchored flagship and safe port that Campaign checks at the command fence.
+	var available := not _error and not _pauses.has("loading") and not _pauses.has("error") and not _pauses.has("result")
+	var port = state.currentPortId
+	var docked: bool = port != null and docks.get(port,{}).get("ok",false) and simulation.encounter.isAnchored(state.flagshipId)
+	facts.story = {}
+	for scene: Dictionary in story.scenes:
+		var ready: bool = available and docked and scene.status == "available"
+		var reason: String = "runtime-unavailable" if not available else "unsafe-port" if not docked else "story-completed" if scene.status == "completed" else "story-locked"
+		facts.story[scene.id] = {"ok":ready,"reason":"" if ready else reason}
+	var repay: bool = available and docked and story.debt.canRepay
+	facts.repayDebt = {"ok":repay,"reason":"" if repay else "runtime-unavailable" if not available else "unsafe-port" if not docked else story.debt.reason}
+	return facts
 func snapshot() -> Dictionary:
 	if not campaign or not simulation: return {}
 	var state: Dictionary = campaign.snapshot(); var native: Dictionary = simulation.snapshot()
 	var policy: Dictionary = campaign.native_policy(bridge.near_ids()); var docks: Dictionary = {}
 	for id in state.ports: docks[id] = _dock_fact(state,native,policy,id)
 	var safe := _no("runtime-error") if _error or _pauses.has("error") else check_safety()
-	var depart: bool = state.currentPortId != null and docks.get(state.currentPortId,{}).get("ok",false) and state.flagshipId in policy.controllableShipIds
+	var flag: Dictionary=state.vessels[state.flagshipId]
+	var depart: bool = state.currentPortId != null and docks.get(state.currentPortId,{}).get("ok",false) and state.flagshipId in policy.controllableShipIds and flag.crew.able>=flag.crew.minimum and not state.flagshipId in policy.disabledMotionShipIds and not state.flagshipId in policy.lockedShipIds
 	for work: Dictionary in state.works.values(): depart = depart and work.status != "active"
 	var loading_contract: Dictionary = {}
 	for contract: Dictionary in state.contracts.values():
@@ -314,7 +330,7 @@ func snapshot() -> Dictionary:
 		var voyage: Dictionary = state.voyages[voyage_id]
 		var vessel: Dictionary = state.vessels[voyage.vesselId]
 		depart = depart and voyage.status == "loading" and vessel.damage.hull > 0 and vessel.crew.able >= vessel.crew.minimum
-	return {"campaign":state,"naval":native,"runtime":{"generation":_generation,"selectedShipId":native.playerId,"orderStatuses":simulation.encounter.orderStatus(),"paused":is_paused(),"pauseReasons":_pauses.keys(),"timeScale":_rate,"canSave":safe.ok,"saveReason":safe.get("reason",""),"status":"error" if _error else "ready","error":_error,"portId":state.currentPortId,"canDock":docks,"canDepart":depart,"departReason":"" if depart else "unsafe-port","eligibility":_eligibility(state,native,policy,docks),"controllableShipIds":policy.controllableShipIds,"policy":policy,"notice":_notice,"noticeRevision":_notice_revision,"acceptedSeconds":_accepted,"rejectedSeconds":_rejected,"handlingMode":_handling_mode,"handlingStatus":simulation.handling_status(),"drafts":_drafts.duplicate(true),"draftResults":_draft_results.duplicate(true)}}
+	return {"campaign":state,"naval":native,"story":OpeningStory.project(state),"runtime":{"generation":_generation,"selectedShipId":native.playerId,"orderStatuses":simulation.encounter.orderStatus(),"paused":is_paused(),"pauseReasons":_pauses.keys(),"timeScale":_rate,"canSave":safe.ok,"saveReason":safe.get("reason",""),"status":"error" if _error else "ready","error":_error,"portId":state.currentPortId,"canDock":docks,"canDepart":depart,"departReason":"" if depart else "unsafe-port","eligibility":_eligibility(state,native,policy,docks),"controllableShipIds":policy.controllableShipIds,"policy":policy,"notice":_notice,"noticeRevision":_notice_revision,"acceptedSeconds":_accepted,"rejectedSeconds":_rejected,"handlingMode":_handling_mode,"handlingStatus":simulation.handling_status(),"drafts":_drafts.duplicate(true),"draftResults":_draft_results.duplicate(true)}}
 func render_snapshot() -> Dictionary: return simulation.render_snapshot()
 func drain_events() -> Array:
 	var result := _events; _events = []; return result

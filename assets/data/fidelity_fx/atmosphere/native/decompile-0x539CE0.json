@@ -1,0 +1,15 @@
+{
+  "source": "IDA MCP Hex-Rays static pseudocode",
+  "session_id": "1927fac5-0a49-4ffa-931f-2c2147e6b63c",
+  "binary_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x539CE0",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_539CE0(float *this, float a2)\n{\n  long double v3; // st7\n  long double v4; // st6\n\n  v3 = cos(a2);\n  *this = 1.0;\n  *(this + 1) = 0.0;\n  *(this + 2) = 0.0;\n  *(this + 3) = 0.0;\n  *(this + 6) = 0.0;\n  v4 = sin(a2);\n  *(this + 4) = v3;\n  *(this + 5) = v4;\n  *(this + 7) = -v4;\n  *(this + 8) = v3;\n  return 0;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

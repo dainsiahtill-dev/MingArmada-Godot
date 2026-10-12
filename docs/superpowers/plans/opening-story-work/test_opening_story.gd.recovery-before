@@ -1,0 +1,136 @@
+extends SceneTree
+const Campaign = preload("res://game/domain/mingqi/campaign.gd")
+const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
+var Story
+var assertions := 0
+var failures := 0
+func check(ok: bool, message: String) -> void:
+	assertions += 1
+	if not ok: failures += 1; printerr("FAIL: ",message)
+func runtime_for(state: Dictionary = {}) -> RefCounted:
+	var campaign := Campaign.new()
+	if not state.is_empty(): campaign._state = state.duplicate(true)
+	var runtime := Runtime.new()
+	check(runtime.configure(func(_x: float,_z: float)->float: return -24.0,campaign).ok,"real native bridge configured")
+	return runtime
+func command(r: RefCounted, type: String, extra: Dictionary = {}, id: String = "") -> Dictionary:
+	var state: Dictionary = r.campaign.snapshot()
+	var intent := {"type":type,"commandId":id if not id.is_empty() else "story-test-"+str(state.revision),"expectedRevision":state.revision}
+	intent.merge(extra)
+	return r.campaign.command(intent,r.bridge.command_context())
+func choose(r: RefCounted,scene: String,choice: String,id: String = "") -> Dictionary:
+	return command(r,"story-choice",{"sceneId":scene,"choiceId":choice},id)
+func scene(model: Dictionary,id: String) -> Dictionary:
+	for row in model.scenes:
+		if row.id == id: return row
+	return {}
+func rejection(r: RefCounted,intent: Dictionary,context: Dictionary,label: String) -> void:
+	var before: Dictionary = r.campaign.snapshot()
+	check(not r.campaign.command(intent,context).ok,label+" rejected")
+	check(r.campaign.snapshot() == before,label+" atomic")
+func _initialize() -> void:
+	var red := runtime_for()
+	check(choose(red,"old-ledger","settle-wages").ok,"old ledger executes through actual native fence")
+	check(command(red,"repay-debt",{"quantity":20}).ok,"positive repayment executes through actual native fence")
+	check(FileAccess.file_exists("res://game/domain/mingqi/opening_story.gd"),"opening story projection exists")
+	red.dispose()
+	if not FileAccess.file_exists("res://game/domain/mingqi/opening_story.gd"):
+		finish(); return
+	Story = load("res://game/domain/mingqi/opening_story.gd")
+	var initial := Campaign.new().snapshot()
+	var model: Dictionary = Story.project(initial)
+	check(model.chapter.id == "opening-1650" and model.scenes.size()==3 and model.relations.size()==3,"opening story reflects one chapter and original dialogue cast")
+	check(scene(model,"old-ledger").status=="available" and scene(model,"pilot-plan").status=="locked" and scene(model,"first-return").status=="locked","initial scene prerequisites are actual contract progress")
+	check(model.debt.principal==400 and model.debt.canRepay and model.history.is_empty(),"initial ledger exposes real debt")
+	model.scenes[0].npc.name="corrupt"; model.debt.principal=0
+	check(initial == Campaign.new().snapshot() and Story.project(initial).debt.principal==400,"projection detached from campaign")
+	for row in [["settle-wages",570,60],["keep-reserve",650,46]]:
+		var r := runtime_for(); var before: Dictionary = r.campaign.snapshot()
+		var result := choose(r,"old-ledger",row[0],"once")
+		check(result.ok,"old ledger branch "+row[0])
+		var after: Dictionary = r.campaign.snapshot()
+		check(after.captain.silver==row[1] and after.reputations.crewSupport==row[2],"wages or reserve have real monetary and crew consequences")
+		check(result.get("receipt",{}).get("id")==after.campaignId+":story:old-ledger","story uses canonical once-only identity")
+		var completed := scene(Story.project(after),"old-ledger")
+		check(completed.status=="completed" and completed.selectedChoiceId==row[0] and not completed.reply.is_empty(),"completed scene retains choice and reply")
+		for c in completed.choices: check(not c.enabled,"completed choices remain visible disabled")
+		check(Story.project(after).history.size()==1,"story history derives actual receipts")
+		var duplicate: Dictionary = r.campaign.command({"type":"story-choice","commandId":"once","expectedRevision":before.revision,"sceneId":"old-ledger","choiceId":row[0]})
+		check(duplicate.ok and duplicate.receipt==result.receipt and r.campaign.snapshot()==after,"duplicate receipt succeeds without a second charge")
+		rejection(r,{"type":"story-choice","commandId":"again","expectedRevision":after.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"scene cannot be replayed with a fresh command")
+		r.dispose()
+	for row in [["hire-pilot",555,1,"xiamen-kinmen-shallow"],["stay-deep",600,0,"xiamen-kinmen-deep"]]:
+		var r := runtime_for(); check(command(r,"accept-convoy").ok,"existing acceptance remains ungated by story")
+		var before: Dictionary = r.campaign.snapshot(); var permission: Dictionary = r.campaign.native_policy(before.vessels.keys())
+		check(choose(r,"pilot-plan",row[0]).ok,"pilot branch "+row[0])
+		var after: Dictionary = r.campaign.snapshot()
+		check(after.captain.silver==row[1] and after.reputations.merchantCredit==row[2],"pilot branch cost and credit are committed")
+		for suffix in ["grain-a","grain-b"]:
+			var vid: String = before.campaignId+"-"+suffix+"-voyage"; var sid: String = before.campaignId+"-"+suffix
+
+			check(after.voyages[vid].routeId==row[3] and after.voyages[vid].escortIds==before.voyages[vid].escortIds,"both actual voyages select route without losing escorts")
+			check(after.vessels[sid].pose==before.vessels[sid].pose,"route change preserves actual ship pose")
+		check(permission==r.campaign.native_policy(after.vessels.keys()),"pilot dialogue preserves flagship permission")
+		check(after.people==before.people,"dialogue hire does not fabricate spawned personnel")
+		if row[0]=="hire-pilot":
+			check(command(r,"choose-route",{"voyageId":before.campaignId+"-grain-a-voyage","routeId":"xiamen-kinmen-deep"}).ok,"paid planning preserves original free route command")
+			check(r.campaign.snapshot().captain.silver==row[1],"manual route change does not charge planning fee again")
+		r.dispose()
+	var r := runtime_for(); var s: Dictionary = r.campaign.snapshot()
+	for extra in [{"sceneId":"missing","choiceId":"keep-reserve"},{"sceneId":"old-ledger","choiceId":"missing"},{"sceneId":"pilot-plan","choiceId":"hire-pilot"},{"sceneId":"first-return","choiceId":"keep-capital"},{"sceneId":"old-ledger","choiceId":"keep-reserve","extra":true}]:
+		var intent := {"type":"story-choice","commandId":"invalid","expectedRevision":s.revision}; intent.merge(extra)
+		rejection(r,intent,r.bridge.command_context(),"invalid or early story")
+	rejection(r,{"type":"story-choice","commandId":"stale","expectedRevision":s.revision+1,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"stale choice")
+	rejection(r,{"type":"story-choice","commandId":"missing-native","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},{},"story needs native safety")
+	var unsafe: Dictionary = r.bridge.command_context(); unsafe.native.pendingAttacks=true
+	rejection(r,{"type":"story-choice","commandId":"unsafe","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},unsafe,"combat at port blocks dialogue")
+	var unanchored: Dictionary=r.bridge.command_context(); unanchored.native.isAnchored=func(_id):return false
+	rejection(r,{"type":"story-choice","commandId":"adrift","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},unanchored,"proximity without real anchoring is insufficient")
+	var refuse: Dictionary = r.bridge.command_context(); refuse.native.project=func(_state,_anchors,_phase): return {"ok":false,"reason":"test-refusal"}
+	rejection(r,{"type":"story-choice","commandId":"refuse","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"settle-wages"},refuse,"native projection refusal")
+	r.campaign._state.captain.silver=79
+	s=r.campaign.snapshot(); rejection(r,{"type":"story-choice","commandId":"poor","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"settle-wages"},r.bridge.command_context(),"insufficient wages")
+	r.dispose()
+	r=runtime_for(); r.campaign._state.reputations.crewSupport=98
+	check(choose(r,"old-ledger","settle-wages").ok and r.campaign.snapshot().reputations.crewSupport==100,"crew support effect clamps upper limit")
+	r.dispose(); r=runtime_for(); r.campaign._state.reputations.crewSupport=-98
+	check(choose(r,"old-ledger","keep-reserve").ok and r.campaign.snapshot().reputations.crewSupport==-100,"crew support effect clamps lower limit")
+	r.dispose()
+	r=runtime_for(); r.campaign._state.currentPortId=null; s=r.campaign.snapshot()
+	rejection(r,{"type":"story-choice","commandId":"no-port","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"near port without actual dock declaration")
+	r.dispose()
+	r=runtime_for(); command(r,"accept-convoy"); r.campaign._state.vessels[r.campaign.snapshot().campaignId+"-grain-b"].cargo.grain=60
+	s=r.campaign.snapshot(); rejection(r,{"type":"story-choice","commandId":"shallow","expectedRevision":s.revision,"sceneId":"pilot-plan","choiceId":"hire-pilot"},r.bridge.command_context(),"one actual overloaded draft rejects whole pilot plan")
+	check(s.voyages[s.campaignId+"-grain-a-voyage"].routeId=="xiamen-kinmen-deep","first vessel not partially rerouted")
+	r.dispose()
+	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mingqi-reference.json"))
+	var returned: Dictionary = fixture.convoySteps[4].state
+	for row in [["crew-dividend",1020,58,0,5],["buy-intelligence",1040,50,2,8],["keep-capital",1100,50,0,5]]:
+		r=runtime_for(returned); check(choose(r,"first-return",row[0]).ok,"first return branch "+row[0]); s=r.campaign.snapshot()
+		check(s.captain.silver==row[1] and s.reputations.crewSupport==row[2] and s.reputations.militaryTrust==row[3] and s.reputations.merchantCredit==row[4],"return spends real reward and applies chosen reputation")
+		check(s.contracts["convoy-002"].status=="offered","return dialogue does not gate second convoy")
+		if row[0]=="buy-intelligence":
+			check(s.intelligence.size()==returned.intelligence.size()+1,"purchased intelligence is actual entry")
+			var intel: Dictionary=s.intelligence.back()
+			check(intel.portId=="forward-supply" and intel.stock==returned.ports["forward-supply"].stock and intel.observedAt==s.simulationSeconds and intel.confidence==0.65 and intel.sourceId==s.campaignId+":story:first-return","intelligence snapshots real supply stock with its receipt source")
+			var reply: String=scene(Story.project(s),"first-return").reply
+			check(reply.contains(str(intel.stock.grain)) and reply.contains("65%") and reply.contains("秒"),"paid intelligence reply reveals real stock observation time and confidence")
+		r.dispose()
+	var returned_model: Dictionary=Story.project(returned)
+	check(scene(returned_model,"first-return").status=="available","claimed actual first result enables return at kinmen")
+	for outcome in [[40,0,0],[20,20,3],[0,40,7]]:
+		var shaped: Dictionary=returned.duplicate(true); var receipt: Dictionary=shaped.settlements[shaped.campaignId+":convoy-001:claim"]
+		receipt.details.delivered=outcome[0]; receipt.details.lost=outcome[1]; receipt.details.ships[0].dead=outcome[2]; shaped.contracts["convoy-001"].status="failed" if outcome[0]==0 else "settled"
+		var text: String=" ".join(scene(Story.project(shaped),"first-return").text)
+		check(text.contains(str(outcome[0])) and text.contains(str(outcome[1])) and text.contains(str(outcome[2])),"dialogue discloses actual full/partial/failed delivery and casualties")
+	var abroad: Dictionary=returned.duplicate(true); abroad.currentPortId="xiamen"
+	check(scene(Story.project(abroad),"first-return").status=="locked","relevant actual port required")
+	var dead_steward: Dictionary=returned.duplicate(true); dead_steward.people["steward-a"].alive=false
+	var dead_model: Dictionary=Story.project(dead_steward)
+	check(scene(dead_model,"first-return").npc.id=="lin-clerk" and dead_model.relations[2].stance.contains("阵亡"),"dead critical person does not deliver return dialogue or survive in relationship projection")
+	for row in [[initial,"accept-convoy-001"],[fixture.convoySteps[0].state,"depart-convoy-001"],[fixture.convoySteps[1].state,"deliver-convoy-001"],[fixture.convoySteps[2].state,"claim-convoy-001"],[fixture.convoySteps[4].state,"accept-convoy-002"],[fixture.convoySteps[5].state,"depart-convoy-002"],[fixture.convoySteps[6].state,"deliver-convoy-002"],[fixture.convoySteps[7].state,"claim-convoy-002"],[fixture.convoySteps[8].state,"fleet-next-voyage"]]:
+		check(Story.project(row[0]).objective.id==row[1],"objective follows actual first and second convoy progression "+row[1])
+	finish()
+func finish() -> void:
+	print("OPENING_STORY_TESTS assertions=",assertions," failures=",failures)
+	quit(1 if failures else 0)

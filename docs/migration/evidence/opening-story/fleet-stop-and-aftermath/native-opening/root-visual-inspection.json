@@ -1,0 +1,44 @@
+{
+  "inspectedAtUtc": "2026-10-12T00:58:43.266060+00:00",
+  "personallyViewed": [
+    "01-old-ledger-1600.png",
+    "02-wages-consequence.png",
+    "03-pilot-choice.png",
+    "04-pilot-consequence.png",
+    "05-journal-1280.png",
+    "06-debt-payment-1280.png",
+    "07-next-objective-at-sea.png",
+    "08-at-sea-journal.png",
+    "09-sailing-1600.png",
+    "first-commission-offered-1280.png",
+    "first-commission-offered-1600.png"
+  ],
+  "imageHashes": {
+    "01-old-ledger-1600.png": "2a0a5d0c4e6710df5439afa7c329dc1c1c8726223a5db1a8b6b2a7a2507be2c7",
+    "02-wages-consequence.png": "91d212d4ced9e4c8f4602f4945191e772a99587c9eeefc3f543bf671c5d5ccce",
+    "03-pilot-choice.png": "66c45056082739094e64ba1815d79950176b45c327fb4f14e1d6febdc56c90f3",
+    "04-pilot-consequence.png": "928f74861f9035798f6a49b120b3b8ac40c27ba840981fe08008d7128a69aea4",
+    "05-journal-1280.png": "371b193f807ebed3cea6bcc4e4c36437d872651d97f3cf7c26dafb3161873188",
+    "06-debt-payment-1280.png": "2106ce140971f38818ead89c5480cb8a4a0ed2c7d24ae94b499d4cf620531414",
+    "07-next-objective-at-sea.png": "2d445541544585f4533670b1ff6d82e4a3ca33e7354266358ff828c6fadd31eb",
+    "08-at-sea-journal.png": "d737b6b26d7445e1a21577d171acb70005d230e9dae13305cc6fd23723ded28a",
+    "09-sailing-1600.png": "538a9c69c2dfe928d25eb4e419262c05cadfb657ad0da3b8905b82e3c31d7307",
+    "first-commission-offered-1280.png": "8f4f834fbb56808db9f84fb8d7162196cb6b7529dad15f1e966a22483b6fd1ef",
+    "first-commission-offered-1600.png": "a30977f1fc7e0e6407eaad5b2a948d4df9f27d579705f3f6f276a961ea80de19"
+  },
+  "exitCode": 0,
+  "timedOut": false,
+  "consoleCompletion": "OPENING_STORY_GPU_CAPTURE_COMPLETE captures=11 assertions=99 failures=0",
+  "observedConsole": [
+    "D3D12 12_0 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) 130T GPU (16GB)",
+    "OPENING_STORY_GPU_CAPTURE_COMPLETE captures=11 assertions=99 failures=0"
+  ],
+  "observedExecSession": 46233,
+  "scope": "Root personally viewed all11 new native viewport PNGs at original resolution in three batches, including1600/1280 ledger, wages/pilot choices, actual independent100 debt payment, offered1800 deadline and sea objective. No full-voyage, performance or effects-quality acceptance.",
+  "findings": [
+    "Readable visible Chinese headings, money/debt amounts and native buttons at both sizes.",
+    "Scroll containers preserve longer pilot/ledger content; expected lower content is accessed by scrolling.",
+    "Opening GUI branch actually shows650→570→520→475→375 silver and400→300 debt; this separate branch is not merged with actual convoy journey money.",
+    "Existing rectangular shallow-water color band is visible; no graphics source change or approval is claimed."
+  ]
+}

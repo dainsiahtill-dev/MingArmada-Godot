@@ -1,0 +1,6185 @@
+{
+  "block_count": 23,
+  "block_types": {
+    "NiAlphaProperty": 1,
+    "NiAmbientLight": 1,
+    "NiBooleanExtraData": 1,
+    "NiCamera": 2,
+    "NiGravity": 1,
+    "NiIntegerExtraData": 1,
+    "NiMaterialProperty": 1,
+    "NiNode": 3,
+    "NiParticleGrowFade": 1,
+    "NiParticleSystemController": 1,
+    "NiParticles": 1,
+    "NiParticlesData": 1,
+    "NiPointLight": 1,
+    "NiSourceTexture": 1,
+    "NiStringExtraData": 2,
+    "NiTexturingProperty": 1,
+    "NiVertexColorProperty": 1,
+    "NiZBufferProperty": 2
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Omni01",
+            "ref": 3,
+            "type": "NiPointLight"
+          },
+          {
+            "name": "SuperSpray02 Emitter",
+            "ref": 4,
+            "type": "NiNode"
+          },
+          {
+            "name": "Camera01",
+            "ref": 7,
+            "type": "NiCamera"
+          },
+          {
+            "name": "Camera02",
+            "ref": 8,
+            "type": "NiCamera"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiAmbientLight"
+          },
+          {
+            "name": "SuperSpray02",
+            "ref": 10,
+            "type": "NiNode"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [
+          {
+            "name": "Omni01",
+            "ref": 3,
+            "type": "NiPointLight"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiAmbientLight"
+          }
+        ],
+        "extra_data_list": [],
+        "flags": 18,
+        "name": "Scene Root",
+        "num_children": 6,
+        "num_effects": 2,
+        "num_extra_data_list": 0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 1,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 3,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 1,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "ambient_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "collision_object": null,
+        "constant_attenuation": 1,
+        "controller": null,
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "dimmer": 2,
+        "extra_data_list": [],
+        "flags": 16,
+        "linear_attenuation": 0,
+        "name": "Omni01",
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "quadratic_attenuation": 0,
+        "rotation": {
+          "m_11": 0,
+          "m_12": 0,
+          "m_13": -1,
+          "m_21": 1,
+          "m_22": 0,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": -1,
+          "m_33": 0,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "specular_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "translation": {
+          "type": "Vector3",
+          "x": 96.46642303466797,
+          "y": -318.18865966796875,
+          "z": 1156.6356201171875
+        }
+      },
+      "id": 3,
+      "name": "Omni01",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Omni01",
+            "type": "NiPointLight"
+          }
+        ]
+      ],
+      "type": "NiPointLight"
+    },
+    {
+      "fields": {
+        "children": [],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 5,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "SuperSpray02 Emitter",
+        "num_children": 0,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 6,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": -80.67759704589844
+        }
+      },
+      "id": 4,
+      "name": "SuperSpray02 Emitter",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 4,
+            "name": "SuperSpray02 Emitter",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10"
+      },
+      "id": 5,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 1,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 6,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 6,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 16,
+        "frustum_bottom": -0.310660183429718,
+        "frustum_far": 5000,
+        "frustum_left": -0.4142135679721832,
+        "frustum_near": 1,
+        "frustum_right": 0.4142135679721832,
+        "frustum_top": 0.310660183429718,
+        "lod_adjust": 1,
+        "name": "Camera01",
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": 0.5036249756813049,
+          "m_12": 0.6331434845924377,
+          "m_13": -0.5877849459648132,
+          "m_21": 0.3659047782421112,
+          "m_22": 0.4600052535533905,
+          "m_23": 0.8090171813964844,
+          "m_31": 0.782608151435852,
+          "m_32": -0.6225146651268005,
+          "m_33": -8.52975432508174e-8,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -289.8838195800781,
+          "y": -701.3124389648438,
+          "z": 591.330810546875
+        },
+        "unknown_int": 0,
+        "unknown_int_2": 0,
+        "unknown_link": null,
+        "viewport_bottom": 0,
+        "viewport_left": 0,
+        "viewport_right": 1,
+        "viewport_top": 1
+      },
+      "id": 7,
+      "name": "Camera01",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 7,
+            "name": "Camera01",
+            "type": "NiCamera"
+          }
+        ]
+      ],
+      "type": "NiCamera"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 16,
+        "frustum_bottom": -0.310660183429718,
+        "frustum_far": 5000,
+        "frustum_left": -0.4142135679721832,
+        "frustum_near": 1,
+        "frustum_right": 0.4142135679721832,
+        "frustum_top": 0.310660183429718,
+        "lod_adjust": 1,
+        "name": "Camera02",
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": -0.08694344758987427,
+          "m_12": 0.993768036365509,
+          "m_13": -0.06975609064102173,
+          "m_21": -0.006079587619751692,
+          "m_22": 0.06949060410261154,
+          "m_23": 0.9975639581680298,
+          "m_31": 0.9961947202682495,
+          "m_32": 0.08715574443340302,
+          "m_33": -5.147790815840381e-8,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 285.97125244140625,
+          "y": -1181.6851806640625,
+          "z": 77.88528442382812
+        },
+        "unknown_int": 0,
+        "unknown_int_2": 0,
+        "unknown_link": null,
+        "viewport_bottom": 0,
+        "viewport_left": 0,
+        "viewport_right": 1,
+        "viewport_top": 1
+      },
+      "id": 8,
+      "name": "Camera02",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 8,
+            "name": "Camera02",
+            "type": "NiCamera"
+          }
+        ]
+      ],
+      "type": "NiCamera"
+    },
+    {
+      "fields": {
+        "ambient_color": {
+          "b": 0.00392200006172061,
+          "g": 0.07058800011873245,
+          "r": 0,
+          "type": "Color3"
+        },
+        "collision_object": null,
+        "controller": null,
+        "diffuse_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "dimmer": 1,
+        "extra_data_list": [],
+        "flags": 16,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_properties": 0,
+        "properties": [],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "specular_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 9,
+      "name": "",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiAmbientLight"
+          }
+        ]
+      ],
+      "type": "NiAmbientLight"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "SuperSpray",
+            "ref": 12,
+            "type": "NiParticles"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 11,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 18,
+        "name": "SuperSpray02",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 6,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": -80.67759704589844
+        }
+      },
+      "id": 10,
+      "name": "SuperSpray02",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 10,
+            "name": "SuperSpray02",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10"
+      },
+      "id": 11,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 11,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": {
+          "name": "",
+          "ref": 15,
+          "type": "NiParticleSystemController"
+        },
+        "data": {
+          "name": "",
+          "ref": 22,
+          "type": "NiParticlesData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 13,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 14,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 18,
+        "has_shader": false,
+        "name": "SuperSpray",
+        "num_extra_data_list": 2,
+        "num_properties": 3,
+        "properties": [
+          {
+            "name": "Material #0",
+            "ref": 21,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 20,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 18,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 12,
+      "name": "SuperSpray",
+      "parent_nodes": [
+        10
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 10,
+            "name": "SuperSpray02",
+            "type": "NiNode"
+          },
+          {
+            "id": 12,
+            "name": "SuperSpray",
+            "type": "NiParticles"
+          }
+        ]
+      ],
+      "type": "NiParticles"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 13,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 14,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 14,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "fields": {
+        "emit_flags": 1,
+        "emit_rate": 1200,
+        "emit_start_time": 0.13333334028720856,
+        "emit_stop_time": 0.3333333432674408,
+        "emitter": {
+          "name": "SuperSpray02 Emitter",
+          "ref": 4,
+          "type": "NiNode"
+        },
+        "flags": 8,
+        "frequency": 1,
+        "horizontal_angle": 3.1415927410125732,
+        "horizontal_direction": 0,
+        "lifetime": 3.3000001907348633,
+        "lifetime_random": 0,
+        "next_controller": null,
+        "num_particles": 240,
+        "num_valid": 0,
+        "particle_extra": {
+          "name": "",
+          "ref": 16,
+          "type": "NiGravity"
+        },
+        "particles": [
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.313293695449829,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -41.84799575805664,
+              "y": 10.859081268310547,
+              "z": -1478.7681884765625
+            },
+            "vertex_id": 0
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2132937908172607,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -41.84799575805664,
+              "y": 10.859081268310547,
+              "z": -1478.7681884765625
+            },
+            "vertex_id": 1
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2382092475891113,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -16.2543888092041,
+              "y": 4.545705795288086,
+              "z": -1939.0579833984375
+            },
+            "vertex_id": 2
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.248720169067383,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.044825315475464,
+              "y": 1.3879755735397339,
+              "z": -1750.3834228515625
+            },
+            "vertex_id": 3
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2737255096435547,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.244905710220337,
+              "y": 3.3286144733428955,
+              "z": -1813.4727783203125
+            },
+            "vertex_id": 4
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2735085487365723,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.73045825958252,
+              "y": 6.291182041168213,
+              "z": -2011.1011962890625
+            },
+            "vertex_id": 5
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2310192584991455,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.4556383192539215,
+              "y": -0.398761123418808,
+              "z": -1876.6751708984375
+            },
+            "vertex_id": 6
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.291843891143799,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.47418859601020813,
+              "y": -0.18037249147891998,
+              "z": -1955.0003662109375
+            },
+            "vertex_id": 7
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2500343322753906,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.8471693992614746,
+              "y": 0.5964837074279785,
+              "z": -1954.78369140625
+            },
+            "vertex_id": 8
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2582807540893555,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.586488246917725,
+              "y": -26.259464263916016,
+              "z": -1781.2440185546875
+            },
+            "vertex_id": 9
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2131259441375732,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 18.15239715576172,
+              "y": -15.970982551574707,
+              "z": -1831.163330078125
+            },
+            "vertex_id": 10
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2303435802459717,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.762763023376465,
+              "y": 11.148446083068848,
+              "z": -1938.5010986328125
+            },
+            "vertex_id": 11
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.284703254699707,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.517210960388184,
+              "y": 10.572113990783691,
+              "z": -1963.511474609375
+            },
+            "vertex_id": 12
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2590506076812744,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 27.36772918701172,
+              "y": 3.8565096855163574,
+              "z": -1805.2501220703125
+            },
+            "vertex_id": 13
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2991199493408203,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.798097133636475,
+              "y": 3.6214439868927,
+              "z": -1574.827392578125
+            },
+            "vertex_id": 14
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.210620164871216,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.08099672198295593,
+              "y": 0.2419777661561966,
+              "z": -1735.900390625
+            },
+            "vertex_id": 15
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.271113157272339,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 16.488473892211914,
+              "y": -5.636898040771484,
+              "z": -1569.1610107421875
+            },
+            "vertex_id": 16
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2127084732055664,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.29534363746643066,
+              "y": -0.6921850442886353,
+              "z": -1544.5430908203125
+            },
+            "vertex_id": 17
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.234114646911621,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -6.55722713470459,
+              "y": 9.663408279418945,
+              "z": -1469.95703125
+            },
+            "vertex_id": 18
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2852394580841064,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 5.267111301422119,
+              "y": 15.035544395446777,
+              "z": -1748.0731201171875
+            },
+            "vertex_id": 19
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2240912914276123,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 38.12421417236328,
+              "y": -14.572068214416504,
+              "z": -1516.12255859375
+            },
+            "vertex_id": 20
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.21152925491333,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 13.542607307434082,
+              "y": 2.385079860687256,
+              "z": -1862.4375
+            },
+            "vertex_id": 21
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.254272222518921,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.3537418842315674,
+              "y": 6.633540153503418,
+              "z": -2046.883544921875
+            },
+            "vertex_id": 22
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.21258544921875,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.6041277050971985,
+              "y": -7.4446635246276855,
+              "z": -1922.498291015625
+            },
+            "vertex_id": 23
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2598981857299805,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.085688591003418,
+              "y": 11.72084903717041,
+              "z": -1828.998046875
+            },
+            "vertex_id": 24
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2763705253601074,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.6181015968322754,
+              "y": -12.593324661254883,
+              "z": -1795.5831298828125
+            },
+            "vertex_id": 25
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2694835662841797,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -21.184900283813477,
+              "y": -3.7028908729553223,
+              "z": -1823.5943603515625
+            },
+            "vertex_id": 26
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2478928565979004,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.11486251652240753,
+              "y": 0.34831568598747253,
+              "z": -1730.223876953125
+            },
+            "vertex_id": 27
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2083475589752197,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -19.278230667114258,
+              "y": 12.717026710510254,
+              "z": -1686.3907470703125
+            },
+            "vertex_id": 28
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2554759979248047,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 2.153021812438965,
+              "y": 0.28143367171287537,
+              "z": -1787.2869873046875
+            },
+            "vertex_id": 29
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2031474113464355,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.771052360534668,
+              "y": 1.6741610765457153,
+              "z": -1825.73388671875
+            },
+            "vertex_id": 30
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2915942668914795,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.025742504745721817,
+              "y": 0.05778231844305992,
+              "z": -1917.2789306640625
+            },
+            "vertex_id": 31
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2302863597869873,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.18825626373291,
+              "y": 23.88877296447754,
+              "z": -1643.7491455078125
+            },
+            "vertex_id": 32
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2017881870269775,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 9.406163215637207,
+              "y": 17.701385498046875,
+              "z": -1915.293701171875
+            },
+            "vertex_id": 33
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.285521984100342,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.141448974609375,
+              "y": -11.30744743347168,
+              "z": -1924.9500732421875
+            },
+            "vertex_id": 34
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2546815872192383,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.0821533203125,
+              "y": 12.60869312286377,
+              "z": -1718.73876953125
+            },
+            "vertex_id": 35
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.293109178543091,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -15.387508392333984,
+              "y": -18.853370666503906,
+              "z": -1734.1556396484375
+            },
+            "vertex_id": 36
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2798428535461426,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 29.17915153503418,
+              "y": 2.0375161170959473,
+              "z": -1759.6873779296875
+            },
+            "vertex_id": 37
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.21801495552063,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.3772721588611603,
+              "y": -1.446467399597168,
+              "z": -1921.995361328125
+            },
+            "vertex_id": 38
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.241562843322754,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.613581657409668,
+              "y": -9.23428726196289,
+              "z": -1468.1107177734375
+            },
+            "vertex_id": 39
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.269987106323242,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -6.291215896606445,
+              "y": -7.799203395843506,
+              "z": -2014.65576171875
+            },
+            "vertex_id": 40
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.241288423538208,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.113183975219727,
+              "y": -0.3028463125228882,
+              "z": -1569.0986328125
+            },
+            "vertex_id": 41
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.293985366821289,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -7.8046793937683105,
+              "y": -9.953685760498047,
+              "z": -1771.8521728515625
+            },
+            "vertex_id": 42
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.288179397583008,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.137694358825684,
+              "y": 13.896588325500488,
+              "z": -1697.1549072265625
+            },
+            "vertex_id": 43
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.225917339324951,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.218006610870361,
+              "y": -21.124916076660156,
+              "z": -1820.3681640625
+            },
+            "vertex_id": 44
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.297572374343872,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 15.754343032836914,
+              "y": 14.164753913879395,
+              "z": -1610.5162353515625
+            },
+            "vertex_id": 45
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.230147123336792,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.200057983398438,
+              "y": 15.917147636413574,
+              "z": -1602.5794677734375
+            },
+            "vertex_id": 46
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.255570411682129,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -19.658973693847656,
+              "y": 14.940600395202637,
+              "z": -1497.5987548828125
+            },
+            "vertex_id": 47
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2291030883789062,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 7.745362758636475,
+              "y": -3.749762773513794,
+              "z": -1648.6959228515625
+            },
+            "vertex_id": 48
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2024636268615723,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.36462926864624,
+              "y": -10.560787200927734,
+              "z": -1922.0858154296875
+            },
+            "vertex_id": 49
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.278540849685669,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.6219959259033203,
+              "y": 0.8919034004211426,
+              "z": -1957.768798828125
+            },
+            "vertex_id": 50
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.287168025970459,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.8796076774597168,
+              "y": -1.0530478954315186,
+              "z": -1747.5634765625
+            },
+            "vertex_id": 51
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2498624324798584,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -10.495331764221191,
+              "y": -3.5026965141296387,
+              "z": -1805.5775146484375
+            },
+            "vertex_id": 52
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.24489164352417,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.834535598754883,
+              "y": 16.673057556152344,
+              "z": -1590.8331298828125
+            },
+            "vertex_id": 53
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2086381912231445,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.054936408996582,
+              "y": 9.796675682067871,
+              "z": -1770.5057373046875
+            },
+            "vertex_id": 54
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.267014503479004,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.5364255905151367,
+              "y": 1.4899290800094604,
+              "z": -1554.7078857421875
+            },
+            "vertex_id": 55
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2954964637756348,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -15.98855972290039,
+              "y": -7.4291672706604,
+              "z": -1936.087890625
+            },
+            "vertex_id": 56
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2667975425720215,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.80695629119873,
+              "y": 17.863903045654297,
+              "z": -1744.17822265625
+            },
+            "vertex_id": 57
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2166104316711426,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 10.355111122131348,
+              "y": 15.2098970413208,
+              "z": -1914.734619140625
+            },
+            "vertex_id": 58
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2084295749664307,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -10.988218307495117,
+              "y": 0.5253963470458984,
+              "z": -1445.7952880859375
+            },
+            "vertex_id": 59
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2532854080200195,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.6939952373504639,
+              "y": 21.46343994140625,
+              "z": -1858.184814453125
+            },
+            "vertex_id": 60
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2152552604675293,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -26.507518768310547,
+              "y": 17.019071578979492,
+              "z": -1698.7701416015625
+            },
+            "vertex_id": 61
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2398061752319336,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.7751362323760986,
+              "y": 1.892051100730896,
+              "z": -2025.51806640625
+            },
+            "vertex_id": 62
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2188870906829834,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.420310020446777,
+              "y": -8.903292655944824,
+              "z": -1476.49853515625
+            },
+            "vertex_id": 63
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.24951434135437,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.0303955078125,
+              "y": 32.09328842163086,
+              "z": -1469.3096923828125
+            },
+            "vertex_id": 64
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.265254020690918,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -16.266130447387695,
+              "y": -16.435850143432617,
+              "z": -1719.3568115234375
+            },
+            "vertex_id": 65
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2051334381103516,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.834962844848633,
+              "y": 1.8470059633255005,
+              "z": -1882.07373046875
+            },
+            "vertex_id": 66
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2958157062530518,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -7.567666530609131,
+              "y": -5.780665874481201,
+              "z": -1934.6236572265625
+            },
+            "vertex_id": 67
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.213019371032715,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.82795524597168,
+              "y": 7.800178050994873,
+              "z": -1993.81298828125
+            },
+            "vertex_id": 68
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2230472564697266,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.47695910930633545,
+              "y": -2.9940428733825684,
+              "z": -1957.4385986328125
+            },
+            "vertex_id": 69
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2391715049743652,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.072162389755249,
+              "y": -23.952167510986328,
+              "z": -1599.4627685546875
+            },
+            "vertex_id": 70
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2249059677124023,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.958118200302124,
+              "y": -0.8924793004989624,
+              "z": -1864.3271484375
+            },
+            "vertex_id": 71
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2999634742736816,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 6.116839408874512,
+              "y": 13.27536392211914,
+              "z": -1882.9884033203125
+            },
+            "vertex_id": 72
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2526097297668457,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.46038252115249634,
+              "y": -0.16065430641174316,
+              "z": -1898.888671875
+            },
+            "vertex_id": 73
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2942638397216797,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 9.773722648620605,
+              "y": 22.392715454101562,
+              "z": -1804.9405517578125
+            },
+            "vertex_id": 74
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2508327960968018,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -36.635520935058594,
+              "y": 8.868133544921875,
+              "z": -1539.861328125
+            },
+            "vertex_id": 75
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.222432851791382,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.7436904907226562,
+              "y": 1.3907390832901,
+              "z": -1603.857421875
+            },
+            "vertex_id": 76
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2217984199523926,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -2.1224703788757324,
+              "y": -1.4663853645324707,
+              "z": -1800.3841552734375
+            },
+            "vertex_id": 77
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.213596820831299,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.8770782351493835,
+              "y": -17.294157028198242,
+              "z": -1777.5225830078125
+            },
+            "vertex_id": 78
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.204920530319214,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -5.424993991851807,
+              "y": 1.147233486175537,
+              "z": -1766.80712890625
+            },
+            "vertex_id": 79
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.221515655517578,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 29.981008529663086,
+              "y": -1.219099760055542,
+              "z": -1587.4539794921875
+            },
+            "vertex_id": 80
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.212921142578125,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.68096160888672,
+              "y": -17.147491455078125,
+              "z": -1611.3970947265625
+            },
+            "vertex_id": 81
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2140390872955322,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -20.28005599975586,
+              "y": 6.0104522705078125,
+              "z": -1741.564208984375
+            },
+            "vertex_id": 82
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2358179092407227,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -32.70278549194336,
+              "y": 23.014427185058594,
+              "z": -1473.8218994140625
+            },
+            "vertex_id": 83
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2802071571350098,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 14.545538902282715,
+              "y": -34.97686767578125,
+              "z": -1557.7359619140625
+            },
+            "vertex_id": 84
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.247528553009033,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.9805877208709717,
+              "y": 2.293887138366699,
+              "z": -1930.958740234375
+            },
+            "vertex_id": 85
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.23860239982605,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -34.20539855957031,
+              "y": -18.211835861206055,
+              "z": -1580.748291015625
+            },
+            "vertex_id": 86
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2300610542297363,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.091984748840332,
+              "y": -1.311222791671753,
+              "z": -1894.119140625
+            },
+            "vertex_id": 87
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.25260591506958,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 21.938724517822266,
+              "y": -17.033660888671875,
+              "z": -1773.53076171875
+            },
+            "vertex_id": 88
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2318177223205566,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.110312461853027,
+              "y": -13.920638084411621,
+              "z": -1709.97119140625
+            },
+            "vertex_id": 89
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.278536796569824,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -17.085906982421875,
+              "y": 19.238445281982422,
+              "z": -1753.6795654296875
+            },
+            "vertex_id": 90
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.258399486541748,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.660419464111328,
+              "y": 0.6424372792243958,
+              "z": -1535.2447509765625
+            },
+            "vertex_id": 91
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.256164073944092,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.750605583190918,
+              "y": -4.009883403778076,
+              "z": -2005.8636474609375
+            },
+            "vertex_id": 92
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.237382173538208,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.983677864074707,
+              "y": -3.0837948322296143,
+              "z": -1879.630859375
+            },
+            "vertex_id": 93
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2855589389801025,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 19.95062255859375,
+              "y": -12.39649486541748,
+              "z": -1671.2313232421875
+            },
+            "vertex_id": 94
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.262469530105591,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -2.0424320697784424,
+              "y": -2.08691668510437,
+              "z": -1768.62548828125
+            },
+            "vertex_id": 95
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.279675006866455,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 2.163418769836426,
+              "y": -16.46648406982422,
+              "z": -1854.666748046875
+            },
+            "vertex_id": 96
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2944602966308594,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -9.744438171386719,
+              "y": 13.014375686645508,
+              "z": -1981.7152099609375
+            },
+            "vertex_id": 97
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.205731153488159,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 15.777944564819336,
+              "y": -11.610663414001465,
+              "z": -1930.3809814453125
+            },
+            "vertex_id": 98
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2576544284820557,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -9.440580368041992,
+              "y": -20.156511306762695,
+              "z": -1769.852783203125
+            },
+            "vertex_id": 99
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2695205211639404,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.144163131713867,
+              "y": 6.156105995178223,
+              "z": -1547.169921875
+            },
+            "vertex_id": 100
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.271944522857666,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -1.5652282238006592,
+              "y": -0.37121471762657166,
+              "z": -1969.9266357421875
+            },
+            "vertex_id": 101
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2903823852539062,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.268409729003906,
+              "y": -22.8170166015625,
+              "z": -1852.876953125
+            },
+            "vertex_id": 102
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.234708309173584,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.1911335438489914,
+              "y": 0.8005422353744507,
+              "z": -1602.8267822265625
+            },
+            "vertex_id": 103
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2853500843048096,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 15.333451271057129,
+              "y": -15.745077133178711,
+              "z": -1766.4991455078125
+            },
+            "vertex_id": 104
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2081716060638428,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.853529453277588,
+              "y": 9.540731430053711,
+              "z": -1756.2105712890625
+            },
+            "vertex_id": 105
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.286897659301758,
+            "timestamp": 3.4999988079071045,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.239049196243286,
+              "y": 11.62845516204834,
+              "z": -1987.4600830078125
+            },
+            "vertex_id": 106
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.307501792907715,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 7.742400169372559,
+              "y": 5.328836441040039,
+              "z": -1702.764892578125
+            },
+            "vertex_id": 107
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.190382480621338,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.268409729003906,
+              "y": -22.817028045654297,
+              "z": -1780.8770751953125
+            },
+            "vertex_id": 108
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2001070976257324,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.12193597853183746,
+              "y": -10.915982246398926,
+              "z": -1651.4290771484375
+            },
+            "vertex_id": 109
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1719446182250977,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -1.5652282238006592,
+              "y": -0.37122559547424316,
+              "z": -1897.9267578125
+            },
+            "vertex_id": 110
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1576545238494873,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -9.440580368041992,
+              "y": -20.156522750854492,
+              "z": -1697.8529052734375
+            },
+            "vertex_id": 111
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.185559034347534,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 19.95062255859375,
+              "y": -12.396505355834961,
+              "z": -1599.2314453125
+            },
+            "vertex_id": 112
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1373822689056396,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.983677864074707,
+              "y": -3.083805799484253,
+              "z": -1807.6309814453125
+            },
+            "vertex_id": 113
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.178536891937256,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -17.085906982421875,
+              "y": 19.238433837890625,
+              "z": -1681.6796875
+            },
+            "vertex_id": 114
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1318178176879883,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.110312461853027,
+              "y": -13.920648574829102,
+              "z": -1637.9713134765625
+            },
+            "vertex_id": 115
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2095694541931152,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 20.852710723876953,
+              "y": 7.95953369140625,
+              "z": -1541.3087158203125
+            },
+            "vertex_id": 116
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1526060104370117,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 21.938724517822266,
+              "y": -17.033672332763672,
+              "z": -1701.5308837890625
+            },
+            "vertex_id": 117
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.130061149597168,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.091984748840332,
+              "y": -1.311233639717102,
+              "z": -1822.1192626953125
+            },
+            "vertex_id": 118
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1802072525024414,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 14.545538902282715,
+              "y": -34.97687911987305,
+              "z": -1485.736083984375
+            },
+            "vertex_id": 119
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2046682834625244,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.6177526712417603,
+              "y": -0.17906218767166138,
+              "z": -1836.0054931640625
+            },
+            "vertex_id": 120
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1135969161987305,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.8770782351493835,
+              "y": -17.29416847229004,
+              "z": -1705.522705078125
+            },
+            "vertex_id": 121
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.121798515319824,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -2.1224703788757324,
+              "y": -1.4663962125778198,
+              "z": -1728.38427734375
+            },
+            "vertex_id": 122
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1224329471588135,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.7436904907226562,
+              "y": 1.390728235244751,
+              "z": -1531.8575439453125
+            },
+            "vertex_id": 123
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1508328914642334,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -36.635520935058594,
+              "y": 8.868123054504395,
+              "z": -1467.8614501953125
+            },
+            "vertex_id": 124
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1942639350891113,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 9.773722648620605,
+              "y": 22.392704010009766,
+              "z": -1732.940673828125
+            },
+            "vertex_id": 125
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1526098251342773,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.46038252115249634,
+              "y": -0.16066518425941467,
+              "z": -1826.8887939453125
+            },
+            "vertex_id": 126
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2183566093444824,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 24.179689407348633,
+              "y": -19.193321228027344,
+              "z": -1707.0345458984375
+            },
+            "vertex_id": 127
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1999635696411133,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 6.116839408874512,
+              "y": 13.27535343170166,
+              "z": -1810.988525390625
+            },
+            "vertex_id": 128
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.203734874725342,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -9.217618942260742,
+              "y": 15.668275833129883,
+              "z": -1930.154052734375
+            },
+            "vertex_id": 129
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.124906063079834,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.958118200302124,
+              "y": -0.8924901485443115,
+              "z": -1792.3272705078125
+            },
+            "vertex_id": 130
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.228879451751709,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -10.463540077209473,
+              "y": -24.619951248168945,
+              "z": -1484.3583984375
+            },
+            "vertex_id": 131
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.139171600341797,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.072162389755249,
+              "y": -23.952178955078125,
+              "z": -1527.462890625
+            },
+            "vertex_id": 132
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.123047351837158,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.47695910930633545,
+              "y": -2.994053840637207,
+              "z": -1885.438720703125
+            },
+            "vertex_id": 133
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1130194664001465,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.82795524597168,
+              "y": 7.800167083740234,
+              "z": -1921.8131103515625
+            },
+            "vertex_id": 134
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2209935188293457,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 7.955178737640381,
+              "y": 27.328771591186523,
+              "z": -1650.671142578125
+            },
+            "vertex_id": 135
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1958158016204834,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -7.567666530609131,
+              "y": -5.78067684173584,
+              "z": -1862.623779296875
+            },
+            "vertex_id": 136
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.105133533477783,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.834962844848633,
+              "y": 1.8469951152801514,
+              "z": -1810.0738525390625
+            },
+            "vertex_id": 137
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.229006290435791,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.535825729370117,
+              "y": -17.154735565185547,
+              "z": -1855.78369140625
+            },
+            "vertex_id": 138
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1652541160583496,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -16.266130447387695,
+              "y": -16.435861587524414,
+              "z": -1647.35693359375
+            },
+            "vertex_id": 139
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2324910163879395,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.821310520172119,
+              "y": -17.086008071899414,
+              "z": -1937.541259765625
+            },
+            "vertex_id": 140
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2065067291259766,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.20980767905712128,
+              "y": -0.41128048300743103,
+              "z": -1751.5924072265625
+            },
+            "vertex_id": 141
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2201499938964844,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -27.532745361328125,
+              "y": 12.646846771240234,
+              "z": -1471.232177734375
+            },
+            "vertex_id": 142
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2041115760803223,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 14.915328025817871,
+              "y": 2.9509379863739014,
+              "z": -1539.0440673828125
+            },
+            "vertex_id": 143
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1495144367218018,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.0303955078125,
+              "y": 32.09327697753906,
+              "z": -1397.309814453125
+            },
+            "vertex_id": 144
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.118887186050415,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.420310020446777,
+              "y": -8.903303146362305,
+              "z": -1404.4986572265625
+            },
+            "vertex_id": 145
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1398062705993652,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.7751362323760986,
+              "y": 1.8920402526855469,
+              "z": -1953.5181884765625
+            },
+            "vertex_id": 146
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.115255355834961,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -26.507518768310547,
+              "y": 17.019060134887695,
+              "z": -1626.770263671875
+            },
+            "vertex_id": 147
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.153285503387451,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.6939952373504639,
+              "y": 21.463428497314453,
+              "z": -1786.1849365234375
+            },
+            "vertex_id": 148
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1084296703338623,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -10.988218307495117,
+              "y": 0.5253854990005493,
+              "z": -1373.79541015625
+            },
+            "vertex_id": 149
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2132506370544434,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 13.119122505187988,
+              "y": 4.980370998382568,
+              "z": -1568.4766845703125
+            },
+            "vertex_id": 150
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.116610527038574,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 10.355111122131348,
+              "y": 15.20988655090332,
+              "z": -1842.7347412109375
+            },
+            "vertex_id": 151
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.219597101211548,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -41.315216064453125,
+              "y": -0.7048034071922302,
+              "z": -1440.067138671875
+            },
+            "vertex_id": 152
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2106709480285645,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 5.670474052429199,
+              "y": 4.294332504272461,
+              "z": -2007.0457763671875
+            },
+            "vertex_id": 153
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.166797637939453,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.80695629119873,
+              "y": 17.8638916015625,
+              "z": -1672.1783447265625
+            },
+            "vertex_id": 154
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1954965591430664,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -15.98855972290039,
+              "y": -7.429178237915039,
+              "z": -1864.0880126953125
+            },
+            "vertex_id": 155
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.227806568145752,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -17.119165420532227,
+              "y": -30.74859619140625,
+              "z": -1482.580322265625
+            },
+            "vertex_id": 156
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.230541706085205,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -14.128049850463867,
+              "y": 6.066385269165039,
+              "z": -1621.4591064453125
+            },
+            "vertex_id": 157
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1670145988464355,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.5364255905151367,
+              "y": 1.4899182319641113,
+              "z": -1482.7080078125
+            },
+            "vertex_id": 158
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.108638286590576,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.054936408996582,
+              "y": 9.79666519165039,
+              "z": -1698.505859375
+            },
+            "vertex_id": 159
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2291784286499023,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.659996509552002,
+              "y": -1.2095650434494019,
+              "z": -1889.62548828125
+            },
+            "vertex_id": 160
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1448917388916016,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.834535598754883,
+              "y": 16.673046112060547,
+              "z": -1518.833251953125
+            },
+            "vertex_id": 161
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.14986252784729,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -10.495331764221191,
+              "y": -3.5027074813842773,
+              "z": -1733.57763671875
+            },
+            "vertex_id": 162
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1871681213378906,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.8796076774597168,
+              "y": -1.0530587434768677,
+              "z": -1675.5635986328125
+            },
+            "vertex_id": 163
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1785409450531006,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.6219959259033203,
+              "y": 0.8918925523757935,
+              "z": -1885.7689208984375
+            },
+            "vertex_id": 164
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.102463722229004,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.36462926864624,
+              "y": -10.560797691345215,
+              "z": -1850.0859375
+            },
+            "vertex_id": 165
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.223212718963623,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.924035549163818,
+              "y": -1.2135473489761353,
+              "z": -2006.7879638671875
+            },
+            "vertex_id": 166
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.129103183746338,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 7.745362758636475,
+              "y": -3.7497737407684326,
+              "z": -1576.696044921875
+            },
+            "vertex_id": 167
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2026290893554688,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -9.046625137329102,
+              "y": 3.2736399173736572,
+              "z": -1906.3807373046875
+            },
+            "vertex_id": 168
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1555705070495605,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -19.658973693847656,
+              "y": 14.940589904785156,
+              "z": -1425.598876953125
+            },
+            "vertex_id": 169
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1301472187042236,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.200057983398438,
+              "y": 15.917137145996094,
+              "z": -1530.57958984375
+            },
+            "vertex_id": 170
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2068793773651123,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -20.700185775756836,
+              "y": -29.429407119750977,
+              "z": -1504.94287109375
+            },
+            "vertex_id": 171
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1975724697113037,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 15.754343032836914,
+              "y": 14.164743423461914,
+              "z": -1538.516357421875
+            },
+            "vertex_id": 172
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.125917434692383,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.218006610870361,
+              "y": -21.124927520751953,
+              "z": -1748.3682861328125
+            },
+            "vertex_id": 173
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1881794929504395,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.137694358825684,
+              "y": 13.896577835083008,
+              "z": -1625.155029296875
+            },
+            "vertex_id": 174
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1939854621887207,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -7.8046793937683105,
+              "y": -9.953696250915527,
+              "z": -1699.852294921875
+            },
+            "vertex_id": 175
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.231405735015869,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.0448046922683716,
+              "y": -0.5635502338409424,
+              "z": -1581.3812255859375
+            },
+            "vertex_id": 176
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1412885189056396,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -22.113183975219727,
+              "y": -0.3028571903705597,
+              "z": -1497.0987548828125
+            },
+            "vertex_id": 177
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2158708572387695,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.2169356644153595,
+              "y": 3.2488009929656982,
+              "z": -1978.84033203125
+            },
+            "vertex_id": 178
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.169987201690674,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -6.291215896606445,
+              "y": -7.7992143630981445,
+              "z": -1942.6558837890625
+            },
+            "vertex_id": 179
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1415629386901855,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.613581657409668,
+              "y": -9.234297752380371,
+              "z": -1396.11083984375
+            },
+            "vertex_id": 180
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2330312728881836,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 22.82860565185547,
+              "y": 0.09008985012769699,
+              "z": -1551.616943359375
+            },
+            "vertex_id": 181
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2036938667297363,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.990055084228516,
+              "y": 17.290849685668945,
+              "z": -1721.223388671875
+            },
+            "vertex_id": 182
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1180150508880615,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.3772721588611603,
+              "y": -1.446478247642517,
+              "z": -1849.9954833984375
+            },
+            "vertex_id": 183
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.20571231842041,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.890339374542236,
+              "y": -13.726923942565918,
+              "z": -1748.524658203125
+            },
+            "vertex_id": 184
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.201888084411621,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 10.657048225402832,
+              "y": 10.615066528320312,
+              "z": -1942.3406982421875
+            },
+            "vertex_id": 185
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.179842948913574,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 29.17915153503418,
+              "y": 2.0375051498413086,
+              "z": -1687.6875
+            },
+            "vertex_id": 186
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1931092739105225,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -15.387508392333984,
+              "y": -18.853382110595703,
+              "z": -1662.15576171875
+            },
+            "vertex_id": 187
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.202592372894287,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -1.0211247205734253,
+              "y": 2.3940887451171875,
+              "z": -1771.72314453125
+            },
+            "vertex_id": 188
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.15468168258667,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.0821533203125,
+              "y": 12.608682632446289,
+              "z": -1646.7388916015625
+            },
+            "vertex_id": 189
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.210265636444092,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -19.61802864074707,
+              "y": 16.138961791992188,
+              "z": -1466.71337890625
+            },
+            "vertex_id": 190
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1855220794677734,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.141448974609375,
+              "y": -11.30745792388916,
+              "z": -1852.9501953125
+            },
+            "vertex_id": 191
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.217000961303711,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 8.472501754760742,
+              "y": -9.795549392700195,
+              "z": -1909.10498046875
+            },
+            "vertex_id": 192
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.101788282394409,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 9.406163215637207,
+              "y": 17.701374053955078,
+              "z": -1843.2938232421875
+            },
+            "vertex_id": 193
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.130286455154419,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.18825626373291,
+              "y": 23.888761520385742,
+              "z": -1571.749267578125
+            },
+            "vertex_id": 194
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.191594362258911,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.025742504745721817,
+              "y": 0.05777144804596901,
+              "z": -1845.279052734375
+            },
+            "vertex_id": 195
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.103147506713867,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.771052360534668,
+              "y": 1.6741502285003662,
+              "z": -1753.7340087890625
+            },
+            "vertex_id": 196
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.225501537322998,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 6.46208381652832,
+              "y": -13.116217613220215,
+              "z": -1969.08349609375
+            },
+            "vertex_id": 197
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.215494155883789,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -31.914216995239258,
+              "y": -20.858844757080078,
+              "z": -1558.46630859375
+            },
+            "vertex_id": 198
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2112317085266113,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -20.660654067993164,
+              "y": -0.9888634085655212,
+              "z": -1490.554931640625
+            },
+            "vertex_id": 199
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1554760932922363,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 2.153021812438965,
+              "y": 0.28142279386520386,
+              "z": -1715.287109375
+            },
+            "vertex_id": 200
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2091681957244873,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -20.626110076904297,
+              "y": -7.151065826416016,
+              "z": -1601.750732421875
+            },
+            "vertex_id": 201
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1083476543426514,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -19.278230667114258,
+              "y": 12.717016220092773,
+              "z": -1614.390869140625
+            },
+            "vertex_id": 202
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.147892951965332,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.11486251652240753,
+              "y": 0.348304808139801,
+              "z": -1658.2239990234375
+            },
+            "vertex_id": 203
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1694836616516113,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -21.184900283813477,
+              "y": -3.702901840209961,
+              "z": -1751.594482421875
+            },
+            "vertex_id": 204
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.176370620727539,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.6181015968322754,
+              "y": -12.593335151672363,
+              "z": -1723.583251953125
+            },
+            "vertex_id": 205
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.159898281097412,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -11.085688591003418,
+              "y": 11.72083854675293,
+              "z": -1756.9981689453125
+            },
+            "vertex_id": 206
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.211129665374756,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 13.878996849060059,
+              "y": 17.803264617919922,
+              "z": -1576.2110595703125
+            },
+            "vertex_id": 207
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1125855445861816,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.6041277050971985,
+              "y": -7.444674491882324,
+              "z": -1850.4984130859375
+            },
+            "vertex_id": 208
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1542723178863525,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.3537418842315674,
+              "y": 6.633529186248779,
+              "z": -1974.8836669921875
+            },
+            "vertex_id": 209
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2222461700439453,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -8.750383377075195,
+              "y": 0.32013583183288574,
+              "z": -1550.5406494140625
+            },
+            "vertex_id": 210
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1115293502807617,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 13.542607307434082,
+              "y": 2.385068893432617,
+              "z": -1790.4376220703125
+            },
+            "vertex_id": 211
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.124091386795044,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 38.12421417236328,
+              "y": -14.572078704833984,
+              "z": -1444.1226806640625
+            },
+            "vertex_id": 212
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2077598571777344,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.874606132507324,
+              "y": -3.995953321456909,
+              "z": -1930.5455322265625
+            },
+            "vertex_id": 213
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.185239553451538,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 5.267111301422119,
+              "y": 15.035533905029297,
+              "z": -1676.0732421875
+            },
+            "vertex_id": 214
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1341147422790527,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -6.55722713470459,
+              "y": 9.663397789001465,
+              "z": -1397.9571533203125
+            },
+            "vertex_id": 215
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.112708568572998,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.29534363746643066,
+              "y": -0.6921958923339844,
+              "z": -1472.543212890625
+            },
+            "vertex_id": 216
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1711132526397705,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 16.488473892211914,
+              "y": -5.636909008026123,
+              "z": -1497.1611328125
+            },
+            "vertex_id": 217
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1106202602386475,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.08099672198295593,
+              "y": 0.24196688830852509,
+              "z": -1663.9005126953125
+            },
+            "vertex_id": 218
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.199120044708252,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -4.798097133636475,
+              "y": 3.6214330196380615,
+              "z": -1502.8275146484375
+            },
+            "vertex_id": 219
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.159050703048706,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 27.36772918701172,
+              "y": 3.8564987182617188,
+              "z": -1733.250244140625
+            },
+            "vertex_id": 220
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1847033500671387,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -12.517210960388184,
+              "y": 10.572103500366211,
+              "z": -1891.5115966796875
+            },
+            "vertex_id": 221
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2320404052734375,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 22.587268829345703,
+              "y": 5.840516567230225,
+              "z": -1668.1104736328125
+            },
+            "vertex_id": 222
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1303436756134033,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.762763023376465,
+              "y": 11.148435592651367,
+              "z": -1866.501220703125
+            },
+            "vertex_id": 223
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.113126039505005,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 18.15239715576172,
+              "y": -15.970993041992188,
+              "z": -1759.1634521484375
+            },
+            "vertex_id": 224
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.158280849456787,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.586488246917725,
+              "y": -26.259475708007812,
+              "z": -1709.244140625
+            },
+            "vertex_id": 225
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1500344276428223,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 1.8471693992614746,
+              "y": 0.5964728593826294,
+              "z": -1882.7838134765625
+            },
+            "vertex_id": 226
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1918439865112305,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 0.47418859601020813,
+              "y": -0.1803833693265915,
+              "z": -1883.00048828125
+            },
+            "vertex_id": 227
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.131019353866577,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -0.4556383192539215,
+              "y": -0.3987720012664795,
+              "z": -1804.67529296875
+            },
+            "vertex_id": 228
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.173508644104004,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -13.73045825958252,
+              "y": 6.291171073913574,
+              "z": -1939.101318359375
+            },
+            "vertex_id": 229
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1737256050109863,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -3.244905710220337,
+              "y": 3.328603506088257,
+              "z": -1741.472900390625
+            },
+            "vertex_id": 230
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1487202644348145,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 3.044825315475464,
+              "y": 1.3879647254943848,
+              "z": -1678.383544921875
+            },
+            "vertex_id": 231
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.138209342956543,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -16.2543888092041,
+              "y": 4.545694828033447,
+              "z": -1867.05810546875
+            },
+            "vertex_id": 232
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2156128883361816,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -14.003504753112793,
+              "y": -6.978133201599121,
+              "z": -1637.901611328125
+            },
+            "vertex_id": 233
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1132938861846924,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": -41.84799575805664,
+              "y": 10.859070777893066,
+              "z": -1406.768310546875
+            },
+            "vertex_id": 234
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.20632266998291,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 7.161815166473389,
+              "y": 20.18937873840332,
+              "z": -1602.12353515625
+            },
+            "vertex_id": 235
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.232085704803467,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 6.020753383636475,
+              "y": 2.5649449825286865,
+              "z": -1971.9779052734375
+            },
+            "vertex_id": 236
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.1733858585357666,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 21.0316104888916,
+              "y": -36.83138656616211,
+              "z": -1472.6588134765625
+            },
+            "vertex_id": 237
+          },
+          {
+            "lifespan": 3.3000001907348633,
+            "lifetime": 3.2191548347473145,
+            "timestamp": 3.399998903274536,
+            "type": "Particle",
+            "unknown_short": 0,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 1,
+              "y": 0,
+              "z": 0
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 12.053382873535156,
+              "y": 20.443613052368164,
+              "z": -1853.1663818359375
+            },
+            "vertex_id": 238
+          },
+          {
+            "lifespan": 9.780267920646159e-26,
+            "lifetime": 0,
+            "timestamp": 0,
+            "type": "Particle",
+            "unknown_short": 9216,
+            "unknown_vector": {
+              "type": "Vector3",
+              "x": 3.4531121859135866e-38,
+              "y": 2.84698866270098e-38,
+              "z": 2.2959269205664742e-38
+            },
+            "velocity": {
+              "type": "Vector3",
+              "x": 4.0592270210757143e-38,
+              "y": 4.059235989385886e-38,
+              "z": 4.059235709126193e-38
+            },
+            "vertex_id": 5618
+          }
+        ],
+        "phase": 0,
+        "size": 31.496063232421875,
+        "speed": 590.5512084960938,
+        "speed_random": 590.5512084960938,
+        "start_random": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "start_time": 0,
+        "stop_time": 4,
+        "target": {
+          "name": "SuperSpray",
+          "ref": 12,
+          "type": "NiParticles"
+        },
+        "trailer": 1,
+        "unknown_byte": 0,
+        "unknown_color": {
+          "a": 1,
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color4"
+        },
+        "unknown_float_13": 1,
+        "unknown_int_1": 1,
+        "unknown_int_2": 0,
+        "unknown_link": null,
+        "unknown_link_2": null,
+        "unknown_normal": {
+          "type": "Vector3",
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
+        "unknown_short_2": 0,
+        "unknown_short_3": 0,
+        "vertical_angle": 0.05235987901687622,
+        "vertical_direction": 0
+      },
+      "id": 15,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 15,
+            "name": "",
+            "type": "NiParticleSystemController"
+          }
+        ]
+      ],
+      "type": "NiParticleSystemController"
+    },
+    {
+      "fields": {
+        "controller": {
+          "name": "",
+          "ref": 15,
+          "type": "NiParticleSystemController"
+        },
+        "direction": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 1.5099580252808664e-7,
+          "z": -1
+        },
+        "force": 450,
+        "next_modifier": {
+          "name": "",
+          "ref": 17,
+          "type": "NiParticleGrowFade"
+        },
+        "position": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 80.67759704589844
+        },
+        "type": 0,
+        "unknown_float_1": 0
+      },
+      "id": 16,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 16,
+            "name": "",
+            "type": "NiGravity"
+          }
+        ]
+      ],
+      "type": "NiGravity"
+    },
+    {
+      "fields": {
+        "controller": {
+          "name": "",
+          "ref": 15,
+          "type": "NiParticleSystemController"
+        },
+        "fade": 3.3333334922790527,
+        "grow": 0,
+        "next_modifier": null
+      },
+      "id": 17,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 17,
+            "name": "",
+            "type": "NiParticleGrowFade"
+          }
+        ]
+      ],
+      "type": "NiParticleGrowFade"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "clamp_mode": 3,
+          "filter_mode": 2,
+          "ps_2_k": -130,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 19,
+            "type": "NiSourceTexture"
+          },
+          "type": "TexDesc",
+          "uv_set": 0
+        },
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 18,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 18,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "water spash.tga",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 19,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 19,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 237,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 0
+      },
+      "id": 20,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 20,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 0.5882353186607361,
+          "g": 0.5882353186607361,
+          "r": 0.5882353186607361,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 0.5882353186607361,
+          "g": 0.5882353186607361,
+          "r": 0.5882353186607361,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "flags": 0,
+        "glossiness": 10,
+        "name": "Material #0",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.8999999761581421,
+          "g": 0.8999999761581421,
+          "r": 0.8999999761581421,
+          "type": "Color3"
+        }
+      },
+      "id": 21,
+      "name": "Material #0",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 21,
+            "name": "Material #0",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": -5.777015686035156,
+          "y": -6.296871185302734,
+          "z": -1482.4375
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": false,
+        "has_rotations": false,
+        "has_sizes": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "num_active": 0,
+        "num_uv_sets": 0,
+        "num_vertices": 240,
+        "particle_radius": 31.496063232421875,
+        "radius": 1482.793701171875,
+        "sizes": [
+          0.026011919602751732,
+          0.026011919602751732,
+          0.018537282943725586,
+          0.015384005382657051,
+          0.007882404141128063,
+          0.00794749241322279,
+          0.020694278180599213,
+          0.0024468896444886923,
+          0.014989756979048252,
+          0.012515830807387829,
+          0.026062272489070892,
+          0.02089698240160942,
+          0.004589080810546875,
+          0.012284873984754086,
+          0.00026407241239212453,
+          0.02681400626897812,
+          0.008666109293699265,
+          0.026187514886260033,
+          0.019765662029385567,
+          0.004428219515830278,
+          0.022772667929530144,
+          0.02654127962887287,
+          0.01371838990598917,
+          0.026224421337246895,
+          0.01203060057014227,
+          0.0070888991467654705,
+          0.009154986590147018,
+          0.015632199123501778,
+          0.027495788410305977,
+          0.013357257470488548,
+          0.02905583195388317,
+          0.0025217770598828793,
+          0.020914148539304733,
+          0.029463600367307663,
+          0.004343461710959673,
+          0.013595580123364925,
+          0.002067303517833352,
+          0.0060472008772194386,
+          0.02459556981921196,
+          0.017531203106045723,
+          0.009003925137221813,
+          0.017613530158996582,
+          0.0018044470343738794,
+          0.003546237712725997,
+          0.022224854677915573,
+          0.0007283448940142989,
+          0.020955918356776237,
+          0.013328933157026768,
+          0.02126912958920002,
+          0.029260966926813126,
+          0.006437802221626043,
+          0.0038496493361890316,
+          0.015041327103972435,
+          0.01653256267309189,
+          0.027408597990870476,
+          0.009895705617964268,
+          0.0013511179713532329,
+          0.009960793890058994,
+          0.02501692622900009,
+          0.027471182867884636,
+          0.014014434069395065,
+          0.025423478335142136,
+          0.018058203160762787,
+          0.024333929643034935,
+          0.01514575444161892,
+          0.010423850268125534,
+          0.028460023924708366,
+          0.0012553452979773283,
+          0.02609424479305744,
+          0.023085879161953926,
+          0.018248604610562325,
+          0.02252826653420925,
+          0.00009999999747378752,
+          0.014217137359082699,
+          0.0017209051875397563,
+          0.014750218018889427,
+          0.023270200937986374,
+          0.02346052974462509,
+          0.025921009480953217,
+          0.028523895889520645,
+          0.023545360192656517,
+          0.026123713701963425,
+          0.025788329541683197,
+          0.019254684448242188,
+          0.005937909707427025,
+          0.015741489827632904,
+          0.018419336527585983,
+          0.020981740206480026,
+          0.014218281954526901,
+          0.020454740151762962,
+          0.006439018063247204,
+          0.01248021051287651,
+          0.0131508344784379,
+          0.018785404041409492,
+          0.00433237524703145,
+          0.011259197257459164,
+          0.006097554694861174,
+          0.0016619681846350431,
+          0.02828070893883705,
+          0.012703727930784225,
+          0.009143900126218796,
+          0.008416700176894665,
+          0.0028853414114564657,
+          0.0195875633507967,
+          0.004395031835883856,
+          0.027548573911190033,
+          0.003930759150534868,
+          0.02774948999285698,
+          0.03288531303405762,
+          0.02996792644262314,
+          0.03841666877269745,
+          0.04270369932055473,
+          0.03433234617114067,
+          0.04878537356853485,
+          0.03643898665904999,
+          0.05045470967888832,
+          0.027129219844937325,
+          0.04421825334429741,
+          0.050981711596250534,
+          0.03593787923455238,
+          0.0285995714366436,
+          0.055920980870723724,
+          0.0534605011343956,
+          0.05327017232775688,
+          0.044750187546014786,
+          0.031720876693725586,
+          0.04421710595488548,
+          0.024493074044585228,
+          0.03001098521053791,
+          0.028879594057798386,
+          0.05252823606133461,
+          0.02133622020483017,
+          0.04824857413768768,
+          0.053085848689079285,
+          0.0560942143201828,
+          0.023702001199126244,
+          0.031255315989255905,
+          0.058459993451833725,
+          0.02129816822707653,
+          0.04042382165789604,
+          0.02025275118649006,
+          0.028048036620020866,
+          0.023955058306455612,
+          0.028766583651304245,
+          0.04514572396874428,
+          0.054333899170160294,
+          0.048058174550533295,
+          0.055423445999622345,
+          0.04401440545916557,
+          0.057471152395009995,
+          0.026024864986538887,
+          0.0550168976187706,
+          0.02412092499434948,
+          0.02679877169430256,
+          0.03996076434850693,
+          0.03135108947753906,
+          0.02165808528661728,
+          0.02083754353225231,
+          0.0398956760764122,
+          0.057408567517995834,
+          0.02124652825295925,
+          0.046532534062862396,
+          0.045041296631097794,
+          0.03384961932897568,
+          0.03643777221441269,
+          0.05926093831658363,
+          0.02303623966872692,
+          0.05126909911632538,
+          0.02921132929623127,
+          0.0433289036154747,
+          0.050955887883901596,
+          0.027936242520809174,
+          0.030728314071893692,
+          0.05222482606768608,
+          0.03354620933532715,
+          0.031804416328668594,
+          0.020578335970640182,
+          0.04761349782347679,
+          0.025238798931241035,
+          0.0390038937330246,
+          0.04753117263317108,
+          0.020090674981474876,
+          0.028891894966363907,
+          0.05459554120898247,
+          0.028286360204219818,
+          0.029433630406856537,
+          0.03604717180132866,
+          0.03206727281212807,
+          0.029222343116998672,
+          0.04359554871916771,
+          0.026920365169644356,
+          0.03434343263506889,
+          0.024899767711758614,
+          0.05946356803178787,
+          0.05091411992907524,
+          0.032521747052669525,
+          0.05905580148100853,
+          0.02234959416091442,
+          0.025351809337735176,
+          0.026630543172359467,
+          0.04335722699761391,
+          0.027249597012996674,
+          0.057495757937431335,
+          0.045632168650627136,
+          0.039154957979917526,
+          0.037088871002197266,
+          0.04203056916594505,
+          0.026661155745387077,
+          0.05622439086437225,
+          0.0437183603644371,
+          0.0233262050896883,
+          0.05654124915599823,
+          0.0527726374566555,
+          0.027672098949551582,
+          0.0344281904399395,
+          0.049765631556510925,
+          0.05618748441338539,
+          0.03866608068346977,
+          0.05681397765874863,
+          0.03026404231786728,
+          0.04228484258055687,
+          0.03458905220031738,
+          0.020387934520840645,
+          0.05089695379137993,
+          0.0560622438788414,
+          0.04251579940319061,
+          0.044989727437496185,
+          0.032446861267089844,
+          0.05069424957036972,
+          0.037947461009025574,
+          0.03788237273693085,
+          0.04538397490978241,
+          0.048537250608205795,
+          0.025316189974546432,
+          0.05601188912987709,
+          0.028103254735469818,
+          0.020374344661831856,
+          0.037984296679496765,
+          0.0242536049336195,
+          1
+        ],
+        "uv_sets": {
+          "count": 0,
+          "omitted_geometry_buffer": true
+        },
+        "vertices": {
+          "count": 240,
+          "omitted_geometry_buffer": true
+        }
+      },
+      "id": 22,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 22,
+            "name": "",
+            "type": "NiParticlesData"
+          }
+        ]
+      ],
+      "type": "NiParticlesData",
+      "vertex_bounds_local": {
+        "max": [
+          122.91592407226562,
+          104.2870101928711,
+          0
+        ],
+        "min": [
+          -134.46995544433594,
+          -116.88075256347656,
+          -2964.875
+        ]
+      }
+    }
+  ],
+  "bytes": 15564,
+  "bytes_consumed": 15564,
+  "finite_vertices": true,
+  "manifest_sha256": "851c27d863a38fa961f27dc919f2da708ce496fae1f0d295986a180f30226213",
+  "name": "cannonball splash.nif",
+  "raw": "raw/fpk/Pak1/cannonball splash.nif",
+  "roots": [
+    0,
+    7,
+    8
+  ],
+  "sha256": "851c27d863a38fa961f27dc919f2da708ce496fae1f0d295986a180f30226213",
+  "triangle_indices_valid": true,
+  "version": "10.0.1.0",
+  "whole_file_consumed": true
+}

@@ -1,0 +1,4450 @@
+{
+  "all_buffers_exported": true,
+  "block_count": 76,
+  "block_types": {
+    "NiAlphaProperty": 1,
+    "NiBillboardNode": 9,
+    "NiBooleanExtraData": 11,
+    "NiIntegerExtraData": 11,
+    "NiMaterialProperty": 2,
+    "NiNode": 1,
+    "NiSourceTexture": 2,
+    "NiStencilProperty": 1,
+    "NiStringExtraData": 11,
+    "NiTexturingProperty": 2,
+    "NiTriStrips": 11,
+    "NiTriStripsData": 11,
+    "NiVertexColorProperty": 1,
+    "NiZBufferProperty": 2
+  },
+  "blocks": [
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Plane01",
+            "ref": 3,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane02",
+            "ref": 15,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane03",
+            "ref": 21,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane04",
+            "ref": 27,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane05",
+            "ref": 33,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane06",
+            "ref": 39,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane07",
+            "ref": 45,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane08",
+            "ref": 51,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane09",
+            "ref": 57,
+            "type": "NiBillboardNode"
+          },
+          {
+            "name": "Plane10",
+            "ref": 63,
+            "type": "NiTriStrips"
+          },
+          {
+            "name": "Plane11",
+            "ref": 71,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [],
+        "flags": 16,
+        "name": "Scene Root",
+        "num_children": 11,
+        "num_effects": 0,
+        "num_extra_data_list": 0,
+        "num_properties": 2,
+        "properties": [
+          {
+            "name": "",
+            "ref": 2,
+            "type": "NiVertexColorProperty"
+          },
+          {
+            "name": "",
+            "ref": 1,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 0,
+      "name": "Scene Root",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          }
+        ]
+      ],
+      "type": "NiNode"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 3,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 1,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 1,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "lighting_mode": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "vertex_mode": 0
+      },
+      "id": 2,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 2,
+            "name": "",
+            "type": "NiVertexColorProperty"
+          }
+        ]
+      ],
+      "type": "NiVertexColorProperty"
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 6,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 4,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane01",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 164.53379821777344,
+          "y": -154.53050231933594,
+          "z": 173.6898193359375
+        }
+      },
+      "id": 3,
+      "name": "Plane01",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Plane01",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 4,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 4,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 1,
+        "function": 3,
+        "name": "",
+        "num_extra_data_list": 0
+      },
+      "id": 5,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 5,
+            "name": "",
+            "type": "NiZBufferProperty"
+          }
+        ]
+      ],
+      "type": "NiZBufferProperty"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 14,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 7,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 8,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 6,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        3
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 3,
+            "name": "Plane01",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 6,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 7,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 7,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 8,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 8,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "draw_mode": 3,
+        "extra_data_list": [],
+        "fail_action": 0,
+        "flags": 0,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pass_action": 3,
+        "stencil_enabled": 0,
+        "stencil_function": 4,
+        "stencil_mask": 4294967295,
+        "stencil_ref": 0,
+        "z_fail_action": 0
+      },
+      "id": 9,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 9,
+            "name": "",
+            "type": "NiStencilProperty"
+          }
+        ]
+      ],
+      "type": "NiStencilProperty"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "flags": 0,
+        "glossiness": 10,
+        "name": "7 - Default",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.8999999761581421,
+          "g": 0.8999999761581421,
+          "r": 0.8999999761581421,
+          "type": "Color3"
+        }
+      },
+      "id": 10,
+      "name": "7 - Default",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 10,
+            "name": "7 - Default",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 4845,
+        "name": "",
+        "num_extra_data_list": 0,
+        "threshold": 3
+      },
+      "id": 11,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 11,
+            "name": "",
+            "type": "NiAlphaProperty"
+          }
+        ]
+      ],
+      "type": "NiAlphaProperty"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "clamp_mode": 3,
+          "filter_mode": 2,
+          "ps_2_k": -100,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 13,
+            "type": "NiSourceTexture"
+          },
+          "type": "TexDesc",
+          "uv_set": 0
+        },
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 12,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 12,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "CLOUD_BW.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 13,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 13,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 126.2895278930664,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.015353798866271973,
+              "v": -0.00024139881134033203
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.015353739261627197,
+              "v": 0.3151988983154297
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.3205030560493469,
+              "v": -0.00024127960205078125
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.32050299644470215,
+              "v": 0.31519901752471924
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -78.10408782958984,
+            "y": 99.24100494384766,
+            "z": -0.13894984126091003
+          },
+          {
+            "type": "Vector3",
+            "x": -78.10408782958984,
+            "y": -99.24100494384766,
+            "z": 0.13894984126091003
+          },
+          {
+            "type": "Vector3",
+            "x": 78.10408782958984,
+            "y": 99.24100494384766,
+            "z": -0.13894984126091003
+          },
+          {
+            "type": "Vector3",
+            "x": 78.10408782958984,
+            "y": -99.24100494384766,
+            "z": 0.13894984126091003
+          }
+        ]
+      },
+      "id": 14,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 14,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          78.10408782958984,
+          99.24100494384766,
+          0.13894984126091003
+        ],
+        "min": [
+          -78.10408782958984,
+          -99.24100494384766,
+          -0.13894984126091003
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 17,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 16,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane02",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 111.80757141113281,
+          "y": -74.12511444091797,
+          "z": 176.68869018554688
+        }
+      },
+      "id": 15,
+      "name": "Plane02",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 15,
+            "name": "Plane02",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 16,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 16,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 20,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 18,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 19,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1.5597575902938843,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 17,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        15
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 15,
+            "name": "Plane02",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 17,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 18,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 18,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 19,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 19,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 74.41307830810547,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.015849798917770386,
+              "v": 0.31800562143325806
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.015849709510803223,
+              "v": 0.6392638683319092
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.3329545259475708,
+              "v": 0.31800568103790283
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.332954466342926,
+              "v": 0.6392639875411987
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -54.94505310058594,
+            "y": 50.183143615722656,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": -54.94505310058594,
+            "y": -50.183143615722656,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 54.94505310058594,
+            "y": 50.183143615722656,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 54.94505310058594,
+            "y": -50.183143615722656,
+            "z": 0
+          }
+        ]
+      },
+      "id": 20,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 20,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          54.94505310058594,
+          50.183143615722656,
+          0
+        ],
+        "min": [
+          -54.94505310058594,
+          -50.183143615722656,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 23,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 22,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane03",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -69.55772399902344,
+          "y": -121.95752716064453,
+          "z": 188.52993774414062
+        }
+      },
+      "id": 21,
+      "name": "Plane03",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 21,
+            "name": "Plane03",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 22,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 22,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 26,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 24,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 25,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 23,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        21
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 21,
+            "name": "Plane03",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 23,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 24,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 24,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 25,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 25,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 69.2555160522461,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.34867721796035767,
+              "v": -1.0638041496276855
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.31484848260879517,
+              "v": -0.7163064479827881
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6601413488388062,
+              "v": -0.9989478588104248
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6263126134872437,
+              "v": -0.6514501571655273
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -59.8318977355957,
+            "y": 34.8779411315918,
+            "z": 5.80341241729343e-9
+          },
+          {
+            "type": "Vector3",
+            "x": -59.8318977355957,
+            "y": -34.8779411315918,
+            "z": -5.80341241729343e-9
+          },
+          {
+            "type": "Vector3",
+            "x": 59.8318977355957,
+            "y": 34.8779411315918,
+            "z": 5.80341241729343e-9
+          },
+          {
+            "type": "Vector3",
+            "x": 59.8318977355957,
+            "y": -34.8779411315918,
+            "z": -5.80341241729343e-9
+          }
+        ]
+      },
+      "id": 26,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 26,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          59.8318977355957,
+          34.8779411315918,
+          5.80341241729343e-9
+        ],
+        "min": [
+          -59.8318977355957,
+          -34.8779411315918,
+          -5.80341241729343e-9
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 29,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 28,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane04",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 28.820274353027344,
+          "y": -104.76025390625,
+          "z": 208.0679473876953
+        }
+      },
+      "id": 27,
+      "name": "Plane04",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 27,
+            "name": "Plane04",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 28,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 28,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 32,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 30,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 31,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 29,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        27
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 27,
+            "name": "Plane04",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 29,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 30,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 30,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 31,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 31,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 103.44953918457031,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.3346025347709656,
+              "v": 0.3466244339942932
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.3346024751663208,
+              "v": 0.6330433487892151
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6653975248336792,
+              "v": 0.34662455320358276
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6653974652290344,
+              "v": 0.6330434679985046
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -79.01526641845703,
+            "y": 66.7711410522461,
+            "z": -0.09608835726976395
+          },
+          {
+            "type": "Vector3",
+            "x": -79.01526641845703,
+            "y": -66.7711410522461,
+            "z": 0.09608835726976395
+          },
+          {
+            "type": "Vector3",
+            "x": 79.01526641845703,
+            "y": 66.7711410522461,
+            "z": -0.09608835726976395
+          },
+          {
+            "type": "Vector3",
+            "x": 79.01526641845703,
+            "y": -66.7711410522461,
+            "z": 0.09608835726976395
+          }
+        ]
+      },
+      "id": 32,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 32,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          79.01526641845703,
+          66.7711410522461,
+          0.09608835726976395
+        ],
+        "min": [
+          -79.01526641845703,
+          -66.7711410522461,
+          -0.09608835726976395
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 35,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 34,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane05",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 256.3306884765625,
+          "y": -123.05994415283203,
+          "z": 136.45172119140625
+        }
+      },
+      "id": 33,
+      "name": "Plane05",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 33,
+            "name": "Plane05",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 34,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 34,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 38,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 36,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 37,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 0.7818616628646851,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 35,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        33
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 33,
+            "name": "Plane05",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 35,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 36,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 36,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 37,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 37,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 91.23451232910156,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.6772090196609497,
+              "v": 1.0192763805389404
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6772090196609497,
+              "v": 1.3236451148986816
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9891504049301147,
+              "v": 1.01927649974823
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9891502857208252,
+              "v": 1.3236452341079712
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -75.45785522460938,
+            "y": 51.282047271728516,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": -75.45785522460938,
+            "y": -51.282047271728516,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 75.45785522460938,
+            "y": 51.282047271728516,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 75.45785522460938,
+            "y": -51.282047271728516,
+            "z": 0
+          }
+        ]
+      },
+      "id": 38,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 38,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          75.45785522460938,
+          51.282047271728516,
+          0
+        ],
+        "min": [
+          -75.45785522460938,
+          -51.282047271728516,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 41,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 40,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane06",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": -0.9999897480010986,
+          "m_12": 0,
+          "m_13": -0.004519836511462927,
+          "m_21": 0.004519784357398748,
+          "m_22": 0.0047920942306518555,
+          "m_23": -0.9999783039093018,
+          "m_31": 0.000021659303456544876,
+          "m_32": -0.9999885559082031,
+          "m_33": -0.0047920942306518555,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -479.3719482421875,
+          "y": -140.65213012695312,
+          "z": 145.17526245117188
+        }
+      },
+      "id": 39,
+      "name": "Plane06",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 39,
+            "name": "Plane06",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 40,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 40,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 44,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 42,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 43,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 41,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        39
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 39,
+            "name": "Plane06",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 41,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 42,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 42,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 43,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 43,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 88.25809478759766,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.3403226137161255,
+              "v": -0.033179283142089844
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.3403225541114807,
+              "v": 0.2875174283981323
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6689412593841553,
+              "v": -0.03317916393280029
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6689412593841553,
+              "v": 0.2875175476074219
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -75.97490692138672,
+            "y": 44.91433334350586,
+            "z": -0.08280394971370697
+          },
+          {
+            "type": "Vector3",
+            "x": -75.97490692138672,
+            "y": -44.91433334350586,
+            "z": 0.08280394971370697
+          },
+          {
+            "type": "Vector3",
+            "x": 75.97490692138672,
+            "y": 44.91433334350586,
+            "z": -0.08280394971370697
+          },
+          {
+            "type": "Vector3",
+            "x": 75.97490692138672,
+            "y": -44.91433334350586,
+            "z": 0.08280394971370697
+          }
+        ]
+      },
+      "id": 44,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 44,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          75.97490692138672,
+          44.91433334350586,
+          0.08280394971370697
+        ],
+        "min": [
+          -75.97490692138672,
+          -44.91433334350586,
+          -0.08280394971370697
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 47,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 46,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane07",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -628.1475219726562,
+          "y": -159.79898071289062,
+          "z": 153.60464477539062
+        }
+      },
+      "id": 45,
+      "name": "Plane07",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 45,
+            "name": "Plane07",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 46,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 46,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 50,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 48,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 49,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 47,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        45
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 45,
+            "name": "Plane07",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 47,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 48,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 48,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 49,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 49,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 71.78012084960938,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.6891694068908691,
+              "v": -0.03732585906982422
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6891693472862244,
+              "v": 0.3350197672843933
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9847317337989807,
+              "v": -0.03732585906982422
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9847316741943359,
+              "v": 0.3350198268890381
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -59.26703643798828,
+            "y": 40.494441986083984,
+            "z": 0.06534693390130997
+          },
+          {
+            "type": "Vector3",
+            "x": -59.26703643798828,
+            "y": -40.494441986083984,
+            "z": -0.06534693390130997
+          },
+          {
+            "type": "Vector3",
+            "x": 59.26703643798828,
+            "y": 40.494441986083984,
+            "z": 0.06534693390130997
+          },
+          {
+            "type": "Vector3",
+            "x": 59.26703643798828,
+            "y": -40.494441986083984,
+            "z": -0.06534693390130997
+          }
+        ]
+      },
+      "id": 50,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 50,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          59.26703643798828,
+          40.494441986083984,
+          0.06534693390130997
+        ],
+        "min": [
+          -59.26703643798828,
+          -40.494441986083984,
+          -0.06534693390130997
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 53,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 52,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane08",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.0044005513191223145,
+          "m_23": 0.9999903440475464,
+          "m_31": 0,
+          "m_32": -0.9999903440475464,
+          "m_33": 0.0044005513191223145,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": -546.3276977539062,
+          "y": -146.01016235351562,
+          "z": 156.04898071289062
+        }
+      },
+      "id": 51,
+      "name": "Plane08",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 51,
+            "name": "Plane08",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 52,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 52,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 56,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 54,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 55,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 53,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        51
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 51,
+            "name": "Plane08",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 53,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 54,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 54,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 55,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 55,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 76.9154281616211,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.3552541732788086,
+              "v": 0.6772860884666443
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.3552541136741638,
+              "v": 0.9623245000839233
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6757102012634277,
+              "v": 0.6772862076759338
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.675710141658783,
+              "v": 0.9623245000839233
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -62.83184814453125,
+            "y": 44.36363220214844,
+            "z": -0.0997953787446022
+          },
+          {
+            "type": "Vector3",
+            "x": -62.83184814453125,
+            "y": -44.36363220214844,
+            "z": 0.0997953787446022
+          },
+          {
+            "type": "Vector3",
+            "x": 62.83184814453125,
+            "y": 44.36363220214844,
+            "z": -0.0997953787446022
+          },
+          {
+            "type": "Vector3",
+            "x": 62.83184814453125,
+            "y": -44.36363220214844,
+            "z": 0.0997953787446022
+          }
+        ]
+      },
+      "id": 56,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 56,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          62.83184814453125,
+          44.36363220214844,
+          0.0997953787446022
+        ],
+        "min": [
+          -62.83184814453125,
+          -44.36363220214844,
+          -0.0997953787446022
+        ]
+      }
+    },
+    {
+      "fields": {
+        "children": [
+          {
+            "name": "Editable Mesh",
+            "ref": 59,
+            "type": "NiTriStrips"
+          }
+        ],
+        "collision_object": null,
+        "controller": null,
+        "effects": [],
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 58,
+            "type": "NiStringExtraData"
+          }
+        ],
+        "flags": 16,
+        "name": "Plane09",
+        "num_children": 1,
+        "num_effects": 0,
+        "num_extra_data_list": 1,
+        "num_properties": 1,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 0.004792273044586182,
+          "m_23": 0.9999884963035583,
+          "m_31": 0,
+          "m_32": -0.9999884963035583,
+          "m_33": 0.004792273044586182,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "translation": {
+          "type": "Vector3",
+          "x": 96.5018310546875,
+          "y": -45.62593078613281,
+          "z": 153.54583740234375
+        }
+      },
+      "id": 57,
+      "name": "Plane09",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 57,
+            "name": "Plane09",
+            "type": "NiBillboardNode"
+          }
+        ]
+      ],
+      "type": "NiBillboardNode"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10\r\nbillboard"
+      },
+      "id": 58,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 58,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 62,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "effect",
+            "ref": 60,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 61,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Editable Mesh",
+        "num_extra_data_list": 2,
+        "num_properties": 4,
+        "properties": [
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "7 - Default",
+            "ref": 10,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 12,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "id": 59,
+      "name": "Editable Mesh",
+      "parent_nodes": [
+        57
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 57,
+            "name": "Plane09",
+            "type": "NiBillboardNode"
+          },
+          {
+            "id": 59,
+            "name": "Editable Mesh",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 60,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 60,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 61,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 61,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 134.21725463867188,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0.6743503212928772,
+              "v": 1.0230746269226074
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.6743502616882324,
+              "v": 1.3213865756988525
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9800840020179749,
+              "v": 1.0230748653411865
+            },
+            {
+              "type": "TexCoord",
+              "u": 0.9800839424133301,
+              "v": 1.3213865756988525
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -128.08834838867188,
+            "y": 40.095458984375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": -128.08834838867188,
+            "y": -40.095458984375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 128.08834838867188,
+            "y": 40.095458984375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 128.08834838867188,
+            "y": -40.095458984375,
+            "z": 0
+          }
+        ]
+      },
+      "id": 62,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 62,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          128.08834838867188,
+          40.095458984375,
+          0
+        ],
+        "min": [
+          -128.08834838867188,
+          -40.095458984375,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 70,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 64,
+            "type": "NiStringExtraData"
+          },
+          {
+            "name": "effect",
+            "ref": 65,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 66,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Plane10",
+        "num_extra_data_list": 3,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 68,
+            "type": "NiTexturingProperty"
+          },
+          {
+            "name": "shad",
+            "ref": 67,
+            "type": "NiMaterialProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": 92.18856811523438,
+          "y": -118.05892944335938,
+          "z": 3.053175449371338
+        }
+      },
+      "id": 63,
+      "name": "Plane10",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 63,
+            "name": "Plane10",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10"
+      },
+      "id": 64,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 64,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 65,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 65,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 66,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 66,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "fields": {
+        "alpha": 1,
+        "ambient_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "controller": null,
+        "diffuse_color": {
+          "b": 1,
+          "g": 1,
+          "r": 1,
+          "type": "Color3"
+        },
+        "emissive_color": {
+          "b": 0,
+          "g": 0,
+          "r": 0,
+          "type": "Color3"
+        },
+        "extra_data_list": [],
+        "flags": 0,
+        "glossiness": 10,
+        "name": "shad",
+        "num_extra_data_list": 0,
+        "specular_color": {
+          "b": 0.8999999761581421,
+          "g": 0.8999999761581421,
+          "r": 0.8999999761581421,
+          "type": "Color3"
+        }
+      },
+      "id": 67,
+      "name": "shad",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 67,
+            "name": "shad",
+            "type": "NiMaterialProperty"
+          }
+        ]
+      ],
+      "type": "NiMaterialProperty"
+    },
+    {
+      "fields": {
+        "apply_mode": 2,
+        "base_texture": {
+          "clamp_mode": 3,
+          "filter_mode": 2,
+          "ps_2_k": -115,
+          "ps_2_l": 0,
+          "source": {
+            "name": "",
+            "ref": 69,
+            "type": "NiSourceTexture"
+          },
+          "type": "TexDesc",
+          "uv_set": 0
+        },
+        "controller": null,
+        "extra_data_list": [],
+        "flags": 0,
+        "has_base_texture": true,
+        "has_bump_map_texture": false,
+        "has_dark_texture": false,
+        "has_decal_0_texture": false,
+        "has_detail_texture": false,
+        "has_gloss_texture": false,
+        "has_glow_texture": false,
+        "name": "",
+        "num_extra_data_list": 0,
+        "num_shader_textures": 0,
+        "shader_textures": [],
+        "texture_count": 7
+      },
+      "id": 68,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 68,
+            "name": "",
+            "type": "NiTexturingProperty"
+          }
+        ]
+      ],
+      "type": "NiTexturingProperty"
+    },
+    {
+      "fields": {
+        "alpha_format": 3,
+        "controller": null,
+        "extra_data_list": [],
+        "file_name": "cloud_sh.dds",
+        "is_static": 1,
+        "name": "",
+        "num_extra_data_list": 0,
+        "pixel_layout": 6,
+        "use_external": 1,
+        "use_mipmaps": 1
+      },
+      "id": 69,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 69,
+            "name": "",
+            "type": "NiSourceTexture"
+          }
+        ]
+      ],
+      "type": "NiSourceTexture"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 303.050048828125,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0,
+              "v": 0
+            },
+            {
+              "type": "TexCoord",
+              "u": 0,
+              "v": 1
+            },
+            {
+              "type": "TexCoord",
+              "u": 1,
+              "v": 0
+            },
+            {
+              "type": "TexCoord",
+              "u": 1,
+              "v": 1
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -229.43112182617188,
+            "y": 197.99163818359375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": -229.43112182617188,
+            "y": -197.99163818359375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 229.43112182617188,
+            "y": 197.99163818359375,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 229.43112182617188,
+            "y": -197.99163818359375,
+            "z": 0
+          }
+        ]
+      },
+      "id": 70,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 70,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          229.43112182617188,
+          197.99163818359375,
+          0
+        ],
+        "min": [
+          -229.43112182617188,
+          -197.99163818359375,
+          0
+        ]
+      }
+    },
+    {
+      "fields": {
+        "collision_object": null,
+        "controller": null,
+        "data": {
+          "name": "",
+          "ref": 75,
+          "type": "NiTriStripsData"
+        },
+        "extra_data_list": [
+          {
+            "name": "UserPropBuffer",
+            "ref": 72,
+            "type": "NiStringExtraData"
+          },
+          {
+            "name": "effect",
+            "ref": 73,
+            "type": "NiIntegerExtraData"
+          },
+          {
+            "name": "enabled",
+            "ref": 74,
+            "type": "NiBooleanExtraData"
+          }
+        ],
+        "flags": 16,
+        "has_shader": false,
+        "name": "Plane11",
+        "num_extra_data_list": 3,
+        "num_properties": 5,
+        "properties": [
+          {
+            "name": "",
+            "ref": 5,
+            "type": "NiZBufferProperty"
+          },
+          {
+            "name": "",
+            "ref": 9,
+            "type": "NiStencilProperty"
+          },
+          {
+            "name": "shad",
+            "ref": 67,
+            "type": "NiMaterialProperty"
+          },
+          {
+            "name": "",
+            "ref": 11,
+            "type": "NiAlphaProperty"
+          },
+          {
+            "name": "",
+            "ref": 68,
+            "type": "NiTexturingProperty"
+          }
+        ],
+        "rotation": {
+          "m_11": 1,
+          "m_12": 0,
+          "m_13": 0,
+          "m_21": 0,
+          "m_22": 1,
+          "m_23": 0,
+          "m_31": 0,
+          "m_32": 0,
+          "m_33": 1,
+          "type": "Matrix33"
+        },
+        "scale": 1,
+        "skin_instance": null,
+        "translation": {
+          "type": "Vector3",
+          "x": -556.1022338867188,
+          "y": -151.93589782714844,
+          "z": 3.053175449371338
+        }
+      },
+      "id": 71,
+      "name": "Plane11",
+      "parent_nodes": [
+        0
+      ],
+      "scene_paths": [
+        [
+          {
+            "id": 0,
+            "name": "Scene Root",
+            "type": "NiNode"
+          },
+          {
+            "id": 71,
+            "name": "Plane11",
+            "type": "NiTriStrips"
+          }
+        ]
+      ],
+      "type": "NiTriStrips"
+    },
+    {
+      "fields": {
+        "name": "UserPropBuffer",
+        "string_data": "zMode10"
+      },
+      "id": 72,
+      "name": "UserPropBuffer",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 72,
+            "name": "UserPropBuffer",
+            "type": "NiStringExtraData"
+          }
+        ]
+      ],
+      "type": "NiStringExtraData"
+    },
+    {
+      "fields": {
+        "integer_data": 0,
+        "name": "effect"
+      },
+      "id": 73,
+      "name": "effect",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 73,
+            "name": "effect",
+            "type": "NiIntegerExtraData"
+          }
+        ]
+      ],
+      "type": "NiIntegerExtraData"
+    },
+    {
+      "fields": {
+        "boolean_data": 0,
+        "name": "enabled"
+      },
+      "id": 74,
+      "name": "enabled",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 74,
+            "name": "enabled",
+            "type": "NiBooleanExtraData"
+          }
+        ]
+      ],
+      "type": "NiBooleanExtraData"
+    },
+    {
+      "effective_triangle_count": 2,
+      "effective_triangles": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "fields": {
+        "center": {
+          "type": "Vector3",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "consistency_flags": 0,
+        "extra_vectors_flags": 0,
+        "has_normals": true,
+        "has_vertex_colors": false,
+        "has_vertices": true,
+        "normals": [
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          {
+            "type": "Vector3",
+            "x": 0,
+            "y": 0,
+            "z": 1
+          }
+        ],
+        "num_strips": 1,
+        "num_triangles": 2,
+        "num_uv_sets": 1,
+        "num_vertices": 4,
+        "points": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "radius": 196.17581176757812,
+        "strip_lengths": [
+          4
+        ],
+        "uv_sets": [
+          [
+            {
+              "type": "TexCoord",
+              "u": 0,
+              "v": 0
+            },
+            {
+              "type": "TexCoord",
+              "u": 0,
+              "v": 1
+            },
+            {
+              "type": "TexCoord",
+              "u": 1,
+              "v": 0
+            },
+            {
+              "type": "TexCoord",
+              "u": 1,
+              "v": 1
+            }
+          ]
+        ],
+        "vertices": [
+          {
+            "type": "Vector3",
+            "x": -180.33338928222656,
+            "y": 77.23223114013672,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": -180.33338928222656,
+            "y": -77.23223114013672,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 180.33338928222656,
+            "y": 77.23223114013672,
+            "z": 0
+          },
+          {
+            "type": "Vector3",
+            "x": 180.33338928222656,
+            "y": -77.23223114013672,
+            "z": 0
+          }
+        ]
+      },
+      "id": 75,
+      "name": "",
+      "parent_nodes": [],
+      "scene_paths": [
+        [
+          {
+            "id": 75,
+            "name": "",
+            "type": "NiTriStripsData"
+          }
+        ]
+      ],
+      "type": "NiTriStripsData",
+      "vertex_bounds_local": {
+        "max": [
+          180.33338928222656,
+          77.23223114013672,
+          0
+        ],
+        "min": [
+          -180.33338928222656,
+          -77.23223114013672,
+          0
+        ]
+      }
+    }
+  ],
+  "bytes": 6176,
+  "bytes_consumed": 6176,
+  "finite_vertices": true,
+  "manifest_sha256": "d8a027f5a0c783566f36664e4388c75741aba26c811bd39c42b887911e666388",
+  "name": "cloud00.nif",
+  "raw": "raw/fpk/Pak7/cloud00.nif",
+  "role": "selected_root",
+  "roots": [
+    0
+  ],
+  "sha256": "d8a027f5a0c783566f36664e4388c75741aba26c811bd39c42b887911e666388",
+  "triangle_indices_valid": true,
+  "version": "10.0.1.0",
+  "whole_file_consumed": true
+}

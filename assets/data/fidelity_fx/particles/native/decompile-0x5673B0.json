@@ -1,0 +1,14 @@
+{
+  "address": "0x5673B0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; execution fixtures separately scoped",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5673B0(int *this, int a2)\n{\n  int v2; // edi\n  int *v4; // esi\n  int v5; // ebx\n  int result; // eax\n  int v7; // eax\n  int v8; // [esp+4h] [ebp-10h]\n\n  v2 = a2;\n  (*(void (__thiscall **)(_DWORD, int *, int))(**(_DWORD **)(a2 + 348) + 8))(*(_DWORD *)(a2 + 348), &a2, 4);\n  *(this + 12) = a2;\n  v4 = this + 6;\n  v5 = 3;\n  do\n  {\n    result = (*(int (__thiscall **)(_DWORD, int *, int))(**(_DWORD **)(v2 + 348) + 8))(*(_DWORD *)(v2 + 348), v4, 4);\n    if ( *v4 )\n    {\n      (*(void (__thiscall **)(_DWORD, int *, int))(**(_DWORD **)(v2 + 348) + 8))(*(_DWORD *)(v2 + 348), &a2, 4);\n      v7 = a2;\n      v8 = *v4;\n      v4[3] = a2;\n      result = ((int (__cdecl *)(int, int))dword_726920[v7])(v2, v8);\n      v4[7] = result;\n    }\n    ++v4;\n    --v5;\n  }\n  while ( v5 );\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

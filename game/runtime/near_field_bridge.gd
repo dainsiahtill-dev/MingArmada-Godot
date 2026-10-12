@@ -1,6 +1,7 @@
 extends RefCounted
 ## Business/native handoff from NearFieldBridge.ts. A context is a single-use fence.
 const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+const Navigation = preload("res://modules/contracts/navigation_contract.gd")
 var campaign: RefCounted
 var simulation: RefCounted
 var _near_ids: Array = []
@@ -40,6 +41,7 @@ func _apply(vessels: Array,state: Dictionary,anchors: Array = [],fresh_startup: 
 	var retained: Array = vessels.filter(func(v): return not _retired(state,v.id))
 	var policy: Dictionary = campaign.native_policy(retained.map(func(v): return v.id),state)
 	var navigation: Dictionary = {}
+	var previous_voyages: Dictionary = campaign.snapshot().voyages
 	var setups: Array = []
 	for vessel: Dictionary in retained:
 		var setup: Dictionary = campaign.near_field_setup(vessel,_team(vessel))
@@ -52,8 +54,18 @@ func _apply(vessels: Array,state: Dictionary,anchors: Array = [],fresh_startup: 
 				var route: Dictionary = Catalog.DATA.routes.get(voyage.routeId,{})
 				if route.is_empty(): return {"ok":false,"reason":"unknown-route"}
 				var location: Dictionary = campaign.locate_route(vessel,route)
-				navigation[vessel.id] = route.points[location.leg+1].duplicate()
-			else: navigation[vessel.id] = null
+				var target_index: int = location.leg+1
+				# Native autopilot brakes within its reach radius. Pass intermediate
+				# catalog points there; retain the final port for real arrival checks.
+				if target_index < route.points.size()-1 and _distance(vessel.pose.position,route.points[target_index]) <= Navigation.PLANNED_TARGET_REACH_METERS:
+					target_index += 1
+				navigation[vessel.id] = route.points[target_index].duplicate()
+			elif voyage.get("status") != "arrived": navigation[vessel.id] = null
+			elif previous_voyages.get(vessel.voyageId,{}).get("status") != "arrived":
+				# Finish only the old port target, preserving an explicit new destination.
+				var target: Variant = _ship(simulation.snapshot(),vessel.id).get("navigation")
+				var port: Dictionary = state.ports.get(voyage.get("destinationId"),{})
+				if target == null or target is Dictionary and not port.is_empty() and _distance(target,port.position) == 0: navigation[vessel.id] = null
 	policy.navigation = navigation; policy.anchorShipIds = anchors.duplicate()
 	if fresh_startup: policy.orders = []
 	return simulation.encounter.reconcileShips(setups,policy)
@@ -118,6 +130,53 @@ func _unsafe(ship: Dictionary,native: Dictionary,state: Dictionary) -> bool:
 		var relative: float = Vector2(v.x-other.visual.velocity.x,v.z-other.visual.velocity.z).length()
 		if separation <= radius+relative*2: return true
 	return false
+func _arrival_controls(native: Dictionary,state: Dictionary,ids: Array,explicit: bool=false) -> Array:
+	var result: Array = []
+	var encounter: RefCounted = simulation.encounter
+	for id in ids:
+		if not id in [state.campaignId+"-grain-a",state.campaignId+"-grain-b"] or not campaign.genuine_lease(id,state): continue
+		var v: Dictionary = state.vessels[id]
+		var voyage: Dictionary = state.voyages.get(v.voyageId,{})
+		var live := _ship(native,id)
+		if v.profileId != "grain" or v.damage.hull <= 0 or v.crew.able < v.crew.minimum or voyage.get("status") != "underway" or voyage.get("vesselId") != id or live.is_empty() or live.hull <= 0 or live.crew < v.crew.minimum: continue
+		if not id in encounter.policy.get("controllableShipIds",[]) or id in encounter.policy.get("capturedShipIds",[])+encounter.policy.get("disabledMotionShipIds",[])+encounter.policy.get("lockedShipIds",[]): continue
+		var projection: Variant = v.controlsProjection
+		if projection == null or projection.battleId != native.battleId or projection.revision != v.controlsRevision or native.tick < projection.tick: continue
+		if explicit:
+			if live.controlsSequence <= projection.sequence: continue
+		else:
+			var port: Dictionary = state.ports.get(voyage.get("destinationId"),{})
+			if encounter.hasActiveOrder(id) or projection.sequence != live.controlsSequence or not live.get("navigation") is Dictionary or port.is_empty() or _distance(live.navigation,port.position) != 0: continue
+		result.append(id)
+	return result
+func _arrival_anchors(native: Dictionary,state: Dictionary,vessels: Array) -> Array:
+	var encounter: RefCounted = simulation.encounter
+	if encounter.hasPendingAttacks(): return []
+	var ids: Array = vessels.map(func(v): return v.id)
+	var policy: Dictionary = campaign.native_policy(ids,state)
+	var anchors: Array = []
+	for vessel: Dictionary in vessels:
+		var id: String = vessel.id
+		if not id in [state.campaignId+"-grain-a",state.campaignId+"-grain-b"] or vessel.profileId != "grain" or not campaign.genuine_lease(id,state): continue
+		var live := _ship(native,id)
+		if live.is_empty() or live.hull <= 0 or vessel.damage.hull <= 0 or vessel.crew.able < vessel.crew.minimum or live.crew < vessel.crew.minimum: continue
+		if not id in policy.controllableShipIds or not id in encounter.policy.get("controllableShipIds",[]): continue
+		var excluded := false
+		for key in ["capturedShipIds","disabledMotionShipIds","lockedShipIds"]:
+			if id in policy[key] or id in encounter.policy.get(key,[]): excluded = true
+		if excluded or live.has("navigation") or encounter.hasActiveOrder(id) or live.rudder != 0 or live.sailDeployment != 0: continue
+		var voyage: Dictionary = state.voyages.get(vessel.voyageId,{})
+		if voyage.get("status") != "arrived" or voyage.get("vesselId") != id or vessel.cargo.values().any(func(q): return q != 0): continue
+		var port: Dictionary = state.ports.get(voyage.get("destinationId"),{})
+		if port.is_empty() or _distance(live.visual.position,port.position) > 55 or Vector2(live.visual.velocity.x,live.visual.velocity.z).length() > 0.75: continue
+		for boarding: Dictionary in state.boardings.values():
+			if boarding.status == "active" and id in [boarding.attackerId,boarding.targetId]+boarding.participants: excluded = true
+		for work: Dictionary in state.works.values():
+			if work.status == "active" and work.shipId == id: excluded = true
+		for other: Dictionary in native.ships:
+			if other.team == "hostile" and other.hull > 0 and not other.id in policy.capturedShipIds and not other.id in encounter.policy.get("capturedShipIds",[]) and _distance(live.visual.position,other.visual.position) <= 600: excluded = true
+		if not excluded: anchors.append(id)
+	return anchors
 func reconcile() -> Dictionary:
 	var before := capture(); var state: Dictionary = campaign.snapshot()
 	var flagship := _ship(before,state.flagshipId)
@@ -149,13 +208,13 @@ func reconcile() -> Dictionary:
 			continue
 		var separation := _distance(live.visual.position if not live.is_empty() else vessel.pose.position,flagship.visual.position)
 		if vessel.id in pinned or separation <= 600 or not live.is_empty() and (separation <= 800 or _unsafe(live,before,state)): next.append(vessel.id)
-	var result: Dictionary = campaign.reconcile_near(before,_pending_events,next,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate))
+	var result: Dictionary = campaign.reconcile_near(before,_pending_events,next,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)),_arrival_controls(before,state,next),_arrival_controls(before,state,next,true))
 	if result.ok: _near_ids = next; _pending_events.clear(); _previous_native = before; simulation.refresh_snapshot()
 	return result
 func sync() -> Dictionary:
 	var before := capture(); var state: Dictionary = campaign.snapshot()
 	var ids := _near_ids.filter(func(id): return not _retired(state,id))
-	var result: Dictionary = campaign.reconcile_near(before,_pending_events,ids,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate))
+	var result: Dictionary = campaign.reconcile_near(before,_pending_events,ids,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)),_arrival_controls(before,state,ids),_arrival_controls(before,state,ids,true))
 	if result.ok: _near_ids = ids; _pending_events.clear(); _previous_native = before; simulation.refresh_snapshot()
 	return result
 func dispose() -> void:

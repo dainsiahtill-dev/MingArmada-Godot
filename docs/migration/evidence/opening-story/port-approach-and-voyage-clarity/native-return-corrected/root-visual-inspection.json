@@ -1,0 +1,35 @@
+{
+  "personallyViewed": [
+    "actual-casualties-1280.png",
+    "actual-casualties-1600.png",
+    "first-return-consequence-1280.png",
+    "first-return-consequence-1600.png",
+    "next-commission-accepted-1280.png",
+    "next-commission-accepted-1600.png",
+    "next-commission-offered-1280.png",
+    "next-commission-offered-1600.png",
+    "save-readback-1280.png",
+    "steward-consequence-1280.png",
+    "steward-consequence-1600.png",
+    "transport-route-mingqi-1650-grain-a-1280.png",
+    "transport-route-mingqi-1650-grain-a-1600.png",
+    "transport-route-mingqi-1650-grain-b-1280.png",
+    "transport-route-mingqi-1650-grain-b-1600.png",
+    "xiamen-repayment-hint-1280.png",
+    "xiamen-repayment-hint-1600.png"
+  ],
+  "observedSessionId": 34651,
+  "exitCode": 0,
+  "observedConsole": "OPENING_RETURN_CAPTURE_COMPLETE captures=17 assertions=831 failures=0 preflightOnly=false",
+  "recordAssertions": 829,
+  "reasonForCountDifference": "Two output checks execute after the record counts are captured.",
+  "notes": [
+    "Xiamen repayment paragraph visible and complete at1600/1280; disabled repayment reflects actual Kinmen location.",
+    "Offered second contract starts timing on acceptance; accepted contract shows1200 remaining instead of1799.8 absolute time.",
+    "Real original transports each10 grain and1.40m draft, actual deep route and loading readiness visible.",
+    "Normal UI save, exact raw disk readback and second MainMenu Continue preserved active twenty-grain contract; no repeated lease.",
+    "Crew/steward reaction matches actual healthy first claim; no invented death or revival.",
+    "Journal/minimap presentation and scrolling work atbothsizes.",
+    "These captures prove loading/Continue; actual second delivery is separate native journey evidence."
+  ]
+}

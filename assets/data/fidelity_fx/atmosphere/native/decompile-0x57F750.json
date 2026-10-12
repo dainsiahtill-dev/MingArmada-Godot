@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x57F750",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "double __cdecl sub_57F750(float a1, float a2, float a3, float a4, float a5)\n{\n  return (((a3 + a5 - (a4 - a2 + a4 - a2)) * a1 + (a4 - a2) * flt_711458 - (a3 + a3 + a5)) * a1 + a3) * a1 + a2;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

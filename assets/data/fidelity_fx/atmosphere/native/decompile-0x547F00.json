@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x547F00",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_547F00(float *this, float *a2, int a3, float *a4, float *a5, int a6)\n{\n  int v6; // ecx\n\n  *this = *a2;\n  *(this + 1) = a2[1];\n  *((_DWORD *)this + 2) = a3;\n  *(this + 3) = *a4;\n  *(this + 4) = a4[1];\n  *(this + 5) = *a5;\n  *(this + 6) = a5[1];\n  *((_DWORD *)this + 17) = a6;\n  sub_547DF0(this);\n  return v6;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

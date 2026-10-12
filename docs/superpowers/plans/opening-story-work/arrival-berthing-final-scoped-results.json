@@ -1,0 +1,268 @@
+[
+  {
+    "test": "near_field_bridge",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_near_field_bridge.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NEAR_FIELD_BRIDGE_TESTS assertions=13 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNEAR_FIELD_BRIDGE_TESTS assertions=13 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "voyage_waypoint_handoff",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_voyage_waypoint_handoff.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "VOYAGE_WAYPOINT_HANDOFF_TESTS assertions=64 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nVOYAGE_WAYPOINT_DIAGNOSTICS {\"position\":{\"x\":150.4685239454655,\"y\":0.8054414517829233,\"z\":78.33212236175325},\"businessLocation\":{\"leg\":1,\"progress\":0.9626378841979104},\"nativeNavigation\":{\"x\":282.1499288930165,\"z\":107.48568719733964},\"incomingPoint\":{\"x\":164.4685239454655,\"z\":78.33212236175325},\"followingPoint\":{\"x\":282.1499288930165,\"z\":107.48568719733964}}\nVOYAGE_WAYPOINT_HANDOFF_TESTS assertions=64 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "native_readiness",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_native_readiness.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NATIVE_READINESS_TESTS assertions=16 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNATIVE_READINESS_TESTS assertions=16 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_RUNTIME_TESTS assertions=12 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nMINGQI_RUNTIME_TESTS assertions=12 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_rules",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_rules.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "mingqi source golden: PASS (0)"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nmingqi source golden: PASS (0)\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_live_projection",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_live_projection.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_LIVE_PROJECTION_TESTS assertions=9 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nMINGQI_LIVE_PROJECTION_TESTS assertions=9 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_ui",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_ui.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_UI_TESTS assertions=195 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nHUD_LAYOUT viewport=(1600.0, 900.0) size=(430.0, 333.0) minimum=(356.0, 333.0)\nHUD_LAYOUT viewport=(1100.0, 900.0) size=(430.0, 333.0) minimum=(356.0, 333.0)\nHUD_FIRST_PACKET size=(430.0, 333.0) minimum=(356.0, 333.0)\nMINGQI_UI_TESTS assertions=195 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "save_compatibility",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_save_compatibility.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "save compatibility v2: PASS (0)"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nsave compatibility v2: PASS (0)\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "save_coordinator",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_save_coordinator.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SAVE_COORDINATOR_TESTS assertions=12 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSAVE_COORDINATOR_TESTS assertions=12 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_RUNTIME_TESTS assertions=45 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_RUNTIME_TESTS assertions=45 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_save",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_save.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_SAVE_TESTS assertions=122 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_SAVE_TESTS assertions=122 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_ui_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_ui_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_UI_RUNTIME_TESTS assertions=39 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSTORY_UI_RUNTIME_WIRE {\"field_types\":{\"choiceId\":\"String:String\",\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"sceneId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"choiceId\":\"settle-wages\",\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"expectedRevision\":2,\"sceneId\":\"old-ledger\",\"type\":\"story-choice\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"details\":{\"choiceId\":\"settle-wages\",\"convoyReceiptId\":null,\"intelligence\":null,\"kind\":\"story-choice\",\"portId\":\"xiamen\",\"reputationEffects\":{\"crewSupport\":10,\"merchantCredit\":0,\"militaryTrust\":0},\"routeId\":null,\"sceneId\":\"old-ledger\",\"silverCost\":80},\"id\":\"mingqi-1650:story:old-ledger\",\"kind\":\"story-choice\",\"message\":\"许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"shipId\":\"String:String\",\"slot\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"expectedRevision\":2,\"shipId\":\"mingqi-1650-heritage\",\"slot\":\"sails\",\"type\":\"refit\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"details\":{\"cost\":150,\"duration\":120,\"kind\":\"work\",\"shipId\":\"mingqi-1650-heritage\",\"status\":\"active\",\"workId\":\"mingqi-1650:work:2\"},\"id\":\"mingqi-1650:refit:ui:mingqi-1650:198088596954:1\",\"kind\":\"refit\",\"message\":\"refit已按实际港口状态受理。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"quantity\":\"String:int\",\"shipId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:care:309690639157:1\",\"expectedRevision\":2,\"quantity\":3,\"shipId\":\"care-heritage\",\"type\":\"treat-wounded\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:care:309690639157:1\",\"details\":{\"cost\":12,\"duration\":90,\"kind\":\"treatment\",\"quantity\":3,\"shipId\":\"care-heritage\",\"status\":\"active\",\"workId\":\"care:work:2\"},\"id\":\"care:treat-wounded:ui:care:309690639157:1\",\"kind\":\"treat-wounded\",\"message\":\"treat-wounded已按实际港口状态受理。\",\"revision\":3.0}}}\nOPENING_STORY_UI_RUNTIME_TESTS assertions=39 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "career_startup",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_career_startup.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "CAREER_STARTUP_TESTS assertions=53 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCAREER_STARTUP_TESTS assertions=53 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "convoy_recovery",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_convoy_recovery.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "CONVOY_RECOVERY_TESTS assertions=124 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCONVOY_RECOVERY_TESTS assertions=124 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  }
+]

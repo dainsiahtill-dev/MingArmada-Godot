@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x57FC30",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "char __cdecl sub_57FC30(float a1, int a2, int a3, _DWORD *a4)\n{\n  unsigned int v5; // esi\n  unsigned int v6; // ecx\n\n  if ( a3 == 1 )\n    return *(_BYTE *)(a2 + 4);\n  v5 = a3 - 1;\n  if ( a1 < (double)*(float *)(a2 + 8 * *a4) )\n    *a4 = 0;\n  v6 = *a4 + 1;\n  if ( v6 > v5 )\n    return *(_BYTE *)(a2 + 8 * v5 + 4);\n  while ( a1 >= (double)*(float *)(a2 + 8 * v6) )\n  {\n    ++v6;\n    ++*a4;\n    if ( v6 > v5 )\n      return *(_BYTE *)(a2 + 8 * v5 + 4);\n  }\n  return *(_BYTE *)(a2 + 8 * *a4 + 4);\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

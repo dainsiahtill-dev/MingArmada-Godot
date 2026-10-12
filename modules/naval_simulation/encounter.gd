@@ -1,4 +1,5 @@
 extends RefCounted
+const Navigation = preload("res://modules/contracts/navigation_contract.gd")
 # Native port of frozen naval-core NavalEncounter. Detached scalar snapshots only.
 const Physics = preload("res://modules/physics_engine/ships/ship_dynamics.gd")
 const Types = preload("res://modules/contracts/physics_types.gd")
@@ -7,6 +8,8 @@ const Cannon = preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const Sweep = preload("res://modules/naval_simulation/combat/projectiles.gd")
 const Orders = preload("res://modules/naval_simulation/tactics/order_controller.gd")
 const Planner = preload("res://modules/naval_simulation/navigation/wet_route_planner.gd")
+const Approach = preload("res://modules/naval_simulation/navigation/approach_clearance.gd")
+const Egress = preload("res://modules/naval_simulation/navigation/wet_route_egress.gd")
 const Manual = preload("res://modules/physics_engine/ships/manual_handling.gd")
 const Collator = preload("res://modules/naval_simulation/id_collator.gd")
 const DT = 1.0 / 60.0
@@ -238,6 +241,8 @@ func _cancel_order(id: String, reason: String) -> void:
 			var ship = _ship(id)
 			if not ship.is_empty(): ship.state.erase("navigation"); ship.erase("tack")
 	decisions.erase(id)
+	var stop_ship=_ship(id)
+	if not stop_ship.is_empty():_clear_terminal_stop(stop_ship)
 func _disable_motion(ship: Dictionary) -> void:
 	_cancel_order(ship.state.id, "motion-disabled")
 	ship.state.erase("navigation"); ship.erase("tack"); ship.erase("manualHandling"); ship.erase("route")
@@ -282,6 +287,10 @@ func navigate(id: String, waypoint: Variant) -> Dictionary:
 	if not _controlled(id): return _no("Ship not authorized")
 	if waypoint != null and (not waypoint is Dictionary or not [waypoint.get("x"), waypoint.get("z")].all(_finite)): return _no("Invalid waypoint")
 	ship.erase("manualHandling"); _cancel_order(id, "manual-navigation" if waypoint != null else "manual-control"); ship.erase("route")
+	ship.erase("approachRecovery"); ship.erase("approachManualOverride"); ship.erase("egressRevokedGoal")
+	if ship.has("wetRouteEgress"):
+		ship.erase("wetRouteEgress"); ship.state.rudder=0; ship.state.sailDeployment=0; ship.sailRecovery=0
+	ship.erase("egressRetryAt")
 	if waypoint != null:
 		if ship.state.has("navigation") and _distance(waypoint, ship.state.navigation) > ship.state.dimensions.length: ship.erase("tack")
 		ship.state.navigation = {"x": waypoint.x, "z": waypoint.z}
@@ -297,7 +306,7 @@ func command(input: Variant) -> Dictionary:
 		var preview = preview_surrender(request.captorId)
 		if not preview.ok: return _no(preview.reason)
 		surrender = preview.offer.request.duplicate(true)
-		for ship in ships: ship.erase("manualHandling")
+		for ship in ships: ship.erase("manualHandling"); _clear_terminal_stop(ship)
 		status = "surrendered"; accumulator = 0; volleys = []; projectiles = []; projectile_damage.clear()
 		_emit({"type": "surrender", "shipId": player_id, "captorId": request.captorId, "battleId": battle_id})
 		return _ok()
@@ -322,6 +331,11 @@ func _ship_command(input: Dictionary) -> Dictionary:
 	if input.get("type") == "controls":
 		if not [input.get("rudder"), input.get("sailDeployment")].all(_finite) or absf(input.rudder) > 1 or input.sailDeployment < 0 or input.sailDeployment > 1 or input.has("sailAngle") and (not _finite(input.sailAngle) or absf(input.sailAngle) > PI / 2) or input.has("autoTrim") and not input.autoTrim is bool: return _no("Invalid controls")
 		if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
+		var changed = input.rudder != state.rudder or input.sailDeployment != state.sailDeployment or input.has("sailAngle") and input.sailAngle != state.sailAngle or input.has("autoTrim") and input.autoTrim != state.autoTrim
+		if changed:_clear_terminal_stop(ship)
+		if changed and state.has("navigation"):
+			if ship.has("wetRouteEgress"):ship.egressRevokedGoal=state.navigation.duplicate(true)
+			ship.erase("approachRecovery"); ship.erase("wetRouteEgress"); ship.approachManualOverride = state.navigation.duplicate(true)
 		ship.erase("manualHandling"); state.controlsSequence += 1; state.rudder = input.rudder; state.sailDeployment = input.sailDeployment
 		if input.has("sailAngle"): state.sailAngle = input.sailAngle
 		if input.has("autoTrim"): state.autoTrim = input.autoTrim
@@ -371,7 +385,10 @@ func preview_surrender(captor_id: Variant = null) -> Dictionary:
 	return {"ok": true, "offer": {"request": {"battleId": battle_id, "tick": tick, "captorId": captor.state.id}, "captorName": captor.state.name}}
 func previewSurrender(captor_id: Variant = null) -> Dictionary: return preview_surrender(captor_id)
 func step(seconds: float) -> void:
-	if status == "surrendered" or not is_finite(seconds) or seconds <= 0: return
+	if not is_finite(seconds) or seconds <= 0: return
+	if status == "surrendered":
+		for ship in ships:_clear_terminal_stop(ship)
+		return
 	accumulator += minf(seconds, 0.1)
 	var count = 0
 	while accumulator + 1e-10 >= DT and count < 6:
@@ -483,10 +500,21 @@ func _fixed_tick() -> void:
 			if not ship.sunk and not hasActiveOrder(ship.state.id) and not ship.state.id in policy.get("lockedShipIds", []) and not ship.state.id in policy.get("disabledMotionShipIds", []):
 				if (not _controlled(ship.state.id) and ships.any(func(t): return not t.sunk and _enemy(ship, t))) if _continuous() else ship.state.team == "hostile": _ai(ship)
 	var player = _ship(player_id)
+	var navigation_assists: Dictionary = {}
 	for ship in ships:
+		if ship.has("approachRecovery") and (not _approach_authorized(ship) or ship.approachRecovery.goal != ship.state.get("navigation")): ship.erase("approachRecovery")
+		if ship.has("wetRouteEgress") and (not _egress_authorized(ship) or ship.wetRouteEgress.goal != ship.state.get("navigation") or ship.wetRouteEgress.draft != ship.state.dimensions.draft):
+			ship.egressRevokedGoal=ship.state.get("navigation",{}).duplicate(true)
+			ship.erase("wetRouteEgress"); ship.state.rudder=0; ship.state.sailDeployment=0; ship.sailRecovery=0
+		var stop_request=_terminal_stop_request(ship)
+		if not stop_request.is_empty():
+			navigation_assists[ship.state.id]=stop_request
+			continue
 		if ship.sunk or not ship.state.has("navigation") or ship.state.id in policy.get("lockedShipIds", []) or ship.state.id in policy.get("disabledMotionShipIds", []): continue
 		var fighting = ship.state.team == "hostile" and ship.state.cannonsPerSide > 0 and not player.is_empty() and not player.sunk and _distance(_visual(ship).position, _visual(player).position) <= 260
-		if not fighting or hasActiveOrder(ship.state.id): _autopilot(ship)
+		if not fighting or hasActiveOrder(ship.state.id):
+			var assist: Dictionary = _autopilot(ship)
+			if not assist.is_empty(): navigation_assists[ship.state.id] = assist
 		var decision = decisions.get(ship.state.id, {})
 		if decision.has("maxDeployment"): ship.state.sailDeployment = minf(ship.state.sailDeployment, decision.maxDeployment)
 		if decision.get("fire", false):
@@ -505,11 +533,14 @@ func _fixed_tick() -> void:
 		ship.core.set_sail_deployment(ship.state.sailDeployment); ship.core.set_sail_condition(ship.state.sail / ship.state.maxSail); ship.core.set_sail_angle(ship.state.sailAngle)
 		var controls = {"throttle": 0.0, "rudderAngleDeg": ship.state.rudder * 30, "crewSteeringForce": minf(ship.state.crew, ship.state.maxCrew) * 200 * ship.state.stats.steeringMultiplier, "time": tick * DT}
 		if ship.has("manualHandling"): controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
+		elif navigation_assists.has(ship.state.id): controls.manualAssist = navigation_assists[ship.state.id]
 		ship.core.step(DT, controls)
 		_shore(ship)
 	_contacts()
 	for ship in ships:
 		if _continuous() and ship.state.id in policy.get("lockedShipIds", []): _stop_service(ship)
+		if ship.has("terminalStop") and tick>ship.terminalStop.startedTick and _speed(_visual(ship))<=0.05 and absf(ship.core.get_snapshot().yawRate)<=0.01:
+			_clear_terminal_stop(ship)
 	var due = volleys.filter(func(v): return v.due <= tick)
 	volleys = volleys.filter(func(v): return v.due > tick)
 	for volley in due:
@@ -584,14 +615,22 @@ func _tactical_tick() -> void:
 			ship.state.navigation = decision.point.duplicate(true); decisions[id] = decision
 		if record.status.state == "blocked" or completed == record.participants.size():
 			if completed == record.participants.size(): record.status = {"id": record.order.id, "state": "completed", "reason": "rally-arrived"}
-			for id in record.participants: decisions.erase(id); _ship(id).state.erase("navigation"); _ship(id).state.sailDeployment = 0
+			for id in record.participants:
+				var ship = _ship(id)
+				decisions.erase(id); ship.state.erase("navigation"); ship.state.sailDeployment = 0
+				if record.status.state == "completed":
+					_neutral_navigation_controls(ship)
+					for key in ["route","approachRecovery","wetRouteEgress","approachManualOverride","egressRevokedGoal","egressRetryAt"]: ship.erase(key)
+					ship.state.navigation=record.order.intent.point.duplicate(true)
+					ship.terminalStop={"battleId":battle_id,"shipId":id,"orderId":record.order.id,"goal":record.order.intent.point.duplicate(true),"draft":ship.state.dimensions.draft,"startedTick":tick,"deadlineTick":tick+int(Approach.MAX_HORIZON/DT)}
+					if not _terminal_stop_authorized(ship):_clear_terminal_stop(ship)
 func _tack_course(ship: Dictionary, bearing: float, visual: Dictionary) -> float:
 	var wind_from = atan2(wind.direction.y, wind.direction.x)
 	var upwind = absf(_wrap(bearing - wind_from))
 	if wind.speed <= 0 or ship.has("tack") and (upwind > 70 * PI / 180 or absf(_wrap(wind_from - ship.tack.windFrom)) > PI / 18): ship.erase("tack")
 	if not ship.has("tack") and wind.speed > 0 and upwind < PI / 3:
 		var sides = [-1, 1]
-		sides.sort_custom(func(a, b): return _wet_ahead(ship, b, wind_from, visual) if _wet_ahead(ship, a, wind_from, visual) != _wet_ahead(ship, b, wind_from, visual) else absf(_wrap(wind_from + a * PI / 3 - visual.heading)) < absf(_wrap(wind_from + b * PI / 3 - visual.heading)))
+		sides.sort_custom(func(a, b): return _wet_ahead(ship, a, wind_from, visual) if _wet_ahead(ship, a, wind_from, visual) != _wet_ahead(ship, b, wind_from, visual) else absf(_wrap(wind_from + a * PI / 3 - visual.heading)) < absf(_wrap(wind_from + b * PI / 3 - visual.heading)))
 		ship.tack = {"side": sides[0], "windFrom": wind_from, "settledTicks": 0, "legTicks": 0}
 	if not ship.has("tack"): return bearing
 	var tack = ship.tack
@@ -626,41 +665,95 @@ func _feasible(ship: Dictionary, visual: Dictionary, heading: float, safe_wind: 
 	for ahead in [0, 15, 30, 45]:
 		if not _wet_hull(ship, visual.position.x + cos(heading) * ahead, visual.position.z + sin(heading) * ahead, heading): return false
 	return true
-func _autopilot(ship: Dictionary) -> void:
+func _shore_course(ship: Dictionary,visual: Dictionary,desired: float) -> Dictionary:
+	var physics: Dictionary=ship.core.get_config()
+	var wind_from=atan2(wind.direction.y,wind.direction.x)
+	var safe_wind: float=(physics.noGoZoneDeg+physics.noGoFadeDeg)*PI/180
+	var clear=wind.speed<=0 or absf(_wrap(desired-wind_from))>=safe_wind
+	for ahead in [0,15,30,45]:
+		if not _wet_hull(ship,visual.position.x+cos(desired)*ahead,visual.position.z+sin(desired)*ahead,desired):clear=false;break
+	if clear:return {"ok":true,"heading":desired}
+	# Shore alternatives must pass the same wind, hull and peer gates as the
+	# existing avoidance path. A quarter-turn alone is not a safe course.
+	var candidates=[desired+PI/2,desired-PI/2,wind_from+PI/3,wind_from-PI/3].filter(func(h):return _feasible(ship,visual,h,safe_wind))
+	candidates.sort_custom(func(a,b):return absf(_wrap(a-visual.heading))<absf(_wrap(b-visual.heading)))
+	return {"ok":false,"heading":visual.heading} if candidates.is_empty() else {"ok":true,"heading":candidates[0]}
+func _autopilot(ship: Dictionary) -> Dictionary:
 	var waypoint = ship.state.navigation
 	var visual = _visual(ship)
 	var sampler: Callable = config.get("sampleTerrainHeight", Callable())
+	if ship.has("wetRouteEgress"):
+		if _egress_authorized(ship) and ship.wetRouteEgress.goal==waypoint and ship.wetRouteEgress.draft==ship.state.dimensions.draft:return _egress_tick(ship,visual)
+		ship.egressRevokedGoal=waypoint.duplicate(true)
+		ship.erase("wetRouteEgress");ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
+		return {}
+	if ship.get("egressRevokedGoal")==waypoint and not hasActiveOrder(ship.state.id):return {}
 	if config.get("routePlanning", false) and sampler.is_valid():
 		var route = ship.get("route", {})
 		var distance = _distance(route.points[0], visual.position) if not route.is_empty() and not route.points.is_empty() else INF
 		if route.is_empty() or route.target.x != waypoint.x or route.target.z != waypoint.z or route.draft != ship.state.dimensions.draft or route.points.is_empty() and tick >= route.retryAt or not route.points.is_empty() and tick - route.checked > 1800 and distance > route.distance - 5:
 			var result = Planner.new().plan(visual.position, waypoint, ship.state.dimensions, sampler, config.get("seaLevel", 0))
+			var keep_tack=_keep_tack_after_replan(ship,route,result,waypoint,visual)
 			var failures = 0 if result.ok else mini(route.get("failures", 0) + 1, 5)
 			ship.route = {"target": waypoint.duplicate(true), "points": result.points if result.ok else [], "checked": tick, "distance": _distance(result.points[0], visual.position) if result.ok else 0, "draft": ship.state.dimensions.draft, "retryAt": tick + mini(1800, int(120 * pow(2, failures))), "failures": failures}
 			if not result.ok: ship.route.reason = result.reason
-			ship.erase("tack")
+			if not keep_tack:ship.erase("tack")
 		var current = ship.route
 		while current.points.size() > 1 and _distance(current.points[0], visual.position) < 45: current.points.pop_front(); ship.erase("tack")
-		if current.points.is_empty(): ship.state.rudder = 0; ship.state.sailDeployment = 0; return
+		if current.points.is_empty():
+			if current.get("reason","")=="unsafe-endpoint" and _egress_authorized(ship) and _speed(visual)<=Egress.SPEED_CAP and tick>=ship.get("egressRetryAt",0):
+				var input=_egress_input(ship,visual)
+				var result: Dictionary=Egress.plan(input.own,waypoint,input.peers,sampler,config.get("seaLevel",0.0))
+				ship.egressClearance=result
+				ship.egressRetryAt=tick+120
+				if result.ok:
+					ship.wetRouteEgress={"goal":waypoint.duplicate(true),"draft":ship.state.dimensions.draft,"node":result.node,"startedTick":tick,"holding":false}
+					ship.erase("tack")
+					return _egress_tick(ship,visual)
+			if ship.has("approachRecovery") and _approach_authorized(ship): return _hold_approach(ship)
+			ship.state.rudder = 0; ship.state.sailDeployment = 0; return {}
 		waypoint = current.points[0]
 		if tick - current.checked > 1800: current.checked = tick; current.distance = _distance(waypoint, visual.position)
 	var distance = _distance(waypoint, visual.position)
+	var intermediate = config.get("routePlanning", false) and ship.has("route") and ship.route.points.size() > 1
+	if _arrival_hold_requested(ship,waypoint,distance,intermediate):
+		_neutral_navigation_controls(ship)
+		return _arrival_brake(ship)
 	var desired = _tack_course(ship, atan2(waypoint.z - visual.position.z, waypoint.x - visual.position.x), visual)
-	if sampler.is_valid() and sampler.call(visual.position.x + cos(desired) * 45, visual.position.z + sin(desired) * 45) >= config.get("seaLevel", 0) - ship.state.dimensions.draft: desired += PI / 2
-	var blocked = false
+	var shore_course=_shore_course(ship,visual,desired)
+	desired=shore_course.heading
+	var blocked = not shore_course.ok
+	var recovery = false
 	if _ship_ahead(ship, visual, visual.heading):
 		var physics = ship.core.get_config()
 		var safe_wind = (physics.noGoZoneDeg + physics.noGoFadeDeg) * PI / 180
 		var candidates = [desired + PI / 3, desired - PI / 3].filter(func(h): return _feasible(ship, visual, h, safe_wind))
 		candidates.sort_custom(func(a, b): return absf(_wrap(a - visual.heading)) < absf(_wrap(b - visual.heading)))
 		blocked = candidates.is_empty(); desired = visual.heading if blocked else candidates[0]
+	if blocked or ship.has("approachRecovery"):
+		var owned = ship.has("approachRecovery") and _approach_authorized(ship) and ship.approachRecovery.goal == ship.state.navigation
+		if owned:
+			var motion: Dictionary=ship.core.get_snapshot()
+			if ship.approachRecovery.holding:
+				if _speed(visual)>0.05 or absf(motion.yawRate)>0.005: return _hold_approach(ship)
+				ship.erase("approachRecovery")
+			elif tick-ship.approachRecovery.startedTick >= int(Approach.TURN_SECONDS/DT): return _hold_approach(ship)
+		recovery = _final_approach_clear(ship, visual, waypoint, distance)
+		if recovery:
+			desired = atan2(waypoint.z - visual.position.z, waypoint.x - visual.position.x)
+			blocked = false
+			if not ship.has("approachRecovery"): ship.approachRecovery = {"goal":ship.state.navigation.duplicate(true),"startedTick":tick,"holding":false}
+		elif owned: return _hold_approach(ship)
+		else: ship.erase("approachRecovery")
+	if blocked:
+		ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
+		return {}
 	var speed = _speed(visual)
 	var yaw = _wrap(visual.heading - ship.previous.heading) / DT
 	var error = _wrap(desired - visual.heading)
 	ship.state.rudder = clampf(error * 1.8 - yaw * 6, -1, 1)
-	var intermediate = config.get("routePlanning", false) and ship.has("route") and ship.route.points.size() > 1
 	var approach = 7 if intermediate else clampf((distance - 10) * 0.02, 0, 7)
-	var deployment = 0 if distance <= (18 if config.get("routePlanning", false) else 30) and not intermediate else clampf((approach - speed) * 2, 0, 1)
+	var deployment = 0 if distance <= (Navigation.PLANNED_TARGET_REACH_METERS if config.get("routePlanning", false) else 30) and not intermediate else clampf((approach - speed) * 2, 0, 1)
 	if speed >= 1.2: ship.lowSpeedTurn = false; ship.sailRecovery = 1
 	elif absf(error) > PI / 3: ship.lowSpeedTurn = true
 	elif absf(error) < 40 * PI / 180: ship.lowSpeedTurn = false
@@ -668,6 +761,170 @@ func _autopilot(ship: Dictionary) -> void:
 	elif ship.lowSpeedTurn: ship.sailRecovery = 0; ship.state.sailDeployment = maxf(0, ship.state.sailDeployment - DT)
 	else: ship.sailRecovery = minf(1, ship.sailRecovery + DT * 0.25); ship.state.sailDeployment = minf(deployment, ship.sailRecovery)
 	ship.state.autoTrim = true
+	if recovery:
+		if absf(error) > PI / 36:
+			ship.state.sailDeployment = 0; ship.sailRecovery = 0
+			return Manual.build(ship.state.kind,ship.state.rudder,speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+		ship.erase("approachRecovery")
+	return _navigation_steerage(ship,visual,desired,error,blocked,distance,intermediate)
+func _neutral_navigation_controls(ship: Dictionary) -> void:
+	# Relinquish autonomous outputs, never native momentum or physical pose.
+	ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0;ship.lowSpeedTurn=false
+	ship.erase("tack")
+func _arrival_brake(ship: Dictionary) -> Dictionary:
+	if not config.get("referenceHandling",false) or not config.get("routePlanning",false) or has_pending_combat():return {}
+	return Manual.build(ship.state.kind,0.0,_speed(_visual(ship)),ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0.0,true)
+func _clear_terminal_stop(ship: Dictionary) -> void:
+	if not ship.has("terminalStop"):return
+	if ship.state.get("navigation")==ship.terminalStop.goal:ship.state.erase("navigation")
+	ship.erase("terminalStop")
+func _terminal_stop_authorized(ship: Dictionary) -> bool:
+	if not ship.has("terminalStop") or not _continuous() or not config.get("referenceHandling",false) or not config.get("routePlanning",false):return false
+	var owner: Dictionary=ship.terminalStop;var id: String=ship.state.id
+	if owner.battleId!=battle_id or owner.shipId!=id or owner.draft!=ship.state.dimensions.draft or owner.goal!=ship.state.get("navigation"):return false
+	var record: Dictionary=orders.get(owner.orderId,{})
+	if record.is_empty() or record.status.state!="completed" or record.order.intent.kind!="rally" or record.order.intent.point!=owner.goal or not id in record.participants or hasActiveOrder(id):return false
+	if not _controlled(id) or ship.sunk or ship.state.hull<=0 or ship.state.crew<=0 or ship.state.sail<=0 or id in policy.get("capturedShipIds",[]) or status in ["surrendered","defeat","victory"] or has_pending_combat():return false
+	if ship.has("manualHandling") or ship.state.rudder!=0 or ship.state.sailDeployment!=0:return false
+	var p: Dictionary=_visual(ship);var sampler: Callable=config.get("sampleTerrainHeight",Callable())
+	return sampler.is_valid() and _speed(p)<1.2 and _wet_hull(ship,p.position.x,p.position.z,p.heading)
+func _terminal_stop_request(ship: Dictionary) -> Dictionary:
+	if not ship.has("terminalStop"):return {}
+	if tick>=ship.terminalStop.deadlineTick:
+		ship.terminalStopResult={"orderId":ship.terminalStop.orderId,"reason":"timeout","tick":tick}
+		_clear_terminal_stop(ship);return {}
+	if not _terminal_stop_authorized(ship):_clear_terminal_stop(ship);return {}
+	return _arrival_brake(ship)
+func _arrival_hold_requested(ship: Dictionary,waypoint: Dictionary,distance: float,intermediate: bool) -> bool:
+	# Existing recovery owners retain their checked physical hold/handback path.
+	if intermediate or ship.has("approachRecovery") or waypoint!=ship.state.navigation:return false
+	var id: String=ship.state.id
+	if not _controlled(id) or ship.sunk or ship.state.hull<=0 or ship.state.crew<=0 or ship.state.sail<=0 or id in policy.get("capturedShipIds",[]) or status in ["surrendered","defeat","victory"]:return false
+	if ship.has("manualHandling") or ship.get("approachManualOverride")==ship.state.navigation:return false
+	var order=_active_order(id)
+	var reach=Navigation.PLANNED_TARGET_REACH_METERS if config.get("routePlanning",false) else 30
+	if order.is_empty():return distance<=reach
+	var decision: Dictionary=decisions.get(id,{})
+	if decision.get("point")!=ship.state.navigation:return false
+	# A completed participant waits without relinquishing a shared Rally that
+	# still has ships in transit. The existing decision owns the25m/1mps gate.
+	if order.intent.kind=="rally":return decision.get("completed",false)
+	if order.intent.kind!="protect" or decision.get("fire",false) or distance>reach or not config.get("routePlanning",false) or not config.get("referenceHandling",false):return false
+	return is_anchored(order.intent.targetId)
+func _keep_tack_after_replan(ship: Dictionary,old: Dictionary,result: Dictionary,goal: Dictionary,visual: Dictionary) -> bool:
+	if not result.ok or not ship.has("tack") or old.is_empty() or old.get("target")!=goal or old.get("draft")!=ship.state.dimensions.draft:return false
+	if not _controlled(ship.state.id) or ship.has("manualHandling") or ship.get("approachManualOverride")==goal or hasActiveOrder(ship.state.id):return false
+	if old.get("points",[]).is_empty() or result.points.is_empty() or _effective_route_point(old.points,visual.position)!=_effective_route_point(result.points,visual.position):return false
+	if old.points.size()>1 and _distance(old.points[0],visual.position)<45:return false
+	# Replanning the same leg is not a new tack. Wind and completed-leg gates
+	# remain in _tack_course; current depth can still invalidate this side.
+	return _wet_ahead(ship,ship.tack.side,atan2(wind.direction.y,wind.direction.x),visual)
+func _effective_route_point(points: Array,position: Dictionary) -> Dictionary:
+	var index=0
+	while index+1<points.size() and _distance(points[index],position)<45:index+=1
+	return points[index]
+func _egress_authorized(ship: Dictionary) -> bool:
+	return _approach_authorized(ship) and ship.state.crew/ship.state.maxCrew>=0.25 and ship.get("egressRevokedGoal")!=ship.state.get("navigation")
+func _egress_input(ship: Dictionary,visual: Dictionary) -> Dictionary:
+	var physics: Dictionary=ship.core.get_config()
+	var motion: Dictionary=ship.core.get_snapshot()
+	var spec: Dictionary=Types.ship_spec(ship.state.kind)
+	var mass: float=spec.mass+ship.state.stats.cargoMass
+	var speed=_speed(visual)
+	var budget=Manual.build(ship.state.kind,1.0,speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+	var crew_acceleration=minf(minf(ship.state.crew,ship.state.maxCrew)*200*ship.state.stats.steeringMultiplier/mass,0.002*(spec.length*spec.length+spec.width*spec.width)/spec.length)
+	var rudder_acceleration: float=0.5*1025.0*1.2*1.2*spec.width*ship.state.dimensions.draft*physics.waterAreaFactor*physics.rudderAreaFactor*physics.rudderLiftSlope*minf(30.0,physics.rudderStallDeg)*PI/180/mass
+	var braking: float=budget.brakeDeceleration*budget.powerFraction*spec.mass/mass-crew_acceleration-rudder_acceleration
+	var cl=4.2*28.0*PI/180
+	var coefficient: float=1.4*physics.sailPressureScale+cl+0.08+0.08*cl*cl+0.5
+	var acceleration: float=0.5*1.225*pow(wind.speed+1.2,2)*spec.sailArea*coefficient*pow(ship.state.stats.speedMultiplier,2)/mass
+	var own={"position":visual.position,"velocity":visual.velocity,"heading":visual.heading,"yawRate":motion.yawRate,"dimensions":ship.state.dimensions,"speed":speed,"brake":braking,"yaw_damping":physics.yawDamp,"sail_acceleration":acceleration,"lateral_acceleration":crew_acceleration+rudder_acceleration,"wind_speed":wind.speed,"wind_from":atan2(wind.direction.y,wind.direction.x),"safe_wind":(physics.noGoZoneDeg+physics.noGoFadeDeg)*PI/180}
+	var peers: Array=[]
+	for peer: Dictionary in ships:
+		if peer.state.id==ship.state.id or peer.sunk:continue
+		var p: Dictionary=peer.core.get_snapshot()
+		peers.append({"id":peer.state.id,"position":p.position,"velocity":p.velocity,"heading":p.heading,"yawRate":p.yawRate,"dimensions":peer.state.dimensions})
+	return {"own":own,"peers":peers}
+func _egress_tick(ship: Dictionary,visual: Dictionary) -> Dictionary:
+	var owner: Dictionary=ship.wetRouteEgress
+	var input=_egress_input(ship,visual)
+	ship.egressClearance=Egress.assess(input.own,owner.node,input.peers,config.get("sampleTerrainHeight",Callable()),config.get("seaLevel",0.0))
+	# A failed fresh check latches a furled hold. Only a fresh navigation goal
+	# can retry, so disappearing hazards cannot automatically reopen sails.
+	if owner.holding or not ship.egressClearance.ok or tick-owner.startedTick>int(Egress.HORIZON/DT):
+		owner.holding=true
+		ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
+		return Manual.build(ship.state.kind,0.0,input.own.speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+	# This real-position check guards handback. The connector is not a normal
+	# waypoint and is never subject to the existing 45m pop or smoothing rule.
+	var onward: Dictionary=Planner.new().plan(visual.position,owner.goal,ship.state.dimensions,config.get("sampleTerrainHeight",Callable()),config.get("seaLevel",0.0))
+	if onward.ok:
+		ship.route={"target":owner.goal.duplicate(true),"points":onward.points,"checked":tick,"distance":_distance(onward.points[0],visual.position),"draft":ship.state.dimensions.draft,"retryAt":tick,"failures":0}
+		ship.erase("wetRouteEgress");ship.state.sailDeployment=0;ship.sailRecovery=0
+		return _autopilot(ship)
+	var error=_wrap(ship.egressClearance.course-visual.heading)
+	var yaw: float=ship.core.get_snapshot().yawRate
+	ship.state.rudder=clampf(error*1.8-yaw*6.0,-1,1)
+	var braking=absf(error)>Egress.COURSE_TOLERANCE or input.own.speed>=Egress.SPEED_CAP or absf(yaw)>0.005
+	ship.state.sailDeployment=0.0 if braking else Egress.MAX_SAIL
+	ship.sailRecovery=ship.state.sailDeployment;ship.state.autoTrim=true
+	return Manual.build(ship.state.kind,ship.state.rudder,input.own.speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,braking,ship.state.sailDeployment,true)
+func _hold_approach(ship: Dictionary) -> Dictionary:
+	if not ship.has("approachRecovery"): ship.approachRecovery={"goal":ship.state.navigation.duplicate(true),"startedTick":tick,"holding":true}
+	ship.approachRecovery.holding=true
+	ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
+	return Manual.build(ship.state.kind,0.0,_speed(_visual(ship)),ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+func _final_approach_clear(ship: Dictionary, visual: Dictionary, waypoint: Dictionary, distance: float) -> bool:
+	var id: String = ship.state.id
+	if not _approach_authorized(ship) or distance <= 25.0 or distance > 55.0 or _speed(visual) > 0.75: return false
+	if not ship.has("route") or ship.route.points.size() != 1 or waypoint != ship.state.navigation: return false
+	if ship.has("approachRecovery") and ship.approachRecovery.goal != ship.state.navigation: return false
+	var physics: Dictionary = ship.core.get_config()
+	var course = atan2(waypoint.z-visual.position.z,waypoint.x-visual.position.x)
+	if wind.speed > 0 and absf(_wrap(course-atan2(wind.direction.y,wind.direction.x))) < (physics.noGoZoneDeg+physics.noGoFadeDeg)*PI/180: return false
+	var motion: Dictionary = ship.core.get_snapshot()
+	var spec: Dictionary = Types.ship_spec(ship.state.kind)
+	var speed = _speed(visual)
+	var budget = Manual.build(ship.state.kind,1.0,speed,ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,true,0,true)
+	var mass: float = spec.mass + ship.state.stats.cargoMass
+	var dry_fraction: float = spec.mass/mass
+	# Subtract worst lateral crew and hydraulic rudder acceleration from the
+	# existing dry-hull brake. No drag credit and no extra physical force.
+	var crew_acceleration = minf(minf(ship.state.crew,ship.state.maxCrew)*200*ship.state.stats.steeringMultiplier/mass,0.002*(spec.length*spec.length+spec.width*spec.width)/spec.length)
+	var rudder_acceleration: float = 0.5*1025.0*1.2*1.2*spec.width*ship.state.dimensions.draft*physics.waterAreaFactor*physics.rudderAreaFactor*physics.rudderLiftSlope*minf(30.0,physics.rudderStallDeg)*PI/180/mass
+	var braking: float = budget.brakeDeceleration*budget.powerFraction*dry_fraction-crew_acceleration-rudder_acceleration
+	# Native fixed ship parameters: |CL|<=4.2*28deg, CD=.08+.08*CL²,
+	# pressure<=1.4*scale; include parasitic .5 and maximum sail power.
+	var cl = 4.2*28.0*PI/180
+	var sail_coefficient: float = 1.4*physics.sailPressureScale+cl+0.08+0.08*cl*cl+0.5
+	var sail_acceleration: float = 0.5*1.225*pow(wind.speed+1.2,2)*spec.sailArea*sail_coefficient*pow(ship.state.stats.speedMultiplier,2)/mass
+	var sail_start: float = ship.get("sailRecovery",1.0) if absf(_wrap(course-visual.heading)) <= PI/36 else 0.0
+	var own = {"position":visual.position,"velocity":visual.velocity,"heading":visual.heading,"yawRate":motion.yawRate,"dimensions":ship.state.dimensions,"course":course,"distance":distance,"speed":speed,"brake":braking,"yaw_damping":physics.yawDamp,"sail_acceleration":sail_acceleration,"lateral_acceleration":crew_acceleration+rudder_acceleration,"sail_start":sail_start}
+	var peers: Array = []
+	for peer in ships:
+		if peer.state.id == id or peer.sunk: continue
+		var p: Dictionary = peer.core.get_snapshot()
+		peers.append({"id":peer.state.id,"position":p.position,"velocity":p.velocity,"heading":p.heading,"yawRate":p.yawRate,"dimensions":peer.state.dimensions})
+	ship.approachClearance = Approach.assess(own,peers,config.get("sampleTerrainHeight",Callable()),config.get("seaLevel",0.0))
+	return ship.approachClearance.ok
+func _approach_authorized(ship: Dictionary) -> bool:
+	var id: String = ship.state.id
+	if not config.get("routePlanning",false) or not config.get("referenceHandling",false) or not ship.state.has("navigation"): return false
+	if ship.has("manualHandling") or ship.get("approachManualOverride") == ship.state.get("navigation") or hasActiveOrder(id): return false
+	if ship.sunk or ship.state.hull <= 0 or ship.state.crew <= 0 or ship.state.sail <= 0 or not _controlled(id) or has_pending_combat(): return false
+	return not id in policy.get("capturedShipIds",[]) and not status in ["surrendered","defeat","victory"]
+func _navigation_steerage(ship: Dictionary,visual: Dictionary,desired: float,error: float,blocked: bool,distance: float,intermediate: bool) -> Dictionary:
+	if not config.get("referenceHandling",false) or blocked or _speed(visual)>=1.2 or absf(error)<=PI/36 or ship.state.crew<=0 or ship.state.hull<=0 or ship.state.id in policy.get("capturedShipIds",[]):return {}
+	var reach=Navigation.PLANNED_TARGET_REACH_METERS if config.get("routePlanning",false) else 30
+	if not intermediate and distance<=reach:return {}
+	# Use the existing crew/hull-scaled, bounded steering request. Every hull
+	# orientation of the recovery turn and the outgoing course must remain wet.
+	var p=visual.position;var steps=maxi(1,int(ceil(absf(error)/(PI/18))))
+	for index in steps+1:
+		if not _wet_hull(ship,p.x,p.z,visual.heading+error*index/steps):return {}
+	for ahead in [15,30,45]:
+		if not _wet_hull(ship,p.x+cos(desired)*ahead,p.z+sin(desired)*ahead,desired):return {}
+	return Manual.build(ship.state.kind,ship.state.rudder,_speed(visual),ship.state.crew/ship.state.maxCrew,ship.state.hull/ship.state.maxHull,ship.state.sail/ship.state.maxSail,false,ship.state.sailDeployment,true)
 func _footprint_height(ship: Dictionary, x: float, z: float, heading: float) -> float:
 	var sampler: Callable = config.sampleTerrainHeight
 	var highest = -INF; var dims = ship.state.dimensions
@@ -751,7 +1008,7 @@ func has_pending_combat() -> bool:
 func hasPendingCombat() -> bool: return has_pending_combat()
 func is_anchored(id: String) -> bool:
 	var ship = _ship(id)
-	if ship.is_empty() or ship.sunk: return false
+	if ship.is_empty() or ship.sunk or ship.has("terminalStop"): return false
 	var motion = ship.core.get_snapshot()
 	return _speed(motion) <= 0.05 and absf(motion.yawRate) <= 0.01 and ship.state.rudder == 0 and ship.state.sailDeployment == 0 and not ship.state.has("navigation") and not hasActiveOrder(id)
 func isAnchored(id: String) -> bool: return is_anchored(id)
@@ -843,12 +1100,14 @@ func _prepare_physics_update(ship: Dictionary, state: Dictionary) -> RefCounted:
 	return probe
 func _apply_update(ship: Dictionary, state: Dictionary, update: Dictionary, prepared_physics: RefCounted) -> void:
 	state.controlsSequence = ship.state.controlsSequence + 1
+	var owner_changed=["rudder","sailDeployment","sailAngle","autoTrim","crew","hull","sail","maxCrew","maxHull","maxSail","dimensions","stats"].any(func(key):return state[key]!=ship.state[key])
 	var navigation = ship.state.get("navigation")
 	_copy_physics_state(prepared_physics, ship.core)
 	ship.state = state
 	if navigation != null: state.navigation = navigation
 	ship.statsInput.merge(update.get("stats", {}), true)
 	if state.hull <= 0 and not ship.sunk: _sink(ship)
+	if ship.has("terminalStop") and (owner_changed or not _terminal_stop_authorized(ship)):_clear_terminal_stop(ship)
 func update_ship_stats(id: String, update: Variant) -> Dictionary:
 	if status == "surrendered": return _no("Encounter ended")
 	var ship = _ship(id)
@@ -922,14 +1181,22 @@ func reconcile_ships(setups: Variant, next_policy: Variant = null) -> Dictionary
 		else: next_ships.append(entry.created)
 	ships = next_ships
 	policy = candidate_policy.duplicate(true); policy.anchorShipIds = []
+	for ship in ships:
+		if ship.has("terminalStop") and not _terminal_stop_authorized(ship):_clear_terminal_stop(ship)
 	if next_policy != null and next_policy.has("navigation"):
 		for ship in ships:
 			if next_policy.navigation.has(ship.state.id) and not hasActiveOrder(ship.state.id) and not ship.state.id in policy.get("lockedShipIds", []):
 				var point = next_policy.navigation[ship.state.id]
+				_clear_terminal_stop(ship)
+				if point != ship.state.get("navigation"):
+					if ship.has("wetRouteEgress"):
+						ship.erase("wetRouteEgress");ship.state.rudder=0;ship.state.sailDeployment=0;ship.sailRecovery=0
+					ship.erase("approachRecovery"); ship.erase("approachManualOverride"); ship.erase("egressRevokedGoal");ship.erase("egressRetryAt")
 				if point != null: ship.state.navigation = point.duplicate(true)
 				else: ship.state.erase("navigation"); ship.erase("tack")
 	for id in anchors + policy.get("lockedShipIds", []): _stop_service(_ship(id))
 	if next_policy != null and next_policy.has("orders"):
+		for ship in ships:_clear_terminal_stop(ship)
 		orders.clear(); decisions.clear()
 		for order in next_policy.orders: orders[order.id] = {"order": order.duplicate(true), "participants": order.shipIds.duplicate(), "status": {"id": order.id, "state": "active"}}
 	for ship in ships:

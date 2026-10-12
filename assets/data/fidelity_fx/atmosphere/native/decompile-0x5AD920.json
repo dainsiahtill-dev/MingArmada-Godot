@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x5AD920",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "void __thiscall sub_5AD920(int this, int a2, float a3, float a4, float a5, float a6, float a7)\n{\n  double v8; // st7\n  double v9; // st7\n  int v10; // ebx\n  unsigned __int16 v11; // ax\n  double v12; // st7\n  int v13; // edi\n  int v14; // eax\n  int v15; // eax\n  bool v16; // zf\n  float v17; // [esp+8h] [ebp+8h]\n  int v18; // [esp+10h] [ebp+10h]\n  float v19; // [esp+14h] [ebp+14h]\n  float v20; // [esp+18h] [ebp+18h]\n\n  if ( a7 > (double)flt_7113D4 && a5 < (double)a6 && a3 > (double)a5 && a4 < (double)a6 )\n  {\n    if ( a3 > (double)a6 )\n      v8 = a6;\n    else\n      v8 = a3;\n    v19 = v8 - a5;\n    v9 = flt_7113D4;\n    if ( a4 >= (double)a5 )\n      v9 = a4 - a5;\n    v10 = sub_5EE68C(v9 * a7);\n    v11 = sub_5EE68C(v19 * a7);\n    v12 = flt_6BE62C / a7;\n    *(_DWORD *)(this + 100) = 0;\n    v13 = v11 - v10;\n    if ( (_WORD)v13 )\n    {\n      v18 = (unsigned __int16)v13;\n      do\n      {\n        v14 = *(_DWORD *)(this + 96);\n        LOWORD(v10) = v10 + 1;\n        if ( *(_DWORD *)(this + 100) == v14 )\n        {\n          if ( v14 )\n            v15 = 2 * v14;\n          else\n            v15 = 1;\n          sub_571FF0(v15);\n        }\n        v17 = v12;\n        v20 = v19 - (double)(unsigned __int16)v10 * v17;\n        *(float *)(*(_DWORD *)(this + 92) + 4 * *(_DWORD *)(this + 100)) = v20;\n        v16 = v18 == 1;\n        ++*(_DWORD *)(this + 100);\n        --v18;\n      }\n      while ( !v16 );\n    }\n    (*(void (__thiscall **)(_DWORD, int, int, _DWORD))(**(_DWORD **)(this + 72) + 68))(\n      *(_DWORD *)(this + 72),\n      a2,\n      v13,\n      *(_DWORD *)(this + 92));\n  }\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

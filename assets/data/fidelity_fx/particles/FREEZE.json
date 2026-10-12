@@ -1,0 +1,832 @@
+{
+  "created_utc": "2026-10-11T16:28:50.255058+00:00",
+  "source_exe_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "scope": "Original source/numeric particle state chain + explicitly bounded WebGL observer; finite x86 fixtures use explicit FPCW37F, historical PC/RC/seed/frame cadence unknown",
+  "files": [
+    {
+      "path": "fidelity-rebuild/atmosphere/native/crt-rng.json",
+      "bytes": 9358,
+      "sha256": "7460039d9fc4d6fa2b5a6b12f1198ead8f8645b73e9de70e2deb9c6cd23faac5"
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native-semantics.mjs",
+      "bytes": 10202,
+      "sha256": "6e12e9f3459bcddfe0f1e9038ed5ca985de27f769d21269d7a892c0613689217"
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/viewer.mjs",
+      "bytes": 5093,
+      "sha256": "37884f1ca3dc45a169a2a7c9e072c5ffa0cbd0a7aee37c8c0baffe6cd23eca7f"
+    },
+    {
+      "path": "fidelity-rebuild/naval/animation-math.mjs",
+      "bytes": 3802,
+      "sha256": "21e1e10136117c675ff562d19be13b0fd405efe300bd7d77de85f0e8bc94ff26"
+    },
+    {
+      "path": "fidelity-rebuild/particles/age-vtable.json",
+      "bytes": 1019,
+      "sha256": "d0e58a4b78691042c2baeb0bd3459dfa952ae6a96e35a898d167129859e11773"
+    },
+    {
+      "path": "fidelity-rebuild/particles/animation-x86.json",
+      "bytes": 672239,
+      "sha256": "d02a6cccf2cabd6e4851d921ffcdcf14cabfaef5e9dfe7678e0d4854151f3220"
+    },
+    {
+      "path": "fidelity-rebuild/particles/animation.test.mjs",
+      "bytes": 1192,
+      "sha256": "718130428e1a90c28493a8dac216eb9704c5b8c51671640d26588077aab83fd0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/app.mjs",
+      "bytes": 4718,
+      "sha256": "f875c6bccd3b013d8dd76b07faa0958a81a3d82ff7ae8d681721e33bf5c0b370"
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_01.nif.json",
+      "bytes": 230792,
+      "sha256": "c25f9327f700e047385e32d2b6293286022dd72ef6317ff74e136587ec2fc47a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_02.nif.json",
+      "bytes": 221101,
+      "sha256": "3a3abd5858db41ff7c5957232eb71fbf4e221e8cd36a7153fa0cc4b34768ae56"
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_03.nif.json",
+      "bytes": 230221,
+      "sha256": "a29d11cadc727baf1ab994299007839aec4f893b3d1b2842205c3fa056a26389"
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/fx_cannon_fire_01.nif.json",
+      "bytes": 259125,
+      "sha256": "ee3432d11cb073a1922f1445c89c2c66e41e3e8a7b406504dad9ab60b5af32ef"
+    },
+    {
+      "path": "fidelity-rebuild/particles/authored-meshes.mjs",
+      "bytes": 2793,
+      "sha256": "b46fca57418156148f1761843089467a138d54e2cdc8d48d86f298116f9c744d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/birth-direction-default.json",
+      "bytes": 425,
+      "sha256": "6f9cbefe44aae8f4fbb32d3ba9904c3c80c13aeb050750c25df806921d0a6235"
+    },
+    {
+      "path": "fidelity-rebuild/particles/birth-x86.json",
+      "bytes": 622542,
+      "sha256": "e4ea8e610337b2c2834ca7a9016fa4d9174dd7c5ae93b79004ce819196b97d0c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/birth.test.mjs",
+      "bytes": 1098,
+      "sha256": "2fd86a31c2247823fe23116232ec1ebb25cb92f0e65a11de97e5f22a44b3688d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/bounds-vtable.json",
+      "bytes": 1019,
+      "sha256": "c5d76a1e5d44acfbd6a04e199e8dbc497c72a899cb16f58229ae372f0ef45471"
+    },
+    {
+      "path": "fidelity-rebuild/particles/bounds-x86.json",
+      "bytes": 107140,
+      "sha256": "fb97de2794e9117fe674aa664be24da2fe05ea9bfa7e466ae76b6f8e3d706093"
+    },
+    {
+      "path": "fidelity-rebuild/particles/bounds.test.mjs",
+      "bytes": 502,
+      "sha256": "553cc08ce0a4314aa9328b6b05e6703ba090baa263cad12573d575d6bafb6e39"
+    },
+    {
+      "path": "fidelity-rebuild/particles/browser-seek.mjs",
+      "bytes": 6798,
+      "sha256": "461bf7cb3d680944c5446e9f1c5c77fa49bdfeb7f29e5ffb46486be81868dc16"
+    },
+    {
+      "path": "fidelity-rebuild/particles/browser-splash.mjs",
+      "bytes": 2829,
+      "sha256": "096f53d4f023239016f2c84ca1cbeaff8318974ad2cea7828fb6d05f4a8a3afe"
+    },
+    {
+      "path": "fidelity-rebuild/particles/browser.mjs",
+      "bytes": 2569,
+      "sha256": "324908f47e9994ecbfef4471415f0a8fa2a812e5325ab260e8e3c46ba43d3c08"
+    },
+    {
+      "path": "fidelity-rebuild/particles/canonical-observer.mjs",
+      "bytes": 2642,
+      "sha256": "d46ce46743b6cc9e3d735cdd6c8938ff9d4fe984b3102d5c37ff6ef9d04554d1"
+    },
+    {
+      "path": "fidelity-rebuild/particles/canonical-observer.test.mjs",
+      "bytes": 2337,
+      "sha256": "a6018ed69481f3fbb25a6b63ca1cdfe5f6407ad0740a08573c8766d492842ac5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/color-vtable.json",
+      "bytes": 1019,
+      "sha256": "6172268b306bb9f29b9e27bc9bbcf84366bd3a2d0cbaf6c220ec023b239b25ad"
+    },
+    {
+      "path": "fidelity-rebuild/particles/data-vtable.json",
+      "bytes": 1185,
+      "sha256": "8e3969a64ae539daf07244d1d59077d81fa76dce777f4a7e1816068a680c450b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/emission-window.mjs",
+      "bytes": 866,
+      "sha256": "b1a2f3ab2f0a6c691d03d8b4374874be45271b4b2411de891765f9c8cfda80f0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/emission-window.test.mjs",
+      "bytes": 1378,
+      "sha256": "94c73e16ee44c6c6fb4cceb5db766acb0c5f6e52086244c99b89784c0d05dac3"
+    },
+    {
+      "path": "fidelity-rebuild/particles/emitter-controller-vtable.json",
+      "bytes": 1449,
+      "sha256": "2dfc364f55f0e7003b2cf892e83f18fa6c864e93ee6f5a0af00498c32c6da3e8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/emitter-vtable.json",
+      "bytes": 1019,
+      "sha256": "23f43058025f29659554150e55632aa0b96a00dfb05a01356520ae3dcfc34a73"
+    },
+    {
+      "path": "fidelity-rebuild/particles/export-render-audit.py",
+      "bytes": 1994,
+      "sha256": "c2f9ad456223d37690ee5486da3fd7834b8783ce558030c3b0760e9b56c42a25"
+    },
+    {
+      "path": "fidelity-rebuild/particles/export-splash.py",
+      "bytes": 4343,
+      "sha256": "bcbbab2bc03a464e1f08a000da759047ed0a5f6d4edc539a62fdd54cf2886163"
+    },
+    {
+      "path": "fidelity-rebuild/particles/freeze.py",
+      "bytes": 2029,
+      "sha256": "7f16fe5ecb1622c1af42441a900cfcbf645ca69cde908c4235b585d4d8595075"
+    },
+    {
+      "path": "fidelity-rebuild/particles/gravity-vtable.json",
+      "bytes": 1181,
+      "sha256": "ff7eacaf4b1416c537d7a4dc3ebe2a5ed738ad9482a87656f74bd4fe33f8c6bd"
+    },
+    {
+      "path": "fidelity-rebuild/particles/gravity-x86.json",
+      "bytes": 125107,
+      "sha256": "f3abf96cd09a481ce677a3e9f66cd17bb2e3e1721d458c264415ea51b1360f00"
+    },
+    {
+      "path": "fidelity-rebuild/particles/gravity.test.mjs",
+      "bytes": 1343,
+      "sha256": "4ae3ec52a63369178811a18a37ef3a304c1ba33aed9b850de373bdc3a80b5a3b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/grow-vtable.json",
+      "bytes": 1019,
+      "sha256": "ae34da7628e8e1870ab0e6af399cef594062bfe093e212ec9c0c2feec84554b7"
+    },
+    {
+      "path": "fidelity-rebuild/particles/index.html",
+      "bytes": 3065,
+      "sha256": "65dc6848e734b43c6fac7160a74823e91af845c66323fbafe0c59c0d6bf6ab2d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/material-source-x86.json",
+      "bytes": 39479,
+      "sha256": "88204237c6c0c874e9714d70d8e2f524fb57046bf169c9a32f9bce841ad22cb0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/material-source.mjs",
+      "bytes": 959,
+      "sha256": "dbd437bb426dce8bdb0205a35b0dc3918c600ca1206ec54547f35226662b5ff8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/material-source.test.mjs",
+      "bytes": 565,
+      "sha256": "ac63a01df92f9390b9f850ee9df74d844f55494261d2e793a8fd7c31b0dbde32"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4901C0.json",
+      "bytes": 856,
+      "sha256": "dc8e2f49a08d6750cca85d5430827659f43d1ddd4293ef8aa05aa0039256ca19"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4A9750.json",
+      "bytes": 363,
+      "sha256": "2baa7832acb51b81274973daec3b438d58a9b3f978df6ab708a469e98b987783"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4D98C0.json",
+      "bytes": 1541,
+      "sha256": "77ad494c96abf3f1fbfb991b36d14dac313d56063560312cc01f3da51177f89a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4FE190.json",
+      "bytes": 382,
+      "sha256": "dc1767f212b4ee54d744bdf82709ac23a46286672f7dda7072f78a2e5ddacdc5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x500820.json",
+      "bytes": 882,
+      "sha256": "0310ab3cd50504c98991b96a49fb770a5ec149e085918a8575b5d6f58205b89f"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x539D20.json",
+      "bytes": 675,
+      "sha256": "f266701161a30d82895e279792e8101e319456c51fb12d7647839c60b2846b73"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x539F80.json",
+      "bytes": 741,
+      "sha256": "5a032035712b06462f22ed62cf687c6a778a90f1c30feb104de4e81c9c4944b6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53A000.json",
+      "bytes": 693,
+      "sha256": "b01f010b18b2294ba88a92401bef63223228e7a3b9c9d2d593715e7ba3762054"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53A060.json",
+      "bytes": 641,
+      "sha256": "af587d46a2a4e9f373a86ba68f079bed08fa85c95b8a8978a95b35f6cb451527"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53D680.json",
+      "bytes": 607,
+      "sha256": "3f54795b087a3b5558901aa4cab737a9824d5420b0598ae0eaa1e4412f3ec03a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53FE50.json",
+      "bytes": 1431,
+      "sha256": "3ca8faa8361c42a16223cc576c71688b0f436244b0963b7707d356555f87fe1b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x541C60.json",
+      "bytes": 1129,
+      "sha256": "3778b697a3dc1ea6debd410e945850edaec461a4f414d66b7ebe3bb79c5653b5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x541D00.json",
+      "bytes": 363,
+      "sha256": "059c7f8447287b8ebf2d9552bfb664149e4a1b39b542d98c32c6a4c4c60c6ac8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x545760.json",
+      "bytes": 6497,
+      "sha256": "d4987395cc2ded1be7abc96cd8aafee41e1507774efd715d783b27b978a88f5a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x546160.json",
+      "bytes": 1172,
+      "sha256": "bc27316da2ba2bacf996033779bde2dea2e1ae76a9fd28fd20b84d8a9478c9b6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x550390.json",
+      "bytes": 1118,
+      "sha256": "44ca451f2c9949f94de0626c5fec2b032ea60bdb80519a701991acefd1517ff9"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x555100.json",
+      "bytes": 1138,
+      "sha256": "29294f463e3efe5fd973b9f087655e761b1db9c7c877ecb1387a4f1c1dea7fc3"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x556820.json",
+      "bytes": 2121,
+      "sha256": "12250bc3ace611892bb133f6fd50909c1d0efe0101e0852182a15c2e2e348339"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x565BA0.json",
+      "bytes": 802,
+      "sha256": "14df918f0266acc957650f14e0748154cdf5de14aaea197d3331f7a1a982973c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5673B0.json",
+      "bytes": 1163,
+      "sha256": "8217fb39afcfbd4ae0a1492c63a1a0afcc3cbf1148b0b00d88beaf57b08c4f20"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC2A0.json",
+      "bytes": 701,
+      "sha256": "786d5c21bd5ef3b9b431e2562e2fa9969b001b852c1343ab8865b9cd7025c81f"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC4B0.json",
+      "bytes": 680,
+      "sha256": "afb95a8046cd67da69b0130509d1135e7131a43746db78e4ccca5e75bfa0d66d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC760.json",
+      "bytes": 1409,
+      "sha256": "3158ad8133d6dfaa724767295fb70cd70b1e7ee9eaaf41c9d145d0ab0f5b2dd0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ACB40.json",
+      "bytes": 1067,
+      "sha256": "1b6ba76183dbd867da4693d1f98c0512150a1dcad66c62def64d2f136b898c7c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ACBE0.json",
+      "bytes": 1287,
+      "sha256": "5624c50b0fe9a250758daed40d909b632d6796763a328852d127c064ead38746"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AD110.json",
+      "bytes": 3368,
+      "sha256": "80f77e89f6e84d44ff8c6c61d966013d39a7a950764002656b08191f568e8194"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AD8D0.json",
+      "bytes": 595,
+      "sha256": "3b141a884c78066f702b919897c6bd783cf0cbe35362d2638e2b98ba056672bc"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ADD00.json",
+      "bytes": 6767,
+      "sha256": "a3511c58757dff4b19dc19ee5473f2a2b35ce58bbbb425f706c9ef2a11de68a2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AE520.json",
+      "bytes": 914,
+      "sha256": "4115bbf67497f0df6168f6d8558bae463abf0e44ce227ed2029f8fa2f335ac0f"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B0960.json",
+      "bytes": 897,
+      "sha256": "0e8aefbccd0daf83a8d7679f7bdd75afb0f3f8d52ede835e773c86144e2bc791"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B0AB0.json",
+      "bytes": 1069,
+      "sha256": "2fba50c88e98c29db602238b701b5baa3e51aa5eccb5b508409a7873c294871b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B4810.json",
+      "bytes": 7922,
+      "sha256": "ec4c557bf10f54ba76f41afc0e2c2d843810952cc8d4be9341f9359cd1e3ab7b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B6960.json",
+      "bytes": 641,
+      "sha256": "6636e6bdcfc8a836d50a0949b3ae1982b9afd17881135cfc747b0124f1de40c9"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B69A0.json",
+      "bytes": 1183,
+      "sha256": "dd95357bad01413ed1513c952d23ab691b9e04f7bcbf07b571510bf64c572660"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B7980.json",
+      "bytes": 1223,
+      "sha256": "d1028bf19bc50fc9d34b127908634c21144f1ad295b3ea28a8e0a865ba6114b3"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B7D20.json",
+      "bytes": 746,
+      "sha256": "d08f8b413c96b4c9625894085d88f4ee13b30ebbcc72995b0a885f83744735c5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B8880.json",
+      "bytes": 1275,
+      "sha256": "f1fa3e715e1f34f9c59c61fd37ddc6415ebd0cac347c30c45921243852eadfe6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BA2B0.json",
+      "bytes": 1048,
+      "sha256": "d5fa5490a9950e852a54332c2dc990052016e15081fc4da95da3c8268b1d94c1"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BCFF0.json",
+      "bytes": 358,
+      "sha256": "e3e5978fafea6893f0f889f732e0df59f0307d759354f2f09103d08304722c98"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BE890.json",
+      "bytes": 1306,
+      "sha256": "f772f122d6fa1181de1add2e6b5381609e8896f72490d24c6cfb3309754aaa0b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5C0660.json",
+      "bytes": 16853,
+      "sha256": "c292dc31639b2b36e5a73b5302a666659e81925e9d513792339f705d0067f5d2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5C4330.json",
+      "bytes": 7938,
+      "sha256": "d1994b01a36ed88e16fadf2ac51360faf1661f6c6968ff28a5390e5ea0209db5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CD4D0.json",
+      "bytes": 4033,
+      "sha256": "e9cdc13ec63e8dd3a2f513221fa7b6f8a5b35aa688add8b74c51e6602b13ba78"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CD770.json",
+      "bytes": 3867,
+      "sha256": "83e4f40ce81e85e0707c6b3078df93aab5755a366e3bfae7420081f495c64a66"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CE2A0.json",
+      "bytes": 2705,
+      "sha256": "ebd6e1b7ab67e1b5fd1aa8d53dac7ef040881964f447054f10fca62b909879f7"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5D0B10.json",
+      "bytes": 863,
+      "sha256": "8cf5895e65cca7088e965266d061b31f85aa2971c061d16a1d85337fc2425c0a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5D7E70.json",
+      "bytes": 884,
+      "sha256": "dacd2e760a322e69c23ef59ab77f48d68b1caa2d9788c09965a03f45ff44c6fa"
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/splash-load-asm.json",
+      "bytes": 1625,
+      "sha256": "ddcc244613c79f54c32dcb213ae02f5a7d616f2a5d4a5338d607f7bac3beaf67"
+    },
+    {
+      "path": "fidelity-rebuild/particles/planar-x86.json",
+      "bytes": 326971,
+      "sha256": "64d5c6996d1ddc73d84c11342fe6ae92966485185d8f8c0c4d11b56b0761f75e"
+    },
+    {
+      "path": "fidelity-rebuild/particles/planar.test.mjs",
+      "bytes": 944,
+      "sha256": "58e36a79ea57eaa3efd264561453362677001453322b7bde8d6f895dec9286c8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/pool-x86.json",
+      "bytes": 1573813,
+      "sha256": "8600d7d99c0d648a2ee41f1b10428d73837e3961c3f39c856c151f4a5576c90c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/pool.test.mjs",
+      "bytes": 1759,
+      "sha256": "b3f9dd9f1dfcc51a54bd2ad8a4b90029a9c82f0b6f60bab5770963bf9c90984b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/position-vtable.json",
+      "bytes": 1019,
+      "sha256": "c2139431e76fcfd0605c391a843f1f6cd5d02321afb86aafaf86b7a6b8709af7"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-animation.py",
+      "bytes": 4192,
+      "sha256": "3b88c5a16e5aee347e443d66fb210087084e00700b9ba792ff68a370918d2ce2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-birth.py",
+      "bytes": 5039,
+      "sha256": "bac6304909a0add38158e8d67af86d9eecb6024d38492f74dffd73493d6c1ee0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-bounds.py",
+      "bytes": 1655,
+      "sha256": "f267c81324029546290666cab5cdd5d7acf8faaed1b321ce74e90ccce88ed8c3"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-gravity.py",
+      "bytes": 2833,
+      "sha256": "33ae68f41d3e1eec8b6b1d9651a1b8f712647f3dbd9fe828148ce897c0001b4d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-material-source.py",
+      "bytes": 2661,
+      "sha256": "ce2818c547a00c3b3e7b7c0a584c98f8f8b9291a2aa45ae388879687738b4dda"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-planar.py",
+      "bytes": 2998,
+      "sha256": "632a514459e5e5a359669f28286086b07f94a59eb8e621ebc9cc1dade5c856c8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-pool.py",
+      "bytes": 3764,
+      "sha256": "e92f67a8a7a0441e70fbce2746db2d437b8d2740cd5cd029b366cc355e7da6b5"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-quads.py",
+      "bytes": 4256,
+      "sha256": "c423030bff04974af549464d7a4ea8d4aea1ad5414d9fe45841c1319bbdbb6b8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/probe-schedule.py",
+      "bytes": 4815,
+      "sha256": "e60eada7a9f3356cfaf4f2bff6d785014bcc53aada779349b12ba3018418c658"
+    },
+    {
+      "path": "fidelity-rebuild/particles/quad-x86.json",
+      "bytes": 246752,
+      "sha256": "5599331bf21c67bedf7eca392eefd33ac55c18fa59808d5360c9d13ff8ceaee6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/quads.mjs",
+      "bytes": 2700,
+      "sha256": "0fdb577c31ab694598a335fd7cc1e391de01ba09b4cf390bca00ae95e154fac3"
+    },
+    {
+      "path": "fidelity-rebuild/particles/quads.test.mjs",
+      "bytes": 887,
+      "sha256": "53bd1ea2d8864dc356a95baa15f9aba8c21e36f364e76f550a18544bf4ba22ab"
+    },
+    {
+      "path": "fidelity-rebuild/particles/README.md",
+      "bytes": 13013,
+      "sha256": "bfd9cb929a09a12f8c0adbf8c17bae80913313d69148fefb8b1e4c079be52726"
+    },
+    {
+      "path": "fidelity-rebuild/particles/render-state-audit.json",
+      "bytes": 221624,
+      "sha256": "f40a20100942d68484dce65d768b98bc603594768e7eae880996466f7ea2818a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/renderer-particle-entry.json",
+      "bytes": 433,
+      "sha256": "25e82fff1ee1d0ba6ab251a3a11a630e735f99e1fdd749f88c09d3fd017047e8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/reset-controller-vtable.json",
+      "bytes": 1175,
+      "sha256": "adc9bc5cb7e54ace1b16eef445a6acad28099cce753aac5ee43d26f36df9c379"
+    },
+    {
+      "path": "fidelity-rebuild/particles/runtime.mjs",
+      "bytes": 11253,
+      "sha256": "5fa79ca4a8f5322178875c856380b65c62bb787358237881a6f313e51eb3d72c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/schedule-x86.json",
+      "bytes": 1117080,
+      "sha256": "13c8b64b232e7707830f061e7d8a23d2487fbd1df3108233af5787f21e06b3c2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/schedule.test.mjs",
+      "bytes": 1312,
+      "sha256": "5f125fddbeb25cc483a0edc872ffccb5e1c5033c3c039ebccd0e92127c9a71c8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/scheduler.mjs",
+      "bytes": 4070,
+      "sha256": "52ad00a3ebe77d6ca8e01f82d097b9f38a632b1394d896b39dd78fec0f35ee8f"
+    },
+    {
+      "path": "fidelity-rebuild/particles/source-provenance.json",
+      "bytes": 3552,
+      "sha256": "ba48e7b19e0d858f4009eea15f29e5a95a18bcbb0fd8f9dda58373bb47f99a8c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/source.mjs",
+      "bytes": 3613,
+      "sha256": "dc7fcbd51ba48093df8459ea10a0cd8c59a284b7fc3ae5030563761218467ef6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/spawn-vtable.json",
+      "bytes": 1019,
+      "sha256": "7e6cb73415f50b3d6f24fdf3365d9bdf9cdd9baed00292af78e821d03283a239"
+    },
+    {
+      "path": "fidelity-rebuild/particles/splash-source-audit.json",
+      "bytes": 200168,
+      "sha256": "7ac8ea4533a70516410dd95a53dbb7874e3c8de3e0a7e031acffa4f24d2ab171"
+    },
+    {
+      "path": "fidelity-rebuild/particles/splash.test.mjs",
+      "bytes": 2391,
+      "sha256": "9c323359a6f12eafee979eda39e2d9007d3f448003bb27be32489ad3a28e70da"
+    },
+    {
+      "path": "fidelity-rebuild/particles/system-vtable.json",
+      "bytes": 1683,
+      "sha256": "2a48d60b4f3e31866c46b3c935b008b06882c9e6ca22c297707462b0f8c9e908"
+    },
+    {
+      "path": "fidelity-rebuild/particles/update-controller-vtable.json",
+      "bytes": 1449,
+      "sha256": "da68e119a9b8fc0596c9521465a994b62f83a175b809c64f30b2dc5785e25e38"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/browser-seek.json",
+      "bytes": 20261,
+      "sha256": "5fbca64a642aa48d848f12e77c45fa0e00d5b888293e81028c30812ed8449bd2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/browser-splash.json",
+      "bytes": 312240,
+      "sha256": "182c51c08d30255d42e873e04f2af207ee6aa829b56c24dba702449b151c8ccf"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/browser.json",
+      "bytes": 132545,
+      "sha256": "11921515301fda087204c47fba65377bfb768470d6c664e93c139ac8df95ca4f"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/burst.png",
+      "bytes": 124343,
+      "sha256": "cfc68d35f4baca07d755995af085f46a7039f5fc16b3f27f807b158bddde2bc6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/end.png",
+      "bytes": 112423,
+      "sha256": "f6c80b15c6c30827a3c55f977a9693cc87f680fdf53b2e1dda86d3e8d2ba53fe"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/initial.png",
+      "bytes": 110732,
+      "sha256": "7c9fc2531578ad9226a46c5e99ca9db5f0bd7eb8c5299bceff5fc4d48185861a"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/late.png",
+      "bytes": 152085,
+      "sha256": "4e54ea8d70a6d06e2c9908e6f18a9820f2cec843d9bb9fff7f64f050ac515ca2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-cannon_ball_splash_01.nif.png",
+      "bytes": 159306,
+      "sha256": "efd686729cb02f86003cca47a99218365ffd098ba86a800538ac99669d96dbc4"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-cannon_ball_splash_02.nif.png",
+      "bytes": 180879,
+      "sha256": "1946649a6d87c50c932d8179de1cddfb00e57d965cf71c85ea0cacb52a2c8195"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-cannon_ball_splash_03.nif.png",
+      "bytes": 178815,
+      "sha256": "ef8242680da4c77c11d3cbc20fe42302b1b596f4b024e964b1f238befdd8e080"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-fx_cannon_fire_01.nif.png",
+      "bytes": 130375,
+      "sha256": "0dcd82bca5e81464d246557fbdc6116beab0efb5c75d7e44f1416bfe53c952ef"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-P2-before.json",
+      "bytes": 1716,
+      "sha256": "9ba1124efd94d1ef063c7b10e3f6157cd5d5a37b7a2211c079135f683c66f5c8"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/seek-P2-core-preservation.json",
+      "bytes": 2192,
+      "sha256": "db7118bf68d68d7ff6c95e65b5831e54efd4eb507c53e2ce4e093c6225639b48"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/smoke.png",
+      "bytes": 124369,
+      "sha256": "37282a1da656759dc89c1d54fccc8809cfad84f6306304b9b09658f227eca6e2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-01-burst.png",
+      "bytes": 120684,
+      "sha256": "ce039c95c3e2b99a1e8017dd6884e511c69dc0cbe710b475aac0a0009cc0e25e"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-01-end.png",
+      "bytes": 113209,
+      "sha256": "a2cf7e07195551e26177cddbe2c4a11b8fdd2ad4cdb61e380f2baf0ddfbf2e16"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-01-initial.png",
+      "bytes": 111206,
+      "sha256": "40e3798518c530e51231f4ba432241a0041ab7ea462e1abe1a283cffe1e07a1d"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-01-late.png",
+      "bytes": 159762,
+      "sha256": "cb287a7fbdc8fe224c18d140d00465e7eb355452f7f28d72b50fe5154e0e1062"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-01-rings.png",
+      "bytes": 163793,
+      "sha256": "edbc2f63edb3d8a14610ce5922aebdda469a3bd2d288ad6a1de43a4c9ef781c0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-02-burst.png",
+      "bytes": 118382,
+      "sha256": "4c70d83e3e08580aa4ba37dcc37f1c35aa46b3f560f7387dda2c9349e6a6c9d0"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-02-end.png",
+      "bytes": 113264,
+      "sha256": "596294939415a0c59bd8e36a6eebc367fff03945437d2eaba8ccdf284945f5e6"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-02-initial.png",
+      "bytes": 111306,
+      "sha256": "762d8beb3a60c97579b3ac89bb6c12d8d4abb28e3f745343d0fa988cf12b04d2"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-02-late.png",
+      "bytes": 144055,
+      "sha256": "28187b14c7b9413a1e1537f4d05f40c69daf32a82414325f3f00196b8bfceade"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-02-rings.png",
+      "bytes": 192332,
+      "sha256": "961aaed84784cc69adad00e601cbb8884b166183bd2bd07a6ef86b156de0f76b"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-03-burst.png",
+      "bytes": 119055,
+      "sha256": "583ffd4222d653e762c14bff906d880be8e7c7b079e284b85a93b64bf0ae2a78"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-03-end.png",
+      "bytes": 113195,
+      "sha256": "a909e3351ecc9760269a90cf8b8a326206862cfe758982bebccedcd042ebc476"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-03-initial.png",
+      "bytes": 111251,
+      "sha256": "dc9dc2ca47ecde90615ab07852642583f75a2c320adce645f0ffc7542912905c"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-03-late.png",
+      "bytes": 137391,
+      "sha256": "818699c7318ee2a668057552d8456206046fc39d3b06da85d311065452f138cf"
+    },
+    {
+      "path": "fidelity-rebuild/particles/verification/splash-03-rings.png",
+      "bytes": 178832,
+      "sha256": "775d63bce94303e0055a52a3254d5a3efc6b41d25c570a79998041f43cb94a6f"
+    },
+    {
+      "path": "fidelity-rebuild/shore/native-math.mjs",
+      "bytes": 4007,
+      "sha256": "699617341b38d96b971c6fb3713dfa4c5154749cb2d2ed7c1b1c710113e64ddf"
+    },
+    {
+      "path": "fidelity-rebuild/water/dds.mjs",
+      "bytes": 3277,
+      "sha256": "f9ac8b7019e1912b39b18820ff9471e1f42e23ff9bb1ae97dea5ce1150b1eb46"
+    },
+    {
+      "path": "naval-study/deep/asset-details/export_complete.py",
+      "bytes": 8700,
+      "sha256": "9f452e0ce141ca29f67c1c5f90c3549660057ec06e0d265486df638f79b2f1f9"
+    },
+    {
+      "path": "naval-study/deep/asset-details/legacy_adapter.py",
+      "bytes": 2125,
+      "sha256": "bbe6ac58813800e36eb9010f4cafdc86d8796a726450deac49f4433453bbdafd"
+    },
+    {
+      "path": "raw/fpk/Pak0/fx_water_splash_rings_01.dds",
+      "bytes": 16512,
+      "sha256": "911d60c4f2759ccd7df8565409ead397dbd928f1bef297dd8dcec927de882f3c"
+    },
+    {
+      "path": "raw/fpk/Pak1/cannon_ball_splash_01.nif",
+      "bytes": 31834,
+      "sha256": "576a94f1dc9599adcf89357abb4bd6989231496c1caaa87af39062d54e35d688"
+    },
+    {
+      "path": "raw/fpk/Pak1/fx_streakin_001.dds",
+      "bytes": 16512,
+      "sha256": "bdc9931efb752334bc77cbaf6dac588621afd5a5f10021717b4d94616202b580"
+    },
+    {
+      "path": "raw/fpk/Pak2/fx_cannon_fire_01.nif",
+      "bytes": 48643,
+      "sha256": "868c3a7c4ed3225c17c6c6bc0bee45c0970d5558fca03ffa8e2926b4d0c74dc7"
+    },
+    {
+      "path": "raw/fpk/Pak2/fx_cannon_smoke_02.dds",
+      "bytes": 22000,
+      "sha256": "a70b2b553139068ab800dfcd4ba72802e57172dc9d65838aa42ad39c051d387f"
+    },
+    {
+      "path": "raw/fpk/Pak5/fx_cannon_smoke_01.dds",
+      "bytes": 22000,
+      "sha256": "5fe00d575adac25adb8dd126df4808bc3acaf0ffb7278390edd32fe869a8acc0"
+    },
+    {
+      "path": "raw/fpk/Pak5/fx_mist_01.dds",
+      "bytes": 16512,
+      "sha256": "97a62745f1dc05e6a2331a0a1b420d7da6d0cd05182b82d5cda794720789f98d"
+    },
+    {
+      "path": "raw/fpk/Pak6/fx_cannon_smoke_03.dds",
+      "bytes": 22000,
+      "sha256": "f3d4f57404a12565252e79171cdd0efede9056927c1931070a3f6ac7172b56cd"
+    },
+    {
+      "path": "raw/fpk/Pak6/fx_water_splash_004.dds",
+      "bytes": 32896,
+      "sha256": "36c2cc0dabc3d7a6f5677226e1915087ce0901f9b8925efe876972fe3c29505e"
+    },
+    {
+      "path": "raw/fpk/Pak7/cannon_ball_splash_02.nif",
+      "bytes": 30705,
+      "sha256": "725c7979eff42e0dffdf8e3f496aae5182cea5d6a2f42c52983b26775a710a49"
+    },
+    {
+      "path": "raw/fpk/Pak7/cannon_ball_splash_03.nif",
+      "bytes": 31606,
+      "sha256": "cc6a915339c39730c52dc4b203fddacbeb69dd08c4459e9ab2667211ed91b0ad"
+    }
+  ]
+}

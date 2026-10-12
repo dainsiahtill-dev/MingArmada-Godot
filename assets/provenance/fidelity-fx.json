@@ -1,0 +1,2760 @@
+{
+  "schema_version": 1,
+  "native_exe_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source_set": "Completed fidelity-rebuild/particles and fidelity-rebuild/atmosphere source replay inputs",
+  "manifest_path": "res://assets/data/fidelity_fx/manifest.json",
+  "manifest_sha256": "d2546cd6582760e9cdd90f1200ccba750f5a492bbdc08717b8cbbdb162b7cf6e",
+  "sources": [
+    {
+      "path": "fidelity-rebuild/particles/FREEZE.json",
+      "sha256": "527b33ed3dd8b0dd6bd9c4e0c8df386389b887cc7fe439ea833ddbabded48373",
+      "bytes": 31854
+    },
+    {
+      "path": "fidelity-rebuild/particles/source.mjs",
+      "sha256": "dc7fcbd51ba48093df8459ea10a0cd8c59a284b7fc3ae5030563761218467ef6",
+      "bytes": 3613
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/source-replay.mjs",
+      "sha256": "c99fee60a93dd2357ed16955ad5248fd258b1ae46a64dfcd8e26850ec9fddcae",
+      "bytes": 4021
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native-semantics.mjs",
+      "sha256": "6e12e9f3459bcddfe0f1e9038ed5ca985de27f769d21269d7a892c0613689217",
+      "bytes": 10202
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/source-provenance.json",
+      "sha256": "4d6508e8e33a375a38a7bee49907105a42cdce76d8498737d0c3806f05e5812b",
+      "bytes": 8430
+    },
+    {
+      "path": "fidelity-rebuild/particles/source-provenance.json",
+      "sha256": "ba48e7b19e0d858f4009eea15f29e5a95a18bcbb0fd8f9dda58373bb47f99a8c",
+      "bytes": 3552
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/fx_cannon_fire_01.nif.json",
+      "sha256": "ee3432d11cb073a1922f1445c89c2c66e41e3e8a7b406504dad9ab60b5af32ef",
+      "bytes": 259125
+    },
+    {
+      "path": "raw/fpk/Pak2/fx_cannon_fire_01.nif",
+      "sha256": "868c3a7c4ed3225c17c6c6bc0bee45c0970d5558fca03ffa8e2926b4d0c74dc7",
+      "bytes": 48643
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_01.nif.json",
+      "sha256": "c25f9327f700e047385e32d2b6293286022dd72ef6317ff74e136587ec2fc47a",
+      "bytes": 230792
+    },
+    {
+      "path": "raw/fpk/Pak1/cannon_ball_splash_01.nif",
+      "sha256": "576a94f1dc9599adcf89357abb4bd6989231496c1caaa87af39062d54e35d688",
+      "bytes": 31834
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_02.nif.json",
+      "sha256": "3a3abd5858db41ff7c5957232eb71fbf4e221e8cd36a7153fa0cc4b34768ae56",
+      "bytes": 221101
+    },
+    {
+      "path": "raw/fpk/Pak7/cannon_ball_splash_02.nif",
+      "sha256": "725c7979eff42e0dffdf8e3f496aae5182cea5d6a2f42c52983b26775a710a49",
+      "bytes": 30705
+    },
+    {
+      "path": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_03.nif.json",
+      "sha256": "a29d11cadc727baf1ab994299007839aec4f893b3d1b2842205c3fa056a26389",
+      "bytes": 230221
+    },
+    {
+      "path": "raw/fpk/Pak7/cannon_ball_splash_03.nif",
+      "sha256": "cc6a915339c39730c52dc4b203fddacbeb69dd08c4459e9ab2667211ed91b0ad",
+      "bytes": 31606
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/domecloud1.nif.json",
+      "sha256": "701b01e714e9b8d96e6febb521f0a2180dd6fc8d0021a76d230246f0013e6611",
+      "bytes": 51057
+    },
+    {
+      "path": "raw/fpk/Pak1/domecloud1.nif",
+      "sha256": "797d5e30c21d14370797b22844cf06f9ddfdcf371493809a910f34e3e59d0d11",
+      "bytes": 6899
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/domecloud2.nif.json",
+      "sha256": "411604034b1bdc3c4f63559d3f83e30589d3fd68096635069a74c3110d177e5d",
+      "bytes": 15220
+    },
+    {
+      "path": "raw/fpk/Pak5/domecloud2.nif",
+      "sha256": "7372002cbceea84beea95f2a6de5e5b84f7930fff84b9b9d7a7f6b931a0662ab",
+      "bytes": 2115
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/domecloud3.nif.json",
+      "sha256": "4da39b48ea17069cfedead2fe4e883c4659c070d89810c21be95fccf57f858e8",
+      "bytes": 15104
+    },
+    {
+      "path": "raw/fpk/Pak1/domecloud3.nif",
+      "sha256": "6ec205cf543556859d64792561094f9f28866fcf1624614d98ceb4fdbf9948e5",
+      "bytes": 2115
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/domecloud4.nif.json",
+      "sha256": "c41070c16698a27a0792c4e65200fd5d21ac36d74732805cee91dba7794531f4",
+      "bytes": 25472
+    },
+    {
+      "path": "raw/fpk/Pak0/domecloud4.nif",
+      "sha256": "ef40bc38175a6d55b3f738ea02e3ab393b92436fe2fc6dc4ce598fd816df4172",
+      "bytes": 3345
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/domecloud5.nif.json",
+      "sha256": "a161fd43135370d9b2eac2a3391fb0b350521a41dc7637633ab311a5cd949625",
+      "bytes": 15477
+    },
+    {
+      "path": "raw/fpk/Pak0/domecloud5.nif",
+      "sha256": "ab71bf473fe94988d05cb797b8d99bb1d4cbce5f6a9a2f4603976f7020e350cc",
+      "bytes": 2115
+    },
+    {
+      "path": "naval-study/atmosphere-fx/source-study/assets-json/fx_groundfog01.nif.json",
+      "sha256": "3c40517e5500630b290dc725cf771150a6adf4bf465385098691c8a153ba8670",
+      "bytes": 139138
+    },
+    {
+      "path": "raw/fpk/Pak1/fx_groundfog01.nif",
+      "sha256": "29ffa66feb9134f5c117230a67c8c04460350392acf6b16674dab9db220005cf",
+      "bytes": 17059
+    },
+    {
+      "path": "fidelity-rebuild/particles/age-vtable.json",
+      "sha256": "d0e58a4b78691042c2baeb0bd3459dfa952ae6a96e35a898d167129859e11773",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/animation-x86.json",
+      "sha256": "d02a6cccf2cabd6e4851d921ffcdcf14cabfaef5e9dfe7678e0d4854151f3220",
+      "bytes": 672239
+    },
+    {
+      "path": "fidelity-rebuild/particles/birth-direction-default.json",
+      "sha256": "6f9cbefe44aae8f4fbb32d3ba9904c3c80c13aeb050750c25df806921d0a6235",
+      "bytes": 425
+    },
+    {
+      "path": "fidelity-rebuild/particles/birth-x86.json",
+      "sha256": "e4ea8e610337b2c2834ca7a9016fa4d9174dd7c5ae93b79004ce819196b97d0c",
+      "bytes": 622542
+    },
+    {
+      "path": "fidelity-rebuild/particles/bounds-vtable.json",
+      "sha256": "c5d76a1e5d44acfbd6a04e199e8dbc497c72a899cb16f58229ae372f0ef45471",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/bounds-x86.json",
+      "sha256": "fb97de2794e9117fe674aa664be24da2fe05ea9bfa7e466ae76b6f8e3d706093",
+      "bytes": 107140
+    },
+    {
+      "path": "fidelity-rebuild/particles/color-vtable.json",
+      "sha256": "6172268b306bb9f29b9e27bc9bbcf84366bd3a2d0cbaf6c220ec023b239b25ad",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/data-vtable.json",
+      "sha256": "8e3969a64ae539daf07244d1d59077d81fa76dce777f4a7e1816068a680c450b",
+      "bytes": 1185
+    },
+    {
+      "path": "fidelity-rebuild/particles/emitter-controller-vtable.json",
+      "sha256": "2dfc364f55f0e7003b2cf892e83f18fa6c864e93ee6f5a0af00498c32c6da3e8",
+      "bytes": 1449
+    },
+    {
+      "path": "fidelity-rebuild/particles/emitter-vtable.json",
+      "sha256": "23f43058025f29659554150e55632aa0b96a00dfb05a01356520ae3dcfc34a73",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/gravity-vtable.json",
+      "sha256": "ff7eacaf4b1416c537d7a4dc3ebe2a5ed738ad9482a87656f74bd4fe33f8c6bd",
+      "bytes": 1181
+    },
+    {
+      "path": "fidelity-rebuild/particles/gravity-x86.json",
+      "sha256": "f3abf96cd09a481ce677a3e9f66cd17bb2e3e1721d458c264415ea51b1360f00",
+      "bytes": 125107
+    },
+    {
+      "path": "fidelity-rebuild/particles/grow-vtable.json",
+      "sha256": "ae34da7628e8e1870ab0e6af399cef594062bfe093e212ec9c0c2feec84554b7",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/material-source-x86.json",
+      "sha256": "88204237c6c0c874e9714d70d8e2f524fb57046bf169c9a32f9bce841ad22cb0",
+      "bytes": 39479
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4901C0.json",
+      "sha256": "dc8e2f49a08d6750cca85d5430827659f43d1ddd4293ef8aa05aa0039256ca19",
+      "bytes": 856
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4A9750.json",
+      "sha256": "2baa7832acb51b81274973daec3b438d58a9b3f978df6ab708a469e98b987783",
+      "bytes": 363
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4D98C0.json",
+      "sha256": "77ad494c96abf3f1fbfb991b36d14dac313d56063560312cc01f3da51177f89a",
+      "bytes": 1541
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x4FE190.json",
+      "sha256": "dc1767f212b4ee54d744bdf82709ac23a46286672f7dda7072f78a2e5ddacdc5",
+      "bytes": 382
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x500820.json",
+      "sha256": "0310ab3cd50504c98991b96a49fb770a5ec149e085918a8575b5d6f58205b89f",
+      "bytes": 882
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x539D20.json",
+      "sha256": "f266701161a30d82895e279792e8101e319456c51fb12d7647839c60b2846b73",
+      "bytes": 675
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x539F80.json",
+      "sha256": "5a032035712b06462f22ed62cf687c6a778a90f1c30feb104de4e81c9c4944b6",
+      "bytes": 741
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53A000.json",
+      "sha256": "b01f010b18b2294ba88a92401bef63223228e7a3b9c9d2d593715e7ba3762054",
+      "bytes": 693
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53A060.json",
+      "sha256": "af587d46a2a4e9f373a86ba68f079bed08fa85c95b8a8978a95b35f6cb451527",
+      "bytes": 641
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53D680.json",
+      "sha256": "3f54795b087a3b5558901aa4cab737a9824d5420b0598ae0eaa1e4412f3ec03a",
+      "bytes": 607
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x53FE50.json",
+      "sha256": "3ca8faa8361c42a16223cc576c71688b0f436244b0963b7707d356555f87fe1b",
+      "bytes": 1431
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x541C60.json",
+      "sha256": "3778b697a3dc1ea6debd410e945850edaec461a4f414d66b7ebe3bb79c5653b5",
+      "bytes": 1129
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x541D00.json",
+      "sha256": "059c7f8447287b8ebf2d9552bfb664149e4a1b39b542d98c32c6a4c4c60c6ac8",
+      "bytes": 363
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x545760.json",
+      "sha256": "d4987395cc2ded1be7abc96cd8aafee41e1507774efd715d783b27b978a88f5a",
+      "bytes": 6497
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x546160.json",
+      "sha256": "bc27316da2ba2bacf996033779bde2dea2e1ae76a9fd28fd20b84d8a9478c9b6",
+      "bytes": 1172
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x550390.json",
+      "sha256": "44ca451f2c9949f94de0626c5fec2b032ea60bdb80519a701991acefd1517ff9",
+      "bytes": 1118
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x555100.json",
+      "sha256": "29294f463e3efe5fd973b9f087655e761b1db9c7c877ecb1387a4f1c1dea7fc3",
+      "bytes": 1138
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x556820.json",
+      "sha256": "12250bc3ace611892bb133f6fd50909c1d0efe0101e0852182a15c2e2e348339",
+      "bytes": 2121
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x565BA0.json",
+      "sha256": "14df918f0266acc957650f14e0748154cdf5de14aaea197d3331f7a1a982973c",
+      "bytes": 802
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5673B0.json",
+      "sha256": "8217fb39afcfbd4ae0a1492c63a1a0afcc3cbf1148b0b00d88beaf57b08c4f20",
+      "bytes": 1163
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC2A0.json",
+      "sha256": "786d5c21bd5ef3b9b431e2562e2fa9969b001b852c1343ab8865b9cd7025c81f",
+      "bytes": 701
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC4B0.json",
+      "sha256": "afb95a8046cd67da69b0130509d1135e7131a43746db78e4ccca5e75bfa0d66d",
+      "bytes": 680
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AC760.json",
+      "sha256": "3158ad8133d6dfaa724767295fb70cd70b1e7ee9eaaf41c9d145d0ab0f5b2dd0",
+      "bytes": 1409
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ACB40.json",
+      "sha256": "1b6ba76183dbd867da4693d1f98c0512150a1dcad66c62def64d2f136b898c7c",
+      "bytes": 1067
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ACBE0.json",
+      "sha256": "5624c50b0fe9a250758daed40d909b632d6796763a328852d127c064ead38746",
+      "bytes": 1287
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AD110.json",
+      "sha256": "80f77e89f6e84d44ff8c6c61d966013d39a7a950764002656b08191f568e8194",
+      "bytes": 3368
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AD8D0.json",
+      "sha256": "3b141a884c78066f702b919897c6bd783cf0cbe35362d2638e2b98ba056672bc",
+      "bytes": 595
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5ADD00.json",
+      "sha256": "a3511c58757dff4b19dc19ee5473f2a2b35ce58bbbb425f706c9ef2a11de68a2",
+      "bytes": 6767
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5AE520.json",
+      "sha256": "4115bbf67497f0df6168f6d8558bae463abf0e44ce227ed2029f8fa2f335ac0f",
+      "bytes": 914
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B0960.json",
+      "sha256": "0e8aefbccd0daf83a8d7679f7bdd75afb0f3f8d52ede835e773c86144e2bc791",
+      "bytes": 897
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B0AB0.json",
+      "sha256": "2fba50c88e98c29db602238b701b5baa3e51aa5eccb5b508409a7873c294871b",
+      "bytes": 1069
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B4810.json",
+      "sha256": "ec4c557bf10f54ba76f41afc0e2c2d843810952cc8d4be9341f9359cd1e3ab7b",
+      "bytes": 7922
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B6960.json",
+      "sha256": "6636e6bdcfc8a836d50a0949b3ae1982b9afd17881135cfc747b0124f1de40c9",
+      "bytes": 641
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B69A0.json",
+      "sha256": "dd95357bad01413ed1513c952d23ab691b9e04f7bcbf07b571510bf64c572660",
+      "bytes": 1183
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B7980.json",
+      "sha256": "d1028bf19bc50fc9d34b127908634c21144f1ad295b3ea28a8e0a865ba6114b3",
+      "bytes": 1223
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B7D20.json",
+      "sha256": "d08f8b413c96b4c9625894085d88f4ee13b30ebbcc72995b0a885f83744735c5",
+      "bytes": 746
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5B8880.json",
+      "sha256": "f1fa3e715e1f34f9c59c61fd37ddc6415ebd0cac347c30c45921243852eadfe6",
+      "bytes": 1275
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BA2B0.json",
+      "sha256": "d5fa5490a9950e852a54332c2dc990052016e15081fc4da95da3c8268b1d94c1",
+      "bytes": 1048
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BCFF0.json",
+      "sha256": "e3e5978fafea6893f0f889f732e0df59f0307d759354f2f09103d08304722c98",
+      "bytes": 358
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5BE890.json",
+      "sha256": "f772f122d6fa1181de1add2e6b5381609e8896f72490d24c6cfb3309754aaa0b",
+      "bytes": 1306
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5C0660.json",
+      "sha256": "c292dc31639b2b36e5a73b5302a666659e81925e9d513792339f705d0067f5d2",
+      "bytes": 16853
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5C4330.json",
+      "sha256": "d1994b01a36ed88e16fadf2ac51360faf1661f6c6968ff28a5390e5ea0209db5",
+      "bytes": 7938
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CD4D0.json",
+      "sha256": "e9cdc13ec63e8dd3a2f513221fa7b6f8a5b35aa688add8b74c51e6602b13ba78",
+      "bytes": 4033
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CD770.json",
+      "sha256": "83e4f40ce81e85e0707c6b3078df93aab5755a366e3bfae7420081f495c64a66",
+      "bytes": 3867
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5CE2A0.json",
+      "sha256": "ebd6e1b7ab67e1b5fd1aa8d53dac7ef040881964f447054f10fca62b909879f7",
+      "bytes": 2705
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5D0B10.json",
+      "sha256": "8cf5895e65cca7088e965266d061b31f85aa2971c061d16a1d85337fc2425c0a",
+      "bytes": 863
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/decompile-0x5D7E70.json",
+      "sha256": "dacd2e760a322e69c23ef59ab77f48d68b1caa2d9788c09965a03f45ff44c6fa",
+      "bytes": 884
+    },
+    {
+      "path": "fidelity-rebuild/particles/native/splash-load-asm.json",
+      "sha256": "ddcc244613c79f54c32dcb213ae02f5a7d616f2a5d4a5338d607f7bac3beaf67",
+      "bytes": 1625
+    },
+    {
+      "path": "fidelity-rebuild/particles/planar-x86.json",
+      "sha256": "64d5c6996d1ddc73d84c11342fe6ae92966485185d8f8c0c4d11b56b0761f75e",
+      "bytes": 326971
+    },
+    {
+      "path": "fidelity-rebuild/particles/pool-x86.json",
+      "sha256": "8600d7d99c0d648a2ee41f1b10428d73837e3961c3f39c856c151f4a5576c90c",
+      "bytes": 1573813
+    },
+    {
+      "path": "fidelity-rebuild/particles/position-vtable.json",
+      "sha256": "c2139431e76fcfd0605c391a843f1f6cd5d02321afb86aafaf86b7a6b8709af7",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/quad-x86.json",
+      "sha256": "5599331bf21c67bedf7eca392eefd33ac55c18fa59808d5360c9d13ff8ceaee6",
+      "bytes": 246752
+    },
+    {
+      "path": "fidelity-rebuild/particles/render-state-audit.json",
+      "sha256": "f40a20100942d68484dce65d768b98bc603594768e7eae880996466f7ea2818a",
+      "bytes": 221624
+    },
+    {
+      "path": "fidelity-rebuild/particles/renderer-particle-entry.json",
+      "sha256": "25e82fff1ee1d0ba6ab251a3a11a630e735f99e1fdd749f88c09d3fd017047e8",
+      "bytes": 433
+    },
+    {
+      "path": "fidelity-rebuild/particles/reset-controller-vtable.json",
+      "sha256": "adc9bc5cb7e54ace1b16eef445a6acad28099cce753aac5ee43d26f36df9c379",
+      "bytes": 1175
+    },
+    {
+      "path": "fidelity-rebuild/particles/schedule-x86.json",
+      "sha256": "13c8b64b232e7707830f061e7d8a23d2487fbd1df3108233af5787f21e06b3c2",
+      "bytes": 1117080
+    },
+    {
+      "path": "fidelity-rebuild/particles/spawn-vtable.json",
+      "sha256": "7e6cb73415f50b3d6f24fdf3365d9bdf9cdd9baed00292af78e821d03283a239",
+      "bytes": 1019
+    },
+    {
+      "path": "fidelity-rebuild/particles/splash-source-audit.json",
+      "sha256": "7ac8ea4533a70516410dd95a53dbb7874e3c8de3e0a7e031acffa4f24d2ab171",
+      "bytes": 200168
+    },
+    {
+      "path": "fidelity-rebuild/particles/system-vtable.json",
+      "sha256": "2a48d60b4f3e31866c46b3c935b008b06882c9e6ca22c297707462b0f8c9e908",
+      "bytes": 1683
+    },
+    {
+      "path": "fidelity-rebuild/particles/update-controller-vtable.json",
+      "sha256": "da68e119a9b8fc0596c9521465a994b62f83a175b809c64f30b2dc5785e25e38",
+      "bytes": 1449
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/billboard-mode0-threshold.json",
+      "sha256": "ebb38086deeef8d1a14b3295397fab3b76740ed4e424bf2362e0573cfcb2e5fe",
+      "bytes": 406
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/billboard-threshold.json",
+      "sha256": "9557a078052e16f2e4d61e0d4052b7442f74db58fa1fb9a65893f43226c6b828",
+      "bytes": 928
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/billboard-vtable.json",
+      "sha256": "cfe9fbe2360d7f3fa669902b4101144990a795e335cb63b6edd1b9b448cc2808",
+      "bytes": 1809
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/box-emitter-vtable.json",
+      "sha256": "3098af24dce353dbafa136e35d0cc73c50bc568b918c5249848b69389c37eb12",
+      "bytes": 1331
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/cloud-update-0x4D8300.asm.json",
+      "sha256": "63c5826dee9f9210cfad6356bcc282e4a1209bf3c815ea65d0d045f962cfd984",
+      "bytes": 2234
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/constants.json",
+      "sha256": "d2f260040d4a1dc8c45383b9f38fa2127ed1f28a5b70aacd70a621efbd5c5ebe",
+      "bytes": 9188
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/crt-rng.json",
+      "sha256": "7460039d9fc4d6fa2b5a6b12f1198ead8f8645b73e9de70e2deb9c6cd23faac5",
+      "bytes": 9358
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/crt-runtime-vectors.json",
+      "sha256": "e266b566fdcd379b1da400bc7d84138eeba720a84adff59a0ea2c2798e872841",
+      "bytes": 3959
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x46B740.json",
+      "sha256": "b513b5d285dc4a794f59648de16188036be3f3515ff312a23e1e02e8a1dbd9db",
+      "bytes": 1764
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4D7F40.json",
+      "sha256": "f2ec14f8b28eca0a01b1ebd989f18607b8592c953879c462e479f6ef5ff0d1a6",
+      "bytes": 1872
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4D8060.json",
+      "sha256": "af7154f4906cc8507df256381991929eac27da4321ebd1b01a0fc2be868188e3",
+      "bytes": 4102
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4D8300.json",
+      "sha256": "110603616d35c60a3b194ffea8941b153d97a75ed1c12874825c3042265f7e94",
+      "bytes": 1682
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4D9DF0.json",
+      "sha256": "d1f04e77d57d252c889121c7d3885698596e6e70ca7b56c3cad49afac55ed101",
+      "bytes": 2544
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4DA0D0.json",
+      "sha256": "34fbccc155f7b340aee45c26707537342b264202fc754ebc3aed36a0c25394d3",
+      "bytes": 1673
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x4F2650.json",
+      "sha256": "04432cdd23914446735bb643600c6d78683108baaa2baa72bcbb3752bbfbee32",
+      "bytes": 1418
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x534A20.json",
+      "sha256": "bfba67f3a31d26b2abaf943bf0739c00a883fcad8ee5eb4dd211b0934910653c",
+      "bytes": 643
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x539CE0.json",
+      "sha256": "7bb28c2ffd1d153a5587e76c4505fdf646dadda0373e04664e611c8b8c12f3e6",
+      "bytes": 690
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x539D60.json",
+      "sha256": "2def8e98b2e5ebe7186ddbbf4e431cc6c16dd035efdf4ea7ca93e5cd2d4ae3a5",
+      "bytes": 690
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x539E70.json",
+      "sha256": "4095af75bcb164fd82af312c02dcd930c469bcdb5baf4f411507509b765d62f4",
+      "bytes": 1162
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x53A060.json",
+      "sha256": "0df73b36b42009b433885a42d34085f0718459fa259d5eef740a07375f6b5b96",
+      "bytes": 549
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x546230.json",
+      "sha256": "94c636e7e6fe16175af299a99d9eb1a2d634cbe0fce11ebed3e1f2412b931ce5",
+      "bytes": 7877
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x546800.json",
+      "sha256": "de106d67d17c24360b4ab94a6feab52054059f5f6dee4346146512dbb0bbe12e",
+      "bytes": 333
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5468F0.json",
+      "sha256": "bb272d833df3bf414388e2300d8bb1a35b7a7c60f1081995f61dc3af6c8fe1ed",
+      "bytes": 541
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x546940.json",
+      "sha256": "9dbbf8c6a1682e3eb6b422f1041c074d7d2e353d77e9ea551de7dfa1ac8fe77d",
+      "bytes": 833
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x547DF0.json",
+      "sha256": "63a0d01d3895c2bcef75865fb26bebf74e656fcbcf43ab7b3633c5e05b7382b9",
+      "bytes": 2136
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x547F00.json",
+      "sha256": "6f7a31ad9bed7d8bcad13b76af846e907004fbb0e1d533b4e80af8717716d354",
+      "bytes": 691
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x54FFE0.json",
+      "sha256": "5f43b0c48be61e7dc56e10b92b3a581397188ad8ef225c4a27a5956d9fcc43cb",
+      "bytes": 2753
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5658C0.json",
+      "sha256": "8dea60c786d642f1979fe6241ee35e48a5c73c5c64b8da38b91358131d527b74",
+      "bytes": 589
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x565E20.json",
+      "sha256": "9d4a319510c4b8b18eaad8466d2a52ef487b209908314a018985d26a3ce2a2a2",
+      "bytes": 2227
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x567C60.json",
+      "sha256": "c6b732975cd0d34a2038fa427e1d327d781fcbcf82cf00e77c9e3183f4b9d352",
+      "bytes": 2623
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x57F490.json",
+      "sha256": "589947dd4bd7bcd93774c4abe2532bd1079ac803872c5f7177e0faf2cea6d20a",
+      "bytes": 967
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x57F6A0.json",
+      "sha256": "bc327da2b2bcd2985a6a3511f91fb051806de5074ed4606002f612548d317a88",
+      "bytes": 374
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x57F730.json",
+      "sha256": "1228f325911e0a1b9ace8b21ff79660ecf5b0ca68baa205310f39f9bfd9a3083",
+      "bytes": 453
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x57F750.json",
+      "sha256": "17a218a77f2284928ca077b8375a6aa83015dc0cd75b77d50227360746d7548a",
+      "bytes": 543
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x57FC30.json",
+      "sha256": "f0aae22c892e00ecaef795d3be81d1dddb33fa179e98128a2c5970605c5a0cd7",
+      "bytes": 862
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5AC760.json",
+      "sha256": "51406fae50cbf4cf4dda1c4ca1c295b02ac0e443dc4afbc038c6911893953277",
+      "bytes": 1399
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5ACB40.json",
+      "sha256": "df88a940dec25be10817d58592e5f3e1286e9c0b63b7559b6c96b4a64b8a4a2e",
+      "bytes": 1084
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5AD110.json",
+      "sha256": "71ba97df7043eaa776ba19ed107ed9579530c1d143c93086823a8f41a32bc08b",
+      "bytes": 3403
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5AD920.json",
+      "sha256": "9adaa471dd1f46b9a9eead92e50b221f41a65d8b0844cee6a0f35ccf42ffbf44",
+      "bytes": 1987
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5ADB00.json",
+      "sha256": "1ada9480c8f614952565ca7d2966e7a426697f01d39de26dfd6681fb683658ea",
+      "bytes": 784
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5ADD00.json",
+      "sha256": "f074cadf8a8c5055651a82a009ed14c27a79dfa64786327996038f30cc54d8ab",
+      "bytes": 6785
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B0AB0.json",
+      "sha256": "4a96fa736f8393ad713a232c6daa064f96f1420a75b5f8ed69d5e217330245d0",
+      "bytes": 1086
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B4270.json",
+      "sha256": "d2682dcbdef849275139fac9cd6f735cd7c8e6b238f38c4293ab8fb6a7f22dde",
+      "bytes": 1336
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B4810.json",
+      "sha256": "6898a6c9bd5010e98bbbac9a58f1c066ca339c7e98f76abf895f277b340b41f7",
+      "bytes": 7912
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B72D0.json",
+      "sha256": "e33009baef0360e92ef9e855fbe8e59de420342e6c71359bb331829c80f45983",
+      "bytes": 2544
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B7980.json",
+      "sha256": "302f55adfec0d599fac118cc86a6f1db7dad66d0b1a3c367a822864b5223f7bc",
+      "bytes": 1240
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5B8880.json",
+      "sha256": "cbe7f8d32a0a1e09a3690e9bbc737868c7f307e5e66558657f2a1b6b8e37e2af",
+      "bytes": 1292
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/decompile-0x5BA2B0.json",
+      "sha256": "4b42a5de133acf1d64c186e2018540bc2a920c185d468faa13561afac03e1643",
+      "bytes": 1057
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/half.json",
+      "sha256": "ed7fb24062cbe02c16886d5d3de69e6429aef69dbd48aa2c64d9badc795ddd49",
+      "bytes": 388
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/ida-identity.json",
+      "sha256": "890c5ed7854d30c5d4d9e43a2516a53a0a09cd4fd5cbfdbfab6cef11fbdeb4e8",
+      "bytes": 702
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/node-vtable.json",
+      "sha256": "6966a2b5cb7eedf6aca4fe764336d9ca0e45bc9a94e72d9f92c343615fb66372",
+      "bytes": 1805
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/rand-normalizer.json",
+      "sha256": "221e4c0b8277a191ae93a6c67638cf3081dba9348d7c666a6867e9030e361cab",
+      "bytes": 407
+    },
+    {
+      "path": "fidelity-rebuild/atmosphere/native/srand-xrefs.json",
+      "sha256": "4b251802d9000de59684eba1d2081d766973a642d970ae5543f39e23225f0de4",
+      "bytes": 4177
+    },
+    {
+      "path": "raw/fpk/Pak5/fx_cannon_smoke_01.dds",
+      "sha256": "5fe00d575adac25adb8dd126df4808bc3acaf0ffb7278390edd32fe869a8acc0",
+      "bytes": 22000
+    },
+    {
+      "path": "raw/fpk/Pak2/fx_cannon_smoke_02.dds",
+      "sha256": "a70b2b553139068ab800dfcd4ba72802e57172dc9d65838aa42ad39c051d387f",
+      "bytes": 22000
+    },
+    {
+      "path": "raw/fpk/Pak6/fx_cannon_smoke_03.dds",
+      "sha256": "f3d4f57404a12565252e79171cdd0efede9056927c1931070a3f6ac7172b56cd",
+      "bytes": 22000
+    },
+    {
+      "path": "raw/fpk/Pak5/fx_mist_01.dds",
+      "sha256": "97a62745f1dc05e6a2331a0a1b420d7da6d0cd05182b82d5cda794720789f98d",
+      "bytes": 16512
+    },
+    {
+      "path": "raw/fpk/Pak1/fx_streakin_001.dds",
+      "sha256": "bdc9931efb752334bc77cbaf6dac588621afd5a5f10021717b4d94616202b580",
+      "bytes": 16512
+    },
+    {
+      "path": "raw/fpk/Pak6/fx_water_splash_004.dds",
+      "sha256": "36c2cc0dabc3d7a6f5677226e1915087ce0901f9b8925efe876972fe3c29505e",
+      "bytes": 32896
+    },
+    {
+      "path": "raw/fpk/Pak0/fx_water_splash_rings_01.dds",
+      "sha256": "911d60c4f2759ccd7df8565409ead397dbd928f1bef297dd8dcec927de882f3c",
+      "bytes": 16512
+    },
+    {
+      "path": "raw/fpk/Pak2/cloud_bw.dds",
+      "sha256": "455f206efaab3fda46f2d68dfc0435aaa7262bdba9bde9dc5fa3f7f6dae713f5",
+      "bytes": 349680
+    },
+    {
+      "path": "raw/fpk/Pak3/fx_groundfog_crop01.dds",
+      "sha256": "0d646ae3dbe989d8aec12b32d324dfc7ef48cb6fcea034af73717bdad5389a62",
+      "bytes": 87536
+    }
+  ],
+  "original_copies": [
+    {
+      "source": "fidelity-rebuild/particles/assets-json/fx_cannon_fire_01.nif.json",
+      "destination": "assets/data/fidelity_fx/particles/assets-json/fx_cannon_fire_01.nif.json",
+      "sha256": "ee3432d11cb073a1922f1445c89c2c66e41e3e8a7b406504dad9ab60b5af32ef",
+      "bytes": 259125
+    },
+    {
+      "source": "raw/fpk/Pak2/fx_cannon_fire_01.nif",
+      "destination": "assets/data/fidelity_fx/particles/original/fx_cannon_fire_01.nif",
+      "sha256": "868c3a7c4ed3225c17c6c6bc0bee45c0970d5558fca03ffa8e2926b4d0c74dc7",
+      "bytes": 48643
+    },
+    {
+      "source": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_01.nif.json",
+      "destination": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_01.nif.json",
+      "sha256": "c25f9327f700e047385e32d2b6293286022dd72ef6317ff74e136587ec2fc47a",
+      "bytes": 230792
+    },
+    {
+      "source": "raw/fpk/Pak1/cannon_ball_splash_01.nif",
+      "destination": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_01.nif",
+      "sha256": "576a94f1dc9599adcf89357abb4bd6989231496c1caaa87af39062d54e35d688",
+      "bytes": 31834
+    },
+    {
+      "source": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_02.nif.json",
+      "destination": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_02.nif.json",
+      "sha256": "3a3abd5858db41ff7c5957232eb71fbf4e221e8cd36a7153fa0cc4b34768ae56",
+      "bytes": 221101
+    },
+    {
+      "source": "raw/fpk/Pak7/cannon_ball_splash_02.nif",
+      "destination": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_02.nif",
+      "sha256": "725c7979eff42e0dffdf8e3f496aae5182cea5d6a2f42c52983b26775a710a49",
+      "bytes": 30705
+    },
+    {
+      "source": "fidelity-rebuild/particles/assets-json/cannon_ball_splash_03.nif.json",
+      "destination": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_03.nif.json",
+      "sha256": "a29d11cadc727baf1ab994299007839aec4f893b3d1b2842205c3fa056a26389",
+      "bytes": 230221
+    },
+    {
+      "source": "raw/fpk/Pak7/cannon_ball_splash_03.nif",
+      "destination": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_03.nif",
+      "sha256": "cc6a915339c39730c52dc4b203fddacbeb69dd08c4459e9ab2667211ed91b0ad",
+      "bytes": 31606
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/domecloud1.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud1.nif.json",
+      "sha256": "701b01e714e9b8d96e6febb521f0a2180dd6fc8d0021a76d230246f0013e6611",
+      "bytes": 51057
+    },
+    {
+      "source": "raw/fpk/Pak1/domecloud1.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/domecloud1.nif",
+      "sha256": "797d5e30c21d14370797b22844cf06f9ddfdcf371493809a910f34e3e59d0d11",
+      "bytes": 6899
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/domecloud2.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud2.nif.json",
+      "sha256": "411604034b1bdc3c4f63559d3f83e30589d3fd68096635069a74c3110d177e5d",
+      "bytes": 15220
+    },
+    {
+      "source": "raw/fpk/Pak5/domecloud2.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/domecloud2.nif",
+      "sha256": "7372002cbceea84beea95f2a6de5e5b84f7930fff84b9b9d7a7f6b931a0662ab",
+      "bytes": 2115
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/domecloud3.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud3.nif.json",
+      "sha256": "4da39b48ea17069cfedead2fe4e883c4659c070d89810c21be95fccf57f858e8",
+      "bytes": 15104
+    },
+    {
+      "source": "raw/fpk/Pak1/domecloud3.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/domecloud3.nif",
+      "sha256": "6ec205cf543556859d64792561094f9f28866fcf1624614d98ceb4fdbf9948e5",
+      "bytes": 2115
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/domecloud4.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud4.nif.json",
+      "sha256": "c41070c16698a27a0792c4e65200fd5d21ac36d74732805cee91dba7794531f4",
+      "bytes": 25472
+    },
+    {
+      "source": "raw/fpk/Pak0/domecloud4.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/domecloud4.nif",
+      "sha256": "ef40bc38175a6d55b3f738ea02e3ab393b92436fe2fc6dc4ce598fd816df4172",
+      "bytes": 3345
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/domecloud5.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud5.nif.json",
+      "sha256": "a161fd43135370d9b2eac2a3391fb0b350521a41dc7637633ab311a5cd949625",
+      "bytes": 15477
+    },
+    {
+      "source": "raw/fpk/Pak0/domecloud5.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/domecloud5.nif",
+      "sha256": "ab71bf473fe94988d05cb797b8d99bb1d4cbce5f6a9a2f4603976f7020e350cc",
+      "bytes": 2115
+    },
+    {
+      "source": "naval-study/atmosphere-fx/source-study/assets-json/fx_groundfog01.nif.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/assets-json/fx_groundfog01.nif.json",
+      "sha256": "3c40517e5500630b290dc725cf771150a6adf4bf465385098691c8a153ba8670",
+      "bytes": 139138
+    },
+    {
+      "source": "raw/fpk/Pak1/fx_groundfog01.nif",
+      "destination": "assets/data/fidelity_fx/atmosphere/original/fx_groundfog01.nif",
+      "sha256": "29ffa66feb9134f5c117230a67c8c04460350392acf6b16674dab9db220005cf",
+      "bytes": 17059
+    },
+    {
+      "source": "fidelity-rebuild/particles/age-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/age-vtable.json",
+      "sha256": "d0e58a4b78691042c2baeb0bd3459dfa952ae6a96e35a898d167129859e11773",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/animation-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/animation-x86.json",
+      "sha256": "d02a6cccf2cabd6e4851d921ffcdcf14cabfaef5e9dfe7678e0d4854151f3220",
+      "bytes": 672239
+    },
+    {
+      "source": "fidelity-rebuild/particles/birth-direction-default.json",
+      "destination": "assets/data/fidelity_fx/particles/birth-direction-default.json",
+      "sha256": "6f9cbefe44aae8f4fbb32d3ba9904c3c80c13aeb050750c25df806921d0a6235",
+      "bytes": 425
+    },
+    {
+      "source": "fidelity-rebuild/particles/birth-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/birth-x86.json",
+      "sha256": "e4ea8e610337b2c2834ca7a9016fa4d9174dd7c5ae93b79004ce819196b97d0c",
+      "bytes": 622542
+    },
+    {
+      "source": "fidelity-rebuild/particles/bounds-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/bounds-vtable.json",
+      "sha256": "c5d76a1e5d44acfbd6a04e199e8dbc497c72a899cb16f58229ae372f0ef45471",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/bounds-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/bounds-x86.json",
+      "sha256": "fb97de2794e9117fe674aa664be24da2fe05ea9bfa7e466ae76b6f8e3d706093",
+      "bytes": 107140
+    },
+    {
+      "source": "fidelity-rebuild/particles/color-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/color-vtable.json",
+      "sha256": "6172268b306bb9f29b9e27bc9bbcf84366bd3a2d0cbaf6c220ec023b239b25ad",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/data-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/data-vtable.json",
+      "sha256": "8e3969a64ae539daf07244d1d59077d81fa76dce777f4a7e1816068a680c450b",
+      "bytes": 1185
+    },
+    {
+      "source": "fidelity-rebuild/particles/emitter-controller-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/emitter-controller-vtable.json",
+      "sha256": "2dfc364f55f0e7003b2cf892e83f18fa6c864e93ee6f5a0af00498c32c6da3e8",
+      "bytes": 1449
+    },
+    {
+      "source": "fidelity-rebuild/particles/emitter-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/emitter-vtable.json",
+      "sha256": "23f43058025f29659554150e55632aa0b96a00dfb05a01356520ae3dcfc34a73",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/gravity-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/gravity-vtable.json",
+      "sha256": "ff7eacaf4b1416c537d7a4dc3ebe2a5ed738ad9482a87656f74bd4fe33f8c6bd",
+      "bytes": 1181
+    },
+    {
+      "source": "fidelity-rebuild/particles/gravity-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/gravity-x86.json",
+      "sha256": "f3abf96cd09a481ce677a3e9f66cd17bb2e3e1721d458c264415ea51b1360f00",
+      "bytes": 125107
+    },
+    {
+      "source": "fidelity-rebuild/particles/grow-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/grow-vtable.json",
+      "sha256": "ae34da7628e8e1870ab0e6af399cef594062bfe093e212ec9c0c2feec84554b7",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/material-source-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/material-source-x86.json",
+      "sha256": "88204237c6c0c874e9714d70d8e2f524fb57046bf169c9a32f9bce841ad22cb0",
+      "bytes": 39479
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x4901C0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x4901C0.json",
+      "sha256": "dc8e2f49a08d6750cca85d5430827659f43d1ddd4293ef8aa05aa0039256ca19",
+      "bytes": 856
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x4A9750.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x4A9750.json",
+      "sha256": "2baa7832acb51b81274973daec3b438d58a9b3f978df6ab708a469e98b987783",
+      "bytes": 363
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x4D98C0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x4D98C0.json",
+      "sha256": "77ad494c96abf3f1fbfb991b36d14dac313d56063560312cc01f3da51177f89a",
+      "bytes": 1541
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x4FE190.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x4FE190.json",
+      "sha256": "dc1767f212b4ee54d744bdf82709ac23a46286672f7dda7072f78a2e5ddacdc5",
+      "bytes": 382
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x500820.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x500820.json",
+      "sha256": "0310ab3cd50504c98991b96a49fb770a5ec149e085918a8575b5d6f58205b89f",
+      "bytes": 882
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x539D20.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x539D20.json",
+      "sha256": "f266701161a30d82895e279792e8101e319456c51fb12d7647839c60b2846b73",
+      "bytes": 675
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x539F80.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x539F80.json",
+      "sha256": "5a032035712b06462f22ed62cf687c6a778a90f1c30feb104de4e81c9c4944b6",
+      "bytes": 741
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x53A000.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x53A000.json",
+      "sha256": "b01f010b18b2294ba88a92401bef63223228e7a3b9c9d2d593715e7ba3762054",
+      "bytes": 693
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x53A060.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x53A060.json",
+      "sha256": "af587d46a2a4e9f373a86ba68f079bed08fa85c95b8a8978a95b35f6cb451527",
+      "bytes": 641
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x53D680.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x53D680.json",
+      "sha256": "3f54795b087a3b5558901aa4cab737a9824d5420b0598ae0eaa1e4412f3ec03a",
+      "bytes": 607
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x53FE50.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x53FE50.json",
+      "sha256": "3ca8faa8361c42a16223cc576c71688b0f436244b0963b7707d356555f87fe1b",
+      "bytes": 1431
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x541C60.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x541C60.json",
+      "sha256": "3778b697a3dc1ea6debd410e945850edaec461a4f414d66b7ebe3bb79c5653b5",
+      "bytes": 1129
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x541D00.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x541D00.json",
+      "sha256": "059c7f8447287b8ebf2d9552bfb664149e4a1b39b542d98c32c6a4c4c60c6ac8",
+      "bytes": 363
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x545760.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x545760.json",
+      "sha256": "d4987395cc2ded1be7abc96cd8aafee41e1507774efd715d783b27b978a88f5a",
+      "bytes": 6497
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x546160.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x546160.json",
+      "sha256": "bc27316da2ba2bacf996033779bde2dea2e1ae76a9fd28fd20b84d8a9478c9b6",
+      "bytes": 1172
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x550390.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x550390.json",
+      "sha256": "44ca451f2c9949f94de0626c5fec2b032ea60bdb80519a701991acefd1517ff9",
+      "bytes": 1118
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x555100.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x555100.json",
+      "sha256": "29294f463e3efe5fd973b9f087655e761b1db9c7c877ecb1387a4f1c1dea7fc3",
+      "bytes": 1138
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x556820.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x556820.json",
+      "sha256": "12250bc3ace611892bb133f6fd50909c1d0efe0101e0852182a15c2e2e348339",
+      "bytes": 2121
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x565BA0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x565BA0.json",
+      "sha256": "14df918f0266acc957650f14e0748154cdf5de14aaea197d3331f7a1a982973c",
+      "bytes": 802
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5673B0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5673B0.json",
+      "sha256": "8217fb39afcfbd4ae0a1492c63a1a0afcc3cbf1148b0b00d88beaf57b08c4f20",
+      "bytes": 1163
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AC2A0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AC2A0.json",
+      "sha256": "786d5c21bd5ef3b9b431e2562e2fa9969b001b852c1343ab8865b9cd7025c81f",
+      "bytes": 701
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AC4B0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AC4B0.json",
+      "sha256": "afb95a8046cd67da69b0130509d1135e7131a43746db78e4ccca5e75bfa0d66d",
+      "bytes": 680
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AC760.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AC760.json",
+      "sha256": "3158ad8133d6dfaa724767295fb70cd70b1e7ee9eaaf41c9d145d0ab0f5b2dd0",
+      "bytes": 1409
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5ACB40.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5ACB40.json",
+      "sha256": "1b6ba76183dbd867da4693d1f98c0512150a1dcad66c62def64d2f136b898c7c",
+      "bytes": 1067
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5ACBE0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5ACBE0.json",
+      "sha256": "5624c50b0fe9a250758daed40d909b632d6796763a328852d127c064ead38746",
+      "bytes": 1287
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AD110.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AD110.json",
+      "sha256": "80f77e89f6e84d44ff8c6c61d966013d39a7a950764002656b08191f568e8194",
+      "bytes": 3368
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AD8D0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AD8D0.json",
+      "sha256": "3b141a884c78066f702b919897c6bd783cf0cbe35362d2638e2b98ba056672bc",
+      "bytes": 595
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5ADD00.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5ADD00.json",
+      "sha256": "a3511c58757dff4b19dc19ee5473f2a2b35ce58bbbb425f706c9ef2a11de68a2",
+      "bytes": 6767
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5AE520.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5AE520.json",
+      "sha256": "4115bbf67497f0df6168f6d8558bae463abf0e44ce227ed2029f8fa2f335ac0f",
+      "bytes": 914
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B0960.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B0960.json",
+      "sha256": "0e8aefbccd0daf83a8d7679f7bdd75afb0f3f8d52ede835e773c86144e2bc791",
+      "bytes": 897
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B0AB0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B0AB0.json",
+      "sha256": "2fba50c88e98c29db602238b701b5baa3e51aa5eccb5b508409a7873c294871b",
+      "bytes": 1069
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B4810.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B4810.json",
+      "sha256": "ec4c557bf10f54ba76f41afc0e2c2d843810952cc8d4be9341f9359cd1e3ab7b",
+      "bytes": 7922
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B6960.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B6960.json",
+      "sha256": "6636e6bdcfc8a836d50a0949b3ae1982b9afd17881135cfc747b0124f1de40c9",
+      "bytes": 641
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B69A0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B69A0.json",
+      "sha256": "dd95357bad01413ed1513c952d23ab691b9e04f7bcbf07b571510bf64c572660",
+      "bytes": 1183
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B7980.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B7980.json",
+      "sha256": "d1028bf19bc50fc9d34b127908634c21144f1ad295b3ea28a8e0a865ba6114b3",
+      "bytes": 1223
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B7D20.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B7D20.json",
+      "sha256": "d08f8b413c96b4c9625894085d88f4ee13b30ebbcc72995b0a885f83744735c5",
+      "bytes": 746
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5B8880.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5B8880.json",
+      "sha256": "f1fa3e715e1f34f9c59c61fd37ddc6415ebd0cac347c30c45921243852eadfe6",
+      "bytes": 1275
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5BA2B0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5BA2B0.json",
+      "sha256": "d5fa5490a9950e852a54332c2dc990052016e15081fc4da95da3c8268b1d94c1",
+      "bytes": 1048
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5BCFF0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5BCFF0.json",
+      "sha256": "e3e5978fafea6893f0f889f732e0df59f0307d759354f2f09103d08304722c98",
+      "bytes": 358
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5BE890.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5BE890.json",
+      "sha256": "f772f122d6fa1181de1add2e6b5381609e8896f72490d24c6cfb3309754aaa0b",
+      "bytes": 1306
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5C0660.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5C0660.json",
+      "sha256": "c292dc31639b2b36e5a73b5302a666659e81925e9d513792339f705d0067f5d2",
+      "bytes": 16853
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5C4330.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5C4330.json",
+      "sha256": "d1994b01a36ed88e16fadf2ac51360faf1661f6c6968ff28a5390e5ea0209db5",
+      "bytes": 7938
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5CD4D0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5CD4D0.json",
+      "sha256": "e9cdc13ec63e8dd3a2f513221fa7b6f8a5b35aa688add8b74c51e6602b13ba78",
+      "bytes": 4033
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5CD770.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5CD770.json",
+      "sha256": "83e4f40ce81e85e0707c6b3078df93aab5755a366e3bfae7420081f495c64a66",
+      "bytes": 3867
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5CE2A0.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5CE2A0.json",
+      "sha256": "ebd6e1b7ab67e1b5fd1aa8d53dac7ef040881964f447054f10fca62b909879f7",
+      "bytes": 2705
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5D0B10.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5D0B10.json",
+      "sha256": "8cf5895e65cca7088e965266d061b31f85aa2971c061d16a1d85337fc2425c0a",
+      "bytes": 863
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/decompile-0x5D7E70.json",
+      "destination": "assets/data/fidelity_fx/particles/native/decompile-0x5D7E70.json",
+      "sha256": "dacd2e760a322e69c23ef59ab77f48d68b1caa2d9788c09965a03f45ff44c6fa",
+      "bytes": 884
+    },
+    {
+      "source": "fidelity-rebuild/particles/native/splash-load-asm.json",
+      "destination": "assets/data/fidelity_fx/particles/native/splash-load-asm.json",
+      "sha256": "ddcc244613c79f54c32dcb213ae02f5a7d616f2a5d4a5338d607f7bac3beaf67",
+      "bytes": 1625
+    },
+    {
+      "source": "fidelity-rebuild/particles/planar-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/planar-x86.json",
+      "sha256": "64d5c6996d1ddc73d84c11342fe6ae92966485185d8f8c0c4d11b56b0761f75e",
+      "bytes": 326971
+    },
+    {
+      "source": "fidelity-rebuild/particles/pool-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/pool-x86.json",
+      "sha256": "8600d7d99c0d648a2ee41f1b10428d73837e3961c3f39c856c151f4a5576c90c",
+      "bytes": 1573813
+    },
+    {
+      "source": "fidelity-rebuild/particles/position-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/position-vtable.json",
+      "sha256": "c2139431e76fcfd0605c391a843f1f6cd5d02321afb86aafaf86b7a6b8709af7",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/quad-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/quad-x86.json",
+      "sha256": "5599331bf21c67bedf7eca392eefd33ac55c18fa59808d5360c9d13ff8ceaee6",
+      "bytes": 246752
+    },
+    {
+      "source": "fidelity-rebuild/particles/render-state-audit.json",
+      "destination": "assets/data/fidelity_fx/particles/render-state-audit.json",
+      "sha256": "f40a20100942d68484dce65d768b98bc603594768e7eae880996466f7ea2818a",
+      "bytes": 221624
+    },
+    {
+      "source": "fidelity-rebuild/particles/renderer-particle-entry.json",
+      "destination": "assets/data/fidelity_fx/particles/renderer-particle-entry.json",
+      "sha256": "25e82fff1ee1d0ba6ab251a3a11a630e735f99e1fdd749f88c09d3fd017047e8",
+      "bytes": 433
+    },
+    {
+      "source": "fidelity-rebuild/particles/reset-controller-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/reset-controller-vtable.json",
+      "sha256": "adc9bc5cb7e54ace1b16eef445a6acad28099cce753aac5ee43d26f36df9c379",
+      "bytes": 1175
+    },
+    {
+      "source": "fidelity-rebuild/particles/schedule-x86.json",
+      "destination": "assets/data/fidelity_fx/particles/schedule-x86.json",
+      "sha256": "13c8b64b232e7707830f061e7d8a23d2487fbd1df3108233af5787f21e06b3c2",
+      "bytes": 1117080
+    },
+    {
+      "source": "fidelity-rebuild/particles/source-provenance.json",
+      "destination": "assets/data/fidelity_fx/particles/source-provenance.json",
+      "sha256": "ba48e7b19e0d858f4009eea15f29e5a95a18bcbb0fd8f9dda58373bb47f99a8c",
+      "bytes": 3552
+    },
+    {
+      "source": "fidelity-rebuild/particles/spawn-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/spawn-vtable.json",
+      "sha256": "7e6cb73415f50b3d6f24fdf3365d9bdf9cdd9baed00292af78e821d03283a239",
+      "bytes": 1019
+    },
+    {
+      "source": "fidelity-rebuild/particles/splash-source-audit.json",
+      "destination": "assets/data/fidelity_fx/particles/splash-source-audit.json",
+      "sha256": "7ac8ea4533a70516410dd95a53dbb7874e3c8de3e0a7e031acffa4f24d2ab171",
+      "bytes": 200168
+    },
+    {
+      "source": "fidelity-rebuild/particles/system-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/system-vtable.json",
+      "sha256": "2a48d60b4f3e31866c46b3c935b008b06882c9e6ca22c297707462b0f8c9e908",
+      "bytes": 1683
+    },
+    {
+      "source": "fidelity-rebuild/particles/update-controller-vtable.json",
+      "destination": "assets/data/fidelity_fx/particles/update-controller-vtable.json",
+      "sha256": "da68e119a9b8fc0596c9521465a994b62f83a175b809c64f30b2dc5785e25e38",
+      "bytes": 1449
+    },
+    {
+      "source": "fidelity-rebuild/particles/FREEZE.json",
+      "destination": "assets/data/fidelity_fx/particles/FREEZE.json",
+      "sha256": "527b33ed3dd8b0dd6bd9c4e0c8df386389b887cc7fe439ea833ddbabded48373",
+      "bytes": 31854
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/billboard-mode0-threshold.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/billboard-mode0-threshold.json",
+      "sha256": "ebb38086deeef8d1a14b3295397fab3b76740ed4e424bf2362e0573cfcb2e5fe",
+      "bytes": 406
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/billboard-threshold.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/billboard-threshold.json",
+      "sha256": "9557a078052e16f2e4d61e0d4052b7442f74db58fa1fb9a65893f43226c6b828",
+      "bytes": 928
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/billboard-vtable.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/billboard-vtable.json",
+      "sha256": "cfe9fbe2360d7f3fa669902b4101144990a795e335cb63b6edd1b9b448cc2808",
+      "bytes": 1809
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/box-emitter-vtable.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/box-emitter-vtable.json",
+      "sha256": "3098af24dce353dbafa136e35d0cc73c50bc568b918c5249848b69389c37eb12",
+      "bytes": 1331
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/cloud-update-0x4D8300.asm.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/cloud-update-0x4D8300.asm.json",
+      "sha256": "63c5826dee9f9210cfad6356bcc282e4a1209bf3c815ea65d0d045f962cfd984",
+      "bytes": 2234
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/constants.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/constants.json",
+      "sha256": "d2f260040d4a1dc8c45383b9f38fa2127ed1f28a5b70aacd70a621efbd5c5ebe",
+      "bytes": 9188
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/crt-rng.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/crt-rng.json",
+      "sha256": "7460039d9fc4d6fa2b5a6b12f1198ead8f8645b73e9de70e2deb9c6cd23faac5",
+      "bytes": 9358
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/crt-runtime-vectors.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/crt-runtime-vectors.json",
+      "sha256": "e266b566fdcd379b1da400bc7d84138eeba720a84adff59a0ea2c2798e872841",
+      "bytes": 3959
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x46B740.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x46B740.json",
+      "sha256": "b513b5d285dc4a794f59648de16188036be3f3515ff312a23e1e02e8a1dbd9db",
+      "bytes": 1764
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4D7F40.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D7F40.json",
+      "sha256": "f2ec14f8b28eca0a01b1ebd989f18607b8592c953879c462e479f6ef5ff0d1a6",
+      "bytes": 1872
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4D8060.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D8060.json",
+      "sha256": "af7154f4906cc8507df256381991929eac27da4321ebd1b01a0fc2be868188e3",
+      "bytes": 4102
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4D8300.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D8300.json",
+      "sha256": "110603616d35c60a3b194ffea8941b153d97a75ed1c12874825c3042265f7e94",
+      "bytes": 1682
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4D9DF0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D9DF0.json",
+      "sha256": "d1f04e77d57d252c889121c7d3885698596e6e70ca7b56c3cad49afac55ed101",
+      "bytes": 2544
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4DA0D0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4DA0D0.json",
+      "sha256": "34fbccc155f7b340aee45c26707537342b264202fc754ebc3aed36a0c25394d3",
+      "bytes": 1673
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x4F2650.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4F2650.json",
+      "sha256": "04432cdd23914446735bb643600c6d78683108baaa2baa72bcbb3752bbfbee32",
+      "bytes": 1418
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x534A20.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x534A20.json",
+      "sha256": "bfba67f3a31d26b2abaf943bf0739c00a883fcad8ee5eb4dd211b0934910653c",
+      "bytes": 643
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x539CE0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539CE0.json",
+      "sha256": "7bb28c2ffd1d153a5587e76c4505fdf646dadda0373e04664e611c8b8c12f3e6",
+      "bytes": 690
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x539D60.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539D60.json",
+      "sha256": "2def8e98b2e5ebe7186ddbbf4e431cc6c16dd035efdf4ea7ca93e5cd2d4ae3a5",
+      "bytes": 690
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x539E70.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539E70.json",
+      "sha256": "4095af75bcb164fd82af312c02dcd930c469bcdb5baf4f411507509b765d62f4",
+      "bytes": 1162
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x53A060.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x53A060.json",
+      "sha256": "0df73b36b42009b433885a42d34085f0718459fa259d5eef740a07375f6b5b96",
+      "bytes": 549
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x546230.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546230.json",
+      "sha256": "94c636e7e6fe16175af299a99d9eb1a2d634cbe0fce11ebed3e1f2412b931ce5",
+      "bytes": 7877
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x546800.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546800.json",
+      "sha256": "de106d67d17c24360b4ab94a6feab52054059f5f6dee4346146512dbb0bbe12e",
+      "bytes": 333
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5468F0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5468F0.json",
+      "sha256": "bb272d833df3bf414388e2300d8bb1a35b7a7c60f1081995f61dc3af6c8fe1ed",
+      "bytes": 541
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x546940.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546940.json",
+      "sha256": "9dbbf8c6a1682e3eb6b422f1041c074d7d2e353d77e9ea551de7dfa1ac8fe77d",
+      "bytes": 833
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x547DF0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x547DF0.json",
+      "sha256": "63a0d01d3895c2bcef75865fb26bebf74e656fcbcf43ab7b3633c5e05b7382b9",
+      "bytes": 2136
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x547F00.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x547F00.json",
+      "sha256": "6f7a31ad9bed7d8bcad13b76af846e907004fbb0e1d533b4e80af8717716d354",
+      "bytes": 691
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x54FFE0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x54FFE0.json",
+      "sha256": "5f43b0c48be61e7dc56e10b92b3a581397188ad8ef225c4a27a5956d9fcc43cb",
+      "bytes": 2753
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5658C0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5658C0.json",
+      "sha256": "8dea60c786d642f1979fe6241ee35e48a5c73c5c64b8da38b91358131d527b74",
+      "bytes": 589
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x565E20.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x565E20.json",
+      "sha256": "9d4a319510c4b8b18eaad8466d2a52ef487b209908314a018985d26a3ce2a2a2",
+      "bytes": 2227
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x567C60.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x567C60.json",
+      "sha256": "c6b732975cd0d34a2038fa427e1d327d781fcbcf82cf00e77c9e3183f4b9d352",
+      "bytes": 2623
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x57F490.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F490.json",
+      "sha256": "589947dd4bd7bcd93774c4abe2532bd1079ac803872c5f7177e0faf2cea6d20a",
+      "bytes": 967
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x57F6A0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F6A0.json",
+      "sha256": "bc327da2b2bcd2985a6a3511f91fb051806de5074ed4606002f612548d317a88",
+      "bytes": 374
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x57F730.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F730.json",
+      "sha256": "1228f325911e0a1b9ace8b21ff79660ecf5b0ca68baa205310f39f9bfd9a3083",
+      "bytes": 453
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x57F750.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F750.json",
+      "sha256": "17a218a77f2284928ca077b8375a6aa83015dc0cd75b77d50227360746d7548a",
+      "bytes": 543
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x57FC30.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57FC30.json",
+      "sha256": "f0aae22c892e00ecaef795d3be81d1dddb33fa179e98128a2c5970605c5a0cd7",
+      "bytes": 862
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5AC760.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AC760.json",
+      "sha256": "51406fae50cbf4cf4dda1c4ca1c295b02ac0e443dc4afbc038c6911893953277",
+      "bytes": 1399
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5ACB40.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ACB40.json",
+      "sha256": "df88a940dec25be10817d58592e5f3e1286e9c0b63b7559b6c96b4a64b8a4a2e",
+      "bytes": 1084
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5AD110.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AD110.json",
+      "sha256": "71ba97df7043eaa776ba19ed107ed9579530c1d143c93086823a8f41a32bc08b",
+      "bytes": 3403
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5AD920.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AD920.json",
+      "sha256": "9adaa471dd1f46b9a9eead92e50b221f41a65d8b0844cee6a0f35ccf42ffbf44",
+      "bytes": 1987
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5ADB00.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ADB00.json",
+      "sha256": "1ada9480c8f614952565ca7d2966e7a426697f01d39de26dfd6681fb683658ea",
+      "bytes": 784
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5ADD00.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ADD00.json",
+      "sha256": "f074cadf8a8c5055651a82a009ed14c27a79dfa64786327996038f30cc54d8ab",
+      "bytes": 6785
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B0AB0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B0AB0.json",
+      "sha256": "4a96fa736f8393ad713a232c6daa064f96f1420a75b5f8ed69d5e217330245d0",
+      "bytes": 1086
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B4270.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B4270.json",
+      "sha256": "d2682dcbdef849275139fac9cd6f735cd7c8e6b238f38c4293ab8fb6a7f22dde",
+      "bytes": 1336
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B4810.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B4810.json",
+      "sha256": "6898a6c9bd5010e98bbbac9a58f1c066ca339c7e98f76abf895f277b340b41f7",
+      "bytes": 7912
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B72D0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B72D0.json",
+      "sha256": "e33009baef0360e92ef9e855fbe8e59de420342e6c71359bb331829c80f45983",
+      "bytes": 2544
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B7980.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B7980.json",
+      "sha256": "302f55adfec0d599fac118cc86a6f1db7dad66d0b1a3c367a822864b5223f7bc",
+      "bytes": 1240
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5B8880.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B8880.json",
+      "sha256": "cbe7f8d32a0a1e09a3690e9bbc737868c7f307e5e66558657f2a1b6b8e37e2af",
+      "bytes": 1292
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/decompile-0x5BA2B0.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5BA2B0.json",
+      "sha256": "4b42a5de133acf1d64c186e2018540bc2a920c185d468faa13561afac03e1643",
+      "bytes": 1057
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/half.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/half.json",
+      "sha256": "ed7fb24062cbe02c16886d5d3de69e6429aef69dbd48aa2c64d9badc795ddd49",
+      "bytes": 388
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/ida-identity.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/ida-identity.json",
+      "sha256": "890c5ed7854d30c5d4d9e43a2516a53a0a09cd4fd5cbfdbfab6cef11fbdeb4e8",
+      "bytes": 702
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/node-vtable.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/node-vtable.json",
+      "sha256": "6966a2b5cb7eedf6aca4fe764336d9ca0e45bc9a94e72d9f92c343615fb66372",
+      "bytes": 1805
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/rand-normalizer.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/rand-normalizer.json",
+      "sha256": "221e4c0b8277a191ae93a6c67638cf3081dba9348d7c666a6867e9030e361cab",
+      "bytes": 407
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/source-provenance.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/source-provenance.json",
+      "sha256": "4d6508e8e33a375a38a7bee49907105a42cdce76d8498737d0c3806f05e5812b",
+      "bytes": 8430
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native/srand-xrefs.json",
+      "destination": "assets/data/fidelity_fx/atmosphere/native/srand-xrefs.json",
+      "sha256": "4b251802d9000de59684eba1d2081d766973a642d970ae5543f39e23225f0de4",
+      "bytes": 4177
+    },
+    {
+      "source": "fidelity-rebuild/particles/source.mjs",
+      "destination": "assets/data/fidelity_fx/particles/source.mjs",
+      "sha256": "dc7fcbd51ba48093df8459ea10a0cd8c59a284b7fc3ae5030563761218467ef6",
+      "bytes": 3613
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/source-replay.mjs",
+      "destination": "assets/data/fidelity_fx/atmosphere/source-replay.mjs",
+      "sha256": "c99fee60a93dd2357ed16955ad5248fd258b1ae46a64dfcd8e26850ec9fddcae",
+      "bytes": 4021
+    },
+    {
+      "source": "fidelity-rebuild/atmosphere/native-semantics.mjs",
+      "destination": "assets/data/fidelity_fx/atmosphere/native-semantics.mjs",
+      "sha256": "6e12e9f3459bcddfe0f1e9038ed5ca985de27f769d21269d7a892c0613689217",
+      "bytes": 10202
+    },
+    {
+      "source": "raw/fpk/Pak5/fx_cannon_smoke_01.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_01.dds",
+      "sha256": "5fe00d575adac25adb8dd126df4808bc3acaf0ffb7278390edd32fe869a8acc0",
+      "bytes": 22000
+    },
+    {
+      "source": "raw/fpk/Pak2/fx_cannon_smoke_02.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_02.dds",
+      "sha256": "a70b2b553139068ab800dfcd4ba72802e57172dc9d65838aa42ad39c051d387f",
+      "bytes": 22000
+    },
+    {
+      "source": "raw/fpk/Pak6/fx_cannon_smoke_03.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_03.dds",
+      "sha256": "f3d4f57404a12565252e79171cdd0efede9056927c1931070a3f6ac7172b56cd",
+      "bytes": 22000
+    },
+    {
+      "source": "raw/fpk/Pak5/fx_mist_01.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_mist_01.dds",
+      "sha256": "97a62745f1dc05e6a2331a0a1b420d7da6d0cd05182b82d5cda794720789f98d",
+      "bytes": 16512
+    },
+    {
+      "source": "raw/fpk/Pak1/fx_streakin_001.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_streakin_001.dds",
+      "sha256": "bdc9931efb752334bc77cbaf6dac588621afd5a5f10021717b4d94616202b580",
+      "bytes": 16512
+    },
+    {
+      "source": "raw/fpk/Pak6/fx_water_splash_004.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_water_splash_004.dds",
+      "sha256": "36c2cc0dabc3d7a6f5677226e1915087ce0901f9b8925efe876972fe3c29505e",
+      "bytes": 32896
+    },
+    {
+      "source": "raw/fpk/Pak0/fx_water_splash_rings_01.dds",
+      "destination": "assets/textures/fidelity_fx/particles/fx_water_splash_rings_01.dds",
+      "sha256": "911d60c4f2759ccd7df8565409ead397dbd928f1bef297dd8dcec927de882f3c",
+      "bytes": 16512
+    },
+    {
+      "source": "raw/fpk/Pak2/cloud_bw.dds",
+      "destination": "assets/textures/fidelity_fx/atmosphere/cloud_bw.dds",
+      "sha256": "455f206efaab3fda46f2d68dfc0435aaa7262bdba9bde9dc5fa3f7f6dae713f5",
+      "bytes": 349680
+    },
+    {
+      "source": "raw/fpk/Pak3/fx_groundfog_crop01.dds",
+      "destination": "assets/textures/fidelity_fx/atmosphere/fx_groundfog_crop01.dds",
+      "sha256": "0d646ae3dbe989d8aec12b32d324dfc7ef48cb6fcea034af73717bdad5389a62",
+      "bytes": 87536
+    }
+  ],
+  "outputs": [
+    {
+      "path": "assets/data/fidelity_fx/particles/assets-json/fx_cannon_fire_01.nif.json",
+      "sha256": "ee3432d11cb073a1922f1445c89c2c66e41e3e8a7b406504dad9ab60b5af32ef",
+      "bytes": 259125
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/original/fx_cannon_fire_01.nif",
+      "sha256": "868c3a7c4ed3225c17c6c6bc0bee45c0970d5558fca03ffa8e2926b4d0c74dc7",
+      "bytes": 48643
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_01.nif.json",
+      "sha256": "c25f9327f700e047385e32d2b6293286022dd72ef6317ff74e136587ec2fc47a",
+      "bytes": 230792
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_01.nif",
+      "sha256": "576a94f1dc9599adcf89357abb4bd6989231496c1caaa87af39062d54e35d688",
+      "bytes": 31834
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_02.nif.json",
+      "sha256": "3a3abd5858db41ff7c5957232eb71fbf4e221e8cd36a7153fa0cc4b34768ae56",
+      "bytes": 221101
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_02.nif",
+      "sha256": "725c7979eff42e0dffdf8e3f496aae5182cea5d6a2f42c52983b26775a710a49",
+      "bytes": 30705
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/assets-json/cannon_ball_splash_03.nif.json",
+      "sha256": "a29d11cadc727baf1ab994299007839aec4f893b3d1b2842205c3fa056a26389",
+      "bytes": 230221
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/original/cannon_ball_splash_03.nif",
+      "sha256": "cc6a915339c39730c52dc4b203fddacbeb69dd08c4459e9ab2667211ed91b0ad",
+      "bytes": 31606
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud1.nif.json",
+      "sha256": "701b01e714e9b8d96e6febb521f0a2180dd6fc8d0021a76d230246f0013e6611",
+      "bytes": 51057
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/domecloud1.nif",
+      "sha256": "797d5e30c21d14370797b22844cf06f9ddfdcf371493809a910f34e3e59d0d11",
+      "bytes": 6899
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud2.nif.json",
+      "sha256": "411604034b1bdc3c4f63559d3f83e30589d3fd68096635069a74c3110d177e5d",
+      "bytes": 15220
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/domecloud2.nif",
+      "sha256": "7372002cbceea84beea95f2a6de5e5b84f7930fff84b9b9d7a7f6b931a0662ab",
+      "bytes": 2115
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud3.nif.json",
+      "sha256": "4da39b48ea17069cfedead2fe4e883c4659c070d89810c21be95fccf57f858e8",
+      "bytes": 15104
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/domecloud3.nif",
+      "sha256": "6ec205cf543556859d64792561094f9f28866fcf1624614d98ceb4fdbf9948e5",
+      "bytes": 2115
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud4.nif.json",
+      "sha256": "c41070c16698a27a0792c4e65200fd5d21ac36d74732805cee91dba7794531f4",
+      "bytes": 25472
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/domecloud4.nif",
+      "sha256": "ef40bc38175a6d55b3f738ea02e3ab393b92436fe2fc6dc4ce598fd816df4172",
+      "bytes": 3345
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/domecloud5.nif.json",
+      "sha256": "a161fd43135370d9b2eac2a3391fb0b350521a41dc7637633ab311a5cd949625",
+      "bytes": 15477
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/domecloud5.nif",
+      "sha256": "ab71bf473fe94988d05cb797b8d99bb1d4cbce5f6a9a2f4603976f7020e350cc",
+      "bytes": 2115
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/assets-json/fx_groundfog01.nif.json",
+      "sha256": "3c40517e5500630b290dc725cf771150a6adf4bf465385098691c8a153ba8670",
+      "bytes": 139138
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/original/fx_groundfog01.nif",
+      "sha256": "29ffa66feb9134f5c117230a67c8c04460350392acf6b16674dab9db220005cf",
+      "bytes": 17059
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/age-vtable.json",
+      "sha256": "d0e58a4b78691042c2baeb0bd3459dfa952ae6a96e35a898d167129859e11773",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/animation-x86.json",
+      "sha256": "d02a6cccf2cabd6e4851d921ffcdcf14cabfaef5e9dfe7678e0d4854151f3220",
+      "bytes": 672239
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/birth-direction-default.json",
+      "sha256": "6f9cbefe44aae8f4fbb32d3ba9904c3c80c13aeb050750c25df806921d0a6235",
+      "bytes": 425
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/birth-x86.json",
+      "sha256": "e4ea8e610337b2c2834ca7a9016fa4d9174dd7c5ae93b79004ce819196b97d0c",
+      "bytes": 622542
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/bounds-vtable.json",
+      "sha256": "c5d76a1e5d44acfbd6a04e199e8dbc497c72a899cb16f58229ae372f0ef45471",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/bounds-x86.json",
+      "sha256": "fb97de2794e9117fe674aa664be24da2fe05ea9bfa7e466ae76b6f8e3d706093",
+      "bytes": 107140
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/color-vtable.json",
+      "sha256": "6172268b306bb9f29b9e27bc9bbcf84366bd3a2d0cbaf6c220ec023b239b25ad",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/data-vtable.json",
+      "sha256": "8e3969a64ae539daf07244d1d59077d81fa76dce777f4a7e1816068a680c450b",
+      "bytes": 1185
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/emitter-controller-vtable.json",
+      "sha256": "2dfc364f55f0e7003b2cf892e83f18fa6c864e93ee6f5a0af00498c32c6da3e8",
+      "bytes": 1449
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/emitter-vtable.json",
+      "sha256": "23f43058025f29659554150e55632aa0b96a00dfb05a01356520ae3dcfc34a73",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/gravity-vtable.json",
+      "sha256": "ff7eacaf4b1416c537d7a4dc3ebe2a5ed738ad9482a87656f74bd4fe33f8c6bd",
+      "bytes": 1181
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/gravity-x86.json",
+      "sha256": "f3abf96cd09a481ce677a3e9f66cd17bb2e3e1721d458c264415ea51b1360f00",
+      "bytes": 125107
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/grow-vtable.json",
+      "sha256": "ae34da7628e8e1870ab0e6af399cef594062bfe093e212ec9c0c2feec84554b7",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/material-source-x86.json",
+      "sha256": "88204237c6c0c874e9714d70d8e2f524fb57046bf169c9a32f9bce841ad22cb0",
+      "bytes": 39479
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x4901C0.json",
+      "sha256": "dc8e2f49a08d6750cca85d5430827659f43d1ddd4293ef8aa05aa0039256ca19",
+      "bytes": 856
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x4A9750.json",
+      "sha256": "2baa7832acb51b81274973daec3b438d58a9b3f978df6ab708a469e98b987783",
+      "bytes": 363
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x4D98C0.json",
+      "sha256": "77ad494c96abf3f1fbfb991b36d14dac313d56063560312cc01f3da51177f89a",
+      "bytes": 1541
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x4FE190.json",
+      "sha256": "dc1767f212b4ee54d744bdf82709ac23a46286672f7dda7072f78a2e5ddacdc5",
+      "bytes": 382
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x500820.json",
+      "sha256": "0310ab3cd50504c98991b96a49fb770a5ec149e085918a8575b5d6f58205b89f",
+      "bytes": 882
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x539D20.json",
+      "sha256": "f266701161a30d82895e279792e8101e319456c51fb12d7647839c60b2846b73",
+      "bytes": 675
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x539F80.json",
+      "sha256": "5a032035712b06462f22ed62cf687c6a778a90f1c30feb104de4e81c9c4944b6",
+      "bytes": 741
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x53A000.json",
+      "sha256": "b01f010b18b2294ba88a92401bef63223228e7a3b9c9d2d593715e7ba3762054",
+      "bytes": 693
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x53A060.json",
+      "sha256": "af587d46a2a4e9f373a86ba68f079bed08fa85c95b8a8978a95b35f6cb451527",
+      "bytes": 641
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x53D680.json",
+      "sha256": "3f54795b087a3b5558901aa4cab737a9824d5420b0598ae0eaa1e4412f3ec03a",
+      "bytes": 607
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x53FE50.json",
+      "sha256": "3ca8faa8361c42a16223cc576c71688b0f436244b0963b7707d356555f87fe1b",
+      "bytes": 1431
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x541C60.json",
+      "sha256": "3778b697a3dc1ea6debd410e945850edaec461a4f414d66b7ebe3bb79c5653b5",
+      "bytes": 1129
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x541D00.json",
+      "sha256": "059c7f8447287b8ebf2d9552bfb664149e4a1b39b542d98c32c6a4c4c60c6ac8",
+      "bytes": 363
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x545760.json",
+      "sha256": "d4987395cc2ded1be7abc96cd8aafee41e1507774efd715d783b27b978a88f5a",
+      "bytes": 6497
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x546160.json",
+      "sha256": "bc27316da2ba2bacf996033779bde2dea2e1ae76a9fd28fd20b84d8a9478c9b6",
+      "bytes": 1172
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x550390.json",
+      "sha256": "44ca451f2c9949f94de0626c5fec2b032ea60bdb80519a701991acefd1517ff9",
+      "bytes": 1118
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x555100.json",
+      "sha256": "29294f463e3efe5fd973b9f087655e761b1db9c7c877ecb1387a4f1c1dea7fc3",
+      "bytes": 1138
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x556820.json",
+      "sha256": "12250bc3ace611892bb133f6fd50909c1d0efe0101e0852182a15c2e2e348339",
+      "bytes": 2121
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x565BA0.json",
+      "sha256": "14df918f0266acc957650f14e0748154cdf5de14aaea197d3331f7a1a982973c",
+      "bytes": 802
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5673B0.json",
+      "sha256": "8217fb39afcfbd4ae0a1492c63a1a0afcc3cbf1148b0b00d88beaf57b08c4f20",
+      "bytes": 1163
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AC2A0.json",
+      "sha256": "786d5c21bd5ef3b9b431e2562e2fa9969b001b852c1343ab8865b9cd7025c81f",
+      "bytes": 701
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AC4B0.json",
+      "sha256": "afb95a8046cd67da69b0130509d1135e7131a43746db78e4ccca5e75bfa0d66d",
+      "bytes": 680
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AC760.json",
+      "sha256": "3158ad8133d6dfaa724767295fb70cd70b1e7ee9eaaf41c9d145d0ab0f5b2dd0",
+      "bytes": 1409
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5ACB40.json",
+      "sha256": "1b6ba76183dbd867da4693d1f98c0512150a1dcad66c62def64d2f136b898c7c",
+      "bytes": 1067
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5ACBE0.json",
+      "sha256": "5624c50b0fe9a250758daed40d909b632d6796763a328852d127c064ead38746",
+      "bytes": 1287
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AD110.json",
+      "sha256": "80f77e89f6e84d44ff8c6c61d966013d39a7a950764002656b08191f568e8194",
+      "bytes": 3368
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AD8D0.json",
+      "sha256": "3b141a884c78066f702b919897c6bd783cf0cbe35362d2638e2b98ba056672bc",
+      "bytes": 595
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5ADD00.json",
+      "sha256": "a3511c58757dff4b19dc19ee5473f2a2b35ce58bbbb425f706c9ef2a11de68a2",
+      "bytes": 6767
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5AE520.json",
+      "sha256": "4115bbf67497f0df6168f6d8558bae463abf0e44ce227ed2029f8fa2f335ac0f",
+      "bytes": 914
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B0960.json",
+      "sha256": "0e8aefbccd0daf83a8d7679f7bdd75afb0f3f8d52ede835e773c86144e2bc791",
+      "bytes": 897
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B0AB0.json",
+      "sha256": "2fba50c88e98c29db602238b701b5baa3e51aa5eccb5b508409a7873c294871b",
+      "bytes": 1069
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B4810.json",
+      "sha256": "ec4c557bf10f54ba76f41afc0e2c2d843810952cc8d4be9341f9359cd1e3ab7b",
+      "bytes": 7922
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B6960.json",
+      "sha256": "6636e6bdcfc8a836d50a0949b3ae1982b9afd17881135cfc747b0124f1de40c9",
+      "bytes": 641
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B69A0.json",
+      "sha256": "dd95357bad01413ed1513c952d23ab691b9e04f7bcbf07b571510bf64c572660",
+      "bytes": 1183
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B7980.json",
+      "sha256": "d1028bf19bc50fc9d34b127908634c21144f1ad295b3ea28a8e0a865ba6114b3",
+      "bytes": 1223
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B7D20.json",
+      "sha256": "d08f8b413c96b4c9625894085d88f4ee13b30ebbcc72995b0a885f83744735c5",
+      "bytes": 746
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5B8880.json",
+      "sha256": "f1fa3e715e1f34f9c59c61fd37ddc6415ebd0cac347c30c45921243852eadfe6",
+      "bytes": 1275
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5BA2B0.json",
+      "sha256": "d5fa5490a9950e852a54332c2dc990052016e15081fc4da95da3c8268b1d94c1",
+      "bytes": 1048
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5BCFF0.json",
+      "sha256": "e3e5978fafea6893f0f889f732e0df59f0307d759354f2f09103d08304722c98",
+      "bytes": 358
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5BE890.json",
+      "sha256": "f772f122d6fa1181de1add2e6b5381609e8896f72490d24c6cfb3309754aaa0b",
+      "bytes": 1306
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5C0660.json",
+      "sha256": "c292dc31639b2b36e5a73b5302a666659e81925e9d513792339f705d0067f5d2",
+      "bytes": 16853
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5C4330.json",
+      "sha256": "d1994b01a36ed88e16fadf2ac51360faf1661f6c6968ff28a5390e5ea0209db5",
+      "bytes": 7938
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5CD4D0.json",
+      "sha256": "e9cdc13ec63e8dd3a2f513221fa7b6f8a5b35aa688add8b74c51e6602b13ba78",
+      "bytes": 4033
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5CD770.json",
+      "sha256": "83e4f40ce81e85e0707c6b3078df93aab5755a366e3bfae7420081f495c64a66",
+      "bytes": 3867
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5CE2A0.json",
+      "sha256": "ebd6e1b7ab67e1b5fd1aa8d53dac7ef040881964f447054f10fca62b909879f7",
+      "bytes": 2705
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5D0B10.json",
+      "sha256": "8cf5895e65cca7088e965266d061b31f85aa2971c061d16a1d85337fc2425c0a",
+      "bytes": 863
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/decompile-0x5D7E70.json",
+      "sha256": "dacd2e760a322e69c23ef59ab77f48d68b1caa2d9788c09965a03f45ff44c6fa",
+      "bytes": 884
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/native/splash-load-asm.json",
+      "sha256": "ddcc244613c79f54c32dcb213ae02f5a7d616f2a5d4a5338d607f7bac3beaf67",
+      "bytes": 1625
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/planar-x86.json",
+      "sha256": "64d5c6996d1ddc73d84c11342fe6ae92966485185d8f8c0c4d11b56b0761f75e",
+      "bytes": 326971
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/pool-x86.json",
+      "sha256": "8600d7d99c0d648a2ee41f1b10428d73837e3961c3f39c856c151f4a5576c90c",
+      "bytes": 1573813
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/position-vtable.json",
+      "sha256": "c2139431e76fcfd0605c391a843f1f6cd5d02321afb86aafaf86b7a6b8709af7",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/quad-x86.json",
+      "sha256": "5599331bf21c67bedf7eca392eefd33ac55c18fa59808d5360c9d13ff8ceaee6",
+      "bytes": 246752
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/render-state-audit.json",
+      "sha256": "f40a20100942d68484dce65d768b98bc603594768e7eae880996466f7ea2818a",
+      "bytes": 221624
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/renderer-particle-entry.json",
+      "sha256": "25e82fff1ee1d0ba6ab251a3a11a630e735f99e1fdd749f88c09d3fd017047e8",
+      "bytes": 433
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/reset-controller-vtable.json",
+      "sha256": "adc9bc5cb7e54ace1b16eef445a6acad28099cce753aac5ee43d26f36df9c379",
+      "bytes": 1175
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/schedule-x86.json",
+      "sha256": "13c8b64b232e7707830f061e7d8a23d2487fbd1df3108233af5787f21e06b3c2",
+      "bytes": 1117080
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/source-provenance.json",
+      "sha256": "ba48e7b19e0d858f4009eea15f29e5a95a18bcbb0fd8f9dda58373bb47f99a8c",
+      "bytes": 3552
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/spawn-vtable.json",
+      "sha256": "7e6cb73415f50b3d6f24fdf3365d9bdf9cdd9baed00292af78e821d03283a239",
+      "bytes": 1019
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/splash-source-audit.json",
+      "sha256": "7ac8ea4533a70516410dd95a53dbb7874e3c8de3e0a7e031acffa4f24d2ab171",
+      "bytes": 200168
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/system-vtable.json",
+      "sha256": "2a48d60b4f3e31866c46b3c935b008b06882c9e6ca22c297707462b0f8c9e908",
+      "bytes": 1683
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/update-controller-vtable.json",
+      "sha256": "da68e119a9b8fc0596c9521465a994b62f83a175b809c64f30b2dc5785e25e38",
+      "bytes": 1449
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/FREEZE.json",
+      "sha256": "527b33ed3dd8b0dd6bd9c4e0c8df386389b887cc7fe439ea833ddbabded48373",
+      "bytes": 31854
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/billboard-mode0-threshold.json",
+      "sha256": "ebb38086deeef8d1a14b3295397fab3b76740ed4e424bf2362e0573cfcb2e5fe",
+      "bytes": 406
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/billboard-threshold.json",
+      "sha256": "9557a078052e16f2e4d61e0d4052b7442f74db58fa1fb9a65893f43226c6b828",
+      "bytes": 928
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/billboard-vtable.json",
+      "sha256": "cfe9fbe2360d7f3fa669902b4101144990a795e335cb63b6edd1b9b448cc2808",
+      "bytes": 1809
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/box-emitter-vtable.json",
+      "sha256": "3098af24dce353dbafa136e35d0cc73c50bc568b918c5249848b69389c37eb12",
+      "bytes": 1331
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/cloud-update-0x4D8300.asm.json",
+      "sha256": "63c5826dee9f9210cfad6356bcc282e4a1209bf3c815ea65d0d045f962cfd984",
+      "bytes": 2234
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/constants.json",
+      "sha256": "d2f260040d4a1dc8c45383b9f38fa2127ed1f28a5b70aacd70a621efbd5c5ebe",
+      "bytes": 9188
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/crt-rng.json",
+      "sha256": "7460039d9fc4d6fa2b5a6b12f1198ead8f8645b73e9de70e2deb9c6cd23faac5",
+      "bytes": 9358
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/crt-runtime-vectors.json",
+      "sha256": "e266b566fdcd379b1da400bc7d84138eeba720a84adff59a0ea2c2798e872841",
+      "bytes": 3959
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x46B740.json",
+      "sha256": "b513b5d285dc4a794f59648de16188036be3f3515ff312a23e1e02e8a1dbd9db",
+      "bytes": 1764
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D7F40.json",
+      "sha256": "f2ec14f8b28eca0a01b1ebd989f18607b8592c953879c462e479f6ef5ff0d1a6",
+      "bytes": 1872
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D8060.json",
+      "sha256": "af7154f4906cc8507df256381991929eac27da4321ebd1b01a0fc2be868188e3",
+      "bytes": 4102
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D8300.json",
+      "sha256": "110603616d35c60a3b194ffea8941b153d97a75ed1c12874825c3042265f7e94",
+      "bytes": 1682
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4D9DF0.json",
+      "sha256": "d1f04e77d57d252c889121c7d3885698596e6e70ca7b56c3cad49afac55ed101",
+      "bytes": 2544
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4DA0D0.json",
+      "sha256": "34fbccc155f7b340aee45c26707537342b264202fc754ebc3aed36a0c25394d3",
+      "bytes": 1673
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x4F2650.json",
+      "sha256": "04432cdd23914446735bb643600c6d78683108baaa2baa72bcbb3752bbfbee32",
+      "bytes": 1418
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x534A20.json",
+      "sha256": "bfba67f3a31d26b2abaf943bf0739c00a883fcad8ee5eb4dd211b0934910653c",
+      "bytes": 643
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539CE0.json",
+      "sha256": "7bb28c2ffd1d153a5587e76c4505fdf646dadda0373e04664e611c8b8c12f3e6",
+      "bytes": 690
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539D60.json",
+      "sha256": "2def8e98b2e5ebe7186ddbbf4e431cc6c16dd035efdf4ea7ca93e5cd2d4ae3a5",
+      "bytes": 690
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x539E70.json",
+      "sha256": "4095af75bcb164fd82af312c02dcd930c469bcdb5baf4f411507509b765d62f4",
+      "bytes": 1162
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x53A060.json",
+      "sha256": "0df73b36b42009b433885a42d34085f0718459fa259d5eef740a07375f6b5b96",
+      "bytes": 549
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546230.json",
+      "sha256": "94c636e7e6fe16175af299a99d9eb1a2d634cbe0fce11ebed3e1f2412b931ce5",
+      "bytes": 7877
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546800.json",
+      "sha256": "de106d67d17c24360b4ab94a6feab52054059f5f6dee4346146512dbb0bbe12e",
+      "bytes": 333
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5468F0.json",
+      "sha256": "bb272d833df3bf414388e2300d8bb1a35b7a7c60f1081995f61dc3af6c8fe1ed",
+      "bytes": 541
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x546940.json",
+      "sha256": "9dbbf8c6a1682e3eb6b422f1041c074d7d2e353d77e9ea551de7dfa1ac8fe77d",
+      "bytes": 833
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x547DF0.json",
+      "sha256": "63a0d01d3895c2bcef75865fb26bebf74e656fcbcf43ab7b3633c5e05b7382b9",
+      "bytes": 2136
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x547F00.json",
+      "sha256": "6f7a31ad9bed7d8bcad13b76af846e907004fbb0e1d533b4e80af8717716d354",
+      "bytes": 691
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x54FFE0.json",
+      "sha256": "5f43b0c48be61e7dc56e10b92b3a581397188ad8ef225c4a27a5956d9fcc43cb",
+      "bytes": 2753
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5658C0.json",
+      "sha256": "8dea60c786d642f1979fe6241ee35e48a5c73c5c64b8da38b91358131d527b74",
+      "bytes": 589
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x565E20.json",
+      "sha256": "9d4a319510c4b8b18eaad8466d2a52ef487b209908314a018985d26a3ce2a2a2",
+      "bytes": 2227
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x567C60.json",
+      "sha256": "c6b732975cd0d34a2038fa427e1d327d781fcbcf82cf00e77c9e3183f4b9d352",
+      "bytes": 2623
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F490.json",
+      "sha256": "589947dd4bd7bcd93774c4abe2532bd1079ac803872c5f7177e0faf2cea6d20a",
+      "bytes": 967
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F6A0.json",
+      "sha256": "bc327da2b2bcd2985a6a3511f91fb051806de5074ed4606002f612548d317a88",
+      "bytes": 374
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F730.json",
+      "sha256": "1228f325911e0a1b9ace8b21ff79660ecf5b0ca68baa205310f39f9bfd9a3083",
+      "bytes": 453
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57F750.json",
+      "sha256": "17a218a77f2284928ca077b8375a6aa83015dc0cd75b77d50227360746d7548a",
+      "bytes": 543
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x57FC30.json",
+      "sha256": "f0aae22c892e00ecaef795d3be81d1dddb33fa179e98128a2c5970605c5a0cd7",
+      "bytes": 862
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AC760.json",
+      "sha256": "51406fae50cbf4cf4dda1c4ca1c295b02ac0e443dc4afbc038c6911893953277",
+      "bytes": 1399
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ACB40.json",
+      "sha256": "df88a940dec25be10817d58592e5f3e1286e9c0b63b7559b6c96b4a64b8a4a2e",
+      "bytes": 1084
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AD110.json",
+      "sha256": "71ba97df7043eaa776ba19ed107ed9579530c1d143c93086823a8f41a32bc08b",
+      "bytes": 3403
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5AD920.json",
+      "sha256": "9adaa471dd1f46b9a9eead92e50b221f41a65d8b0844cee6a0f35ccf42ffbf44",
+      "bytes": 1987
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ADB00.json",
+      "sha256": "1ada9480c8f614952565ca7d2966e7a426697f01d39de26dfd6681fb683658ea",
+      "bytes": 784
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5ADD00.json",
+      "sha256": "f074cadf8a8c5055651a82a009ed14c27a79dfa64786327996038f30cc54d8ab",
+      "bytes": 6785
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B0AB0.json",
+      "sha256": "4a96fa736f8393ad713a232c6daa064f96f1420a75b5f8ed69d5e217330245d0",
+      "bytes": 1086
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B4270.json",
+      "sha256": "d2682dcbdef849275139fac9cd6f735cd7c8e6b238f38c4293ab8fb6a7f22dde",
+      "bytes": 1336
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B4810.json",
+      "sha256": "6898a6c9bd5010e98bbbac9a58f1c066ca339c7e98f76abf895f277b340b41f7",
+      "bytes": 7912
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B72D0.json",
+      "sha256": "e33009baef0360e92ef9e855fbe8e59de420342e6c71359bb331829c80f45983",
+      "bytes": 2544
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B7980.json",
+      "sha256": "302f55adfec0d599fac118cc86a6f1db7dad66d0b1a3c367a822864b5223f7bc",
+      "bytes": 1240
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5B8880.json",
+      "sha256": "cbe7f8d32a0a1e09a3690e9bbc737868c7f307e5e66558657f2a1b6b8e37e2af",
+      "bytes": 1292
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/decompile-0x5BA2B0.json",
+      "sha256": "4b42a5de133acf1d64c186e2018540bc2a920c185d468faa13561afac03e1643",
+      "bytes": 1057
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/half.json",
+      "sha256": "ed7fb24062cbe02c16886d5d3de69e6429aef69dbd48aa2c64d9badc795ddd49",
+      "bytes": 388
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/ida-identity.json",
+      "sha256": "890c5ed7854d30c5d4d9e43a2516a53a0a09cd4fd5cbfdbfab6cef11fbdeb4e8",
+      "bytes": 702
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/node-vtable.json",
+      "sha256": "6966a2b5cb7eedf6aca4fe764336d9ca0e45bc9a94e72d9f92c343615fb66372",
+      "bytes": 1805
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/rand-normalizer.json",
+      "sha256": "221e4c0b8277a191ae93a6c67638cf3081dba9348d7c666a6867e9030e361cab",
+      "bytes": 407
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/source-provenance.json",
+      "sha256": "4d6508e8e33a375a38a7bee49907105a42cdce76d8498737d0c3806f05e5812b",
+      "bytes": 8430
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native/srand-xrefs.json",
+      "sha256": "4b251802d9000de59684eba1d2081d766973a642d970ae5543f39e23225f0de4",
+      "bytes": 4177
+    },
+    {
+      "path": "assets/data/fidelity_fx/particles/source.mjs",
+      "sha256": "dc7fcbd51ba48093df8459ea10a0cd8c59a284b7fc3ae5030563761218467ef6",
+      "bytes": 3613
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/source-replay.mjs",
+      "sha256": "c99fee60a93dd2357ed16955ad5248fd258b1ae46a64dfcd8e26850ec9fddcae",
+      "bytes": 4021
+    },
+    {
+      "path": "assets/data/fidelity_fx/atmosphere/native-semantics.mjs",
+      "sha256": "6e12e9f3459bcddfe0f1e9038ed5ca985de27f769d21269d7a892c0613689217",
+      "bytes": 10202
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_01.dds",
+      "sha256": "5fe00d575adac25adb8dd126df4808bc3acaf0ffb7278390edd32fe869a8acc0",
+      "bytes": 22000
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_01.png",
+      "sha256": "44a691f1fa38784c6020bcfb018d13fa22a5ad28d2e5d9d7ad831cf36f34148f",
+      "bytes": 27417
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_01.bc.bin",
+      "sha256": "6f64b4ad033dc4eeaa2a220a03b95508c27f2d2b3a2d747b5f0bf8941d0862c9",
+      "bytes": 21872
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_01.rgba.bin",
+      "sha256": "100e990ee817e21bd324205b589e8e822fe0ecea6ede735ca9acb68cac163148",
+      "bytes": 87380
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_02.dds",
+      "sha256": "a70b2b553139068ab800dfcd4ba72802e57172dc9d65838aa42ad39c051d387f",
+      "bytes": 22000
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_02.png",
+      "sha256": "5820226f66e5271b51e495a4d0f8f271dc252548f018845d49712754f7a51e2f",
+      "bytes": 27535
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_02.bc.bin",
+      "sha256": "dba3b51779653c6d6b50137991b997d7d4a9aebc059b36e5c912495fd61a1e49",
+      "bytes": 21872
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_02.rgba.bin",
+      "sha256": "44c627606043a52f514b27b18f41e79f7faca0585ba5031af1d7349c528f1d24",
+      "bytes": 87380
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_03.dds",
+      "sha256": "f3d4f57404a12565252e79171cdd0efede9056927c1931070a3f6ac7172b56cd",
+      "bytes": 22000
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_03.png",
+      "sha256": "fa97fd71b760877eae6e537b21f8821ec4128bb3c7eeeba92bd8d1d0adfff985",
+      "bytes": 26682
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_03.bc.bin",
+      "sha256": "16a43bb80aff0550b5335342fcaf5f47d0cd67069b044a2272516505bde3a6e8",
+      "bytes": 21872
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_cannon_smoke_03.rgba.bin",
+      "sha256": "6851d32edc587528be0a5191a212c107b97e1ff7d431f3460ebab97815f85ff4",
+      "bytes": 87380
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_mist_01.dds",
+      "sha256": "97a62745f1dc05e6a2331a0a1b420d7da6d0cd05182b82d5cda794720789f98d",
+      "bytes": 16512
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_mist_01.png",
+      "sha256": "9e71a39d3ca9483499658a6e9f33b2389a4dcf7c372393000852b3b090c343b5",
+      "bytes": 6220
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_mist_01.bc.bin",
+      "sha256": "25bbb2428b608451ced92090f7802ce13994efc191433c530a912282d55de1e6",
+      "bytes": 16384
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_mist_01.rgba.bin",
+      "sha256": "553737d9a2dc1938f37e152bcd643f72edd130eabdcaacc560e5d5e077870a2e",
+      "bytes": 65536
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_streakin_001.dds",
+      "sha256": "bdc9931efb752334bc77cbaf6dac588621afd5a5f10021717b4d94616202b580",
+      "bytes": 16512
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_streakin_001.png",
+      "sha256": "d8976340e4803edfac7cfd6093985435f431350e066211dc4399d16592486e81",
+      "bytes": 11124
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_streakin_001.bc.bin",
+      "sha256": "951f9c0e55865ac4fb3e38e4b8496b18e897c7b45dab237882cb735207edf754",
+      "bytes": 16384
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_streakin_001.rgba.bin",
+      "sha256": "5d3dd20eaab30d24e1738b746b77337202005dbbf580d683f445189f5de7bd5a",
+      "bytes": 65536
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_004.dds",
+      "sha256": "36c2cc0dabc3d7a6f5677226e1915087ce0901f9b8925efe876972fe3c29505e",
+      "bytes": 32896
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_004.png",
+      "sha256": "a0532e53084d1fbc7f938ae81ec239a3701879d4f6a18503ed9680c6c2cb78ee",
+      "bytes": 21151
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_004.bc.bin",
+      "sha256": "130458b283c5ab8320307a22ef9607ee0323512235a21e2a638ba55fb7f95142",
+      "bytes": 32768
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_004.rgba.bin",
+      "sha256": "581143bcf426ba1c587792a963e6f465b62864376174bc5ec8cf839c0eb38671",
+      "bytes": 131072
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_rings_01.dds",
+      "sha256": "911d60c4f2759ccd7df8565409ead397dbd928f1bef297dd8dcec927de882f3c",
+      "bytes": 16512
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_rings_01.png",
+      "sha256": "f066d9773a5713c921706236b6dc03216dca8a7df552b78cbda8cf0afb54f453",
+      "bytes": 6188
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_rings_01.bc.bin",
+      "sha256": "03bb1a0a6f850c8fe6bc8290c0f3fd53450b8e7afa27514793a1565d8371e53d",
+      "bytes": 16384
+    },
+    {
+      "path": "assets/textures/fidelity_fx/particles/fx_water_splash_rings_01.rgba.bin",
+      "sha256": "5b082bb132eaea3011d50a2141f436306a2edb117328e8e401b2d579714f4f79",
+      "bytes": 65536
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/cloud_bw.dds",
+      "sha256": "455f206efaab3fda46f2d68dfc0435aaa7262bdba9bde9dc5fa3f7f6dae713f5",
+      "bytes": 349680
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/cloud_bw.png",
+      "sha256": "89536306c19f6c4589516dd602c96cd38ff66224e2f7f6454a966930e3e5f2aa",
+      "bytes": 231644
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/cloud_bw.bc.bin",
+      "sha256": "93fa31fa19b53c6dca2b71fb0f57b9b1937e55c968beda9e4474e54d13990f21",
+      "bytes": 349552
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/cloud_bw.rgba.bin",
+      "sha256": "b7061a6b9d33ff9c3164f8463141caee32c06ee4940ee537cf5d89c5816b7797",
+      "bytes": 1398100
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/fx_groundfog_crop01.dds",
+      "sha256": "0d646ae3dbe989d8aec12b32d324dfc7ef48cb6fcea034af73717bdad5389a62",
+      "bytes": 87536
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/fx_groundfog_crop01.png",
+      "sha256": "674af7b9d1a2ee7e0e5332a17f176fd765ba466020b195f9c67475bf94b80ae3",
+      "bytes": 35444
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/fx_groundfog_crop01.bc.bin",
+      "sha256": "1186177a198c608c68aef6023d1b471f6b41d736596d980bafa839089dadc6ef",
+      "bytes": 87408
+    },
+    {
+      "path": "assets/textures/fidelity_fx/atmosphere/fx_groundfog_crop01.rgba.bin",
+      "sha256": "39449bb8fd0503279d7d2537c7bbd8018d65b570603b523000d871acb1b0297c",
+      "bytes": 349524
+    },
+    {
+      "path": "assets/data/fidelity_fx/manifest.json",
+      "sha256": "d2546cd6582760e9cdd90f1200ccba750f5a492bbdc08717b8cbbdb162b7cf6e",
+      "bytes": 141096
+    }
+  ],
+  "verification": {
+    "passed": true,
+    "sourceUnchanged": true,
+    "originalCopyCount": 162,
+    "sourceCount": 162,
+    "outputCount": 191,
+    "particleSystemCount": 35,
+    "particleMeshCount": 19,
+    "atmosphereMeshCount": 48,
+    "textureCount": 9,
+    "originalMipLevels": 47,
+    "auditedBaseRGBAHashes": 7,
+    "gpuRun": false,
+    "godotRun": false
+  }
+}

@@ -1,0 +1,113 @@
+--- a/tools/capture-opening-return.gd
++++ b/tools/capture-opening-return.gd
+@@ -163,6 +163,39 @@
+ 	scene._present(0)
+ 	return true
+ 
++func casualty_consequence_matches(packet: Dictionary, text: String) -> bool:
++	var state: Dictionary = packet.campaign
++	var claim: Dictionary = state.settlements[state.campaignId + ":convoy-001:claim"]
++	if claim.kind != "claim-convoy" or claim.details.contractId != "convoy-001" or claim.details.ships.is_empty(): return false
++	var dead := 0; var wounded := 0
++	for ship: Dictionary in claim.details.ships:
++		dead += int(ship.dead); wounded += int(ship.wounded)
++	var expected_relation := ""
++	for relation: Dictionary in packet.story.relations:
++		if relation.id == "xu-fu": expected_relation = "%s · %s\n%s" % [relation.name, relation.role, relation.stance]
++	if expected_relation.is_empty() or text != expected_relation: return false
++	var return_text := ""
++	for chapter_scene: Dictionary in packet.story.scenes:
++		if chapter_scene.id == "first-return": return_text = "\n".join(chapter_scene.text)
++	if not return_text.contains("船员死亡%d人、伤员%d人" % [dead, wounded]): return false
++	if dead > 0 or wounded > 0:
++		return text.contains("死亡%d人" % dead) and text.contains("受伤%d人" % wounded)
++	# Healthy wording is the production branch; its first-return projection still
++	# reports 0/0. Verify actual receipt/current state, never invent duplicate UI.
++	if text.contains("死亡") or text.contains("受伤") or text.contains("阵亡"): return false
++	for person_id: String in ["steward-a", "steward-b"]:
++		if not state.people.get(person_id, {}).get("alive", false): return false
++		var alive_at_claim := false
++		for person: Dictionary in claim.details.people:
++			if person.personId == person_id: alive_at_claim = person.alive
++		if not alive_at_claim: return false
++	for ship: Dictionary in claim.details.ships:
++		var vessel: Dictionary = state.vessels.get(ship.shipId, {})
++		if vessel.is_empty() or vessel.damage.hull <= 0 or vessel.crew.wounded != 0 or state.casualtyOrdinals.get(ship.shipId, 0) != 0: return false
++		var live: Dictionary = Runtime._ship(packet.naval, ship.shipId)
++		if vessel.representation == "near" and (live.is_empty() or live.hull <= 0 or live.crew != vessel.crew.able): return false
++	return true
++
+ func ui_snapshot() -> Array[Dictionary]:
+ 	var result: Array[Dictionary] = []
+ 	for node in scene.interface.find_children("*", "Control", true, false):
+@@ -286,10 +319,7 @@
+ 		if not await capture("first-return-consequence-" + str(dimensions.x), dimensions): await finish(); return
+ 		var casualty: Control = await focus_control("story_relation_xu-fu")
+ 		if not casualty: await finish(); return
+-		var dead := 0; var wounded := 0
+-		for ship: Dictionary in source_campaign.settlements[source_campaign.campaignId + ":convoy-001:claim"].details.ships:
+-			dead += int(ship.dead); wounded += int(ship.wounded)
+-		if not check(str(casualty.text).contains("死亡%d人" % dead) and str(casualty.text).contains("受伤%d人" % wounded), "visible actual casualty consequence matches real claim"): await finish(); return
++		if not check(casualty_consequence_matches(scene.runtime.snapshot(), str(casualty.text)), "visible actual casualty consequence matches real claim and current snapshot"): await finish(); return
+ 		if not await capture("actual-casualties-" + str(dimensions.x), dimensions): await finish(); return
+ 		var steward: Control = await focus_control("story_relation_lin-steward")
+ 		if not steward: await finish(); return
+@@ -359,8 +389,9 @@
+ func finish() -> void:
+ 	if main:
+ 		main.queue_free(); await frames(6)
++	var after_slots: Dictionary = file_hashes(original_slots.keys()) if not original_slots.is_empty() else {}
+ 	if not original_slots.is_empty():
+-		check(file_hashes(original_slots.keys()) == original_slots, "user save/settings slots and backups unchanged")
++		check(after_slots == original_slots, "user save/settings slots and backups unchanged")
+ 	var cleaned := true
+ 	if isolated_owned:
+ 		for suffix: String in ["-v2.json", "-v1.json", "-settings.json"]:
+@@ -369,7 +400,7 @@
+ 				if FileAccess.file_exists(path): cleaned = DirAccess.remove_absolute(ProjectSettings.globalize_path(path)) == OK and cleaned
+ 		check(cleaned, "cleanup only this process's isolated slots")
+ 	if output_owned:
+-		write_json(directory + "/capture-result.json", {"assertions": assertions, "failures": failures, "errors": errors.duplicate(), "captures": captures.duplicate(true), "journey": summary.duplicate(true), "originalSlotsUnchanged": original_slots.is_empty() or file_hashes(original_slots.keys()) == original_slots, "isolatedSlotsCleaned": cleaned, "preflightOnly": preflight_only})
++		write_json(directory + "/capture-result.json", {"assertions": assertions, "failures": failures, "errors": errors.duplicate(), "captures": captures.duplicate(true), "journey": summary.duplicate(true), "originalSlotsBefore": original_slots.duplicate(true), "originalSlotsAfter": after_slots.duplicate(true), "userDataDir": ProjectSettings.globalize_path("user://"), "originalSlotsUnchanged": after_slots == original_slots, "isolatedSlotsCleaned": cleaned, "preflightOnly": preflight_only})
+ 	print("OPENING_RETURN_CAPTURE_COMPLETE captures=", captures.size(), " assertions=", assertions, " failures=", failures, " preflightOnly=", preflight_only)
+ 	quit(1 if failures else 0)
+ 
+@@ -399,6 +430,7 @@
+ 	shape.vessels.erase("guard-shape-grain-b")
+ 	check(transport_plan(shape).get("reason") == "journey-original-transport-missing", "missing transport remains rejected")
+ 	await _presenter_tests()
++	_casualty_tests()
+ 	print("OPENING_RETURN_GUARD_TESTS assertions=", assertions, " failures=", failures)
+ 	quit(1 if failures else 0)
+ 
+@@ -421,3 +453,30 @@
+ 	probe.interface.free(); probe.free(); main.free()
+ 	scene = null; main = null
+ 	check(not present_current_scene(), "QA refresh ignores freed current scene")
++
++func _casualty_tests() -> void:
++	# Detached assertion-only fixtures. Never adopted, encoded or written as saves.
++	var ordinary := "许福 · 老水手\n工钱结清，愿意与你共担风险。"
++	var fixture := {"campaign": {"campaignId": "qa-assertion", "settlements": {"qa-assertion:convoy-001:claim": {"kind": "claim-convoy", "details": {"contractId": "convoy-001", "ships": [{"shipId": "qa-assertion-grain-a", "dead": 0, "wounded": 0}], "people": [{"personId": "steward-a", "alive": true}, {"personId": "steward-b", "alive": true}]}}}, "vessels": {"qa-assertion-grain-a": {"representation": "near", "damage": {"hull": 100}, "crew": {"able": 20, "wounded": 0}}}, "people": {"steward-a": {"alive": true}, "steward-b": {"alive": true}}, "casualtyOrdinals": {}}, "naval": {"ships": [{"id": "qa-assertion-grain-a", "hull": 100, "crew": 20}]}, "story": {"relations": [{"id": "xu-fu", "name": "许福", "role": "老水手", "stance": "工钱结清，愿意与你共担风险。"}], "scenes": [{"id": "first-return", "text": ["船员死亡0人、伤员0人。"]}]}}
++	check(casualty_consequence_matches(fixture, ordinary), "zero claim/snapshot accepts actual healthy relation without duplicate zero digits")
++	check(not casualty_consequence_matches(fixture, ordinary + " 此趟死亡1人、受伤1人。"), "zero claim rejects invented casualty relation")
++	var changed: Dictionary = fixture.duplicate(true)
++	changed.campaign.people["steward-a"].alive = false
++	check(not casualty_consequence_matches(changed, ordinary), "zero claim rejects currently dead steward")
++	changed = fixture.duplicate(true); changed.campaign.vessels["qa-assertion-grain-a"].crew.wounded = 1
++	check(not casualty_consequence_matches(changed, ordinary), "zero claim rejects currently wounded campaign crew")
++	changed = fixture.duplicate(true); changed.campaign.casualtyOrdinals["qa-assertion-grain-a"] = 1
++	check(not casualty_consequence_matches(changed, ordinary), "zero claim rejects current casualty authority")
++	changed = fixture.duplicate(true); changed.naval.ships[0].crew = 19
++	check(not casualty_consequence_matches(changed, ordinary), "zero claim rejects unreconciled native crew")
++	changed = fixture.duplicate(true); changed.story.scenes[0].text = ["船员死亡1人、伤员0人。"]
++	check(not casualty_consequence_matches(changed, ordinary), "zero claim rejects mismatched actual first-return projection")
++	changed = fixture.duplicate(true)
++	changed.campaign.settlements["qa-assertion:convoy-001:claim"].details.ships[0].dead = 1
++	changed.campaign.settlements["qa-assertion:convoy-001:claim"].details.ships[0].wounded = 2
++	var injury := " 此趟死亡1人、受伤2人，他希望先安置伤员。"
++	changed.story.relations[0].stance += injury
++	changed.story.scenes[0].text = ["船员死亡1人、伤员2人。"]
++	check(casualty_consequence_matches(changed, ordinary + injury), "positive casualties still require actual one dead and two wounded")
++	check(not casualty_consequence_matches(changed, ordinary + " 此趟死亡1人、受伤3人。"), "positive casualties reject wrong real number")
++	check(not casualty_consequence_matches(changed, ordinary), "positive casualties cannot use zero/omitted casualty branch")

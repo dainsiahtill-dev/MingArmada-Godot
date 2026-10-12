@@ -1,0 +1,14 @@
+{
+  "address": "0x5ACB40",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __thiscall sub_5ACB40(int this, float a2)\n{\n  _BYTE *v3; // ebx\n  _DWORD *v4; // esi\n  _BYTE *v5; // ecx\n\n  v3 = *(_BYTE **)(this + 188);\n  (*(void (__thiscall **)(_BYTE *))(*(_DWORD *)v3 + 68))(v3);\n  if ( *(_BYTE *)(this + 248) || *(float *)(this + 244) > (double)a2 )\n  {\n    sub_5AC760(this);\n    *(_BYTE *)(this + 248) = 0;\n  }\n  if ( *(float *)(this + 244) == -flt_6C0820 )\n    *(float *)(this + 244) = a2;\n  v4 = *(_DWORD **)(this + 212);\n  while ( v4 )\n  {\n    v5 = (_BYTE *)v4[2];\n    v4 = (_DWORD *)*v4;\n    if ( v5[24] )\n      (*(void (__thiscall **)(_BYTE *, _DWORD, _BYTE *))(*(_DWORD *)v5 + 52))(v5, LODWORD(a2), v3);\n  }\n  v3[50] |= 7u;\n  *(float *)(this + 244) = a2;\n  return LODWORD(a2);\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,101 @@
+{
+	"mode": "headless detached real checkpoint/accept/export diagnosis; no storage or GPU",
+	"journeySha256": "9b88b2da35fb9a965989d00618a7949d614c2af3cf0ca6dcc91bc992da03657c",
+	"diagnosticSourceSha256": "e145e8aec75c59aa9673b965acd6910d14e8a262e95050280e4e00213a913bdd",
+	"sourceHashes": {
+		"game/domain/mingqi/opening_story.gd": "98faf1ab779dc4f7efea711f4a4405d323561363ca2f71e6b83a4def0bb5cce9",
+		"game/domain/mingqi/campaign.gd": "beead54a168dc323eb0fe928fc436e9cf0d64d40e5d2b851fdcd477021b068c1",
+		"game/domain/persistence/save_codec.gd": "0fc832fe40f3bfc9c8136e563791a73a17bed9ec883bb966d885ddbe720ea445",
+		"game/runtime/mingqi_runtime.gd": "2824661d6a63af6580874eeb89037ddc2434791605b26831a705c129dfef4dea",
+		"game/runtime/near_field_bridge.gd": "19cea28a36f55766126f066a5941f21477688a96f35e1815709629dcbabfbb9f",
+		"game/runtime/native_readiness.gd": "af304b2851171d104f2ad61ecbd1ea425b21c4acf3cba72bf8e7299fd5346938",
+		"modules/contracts/navigation_contract.gd": "d7eb3ca4a32f25dbe68ff4a40ec8a403ccbc1b8e2bc2e72d285cbef0804ac548",
+		"modules/naval_simulation/encounter.gd": "efa4a5e072b6b542eb872bd1cc3f6cf56e84290cc8bd7a1be01f7637dc9cfc5d",
+		"modules/naval_simulation/combat/cannon_system.gd": "444d341190c6ae401579670af62e14a5125d145a351ffe3cafa743170017c928",
+		"modules/naval_simulation/tactics/order_controller.gd": "36a3c5913fd33294bb0c8a9ed1df4ba4d9568520dd807222eb04f6bee764b3fd",
+		"game/runtime/sailing_simulation.gd": "0d198629a6d908dbaaac5294d8c86c45f3934b407193a7cf8a038c387abc007d",
+		"tools/play-opening-story-journey.gd": "65fe06d3a2d6c6472331459dedb229f6aeae3af58abd386257b5f7b5d2c9203c"
+	},
+	"normalExportSha256": "80c8769101f688a7b723164cc5ac991dd8f09212b3bc88cbaa73f64754bd5f2f",
+	"nativeIdsBefore": [
+		"mingqi-1650-flagship",
+		"mingqi-1650-grain-a",
+		"mingqi-1650-grain-b",
+		"mingqi-1650-fast",
+		"mingqi-1650-background-grain-01"
+	],
+	"capturedShipIdsBefore": [],
+	"portBefore": "kinmen",
+	"allFieldDiffs": [
+		{
+			"path": "state.revision",
+			"before": 92990.0,
+			"after": 92991.0
+		},
+		{
+			"path": "state.vessels.mingqi-1650-flagship.controlsProjection.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-flagship.controlsObserved.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-grain-a.controlsProjection.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-grain-a.controlsObserved.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-grain-b.controlsProjection.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-grain-b.controlsObserved.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-fast.controlsProjection.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-fast.controlsObserved.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-enemy.representation",
+			"before": "near",
+			"after": "route"
+		},
+		{
+			"path": "state.vessels.mingqi-1650-background-grain-01.controlsProjection.sequence",
+			"before": 2,
+			"after": 3
+		},
+		{
+			"path": "state.vessels.mingqi-1650-background-grain-01.controlsObserved.sequence",
+			"before": 2,
+			"after": 3
+		}
+	],
+	"materialDiffs": [
+		{
+			"path": "state.vessels.mingqi-1650-enemy.representation",
+			"before": "near",
+			"after": "route"
+		}
+	],
+	"decodedDiffs": [],
+	"assertions": 31,
+	"failures": 0
+}

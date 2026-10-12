@@ -1,0 +1,14 @@
+{
+  "address": "0x5B69A0",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "unsigned __int16 __thiscall sub_5B69A0(unsigned __int16 *this)\n{\n  unsigned __int16 result; // ax\n  __int16 v3; // cx\n  int v4; // edi\n  unsigned __int16 v5; // dx\n\n  result = *(this + 43);\n  v3 = *(this + 42);\n  v4 = *(this + 34);\n  if ( (unsigned __int16)v4 >= result )\n  {\n    *(this + 34) = v4 + v3;\n  }\n  else\n  {\n    *(this + 34) = result + v3;\n    do\n    {\n      if ( *(this + 34) <= *(this + 43) )\n        break;\n      result = (*(int (__thiscall **)(unsigned __int16 *, int))(*(_DWORD *)this + 64))(this, v4++);\n    }\n    while ( (unsigned __int16)v4 < *(this + 43) );\n    if ( (unsigned __int16)v4 < *(this + 43) )\n    {\n      *(this + 34) = v4;\n      *(this + 42) = 0;\n      *(this + 43) = v4;\n      return result;\n    }\n  }\n  v5 = *(this + 34);\n  *(this + 42) = 0;\n  *(this + 43) = v5;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

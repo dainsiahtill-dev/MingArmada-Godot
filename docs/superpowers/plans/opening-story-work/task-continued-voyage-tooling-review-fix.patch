@@ -1,0 +1,64 @@
+--- reviewed/tools/play-opening-story-journey.gd
++++ current/tools/play-opening-story-journey.gd
+@@ -22,6 +22,18 @@
+ 	assertions+=1
+ 	checks.append({"ok":value,"detail":detail})
+ 	if not value: failures+=1; printerr("FAIL: ",detail)
++static func write_verified(path: String, bytes: String) -> Dictionary:
++	if FileAccess.file_exists(path) or DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
++		return {"ok":false,"reason":"evidence-already-exists","writeError":ERR_ALREADY_EXISTS,"readbackExact":false}
++	var directory_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
++	if directory_error!=OK: return {"ok":false,"reason":"directory-write-failed","writeError":directory_error,"readbackExact":false}
++	var file := FileAccess.open(path,FileAccess.WRITE)
++	if file==null: return {"ok":false,"reason":"evidence-open-failed","writeError":FileAccess.get_open_error(),"readbackExact":false}
++	file.store_string(bytes); file.flush()
++	var write_error := file.get_error()
++	file.close()
++	var exact := FileAccess.get_file_as_string(path)==bytes
++	return {"ok":write_error==OK and exact,"writeError":write_error,"readbackExact":exact}
+ func command(type: String,fields: Dictionary={}) -> Dictionary:
+ 	serial+=1
+ 	var input: Dictionary={"type":type,"commandId":"journey-"+str(serial),"expectedRevision":runtime.snapshot().campaign.revision}
+@@ -212,12 +224,9 @@
+ 	var still_unused: Dictionary=Paths.output(args)
+ 	if not still_unused.ok:
+ 		printerr("JOURNEY_OUTPUT_REJECTED ",still_unused.reason); runtime.dispose(); quit(2); return
+-	var directory: String=guarded.path.get_base_dir()
+-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
+-	var file:=FileAccess.open(guarded.path,FileAccess.WRITE)
+-	check(file!=null,"captain journey records reproducible actual progress")
+-	if file:
+-		file.store_string(JSON.stringify({"mode":"headless native gameplay; no visual/performance claim","terrain":"flat control" if flat else "same formal game terrain","flagshipRoute":"xiamen-kinmen-outer" if outer else "xiamen-kinmen-deep","tactics":"real W/S/A/D assisted helm and same UI firing advice" if manual_fire else "existing keep-distance order and same UI firing advice" if tactical else "voyage navigation and same UI firing advice","maximumAcceptedSeconds":maximum_seconds,"wallClockSeconds":(Time.get_ticks_usec()-wall_start)/1000000.0,"acceptedSimulationSeconds":final.runtime.acceptedSeconds,"keepDistanceMeters":tactical_range if tactical and not manual_fire else null,"actualSafeReturn":safely_returned,"confirmedCheckpointJson":confirmed_checkpoint,"combatProof":{"nativeFlagshipFireReceipts":player_fires,"nativeFlagshipHitHostileReceipts":player_hits},"sourceHashes":source_hashes,"arguments":args,"commands":commands,"checks":checks,"assertions":assertions,"failures":failures,"stages":stages,"final":final},"\t",false,true)); file.close()
++	var bytes := JSON.stringify({"mode":"headless native gameplay; no visual/performance claim","terrain":"flat control" if flat else "same formal game terrain","flagshipRoute":"xiamen-kinmen-outer" if outer else "xiamen-kinmen-deep","tactics":"real W/S/A/D assisted helm and same UI firing advice" if manual_fire else "existing keep-distance order and same UI firing advice" if tactical else "voyage navigation and same UI firing advice","maximumAcceptedSeconds":maximum_seconds,"wallClockSeconds":(Time.get_ticks_usec()-wall_start)/1000000.0,"acceptedSimulationSeconds":final.runtime.acceptedSeconds,"keepDistanceMeters":tactical_range if tactical and not manual_fire else null,"actualSafeReturn":safely_returned,"confirmedCheckpointJson":confirmed_checkpoint,"combatProof":{"nativeFlagshipFireReceipts":player_fires,"nativeFlagshipHitHostileReceipts":player_hits},"sourceHashes":source_hashes,"arguments":args,"commands":commands,"checks":checks,"assertions":assertions,"failures":failures,"stages":stages,"final":final},"\t",false,true)
++	var written := write_verified(guarded.path,bytes)
++	check(written.ok,"captain evidence flushed without error and exact bytes read back: "+str(written))
+ 	runtime.dispose()
+-	print("OPENING_STORY_JOURNEY_COMPLETE assertions=",assertions," failures=",failures)
++	print("OPENING_STORY_JOURNEY_COMPLETE assertions=",assertions," failures=",failures," writeOk=",written.ok)
+ 	quit(1 if failures else 0)
+--- /dev/null
++++ current/tools/test-first-journey-evidence.gd
+@@ -0,0 +1,23 @@
++extends SceneTree
++## Fresh build-only evidence write checks. No Runtime advance.
++var assertions := 0
++var failures := 0
++func check(value: bool, label: String) -> void:
++	assertions+=1
++	if not value: failures+=1; printerr("FAIL: ",label)
++func _initialize() -> void:
++	var driver = load("res://tools/play-opening-story-journey.gd")
++	var methods: Array = driver.get_script_method_list()
++	var available: bool = methods.any(func(method): return method.name=="write_verified")
++	check(available,"first journey has verified writer")
++	if available:
++		var path := "res://build/port-approach-work/qa-first-evidence-write-"+str(Time.get_ticks_usec())+".json"
++		var bytes := JSON.stringify({"fullPrecision":1.2345678901234567},"\t",false,true)
++		var written: Dictionary = driver.write_verified(path,bytes)
++		check(written.ok and written.writeError==OK and written.readbackExact,"fresh bytes flushed and verified exactly")
++		check(FileAccess.get_file_as_string(path)==bytes,"exact full precision evidence readback")
++		check(not driver.write_verified(path,"replacement").ok and FileAccess.get_file_as_string(path)==bytes,"existing evidence never overwritten")
++		check(not driver.write_verified("res://build/port-approach-work",bytes).ok,"directory output rejected")
++		print("FIRST_JOURNEY_EVIDENCE_FIXTURE path=",path)
++	print("FIRST_JOURNEY_EVIDENCE_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

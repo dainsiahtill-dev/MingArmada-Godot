@@ -1,0 +1,14 @@
+{
+  "address": "0x53A060",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "float *__cdecl sub_53A060(float *a1, float *a2, float *a3)\n{\n  double v3; // st7\n  double v4; // st6\n\n  v3 = a3[8] * a2[2] + a3[5] * a2[1] + a3[2] * *a2;\n  v4 = a3[7] * a2[2] + a3[4] * a2[1] + a3[1] * *a2;\n  *a1 = a3[6] * a2[2] + a3[3] * a2[1] + *a2 * *a3;\n  a1[1] = v4;\n  a1[2] = v3;\n  return a1;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

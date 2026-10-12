@@ -1,0 +1,388 @@
+--- before/game/domain/mingqi/campaign.gd
++++ after/game/domain/mingqi/campaign.gd
+@@ -290,17 +290,33 @@
+ 				if s.currentPortId!="kinmen":return _failure("not-in-port")
+ 				_safe_dock(s,native,policy,"kinmen")
+ 				if s.ports.kinmen.stock.get("grain",0)<20:return _failure("insufficient-stock")
+-				var ships=[s.vessels[s.campaignId+"-grain-a"],s.vessels[s.campaignId+"-grain-b"]]
++				var ships=[]
++				for suffix in ["grain-a","grain-b"]:
++					var vessel=s.vessels[s.campaignId+"-"+suffix]
++					if vessel.damage.hull<=0:
++						if not genuine_sunk_transport(vessel.id,s):return _failure("unverified-transport-loss:"+vessel.id)
++					else:ships.append(vessel)
++				if ships.is_empty():return _failure("convoy-transports-sunk")
++				var quantity=20 if ships.size()==1 else 10
+ 				for v in ships:
++					if not genuine_lease(v.id,s):return _failure("convoy-ship-not-leased:"+v.id)
+ 					_docked(s,native,policy,v.id)
+-					if v.damage.hull<=0 or v.crew.able<v.crew.minimum or v.id in working or v.id in _boarding_ids(s) or _sum(v.cargo)>0 or v.voyageId!=null and not s.voyages[v.voyageId].status in ["arrived","lost"]:return _failure("convoy-ships-unavailable")
++					if not _error.is_empty():return _failure(_error+":"+v.id)
++					if v.crew.able<v.crew.minimum:return _failure("convoy-ship-crew-insufficient:"+v.id)
++					if v.id in working or v.id in _boarding_ids(s) or _sum(v.cargo)>0 or v.voyageId!=null and not s.voyages[v.voyageId].status in ["arrived","lost"]:return _failure("convoy-ship-not-ready:"+v.id)
++					var loaded=v.duplicate(true);loaded.cargo.grain=quantity
++					if not route_for_vessel(Catalog.DATA.routes["kinmen-supply-deep"],loaded).ok:return _failure("route-too-shallow:"+v.id)
+ 				contract.voyageIds=[]
++				if ships.size()==1:
++					contract.criticalPersonIds=[]
++					for pid in s.contracts["convoy-001"].criticalPersonIds:
++						if s.people[pid].alive and s.people[pid].shipId==ships[0].id:contract.criticalPersonIds.append(pid)
+ 				for i in ships.size():
+ 					var v=ships[i];var vid=s.campaignId+"-convoy-002-"+str(i)+"-voyage"
+ 					s.voyages[vid]={"id":vid,"vesselId":v.id,"originId":"kinmen","destinationId":"forward-supply","routeId":"kinmen-supply-deep","leg":0,"progress":0,"departedAt":0,"eta":s.simulationSeconds+1200,"escortIds":[s.flagshipId,s.campaignId+"-fast"],"status":"loading"}
+-					v.voyageId=vid;v.cargo.grain=10;contract.voyageIds.append(vid)
++					v.voyageId=vid;v.cargo.grain=quantity;contract.voyageIds.append(vid)
+ 				s.ports.kinmen.stock.grain-=20;contract.status="active";contract.receiptId=id;contract.deadlineAt=s.simulationSeconds+1200
+-				details={"kind":"convoy-load","contractId":cid,"loaded":20,"leasePaid":0,"ships":_load_people(ships)};message="金门实出20粮，每船10，复用已付租船。"
++				details={"kind":"convoy-load","contractId":cid,"loaded":20,"leasePaid":0,"ships":_load_people(ships)};message="金门实出20粮，每船10，复用已付租船。" if ships.size()==2 else "金门实出20粮，由幸存原租粮船独运；沉船与伤亡保留，航程风险由一船承担。"
+ 			else:
+ 				if s.currentPortId!="xiamen":return _failure("not-in-port")
+ 				if s.ports.xiamen.stock.get("grain",0)<40:return _failure("insufficient-stock")
+@@ -324,6 +340,8 @@
+ 						if s.voyages[vid].status=="loading":contract=ct;break
+ 				if not contract.is_empty():break
+ 			if not flag.id in policy.controllableShipIds:return _failure("unauthorized-departure")
++			if flag.crew.able<flag.crew.minimum or flag.id in policy.disabledMotionShipIds:return _failure("flagship-crew-insufficient")
++			if flag.id in policy.lockedShipIds:return _failure("flagship-working")
+ 			if s.currentPortId==null or flag.pose.speed>0.75 or flag.damage.hull<=0:return _failure("unsafe-departure")
+ 			if not native.is_empty():_safe_dock(s,native,policy,s.currentPortId)
+ 			if _distance(flag.pose.position,s.ports[s.currentPortId].position)>100:return _failure("outside-origin-anchorage")
+@@ -680,6 +698,24 @@
+ 	_record(s,id,"near-casualties",v.name+"实际伤%d、亡%d。"%[new_wounded,dead],[ship.id,battle],{"kind":"casualty","battleId":battle,"tick":tick,"controlsSequence":ship.controlsSequence,"shipId":ship.id,"ableBefore":c.able,"ableAfter":after,"woundedBefore":c.wounded,"woundedAfter":wounded,"prisonersBefore":c.prisoners,"prisonersAfter":prisoners,"dead":dead,"sunk":sunk,"ordinalBefore":ordinal,"ordinalAfter":next})
+ 	c.able=after;c.wounded=wounded;c.prisoners=prisoners;s.casualtyOrdinals[ship.id]=next
+ 
++func genuine_lease(id: String,state: Dictionary={}) -> bool:
++	var s=_state if state.is_empty() else state;var vessel=s.vessels.get(id,{})
++	if vessel.get("ownerId")!="house-lin" or not id in [s.campaignId+"-grain-a",s.campaignId+"-grain-b",s.campaignId+"-flagship",s.campaignId+"-fast"]:return false
++	var receipt=s.settlements.get(s.campaignId+"-convoy-001-accept",{});var d=receipt.get("details",{})
++	if receipt.get("kind")!="accept-convoy" or d.get("kind")!="convoy-load" or d.get("contractId")!="convoy-001" or d.get("loaded")!=40 or d.get("leasePaid")!=50:return false
++	var expected=[s.campaignId+"-grain-a",s.campaignId+"-grain-b",s.campaignId+"-flagship",s.campaignId+"-fast"];var actual=[]
++	for ship in d.get("ships",[]):actual.append(ship.get("shipId"))
++	return actual==expected
++func genuine_sunk_transport(id: String,state: Dictionary={}) -> bool:
++	var s=_state if state.is_empty() else state
++	if not id in [s.campaignId+"-grain-a",s.campaignId+"-grain-b"] or s.vessels.get(id,{}).get("damage",{}).get("hull",1)>0:return false
++	var lost_id=s.campaignId+":"+id+"-voyage:lost"
++	for event in s.chronicle:
++		var receipt=s.settlements.get(event.id,{});var d=receipt.get("details",{})
++		if receipt.get("kind")=="shipment-lost" and receipt.id==lost_id:return true
++		if receipt.get("kind")=="near-casualties" and d.get("kind")=="casualty" and d.get("shipId")==id and d.get("sunk")==true:return true
++		if receipt.get("kind")=="near-sink" and id in event.causeIds:return true
++	return false
+ func native_policy(near_ids: Array,state: Dictionary={}) -> Dictionary:
+ 	var s=_state if state.is_empty() else state
+ 	var allowed=[];var motion=[];var service=[]
+@@ -698,9 +734,12 @@
+ 				if voyage.is_empty():continue
+ 				for id in voyage.escortIds+[voyage.vesselId]:
+ 					var v=s.vessels.get(id,{})
+-					if not v.is_empty() and (_owned(s,id) if v.ownerId=="captain" else v.ownerId=="house-lin") and v.damage.hull>0:
++					if not v.is_empty() and (_owned(s,id) if v.ownerId=="captain" else genuine_lease(id,s)) and v.damage.hull>0:
+ 						if not id in motion:motion.append(id)
+ 						if v.crew.able>=v.crew.minimum and not id in allowed:allowed.append(id)
++						elif v.crew.able<v.crew.minimum and s.currentPortId!=null and v.pose.speed<=0.75 and v.controls.rudder==0 and v.controls.sailDeployment==0 and _distance(v.pose.position,s.ports[s.currentPortId].position)<=55:
++							if not id in allowed:allowed.append(id)
++							if not id in service:service.append(id)
+ 	var ids=[];var enemies=[];var held=[];var hostile={};var locked=[];var disabled=[]
+ 	for id in near_ids:
+ 		if s.vessels.has(id):ids.append(id)
+@@ -859,6 +898,7 @@
+ 	if s.works.size()>=128:return {"ok":false,"reason":"work-buffer-full"}
+ 	var p=Catalog.DATA.profiles[v.profileId];var light=s.currentPortId=="forward-supply";var hull=0;var sail=0;var cost=0;var duration=0;var quantity=0;var target=null
+ 	if c.type=="treat-wounded":
++		if not _count(v.crew.able+v.crew.wounded+v.crew.prisoners) or v.crew.able+v.crew.wounded+v.crew.prisoners>p.maxCrew:return {"ok":false,"reason":"invalid-treatment-reservation"}
+ 		quantity=c.get("quantity")
+ 		if not _count(quantity) or quantity<=0:return {"ok":false,"reason":"invalid-quantity"}
+ 		cost=4*quantity;duration=30*quantity
+@@ -884,7 +924,7 @@
+ 				anchors.append(ship.id);var v=s.vessels[ship.id];v.pose.speed=0;v.controls.rudder=0;v.controls.sailDeployment=0;v.controlsRevision+=1
+ 		return {"anchors":anchors}
+ 	var v=s.vessels[c.shipId];_docked(s,native,policy,v.id)
+-	if not _require(v.id in policy.controllableShipIds or _heritage_berth(s,v.id) or c.type=="treat-wounded" and v.ownerId=="captain","ship-not-authorized"):return {}
++	if not _require(v.id in policy.controllableShipIds or _heritage_berth(s,v.id) or c.type=="treat-wounded" and (v.ownerId=="captain" or genuine_lease(v.id,s)),"ship-not-authorized"):return {}
+ 	for w in s.works.values():
+ 		if w.shipId==v.id and w.status=="active":_require(false,"ship-working");return {}
+ 	if c.type=="release-prisoners":
+--- before/game/domain/persistence/save_codec.gd
++++ after/game/domain/persistence/save_codec.gd
+@@ -486,8 +486,15 @@
+ func _contract_relations(s: Dictionary) -> bool:
+ 	if not _check(s.contracts.has("convoy-001"),"convoy-001"):return false
+ 	for c in s.contracts.values():
+-		if not _check(c.bonusQuantity==(40 if c.id=="convoy-001" else 20) and c.criticalPersonIds==["steward-a","steward-b"],"contract-canonical"):return false
++		if not _check(c.bonusQuantity==(40 if c.id=="convoy-001" else 20),"contract-canonical"):return false
+ 		var load=s.settlements.get(s.campaignId+"-"+c.id+"-accept",{})
++		var critical=["steward-a","steward-b"]
++		if c.id=="convoy-002" and load.get("details",{}).get("ships",[]).size()==1:
++			critical=[]
++			for pid in ["steward-a","steward-b"]:
++				var person=s.people.get(pid,{});var death=s.settlements.get(s.campaignId+":person:"+pid+":death",{})
++				if person.get("shipId")==load.details.ships[0].shipId and (death.is_empty() or not _precedes(s,death.id,load.id)):critical.append(pid)
++		if not _check(c.criticalPersonIds==critical,"contract-critical-persons"):return false
+ 		var vessel_ids={}
+ 		for vid in c.voyageIds:
+ 			if not _check(s.voyages.has(vid) and not vessel_ids.has(s.voyages[vid].vesselId),"contract-voyage"):return false
+@@ -500,15 +507,23 @@
+ 			if not _check(load.is_empty() and c.receiptId==null and (c.voyageIds.size()==2 and c.deadlineAt==1800 if c.id=="convoy-001" else c.voyageIds.is_empty() and c.deadlineAt==0),"offered-contract"):return false
+ 			if c.id=="convoy-002" and not _check(s.contracts["convoy-001"].status=="settled","convoy-002-unlock"):return false
+ 			continue
+-		if not _check(load.get("kind")=="accept-convoy" and c.voyageIds.size()==2,"contract-load"):return false
++		if not _check(load.get("kind")=="accept-convoy" and (c.voyageIds.size()==2 if c.id=="convoy-001" else c.voyageIds.size() in [1,2]),"contract-load"):return false
+ 		var expected=[]
+ 		for suffix in ["grain-a","grain-b","flagship","fast"] if c.id=="convoy-001" else ["grain-a","grain-b"]:expected.append(s.campaignId+"-"+suffix)
+ 		var actual=[]
+ 		for v in load.details.ships:actual.append(v.shipId)
++		if c.id=="convoy-002" and c.voyageIds.size()==1:
++			if not _check(actual.size()==1 and actual[0] in expected,"contract-single-carrier"):return false
++			var missing=expected[1] if actual[0]==expected[0] else expected[0]
++			if not _sunk_before_load(s,missing,load.id):return false
++			expected=[actual[0]]
+ 		if not _check(_equal(actual,expected) and c.deadlineAt==(1800 if c.id=="convoy-001" else _event(s,load.id).simTime+1200),"contract-load-ships-deadline"):return false
+-		for vid in c.voyageIds:
++		for index in c.voyageIds.size():
++			var vid=c.voyageIds[index]
+ 			if not _check(s.voyages.has(vid),"contract-voyage"):return false
+ 			var v=s.voyages[vid]
++			if not _check(v.vesselId==expected[index],"contract-vessel-load"):return false
++			if c.id=="convoy-002" and not _check(v.id==s.campaignId+"-convoy-002-"+str(index)+"-voyage" and v.routeId=="kinmen-supply-deep","contract-second-voyage"):return false
+ 			if not _check(v.originId==("xiamen" if c.id=="convoy-001" else "kinmen") and v.destinationId==("kinmen" if c.id=="convoy-001" else "forward-supply"),"contract-route"):return false
+ 		if c.status in ["settled","failed"]:
+ 			var claim=s.settlements.get(s.campaignId+":"+c.id+":claim",{})
+@@ -519,6 +534,16 @@
+ 			if not _check(c.receiptId==load.id,"contract-receipt"):return false
+ 		if c.id=="convoy-002" and not _check(s.contracts["convoy-001"].status=="settled","convoy-002-unlock"):return false
+ 	return true
++func _sunk_before_load(s: Dictionary,id: String,load_id: String) -> bool:
++	if not _check(s.vessels[id].damage.hull==0,"contract-single-sunk-hull"):return false
++	var loss=s.campaignId+":"+id+"-voyage:lost"
++	for event in s.chronicle:
++		if not _precedes(s,event.id,load_id):continue
++		var r=s.settlements[event.id];var d=r.get("details",{})
++		if r.kind=="shipment-lost" and r.id==loss:return true
++		if r.kind=="near-casualties" and d.get("kind")=="casualty" and d.get("shipId")==id and d.get("sunk")==true:return true
++		if r.kind=="near-sink" and id in event.causeIds:return true
++	return _fail("contract-single-loss-history")
+ static func _duration(w: Dictionary) -> float:return 30*w.quantity if w.kind=="treatment" else 120 if w.kind=="refit" else max(1,ceil((w.hull+w.sail)/2.0))
+ func _business_relations(s: Dictionary) -> bool:
+ 	var active={}
+@@ -529,6 +554,10 @@
+ 		for r in s.settlements.values():
+ 			if r.kind==("treat-wounded" if w.kind=="treatment" else w.kind) and r.get("details",{}).get("workId")==w.id and r.details.status=="active":payments+=1;payment=r
+ 		if not _check(payments==1,"work-payment"):return false
++		if w.kind=="treatment" and s.vessels[w.shipId].ownerId=="house-lin":
++			var lease=s.settlements.get(s.campaignId+"-convoy-001-accept",{});var leased=[]
++			for ship in lease.get("details",{}).get("ships",[]):leased.append(ship.shipId)
++			if not _check(lease.get("kind")=="accept-convoy" and w.shipId in leased and _precedes(s,lease.id,payment.id) and lease.revision<payment.revision,"treatment-lease-history"):return false
+ 		if w.kind=="treatment" and not _check(w.cost==4*w.quantity and (w.status!="active" or w.quantity<=s.vessels[w.shipId].crew.wounded),"treatment"):return false
+ 		if w.kind=="treatment" and not _check(_event(s,payment.id).simTime==w.startAt and (w.status!="completed" or _event(s,w.id+":completed").get("simTime",-1)>=w.completeAt),"treatment-time"):return false
+ 		var vessel=s.vessels[w.shipId];var prize=s.prizes.get(vessel.id,{})
+--- before/game/domain/mingqi/opening_story.gd
++++ after/game/domain/mingqi/opening_story.gd
+@@ -105,7 +105,14 @@
+ 	for ship in d.get("ships",[]): dead+=ship.get("dead",0); wounded+=ship.get("wounded",0)
+ 	var delivered=d.get("delivered",0); var lost=d.get("lost",0)
+ 	var outcome="这一趟完整交付了粮食。" if delivered==40 and lost==0 else "这一趟只交付了部分粮食，损失必须留在账上。" if delivered>0 else "这一趟护粮失败，不能把没有送到的粮食记作功劳。"
+-	return ["留守金门的林账房核过交差账：实交%d粮，损失%d粮；船员死亡%d人、伤员%d人。%s"%[delivered,lost,dead,wounded,outcome],"许福关心弟兄的伤亡，账房关心下一趟的本钱。你可以给船员分红、购买补给点情报，或把银子留在船上。下一份委托按真实交差结果开放。"]
++	return ["留守金门的林账房核过交差账：实交%d粮，损失%d粮；船员死亡%d人、伤员%d人。%s"%[delivered,lost,dead,wounded,outcome],"许福关心弟兄的伤亡，账房关心下一趟的本钱。你可以给船员分红、购买补给点情报，或把银子留在船上。下一份委托按真实交差结果开放。",_supply_plan(state) if delivered>0 else "本次护粮没有交付，尚未开放第二委托；先保住船和人员，再作打算。"]
++static func _supply_plan(state: Dictionary) -> String:
++	var sunk=0;var stock=state.ports.kinmen.stock.get("grain",0)
++	for suffix in ["grain-a","grain-b"]:
++		if state.vessels[state.campaignId+"-"+suffix].damage.hull<=0:sunk+=1
++	if sunk==0:return "近岸据点需要20粮，金门现有%d粮；两艘原租粮船各运10，先核对人数、空舱与安全锚定。"%stock
++	if sunk==1:return "近岸据点需要20粮，金门现有%d粮；一艘原租粮船已沉没，合格幸存船可独运20，全部补给集中在一船，风险更高。"%stock
++	return "两艘原租粮船均已沉没，当前没有替换租船来源，无法承运近岸据点的20粮。"
+ static func _choice_label(choice_id: String) -> Array:
+ 	match choice_id:
+ 		"settle-wages": return ["先结工钱 · 80两","支付80两；船员拥护+10，影响接舷初始士气。"]
+@@ -116,10 +123,18 @@
+ 		"buy-intelligence": return ["购买补给情报 · 60两","支付60两；军方信任+2、商人信用+3，记录当前补给点粮食库存。"]
+ 		_: return ["留下下趟本钱","保留银两，声望不变。"]
+ static func _objective(state: Dictionary) -> Dictionary:
++	var first_claim=_claim(state);var second: Dictionary=state.contracts.get("convoy-002",{})
++	if not first_claim.is_empty() and first_claim.details.delivered>0 and _receipt(state,"first-return").is_empty() and second.get("status")=="offered":
++		if state.currentPortId!="kinmen":return {"id":"return-to-kinmen","title":"前往金门安全靠港","detail":"首航交差已记录，回金门安全锚定后可与林账房商量下一步；会面可跳过，补给委托仍可直接承接。","panel":"port"}
++		return {"id":"first-return-meeting","title":"与林账房核对下一步","detail":"先确认港口安全并锚定，再谈分红、情报或保留本金。会面可跳过，近岸据点的20粮补给委托无需等待对白。","panel":"story"}
+ 	for cid in ["convoy-001","convoy-002"]:
+ 		var ct: Dictionary=state.contracts.get(cid,{})
+ 		if ct.is_empty(): continue
+-		if ct.status=="offered": return {"id":"accept-"+cid,"title":"接下护粮委托" if cid=="convoy-001" else "承接军需补给","detail":"在厦门核对粮船与租费，接受第一趟护航。" if cid=="convoy-001" else "在金门整备两艘粮船，承接近岸补给任务。","panel":"convoy"}
++		if ct.status=="offered":
++			var detail="在厦门核对粮船与租费，接受第一趟护航。"
++			if cid=="convoy-002":
++				detail=_supply_plan(state)
++			return {"id":"accept-"+cid,"title":"接下护粮委托" if cid=="convoy-001" else "承接军需补给","detail":detail,"panel":"convoy"}
+ 		if ct.status=="active" or ct.status=="delivered":
+ 			var finished=not ct.voyageIds.is_empty(); var loading=false
+ 			for id in ct.voyageIds:
+--- before/game/runtime/native_readiness.gd
++++ after/game/runtime/native_readiness.gd
+@@ -53,10 +53,15 @@
+ 		var berth: bool = id == state.campaignId+"-heritage" and Bridge.ordinary_heritage_berth(state)
+ 		var authorized: bool = id in policy.controllableShipIds or berth
+ 		for type in ["repair","refit","treat-wounded","release-prisoners"]:
+-			var allowed: bool = authorized or type == "treat-wounded" and vessel.ownerId == "captain"
++			var allowed: bool = authorized or type == "treat-wounded" and (vessel.ownerId == "captain" or session.genuine_lease(id,state))
+ 			var ready: bool = docked and allowed and not _working(state,id) and not _boarded(state,id)
++			var reason="ship-not-docked" if not docked else "unauthorized-port-service" if not allowed else "ship-unavailable"
++			if type == "treat-wounded" and ready:
++				var quote: Dictionary=session.quote_port_service({"type":"treat-wounded","shipId":id,"quantity":1})
++				ready=quote.get("ok",false)
++				if not ready:reason=quote.get("reason","ship-unavailable")
+ 			if type == "release-prisoners": ready = ready and vessel.crew.prisoners > 0
+-			result[type+":"+id] = _fact(ready,"ship-not-docked" if not docked else "unauthorized-port-service" if not allowed else "ship-unavailable")
++			result[type+":"+id] = _fact(ready,reason)
+ 		var prize: Dictionary = session.prize_state(id,state)
+ 		var unresolved: bool = not prize.is_empty() and prize.get("resolutionReceiptId") == null and not state.settlements.has(state.campaignId+":prize-disposition:"+id)
+ 		var idle := _idle(state,native,encounter,id)
+--- before/tests/test_opening_story.gd
++++ after/tests/test_opening_story.gd
+@@ -128,7 +128,7 @@
+ 	var dead_steward: Dictionary=returned.duplicate(true); dead_steward.people["steward-a"].alive=false
+ 	var dead_model: Dictionary=Story.project(dead_steward)
+ 	check(scene(dead_model,"first-return").npc.id=="lin-clerk" and dead_model.relations[2].stance.contains("阵亡"),"dead critical person does not deliver return dialogue or survive in relationship projection")
+-	for row in [[initial,"accept-convoy-001"],[fixture.convoySteps[0].state,"depart-convoy-001"],[fixture.convoySteps[1].state,"deliver-convoy-001"],[fixture.convoySteps[2].state,"claim-convoy-001"],[fixture.convoySteps[4].state,"accept-convoy-002"],[fixture.convoySteps[5].state,"depart-convoy-002"],[fixture.convoySteps[6].state,"deliver-convoy-002"],[fixture.convoySteps[7].state,"claim-convoy-002"],[fixture.convoySteps[8].state,"fleet-next-voyage"]]:
++	for row in [[initial,"accept-convoy-001"],[fixture.convoySteps[0].state,"depart-convoy-001"],[fixture.convoySteps[1].state,"deliver-convoy-001"],[fixture.convoySteps[2].state,"claim-convoy-001"],[fixture.convoySteps[4].state,"first-return-meeting"],[fixture.convoySteps[5].state,"depart-convoy-002"],[fixture.convoySteps[6].state,"deliver-convoy-002"],[fixture.convoySteps[7].state,"claim-convoy-002"],[fixture.convoySteps[8].state,"fleet-next-voyage"]]:
+ 		check(Story.project(row[0]).objective.id==row[1],"objective follows actual first and second convoy progression "+row[1])
+ 	finish()
+ func finish() -> void:
+--- before/tests/test_convoy_recovery.gd
++++ after/tests/test_convoy_recovery.gd
+@@ -0,0 +1,138 @@
++extends SceneTree
++const Campaign=preload("res://game/domain/mingqi/campaign.gd")
++const Codec=preload("res://game/domain/persistence/save_codec.gd")
++const Story=preload("res://game/domain/mingqi/opening_story.gd")
++const Runtime=preload("res://game/runtime/mingqi_runtime.gd")
++var assertions:=0
++var failures:=0
++var fixture: Dictionary
++func check(ok: bool,message: String) -> void:
++	assertions+=1
++	if not ok:failures+=1;printerr("FAIL: ",message)
++func envelope(s: Dictionary) -> String:
++	return JSON.stringify({"version":2,"campaignId":s.campaignId,"mode":"mingqi-1650","savedAtUtc":"2026-10-12T00:00:00.000Z","simulationSeconds":s.simulationSeconds,"state":s},"",false,true)
++func send(r: RefCounted,type: String,extra: Dictionary={},id: String="") -> Dictionary:
++	var s: Dictionary=r.campaign.snapshot();var c:={"type":type,"commandId":id if not id.is_empty() else "recovery-"+str(s.revision),"expectedRevision":s.revision};c.merge(extra)
++	return r.command(c)
++func returned(sunk_a: bool=false,sunk_b: bool=false,crew_b: int=20) -> RefCounted:
++	var c:=Campaign.new();check(c.restore(envelope(fixture.convoySteps[1].state)),"old departing convoy fixture valid")
++	var observation: Dictionary=fixture.convoySteps[2].native.duplicate(true)
++	for ship in observation.ships:
++		if ship.id=="convoy-grain-a" and sunk_a or ship.id=="convoy-grain-b" and sunk_b:ship.hull=0;ship.crew=0
++		elif ship.id=="convoy-grain-b":ship.crew=crew_b
++	check(c.sync_near(observation,[]).ok,"real domain creates arrival/loss/casualty receipts from native boundary observation")
++	check(c.command({"type":"claim-convoy","contractId":"convoy-001","commandId":"claim-recovery","expectedRevision":c.snapshot().revision}).ok,"actual first terminal convoy is claimed")
++	var r:=Runtime.new();check(r.configure(func(_x: float,_z: float)->float:return -24.0,c).ok,"real native bridge constructs returned fleet")
++	check(send(r,"dock",{"portId":"kinmen"},"dock-recovery").ok,"actual native fleet safely anchors at kinmen")
++	return r
++func reject(r: RefCounted,extra: Dictionary,label: String) -> void:
++	var before: Dictionary=r.campaign.snapshot();check(not send(r,"accept-convoy",extra).ok,label+" rejected");check(before==r.campaign.snapshot(),label+" atomic")
++func _initialize() -> void:
++	fixture=JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mingqi-reference.json"))
++	var r:=returned(true);var before: Dictionary=r.campaign.snapshot();var result:=send(r,"accept-convoy",{"contractId":"convoy-002"},"single-load")
++	check(result.ok,"genuine sunk original plus healthy original accepts real single-ship second convoy")
++	if result.ok:
++		var s: Dictionary=r.campaign.snapshot();var ct: Dictionary=s.contracts["convoy-002"]
++		check(ct.voyageIds.size()==1 and s.voyages[ct.voyageIds[0]].vesselId=="convoy-grain-b" and s.vessels["convoy-grain-b"].cargo.grain==20,"single real surviving vessel loads20 in one voyage")
++		check(s.ports.kinmen.stock.grain==before.ports.kinmen.stock.grain-20 and s.captain.silver==before.captain.silver,"single carrier conserves real20 port stock without new lease fee")
++		check(s.vessels["convoy-grain-a"].damage==before.vessels["convoy-grain-a"].damage and s.vessels["convoy-grain-a"].crew==before.vessels["convoy-grain-a"].crew and s.people==before.people and s.casualtyOrdinals==before.casualtyOrdinals,"sunk hull and original deaths are never restored")
++		check(ct.criticalPersonIds==["steward-b"] and s.contracts["convoy-001"].criticalPersonIds==["steward-a","steward-b"] and not s.people["steward-a"].alive,"new single-carrier personnel reflects surviving actual embarkation without rewriting first death")
++		check(Codec.decode(r.campaign.serialize()).get("ok",false),"single-voyage load saves and restores")
++		var snapshot: Dictionary=r.campaign.snapshot();var replay: Dictionary=r.command({"type":"accept-convoy","contractId":"convoy-002","commandId":"single-load","expectedRevision":0})
++		check(replay.ok and replay.receipt==result.receipt and r.campaign.snapshot()==snapshot,"single load retry cannot duplicate cargo or stock")
++		check(not r.command({"type":"accept-convoy","contractId":"convoy-002","commandId":"stale-load","expectedRevision":snapshot.revision-1}).ok and r.campaign.snapshot()==snapshot,"stale acceptance leaves single load unchanged")
++		for kind in ["carrier","load","omitted-living","voyage-count","critical-person","wrong-vessel"]:
++			var forged: Dictionary=s.duplicate(true);var d: Dictionary=forged.settlements[result.receipt.id].details
++			match kind:
++				"carrier":d.ships[0].shipId="convoy-fast"
++				"load":d.loaded=19
++				"omitted-living":forged.vessels["convoy-grain-a"].damage.hull=100
++				"voyage-count":forged.contracts["convoy-002"].voyageIds.append("convoy-grain-a-voyage")
++				"critical-person":forged.contracts["convoy-002"].criticalPersonIds=[]
++				"wrong-vessel":forged.voyages[ct.voyageIds[0]].vesselId="convoy-fast"
++			check(not Codec.decode(envelope(forged)).get("ok",false),"forged single-vessel save "+kind+" rejected")
++		check(send(r,"depart",{},"single-depart").ok,"second real single carrier departs without first-return conversation")
++		# Native observation fixture verifies domain arrivals, not an acceptance journey teleport.
++		var arrival: Dictionary=r.simulation.snapshot().duplicate(true);arrival.tick+=1;arrival.time+=1.0/60.0
++		for ship in arrival.ships:
++			if ship.id=="convoy-grain-b":ship.visual.position.x=-60;ship.visual.position.z=320;ship.visual.velocity={"x":0,"z":0};ship.sailDeployment=0;ship.rudder=0
++		check(r.campaign.sync_near(arrival,[]).ok,"real domain creates second arrival receipt from supplied native boundary observation")
++		var settled: Dictionary=r.campaign.command({"type":"claim-convoy","commandId":"single-claim","expectedRevision":r.campaign.snapshot().revision,"contractId":"convoy-002"})
++		check(settled.ok and settled.receipt.details.delivered==20 and settled.receipt.details.bonus==50 and settled.receipt.details.people==[{"personId":"steward-b","alive":true}],"living actual single-carrier steward can earn new50 bonus without resurrecting old dead steward")
++		check(r.campaign.snapshot().settlements["convoy:convoy-001:claim"].details.bonus==0 and Codec.decode(r.campaign.serialize()).get("ok",false),"first casualty penalty remains and new single settlement roundtrips")
++	r.dispose()
++	r=returned(false,false,7);before=r.campaign.snapshot();var id="convoy-grain-b";var packet: Dictionary=r.snapshot()
++	check(packet.runtime.eligibility["treat-wounded:"+id].ok,"genuine leased below-min wounded transport exposes actual safe treatment")
++	check(id in packet.runtime.policy.disabledMotionShipIds and id in packet.runtime.policy.lockedShipIds,"below-min service authority remains motion-disabled and locked")
++	check(not r.simulation.encounter.navigate(id,{"x":0,"z":0}).ok,"treatment permission cannot become sailing permission")
++	reject(r,{"contractId":"convoy-002"},"living low-crew original cannot be silently omitted")
++	result=send(r,"treat-wounded",{"shipId":id,"quantity":1},"heal-minimum")
++	check(result.ok,"actual leased ship pays for wounded treatment despite below-min able crew")
++	if result.ok:
++		var s: Dictionary=r.campaign.snapshot()
++		check(s.captain.silver==before.captain.silver-4 and s.vessels[id].crew.able==7 and s.vessels[id].crew.wounded==before.vessels[id].crew.wounded,"payment does not instantly heal or restore dead crew")
++		check(Codec.decode(r.campaign.serialize()).get("ok",false),"active leased treatment saves")
++		var fake_service: Dictionary=s.duplicate(true);var work_id: String=result.receipt.details.workId
++		fake_service.works[work_id].shipId="convoy-background-grain-01";fake_service.settlements[result.receipt.id].details.shipId="convoy-background-grain-01";fake_service.vessels["convoy-background-grain-01"].crew.wounded=1
++		check(not Codec.decode(envelope(fake_service)).get("ok",false),"forged house-lin treatment cannot switch work/payment to an unleased background carrier")
++		check(not send(r,"depart",{},"work-depart").ok,"cannot leave port during actual treatment")
++		for i in 1801:r.advance(1.0/60.0)
++		s=r.campaign.snapshot();check(s.vessels[id].crew.able==8 and s.vessels[id].crew.wounded==before.vessels[id].crew.wounded-1 and s.people==before.people,"actual30-second work restores minimum from real wounded only")
++		check(not id in r.snapshot().runtime.policy.disabledMotionShipIds and Codec.decode(r.campaign.serialize()).get("ok",false),"finished real treatment restores motion and save continuity")
++		check(send(r,"accept-convoy",{"contractId":"convoy-002"},"two-after-care").ok,"both live originals can accept existing two-carrier load after actual recovery")
++	r.dispose()
++	r=returned();before=r.campaign.snapshot();result=send(r,"accept-convoy",{"contractId":"convoy-002"},"healthy-load")
++	check(result.ok and r.campaign.snapshot().contracts["convoy-002"].voyageIds.size()==2,"healthy two-original default convoy retains two voyages")
++	check(r.campaign.snapshot().vessels["convoy-grain-a"].cargo.grain==10 and r.campaign.snapshot().vessels["convoy-grain-b"].cargo.grain==10,"healthy two-original load remains10 each")
++	r.dispose()
++	r=returned();r.campaign._state.vessels["convoy-grain-b"].pose.position.x+=500
++	var rebuilt: Dictionary=r.campaign.snapshot();r.dispose()
++	# Rebuild through an actual session instead of editing a live native pose.
++	var session:=Campaign.new();session._state=rebuilt;r=Runtime.new();check(r.configure(func(_x: float,_z: float)->float:return -24.0,session).ok,"away living ship fixture creates real native position")
++	reject(r,{"contractId":"convoy-002"},"alive-away original cannot be silently omitted");r.dispose()
++	r=returned(true,true);reject(r,{"contractId":"convoy-002"},"two actual sunk transports cannot be magically replaced");r.dispose()
++	r=returned(true);var loss: Dictionary=r.simulation.snapshot().duplicate(true);loss.tick+=1;loss.time+=1.0/60.0
++	for ship in loss.ships:
++		if ship.id=="convoy-grain-b":ship.hull=0;ship.crew=0
++	check(r.campaign.sync_near(loss,[]).ok,"second original truly sinks after positive first claim via native observation")
++	var all_lost: Dictionary=r.campaign.snapshot();r.dispose();session=Campaign.new();check(session.restore(envelope(all_lost)),"both wrecks after claim remain a valid saved history");r=Runtime.new();r.configure(func(_x: float,_z: float)->float:return -24.0,session)
++	before=r.campaign.snapshot();result=send(r,"accept-convoy",{"contractId":"convoy-002"},"both-lost")
++	check(not result.ok and result.reason=="convoy-transports-sunk" and before==r.campaign.snapshot(),"offered commission explains actual all-wreck transport obstruction without replacement")
++	check(send(r,"story-choice",{"sceneId":"first-return","choiceId":"keep-capital"},"both-clerk").ok,"optional clerk can acknowledge existing losses without restoring ships")
++	check(Story.project(r.campaign.snapshot()).objective.detail.contains("没有替换"),"all-wreck continuation clearly discloses unsupported replacement")
++	r.dispose()
++	r=returned(false,false,7);r.campaign._state.captain.silver=3;before=r.campaign.snapshot()
++	check(not r.snapshot().runtime.eligibility["treat-wounded:convoy-grain-b"].ok,"generic leased treatment readiness requires at least one real affordable wounded person")
++	check(not send(r,"treat-wounded",{"shipId":"convoy-grain-b","quantity":1},"poor-care").ok and before==r.campaign.snapshot(),"insufficient treatment silver rolls all resources back");r.dispose()
++	r=returned(false,false,7);before=r.campaign.snapshot()
++	check(not send(r,"treat-wounded",{"shipId":"convoy-grain-b","quantity":8},"excess-care").ok and before==r.campaign.snapshot(),"cannot treat more than actual available wounded")
++	var unanchored: Dictionary=r.bridge.command_context();unanchored.native.isAnchored=func(_id):return false
++	check(not r.campaign.command({"type":"treat-wounded","shipId":"convoy-grain-b","quantity":1,"commandId":"unanchored-care","expectedRevision":before.revision},unanchored).ok and before==r.campaign.snapshot(),"genuine lease cannot bypass native anchored berth")
++	r.campaign._state.vessels["convoy-grain-b"].crew.wounded=24;before=r.campaign.snapshot()
++	check(not r.snapshot().runtime.eligibility["treat-wounded:convoy-grain-b"].ok and not send(r,"treat-wounded",{"shipId":"convoy-grain-b","quantity":1},"capacity-care").ok and before==r.campaign.snapshot(),"invalid total crew capacity cannot reserve treatment or payment")
++	r.dispose()
++	var claimed: Dictionary=fixture.convoySteps[3].state
++	check(Story.project(claimed).objective.id=="return-to-kinmen" and Story.project(claimed).objective.panel=="port","claimed at sea guides actual kinmen return instead of pretending conversation")
++	check(Story.project(fixture.convoySteps[4].state).objective.id=="first-return-meeting" and Story.project(fixture.convoySteps[4].state).objective.panel=="story","kinmen before optional choice prioritizes clerk meeting")
++	check(Story.project(fixture.convoySteps[5].state).objective.id=="depart-convoy-002","direct second acceptance skips meeting objective without blocking mission")
++	for unauthorized in ["unsigned","background-house","foreign"]:
++		r=returned(false,false,7)
++		if unauthorized=="unsigned":r.campaign._state.settlements.erase("convoy-convoy-001-accept")
++		elif unauthorized=="background-house":id="convoy-background-grain-01"
++		else:r.campaign._state.vessels["convoy-grain-b"].ownerId="foreign-owner"
++		var packet_now: Dictionary=r.snapshot()
++		check(not packet_now.runtime.eligibility["treat-wounded:"+id].ok,"unrelated or unsigned leased service hint rejects "+unauthorized)
++		var before_service: Dictionary=r.campaign.snapshot();check(not send(r,"treat-wounded",{"shipId":id,"quantity":1},"invalid-care").ok and before_service==r.campaign.snapshot(),"unrelated or unsigned leased treatment cannot commit "+unauthorized)
++		id="convoy-grain-b";r.dispose()
++	r=returned();var hurt_flag: Dictionary=r.simulation.snapshot().duplicate(true);hurt_flag.tick+=1;hurt_flag.time+=1.0/60.0
++	for ship in hurt_flag.ships:
++		if ship.id=="convoy-flagship":ship.crew=19
++	check(r.campaign.sync_near(hurt_flag,[]).ok,"real domain casualty boundary creates below-min flagship")
++	var flag_state: Dictionary=r.campaign.snapshot();r.dispose();session=Campaign.new();check(session.restore(envelope(flag_state)),"below-min flagship casualty history saves");r=Runtime.new();check(r.configure(func(_x: float,_z: float)->float:return -24.0,session).ok,"below-min flagship builds real service-only native fleet")
++	check(not r.snapshot().runtime.canDepart,"actual runtime hint cannot depart with service-only below-min flagship")
++	before=r.campaign.snapshot();check(not send(r,"depart",{},"flag-below-depart").ok and before==r.campaign.snapshot(),"domain refuses below-min flagship despite service permission")
++	check(send(r,"treat-wounded",{"shipId":"convoy-flagship","quantity":1},"flag-care").ok,"below-min original leased flagship can receive actual treatment")
++	check(not r.snapshot().runtime.canDepart and "convoy-flagship" in r.snapshot().runtime.policy.lockedShipIds and not send(r,"depart",{},"flag-working-depart").ok,"actual locked active-work flagship cannot depart in hint or domain")
++	r.dispose()
++	print("CONVOY_RECOVERY_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

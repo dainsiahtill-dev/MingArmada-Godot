@@ -1,0 +1,14 @@
+{
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x4F2650",
+  "evidence": "Read-only IDA static decompilation",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int __userpurge sub_4F2650@<eax>(\n        _BYTE *a1@<eax>,\n        const CHAR *a2@<ebx>,\n        int a3@<esi>,\n        HINSTANCE hInstance,\n        int a5,\n        int a6,\n        int a7,\n        int a8,\n        int a9)\n{\n  HMODULE LibraryA; // eax\n  BOOL (__stdcall *WTSRegisterSessionNotification)(HWND, DWORD); // eax\n  DWORD TickCount; // eax\n\n  if ( a1 && *a1 && !(unsigned __int8)sub_4FC180(a2, a3 + 52) || dword_8C8C84 )\n    return *(_DWORD *)(a3 + 84);\n  dword_8C8C84 = a3;\n  if ( !(unsigned __int8)sub_4F2FB0(a3, hInstance, a2, a5, a6, a8, a9) )\n  {\n    dword_8C8C84 = 0;\n    return *(_DWORD *)(a3 + 84);\n  }\n  LibraryA = LoadLibraryA(LibFileName);\n  *(_DWORD *)(a3 + 80) = LibraryA;\n  if ( LibraryA )\n  {\n    WTSRegisterSessionNotification = (BOOL (__stdcall *)(HWND, DWORD))GetProcAddress(LibraryA, ProcName);\n    if ( WTSRegisterSessionNotification )\n      WTSRegisterSessionNotification(*(HWND *)(a3 + 84), 0);\n  }\n  TickCount = GetTickCount();\n  srand(TickCount);\n  (*(void (__thiscall **)(int))(*(_DWORD *)a3 + 32))(a3);\n  sub_4FC200(a3 + 60);\n  return *(_DWORD *)(a3 + 84);\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

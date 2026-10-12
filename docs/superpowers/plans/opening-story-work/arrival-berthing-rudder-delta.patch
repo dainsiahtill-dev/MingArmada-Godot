@@ -1,0 +1,264 @@
+--- a/game/runtime/near_field_bridge.gd
++++ b/game/runtime/near_field_bridge.gd
+@@ -60,8 +60,12 @@
+ 				if target_index < route.points.size()-1 and _distance(vessel.pose.position,route.points[target_index]) <= Navigation.PLANNED_TARGET_REACH_METERS:
+ 					target_index += 1
+ 				navigation[vessel.id] = route.points[target_index].duplicate()
+-			# Clear the voyage's final target once, preserving later explicit navigation.
+-			elif voyage.get("status") != "arrived" or previous_voyages.get(vessel.voyageId,{}).get("status") != "arrived": navigation[vessel.id] = null
++			elif voyage.get("status") != "arrived": navigation[vessel.id] = null
++			elif previous_voyages.get(vessel.voyageId,{}).get("status") != "arrived":
++				# Finish only the old port target, preserving an explicit new destination.
++				var target: Variant = _ship(simulation.snapshot(),vessel.id).get("navigation")
++				var port: Dictionary = state.ports.get(voyage.get("destinationId"),{})
++				if target == null or target is Dictionary and not port.is_empty() and _distance(target,port.position) == 0: navigation[vessel.id] = null
+ 	policy.navigation = navigation; policy.anchorShipIds = anchors.duplicate()
+ 	if fresh_startup: policy.orders = []
+ 	return simulation.encounter.reconcileShips(setups,policy)
+@@ -126,6 +130,25 @@
+ 		var relative: float = Vector2(v.x-other.visual.velocity.x,v.z-other.visual.velocity.z).length()
+ 		if separation <= radius+relative*2: return true
+ 	return false
++func _arrival_controls(native: Dictionary,state: Dictionary,ids: Array,explicit: bool=false) -> Array:
++	var result: Array = []
++	var encounter: RefCounted = simulation.encounter
++	for id in ids:
++		if not id in [state.campaignId+"-grain-a",state.campaignId+"-grain-b"] or not campaign.genuine_lease(id,state): continue
++		var v: Dictionary = state.vessels[id]
++		var voyage: Dictionary = state.voyages.get(v.voyageId,{})
++		var live := _ship(native,id)
++		if v.profileId != "grain" or v.damage.hull <= 0 or v.crew.able < v.crew.minimum or voyage.get("status") != "underway" or voyage.get("vesselId") != id or live.is_empty() or live.hull <= 0 or live.crew < v.crew.minimum: continue
++		if not id in encounter.policy.get("controllableShipIds",[]) or id in encounter.policy.get("capturedShipIds",[])+encounter.policy.get("disabledMotionShipIds",[])+encounter.policy.get("lockedShipIds",[]): continue
++		var projection: Variant = v.controlsProjection
++		if projection == null or projection.battleId != native.battleId or projection.revision != v.controlsRevision or native.tick < projection.tick: continue
++		if explicit:
++			if live.controlsSequence <= projection.sequence: continue
++		else:
++			var port: Dictionary = state.ports.get(voyage.get("destinationId"),{})
++			if encounter.hasActiveOrder(id) or projection.sequence != live.controlsSequence or not live.get("navigation") is Dictionary or port.is_empty() or _distance(live.navigation,port.position) != 0: continue
++		result.append(id)
++	return result
+ func _arrival_anchors(native: Dictionary,state: Dictionary,vessels: Array) -> Array:
+ 	var encounter: RefCounted = simulation.encounter
+ 	if encounter.hasPendingAttacks(): return []
+@@ -185,13 +208,13 @@
+ 			continue
+ 		var separation := _distance(live.visual.position if not live.is_empty() else vessel.pose.position,flagship.visual.position)
+ 		if vessel.id in pinned or separation <= 600 or not live.is_empty() and (separation <= 800 or _unsafe(live,before,state)): next.append(vessel.id)
+-	var result: Dictionary = campaign.reconcile_near(before,_pending_events,next,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)))
++	var result: Dictionary = campaign.reconcile_near(before,_pending_events,next,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)),_arrival_controls(before,state,next),_arrival_controls(before,state,next,true))
+ 	if result.ok: _near_ids = next; _pending_events.clear(); _previous_native = before; simulation.refresh_snapshot()
+ 	return result
+ func sync() -> Dictionary:
+ 	var before := capture(); var state: Dictionary = campaign.snapshot()
+ 	var ids := _near_ids.filter(func(id): return not _retired(state,id))
+-	var result: Dictionary = campaign.reconcile_near(before,_pending_events,ids,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)))
++	var result: Dictionary = campaign.reconcile_near(before,_pending_events,ids,func(vessels: Array,candidate: Dictionary) -> Dictionary: return _apply(vessels,candidate,_arrival_anchors(before,candidate,vessels)),_arrival_controls(before,state,ids),_arrival_controls(before,state,ids,true))
+ 	if result.ok: _near_ids = ids; _pending_events.clear(); _previous_native = before; simulation.refresh_snapshot()
+ 	return result
+ func dispose() -> void:
+--- a/game/domain/mingqi/campaign.gd
++++ b/game/domain/mingqi/campaign.gd
+@@ -481,7 +481,7 @@
+ 	var length=_distance(v.pose.position,points[int(voyage.leg)+1])
+ 	for leg in range(int(voyage.leg)+1,points.size()-1):length+=_distance(points[leg],points[leg+1])
+ 	return length
+-func _arrive(s: Dictionary,v: Dictionary,voyage: Dictionary):
++func _arrive(s: Dictionary,v: Dictionary,voyage: Dictionary,neutral_rudder: bool=false,preserve_controls: bool=false):
+ 	var id=s.campaignId+":"+voyage.id+":arrival"
+ 	if s.settlements.has(id):return
+ 	var p=s.ports[voyage.destinationId];var delivered=0;var grain=v.cargo.get("grain",0)
+@@ -489,9 +489,12 @@
+ 		var quantity=v.cargo[good];var next=p.stock.get(good,0)+quantity
+ 		if not _require(_count(next),"numeric-overflow"):return
+ 		p.stock[good]=next;v.cargo[good]=0;delivered+=quantity
+-	voyage.status="arrived";voyage.progress=1;voyage.eta=s.simulationSeconds;v.pose.speed=0;v.controls.sailDeployment=0;v.controlsRevision+=1
++	voyage.status="arrived";voyage.progress=1;voyage.eta=s.simulationSeconds;v.pose.speed=0
++	if not preserve_controls:v.controls.sailDeployment=0
++	if neutral_rudder:v.controls.rudder=0
++	v.controlsRevision+=1
+ 	_record(s,id,"shipment-arrived",v.name+"到达"+p.name+"，实卸"+str(int(delivered))+"货。",[v.id,voyage.id],{"kind":"shipment-arrived","voyageId":voyage.id,"vesselId":v.id,"destinationId":p.id,"grain":grain,"arrivedAt":s.simulationSeconds})
+-func _inspect(s: Dictionary,v: Dictionary):
++func _inspect(s: Dictionary,v: Dictionary,neutral_rudder: bool=false,preserve_controls: bool=false):
+ 	if v.voyageId==null:return
+ 	var voyage=s.voyages.get(v.voyageId,{})
+ 	if voyage.is_empty() or voyage.status!="underway":return
+@@ -502,7 +505,7 @@
+ 	var route=Catalog.DATA.routes.get(voyage.routeId,{})
+ 	if not _require(not route.is_empty(),"unknown-route"):return
+ 	if v.representation=="near":voyage.merge(locate_route(v,route),true)
+-	if _distance(v.pose.position,s.ports[voyage.destinationId].position)<=25 and v.pose.speed<=0.75:_arrive(s,v,voyage)
++	if _distance(v.pose.position,s.ports[voyage.destinationId].position)<=25 and v.pose.speed<=0.75:_arrive(s,v,voyage,neutral_rudder,preserve_controls)
+ 	else:voyage.eta=s.simulationSeconds+(_remaining(v,voyage)/_speed(v) if _speed(v)>0 else 86400)
+ 	for ct in s.contracts.values():
+ 		if ct.status=="active" and voyage.id in ct.voyageIds and s.simulationSeconds>ct.deadlineAt:_record(s,s.campaignId+":"+voyage.id+":late","shipment-late",v.name+"未按期抵达。",[v.id,voyage.id,ct.id])
+@@ -617,13 +620,26 @@
+ 	var s=_state.duplicate(true);_sync(s,snapshot_data.duplicate(true),events.duplicate(true))
+ 	if not _error.is_empty():return {"ok":false,"reason":_error}
+ 	s.revision+=1;_state=s;return {"ok":true}
+-func reconcile_near(before: Dictionary,events: Array,near_ids: Array,apply_native: Callable) -> Dictionary:
++func reconcile_near(before: Dictionary,events: Array,near_ids: Array,apply_native: Callable,arrival_controls: Variant=[],explicit_controls: Variant=[]) -> Dictionary:
+ 	_error=""
+ 	if _reconciling:return {"ok":false,"reason":"Reentrant handoff"}
+ 	if not _state.flagshipId in near_ids:return {"ok":false,"reason":"Invalid near membership"}
+ 	for id in near_ids:
+ 		if not _state.vessels.has(id):return {"ok":false,"reason":"Invalid near membership"}
+-	var s=_state.duplicate(true);_sync(s,before,events)
++	if not arrival_controls is Array or not explicit_controls is Array:return {"ok":false,"reason":"Invalid arrival control ownership"}
++	var seen=[];var identities=arrival_controls+explicit_controls;var policy=native_policy(near_ids) if not identities.is_empty() else {}
++	for id in identities:
++		if not id is String or id in seen or not id in near_ids or not id in [_state.campaignId+"-grain-a",_state.campaignId+"-grain-b"] or not genuine_lease(id):return {"ok":false,"reason":"Invalid arrival control ownership"}
++		seen.append(id)
++		var v=_state.vessels[id];var voyage=_state.voyages.get(v.voyageId,{});var live=_ship(before,id);var projection=v.controlsProjection
++		if v.profileId!="grain" or v.damage.hull<=0 or v.crew.able<v.crew.minimum or not id in policy.controllableShipIds or id in policy.capturedShipIds+policy.lockedShipIds+policy.disabledMotionShipIds:return {"ok":false,"reason":"Invalid arrival control ownership"}
++		if voyage.get("status")!="underway" or voyage.get("vesselId")!=id or live.is_empty() or not [live.get("hull"),live.get("crew")].all(_finite) or live.hull<=0 or live.crew<v.crew.minimum:return {"ok":false,"reason":"Invalid arrival control ownership"}
++		if projection==null or projection.battleId!=before.get("battleId") or projection.revision!=v.controlsRevision or not _count(live.get("controlsSequence")) or not _count(before.get("tick")) or before.tick<projection.tick:return {"ok":false,"reason":"Invalid arrival control ownership"}
++		if id in arrival_controls:
++			var port=_state.ports.get(voyage.get("destinationId"),{});var target=live.get("navigation")
++			if not target is Dictionary or port.is_empty() or not [target.get("x"),target.get("z")].all(_finite) or _distance(target,port.position)!=0 or projection.sequence!=live.controlsSequence:return {"ok":false,"reason":"Invalid arrival control ownership"}
++		elif live.controlsSequence<=projection.sequence:return {"ok":false,"reason":"Invalid arrival control ownership"}
++	var s=_state.duplicate(true);_sync(s,before,events,arrival_controls,explicit_controls)
+ 	for v in s.vessels.values():effective_draft(v);v.representation="near" if v.id in near_ids else "route"
+ 	if not _error.is_empty():return {"ok":false,"reason":_error}
+ 	var vessels=[]
+@@ -636,7 +652,7 @@
+ 		v.controlsProjection={"revision":v.controlsRevision,"battleId":before.battleId,"tick":before.tick,"sequence":sequence};v.controlsObserved={"battleId":before.battleId,"tick":before.tick,"sequence":sequence}
+ 	s.revision+=1;_state=s;return {"ok":true}
+ 
+-func _sync(s: Dictionary,snap: Dictionary,events: Array):
++func _sync(s: Dictionary,snap: Dictionary,events: Array,arrival_controls: Array=[],explicit_controls: Array=[]):
+ 	if not _require(_valid_id(snap.get("battleId"),4096) and _count(snap.get("tick")) and _finite(snap.get("time")) and snap.time>=0 and snap.get("ships") is Array,"invalid-near-snapshot"):return
+ 	var epoch=s.campaignId+":"+snap.battleId;var current=s.vessels[s.flagshipId].controlsObserved
+ 	if not _require(not(current!=null and current.battleId!=snap.battleId and s.nearTicks.has(epoch)) and (not s.nearTicks.has(epoch) or snap.tick>=s.nearTicks[epoch]),"stale-near-snapshot"):return
+@@ -679,7 +695,7 @@
+ 			if loss>0:v.cargo.grain-=loss;v.revision+=1
+ 			_record(s,id,"cargo-loss" if loss else "near-hit",v.name+"中弹，损失"+str(int(loss))+"粮。",[e.shipId,e.targetId,e.id])
+ 		else:_record(s,id,"near-"+e.type,s.vessels[e.shipId].name+"："+e.type+"。",[e.shipId,e.id])
+-	for id in ids:effective_draft(s.vessels[id]);_inspect(s,s.vessels[id])
++	for id in ids:effective_draft(s.vessels[id]);_inspect(s,s.vessels[id],id in arrival_controls,id in explicit_controls)
+ 	for person in s.people.values():
+ 		if person.alive and person.shipId!=null:
+ 			var v=s.vessels.get(person.shipId,{})
+--- a/tests/test_arrival_berthing.gd
++++ b/tests/test_arrival_berthing.gd
+@@ -14,15 +14,15 @@
+ 	for row: Dictionary in f.encounter.snapshot().ships:
+ 		if row.id == id: return row
+ 	return {}
+-func fixture(speed: float = 0.2) -> Dictionary:
++func fixture(speed: float = 0.2, distance: float = 22.0, heading: float = 0.0) -> Dictionary:
+ 	var c := Campaign.new(1650,"泊船测试船长","berth-unit")
+ 	check(c.command({"type":"accept-convoy","commandId":"accept","expectedRevision":0}).ok,"real lease loads the two original transports")
+ 	check(c.command({"type":"depart","commandId":"depart","expectedRevision":c.snapshot().revision}).ok,"real leased voyage departs")
+ 	var port: Dictionary = c._state.ports.kinmen.position
+ 	for suffix in ["grain-a","grain-b"]:
+ 		var v: Dictionary = c._state.vessels["berth-unit-"+suffix]
+-		v.pose.position = {"x":port.x+(-22.0 if suffix=="grain-a" else 22.0),"z":port.z}
+-		v.pose.speed = speed; v.controls.sailDeployment = 0.3
++		v.pose.position = {"x":port.x+(-distance if suffix=="grain-a" else distance),"z":port.z}
++		v.pose.heading = heading; v.pose.speed = speed; v.controls.sailDeployment = 0.3
+ 	# Native fixture pose is established before startup, never teleported live.
+ 	var epoch: String = c.allocate_native_epoch()
+ 	var state: Dictionary = c.snapshot()
+@@ -76,7 +76,101 @@
+ 	check(position(f,f.id)==start,name+" preserves actual position")
+ 	check(f.campaign.snapshot().vessels[f.id].cargo==before.vessels[f.id].cargo,name+" preserves cargo")
+ 	close(f)
++func automatic_arrival() -> Dictionary:
++	var f := fixture(0.2,25.01,0.4)
++	check(f.bridge.sync().ok and f.campaign.snapshot().voyages[f.id+"-voyage"].status=="underway","actual bridge projects automatic voyage before reaching arrival range")
++	var port: Dictionary=f.campaign.snapshot().ports.kinmen.position
++	var reached := false
++	for tick in 120:
++		f.encounter.step(1.0/60.0)
++		var row: Dictionary=ship(f,f.id)
++		if Vector2(row.visual.position.x-port.x,row.visual.position.z-port.z).length()<=25.0 and Vector2(row.visual.velocity.x,row.visual.velocity.z).length()<=0.75:
++			reached=true; break
++	var residual: Dictionary=ship(f,f.id)
++	check(reached and f.encounter.snapshot().tick>0 and absf(residual.rudder)>0.01,"real automatic navigation enters genuine arrival range with nonzero residual rudder")
++	return f
+ func _initialize() -> void:
++	# Real voyage projection and native ticks leave autopilot rudder at arrival.
++	for method in ["sync","reconcile"]:
++		var automatic := automatic_arrival()
++		check(automatic.bridge.call(method).ok,"real autopilot arrival transaction is accepted")
++		check(automatic.campaign.snapshot().voyages[automatic.id+"-voyage"].status=="arrived" and automatic.campaign.snapshot().vessels[automatic.id].cargo.grain==0,"real autopilot observation actually unloads the authoritative voyage")
++		check(ship(automatic,automatic.id).rudder==0 and automatic.campaign.snapshot().vessels[automatic.id].controls.rudder==0,"completed autonomous arrival neutralizes its native and business rudder")
++		var berth_position := position(automatic,automatic.id)
++		check(automatic.bridge.call(method).ok and automatic.encounter.isAnchored(automatic.id) and position(automatic,automatic.id)==berth_position,"next safe observation actually berths after real residual autopilot control")
++		close(automatic)
++	var controlled := automatic_arrival()
++	check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.25,"sailDeployment":0.0}).ok,"actual helm command supersedes residual autopilot control before unloading")
++	check(controlled.bridge.sync().ok and ship(controlled,controlled.id).rudder==0.25 and controlled.campaign.snapshot().vessels[controlled.id].controls.rudder==0.25,"genuine arrival retains newly commanded native and business rudder")
++	check(controlled.bridge.sync().ok and not controlled.encounter.isAnchored(controlled.id),"new helm command remains protected after arrival")
++	close(controlled)
++	controlled=automatic_arrival()
++	check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.0,"sailDeployment":0.4}).ok,"actual sail-only command supersedes autopilot before unloading")
++	check(controlled.bridge.sync().ok and ship(controlled,controlled.id).sailDeployment==0.4 and controlled.campaign.snapshot().vessels[controlled.id].controls.sailDeployment==0.4,"first genuine arrival retains new native and business sail-only command")
++	check(controlled.bridge.sync().ok and not controlled.encounter.isAnchored(controlled.id),"new sail-only command cannot become an automatic berth on later sync")
++	close(controlled)
++	controlled=automatic_arrival()
++	var port: Dictionary=controlled.campaign.snapshot().ports.kinmen.position
++	var first_target := {"x":port.x+150,"z":port.z+120}
++	check(controlled.encounter.navigate(controlled.id,first_target).ok,"native navigation changes destination just before genuine arrival")
++	check(controlled.bridge.sync().ok and ship(controlled,controlled.id).get("navigation")==first_target,"first genuine arrival preserves an explicit different destination")
++	check(controlled.bridge.sync().ok and not controlled.encounter.isAnchored(controlled.id),"new destination remains protected on later arrival sync")
++	close(controlled)
++	controlled=automatic_arrival()
++	port=controlled.campaign.snapshot().ports.kinmen.position
++	var rally := {"id":"first-arrival-order","shipIds":[controlled.id],"intent":{"kind":"rally","point":{"x":port.x,"z":port.z}}}
++	var issued: Dictionary=controlled.encounter.issueOrder(rally)
++	check(issued.ok and controlled.encounter.hasActiveOrder(controlled.id),"real active order owns controls at genuine arrival: "+JSON.stringify(issued))
++	var rudder: float=ship(controlled,controlled.id).rudder
++	check(controlled.bridge.sync().ok and controlled.encounter.hasActiveOrder(controlled.id) and ship(controlled,controlled.id).rudder==rudder,"genuine arrival leaves active order and its actual rudder intact")
++	close(controlled)
++	for invalid in ["not-an-array",["unknown"],["berth-unit-flagship"],["berth-unit-grain-a","berth-unit-grain-a"]]:
++		controlled=automatic_arrival()
++		var original_business: Dictionary=controlled.campaign.snapshot()
++		var original_native: Dictionary=controlled.encounter.snapshot()
++		var handoff: Dictionary=controlled.campaign.reconcile_near(original_native,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),invalid)
++		check(not handoff.ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"malformed or unauthorized arrival-control identities reject atomically")
++		close(controlled)
++	controlled=automatic_arrival()
++	check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.25,"sailDeployment":0.0}).ok,"real explicit control advances native controls sequence")
++	var original_business: Dictionary=controlled.campaign.snapshot()
++	var original_native: Dictionary=controlled.encounter.snapshot()
++	var handoff: Dictionary=controlled.campaign.reconcile_near(original_native,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),[controlled.id])
++	check(not handoff.ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"domain rechecks native sequence and rejects falsely owned controls atomically")
++	close(controlled)
++	for fault in ["crew","navigation","tick"]:
++		controlled=automatic_arrival()
++		original_business=controlled.campaign.snapshot(); original_native=controlled.encounter.snapshot()
++		var malformed: Dictionary=original_native.duplicate(true)
++		if fault=="tick": malformed.tick="invalid"
++		else:
++			for row: Dictionary in malformed.ships:
++				if row.id==controlled.id:
++					if fault=="crew": row.crew="invalid"
++					else: row.navigation={"z":0}
++		handoff=controlled.campaign.reconcile_near(malformed,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),[controlled.id])
++		check(not handoff.ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"malformed ownership observation rejects without an exception or partial handoff")
++		close(controlled)
++	for fault in ["unobserved","duplicate","epoch"]:
++		controlled=automatic_arrival()
++		if fault!="unobserved": check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.0,"sailDeployment":0.4}).ok,"explicit ownership fixture observes a real new native control sequence")
++		original_business=controlled.campaign.snapshot(); original_native=controlled.encounter.snapshot()
++		var observation: Dictionary=original_native.duplicate(true)
++		if fault=="epoch": observation.battleId="unrelated-epoch"
++		var explicit_ids: Array=[controlled.id,controlled.id] if fault=="duplicate" else [controlled.id]
++		handoff=controlled.campaign.reconcile_near(observation,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),[],explicit_ids)
++		check(not handoff.ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"invalid explicit arrival ownership rejects atomically: "+fault)
++		close(controlled)
++	controlled=automatic_arrival()
++	check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.0,"sailDeployment":0.4}).ok,"legacy caller fixture has a real sail control")
++	handoff=controlled.campaign.reconcile_near(controlled.encounter.snapshot(),[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate))
++	check(handoff.ok and ship(controlled,controlled.id).sailDeployment==0,"default empty ownership context retains legacy unloading sail semantics")
++	close(controlled)
++	controlled=automatic_arrival()
++	controlled.campaign._state.vessels[controlled.other].profileId="flagship"
++	original_business=controlled.campaign.snapshot(); original_native=controlled.encounter.snapshot()
++	check(not controlled.bridge.sync().ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"native rejection rolls back a newly arrived cargo and owned neutral-rudder transaction")
++	close(controlled)
+ 	# Removing the actual anchor side effect must fail these native observations.
+ 	for method in ["sync","reconcile"]:
+ 		var f := fixture(); arrive(f)

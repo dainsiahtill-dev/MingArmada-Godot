@@ -1,0 +1,363 @@
+[
+  {
+    "test": "near_field_bridge",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_near_field_bridge.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NEAR_FIELD_BRIDGE_TESTS assertions=13 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNEAR_FIELD_BRIDGE_TESTS assertions=13 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "voyage_waypoint_handoff",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_voyage_waypoint_handoff.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "VOYAGE_WAYPOINT_HANDOFF_TESTS assertions=64 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nVOYAGE_WAYPOINT_DIAGNOSTICS {\"position\":{\"x\":150.4685239454655,\"y\":0.8054414517829233,\"z\":78.33212236175325},\"businessLocation\":{\"leg\":1,\"progress\":0.9626378841979104},\"nativeNavigation\":{\"x\":282.1499288930165,\"z\":107.48568719733964},\"incomingPoint\":{\"x\":164.4685239454655,\"z\":78.33212236175325},\"followingPoint\":{\"x\":282.1499288930165,\"z\":107.48568719733964}}\nVOYAGE_WAYPOINT_HANDOFF_TESTS assertions=64 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "autopilot_port_approach",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_autopilot_port_approach.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "AUTOPILOT_PORT_APPROACH_TESTS assertions=24 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nAUTOPILOT_PORT_DIAGNOSTICS {\"initialHeading\":-1.4386,\"arrived\":true,\"seconds\":179.3,\"nearest\":24.992145538330078,\"lowTurnTicks\":1400,\"minimumSails\":0.0,\"final\":{\"id\":\"merchant\",\"name\":\"merchant\",\"kind\":\"merchant\",\"team\":\"player\",\"hull\":100.0,\"maxHull\":100,\"sail\":100.0,\"maxSail\":100,\"crew\":20.0,\"maxCrew\":30,\"sailDeployment\":0.0,\"ammoType\":\"solid\",\"ammo\":{\"solid\":40,\"chain\":20,\"grape\":20},\"dimensions\":{\"length\":36.0,\"width\":10.0,\"draft\":1.6},\"rudder\":-0.1455033752055942,\"sailAngle\":0.6707119574453796,\"autoTrim\":true,\"cannonsPerSide\":0,\"stats\":{\"hullMultiplier\":1.0,\"cannonMultiplier\":1.0,\"steeringMultiplier\":1.0,\"speedMultiplier\":1.0,\"maxHull\":100,\"maxCrew\":30,\"reloadMultiplier\":1.0,\"cargoMass\":2000,\"draftMeters\":1.6},\"controlsSequence\":0,\"navigation\":{\"x\":282.1499288930165,\"z\":107.48568719733964},\"visual\":{\"position\":{\"x\":284.73380519487944,\"y\":1.0041672496766576e-16,\"z\":82.62747014085454},\"heading\":-4.521631865033917,\"velocity\":{\"x\":-0.09664692016696808,\"y\":0.0,\"z\":0.4668906441559093},\"heel\":1.132098637380522e-05,\"pitch\":6.781825212204914e-18},\"cooldownSeconds\":{\"port\":0.0,\"starboard\":0.0}},\"samples\":[{\"time\":0.016666666666666666,\"position\":{\"x\":347.59753261624917,\"y\":0.0,\"z\":126.34561620681268},\"distance\":68.11083221435547,\"speed\":0.20552724599838257,\"heading\":-1.4386265831119407,\"rudder\":-1.0,\"sails\":1.0,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":10.016666666666666,\"position\":{\"x\":347.90746764220984,\"y\":1.0765013312212885e-16,\"z\":117.26498327599671},\"distance\":66.4807357788086,\"speed\":1.0938377380371094,\"heading\":-1.8372333410345174,\"rudder\":-0.30899941838630607,\"sails\":0.07170470637689697,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":20.016666666666666,\"position\":{\"x\":344.50118257904836,\"y\":1.0850112231676998e-16,\"z\":107.22287184544619},\"distance\":62.351806640625,\"speed\":1.0247855186462402,\"heading\":-1.9991670722886452,\"rudder\":-0.11522263608611324,\"sails\":0.04451445711054847,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":30.016666666666666,\"position\":{\"x\":340.4033213133732,\"y\":9.87147465783946e-17,\"z\":98.2125772737833},\"distance\":58.986846923828125,\"speed\":0.9587793946266174,\"heading\":-2.0262867070227086,\"rudder\":-0.1187836407460982,\"sails\":0.04191142835873651,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":40.016666666666666,\"position\":{\"x\":336.4450769040398,\"y\":1.0552266013552501e-16,\"z\":89.72276756196366},\"distance\":57.12691116333008,\"speed\":0.9194830656051636,\"heading\":-2.032040251607947,\"rudder\":-0.10901075952670149,\"sails\":0.04610082143620686,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":50.016666666666666,\"position\":{\"x\":332.57953001621456,\"y\":1.0850112231676912e-16,\"z\":81.46763901424228},\"distance\":56.74577713012695,\"speed\":0.9081973433494568,\"heading\":-2.037202442905079,\"rudder\":-0.10000030163853502,\"sails\":0.05342170690514059,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":60.016666666666666,\"position\":{\"x\":328.6963284349277,\"y\":1.1190507909533422e-16,\"z\":73.19368632377751},\"distance\":57.814430236816406,\"speed\":0.9243194460868835,\"heading\":-2.0419335656567204,\"rudder\":-0.09172030766358442,\"sails\":0.063918118931106,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":70.01666666666667,\"position\":{\"x\":324.67979633354093,\"y\":1.0892661691408953e-16,\"z\":64.65148766953843},\"distance\":60.36189651489258,\"speed\":0.9681844115257263,\"heading\":-2.0463070670176227,\"rudder\":-0.08403637827214264,\"sails\":0.07807986078266937,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":80.01666666666667,\"position\":{\"x\":320.405946987102,\"y\":1.0254419795427918e-16,\"z\":55.58646571912005},\"distance\":64.47520446777344,\"speed\":1.041091799736023,\"heading\":-2.050423817996938,\"rudder\":-0.07673805814391885,\"sails\":0.09678887280960691,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":90.01666666666667,\"position\":{\"x\":315.7387281482774,\"y\":1.1360705748461613e-16,\"z\":45.73021243973338},\"distance\":70.2989730834961,\"speed\":1.1452664136886597,\"heading\":-2.054452335026317,\"rudder\":-0.06947053005671604,\"sails\":0.12137920404070135,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":100.01666666666667,\"position\":{\"x\":309.0760450220909,\"y\":1.0637364933016482e-16,\"z\":38.61343938500486},\"distance\":73.94864654541016,\"speed\":0.8608086705207825,\"heading\":-2.8005346437336116,\"rudder\":-1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":110.01666666666667,\"position\":{\"x\":301.6873268525766,\"y\":9.78637573837512e-17,\"z\":38.05650470485949},\"distance\":72.125732421875,\"speed\":0.6661356687545776,\"heading\":-3.532746809622131,\"rudder\":-1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":120.01666666666667,\"position\":{\"x\":297.02736693798164,\"y\":1.0041672496767533e-16,\"z\":42.32691006322704},\"distance\":66.83565521240234,\"speed\":0.894374430179596,\"heading\":-4.087098039064174,\"rudder\":-0.4926633303400343,\"sails\":0.48775407112691904,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":130.01666666666665,\"position\":{\"x\":292.8403007873308,\"y\":1.0169320875963614e-16,\"z\":51.280146556478684},\"distance\":57.21316909790039,\"speed\":0.9422503709793091,\"heading\":-4.3498878509213075,\"rudder\":-0.21319675096438334,\"sails\":0.004056544279066987,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":140.01666666666665,\"position\":{\"x\":290.1993514465352,\"y\":1.0382068174623818e-16,\"z\":59.458687497323346},\"distance\":48.69688034057617,\"speed\":0.7863521575927734,\"heading\":-4.4638770788822955,\"rudder\":-0.11900460726831871,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":150.01666666666665,\"position\":{\"x\":288.4351153945937,\"y\":1.0339518714891562e-16,\"z\":66.51840059918015},\"distance\":41.446617126464844,\"speed\":0.6749489903450012,\"heading\":-4.477975316138378,\"rudder\":-0.14348751745253602,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":160.01666666666665,\"position\":{\"x\":286.9548357295758,\"y\":1.2084046563906125e-16,\"z\":72.65405920524844},\"distance\":35.161476135253906,\"speed\":0.5912045240402222,\"heading\":-4.488406667345672,\"rudder\":-0.14402604080110964,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":170.01666666666665,\"position\":{\"x\":285.7089958517866,\"y\":1.0509716553819473e-16,\"z\":78.08491798559194},\"distance\":29.615402221679688,\"speed\":0.5258325338363647,\"heading\":-4.504762218063932,\"rudder\":-0.14715813349419615,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null}]}\nAUTOPILOT_PORT_DIAGNOSTICS {\"initialHeading\":0.0,\"arrived\":true,\"seconds\":226.73333333333332,\"nearest\":24.999488830566406,\"lowTurnTicks\":2625,\"minimumSails\":0.0,\"final\":{\"id\":\"merchant\",\"name\":\"merchant\",\"kind\":\"merchant\",\"team\":\"player\",\"hull\":100.0,\"maxHull\":100,\"sail\":100.0,\"maxSail\":100,\"crew\":20.0,\"maxCrew\":30,\"sailDeployment\":0.0,\"ammoType\":\"solid\",\"ammo\":{\"solid\":40,\"chain\":20,\"grape\":20},\"dimensions\":{\"length\":36.0,\"width\":10.0,\"draft\":1.6},\"rudder\":0.14472100110047179,\"sailAngle\":-0.8769840777360897,\"autoTrim\":true,\"cannonsPerSide\":0,\"stats\":{\"hullMultiplier\":1.0,\"cannonMultiplier\":1.0,\"steeringMultiplier\":1.0,\"speedMultiplier\":1.0,\"maxHull\":100,\"maxCrew\":30,\"reloadMultiplier\":1.0,\"cargoMass\":2000,\"draftMeters\":1.6},\"controlsSequence\":0,\"navigation\":{\"x\":282.1499288930165,\"z\":107.48568719733964},\"visual\":{\"position\":{\"x\":274.531935661675,\"y\":1.0807562771944914e-16,\"z\":131.29620442926594},\"heading\":4.934842499965221,\"velocity\":{\"x\":0.0991698609466029,\"y\":0.0,\"z\":-0.46724086802513226},\"heel\":-1.1083124176241007e-05,\"pitch\":5.164998910863282e-18},\"cooldownSeconds\":{\"port\":0.0,\"starboard\":0.0}},\"samples\":[{\"time\":0.016666666666666666,\"position\":{\"x\":347.6003573543568,\"y\":0.0,\"z\":126.34899306057306},\"distance\":68.11448669433594,\"speed\":0.201441690325737,\"heading\":2.6585297327790905e-05,\"rudder\":1.0,\"sails\":0.18203333333333332,\"lowSpeedTurn\":true,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":10.016666666666666,\"position\":{\"x\":349.54936122725616,\"y\":1.0637364933016683e-16,\"z\":126.57203434190221},\"distance\":70.0497817993164,\"speed\":0.1799475997686386,\"heading\":0.594608344557192,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":20.016666666666666,\"position\":{\"x\":350.8455106410553,\"y\":1.1105408990069398e-16,\"z\":127.44919072494163},\"distance\":71.53756713867188,\"speed\":0.13707716763019562,\"heading\":1.2126959288566606,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":30.016666666666666,\"position\":{\"x\":352.28488394672314,\"y\":1.0084221956499757e-16,\"z\":131.74408561437943},\"distance\":74.21173858642578,\"speed\":1.0993900299072266,\"heading\":1.7212700647381236,\"rudder\":0.4486897518452623,\"sails\":0.3717951600058762,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":40.016666666666666,\"position\":{\"x\":349.83764308667253,\"y\":1.0679914392748678e-16,\"z\":143.77378629488788},\"distance\":76.80138397216797,\"speed\":1.2776401042938232,\"heading\":1.8627229327889567,\"rudder\":0.3984576644746458,\"sails\":0.1167570391970445,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":50.016666666666666,\"position\":{\"x\":346.28855545769113,\"y\":1.0424617634356281e-16,\"z\":156.36903433090094},\"distance\":80.64331817626953,\"speed\":1.3448315858840942,\"heading\":1.8913364199546117,\"rudder\":1.0,\"sails\":0.13603146168263747,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":60.016666666666666,\"position\":{\"x\":342.045299057292,\"y\":1.0892661691409005e-16,\"z\":169.61200482646817},\"distance\":86.29678344726563,\"speed\":1.4421826601028442,\"heading\":1.9664022588880101,\"rudder\":1.0,\"sails\":0.16745396439900784,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":70.01666666666667,\"position\":{\"x\":336.4309748064115,\"y\":1.0892661691409022e-16,\"z\":183.55050173530887},\"distance\":93.44670867919922,\"speed\":1.5666447877883911,\"heading\":2.0457088680222797,\"rudder\":1.0,\"sails\":0.20450357852745382,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":80.01666666666667,\"position\":{\"x\":329.05215129036867,\"y\":1.08075627719449e-16,\"z\":198.07034124708377},\"distance\":102.00685119628906,\"speed\":1.688204050064087,\"heading\":2.154292819883907,\"rudder\":1.0,\"sails\":0.30362517838918324,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":90.01666666666667,\"position\":{\"x\":319.81226858205974,\"y\":1.1190507909533533e-16,\"z\":212.18225813987502},\"distance\":111.26465606689453,\"speed\":1.6447107791900635,\"heading\":2.2725416390118367,\"rudder\":1.0,\"sails\":0.7600106531970647,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":100.01666666666667,\"position\":{\"x\":309.96309009481575,\"y\":1.170110142631832e-16,\"z\":223.82259557668218},\"distance\":119.61541748046875,\"speed\":1.3780149221420288,\"heading\":2.375776612343942,\"rudder\":1.0,\"sails\":1.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":110.01666666666667,\"position\":{\"x\":300.84208434840895,\"y\":1.1105408990069388e-16,\"z\":231.8873223741866},\"distance\":125.79810333251953,\"speed\":1.0597814321517944,\"heading\":2.726776330029824,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":120.01666666666667,\"position\":{\"x\":291.94337316855245,\"y\":1.1743650886050379e-16,\"z\":232.96072387636852},\"distance\":125.85664367675781,\"speed\":0.7969413995742798,\"heading\":3.4997823209326335,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":130.01666666666665,\"position\":{\"x\":286.4156630640208,\"y\":1.1062859530337309e-16,\"z\":228.4257454217282},\"distance\":121.0152587890625,\"speed\":1.0202147960662842,\"heading\":4.162225290715525,\"rudder\":0.6260240238792195,\"sails\":0.8666666666666648,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":140.01666666666665,\"position\":{\"x\":280.36573122050737,\"y\":1.1233057369265587e-16,\"z\":212.21010545495128},\"distance\":104.73961639404297,\"speed\":1.837890863418579,\"heading\":4.341876641513708,\"rudder\":0.6417614164529151,\"sails\":0.11394122090319314,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":150.01666666666665,\"position\":{\"x\":274.89648050471,\"y\":1.1147958449801474e-16,\"z\":196.22662932818298},\"distance\":89.0368881225586,\"speed\":1.5479737520217896,\"heading\":4.4212547313079,\"rudder\":0.6304452323611934,\"sails\":0.06558817944959827,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":160.01666666666665,\"position\":{\"x\":271.188588096793,\"y\":1.1147958449801466e-16,\"z\":182.5237487226862},\"distance\":75.83443450927734,\"speed\":1.2987827062606812,\"heading\":4.479452004737953,\"rudder\":0.6501613947846805,\"sails\":0.03585182882529514,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":170.01666666666665,\"position\":{\"x\":269.016340151982,\"y\":1.1062859530337304e-16,\"z\":170.84478231397756},\"distance\":64.70600128173828,\"speed\":1.0856866836547852,\"heading\":4.668222383286194,\"rudder\":0.2991427292909118,\"sails\":0.016904116124098145,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":180.01666666666665,\"position\":{\"x\":269.3455308810086,\"y\":1.1743650886050334e-16,\"z\":160.95802273840707},\"distance\":54.98402786254883,\"speed\":0.8998433351516724,\"heading\":4.83537818202678,\"rudder\":0.13743923830431345,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":190.01666666666665,\"position\":{\"x\":270.5634406557569,\"y\":1.085011223167697e-16,\"z\":152.8121418177539},\"distance\":46.783912658691406,\"speed\":0.7564977407455444,\"heading\":4.8832712297545635,\"rudder\":0.13790831181890414,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":200.01666666666665,\"position\":{\"x\":271.74901179992594,\"y\":1.1062859530337322e-16,\"z\":145.8921782240706},\"distance\":39.7899169921875,\"speed\":0.6529081463813782,\"heading\":4.890705310552817,\"rudder\":0.1504421001047329,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":210.01666666666665,\"position\":{\"x\":272.8294996252762,\"y\":9.531078979982897e-17,\"z\":139.8703442500821},\"distance\":33.6992073059082,\"speed\":0.5741757750511169,\"heading\":4.905385597525671,\"rudder\":0.14528126184339554,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":220.01666666666665,\"position\":{\"x\":273.85967249667226,\"y\":1.0807562771944916e-16,\"z\":134.54902969590043},\"distance\":28.304643630981445,\"speed\":0.512291669845581,\"heading\":4.922471806298625,\"rudder\":0.14608924078765007,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null}]}\nAUTOPILOT_PORT_DIAGNOSTICS {\"initialHeading\":3.141592653589793,\"arrived\":true,\"seconds\":206.26666666666665,\"nearest\":24.992952346801758,\"lowTurnTicks\":1339,\"minimumSails\":0.0,\"final\":{\"id\":\"merchant\",\"name\":\"merchant\",\"kind\":\"merchant\",\"team\":\"player\",\"hull\":100.0,\"maxHull\":100,\"sail\":100.0,\"maxSail\":100,\"crew\":20.0,\"maxCrew\":30,\"sailDeployment\":0.0,\"ammoType\":\"solid\",\"ammo\":{\"solid\":40,\"chain\":20,\"grape\":20},\"dimensions\":{\"length\":36.0,\"width\":10.0,\"draft\":1.6},\"rudder\":0.1460028836579917,\"sailAngle\":-0.8720821145387444,\"autoTrim\":true,\"cannonsPerSide\":0,\"stats\":{\"hullMultiplier\":1.0,\"cannonMultiplier\":1.0,\"steeringMultiplier\":1.0,\"speedMultiplier\":1.0,\"maxHull\":100,\"maxCrew\":30,\"reloadMultiplier\":1.0,\"cargoMass\":2000,\"draftMeters\":1.6},\"controlsSequence\":0,\"navigation\":{\"x\":282.1499288930165,\"z\":107.48568719733964},\"visual\":{\"position\":{\"x\":274.7669903176642,\"y\":1.0765013312212755e-16,\"z\":131.3632904886332},\"heading\":4.925069468224424,\"velocity\":{\"x\":0.094520062066275,\"y\":0.0,\"z\":-0.4678344762254549},\"heel\":-1.1354047407828168e-05,\"pitch\":8.767775603792603e-18},\"cooldownSeconds\":{\"port\":0.0,\"starboard\":0.0}},\"samples\":[{\"time\":0.016666666666666666,\"position\":{\"x\":347.59366689946427,\"y\":0.0,\"z\":126.34899305573157},\"distance\":68.1080551147461,\"speed\":0.19998645782470703,\"heading\":3.1415660675237294,\"rudder\":-1.0,\"sails\":1.0,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":10.016666666666666,\"position\":{\"x\":345.7197811472396,\"y\":1.0679914392748716e-16,\"z\":126.55399066045932},\"distance\":66.36811065673828,\"speed\":0.17430523037910461,\"heading\":2.5993499745185287,\"rudder\":-0.6606370591694795,\"sails\":1.0,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":20.016666666666666,\"position\":{\"x\":344.7644707716626,\"y\":1.1147958449801427e-16,\"z\":128.4160432696689},\"distance\":66.02014923095703,\"speed\":0.49650809168815613,\"heading\":2.315079423734599,\"rudder\":-0.2826770488206453,\"sails\":1.0,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":30.016666666666666,\"position\":{\"x\":343.1084719726336,\"y\":1.0935211151141091e-16,\"z\":135.8724315079594},\"distance\":67.24396514892578,\"speed\":1.0052515268325806,\"heading\":2.1813655789322546,\"rudder\":-0.10590758520353641,\"sails\":0.2804453510196181,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":40.016666666666666,\"position\":{\"x\":337.5741692996655,\"y\":9.573628439714954e-17,\"z\":145.0673487359553},\"distance\":66.9643783569336,\"speed\":1.0912243127822876,\"heading\":2.1617745169779345,\"rudder\":-0.117247597424734,\"sails\":0.0961211907199413,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":50.016666666666666,\"position\":{\"x\":331.800882754254,\"y\":1.204149710417481e-16,\"z\":154.41656060933482},\"distance\":68.32074737548828,\"speed\":1.111606240272522,\"heading\":2.1554460862925082,\"rudder\":-0.10627088581632586,\"sails\":0.10958663102658317,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":60.016666666666666,\"position\":{\"x\":325.93007183761597,\"y\":1.1233057369265505e-16,\"z\":164.1416344643114},\"distance\":71.60026550292969,\"speed\":1.166169285774231,\"heading\":2.1495267963720193,\"rudder\":-0.09576046271160488,\"sails\":0.13162873284284338,\"lowSpeedTurn\":false,\"tack\":{\"side\":-1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":70.01666666666667,\"position\":{\"x\":319.8134668319915,\"y\":1.1658551966586123e-16,\"z\":174.5581726047722},\"distance\":76.9237289428711,\"speed\":1.2527459859848022,\"heading\":2.1603910846145964,\"rudder\":1.0,\"sails\":0.17134147086246232,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":80.01666666666667,\"position\":{\"x\":312.9647636131552,\"y\":1.1190507909533407e-16,\"z\":185.53390495486465},\"distance\":83.9111328125,\"speed\":1.3217179775238037,\"heading\":2.2309616568998636,\"rudder\":1.0,\"sails\":0.31259747104409286,\"lowSpeedTurn\":false,\"tack\":{\"side\":1,\"windFrom\":3.141592653589793,\"settledTicks\":0,\"legTicks\":0}},{\"time\":90.01666666666667,\"position\":{\"x\":305.19973697454225,\"y\":1.1488354127657836e-16,\"z\":196.1835292726501},\"distance\":91.64388275146484,\"speed\":1.2971726655960083,\"heading\":2.3066418838327567,\"rudder\":1.0,\"sails\":0.6706239243652798,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":100.01666666666667,\"position\":{\"x\":297.0856738255637,\"y\":1.0765013312212688e-16,\"z\":205.51734639113872},\"distance\":99.16291046142578,\"speed\":1.1364935636520386,\"heading\":2.4875015279727712,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":110.01666666666667,\"position\":{\"x\":288.1118135867002,\"y\":1.1062859530337144e-16,\"z\":208.78309773741825},\"distance\":101.47270202636719,\"speed\":0.8452839255332947,\"heading\":3.27596773556703,\"rudder\":1.0,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":120.01666666666667,\"position\":{\"x\":281.3947234991282,\"y\":1.1318156288729551e-16,\"z\":205.96122378900782},\"distance\":98.47843170166016,\"speed\":0.6556430459022522,\"heading\":4.001886582787965,\"rudder\":0.9040718181502678,\"sails\":0.0,\"lowSpeedTurn\":true,\"tack\":null},{\"time\":130.01666666666665,\"position\":{\"x\":277.1567654878779,\"y\":1.0594815473284386e-16,\"z\":195.03062586390996},\"distance\":87.68721771240234,\"speed\":1.512333869934082,\"heading\":4.34855737497763,\"rudder\":0.7086523492312923,\"sails\":0.08312279248493448,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":140.01666666666665,\"position\":{\"x\":272.5899845439545,\"y\":1.2594640080691518e-16,\"z\":181.82949614556838},\"distance\":74.9559555053711,\"speed\":1.2815030813217163,\"heading\":4.413502734744229,\"rudder\":0.7348976731054921,\"sails\":0.035270034813075224,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":150.01666666666665,\"position\":{\"x\":269.863777437522,\"y\":9.786375738375116e-17,\"z\":170.42218074569467},\"distance\":64.12450408935547,\"speed\":1.0741524696350098,\"heading\":4.639745660862635,\"rudder\":0.3198347846583357,\"sails\":0.01671453406404133,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":160.01666666666665,\"position\":{\"x\":269.9580537768101,\"y\":1.127560682899746e-16,\"z\":160.63295442889128},\"distance\":54.527732849121094,\"speed\":0.890934944152832,\"heading\":4.81800330085957,\"rudder\":0.14719228080689042,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":170.01666666666665,\"position\":{\"x\":271.0556134101934,\"y\":1.1147958449801326e-16,\"z\":152.5471499579572},\"distance\":46.407100677490234,\"speed\":0.7500312924385071,\"heading\":4.874836331543889,\"rudder\":0.13652081408702132,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":180.01666666666665,\"position\":{\"x\":272.17409803063447,\"y\":1.038206817462414e-16,\"z\":145.67261078829952},\"distance\":39.468448638916016,\"speed\":0.6480824947357178,\"heading\":4.882422274922987,\"rudder\":0.14927471581812393,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":190.01666666666665,\"position\":{\"x\":273.1954469079098,\"y\":1.1062859530337201e-16,\"z\":139.68351294831737},\"distance\":33.419795989990234,\"speed\":0.5704412460327148,\"heading\":4.896744004580436,\"rudder\":0.14443160628420426,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null},{\"time\":200.01666666666665,\"position\":{\"x\":274.17192967671593,\"y\":1.1658551966586138e-16,\"z\":134.38598524506364},\"distance\":28.058412551879883,\"speed\":0.509313702583313,\"heading\":4.913484841201324,\"rudder\":0.1448827962466518,\"sails\":0.0,\"lowSpeedTurn\":false,\"tack\":null}]}\nAUTOPILOT_PORT_APPROACH_TESTS assertions=24 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "manual_sailing_assist",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_manual_sailing_assist.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MANUAL_SAILING_ASSIST_TESTS assertions=11 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nMANUAL_SAILING_ASSIST_TESTS assertions=11 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "naval_invariants",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_naval_invariants.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NAVAL_INVARIANTS_PASS assertions=72"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNAVAL_INVARIANTS_PASS assertions=72\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "naval_simulation",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_naval_simulation.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NAVAL_SIMULATION_PASS assertions=51559 cases=72"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNAVAL_SIMULATION_PASS assertions=51559 cases=72\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "native_readiness",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_native_readiness.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "NATIVE_READINESS_TESTS assertions=16 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNATIVE_READINESS_TESTS assertions=16 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "sailing_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_sailing_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SAILING_RUNTIME_TESTS assertions=13 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSAILING_RUNTIME_TESTS assertions=13 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_RUNTIME_TESTS assertions=12 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nMINGQI_RUNTIME_TESTS assertions=12 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_rules",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_rules.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "mingqi source golden: PASS (0)"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nmingqi source golden: PASS (0)\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_live_projection",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_live_projection.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_LIVE_PROJECTION_TESTS assertions=9 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nMINGQI_LIVE_PROJECTION_TESTS assertions=9 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "mingqi_ui",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_mingqi_ui.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "MINGQI_UI_TESTS assertions=195 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nHUD_LAYOUT viewport=(1600.0, 900.0) size=(430.0, 333.0) minimum=(356.0, 333.0)\nHUD_LAYOUT viewport=(1100.0, 900.0) size=(430.0, 333.0) minimum=(356.0, 333.0)\nHUD_FIRST_PACKET size=(430.0, 333.0) minimum=(356.0, 333.0)\nMINGQI_UI_TESTS assertions=195 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "save_compatibility",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_save_compatibility.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "save compatibility v2: PASS (0)"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nsave compatibility v2: PASS (0)\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "save_coordinator",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_save_coordinator.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SAVE_COORDINATOR_TESTS assertions=12 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSAVE_COORDINATOR_TESTS assertions=12 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_RUNTIME_TESTS assertions=45 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_RUNTIME_TESTS assertions=45 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_save",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_save.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_SAVE_TESTS assertions=122 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_SAVE_TESTS assertions=122 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "opening_story_ui_runtime",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_opening_story_ui_runtime.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "OPENING_STORY_UI_RUNTIME_TESTS assertions=39 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSTORY_UI_RUNTIME_WIRE {\"field_types\":{\"choiceId\":\"String:String\",\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"sceneId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"choiceId\":\"settle-wages\",\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"expectedRevision\":2,\"sceneId\":\"old-ledger\",\"type\":\"story-choice\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"details\":{\"choiceId\":\"settle-wages\",\"convoyReceiptId\":null,\"intelligence\":null,\"kind\":\"story-choice\",\"portId\":\"xiamen\",\"reputationEffects\":{\"crewSupport\":10,\"merchantCredit\":0,\"militaryTrust\":0},\"routeId\":null,\"sceneId\":\"old-ledger\",\"silverCost\":80},\"id\":\"mingqi-1650:story:old-ledger\",\"kind\":\"story-choice\",\"message\":\"许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"shipId\":\"String:String\",\"slot\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"expectedRevision\":2,\"shipId\":\"mingqi-1650-heritage\",\"slot\":\"sails\",\"type\":\"refit\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"details\":{\"cost\":150,\"duration\":120,\"kind\":\"work\",\"shipId\":\"mingqi-1650-heritage\",\"status\":\"active\",\"workId\":\"mingqi-1650:work:2\"},\"id\":\"mingqi-1650:refit:ui:mingqi-1650:198088596954:1\",\"kind\":\"refit\",\"message\":\"refit已按实际港口状态受理。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"quantity\":\"String:int\",\"shipId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:care:309690639157:1\",\"expectedRevision\":2,\"quantity\":3,\"shipId\":\"care-heritage\",\"type\":\"treat-wounded\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:care:309690639157:1\",\"details\":{\"cost\":12,\"duration\":90,\"kind\":\"treatment\",\"quantity\":3,\"shipId\":\"care-heritage\",\"status\":\"active\",\"workId\":\"care:work:2\"},\"id\":\"care:treat-wounded:ui:care:309690639157:1\",\"kind\":\"treat-wounded\",\"message\":\"treat-wounded已按实际港口状态受理。\",\"revision\":3.0}}}\nOPENING_STORY_UI_RUNTIME_TESTS assertions=39 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "career_startup",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_career_startup.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "CAREER_STARTUP_TESTS assertions=53 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCAREER_STARTUP_TESTS assertions=53 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "convoy_recovery",
+    "command": [
+      "rtk",
+      "proxy",
+      "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:/Users/dains/Documents/Git/ming-armada",
+      "--script",
+      "res://tests/test_convoy_recovery.gd"
+    ],
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "CONVOY_RECOVERY_TESTS assertions=124 failures=0"
+    ],
+    "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCONVOY_RECOVERY_TESTS assertions=124 failures=0\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  }
+]

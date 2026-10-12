@@ -21,10 +21,12 @@ var _life_sites: Array[Vector2]=[]
 var _actual_buildings: Array[Dictionary]=[]
 var _has_actual_buildings:=false
 var _terrain_support: Callable
+var _native_forest := false
 
 func configure(height_sampler: Callable,ports: Array,options: Dictionary={}) -> bool:
 	dispose()
 	if not height_sampler.is_valid(): return false
+	if options.has("native_forest") and not options.native_forest is bool: return false
 	if ports.size()>64: return false
 	for port in ports:
 		if not port is Dictionary: return false
@@ -46,6 +48,7 @@ func configure(height_sampler: Callable,ports: Array,options: Dictionary={}) -> 
 			_actual_buildings.append({"position":point,"radius":radius})
 		_has_actual_buildings=true
 	_sampler=height_sampler; _ports=ports.duplicate(true)
+	_native_forest=bool(options.get("native_forest",false))
 	_terrain_support=options.get("terrain_support",Callable())
 	_ports.sort_custom(func(a: Dictionary,b: Dictionary)->bool: return _identity(a)<_identity(b))
 	_seed=int(options.get("seed",0))
@@ -434,6 +437,7 @@ func _place(port: Dictionary,kind: String,zone: String,point: Vector3,size: Vect
 		if not _supported_building(kind,point,size,rotation): return
 		_building_sites.append({"point":Vector2(point.x,point.z),"radius":clearance})
 	if kind in ["coastal_tree","shore_tree"]:
+		if _native_forest: return
 		var gradient:=_terrain_gradient(Vector2(point.x,point.z))
 		var maximum:=.75 if kind=="coastal_tree" else .45
 		if not gradient.is_finite() or gradient.length()>maximum: return

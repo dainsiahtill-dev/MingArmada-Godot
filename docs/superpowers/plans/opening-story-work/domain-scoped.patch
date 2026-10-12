@@ -1,0 +1,627 @@
+--- before/game/domain/mingqi/campaign.gd
++++ after/game/domain/mingqi/campaign.gd
+@@ -2,10 +2,11 @@
+ ## Current 1650 opening slice. All state is detached JSON data; no scene/time globals.
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
+ const SaveCodec = preload("res://game/domain/persistence/save_codec.gd")
++const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
+ const MAX_SAFE = 9007199254740991
+ const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
+-const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize"]
+-const NEEDS_NATIVE = ["dock","repair","refit","treat-wounded","start-boarding","board-action","allocate-prize","release-prisoners","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize"]
++const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
++const NEEDS_NATIVE = ["dock","repair","refit","treat-wounded","start-boarding","board-action","allocate-prize","release-prisoners","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+ var _state: Dictionary
+ var _error = ""
+ var _reconciling = false
+@@ -161,6 +162,12 @@
+ 	if not _valid_id(c.get("commandId")) or not _count(c.get("expectedRevision")): return false
+ 	var fields=["type","commandId","expectedRevision"]
+ 	match c.get("type"):
++		"story-choice":
++			fields.append_array(["sceneId","choiceId"])
++			if not c.get("sceneId") is String or not c.get("choiceId") is String or OpeningStory.choice_definition(c.sceneId,c.choiceId).is_empty():return false
++		"repay-debt":
++			fields.append("quantity")
++			if not _count(c.get("quantity")) or c.quantity<=0:return false
+ 		"accept-convoy":
+ 			if c.has("contractId"):
+ 				fields.append("contractId")
+@@ -247,6 +254,32 @@
+ 			if id in working:return _failure("ship-working")
+ 	var id="";var message="";var details=null;var anchors=[]
+ 	match c.type:
++		"story-choice":
++			var definition=OpeningStory.choice_definition(c.sceneId,c.choiceId)
++			if s.currentPortId!=definition.portId:return _failure("not-in-story-port")
++			_docked(s,native,policy,s.flagshipId)
++			if not _error.is_empty():return _failure(_error)
++			if definition.routeId!=null:
++				for suffix in ["grain-a","grain-b"]:
++					var v=s.vessels[s.campaignId+"-"+suffix]
++					if not route_for_vessel(Catalog.DATA.routes[definition.routeId],v).ok:return _failure("route-too-shallow")
++			var result=OpeningStory.apply(s,c.sceneId,c.choiceId)
++			if not result.ok:return _failure(result.reason)
++			if definition.routeId!=null:
++				for suffix in ["grain-a","grain-b"]:
++					var voyage=s.voyages[s.campaignId+"-"+suffix+"-voyage"]
++					voyage.merge(locate_route(s.vessels[voyage.vesselId],Catalog.DATA.routes[definition.routeId]),true)
++			id=OpeningStory.receipt_id(s,c.sceneId);details=result.details;message=result.message
++		"repay-debt":
++			if s.currentPortId!="xiamen":return _failure("not-in-port")
++			_docked(s,native,policy,s.flagshipId)
++			if not _error.is_empty():return _failure(_error)
++			if c.quantity>s.debt.principal:return _failure("exceeds-debt")
++			if c.quantity>s.captain.silver:return _failure("insufficient-silver")
++			var before=s.debt.principal; var after=before-c.quantity; var award=6 if after==0 else 0
++			s.captain.silver-=c.quantity;s.debt.principal=after;s.reputations.merchantCredit=clamp(s.reputations.merchantCredit+award,-100,100)
++			id=s.campaignId+":repay-debt:"+c.commandId;message="向林家商行偿还%d两本金，剩余%d两。"%[c.quantity,after]
++			details={"kind":"repay-debt","portId":"xiamen","amount":c.quantity,"beforePrincipal":before,"afterPrincipal":after,"creditAward":award}
+ 		"accept-convoy":
+ 			var cid=c.get("contractId","convoy-001")
+ 			var contract=s.contracts.get(cid,{})
+--- before/game/domain/persistence/save_codec.gd
++++ after/game/domain/persistence/save_codec.gd
+@@ -1,9 +1,10 @@
+ extends RefCounted
+ ## Pure v2 codec. Disk/slot/rollback coordinator lives outside domain.
+ const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
+ const MAX_SAFE = 9007199254740991
+ const GOODS = ["grain","water","wood","iron","powder","cloth","silk","porcelain","tea","sugar","salt","spices"]
+-const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize"]
++const BUSINESS = ["accept-convoy","buy","sell","depart","choose-route","assign-order","claim-convoy","dock","repair","refit","start-boarding","board-action","allocate-prize","release-prisoners","treat-wounded","take-prize-cargo","resolve-prize","sell-prize","incorporate-prize","story-choice","repay-debt"]
+ const RECEIPTS = BUSINESS + ["background-load","shipment-arrived","shipment-lost","shipment-interrupted","shipment-late","person-died","cargo-loss","near-hit","near-fire","near-splash","near-sink","near-victory","near-defeat","near-surrender","near-battle-ended","boarding-won","boarding-lost","boarding-cut","work-completed","near-casualties","crew-transition"]
+ var error = ""
+ var _json = ""
+@@ -181,6 +182,7 @@
+ 	match schema:
+ 		"finite":return _check(_finite(v),path)
+ 		"count":return _check(_count(v),path)
++		"debtPrincipal":return _check(_count(v) and v<=400,path)
+ 		"positive":return _check(_count(v) and v>0,path)
+ 		"time":return _check(_finite(v) and v>=0 and v<=MAX_SAFE,path)
+ 		"positiveTime":return _check(_finite(v) and v>0 and v<=MAX_SAFE,path)
+@@ -238,10 +240,12 @@
+ 	var voyage={"id":"id","vesselId":"id","originId":"id","destinationId":"id","routeId":"id","leg":"count","progress":["range",0,1],"departedAt":"time","eta":"time","escortIds":["ids",64],"status":["one",["loading","underway","arrived","lost","interrupted"]]}
+ 	var point={"control":["range",0,100],"action":["one",["advance","hold"]]}
+ 	var boarding={"id":"id","attackerId":"id","targetId":"id","points":{"bow":point,"deck":point,"helm":point},"morale":{"attacker":["range",0,100],"defender":["range",0,100]},"status":["one",["active","won","lost","cut"]],"participants":["ids",128],"elapsedSeconds":"count","remainder":"remainder","clockCompensation":"compensation"}
+-	return {"campaignId":"commandId","revision":"count","seed":["range",0,4294967295],"randomState":["range",0,4294967295],"nextId":"positive","simulationSeconds":"time","macroRemainder":"remainder","macroSeconds":"count","clockCompensation":"compensation","calendar":_calendar_schema(),"chapterId":["one",["opening-1650"]],"captain":{"name":"name","birthYear":["one",[1631]],"silver":"count"},"debt":{"principal":["one",[400]],"creditorId":["one",["house-lin"]],"dueAt":["one",[18000]]},"flagshipId":"id","currentPortId":["null","id"],"vessels":["record",vessel,128],"voyages":["record",voyage,4096],"ports":["record",{"id":"id","name":"text","position":position,"stock":"cargo","production":"cargo","consumption":"cargo"},128],"orders":["array","order",4096],"contracts":["record",{"id":["one",["convoy-001","convoy-002"]],"voyageIds":["ids",64],"deadlineAt":"time","minimumDelivery":["one",[1]],"bonusQuantity":"count","criticalPersonIds":["ids",128],"secret":["one",[false]],"status":["one",["offered","active","delivered","failed","settled"]],"receiptId":["null","id"]},2],"boardings":["record",boarding,128],"works":["record","work",128],"prizes":["record",{"targetId":"id","boardingId":"id","originalOwnerId":"id","status":["one",["held","crewed","incorporated","released","abandoned","sold"]],"resolutionReceiptId":["null","id"]},128],"casualtyOrdinals":["record","count",128],"reputations":{"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100],"crewSupport":["range",-100,100],"intimidation":["range",-100,100]},"people":["record",{"id":"id","name":"text","shipId":["null","id"],"alive":"bool","role":["one",["steward","pilot","deputy"]]},128],"intelligence":["array",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"},4096],"chronicle":["array",{"id":"id","simTime":"time","date":_calendar_schema(),"causeIds":["array","id",128],"kind":["one",RECEIPTS],"message":"text"},4096],"settlements":["record",{"id":"id","commandId":"id","revision":"count","kind":["one",RECEIPTS],"message":"text","details?":"details"},4096],"nearTicks":["record","count",128]}
++	return {"campaignId":"commandId","revision":"count","seed":["range",0,4294967295],"randomState":["range",0,4294967295],"nextId":"positive","simulationSeconds":"time","macroRemainder":"remainder","macroSeconds":"count","clockCompensation":"compensation","calendar":_calendar_schema(),"chapterId":["one",["opening-1650"]],"captain":{"name":"name","birthYear":["one",[1631]],"silver":"count"},"debt":{"principal":"debtPrincipal","creditorId":["one",["house-lin"]],"dueAt":["one",[18000]]},"flagshipId":"id","currentPortId":["null","id"],"vessels":["record",vessel,128],"voyages":["record",voyage,4096],"ports":["record",{"id":"id","name":"text","position":position,"stock":"cargo","production":"cargo","consumption":"cargo"},128],"orders":["array","order",4096],"contracts":["record",{"id":["one",["convoy-001","convoy-002"]],"voyageIds":["ids",64],"deadlineAt":"time","minimumDelivery":["one",[1]],"bonusQuantity":"count","criticalPersonIds":["ids",128],"secret":["one",[false]],"status":["one",["offered","active","delivered","failed","settled"]],"receiptId":["null","id"]},2],"boardings":["record",boarding,128],"works":["record","work",128],"prizes":["record",{"targetId":"id","boardingId":"id","originalOwnerId":"id","status":["one",["held","crewed","incorporated","released","abandoned","sold"]],"resolutionReceiptId":["null","id"]},128],"casualtyOrdinals":["record","count",128],"reputations":{"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100],"crewSupport":["range",-100,100],"intimidation":["range",-100,100]},"people":["record",{"id":"id","name":"text","shipId":["null","id"],"alive":"bool","role":["one",["steward","pilot","deputy"]]},128],"intelligence":["array",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"},4096],"chronicle":["array",{"id":"id","simTime":"time","date":_calendar_schema(),"causeIds":["array","id",128],"kind":["one",RECEIPTS],"message":"text"},4096],"settlements":["record",{"id":"id","commandId":"id","revision":"count","kind":["one",RECEIPTS],"message":"text","details?":"details"},4096],"nearTicks":["record","count",128]}
+ func _detail_schemas() -> Dictionary:
+ 	var bucket={"able":"count","wounded":"count","prisoners":"count"}
+ 	return {
++		"story-choice":{"kind":["one",["story-choice"]],"sceneId":["one",OpeningStory.SCENES],"choiceId":"id","portId":"id","silverCost":"count","reputationEffects":{"crewSupport":["range",-100,100],"militaryTrust":["range",-100,100],"merchantCredit":["range",-100,100]},"routeId":["null","id"],"convoyReceiptId":["null","id"],"intelligence":["null",{"portId":"id","observedAt":"time","sourceId":"id","confidence":["range",0,1],"stock":"cargo"}]},
++		"repay-debt":{"kind":["one",["repay-debt"]],"portId":["one",["xiamen"]],"amount":"positive","beforePrincipal":"debtPrincipal","afterPrincipal":"debtPrincipal","creditAward":"count"},
+ 		"crew-transition":{"kind":["one",["crew-transition"]],"reason":["one",["boarding-attrition","boarding-victory","allocation","release-prisoners","treatment","prize-release","prize-rescue","prize-sale"]],"causeId":"id","changes":["array",{"shipId":"id","before":bucket,"after":bucket},2,1]},
+ 		"battle-ended":{"kind":["one",["battle-ended"]],"battleId":"id","episodeId":"id","outcome":["one",["victory","defeat","disengaged"]],"reason":"text"},
+ 		"shipment-arrived":{"kind":["one",["shipment-arrived"]],"voyageId":"id","vesselId":"id","destinationId":"id","grain":"count","arrivedAt":"time"},
+@@ -328,7 +332,7 @@
+ 			commands[r.commandId]=true
+ 			var prefixes={"buy":"trade","sell":"trade","depart":"depart","choose-route":"route","assign-order":"order"}
+ 			if prefixes.has(r.kind) and not _check(r.id==s.campaignId+"-"+prefixes[r.kind]+"-"+r.commandId,"receipt-id"):return false
+-			if r.kind in ["dock","repair","refit","release-prisoners","start-boarding","board-action","treat-wounded","take-prize-cargo"] and not _check(r.id==s.campaignId+":"+r.kind+":"+r.commandId,"receipt-id"):return false
++			if r.kind in ["dock","repair","refit","release-prisoners","start-boarding","board-action","treat-wounded","take-prize-cargo","repay-debt"] and not _check(r.id==s.campaignId+":"+r.kind+":"+r.commandId,"receipt-id"):return false
+ 		elif not _check(r.commandId==r.id,"traffic-command"):return false
+ 		if not _receipt_relations(s,r):return false
+ 	if not _contract_relations(s):return false
+@@ -348,7 +352,7 @@
+ 			if not _check(s.vessels.has(id),"order-ship"):return false
+ 		if o.intent.has("targetId") and not _check(s.vessels.has(o.intent.targetId) and not o.intent.targetId in o.shipIds,"order-target"):return false
+ 		if not _check(s.settlements.get(s.campaignId+"-order-"+o.id,{}).get("kind")=="assign-order","order-receipt"):return false
+-	return _business_relations(s) and _crew_history(s)
++	return _business_relations(s) and _crew_history(s) and _opening_history(s)
+ static func _date_at(seconds: float) -> Dictionary:
+ 	var days=int(floor(seconds/1800.0));var year=1650
+ 	var cycles=int(floor(days/146097.0));days-=cycles*146097;year+=cycles*400
+@@ -366,14 +370,16 @@
+ 		"sold":return "port-prize"
+ 	return null
+ func _receipt_relations(s: Dictionary,r: Dictionary) -> bool:
+-	var required={"accept-convoy":"convoy-load","claim-convoy":"convoy","allocate-prize":"prize","repair":"work","refit":"work","treat-wounded":"treatment","take-prize-cargo":"prize-cargo","resolve-prize":"prize-resolution","sell-prize":"prize-port","incorporate-prize":"prize-port","near-casualties":"casualty","shipment-arrived":"shipment-arrived","boarding-won":"boarding","boarding-lost":"boarding","boarding-cut":"boarding","near-battle-ended":"battle-ended","crew-transition":"crew-transition"}
++	var required={"story-choice":"story-choice","repay-debt":"repay-debt","accept-convoy":"convoy-load","claim-convoy":"convoy","allocate-prize":"prize","repair":"work","refit":"work","treat-wounded":"treatment","take-prize-cargo":"prize-cargo","resolve-prize":"prize-resolution","sell-prize":"prize-port","incorporate-prize":"prize-port","near-casualties":"casualty","shipment-arrived":"shipment-arrived","boarding-won":"boarding","boarding-lost":"boarding","boarding-cut":"boarding","near-battle-ended":"battle-ended","crew-transition":"crew-transition"}
+ 	var d=r.get("details",{})
+ 	if required.has(r.kind) and not _check(d.get("kind")==required[r.kind],"receipt-details"):return false
+ 	if r.kind=="work-completed" and not _check(d.get("kind") in ["work","treatment"],"receipt-details"):return false
+ 	if d.is_empty():return true
+-	var allowed={"crew-transition":["crew-transition"],"battle-ended":["near-battle-ended"],"shipment-arrived":["shipment-arrived"],"convoy-load":["accept-convoy"],"convoy":["claim-convoy"],"prize":["allocate-prize"],"boarding":["board-action","boarding-won","boarding-lost","boarding-cut"],"work":["repair","refit","work-completed"],"treatment":["treat-wounded","work-completed"],"prize-cargo":["take-prize-cargo"],"prize-resolution":["resolve-prize"],"prize-port":["sell-prize","incorporate-prize"],"casualty":["near-casualties"]}
++	var allowed={"story-choice":["story-choice"],"repay-debt":["repay-debt"],"crew-transition":["crew-transition"],"battle-ended":["near-battle-ended"],"shipment-arrived":["shipment-arrived"],"convoy-load":["accept-convoy"],"convoy":["claim-convoy"],"prize":["allocate-prize"],"boarding":["board-action","boarding-won","boarding-lost","boarding-cut"],"work":["repair","refit","work-completed"],"treatment":["treat-wounded","work-completed"],"prize-cargo":["take-prize-cargo"],"prize-resolution":["resolve-prize"],"prize-port":["sell-prize","incorporate-prize"],"casualty":["near-casualties"]}
+ 	if not _check(r.kind in allowed[d.kind],"receipt-detail-kind-mismatch"):return false
+ 	match d.kind:
++		"story-choice":return _story_receipt(s,r,d)
++		"repay-debt":return _check(d.beforePrincipal>0 and d.amount<=d.beforePrincipal and d.afterPrincipal==d.beforePrincipal-d.amount and d.creditAward==(6 if d.afterPrincipal==0 else 0),"debt-payment-definition")
+ 		"shipment-arrived":
+ 			if not _check(s.voyages.has(d.voyageId) and s.vessels.has(d.vesselId),"shipment-arrived"):return false
+ 			var v=s.voyages[d.voyageId]
+@@ -429,6 +435,53 @@
+ 			return _check(loss>0 and d.ordinalAfter==d.ordinalBefore+loss and d.woundedAfter==d.woundedBefore+wounded and d.dead==loss-wounded and d.prisonersAfter==d.prisonersBefore,"casualty-loss")
+ 		"crew-transition":
+ 			return _crew_detail_relations(s,r,d)
++	return true
++
++func _story_receipt(s: Dictionary,r: Dictionary,d: Dictionary) -> bool:
++	var definition=OpeningStory.choice_definition(d.sceneId,d.choiceId)
++	if not _check(not definition.is_empty(),"story-choice-definition"):return false
++	if not _check(r.id==OpeningStory.receipt_id(s,d.sceneId) and d.portId==definition.portId and d.silverCost==definition.silverCost and _equal(d.reputationEffects,definition.reputationEffects) and d.routeId==definition.routeId and _equal(_event(s,r.id).causeIds,[r.commandId,r.id]),"story-choice-definition"):return false
++	var claim_id=s.campaignId+":convoy-001:claim"
++	if d.sceneId=="first-return":
++		var claim=s.settlements.get(claim_id,{})
++		if not _check(d.convoyReceiptId==claim_id and claim.get("kind")=="claim-convoy" and claim.get("details",{}).get("kind")=="convoy" and _precedes(s,claim_id,r.id) and claim.revision<r.revision,"story-return-history"):return false
++	elif not _check(d.convoyReceiptId==null,"story-unclaimed-history"):return false
++	if d.sceneId in ["old-ledger","pilot-plan"]:
++		var accepted=s.settlements.get(s.campaignId+"-convoy-001-accept",{})
++		if d.sceneId=="pilot-plan" and not _check(accepted.get("kind")=="accept-convoy" and _precedes(s,accepted.id,r.id) and accepted.revision<r.revision,"story-pilot-history"):return false
++		for event in s.chronicle:
++			var receipt=s.settlements[event.id]
++			if receipt.kind=="depart" or receipt.kind=="claim-convoy" and receipt.get("details",{}).get("contractId")=="convoy-001":
++				if not _check(_precedes(s,r.id,event.id),"story-before-first-voyage"):return false
++		for suffix in ["grain-a","grain-b"]:
++			var vid=s.campaignId+"-"+suffix+"-voyage"
++			for terminal in ["arrival","lost"]:
++				var id=s.campaignId+":"+vid+":"+terminal
++				if s.settlements.has(id) and not _check(_precedes(s,r.id,id),"story-before-first-voyage"):return false
++	if not definition.buyIntelligence:return _check(d.intelligence==null,"story-intelligence-definition")
++	var intel=d.intelligence;var matching=0
++	if not _check(intel is Dictionary and intel.portId=="forward-supply" and intel.sourceId==r.id and intel.observedAt==_event(s,r.id).simTime and intel.confidence==0.65 and intel.stock.size()==1 and intel.stock.has("grain"),"story-intelligence-definition"):return false
++	for entry in s.intelligence:
++		if entry.sourceId==r.id:
++			matching+=1
++			if not _check(_equal(entry,intel),"story-intelligence-receipt"):return false
++	return _check(matching==1,"story-intelligence-receipt")
++
++func _opening_history(s: Dictionary) -> bool:
++	var remaining=400;var paid=0;var prior_revision=-1;var payoff=false
++	for event in s.chronicle:
++		var receipt=s.settlements[event.id]
++		if receipt.kind!="repay-debt":continue
++		var d=receipt.details
++		if not _check(d.beforePrincipal==remaining and d.amount<=remaining and receipt.revision>prior_revision and _equal(event.causeIds,[receipt.commandId,receipt.id]),"debt-payment-history"):return false
++		remaining-=d.amount;paid+=d.amount;prior_revision=receipt.revision
++		if not _check(d.afterPrincipal==remaining and d.creditAward==(6 if remaining==0 else 0) and not payoff,"debt-payoff-history"):return false
++		payoff=remaining==0
++	if not _check(paid<=400 and s.debt.principal==400-paid and s.debt.principal==remaining,"debt-current-principal"):return false
++	for entry in s.intelligence:
++		if entry.sourceId.begins_with(s.campaignId+":story:"):
++			var receipt=s.settlements.get(entry.sourceId,{})
++			if not _check(receipt.get("kind")=="story-choice" and receipt.get("details",{}).get("choiceId")=="buy-intelligence" and _equal(receipt.details.intelligence,entry),"story-intelligence-source"):return false
+ 	return true
+ func _contract_relations(s: Dictionary) -> bool:
+ 	if not _check(s.contracts.has("convoy-001"),"convoy-001"):return false
+--- before/game/domain/mingqi/opening_story.gd
++++ after/game/domain/mingqi/opening_story.gd
+@@ -0,0 +1,161 @@
++extends RefCounted
++## Original opening dialogue. Receipts are the only persistent story authority.
++const Catalog = preload("res://game/domain/mingqi/catalog.gd")
++const SCENES = ["old-ledger","pilot-plan","first-return"]
++const CHOICES = {"old-ledger":["settle-wages","keep-reserve"],"pilot-plan":["hire-pilot","stay-deep"],"first-return":["crew-dividend","buy-intelligence","keep-capital"]}
++
++static func choice_definition(scene_id: String,choice_id: String) -> Dictionary:
++	if not scene_id in SCENES or not choice_id in CHOICES[scene_id]: return {}
++	var definition={"portId":"kinmen" if scene_id=="first-return" else "xiamen","silverCost":0,"reputationEffects":{"crewSupport":0,"militaryTrust":0,"merchantCredit":0},"routeId":null,"buyIntelligence":false}
++	match choice_id:
++		"settle-wages": definition.silverCost=80; definition.reputationEffects.crewSupport=10
++		"keep-reserve": definition.reputationEffects.crewSupport=-4
++		"hire-pilot": definition.silverCost=45; definition.reputationEffects.merchantCredit=1; definition.routeId="xiamen-kinmen-shallow"
++		"stay-deep": definition.routeId="xiamen-kinmen-deep"
++		"crew-dividend": definition.silverCost=80; definition.reputationEffects.crewSupport=8
++		"buy-intelligence": definition.silverCost=60; definition.reputationEffects.militaryTrust=2; definition.reputationEffects.merchantCredit=3; definition.buyIntelligence=true
++	return definition
++static func receipt_id(state: Dictionary,scene_id: String) -> String:
++	return state.campaignId+":story:"+scene_id
++static func _receipt(state: Dictionary,scene_id: String) -> Dictionary:
++	var receipt: Dictionary=state.get("settlements",{}).get(receipt_id(state,scene_id),{})
++	return receipt if receipt.get("kind")=="story-choice" and receipt.get("details",{}).get("sceneId")==scene_id else {}
++static func _claim(state: Dictionary) -> Dictionary:
++	var claim: Dictionary=state.get("settlements",{}).get(state.campaignId+":convoy-001:claim",{})
++	return claim if claim.get("kind")=="claim-convoy" and claim.get("details",{}).get("kind")=="convoy" and claim.details.contractId=="convoy-001" else {}
++static func _original_loading(state: Dictionary) -> bool:
++	var ct: Dictionary=state.get("contracts",{}).get("convoy-001",{})
++	var ids=[state.campaignId+"-grain-a-voyage",state.campaignId+"-grain-b-voyage"]
++	if ct.get("voyageIds",[]).size()!=2: return false
++	for id in ids:
++		var voyage: Dictionary=state.get("voyages",{}).get(id,{})
++		if not id in ct.voyageIds or voyage.get("status")!="loading": return false
++	return true
++static func scene_reason(state: Dictionary,scene_id: String) -> String:
++	if not scene_id in SCENES: return "unknown-scene"
++	if not _receipt(state,scene_id).is_empty(): return "story-completed"
++	var ct: Dictionary=state.get("contracts",{}).get("convoy-001",{})
++	if scene_id=="first-return":
++		if not ct.get("status") in ["settled","failed"] or _claim(state).is_empty() or ct.get("receiptId")!=state.campaignId+":convoy-001:claim": return "first-convoy-unclaimed"
++	elif scene_id=="pilot-plan":
++		if ct.get("status")!="active": return "first-convoy-not-active"
++		if not _original_loading(state): return "first-convoy-departed"
++	else:
++		if not ct.get("status") in ["offered","active"] or not _original_loading(state): return "first-convoy-departed"
++	var port="kinmen" if scene_id=="first-return" else "xiamen"
++	return "" if state.get("currentPortId")==port else "not-in-story-port"
++static func _route_reason(state: Dictionary,route_id: String) -> String:
++	var route: Dictionary=Catalog.DATA.routes[route_id]
++	for suffix in ["grain-a","grain-b"]:
++		var vessel: Dictionary=state.vessels.get(state.campaignId+"-"+suffix,{})
++		var profile: Dictionary=Catalog.DATA.profiles.get(vessel.get("profileId"),{})
++		if profile.is_empty(): return "unknown-profile"
++		var quantity=0.0
++		for q in vessel.cargo.values():
++			if not typeof(q) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(q)) or q<0 or q!=floor(float(q)): return "invalid-cargo"
++			quantity+=q
++		if quantity>profile.capacity: return "invalid-cargo"
++		if profile.baseDraftMeters+quantity*profile.cargoDraftMetersPerUnit>=route.minimumDepth: return "route-too-shallow"
++	return ""
++static func choice_reason(state: Dictionary,scene_id: String,choice_id: String) -> String:
++	var definition=choice_definition(scene_id,choice_id)
++	if definition.is_empty(): return "unknown-choice"
++	var reason=scene_reason(state,scene_id)
++	if not reason.is_empty(): return reason
++	if state.captain.silver<definition.silverCost: return "insufficient-silver"
++	if definition.buyIntelligence and state.intelligence.size()>=4096: return "intelligence-buffer-full"
++	return _route_reason(state,definition.routeId) if definition.routeId!=null else ""
++static func apply(state: Dictionary,scene_id: String,choice_id: String) -> Dictionary:
++	var reason=choice_reason(state,scene_id,choice_id)
++	if not reason.is_empty(): return {"ok":false,"reason":reason}
++	var definition=choice_definition(scene_id,choice_id)
++	var id=receipt_id(state,scene_id); var intel=null
++	if definition.buyIntelligence:
++		intel={"portId":"forward-supply","observedAt":state.simulationSeconds,"sourceId":id,"confidence":0.65,"stock":{"grain":state.ports["forward-supply"].stock.get("grain",0)}}
++	var details={"kind":"story-choice","sceneId":scene_id,"choiceId":choice_id,"portId":definition.portId,"silverCost":definition.silverCost,"reputationEffects":definition.reputationEffects.duplicate(true),"routeId":definition.routeId,"convoyReceiptId":state.campaignId+":convoy-001:claim" if scene_id=="first-return" else null,"intelligence":intel}
++	state.captain.silver-=definition.silverCost
++	for key in definition.reputationEffects: state.reputations[key]=clamp(state.reputations[key]+definition.reputationEffects[key],-100,100)
++	if definition.routeId!=null:
++		for suffix in ["grain-a","grain-b"]: state.voyages[state.campaignId+"-"+suffix+"-voyage"].routeId=definition.routeId
++	if intel!=null: state.intelligence.append(intel.duplicate(true))
++	var message=_reply(choice_id)
++	if intel!=null: message+=" 实际粮食库存%d，采集于航程时间%.2f秒，可信度65%%。"%[intel.stock.grain,intel.observedAt]
++	return {"ok":true,"message":message,"details":details}
++static func _reply(choice_id: String) -> String:
++	match choice_id:
++		"settle-wages": return "许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。"
++		"keep-reserve": return "许福把账册合上：银子留着救急可以，欠下的工钱，弟兄们都记着。"
++		"hire-pilot": return "陈阿海收下45两规划费，为两艘粮船安排了验过吃水的浅水航道；你也可以自行免费逐船选路。"
++		"stay-deep": return "陈阿海点头：两艘粮船仍走深水外线。航道宽敞，遇敌时要守住船队。"
++		"crew-dividend": return "你拿出80两分给船员。许福说，生意有赚有险，肯和弟兄们分担才走得长远。"
++		"buy-intelligence": return "你用60两取得近岸补给点的粮食库存情报。林账房提醒：这是此刻的消息，出航后还会变化。"
++		_: return "你把银两留作下一次出航的本钱。林账房将交差结果如实记入账册。"
++static func _locked_prompt(state: Dictionary,scene_id: String,reason: String) -> String:
++	if reason=="not-in-story-port": return "请先在金门安全靠港后交谈。" if scene_id=="first-return" else "请先回厦门安全靠港后交谈。"
++	if reason=="first-convoy-not-active": return "先接下第一份护粮委托，再与领航员商量两艘粮船的航路。"
++	if reason=="first-convoy-departed": return "这段出航前的谈话已错过；继续处理当前航程，现有委托照常进行。"
++	if reason=="first-convoy-unclaimed":
++		var ct: Dictionary=state.contracts.get("convoy-001",{})
++		return "先完成第一趟护粮航程并领取实际交差结果，再到金门谈下一步。" if ct.get("status")!="offered" else "先接下护粮委托，完成航行并交差，再到金门会面。"
++	return "请先满足当前航程的实际条件。"
++static func _scene_text(state: Dictionary,scene_id: String) -> Array:
++	if scene_id=="old-ledger": return ["厦门，1650年。父亲留下的承家号和旧账册还在；林家商行原有400两本金，现在未偿%d两。如今明旗号和快船都是借用，得先做成一趟生意。"%state.debt.principal,"承家号的老水手许福翻到欠薪那页：船要修，人也要吃饭。你打算先拿80两安下弟兄的心，还是留住银子防备海上的变故？"]
++	if scene_id=="pilot-plan": return ["陈阿海用指头沿着海图划出两条路：两艘粮船已经装货，深水外线宽敞，浅水线能绕过部分火力，但必须逐船核对吃水。","45两是代规划两艘粮船及建立委托人情的费用；你仍可自行免费逐船选路。这个选择只改粮船路线，旗舰仍由你操纵，浅滩仍会挡住吃水更深的船。"]
++	var d: Dictionary=_claim(state).get("details",{}); var dead=0; var wounded=0
++	for ship in d.get("ships",[]): dead+=ship.get("dead",0); wounded+=ship.get("wounded",0)
++	var delivered=d.get("delivered",0); var lost=d.get("lost",0)
++	var outcome="这一趟完整交付了粮食。" if delivered==40 and lost==0 else "这一趟只交付了部分粮食，损失必须留在账上。" if delivered>0 else "这一趟护粮失败，不能把没有送到的粮食记作功劳。"
++	return ["留守金门的林账房核过交差账：实交%d粮，损失%d粮；船员死亡%d人、伤员%d人。%s"%[delivered,lost,dead,wounded,outcome],"许福关心弟兄的伤亡，账房关心下一趟的本钱。你可以给船员分红、购买补给点情报，或把银子留在船上。下一份委托按真实交差结果开放。"]
++static func _choice_label(choice_id: String) -> Array:
++	match choice_id:
++		"settle-wages": return ["先结工钱 · 80两","支付80两；船员拥护+10，影响接舷初始士气。"]
++		"keep-reserve": return ["留作应急","保留银两；船员拥护-4。"]
++		"hire-pilot": return ["请陈阿海规划 · 45两","支付45两代规划两艘粮船并建立人情，商人信用+1；逐船核对吃水后改走浅水线，原有免费选路仍可用。"]
++		"stay-deep": return ["沿深水外线走","无需花费；两艘粮船走深水线。"]
++		"crew-dividend": return ["与船员分红 · 80两","支付80两；船员拥护+8，影响接舷初始士气。"]
++		"buy-intelligence": return ["购买补给情报 · 60两","支付60两；军方信任+2、商人信用+3，记录当前补给点粮食库存。"]
++		_: return ["留下下趟本钱","保留银两，声望不变。"]
++static func _objective(state: Dictionary) -> Dictionary:
++	for cid in ["convoy-001","convoy-002"]:
++		var ct: Dictionary=state.contracts.get(cid,{})
++		if ct.is_empty(): continue
++		if ct.status=="offered": return {"id":"accept-"+cid,"title":"接下护粮委托" if cid=="convoy-001" else "承接军需补给","detail":"在厦门核对粮船与租费，接受第一趟护航。" if cid=="convoy-001" else "在金门整备两艘粮船，承接近岸补给任务。","panel":"convoy"}
++		if ct.status=="active" or ct.status=="delivered":
++			var finished=not ct.voyageIds.is_empty(); var loading=false
++			for id in ct.voyageIds:
++				var status=state.voyages.get(id,{}).get("status"); finished=finished and status in ["arrived","lost"]; loading=loading or status=="loading"
++			if finished: return {"id":"claim-"+cid,"title":"核对交差结果","detail":"按实际送达粮食、损失与人员情况领取报酬。","panel":"convoy"}
++			if loading: return {"id":"depart-"+cid,"title":"整备后出航","detail":"核对航线和吃水，确保港口安全，再带粮船离港。","panel":"convoy"}
++			return {"id":"deliver-"+cid,"title":"护住粮船" if cid=="convoy-001" else "送达近岸补给点","detail":"操纵旗舰保护运输船，观察真实航程、损伤与伤亡。","panel":"convoy"}
++	if not _claim(state).is_empty() and state.contracts.get("convoy-001",{}).get("status")=="failed": return {"id":"recover-from-loss","title":"保船保人，再作打算","detail":"回港修理并处理伤员；失败的交差结果已经记入账册。","panel":"port"}
++	return {"id":"fleet-next-voyage","title":"整备下一次出航","detail":"两趟交差结果已记录，检查船只、人员与剩余本金。","panel":"ship"}
++static func project(state: Dictionary) -> Dictionary:
++	var scenes=[]; var history=[]
++	var names={"old-ledger":{"id":"xu-fu","name":"许福","role":"老水手"},"pilot-plan":{"id":"chen-ahai","name":"陈阿海","role":"领航员"},"first-return":{"id":"lin-clerk","name":"林账房","role":"林家商行账房"}}
++	var titles={"old-ledger":"旧账与工钱","pilot-plan":"粮船走哪条路","first-return":"第一趟交差之后"}
++	for id in SCENES:
++		var receipt=_receipt(state,id); var reason=scene_reason(state,id); var completed=not receipt.is_empty(); var choices=[]
++		for choice_id in CHOICES[id]:
++			var label=_choice_label(choice_id); var unavailable=choice_reason(state,id,choice_id)
++			choices.append({"id":choice_id,"label":label[0],"consequence":label[1],"silverCost":choice_definition(id,choice_id).silverCost,"enabled":unavailable.is_empty(),"reason":unavailable})
++		var text=_scene_text(state,id) if completed or reason.is_empty() else [_locked_prompt(state,id,reason)]
++		scenes.append({"id":id,"title":titles[id],"npc":names[id],"text":text,"status":"completed" if completed else "available" if reason.is_empty() else "locked","selectedChoiceId":receipt.get("details",{}).get("choiceId",""),"reply":receipt.get("message",""),"choices":choices})
++	for event in state.get("chronicle",[]):
++		var receipt: Dictionary=state.settlements.get(event.id,{})
++		if receipt.get("kind")=="story-choice":
++			var d: Dictionary=receipt.get("details",{})
++			history.append({"id":receipt.id,"sceneId":d.sceneId,"choiceId":d.choiceId,"message":receipt.message,"simTime":event.simTime})
++	var ledger_choice=_receipt(state,"old-ledger").get("details",{}).get("choiceId",""); var pilot_choice=_receipt(state,"pilot-plan").get("details",{}).get("choiceId",""); var return_choice=_receipt(state,"first-return").get("details",{}).get("choiceId","")
++	var dead=0; var wounded=0
++	for ship in _claim(state).get("details",{}).get("ships",[]): dead+=ship.dead; wounded+=ship.wounded
++	var xu_stance="等你对旧账表态。" if ledger_choice.is_empty() else "工钱结清，愿意与你共担风险。" if ledger_choice=="settle-wages" else "接受应急留银，但仍记着欠薪。"
++	if return_choice=="crew-dividend": xu_stance+=" 你给船员分了红。"
++	if dead>0 or wounded>0: xu_stance+=" 此趟死亡%d人、受伤%d人，他希望先安置伤员。"%[dead,wounded]
++	var ahai_stance="等待护粮委托与路线决定。" if pilot_choice.is_empty() else "已受规划费，认可你的委托；两艘粮船按浅水航路安排。" if pilot_choice=="hire-pilot" else "尊重深水路线的决定，仍提醒你守住船队。"
++	var lin_alive=state.people.get("steward-a",{}).get("alive",false)
++	var lin_stance="等你把粮船安全送达。" if _claim(state).is_empty() else "已按实际送达与损失结账。"
++	if not lin_alive: lin_stance="林管事已在本次航程中阵亡，交差由留守账房接手。"
++	if return_choice=="buy-intelligence": lin_stance+=" 留守账房给了你当时的补给库存情报。"
++	if state.debt.principal==0: lin_stance+=" 400两本金已清偿。"
++	var principal=state.debt.principal; var repay_reason="" if state.currentPortId=="xiamen" and principal>0 and state.captain.silver>0 else "debt-paid" if principal==0 else "not-in-port" if state.currentPortId!="xiamen" else "insufficient-silver"
++	return {"chapter":{"id":"opening-1650","title":"旧账新帆","summary":"从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。"},"objective":_objective(state),"scenes":scenes,"relations":[{"id":"xu-fu","name":"许福","role":"老水手","stance":xu_stance},{"id":"chen-ahai","name":"陈阿海","role":"领航员","stance":ahai_stance},{"id":"lin-steward","name":"林管事","role":"商行管事","stance":lin_stance}],"history":history,"debt":{"principal":principal,"creditorName":"林家商行","canRepay":repay_reason.is_empty(),"reason":repay_reason}}.duplicate(true)
+--- before/tests/test_opening_story.gd
++++ after/tests/test_opening_story.gd
+@@ -0,0 +1,136 @@
++extends SceneTree
++const Campaign = preload("res://game/domain/mingqi/campaign.gd")
++const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
++var Story
++var assertions := 0
++var failures := 0
++func check(ok: bool, message: String) -> void:
++	assertions += 1
++	if not ok: failures += 1; printerr("FAIL: ",message)
++func runtime_for(state: Dictionary = {}) -> RefCounted:
++	var campaign := Campaign.new()
++	if not state.is_empty(): campaign._state = state.duplicate(true)
++	var runtime := Runtime.new()
++	check(runtime.configure(func(_x: float,_z: float)->float: return -24.0,campaign).ok,"real native bridge configured")
++	return runtime
++func command(r: RefCounted, type: String, extra: Dictionary = {}, id: String = "") -> Dictionary:
++	var state: Dictionary = r.campaign.snapshot()
++	var intent := {"type":type,"commandId":id if not id.is_empty() else "story-test-"+str(state.revision),"expectedRevision":state.revision}
++	intent.merge(extra)
++	return r.campaign.command(intent,r.bridge.command_context())
++func choose(r: RefCounted,scene: String,choice: String,id: String = "") -> Dictionary:
++	return command(r,"story-choice",{"sceneId":scene,"choiceId":choice},id)
++func scene(model: Dictionary,id: String) -> Dictionary:
++	for row in model.scenes:
++		if row.id == id: return row
++	return {}
++func rejection(r: RefCounted,intent: Dictionary,context: Dictionary,label: String) -> void:
++	var before: Dictionary = r.campaign.snapshot()
++	check(not r.campaign.command(intent,context).ok,label+" rejected")
++	check(r.campaign.snapshot() == before,label+" atomic")
++func _initialize() -> void:
++	var red := runtime_for()
++	check(choose(red,"old-ledger","settle-wages").ok,"old ledger executes through actual native fence")
++	check(command(red,"repay-debt",{"quantity":20}).ok,"positive repayment executes through actual native fence")
++	check(FileAccess.file_exists("res://game/domain/mingqi/opening_story.gd"),"opening story projection exists")
++	red.dispose()
++	if not FileAccess.file_exists("res://game/domain/mingqi/opening_story.gd"):
++		finish(); return
++	Story = load("res://game/domain/mingqi/opening_story.gd")
++	var initial := Campaign.new().snapshot()
++	var model: Dictionary = Story.project(initial)
++	check(model.chapter.id == "opening-1650" and model.scenes.size()==3 and model.relations.size()==3,"opening story reflects one chapter and original dialogue cast")
++	check(scene(model,"old-ledger").status=="available" and scene(model,"pilot-plan").status=="locked" and scene(model,"first-return").status=="locked","initial scene prerequisites are actual contract progress")
++	check(model.debt.principal==400 and model.debt.canRepay and model.history.is_empty(),"initial ledger exposes real debt")
++	model.scenes[0].npc.name="corrupt"; model.debt.principal=0
++	check(initial == Campaign.new().snapshot() and Story.project(initial).debt.principal==400,"projection detached from campaign")
++	for row in [["settle-wages",570,60],["keep-reserve",650,46]]:
++		var r := runtime_for(); var before: Dictionary = r.campaign.snapshot()
++		var result := choose(r,"old-ledger",row[0],"once")
++		check(result.ok,"old ledger branch "+row[0])
++		var after: Dictionary = r.campaign.snapshot()
++		check(after.captain.silver==row[1] and after.reputations.crewSupport==row[2],"wages or reserve have real monetary and crew consequences")
++		check(result.get("receipt",{}).get("id")==after.campaignId+":story:old-ledger","story uses canonical once-only identity")
++		var completed := scene(Story.project(after),"old-ledger")
++		check(completed.status=="completed" and completed.selectedChoiceId==row[0] and not completed.reply.is_empty(),"completed scene retains choice and reply")
++		for c in completed.choices: check(not c.enabled,"completed choices remain visible disabled")
++		check(Story.project(after).history.size()==1,"story history derives actual receipts")
++		var duplicate: Dictionary = r.campaign.command({"type":"story-choice","commandId":"once","expectedRevision":before.revision,"sceneId":"old-ledger","choiceId":row[0]})
++		check(duplicate.ok and duplicate.receipt==result.receipt and r.campaign.snapshot()==after,"duplicate receipt succeeds without a second charge")
++		rejection(r,{"type":"story-choice","commandId":"again","expectedRevision":after.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"scene cannot be replayed with a fresh command")
++		r.dispose()
++	for row in [["hire-pilot",555,1,"xiamen-kinmen-shallow"],["stay-deep",600,0,"xiamen-kinmen-deep"]]:
++		var r := runtime_for(); check(command(r,"accept-convoy").ok,"existing acceptance remains ungated by story")
++		var before: Dictionary = r.campaign.snapshot(); var permission: Dictionary = r.campaign.native_policy(before.vessels.keys())
++		check(choose(r,"pilot-plan",row[0]).ok,"pilot branch "+row[0])
++		var after: Dictionary = r.campaign.snapshot()
++		check(after.captain.silver==row[1] and after.reputations.merchantCredit==row[2],"pilot branch cost and credit are committed")
++		for suffix in ["grain-a","grain-b"]:
++			var vid: String = before.campaignId+"-"+suffix+"-voyage"; var sid: String = before.campaignId+"-"+suffix
++
++			check(after.voyages[vid].routeId==row[3] and after.voyages[vid].escortIds==before.voyages[vid].escortIds,"both actual voyages select route without losing escorts")
++			check(after.vessels[sid].pose==before.vessels[sid].pose,"route change preserves actual ship pose")
++		check(permission==r.campaign.native_policy(after.vessels.keys()),"pilot dialogue preserves flagship permission")
++		check(after.people==before.people,"dialogue hire does not fabricate spawned personnel")
++		if row[0]=="hire-pilot":
++			check(command(r,"choose-route",{"voyageId":before.campaignId+"-grain-a-voyage","routeId":"xiamen-kinmen-deep"}).ok,"paid planning preserves original free route command")
++			check(r.campaign.snapshot().captain.silver==row[1],"manual route change does not charge planning fee again")
++		r.dispose()
++	var r := runtime_for(); var s: Dictionary = r.campaign.snapshot()
++	for extra in [{"sceneId":"missing","choiceId":"keep-reserve"},{"sceneId":"old-ledger","choiceId":"missing"},{"sceneId":"pilot-plan","choiceId":"hire-pilot"},{"sceneId":"first-return","choiceId":"keep-capital"},{"sceneId":"old-ledger","choiceId":"keep-reserve","extra":true}]:
++		var intent := {"type":"story-choice","commandId":"invalid","expectedRevision":s.revision}; intent.merge(extra)
++		rejection(r,intent,r.bridge.command_context(),"invalid or early story")
++	rejection(r,{"type":"story-choice","commandId":"stale","expectedRevision":s.revision+1,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"stale choice")
++	rejection(r,{"type":"story-choice","commandId":"missing-native","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},{},"story needs native safety")
++	var unsafe: Dictionary = r.bridge.command_context(); unsafe.native.pendingAttacks=true
++	rejection(r,{"type":"story-choice","commandId":"unsafe","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},unsafe,"combat at port blocks dialogue")
++	var unanchored: Dictionary=r.bridge.command_context(); unanchored.native.isAnchored=func(_id):return false
++	rejection(r,{"type":"story-choice","commandId":"adrift","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},unanchored,"proximity without real anchoring is insufficient")
++	var refuse: Dictionary = r.bridge.command_context(); refuse.native.project=func(_state,_anchors,_phase): return {"ok":false,"reason":"test-refusal"}
++	rejection(r,{"type":"story-choice","commandId":"refuse","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"settle-wages"},refuse,"native projection refusal")
++	r.campaign._state.captain.silver=79
++	s=r.campaign.snapshot(); rejection(r,{"type":"story-choice","commandId":"poor","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"settle-wages"},r.bridge.command_context(),"insufficient wages")
++	r.dispose()
++	r=runtime_for(); r.campaign._state.reputations.crewSupport=98
++	check(choose(r,"old-ledger","settle-wages").ok and r.campaign.snapshot().reputations.crewSupport==100,"crew support effect clamps upper limit")
++	r.dispose(); r=runtime_for(); r.campaign._state.reputations.crewSupport=-98
++	check(choose(r,"old-ledger","keep-reserve").ok and r.campaign.snapshot().reputations.crewSupport==-100,"crew support effect clamps lower limit")
++	r.dispose()
++	r=runtime_for(); r.campaign._state.currentPortId=null; s=r.campaign.snapshot()
++	rejection(r,{"type":"story-choice","commandId":"no-port","expectedRevision":s.revision,"sceneId":"old-ledger","choiceId":"keep-reserve"},r.bridge.command_context(),"near port without actual dock declaration")
++	r.dispose()
++	r=runtime_for(); command(r,"accept-convoy"); r.campaign._state.vessels[r.campaign.snapshot().campaignId+"-grain-b"].cargo.grain=60
++	s=r.campaign.snapshot(); rejection(r,{"type":"story-choice","commandId":"shallow","expectedRevision":s.revision,"sceneId":"pilot-plan","choiceId":"hire-pilot"},r.bridge.command_context(),"one actual overloaded draft rejects whole pilot plan")
++	check(s.voyages[s.campaignId+"-grain-a-voyage"].routeId=="xiamen-kinmen-deep","first vessel not partially rerouted")
++	r.dispose()
++	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mingqi-reference.json"))
++	var returned: Dictionary = fixture.convoySteps[4].state
++	for row in [["crew-dividend",1020,58,0,5],["buy-intelligence",1040,50,2,8],["keep-capital",1100,50,0,5]]:
++		r=runtime_for(returned); check(choose(r,"first-return",row[0]).ok,"first return branch "+row[0]); s=r.campaign.snapshot()
++		check(s.captain.silver==row[1] and s.reputations.crewSupport==row[2] and s.reputations.militaryTrust==row[3] and s.reputations.merchantCredit==row[4],"return spends real reward and applies chosen reputation")
++		check(s.contracts["convoy-002"].status=="offered","return dialogue does not gate second convoy")
++		if row[0]=="buy-intelligence":
++			check(s.intelligence.size()==returned.intelligence.size()+1,"purchased intelligence is actual entry")
++			var intel: Dictionary=s.intelligence.back()
++			check(intel.portId=="forward-supply" and intel.stock==returned.ports["forward-supply"].stock and intel.observedAt==s.simulationSeconds and intel.confidence==0.65 and intel.sourceId==s.campaignId+":story:first-return","intelligence snapshots real supply stock with its receipt source")
++			var reply: String=scene(Story.project(s),"first-return").reply
++			check(reply.contains(str(intel.stock.grain)) and reply.contains("65%") and reply.contains("秒"),"paid intelligence reply reveals real stock observation time and confidence")
++		r.dispose()
++	var returned_model: Dictionary=Story.project(returned)
++	check(scene(returned_model,"first-return").status=="available","claimed actual first result enables return at kinmen")
++	for outcome in [[40,0,0],[20,20,3],[0,40,7]]:
++		var shaped: Dictionary=returned.duplicate(true); var receipt: Dictionary=shaped.settlements[shaped.campaignId+":convoy-001:claim"]
++		receipt.details.delivered=outcome[0]; receipt.details.lost=outcome[1]; receipt.details.ships[0].dead=outcome[2]; shaped.contracts["convoy-001"].status="failed" if outcome[0]==0 else "settled"
++		var text: String=" ".join(scene(Story.project(shaped),"first-return").text)
++		check(text.contains(str(outcome[0])) and text.contains(str(outcome[1])) and text.contains(str(outcome[2])),"dialogue discloses actual full/partial/failed delivery and casualties")
++	var abroad: Dictionary=returned.duplicate(true); abroad.currentPortId="xiamen"
++	check(scene(Story.project(abroad),"first-return").status=="locked","relevant actual port required")
++	var dead_steward: Dictionary=returned.duplicate(true); dead_steward.people["steward-a"].alive=false
++	var dead_model: Dictionary=Story.project(dead_steward)
++	check(scene(dead_model,"first-return").npc.id=="lin-clerk" and dead_model.relations[2].stance.contains("阵亡"),"dead critical person does not deliver return dialogue or survive in relationship projection")
++	for row in [[initial,"accept-convoy-001"],[fixture.convoySteps[0].state,"depart-convoy-001"],[fixture.convoySteps[1].state,"deliver-convoy-001"],[fixture.convoySteps[2].state,"claim-convoy-001"],[fixture.convoySteps[4].state,"accept-convoy-002"],[fixture.convoySteps[5].state,"depart-convoy-002"],[fixture.convoySteps[6].state,"deliver-convoy-002"],[fixture.convoySteps[7].state,"claim-convoy-002"],[fixture.convoySteps[8].state,"fleet-next-voyage"]]:
++		check(Story.project(row[0]).objective.id==row[1],"objective follows actual first and second convoy progression "+row[1])
++	finish()
++func finish() -> void:
++	print("OPENING_STORY_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)
+--- before/tests/test_opening_story_save.gd
++++ after/tests/test_opening_story_save.gd
+@@ -0,0 +1,132 @@
++extends SceneTree
++const Campaign=preload("res://game/domain/mingqi/campaign.gd")
++const Codec=preload("res://game/domain/persistence/save_codec.gd")
++const Runtime=preload("res://game/runtime/mingqi_runtime.gd")
++var assertions:=0
++var failures:=0
++func check(ok: bool,message: String) -> void:
++	assertions+=1
++	if not ok: failures+=1; printerr("FAIL: ",message)
++func envelope(s: Dictionary) -> String:
++	return JSON.stringify({"version":2,"campaignId":s.campaignId,"mode":"mingqi-1650","savedAtUtc":"2026-10-11T00:00:00.000Z","simulationSeconds":s.simulationSeconds,"state":s},"",false,true)
++func make_runtime(state: Dictionary={}) -> RefCounted:
++	var c:=Campaign.new(); if not state.is_empty(): c._state=state.duplicate(true)
++	var r:=Runtime.new(); check(r.configure(func(_x: float,_z: float)->float:return -24.0,c).ok,"actual native repayment bridge")
++	return r
++func send(r: RefCounted,type: String,extra: Dictionary,id: String) -> Dictionary:
++	var c: Dictionary={"type":type,"commandId":id,"expectedRevision":r.campaign.snapshot().revision}; c.merge(extra)
++	return r.campaign.command(c,r.bridge.command_context())
++func reject_save(s: Dictionary,label: String) -> void:
++	check(not Codec.decode(envelope(s)).get("ok",false),label)
++func roundtrip(r: RefCounted,label: String) -> void:
++	var state: Dictionary=r.campaign.snapshot(); var decoded: Dictionary=Codec.decode(r.campaign.serialize())
++	check(decoded.get("ok",false),label+" validates: "+str(decoded.get("code")))
++	if decoded.get("ok",false): check(equivalent(decoded.state,state),label+" preserves all JSON state")
++func equivalent(a,b) -> bool:
++	if typeof(a) in [TYPE_INT,TYPE_FLOAT] and typeof(b) in [TYPE_INT,TYPE_FLOAT]: return abs(float(a)-float(b))<=1e-12*max(1.0,abs(float(a)))
++	if a is Dictionary and b is Dictionary:
++		if a.size()!=b.size():return false
++		for key in a:
++			if not b.has(key) or not equivalent(a[key],b[key]):return false
++		return true
++	if a is Array and b is Array:
++		if a.size()!=b.size():return false
++		for i in a.size():
++			if not equivalent(a[i],b[i]):return false
++		return true
++	return a==b
++func _initialize() -> void:
++	var r:=make_runtime()
++	var partial:=send(r,"repay-debt",{"quantity":150},"part")
++	check(partial.ok,"first real debt repayment supported")
++	if not partial.ok: r.dispose(); finish(); return
++	var after: Dictionary=r.campaign.snapshot()
++	check(after.debt.principal==250 and after.captain.silver==500 and after.reputations.merchantCredit==0,"partial payment subtracts actual principal and silver without payoff award")
++	check(partial.receipt.id==after.campaignId+":repay-debt:part" and partial.receipt.details.amount==150 and partial.receipt.details.beforePrincipal==400 and partial.receipt.details.afterPrincipal==250 and partial.receipt.details.creditAward==0,"repayment receipt preserves exact continuity")
++	roundtrip(r,"partial payment roundtrip")
++	var final:=send(r,"repay-debt",{"quantity":250},"final")
++	check(final.ok,"remaining principal can be paid")
++	after=r.campaign.snapshot()
++	check(after.debt.principal==0 and after.captain.silver==250 and after.reputations.merchantCredit==6,"full payoff gives one credit award")
++	check(final.receipt.details.creditAward==6,"payoff receipt has one credit award"); roundtrip(r,"payoff save")
++	var replay: Dictionary=r.campaign.command({"type":"repay-debt","commandId":"part","expectedRevision":0,"quantity":150})
++	check(replay.ok and replay.receipt==partial.receipt and r.campaign.snapshot()==after,"duplicate repayment cannot debit or award twice")
++	var before: Dictionary=r.campaign.snapshot()
++	check(not send(r,"repay-debt",{"quantity":1},"overpaid").ok and before==r.campaign.snapshot(),"paid debt cannot be overpaid to farm credit")
++	for mutation in ["amount","beforePrincipal","afterPrincipal","creditAward","principal","duplicate-award","forged-id","order","fractional-principal"]:
++		var forged: Dictionary=after.duplicate(true); var a: Dictionary=forged.settlements[partial.receipt.id].details
++		match mutation:
++			"amount":a.amount=149
++			"beforePrincipal":a.beforePrincipal=399
++			"afterPrincipal":a.afterPrincipal=249
++			"creditAward":a.creditAward=6
++			"principal":forged.debt.principal=1
++			"duplicate-award":forged.settlements[final.receipt.id].details.creditAward=12
++			"forged-id":a.portId="kinmen"
++			"order":forged.chronicle.reverse()
++			"fractional-principal":forged.debt.principal=0.5
++		reject_save(forged,"forged repayment "+mutation+" rejected")
++	r.dispose()
++	r=make_runtime(); before=r.campaign.snapshot()
++	check(not r.campaign.command({"type":"repay-debt","commandId":"missing-native","expectedRevision":before.revision,"quantity":10}).ok and before==r.campaign.snapshot(),"repayment requires native context")
++	var context: Dictionary=r.bridge.command_context(); context.native.isAnchored=func(_id):return false
++	check(not r.campaign.command({"type":"repay-debt","commandId":"not-anchored","expectedRevision":before.revision,"quantity":10},context).ok and before==r.campaign.snapshot(),"repayment requires native actual anchor")
++	context=r.bridge.command_context(); context.native.project=func(_s,_a,_p):return {"ok":false,"reason":"test-refusal"}
++	check(not r.campaign.command({"type":"repay-debt","commandId":"refuse","expectedRevision":before.revision,"quantity":10},context).ok and before==r.campaign.snapshot(),"repayment projection failure rolls silver and debt back")
++	check(not r.campaign.command({"type":"repay-debt","commandId":"stale","expectedRevision":before.revision+1,"quantity":10},r.bridge.command_context()).ok and before==r.campaign.snapshot(),"stale repayment atomic")
++	r.campaign._state.currentPortId=null; before=r.campaign.snapshot()
++	check(not send(r,"repay-debt",{"quantity":10},"no-port").ok and before==r.campaign.snapshot(),"near dock without current port does not authorize repayment")
++	r.dispose()
++	for quantity in [0,-1,401,1.5,"10"]:
++		r=make_runtime(); before=r.campaign.snapshot(); check(not send(r,"repay-debt",{"quantity":quantity},"bad").ok and r.campaign.snapshot()==before,"invalid repayment amount atomic"); r.dispose()
++	r=make_runtime(); r.campaign._state.captain.silver=20; before=r.campaign.snapshot()
++	check(not send(r,"repay-debt",{"quantity":21},"poor").ok and r.campaign.snapshot()==before,"insufficient money repayment atomic")
++	check(not send(r,"repay-debt",{"quantity":10,"extra":true},"extra").ok and r.campaign.snapshot()==before,"repayment extra fields rejected")
++	r.dispose()
++	var fixture: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/mingqi-reference.json"))
++	var states: Array=[Campaign.new().snapshot(),fixture.convoySteps[4].state]
++	for choice in [[0,"old-ledger","settle-wages"],[0,"old-ledger","keep-reserve"],[1,"first-return","crew-dividend"],[1,"first-return","buy-intelligence"],[1,"first-return","keep-capital"]]:
++		r=make_runtime(states[choice[0]])
++		var result:=send(r,"story-choice",{"sceneId":choice[1],"choiceId":choice[2]},"choice")
++		check(result.ok,"story choice save setup "+choice[2]); after=r.campaign.snapshot()
++		roundtrip(r,"story receipt save roundtrip "+choice[2])
++		if result.ok:
++			for mutation in ["cost","choice","scene","port","effect","claim"]:
++				var forged: Dictionary=after.duplicate(true); var d: Dictionary=forged.settlements[result.receipt.id].details
++				match mutation:
++					"cost":d.silverCost+=1
++					"choice":d.choiceId="forged"
++					"scene":d.sceneId="forged"
++					"port":d.portId="forward-supply"
++					"effect":d.reputationEffects.crewSupport+=1
++					"claim":d.convoyReceiptId="forged"
++				reject_save(forged,"forged story "+mutation+" rejected")
++			if choice[2]=="buy-intelligence":
++				var forged: Dictionary=after.duplicate(true); forged.intelligence.back().sourceId="forged"; reject_save(forged,"intelligence source must be story receipt")
++				forged=after.duplicate(true); forged.settlements[result.receipt.id].details.intelligence.confidence=1; reject_save(forged,"intelligence confidence must be defined value")
++		r.dispose()
++	for choice in ["hire-pilot","stay-deep"]:
++		r=make_runtime(); send(r,"accept-convoy",{},"accept"); check(send(r,"story-choice",{"sceneId":"pilot-plan","choiceId":choice},"pilot").ok,"pilot saved choice setup")
++		roundtrip(r,"both actual pilot routes and choice receipt save roundtrip"); r.dispose()
++	for lost_ships in [1,2]:
++		var c:=Campaign.new(); var underway: Dictionary=fixture.convoySteps[1].state
++		check(c.restore(envelope(underway)),"source departing convoy fixture is valid")
++		var observation: Dictionary=fixture.convoySteps[2].native.duplicate(true)
++		for ship in observation.ships:
++			if ship.id==underway.campaignId+"-grain-b" or lost_ships==2 and ship.id==underway.campaignId+"-grain-a": ship.hull=0; ship.crew=0
++		check(c.sync_near(observation,[]).ok,"actual domain loss and arrival transitions consume native observation")
++		var claim: Dictionary=c.command({"type":"claim-convoy","contractId":"convoy-001","commandId":"loss-claim","expectedRevision":c.snapshot().revision})
++		check(claim.ok and claim.receipt.details.delivered==(20 if lost_ships==1 else 0) and claim.receipt.details.lost==20*lost_ships,"partial or failed return has actual generated claim receipt")
++		r=make_runtime(c.snapshot()); check(send(r,"dock",{"portId":"kinmen"},"loss-dock").ok,"surviving flagship safely docks at real kinmen native position")
++		check(send(r,"story-choice",{"sceneId":"first-return","choiceId":"keep-capital"},"loss-return").ok,"actual partial or failed claim permits return dialogue")
++		roundtrip(r,"actual partial or failed story and casualties save")
++		var Story=load("res://game/domain/mingqi/opening_story.gd");var model: Dictionary=Story.project(r.campaign.snapshot())
++		check(model.scenes[2].text[0].contains(str(20*lost_ships)) and model.scenes[2].npc.id=="lin-clerk","return reports generated losses without reviving dead steward")
++		r.dispose()
++	check(Codec.decode(FileAccess.get_file_as_string("res://tests/fixtures/web-save-v2.json")).get("ok",false),"old web v2 fixture remains valid")
++	check(Codec.decode(fixture.convoySave).get("ok",false),"old full contract fixture remains valid")
++	var malformed: Dictionary=Campaign.new().snapshot(); malformed.debt.principal=399; reject_save(malformed,"principal cannot drop without payment receipt")
++	finish()
++func finish() -> void:
++	print("OPENING_STORY_SAVE_TESTS assertions=",assertions," failures=",failures)
++	quit(1 if failures else 0)

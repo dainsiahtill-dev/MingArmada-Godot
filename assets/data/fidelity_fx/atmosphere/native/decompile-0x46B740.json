@@ -1,0 +1,14 @@
+{
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x46B740",
+  "evidence": "Read-only IDA static decompilation",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "int *sub_46B740()\n{\n  int i; // eax\n  DWORD Time; // eax\n  int j; // esi\n  int v3; // eax\n  int v4; // ecx\n  int v5; // ebx\n  int v6; // eax\n  int k; // esi\n  int v8; // ecx\n  int v9; // edx\n  int *result; // eax\n  int m; // ecx\n  int v12; // ecx\n  _DWORD v13[128]; // [esp+0h] [ebp-200h]\n\n  for ( i = 0; i < 128; ++i )\n    v13[i] = i;\n  if ( (dword_8EB5CC & 1) == 0 )\n  {\n    dword_8EB5CC |= 1u;\n    dword_8EB5C8 = timeGetTime();\n  }\n  Time = timeGetTime();\n  srand(Time - dword_8EB5C8);\n  for ( j = 0; j < 128; ++j )\n  {\n    v3 = rand() % 128;\n    v4 = v13[j];\n    v13[j] = v13[v3];\n    v13[v3] = v4;\n  }\n  v5 = 0;\n  v6 = rand() % 4;\n  for ( k = 0; k < 128; ++k )\n  {\n    v8 = 8 * v13[k];\n    if ( dword_85EB80[v8] == 6 )\n    {\n      ++v5;\n      if ( byte_85EB74[v8 * 4] == v6 )\n      {\n        result = &dword_85EB70[8 * v13[k]];\n        goto LABEL_25;\n      }\n    }\n  }\n  if ( v5 <= 0 )\n    v9 = 0;\n  else\n    v9 = rand() % v5;\n  for ( m = 0; m < 128; ++m )\n  {\n    result = (int *)v13[m];\n    if ( dword_85EB80[8 * (_DWORD)result] == 6 )\n    {\n      if ( !v9 )\n        goto LABEL_24;\n      --v9;\n    }\n  }\n  v12 = 0;\n  while ( 1 )\n  {\n    result = (int *)v13[v12];\n    if ( (dword_85EB70[8 * (_DWORD)result] & 2) != 0 )\n      break;\n    if ( ++v12 >= 128 )\n      return result;\n  }\nLABEL_24:\n  result = &dword_85EB70[8 * (_DWORD)result];\nLABEL_25:\n  *result |= 0x10000000u;\n  return result;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "atmosphere": {
+    "authored_particle_capacity": 3692,
+    "capacity_boundary": "particle_capacity preserves static data.fields.num_vertices; it is not a verified original dynamic maximum. Runtime spawning needs an explicit game capacity policy.",
+    "controller_types": {
+      "NiPSysEmitterCtlr": 276,
+      "NiPSysResetOnLoopCtlr": 176,
+      "NiPSysUpdateCtlr": 276
+    },
+    "modifier_types": {
+      "NiPSysAgeDeathModifier": 276,
+      "NiPSysBoundUpdateModifier": 276,
+      "NiPSysBoxEmitter": 276,
+      "NiPSysColorModifier": 276,
+      "NiPSysGravityModifier": 32,
+      "NiPSysGrowFadeModifier": 142,
+      "NiPSysPositionModifier": 276,
+      "NiPSysRotationModifier": 2,
+      "NiPSysSpawnModifier": 276
+    },
+    "parsed_assets": 33,
+    "particle_roots": 16,
+    "studied_texture_dependencies": 53,
+    "studied_texture_dependencies_imported": 53,
+    "system_types": {
+      "NiParticleSystem": 276
+    },
+    "systems": 276
+  },
+  "runtime": {
+    "all_276_behaviors_restored": false,
+    "boundary": "Full authored resource import only. Runtime modifier ordering/formulas, cycle evaluation, shader overrides and scheduling need a separate implementation and live Godot acceptance.",
+    "original_game_gpu_verified": false,
+    "resource_definitions_verified": true,
+    "unit_conversion_imposed": false,
+    "unknowns": [
+      "variation sampling distribution/clamping",
+      "angular sampling convention",
+      "color-key age mapping",
+      "modifier implementation formulas except native-recovered GrowFade",
+      "spawn quantization/capacity behavior",
+      "controller cycle flags runtime evaluator",
+      "camera-facing billboard implementation",
+      "runtime shader attachment and quality overrides"
+    ]
+  },
+  "schema_version": 1,
+  "sources": {
+    "parsed_assets": 65,
+    "shoreline_assets": 6,
+    "water_effect_assets": 23,
+    "water_surface_assets": 3
+  },
+  "textures": {
+    "ambiguous_binding_slots": 0,
+    "catalogued_fpk_png": 3840,
+    "decoded_original_png_equal": 85,
+    "duplicate_filenames": 0,
+    "embedded": 1,
+    "external": 84,
+    "imported": 85,
+    "raw_sha256_verified": 85,
+    "unbound_filename_candidates": 180,
+    "unresolved_binding_slots": 13,
+    "whole_fpk_png": 3840,
+    "with_partial_alpha": 65,
+    "with_transparent_pixels": 64
+  }
+}

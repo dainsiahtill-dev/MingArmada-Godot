@@ -1,0 +1,55 @@
+{
+  "frozenAtUtc": "2026-10-12T01:56:38.496170+00:00",
+  "files": {
+    "tools/play-opening-story-journey.gd": "9ded1cfc534b51448fa7ebad155d3fdd106df8b64559a09951dafec85d2f6168",
+    "tools/play-continued-voyage.gd": "5652ee35e16e322e5b75287a542e2fa4fdeb9134837c920ec95098836d537189",
+    "tools/qa-journey-paths.gd": "e7ba67b3f07bf3cfedb84338e7a2a9eca617ff8d51507e761dd2360f353f4421",
+    "tools/test-journey-output-guard.gd": "95af06fa572852cb8a41edc6b6645295917af1181b0a60941b7c0e440ba5a01c",
+    "tools/verify-journey-preflight.py": "f2ee80bef47a4e70cfee8f5f872b92addaa4d22fb3c7978d0e2eecd15abb5a99",
+    "tools/qa-journey-checkpoint.gd": "1045a527a7882effbe2499cd82546c91e11b302b2b1c3a749adc276190882b47",
+    "tools/test-journey-checkpoint.gd": "26ece161530ec519fa0bf253bc922e609aedec2084b0834ca27e111416e567fe",
+    "tools/diagnose-journey-adopt.gd": "cc7d86a9f07faf8ab4a971f65d711a6226197c66a53159e7aa519e693ac2a6e7",
+    "tools/test-first-journey-evidence.gd": "b8f38f875ba6cd408e34d665b3957bdc832298ed30e527edf9b164abdd178987",
+    "tools/capture-opening-clarity.gd": "8d25038e09b4be4b641aaf42ad8416bad9f42a9d85a0395861ce86b47018a4ff",
+    "tools/capture-opening-story.gd": "79c684c74bde13615cdb462dcb455a9c45ad5394536833738bd51a202265e36c",
+    "tools/capture-opening-return.gd": "ec1247ad92bd0a8f71e78013c990ebc50ebabaa269a38f52e36d1fb8773e3c55",
+    "tools/capture-return-clarity.gd": "dfa779b9bbf3df511ac6fe7f0f1c06d556ca1edbe2b370ef308c3a68aac5363e",
+    "tools/play-second-voyage-aftermath.gd": "5563860529805442cd322aeee20c8da180e38fd8e33698c7863a765a5354d4e8"
+  },
+  "changedFromPreviousFreeze": [],
+  "addedFromPreviousFreeze": [],
+  "removedFromPreviousFreeze": [],
+  "previousFrozenReferences": {
+    "source": {
+      "path": "docs/migration/evidence/opening-story/second-voyage-aftermath/source-freeze-final.json",
+      "sha256": "b710efd0cfea7927d93c0f112961610786991926afa6bc4eae8061edff669246"
+    },
+    "qa": {
+      "path": "docs/migration/evidence/opening-story/second-voyage-aftermath/qa-source-freeze-final.json",
+      "sha256": "a060fecc62782512d3828cd028519ced94e84d5f79b5dabbddc6875bbc44615e"
+    }
+  },
+  "historicalDiagnosticReferences": {
+    "abandonedSourceFreeze": {
+      "path": "docs/migration/evidence/opening-story/fleet-arrival-and-aftermath/source-freeze.json",
+      "sha256": "dee54f432aef99b6bc44e1dffbc03075d304215a13e7d667b2d7bdfef6a93ed3",
+      "role": "abandoned-diagnostic-only-not-current-acceptance"
+    },
+    "interruptedFirstRun": {
+      "path": "docs/migration/evidence/opening-story/fleet-arrival-and-aftermath/first-run-interrupted.json",
+      "sha256": "e895044c82910084026e9db7091165141da3cde9ce01cd0fa6b779e841384a7d",
+      "role": "abandoned-diagnostic-only-not-current-acceptance"
+    },
+    "failedCanonicalCheckpointVoyage": {
+      "path": "docs/migration/evidence/opening-story/fleet-stop-and-aftermath/journey-second.json",
+      "sha256": "fc7e452497c9627a6e575e598b18b7b70e21675aa3ce7e8197416642f75cba37",
+      "role": "failed-canonical-checkpoint-diagnostic-only-not-current-acceptance"
+    },
+    "failedCanonicalCheckpointProcess": {
+      "path": "docs/migration/evidence/opening-story/fleet-stop-and-aftermath/journey-second-run-result.json",
+      "sha256": "1fe9e86fb1c1803db38f93388f7b88fac2ad2f66517d4875dddae13edb3d6609",
+      "role": "failed-canonical-checkpoint-diagnostic-only-not-current-acceptance"
+    }
+  },
+  "scope": "Same exact14 reviewed QA source bytes as previous final phase. Fresh native artifacts required because Encounter and SaveCodec changed; no historical/failed artifact substitutes for current acceptance."
+}

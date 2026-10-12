@@ -1,0 +1,14 @@
+{
+  "evidence": "IDA read-only static decompilation; same SHA binary; original runtime execution not implied",
+  "binarySha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "address": "0x57F730",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "double __cdecl sub_57F730(float a1, float a2, float a3)\n{\n  return (flt_6BE62C - a1) * a2 + a1 * a3;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

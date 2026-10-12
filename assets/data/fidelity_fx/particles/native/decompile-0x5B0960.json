@@ -1,0 +1,14 @@
+{
+  "address": "0x5B0960",
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "source": "IDA read-only static decompilation; x86 execution fixtures saved separately",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "char __thiscall sub_5B0960(int this, float a2)\n{\n  int v3; // eax\n\n  v3 = *(_DWORD *)(this + 52);\n  *(_BYTE *)(this + 12) &= 0xF9u;\n  if ( v3 )\n  {\n    LOBYTE(v3) = sub_565BA0((float *)this, a2);\n    if ( !(_BYTE)v3 )\n    {\n      if ( *(float *)(this + 68) == -flt_6C0820 )\n        *(_DWORD *)(this + 68) = *(_DWORD *)(this + 44);\n      if ( *(float *)(this + 68) > (double)*(float *)(this + 44) )\n        *(_BYTE *)(*(_DWORD *)(this + 52) + 248) = 1;\n      v3 = *(_DWORD *)(this + 44);\n      *(_DWORD *)(this + 68) = v3;\n    }\n  }\n  return v3;\n}\n"
+      }
+    ],
+    "isError": false
+  }
+}

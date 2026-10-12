@@ -1,0 +1,33 @@
+--- a/game/domain/mingqi/campaign.gd
++++ b/game/domain/mingqi/campaign.gd
+@@ -628,6 +628,10 @@
+ 		if not _state.vessels.has(id):return {"ok":false,"reason":"Invalid near membership"}
+ 	if not arrival_controls is Array or not explicit_controls is Array:return {"ok":false,"reason":"Invalid arrival control ownership"}
+ 	var seen=[];var identities=arrival_controls+explicit_controls;var policy=native_policy(near_ids) if not identities.is_empty() else {}
++	if not identities.is_empty():
++		if not before.get("ships") is Array:return {"ok":false,"reason":"invalid-near-snapshot"}
++		for ship in before.ships:
++			if not ship is Dictionary or not _valid_id(ship.get("id"),4096):return {"ok":false,"reason":"unknown-or-duplicate-near-vessel"}
+ 	for id in identities:
+ 		if not id is String or id in seen or not id in near_ids or not id in [_state.campaignId+"-grain-a",_state.campaignId+"-grain-b"] or not genuine_lease(id):return {"ok":false,"reason":"Invalid arrival control ownership"}
+ 		seen.append(id)
+--- a/tests/test_arrival_berthing.gd
++++ b/tests/test_arrival_berthing.gd
+@@ -151,6 +151,17 @@
+ 		handoff=controlled.campaign.reconcile_near(malformed,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),[controlled.id])
+ 		check(not handoff.ok and controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"malformed ownership observation rejects without an exception or partial handoff")
+ 		close(controlled)
++	for explicit in [false,true]:
++		for bad_rows in [7,[null],[{}]]:
++			controlled=automatic_arrival()
++			if explicit: check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.25,"sailDeployment":0.4}).ok,"explicit malformed-row fixture has a real newer native control sequence")
++			original_business=controlled.campaign.snapshot(); original_native=controlled.encounter.snapshot()
++			var observation: Dictionary=original_native.duplicate(true); observation.ships=bad_rows
++			var rejected: Variant=controlled.campaign.reconcile_near(observation,[],controlled.bridge.near_ids(),func(vessels: Array,candidate: Dictionary):return controlled.bridge._apply(vessels,candidate),[] if explicit else [controlled.id],[controlled.id] if explicit else [])
++			check(rejected is Dictionary and rejected.get("ok")==false,"malformed ships container or row returns ordinary ownership rejection")
++			check(rejected is Dictionary and rejected.get("reason")==("unknown-or-duplicate-near-vessel" if bad_rows is Array else "invalid-near-snapshot"),"new ownership context retains normal native snapshot shape rejection")
++			check(controlled.campaign.snapshot()==original_business and controlled.encounter.snapshot()==original_native,"malformed ships container or row leaves both authorities unchanged")
++			close(controlled)
+ 	for fault in ["unobserved","duplicate","epoch"]:
+ 		controlled=automatic_arrival()
+ 		if fault!="unobserved": check(controlled.encounter.command({"type":"controls","shipId":controlled.id,"rudder":0.0,"sailDeployment":0.4}).ok,"explicit ownership fixture observes a real new native control sequence")

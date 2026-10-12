@@ -8,7 +8,9 @@ const SOURCE_HASHES := {
 const IDS := ["cat_island","coastal2","virgin_islands"]
 const SEA_INDEX := 128.0
 const OUTSIDE_HEIGHT := -24.0
+const ART_DEFAULTS := {"sea_index":128.0,"height_gain":1.0,"smoothing_radius":0,"border_rounding":0.0,"border_fade_pixels":5.0}
 var _values:=PackedByteArray()
+var _sample_values:=PackedFloat64Array()
 var _width:=0
 var _height:=0
 var _source_center:=Vector2.ZERO
@@ -23,6 +25,7 @@ var _peak:=1.0
 var _minimum:=94.0
 var _maximum:=172.0
 var _id:=""
+var _art: Dictionary=ART_DEFAULTS.duplicate()
 
 static func load_source(id: String) -> Dictionary:
 	if not SOURCE_HASHES.has(id): return {}
@@ -40,8 +43,41 @@ static func valid_source(data: Dictionary) -> bool:
 		if not (value is int or value is float) or not is_finite(float(value)) or float(value)<0 or float(value)>255 or float(value)!=floor(float(value)): return false
 	return true
 
-func configure(port: Dictionary,data: Dictionary,id: String) -> bool:
-	if id not in IDS or not valid_source(data): return false
+static func valid_art_options(options: Dictionary) -> bool:
+	for key: Variant in options:
+		if not key is String or not ART_DEFAULTS.has(key) or not (options[key] is int or options[key] is float) or not is_finite(float(options[key])): return false
+	var sea:=float(options.get("sea_index",128.0))
+	var gain:=float(options.get("height_gain",1.0))
+	var radius:=float(options.get("smoothing_radius",0))
+	var rounding:=float(options.get("border_rounding",0.0))
+	var fade:=float(options.get("border_fade_pixels",5.0))
+	return sea>0.0 and sea<255.0 and gain>0.0 and gain<=1.0 and radius>=0.0 and radius<=8.0 and radius==floor(radius) and rounding>=0.0 and rounding<=.45 and fade>0.0 and fade<=32.0
+
+static func _filtered_values(values: PackedByteArray,width: int,height: int,radius: int) -> PackedFloat64Array:
+	var result:=PackedFloat64Array()
+	result.resize(values.size())
+	for index in values.size(): result[index]=float(values[index])
+	if radius==0: return result
+	var temporary:=PackedFloat64Array(); temporary.resize(values.size())
+	var divisor:=float((radius+1)*(radius+1))
+	# Cache one deterministic separable triangular neighborhood per configured
+	# profile. Original bytes stay immutable; sampling does no filtering work.
+	for row in height:
+		for column in width:
+			var sum:=0.0
+			for offset in range(-radius,radius+1): sum+=result[row*width+clampi(column+offset,0,width-1)]*float(radius+1-absi(offset))
+			temporary[row*width+column]=sum/divisor
+	for row in height:
+		for column in width:
+			var sum:=0.0
+			for offset in range(-radius,radius+1): sum+=temporary[clampi(row+offset,0,height-1)*width+column]*float(radius+1-absi(offset))
+			result[row*width+column]=sum/divisor
+	return result
+
+func configure(port: Dictionary,data: Dictionary,id: String,art_options: Dictionary={}) -> bool:
+	if id not in IDS or not valid_source(data) or not valid_art_options(art_options): return false
+	var art: Dictionary=ART_DEFAULTS.duplicate(); art.merge(art_options,true)
+	var sea:=float(art.sea_index)
 	for key: String in ["x","z","islandX","islandZ","radius","peak"]:
 		if not port.has(key) or not (port[key] is int or port[key] is float) or not is_finite(float(port[key])): return false
 	if float(port.radius)<=0.0 or float(port.peak)<=0.0: return false
@@ -58,15 +94,21 @@ func configure(port: Dictionary,data: Dictionary,id: String) -> bool:
 		var value:=float(data.values[index])
 		values[index]=int(value)
 		minimum=minf(minimum,value)
-		if value>maximum: maximum=value; peak_point=Vector2(float(index%width),float(index/width))
-		if value>SEA_INDEX:
+		maximum=maxf(maximum,value)
+	if maximum<=sea or minimum>=sea: return false
+	var samples:=_filtered_values(values,width,height,int(art.smoothing_radius))
+	var filtered_maximum:=-INF
+	for index in samples.size():
+		var value:=samples[index]
+		if value>filtered_maximum: filtered_maximum=value; peak_point=Vector2(float(index%width),float(index/width))
+		if value>sea:
 			var point:=Vector2(float(index%width),float(index/width))
 			land_min=land_min.min(point); land_max=land_max.max(point)
-	if maximum<=SEA_INDEX or minimum>=SEA_INDEX: return false
+	if filtered_maximum<=sea: return false
 	var source_center: Vector2=(land_min+land_max)*.5
 	var source_radius:=0.0
-	for index in values.size():
-		if values[index]>SEA_INDEX:
+	for index in samples.size():
+		if samples[index]>sea:
 			source_radius=maxf(source_radius,Vector2(float(index%width),float(index/width)).distance_to(source_center))
 	if source_radius<=0.0: return false
 	var outward: Vector2=(peak_point-source_center).normalized()
@@ -76,7 +118,7 @@ func configure(port: Dictionary,data: Dictionary,id: String) -> bool:
 	var inward: Vector2=(center-dock).normalized()
 	if inward==Vector2.ZERO: inward=Vector2.LEFT
 	# All validation and shape derivation above precede the atomic accepted state.
-	_values=values; _width=width; _height=height
+	_values=values; _sample_values=samples; _width=width; _height=height; _art=art
 	_source_center=source_center; _source_outward=outward
 	_source_across=Vector2(-outward.y,outward.x)
 	_center=center; _dock=dock; _inward=inward; _across=Vector2(-inward.y,inward.x)
@@ -106,16 +148,22 @@ func _source_height(point: Vector2) -> float:
 	var ix:=mini(int(floor(point.x)),_width-2)
 	var iy:=mini(int(floor(point.y)),_height-2)
 	var f: Vector2=point-Vector2(ix,iy)
-	var a:=float(_values[iy*_width+ix])
-	var b:=float(_values[iy*_width+ix+1])
-	var c:=float(_values[(iy+1)*_width+ix])
-	var d:=float(_values[(iy+1)*_width+ix+1])
+	var a:=_sample_values[iy*_width+ix]
+	var b:=_sample_values[iy*_width+ix+1]
+	var c:=_sample_values[(iy+1)*_width+ix]
+	var d:=_sample_values[(iy+1)*_width+ix+1]
 	var raw:=lerpf(lerpf(a,b,f.x),lerpf(c,d,f.x),f.y)
-	var h: float=(raw-SEA_INDEX)*(_peak/(_maximum-SEA_INDEX) if raw>=SEA_INDEX else 24.0/(SEA_INDEX-_minimum))
+	var sea:=float(_art.sea_index)
+	var h: float=(raw-sea)*(_peak/(_maximum-sea)*float(_art.height_gain) if raw>=sea else 24.0/(sea-_minimum))
 	# coastal2 is a mainland extract. Close only its original rectangle border;
 	# this is an explicit game adaptation, not an invented original sea level.
 	var edge:=minf(minf(point.x,_width-1-point.x),minf(point.y,_height-1-point.y))
-	return lerpf(OUTSIDE_HEIGHT,h,smoothstep(0.0,5.0,edge))
+	if float(_art.border_rounding)>0.0:
+		var half_size:=Vector2(float(_width-1),float(_height-1))*.5
+		var round_radius: float=minf(_width-1,_height-1)*float(_art.border_rounding)
+		var q: Vector2=(point-half_size).abs()-(half_size-Vector2.ONE*round_radius)
+		edge=round_radius-q.max(Vector2.ZERO).length()-minf(maxf(q.x,q.y),0.0)
+	return lerpf(OUTSIDE_HEIGHT,h,smoothstep(0.0,float(_art.border_fade_pixels),edge))
 
 func diagnostics() -> Dictionary:
-	return {"id":_id,"sourceHash":SOURCE_HASHES.get(_id,""),"width":_width,"height":_height,"scale":_scale,"sourceCenter":_source_center,"sourceOutward":_source_outward,"islandCenter":_center,"dock":_dock,"inward":_inward,"peak":_peak,"seaIndex":SEA_INDEX,"scope":"Original height silhouette with explicit game scale, border closure and local harbor adaptation."}
+	return {"id":_id,"sourceHash":SOURCE_HASHES.get(_id,""),"width":_width,"height":_height,"scale":_scale,"sourceCenter":_source_center,"sourceOutward":_source_outward,"islandCenter":_center,"dock":_dock,"inward":_inward,"peak":_peak,"seaIndex":_art.sea_index,"heightGain":_art.height_gain,"smoothingRadius":_art.smoothing_radius,"borderRounding":_art.border_rounding,"borderFadePixels":_art.border_fade_pixels,"cachedSamples":_sample_values.size(),"scope":"Original indexed geometry with explicit optional game-art filtering/scale, border closure and local harbor adaptation; not an original engine reconstruction."}

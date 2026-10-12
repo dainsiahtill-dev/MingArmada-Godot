@@ -1,0 +1,13 @@
+{
+  "source_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "purpose": "Actual game loader references to the three selected NIF names",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "0x4299a6:\tpush    0\n0x4299a8:\tpush    0\n0x4299aa:\tpush    0\n0x4299ac:\tpush    0\n0x4299ae:\tpush    0FFFFFFFFh\n0x4299b0:\tpush    0\n0x4299b2:\tpush    0\n0x4299b4:\tpush    0\n0x4299b6:\tpush    0\n0x4299b8:\tpush    eax\n0x4299b9:\tmov     eax, offset aCannonBallSpla; \"cannon_ball_splash_01.nif\"\n0x4299be:\tmov     ecx, offset unk_8CB888\n0x4299c3:\tcall    sub_4BC390\n0x4299c8:\tmov     ecx, dword_8E7FB0\n0x4299ce:\tpush    0\n0x4299d0:\tpush    0\n0x4299d2:\tpush    0\n0x4299d4:\tpush    0\n0x4299d6:\tpush    0FFFFFFFFh\n0x4299d8:\tpush    0\n0x4299da:\tpush    0\n0x4299dc:\tpush    0\n0x4299de:\tpush    0\n0x4299e0:\tpush    ecx\n0x4299e1:\tmov     eax, offset aCannonBallSpla_0; \"cannon_ball_splash_02.nif\"\n0x4299e6:\tmov     ecx, offset unk_8CB948\n0x4299eb:\tcall    sub_4BC390\n0x4299f0:\tmov     edx, dword_8E7FB0\n0x4299f6:\tpush    0\n0x4299f8:\tpush    0\n0x4299fa:\tpush    0\n0x4299fc:\tpush    0\n0x4299fe:\tpush    0FFFFFFFFh\n0x429a00:\tpush    0\n0x429a02:\tpush    0\n0x429a04:\tpush    0\n0x429a06:\tpush    0\n0x429a08:\tpush    edx\n0x429a09:\tmov     eax, offset aCannonBallSpla_1; \"cannon_ball_splash_03.nif\"\n0x429a0e:\tmov     ecx, offset unk_8CBA08\n0x429a13:\tcall    sub_4BC390\n0x429a18:\tmov     eax, dword_8E7FB0\n0x429a1d:\tpush    0\n0x429a1f:\tpush    0\n0x429a21:\tpush    0"
+      }
+    ],
+    "isError": false
+  }
+}

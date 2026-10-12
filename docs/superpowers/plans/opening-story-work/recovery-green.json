@@ -1,0 +1,56 @@
+[
+  {
+    "test": "test_convoy_recovery.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCONVOY_RECOVERY_TESTS assertions=124 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_mingqi_rules.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nmingqi source golden: PASS (0)\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_save_compatibility.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nsave compatibility v2: PASS (0)\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_opening_story.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_TESTS assertions=116 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_opening_story_save.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_SAVE_TESTS assertions=122 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_native_readiness.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNATIVE_READINESS_TESTS assertions=16 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_opening_story_runtime.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nOPENING_STORY_RUNTIME_TESTS assertions=45 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_opening_story_ui_runtime.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSTORY_UI_RUNTIME_WIRE {\"field_types\":{\"choiceId\":\"String:String\",\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"sceneId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"choiceId\":\"settle-wages\",\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"expectedRevision\":2,\"sceneId\":\"old-ledger\",\"type\":\"story-choice\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:38335940089:1\",\"details\":{\"choiceId\":\"settle-wages\",\"convoyReceiptId\":null,\"intelligence\":null,\"kind\":\"story-choice\",\"portId\":\"xiamen\",\"reputationEffects\":{\"crewSupport\":10,\"merchantCredit\":0,\"militaryTrust\":0},\"routeId\":null,\"sceneId\":\"old-ledger\",\"silverCost\":80},\"id\":\"mingqi-1650:story:old-ledger\",\"kind\":\"story-choice\",\"message\":\"许福收下80两工钱：船长没忘了弟兄，我们也会守住这条船。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"shipId\":\"String:String\",\"slot\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"expectedRevision\":2,\"shipId\":\"mingqi-1650-heritage\",\"slot\":\"sails\",\"type\":\"refit\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:mingqi-1650:198088596954:1\",\"details\":{\"cost\":150,\"duration\":120,\"kind\":\"work\",\"shipId\":\"mingqi-1650-heritage\",\"status\":\"active\",\"workId\":\"mingqi-1650:work:2\"},\"id\":\"mingqi-1650:refit:ui:mingqi-1650:198088596954:1\",\"kind\":\"refit\",\"message\":\"refit已按实际港口状态受理。\",\"revision\":3}}}\nSERVICE_UI_RUNTIME_WIRE {\"field_types\":{\"commandId\":\"String:String\",\"expectedRevision\":\"String:int\",\"quantity\":\"String:int\",\"shipId\":\"String:String\",\"type\":\"String:String\"},\"intent\":{\"commandId\":\"ui:care:309690639157:1\",\"expectedRevision\":2,\"quantity\":3,\"shipId\":\"care-heritage\",\"type\":\"treat-wounded\"},\"result\":{\"ok\":true,\"receipt\":{\"commandId\":\"ui:care:309690639157:1\",\"details\":{\"cost\":12,\"duration\":90,\"kind\":\"treatment\",\"quantity\":3,\"shipId\":\"care-heritage\",\"status\":\"active\",\"workId\":\"care:work:2\"},\"id\":\"care:treat-wounded:ui:care:309690639157:1\",\"kind\":\"treat-wounded\",\"message\":\"treat-wounded已按实际港口状态受理。\",\"revision\":3.0}}}\nOPENING_STORY_UI_RUNTIME_TESTS assertions=39 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  },
+  {
+    "test": "test_near_field_bridge.gd",
+    "exitCode": 0,
+    "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNEAR_FIELD_BRIDGE_TESTS assertions=13 failures=0\n",
+    "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+  }
+]
