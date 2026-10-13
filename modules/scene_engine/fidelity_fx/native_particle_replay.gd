@@ -63,9 +63,9 @@ func _visit_world(id: int, outer: Dictionary, now: float, worlds: Dictionary) ->
 	worlds[id] = world
 	for child in fields.get("children",[]): _visit_world(int(child.ref),world,now,worlds)
 
-func authored_world_transforms(now: float) -> Dictionary:
+func authored_world_transforms(now: float, source_outer:Dictionary={}) -> Dictionary:
 	var worlds := {}
-	for root in asset.roots: _visit_world(int(root),Math.identity_transform(),now,worlds)
+	for root in asset.roots: _visit_world(int(root),Math.identity_transform() if source_outer.is_empty() else source_outer,now,worlds)
 	return worlds
 
 func controllers(block: Dictionary) -> Array:
@@ -77,16 +77,18 @@ func controllers(block: Dictionary) -> Array:
 		ref = controller.fields.get("next_controller")
 	return out
 
-func advance(now: float) -> void:
+func advance(now: float, source_outer:Dictionary={}) -> void:
 	now = Math.f32(now)
-	var worlds: Dictionary = authored_world_transforms(now)
+	var worlds: Dictionary = authored_world_transforms(now,source_outer)
 	for system in systems:
 		system.world = Math.system_world(worlds[int(system.block.id)],bool(system.block.fields.world_space))
-		var reset_fields: Dictionary = system.resetController.fields.duplicate()
-		reset_fields.flags = int(reset_fields.flags)&~6
-		var reset_mapped: float = Math.controller_time(reset_fields,now)
-		var needs_reset: bool = system.lastResetMapped != null and system.lastResetMapped > reset_mapped
-		system.lastResetMapped = reset_mapped
+		var needs_reset := false
+		if not system.resetController.is_empty():
+			var reset_fields: Dictionary = system.resetController.fields.duplicate()
+			reset_fields.flags = int(reset_fields.flags)&~6
+			var reset_mapped: float = Math.controller_time(reset_fields,now)
+			needs_reset = system.lastResetMapped != null and system.lastResetMapped > reset_mapped
+			system.lastResetMapped = reset_mapped
 		var previous: float = system.lastUpdate if system.lastUpdate != null else now
 		var relative: Dictionary = Math.compose(Math.inverse(system.world),worlds[int(system.emitter.fields.emitter_object.ref)])
 		var packets: Array = system.controller.advance(now,previous)

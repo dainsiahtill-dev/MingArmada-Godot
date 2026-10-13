@@ -23,6 +23,7 @@ func configure(height: Callable,options: Dictionary={}) -> Dictionary:
 func _restart() -> Dictionary:
 	var mode: String=_options.get("mode","duel")
 	var config := {"referenceHandling":true,"referenceGunnery":true,"seed":1661,"enemyCount":1 if mode=="duel" else 2 if mode=="fleet" else 0,"mode":"terminal","wind":{"direction":{"x":-0.8,"y":-0.6},"speed":14.0},"sampleTerrainHeight":_height,"waveSampler":_waves,"oceanWaves":Descriptors.original_descriptors(),"battleId":"practice-%s-%s-%s" % [mode,OS.get_process_id(),_generation+1]}
+	config.environmentRoute = "sailing" if mode=="sail" else "battle"
 	if mode=="sail":
 		config.ships=[{"id":"player","name":"定海","kind":"fuchuan","team":"player","position":{"x":0,"z":0},"heading":0},{"id":"merchant","name":"泉州商船","kind":"merchant","team":"neutral","position":{"x":140,"z":100},"heading":0},{"id":"fisher","name":"金门渔舟","kind":"fisherman","team":"neutral","position":{"x":60,"z":-120},"heading":PI/3,"sailDeployment":0.65}]
 	var native := Encounter.new(config)

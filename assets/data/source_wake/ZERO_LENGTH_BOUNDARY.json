@@ -1,0 +1,65 @@
+{
+  "schema": "wake-zero-length-boundary-v1",
+  "exe_sha256": "0da87d60243280dea5965dbb23d099bcd0727db344de35886a5207e487a7e120",
+  "cases": 1,
+  "checks": {
+    "original_age_zero": true,
+    "original_fraction_nan_bits": true,
+    "original_domain_nan_bits": true,
+    "all_fallback_rows_marked": true,
+    "diagnostic_output_finite": true
+  },
+  "failures": [],
+  "input": {
+    "now": 0.0,
+    "birth": 0.0,
+    "total": 0.0,
+    "head_offset": 0.0,
+    "distance": 0.0,
+    "age": 0.0
+  },
+  "original_classification": {
+    "age": "finite_zero",
+    "fraction": "quiet_nan",
+    "domain": "quiet_nan"
+  },
+  "original_bits": {
+    "age": "0x00000000",
+    "fraction": "0xFFC00000",
+    "domain": "0xFFC00000"
+  },
+  "diagnostic_rows": [
+    {
+      "row": 0,
+      "active": true,
+      "position": [
+        100.0,
+        100.0,
+        0.0
+      ],
+      "born": 0.0,
+      "age_clamped": 0.0,
+      "length": 0.0,
+      "half_width": 90.60000610351562,
+      "alpha": 0.0,
+      "uv": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "spread_domain": 1.0,
+      "diagnostic_adaptation": {
+        "kind": "zero_length_ratio_fallback",
+        "native_equivalent": false,
+        "native_fraction_domain": "NaN",
+        "original_nan_lut": "not_executed"
+      }
+    }
+  ],
+  "scope": "Original byte windows 4E02DF..4E0378 and 4E04CF..4E04E0 only. Native NaN curve call and original zero-length LUT/runtime are not executed or restored. Finite profile fallback is explicit diagnostic adaptation, not native equivalence."
+}

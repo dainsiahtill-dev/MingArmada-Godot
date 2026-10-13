@@ -11,6 +11,7 @@ var _manifest: Dictionary = {}
 var _textures: Dictionary = {}
 var _materials: Dictionary = {}
 var _sail_meshes: Dictionary = {}
+var _water_markers: Dictionary = {}
 var _disposed := false
 
 static func for_library(library: RefCounted) -> RefCounted:
@@ -26,6 +27,19 @@ func _entries() -> Dictionary:
 
 func source_kind(kind: String) -> String:
 	return str(_entries().get(kind, {}).get("family", ""))
+
+func water_markers(kind: String) -> Dictionary:
+	if _water_markers.has(kind): return _water_markers[kind].duplicate(true)
+	var entry: Dictionary = _entries().get(kind,{})
+	if entry.is_empty(): return {}
+	var source := MeshAsset.read_json(str(entry.sourceJsonPath))
+	var result := {"sourceToWorld":float(entry.uniformScale),"sourceResourceName":str(entry.family)}
+	for node: Dictionary in source.get("nativeNodes",{}).get("lowend",[]):
+		var role: String = {"dummy_wake":"wake","dummy_bowfroth":"bow"}.get(str(node.get("name","")).to_lower(),"")
+		if not role.is_empty(): result[role] = {"id":node.id,"position":node.worldOrigin.duplicate()}
+	if not result.has_all(["wake","bow"]): return {}
+	_water_markers[kind] = result
+	return result.duplicate(true)
 
 func instantiate_ship(kind: String, lod: int, library: RefCounted = null) -> Node3D:
 	if _disposed or lod not in [0,1,2]: return null
@@ -43,6 +57,7 @@ func instantiate_ship(kind: String, lod: int, library: RefCounted = null) -> Nod
 	model.set_meta("source_lowend_shared", true)
 	model.set_meta("lod_policy", "same_source_lowend")
 	model.set_meta("game_kind", kind)
+	model.set_meta("source_water_markers",water_markers(kind))
 	var semantics: Dictionary = entry.get("semantics", {})
 	var folded: Dictionary = {}
 	for item: Dictionary in semantics.get("sailFurledMeshes", []):
@@ -56,7 +71,9 @@ func instantiate_ship(kind: String, lod: int, library: RefCounted = null) -> Nod
 			var node := model.find_child(str(item.get("name", "")), true, false) as MeshInstance3D
 			if node == null or node.mesh == null: continue
 			if role == "deckMeshes": node.set_meta("deck_support", true)
-			elif role == "hullMeshes": node.set_meta("damage_surface", "hull")
+			elif role == "hullMeshes":
+				node.set_meta("damage_surface", "hull")
+				node.set_meta("target_rigid_shadow_caster",true)
 			else:
 				node.set_meta("damage_surface", "sail")
 				node.set_meta("source_sail_control", "game_furl_inflate_morph")
@@ -69,7 +86,9 @@ func instantiate_ship(kind: String, lod: int, library: RefCounted = null) -> Nod
 			var attachment := model.find_child(str(item.get("name","")),true,false) as Node3D
 			if attachment:
 				attachment.set_meta("source_fixed_attachment",item.get("mastName") == null)
-				if role == "mastMeshes": attachment.set_meta("deck_obstacle",true)
+				if role == "mastMeshes":
+					attachment.set_meta("deck_obstacle",true)
+					attachment.set_meta("target_rigid_shadow_caster",true)
 	if not _bind_materials(model, entry):
 		model.free()
 		return null
@@ -260,3 +279,4 @@ func dispose() -> void:
 	_textures.clear()
 	_materials.clear()
 	_sail_meshes.clear()
+	_water_markers.clear()

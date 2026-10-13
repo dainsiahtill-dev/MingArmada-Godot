@@ -105,10 +105,11 @@ static func advance_clouds(state: Dictionary, delta: float) -> void:
 		state.updates = int(state.updates)+1
 
 static func compose_transform(parent: Dictionary, local: Dictionary) -> Dictionary:
-	var scaled: Array = []
-	for value: Variant in local.translation: scaled.append(float(value)*float(parent.scale))
-	var moved := transform_vector(parent.rotation,scaled)
-	for i in 3: moved[i] = f32(float(moved[i])+float(parent.translation[i]))
+	# 546160/53A000: rotate and store binary32 before parent scale.
+	var moved := transform_vector(parent.rotation,local.translation)
+	for i in 3:
+		var product:=float(moved[i])*float(parent.scale)
+		moved[i]=f32((product if i==0 else f32(product))+float(parent.translation[i]))
 	return {"rotation":multiply_matrix(parent.rotation,local.rotation),"translation":moved,"scale":f32(float(parent.scale)*float(local.scale))}
 
 static func _vector(value: Dictionary) -> Array:
@@ -219,4 +220,7 @@ static func _visit(blocks: Dictionary, block: Dictionary, parent: Dictionary, in
 		var diffuse: Dictionary = material.get("fields",{}).get("diffuse_color",{})
 		result.append({"asset":asset_name,"block":int(block.id),"texture":texture,"vertices":vertices,"localVertices":local_vertices,"sourceUV":uv_source,"uvs":uvs,"uvMatrix":uv_matrix,"triangles":data.effective_triangles,"alpha":alpha,"color":[float(diffuse.get("r",1.0)),float(diffuse.get("g",1.0)),float(diffuse.get("b",1.0))],"alphaFlags":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("flags",0)),"threshold":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("threshold",0)),"clampMode":int(desc.get("clamp_mode",3)),"filterMode":int(desc.get("filter_mode",2)),"world":world})
 		if not billboard.is_empty(): result[-1].billboard=billboard
+		result[-1].depthFlags=int(props.get("NiZBufferProperty",{}).get("fields",{}).get("flags",3))
+		result[-1].depthFunction=int(props.get("NiZBufferProperty",{}).get("fields",{}).get("function",3))
+		result[-1].stencil=props.get("NiStencilProperty",{}).get("fields",{}).duplicate(true)
 	for reference: Variant in fields.get("children",[]): _visit(blocks,_ref(blocks,reference),world,props,time,animate,camera,asset_name,result)

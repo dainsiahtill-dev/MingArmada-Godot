@@ -294,6 +294,18 @@ func get_model() -> Node3D:
 func source_kind() -> String:
 	return _provider.source_kind(_kind) if _provider and not _disposed else ""
 
+func source_water_attachment() -> Dictionary:
+	var model := get_model()
+	if model == null: return {}
+	var markers: Dictionary = model.get_meta("source_water_markers",{})
+	if not markers.has_all(["wake","bow"]): return {}
+	var unit := float(markers.sourceToWorld)
+	var result := {"sourceToWorld":unit,"sourceResourceName":markers.sourceResourceName,"modelScale":model.global_basis.get_scale().x,"rotation":model.global_basis.orthonormalized(),"markerId":markers.wake.id}
+	for role: String in ["wake","bow"]:
+		var p: Array = markers[role].position
+		result[role] = model.global_transform * (Vector3(p[0],p[2],-p[1])*unit)
+	return result
+
 func dispose() -> void:
 	_disposed = true
 	_damage.dispose()

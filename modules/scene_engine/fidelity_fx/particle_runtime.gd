@@ -17,6 +17,7 @@ var _rebuilds := 0
 var _max_time := 0.0
 var _last_error := ""
 var _time_input: Dictionary = {}
+var _source_outer: Dictionary = {}
 
 func _fail(message: String) -> bool:
 	_last_error = message
@@ -160,7 +161,9 @@ func _valid_source(source: Dictionary, index: Dictionary) -> bool:
 				for controller in _chain_blocks(block,index):
 					if controller.type not in ["NiPSysEmitterCtlr","NiPSysUpdateCtlr","NiPSysResetOnLoopCtlr"]: return _fail("Unsupported original particle controller")
 					types[controller.type] = true
-				for required in ["NiPSysEmitterCtlr","NiPSysUpdateCtlr","NiPSysResetOnLoopCtlr"]:
+				# ResetOnLoop is authored optional: the original bowfroth has four
+				# continuous systems without it. Never invent a reset controller.
+				for required in ["NiPSysEmitterCtlr","NiPSysUpdateCtlr"]:
 					if not types.has(required): return _fail("Missing original particle controller " + required)
 				var modifiers := {}
 				for ref in fields.modifiers:
@@ -291,11 +294,17 @@ func advance_native(time: float, include_snapshot: bool = true) -> Array:
 		_last_error = "Native advance requires finite explicit appTime"
 		return []
 	if _native == null: _native = Replay.new(_asset,_seed,_blocks)
-	_native.advance(time)
+	_native.advance(time,_source_outer)
 	_replay = _native
 	_time_input = {"kind":"original variable-dt appTime sequence; first update records visibility without births","appTime":Math.f32(time),"frequency":null,"gridTick":null}
 	_last_error = ""
 	return snapshot() if include_snapshot else []
+
+func set_source_outer(source:Dictionary) -> void:
+	# Attachment owner supplies original scene coordinates/TRS. Native replay
+	# births world-space particles there; old particles do not follow a moved
+	# hull through a presentation-only transform. Setter never advances time.
+	_source_outer=source.duplicate(true)
 
 func snapshot() -> Array:
 	return _replay.snapshot() if _replay != null else []

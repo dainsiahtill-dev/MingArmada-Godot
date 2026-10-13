@@ -13,6 +13,7 @@ const Egress = preload("res://modules/naval_simulation/navigation/wet_route_egre
 const Manual = preload("res://modules/physics_engine/ships/manual_handling.gd")
 const Casual = preload("res://modules/naval_simulation/controls/casual_sailing.gd")
 const Collator = preload("res://modules/naval_simulation/id_collator.gd")
+const Weather = preload("res://modules/environment_engine/weather_state.gd")
 const DT = 1.0 / 60.0
 const GRAVITY = 9.81
 const SAFE_INTEGER = 9007199254740991
@@ -40,6 +41,7 @@ var episode_open = false
 var episode_threats: Array = []
 var last_error = ""
 var _id_collator = Collator.new()
+var _environment: RefCounted
 func _init(initial: Dictionary = {}) -> void: reset(initial)
 func reset(initial: Dictionary = config) -> bool:
 	for flag in ["referenceHandling", "referenceGunnery"]:
@@ -51,6 +53,8 @@ func reset(initial: Dictionary = config) -> bool:
 	if initial.has("enemyCount") and (not _finite(initial.enemyCount) or initial.enemyCount != floor(initial.enemyCount) or initial.enemyCount < 0 or initial.enemyCount > 2): last_error = "Invalid enemy count"; return false
 	if initial.has("battleId") and (not initial.battleId is String or initial.battleId.is_empty()): last_error = "Invalid battle identity"; return false
 	if initial.has("mode") and not initial.mode in ["terminal", "continuous"]: last_error = "Invalid encounter mode"; return false
+	if initial.has("environmentRoute") and not initial.environmentRoute in ["sailing","battle"]: last_error = "Invalid environment route"; return false
+	if not initial.get("environmentOptions",{}) is Dictionary: last_error = "Invalid environment options"; return false
 	var next_ocean = Ocean.new()
 	next_ocean.sea_level = initial.get("seaLevel", 0.0)
 	if initial.has("waveSampler"):
@@ -84,6 +88,12 @@ func reset(initial: Dictionary = config) -> bool:
 	if not next_player in ids: last_error = "Encounter requires player ship"; return false
 	var next_policy = {"controllableShipIds": initial.get("controllableShipIds", [] if initial.get("mode") == "continuous" else setups.filter(func(s): return s.team == "player").map(func(s): return s.id)), "hostileTargets": initial.get("hostileTargets", {})}
 	if not _valid_policy(next_policy, ids): return false
+	var next_environment := Weather.new()
+	# Unit/cadence/clone scale are target adapters, distinct from ship physics.
+	var weather_options: Dictionary = {"model_scale":10.0}
+	weather_options.merge(initial.get("environmentOptions",{}),true)
+	weather_options.merge({"epoch":epoch+1,"route":initial.get("environmentRoute","sailing" if initial.get("mode")=="continuous" else "battle"),"crt_seed":posmod(int(fmod(float(initial.get("seed",1661)),4294967296.0)),4294967296)},true)
+	if not next_environment.configure(weather_options): last_error = "Invalid environment options"; return false
 	var prepared_ships = []
 	var environment = initial.duplicate(true)
 	environment.wind = next_wind
@@ -96,6 +106,7 @@ func reset(initial: Dictionary = config) -> bool:
 	policy = next_policy.duplicate(true); orders.clear(); decisions.clear(); episode = 0; episode_open = false; episode_threats = []
 	epoch += 1; battle_id = initial.get("battleId", "encounter-" + str(initial.get("seed", 1661)) + "-" + str(epoch))
 	ships = prepared_ships
+	_environment = next_environment
 	status = "active" if ships.any(func(s): return s.state.team == "hostile") else "sailing"
 	if _continuous(): _finish()
 	last_error = ""
@@ -210,6 +221,7 @@ func snapshot() -> Dictionary:
 		state.cooldownSeconds = {"port": maxf(0, ship.reload.port - tick) * DT, "starboard": maxf(0, ship.reload.starboard - tick) * DT}
 		states.append(state)
 	var result = {"time": tick * DT, "tick": tick, "status": status, "playerId": player_id, "battleId": battle_id, "wind": wind.duplicate(true), "oceanWaves": ocean.waves.duplicate(true), "ships": states, "projectiles": projectiles.duplicate(true)}
+	if _environment: result.environment = _environment.snapshot()
 	if not surrender.is_empty(): result.surrender = surrender.duplicate(true)
 	return result
 func drain_events() -> Array:
@@ -551,6 +563,14 @@ func _fixed_tick() -> void:
 		var operational = not ship.is_empty() and not ship.sunk and not ship.state.id in policy.get("disabledMotionShipIds", []) and (not _continuous() or ship.state.crew > 0 and not ship.state.id in policy.get("capturedShipIds", []))
 		if operational and (not volley.has("targetId") or not target.is_empty() and not target.sunk and _enemy(ship, target)): _launch(ship, volley.side, volley.ammo, volley.cannon, volley.get("targetId", ""))
 	_advance_projectiles(); _finish()
+	if _environment:
+		var observer: Dictionary = {"epoch":epoch,"route":config.get("environmentRoute","sailing" if _continuous() else "battle")}
+		var focus := _ship(player_id)
+		if not focus.is_empty():
+			var pose := _visual(focus)
+			observer.position = Vector3(pose.position.x,pose.position.y,pose.position.z)
+			observer.heading = pose.heading
+		_environment.advance(tick*DT,observer,wind)
 func _ai(ship: Dictionary) -> void:
 	var target = _ship(player_id)
 	if _continuous():

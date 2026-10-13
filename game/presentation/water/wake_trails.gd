@@ -3,6 +3,7 @@ extends Node3D
 const Foam = preload("res://game/presentation/water/pirates_foam.gdshader")
 const ShipWave = preload("res://game/presentation/water/ship_wave_geometry.gd")
 const Volume = preload("res://game/presentation/water/splash_volume.gd")
+const SourceWakes = preload("res://modules/scene_engine/water/source_wake_renderer.gd")
 const WAKE_DDS := "res://assets/textures/pirates_reference/wake3.dds.png"
 const WAKE_TGA := "res://assets/textures/pirates_reference/wake3.tga.png"
 const FROTH := "res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png"
@@ -20,9 +21,20 @@ var _materials: Array[ShaderMaterial] = []
 var _wave_material: ShaderMaterial
 var _surface_filter: Callable
 var _sampling_scope_factory: Callable
+var _source_wakes: RefCounted
 
 func configure_surface_filter(sea_at: Callable) -> void: _surface_filter = sea_at
 func configure_sampling_scope(factory: Callable) -> void: _sampling_scope_factory = factory
+func take_source_state() -> RefCounted:
+	var state:RefCounted=_source_wakes
+	_source_wakes=null
+	if state!=null:state.transfer_owner(null)
+	return state
+
+func restore_source_state(state:RefCounted) -> void:
+	if _source_wakes!=null:_source_wakes.dispose()
+	_source_wakes=state
+	if _source_wakes!=null:_source_wakes.transfer_owner(self)
 
 func configure(water_sampler: Callable) -> void:
 	dispose(); _water = water_sampler
@@ -39,6 +51,20 @@ func configure(water_sampler: Callable) -> void:
 	_wave_material.set_shader_parameter("detail_texture",load(FROTH)); _wave_material.set_shader_parameter("ribbon",true)
 
 func apply_snapshot(native: Dictionary) -> void:
+	if SourceWakes.route(native) in ["scene_30","battle_90"] or native.get("ships",[]).any(func(ship):return SourceWakes.route(native,ship) in ["scene_30","battle_90"]):
+		var source_time:=float(native.get("time",NAN))
+		if not _water.is_valid() or not is_finite(source_time) or source_time<0.0:return
+		if _source_wakes==null:
+			_clear_trails();_poses.clear();_source_wakes=SourceWakes.new(self)
+		_time=source_time
+		var source_scope:RefCounted
+		if _sampling_scope_factory.is_valid():
+			var supplied:Variant=_sampling_scope_factory.call()
+			if supplied is RefCounted and supplied.has_method("finish"):source_scope=supplied
+		_source_wakes.apply_snapshot(native,_water,_surface_filter)
+		if source_scope!=null:source_scope.call("finish")
+		return
+	if _source_wakes!=null:_source_wakes.dispose();_source_wakes=null
 	var now := float(native.get("time", _time))
 	if not is_finite(now) or now < 0.0 or not _water.is_valid(): return
 	if _time >= 0.0 and now < _time:
@@ -191,6 +217,10 @@ func _clear_trails() -> void:
 	for id: String in _trails.keys(): _release(id)
 
 func diagnostics() -> Dictionary:
+	if _source_wakes!=null:
+		var source:Dictionary=_source_wakes.diagnostics()
+		source.merge({"trails":source.source_routes.values().reduce(func(sum,value):return sum+int(value),0),"samples":source.source_samples,"accepted_time":_time,"attached_waves":source.authored_froth_meshes,"wave_budget":MAX_TRAILS*3})
+		return source
 	var samples := 0
 	var waves := 0
 	for trail: Dictionary in _trails.values(): samples += trail.samples.size()
@@ -200,6 +230,7 @@ func diagnostics() -> Dictionary:
 	return {"trails":_trails.size(),"samples":samples,"accepted_time":_time,"attached_waves":waves,"wave_budget":MAX_TRAILS*3}
 
 func dispose() -> void:
+	if _source_wakes!=null:_source_wakes.dispose();_source_wakes=null
 	_clear_trails(); _poses.clear(); _materials.clear(); _wave_material = null; _water = Callable(); _surface_filter = Callable(); _sampling_scope_factory = Callable(); _time = -1.0
 
 func _exit_tree() -> void: dispose()

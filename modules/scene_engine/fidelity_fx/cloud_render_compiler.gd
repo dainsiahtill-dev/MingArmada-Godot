@@ -117,10 +117,10 @@ func _transform_transpose(matrix:Array,vector:Array)->Array:
 	return result
 
 func _compose_transform(parent:Dictionary,local:Dictionary)->Dictionary:
-	var scaled:Array=[]
-	for value:Variant in local.translation:scaled.append(float(value)*float(parent.scale))
-	var moved:=_transform_vector(parent.rotation,scaled)
-	for i in 3:moved[i]=_f32(float(moved[i])+float(parent.translation[i]))
+	var moved:=_transform_vector(parent.rotation,local.translation)
+	for i in 3:
+		var product:=float(moved[i])*float(parent.scale)
+		moved[i]=_f32((product if i==0 else _f32(product))+float(parent.translation[i]))
 	return {"rotation":_multiply_matrix(parent.rotation,local.rotation),"translation":moved,"scale":_f32(float(parent.scale)*float(local.scale))}
 
 func _billboard_mode0(rotation:Array,camera:Dictionary)->Array:
@@ -153,6 +153,74 @@ func compile_asset(asset:Dictionary)->Dictionary:
 		_compile_static_billboard(node,{})
 		roots.append(node)
 	return {"roots":roots}
+
+func bind_sequence(asset:Dictionary,sequence:Dictionary)->Dictionary:
+	# Target adapter: bind explicit KF target names to owned per-target property
+	# copies. KFM event selection is not recovered; caller chooses this sequence.
+	var result:=asset.duplicate(true)
+	var blocks:Dictionary={}
+	var next_id:=0
+	for block:Dictionary in result.blocks:
+		blocks[int(block.id)]=block;next_id=maxi(next_id,int(block.id)+1)
+	var remap:Dictionary={}
+	for block:Dictionary in sequence.blocks:remap[int(block.id)]=next_id;next_id+=1
+	for original:Dictionary in sequence.blocks:
+		var block:=original.duplicate(true)
+		block.id=remap[int(original.id)]
+		_remap_references(block.fields,remap)
+		result.blocks.append(block);blocks[int(block.id)]=block
+	var source_root:Dictionary=sequence.blocks[int(sequence.roots[0])]
+	for link:Dictionary in source_root.fields.get("controlled_blocks",[]):
+		var names:=str(link.target_name).split("\nPROP\n")
+		var target:Dictionary={}
+		for block:Dictionary in result.blocks:
+			if str(block.get("name",block.fields.get("name","")))==names[0] and str(block.type) in ["NiNode","NiBillboardNode","NiTriStrips","NiTriShape"]:target=block;break
+		if target.is_empty():continue
+		if names.size()==2:
+			for property:Variant in target.fields.get("properties",[]):
+				if property is Dictionary and str(property.type)==names[1]:
+					var owned:Dictionary=blocks[int(property.ref)].duplicate(true)
+					owned.id=next_id;next_id+=1
+					result.blocks.append(owned);blocks[int(owned.id)]=owned
+					property.ref=owned.id;target=owned;break
+		var controller:Dictionary=blocks[int(remap[int(link.controller.ref)])]
+		controller.fields.next_controller=target.fields.get("controller")
+		target.fields.controller={"ref":controller.id,"type":controller.type}
+	return result
+
+func _remap_references(value:Variant,remap:Dictionary)->void:
+	if value is Dictionary:
+		if value.has("ref") and remap.has(int(value.ref)):value.ref=remap[int(value.ref)]
+		else:
+			for child:Variant in value.values():_remap_references(child,remap)
+	elif value is Array:
+		for child:Variant in value:_remap_references(child,remap)
+
+func _instance_controllers(compiled:Dictionary)->Array:
+	var result:Array=[]
+	for node:Dictionary in compiled.roots:_collect_controllers(node,result)
+	return result
+func _collect_controllers(node:Dictionary,result:Array)->void:
+	if node.is_empty():return
+	result.append_array(node.keyframes)
+	if node.has("leaf"):
+		result.append_array(node.leaf.alphaControllers);result.append_array(node.leaf.uvControllers)
+	for child:Dictionary in node.children:_collect_controllers(child,result)
+func controller_snapshot(compiled:Dictionary)->Array:
+	var result:Array=[]
+	for controller:Dictionary in _instance_controllers(compiled):
+		var clock:RefCounted=controller.clock
+		result.append({"last":clock.last,"accumulated":clock.accumulated,"started":clock.started})
+	return result
+func restore_controllers(compiled:Dictionary,snapshot:Array)->bool:
+	var controllers:=_instance_controllers(compiled)
+	if controllers.size()!=snapshot.size():return false
+	for index in controllers.size():
+		var clock:RefCounted=controllers[index].clock
+		clock.last=float(snapshot[index].last);clock.accumulated=float(snapshot[index].accumulated);clock.started=bool(snapshot[index].started)
+	return true
+func advance_controllers(compiled:Dictionary,app_time:float)->void:
+	for controller:Dictionary in _instance_controllers(compiled):_clock_time(controller,app_time,true)
 
 func _compile_static_billboard(node:Dictionary,inherited:Dictionary)->void:
 	if node.is_empty():return
@@ -188,7 +256,7 @@ func _compile_node(blocks:Dictionary,block:Dictionary,inherited:Dictionary,asset
 		for vertex:Dictionary in data.fields.vertices:local_vertices.append(Native._vector(vertex))
 		var has_transform:bool=bool(desc.get("has_texture_transform",false))
 		var static_uv:PackedFloat32Array=_texture_transform(desc,{}) if has_transform else PackedFloat32Array([1,0,0,0,1,0,0,0,1])
-		var source:Dictionary={"asset":asset_name,"block":int(block.id),"texture":str(Native._ref(blocks,desc.get("source")).get("fields",{}).get("file_name","")).to_lower(),"localVertices":local_vertices,"sourceUV":data.fields.uv_sets[int(desc.get("uv_set",0))],"triangles":data.effective_triangles,"alpha":float(material.get("fields",{}).get("alpha",1.0)),"color":[float(diffuse.get("r",1.0)),float(diffuse.get("g",1.0)),float(diffuse.get("b",1.0))],"uvMatrix":static_uv,"alphaFlags":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("flags",0)),"threshold":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("threshold",0)),"clampMode":int(desc.get("clamp_mode",3)),"filterMode":int(desc.get("filter_mode",2))}
+		var source:Dictionary={"asset":asset_name,"block":int(block.id),"texture":str(Native._ref(blocks,desc.get("source")).get("fields",{}).get("file_name","")).to_lower(),"localVertices":local_vertices,"sourceUV":data.fields.uv_sets[int(desc.get("uv_set",0))],"triangles":data.effective_triangles,"alpha":float(material.get("fields",{}).get("alpha",1.0)),"color":[float(diffuse.get("r",1.0)),float(diffuse.get("g",1.0)),float(diffuse.get("b",1.0))],"uvMatrix":static_uv,"alphaFlags":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("flags",0)),"threshold":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("threshold",0)),"clampMode":int(desc.get("clamp_mode",3)),"filterMode":int(desc.get("filter_mode",2)),"depthFlags":int(props.get("NiZBufferProperty",{}).get("fields",{}).get("flags",3)),"depthFunction":int(props.get("NiZBufferProperty",{}).get("fields",{}).get("function",3)),"stencil":props.get("NiStencilProperty",{}).get("fields",{}).duplicate(true)}
 		var leaf:Dictionary={"source":source,"desc":desc,"hasTransform":has_transform,"alphaControllers":[],"uvControllers":[]}
 		for controller:Dictionary in Native._controllers(blocks,material):
 			if controller.type=="NiAlphaController":leaf.alphaControllers.append(_controller(controller,Native._ref(blocks,controller.fields.data).fields.data))
@@ -201,18 +269,18 @@ func _compile_node(blocks:Dictionary,block:Dictionary,inherited:Dictionary,asset
 	for reference:Variant in fields.get("children",[]):node.children.append(_compile_node(blocks,Native._ref(blocks,reference),props,asset_name))
 	return node
 
-func _clock_time(controller:Dictionary,time:float)->float:
-	# The full oracle creates a fresh clock per sample. Reusing its allocation
-	# requires an exact reset, including the source's optional advance(0) call.
+func _clock_time(controller:Dictionary,time:float,persistent:bool=false)->float:
+	# Native instance owns its history. Seek/rebuild is an explicit lifecycle
+	# operation, never a hidden reset on every sample or camera pass.
 	var clock:RefCounted=controller.clock
-	clock.reset()
-	if int(controller.flags)&1:_advance_clock(clock,0.0)
+	if not persistent:clock.reset()
+	if not clock.started and int(controller.flags)&1:_advance_clock(clock,0.0)
 	return _advance_clock(clock,time)
 
-func render_states(compiled:Dictionary,time:float=0.0,outer:Dictionary={},animate:bool=false,camera:Dictionary={},include_vertices:bool=false,minimum_z:bool=false)->Array:
+func render_states(compiled:Dictionary,time:float=0.0,outer:Dictionary={},animate:bool=false,camera:Dictionary={},include_vertices:bool=false,minimum_z:bool=false,persistent:bool=false)->Array:
 	var result:Array=[]
 	var initial:Dictionary={"rotation":Native.identity(),"translation":[0,0,0],"scale":1.0} if outer.is_empty() else outer
-	for node:Dictionary in compiled.roots:_render_node(node,initial,{},time,animate,camera,include_vertices,minimum_z,result)
+	for node:Dictionary in compiled.roots:_render_node(node,initial,{},time,animate,camera,include_vertices,minimum_z,result,persistent)
 	return result
 
 func render_minimum_states(compiled:Dictionary,outer:Dictionary,camera:Dictionary)->Array:
@@ -231,13 +299,13 @@ func _minimum_z(vertices:Array,world:Dictionary)->float:
 		minimum=minf(minimum,_f32(float(transformed)+float(world.translation[2])))
 	return minimum
 
-func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictionary,time:float,animate:bool,camera:Dictionary,include_vertices:bool,minimum_z:bool,result:Array)->void:
+func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictionary,time:float,animate:bool,camera:Dictionary,include_vertices:bool,minimum_z:bool,result:Array,persistent:bool=false)->void:
 	if node.is_empty():return
 	var local:Dictionary=node.local.duplicate() if animate else node.local
 	if animate:
 		for controller:Dictionary in node.keyframes:
 			var data:Dictionary=controller.data
-			var mapped:float=_clock_time(controller,time)
+			var mapped:float=_clock_time(controller,time,persistent)
 			if not data.get("translations",{}).get("keys",[]).is_empty():local.translation=_sample(data.translations,mapped)
 			if not data.get("scales",{}).get("keys",[]).is_empty():local.scale=_sample(data.scales,mapped)
 	var world:Dictionary=_compose_transform(parent,local)
@@ -249,11 +317,11 @@ func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictiona
 		var leaf:Dictionary=node.leaf
 		var state:Dictionary=leaf.source.duplicate()
 		if animate:
-			for controller:Dictionary in leaf.alphaControllers:state.alpha=_sample(controller.data,_clock_time(controller,time))
+			for controller:Dictionary in leaf.alphaControllers:state.alpha=_sample(controller.data,_clock_time(controller,time,persistent))
 			if leaf.hasTransform and not leaf.uvControllers.is_empty():
 				var values:Dictionary={}
 				var names:Array=["translationU","translationV","rotation","scaleU","scaleV"]
-				for controller:Dictionary in leaf.uvControllers:values[names[int(controller.operation)]]=_sample(controller.data,_clock_time(controller,time))
+				for controller:Dictionary in leaf.uvControllers:values[names[int(controller.operation)]]=_sample(controller.data,_clock_time(controller,time,persistent))
 				state.uvMatrix=_texture_transform(leaf.desc,values)
 		state.world=world
 		if not billboard.is_empty():state.billboard=billboard
@@ -268,4 +336,4 @@ func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictiona
 			state.vertices=vertices
 		if minimum_z:state.minimumZ=_minimum_z(state.localVertices,world)
 		result.append(state)
-	for child:Dictionary in node.children:_render_node(child,world,billboard,time,animate,camera,include_vertices,minimum_z,result)
+	for child:Dictionary in node.children:_render_node(child,world,billboard,time,animate,camera,include_vertices,minimum_z,result,persistent)

@@ -4,6 +4,7 @@ render_mode unshaded, cull_disabled, blend_mix, depth_draw_never, fog_disabled;
 uniform sampler2D original_texture : source_color, filter_linear_mipmap, repeat_enable;
 uniform sampler2D original_clamped_texture : source_color, filter_linear_mipmap, repeat_disable;
 uniform vec4 original_material = vec4(1.0);
+uniform vec3 source_environment_color = vec3(1.0);
 uniform float display_opacity : hint_range(0.0, 1.0) = 1.0;
 uniform float original_alpha_threshold = -1.0;
 uniform mat3 original_uv_matrix = mat3(1.0);
@@ -55,7 +56,7 @@ void fragment() {
 	else texel=texture(original_clamped_texture,original_uv);
 	vec4 sample_color = texel * original_material;
 	if (sample_color.a <= original_alpha_threshold) discard;
-	ALBEDO = sample_color.rgb;
+	ALBEDO = sample_color.rgb * source_environment_color;
 	// Target weather strength follows the source alpha test, preserving its
 	// authored cutoff even when clear-weather ground fog is very faint.
 	ALPHA = sample_color.a * display_opacity;

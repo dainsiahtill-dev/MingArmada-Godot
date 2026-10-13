@@ -32,6 +32,13 @@ var _error := ""
 var _compiled:Dictionary={}
 var _render_compiler:=RenderCompiler.new()
 var _cloud_cache:Array=[]
+var _weather:Array=[]
+var _environment_epoch:Variant=null
+var _environment_revision:=-1
+var _world_shadow_height:=0.12
+var _world_shadow_opacity:=0.38
+var _weather_shader_cache:Dictionary={}
+var _light_material:Array=[]
 
 static func _json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
@@ -67,6 +74,8 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 	_fog_opacity = float(options.get("fog_opacity",1.0))
 	if not is_finite(_fog_opacity) or _fog_opacity < 0.0 or _fog_opacity > 1.0: return _fail("Invalid target ground-fog opacity")
 	_reduced_motion = bool(options.get("reduced_motion",false))
+	_world_shadow_height=float(options.get("cloud_shadow_surface_height",0.12))
+	_world_shadow_opacity=clampf(float(options.get("cloud_shadow_opacity",0.38)),0.0,1.0)
 	for entry: Dictionary in asset_manifest.get("atmosphere",{}).get("assets",[]):
 		var asset := _json(str(entry.get("data_path","")))
 		if not asset.is_empty(): _assets[str(entry.file)] = asset
@@ -88,6 +97,17 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 		_textures[name] = ImageTexture.create_from_image(image)
 		_texture_entries[name] = entry
 	if _textures.size() != 2: return _fail("Cloud and fog original DDS mip textures required")
+	var weather_manifest:=_json("res://assets/data/fidelity_fx/weather/manifest.json")
+	for entry:Dictionary in weather_manifest.get("assets",[]):
+		var source:=_json(str(entry.data_path))
+		if str(entry.file)=="stormcloud_sound.nif":source=_render_compiler.bind_sequence(source,_json(str(weather_manifest.stormSequence)))
+		_assets[str(entry.file)]=source
+	for entry:Dictionary in weather_manifest.get("textures",[]):
+		var formats:Dictionary={"FORMAT_DXT1":Image.FORMAT_DXT1,"FORMAT_DXT3":Image.FORMAT_DXT3,"FORMAT_DXT5":Image.FORMAT_DXT5}
+		if not formats.has(str(entry.godotCompressedImageFormat)) or not FileAccess.file_exists(str(entry.compressedMipPath)):return _fail("Original weather DDS mip payload missing")
+		var image:=Image.create_from_data(int(entry.width),int(entry.height),bool(entry.mipmaps),int(formats[str(entry.godotCompressedImageFormat)]),FileAccess.get_file_as_bytes(str(entry.compressedMipPath)))
+		if image==null or image.is_empty():return _fail("Original weather compressed Image rejected")
+		_textures[str(entry.name)]=ImageTexture.create_from_image(image);_texture_entries[str(entry.name)]=entry
 	_container = Node3D.new()
 	_container.name = "OriginalCloudAndFog"
 	parent.add_child(_container)
@@ -110,7 +130,19 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 			if record.is_empty(): return _fail("Unsupported original fog render state")
 			record.material.set_shader_parameter("display_opacity",_fog_opacity)
 			group.append(record)
-		_fog.append({"meshes":group,"placement":placements[i],"phase":Native.f32(i*_fog_duration*Native.FOG_PHASE_SCALE),"stateTime":-INF,"states":[]})
+		_fog.append({"meshes":group,"placement":placements[i],"phase":Native.f32(i*_fog_duration*Native.FOG_PHASE_SCALE),"stateTime":-INF,"states":[],"compiled":_render_compiler.compile_asset(_assets["fx_groundfog01.nif"])})
+	for index in 3:
+		var resource:="stormcloud_sound.nif" if index==0 else "cloud00.nif"
+		if not _assets.has(resource):return _fail("Original world weather source missing: "+resource)
+		var graph:=_render_compiler.compile_asset(_assets[resource])
+		var group:Array=[]
+		for mesh:Dictionary in _render_compiler.render_states(graph):
+			var record:=_create_mesh(mesh,"OriginalWorldWeather_%d_%d"%[index,int(mesh.block)])
+			if record.is_empty():return _fail("Unsupported original world weather render state")
+			record.bakedShadow=str(mesh.texture) in ["cloud_sh.dds","stormshadow.dds"]
+			if record.bakedShadow:record.material.set_shader_parameter("display_opacity",_world_shadow_opacity)
+			group.append(record)
+		_weather.append({"meshes":group,"compiled":graph,"resource":resource,"stateTime":-INF,"states":[]})
 	return {"ok":true,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"liveOriginalRandState":"unresolved; explicit target CRT seed","skyPlacement":"explicit camera-follow target adaptation","fogWorldPlacement":"explicit target adaptation; original placement unrecovered"}
 
 func _fail(reason: String) -> Dictionary:
@@ -139,6 +171,18 @@ func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 	var material := ShaderMaterial.new()
 	material.shader = SHADER
+	# Preserve authored blend/depth gates where Godot exposes them. In particular
+	# flags0 stormshadow is adapted to depth-test at sea height, avoiding an
+	# always-on-top screen darkener. Stencil-disabled draw_mode3 is double-sided.
+	if source.has("depthFlags"):
+		var depth:=int(source.depthFlags)
+		var modes:="unshaded, cull_disabled, blend_mix, depth_draw_never, fog_disabled"
+		if depth&2:modes=modes.replace("depth_draw_never","depth_draw_always")
+		var key:="%d:%d"%[depth,int(source.alphaFlags)]
+		if not _weather_shader_cache.has(key):
+			var shader:=Shader.new();shader.code=SHADER.code.replace("unshaded, cull_disabled, blend_mix, depth_draw_never, fog_disabled",modes)
+			_weather_shader_cache[key]=shader
+		material.shader=_weather_shader_cache[key]
 	material.set_shader_parameter("original_texture",_textures[source.texture])
 	material.set_shader_parameter("original_clamped_texture",_textures[source.texture])
 	material.set_shader_parameter("original_alpha_threshold",float(source.threshold)/255.0 if test_enabled else -1.0)
@@ -155,7 +199,7 @@ func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	_container.add_child(node)
 	var radius := 0.0
 	for point: Vector3 in vertices: radius=maxf(radius,point.length())
-	return {"node":node,"material":material,"block":int(source.block),"radius":radius}
+	return {"node":node,"material":material,"block":int(source.block),"radius":radius,"sourceDepthFlags":int(source.get("depthFlags",1)),"sourceAlphaFlags":int(source.alphaFlags)}
 
 func _seek_cloud(time: float) -> void:
 	if time == _cloud_time: return
@@ -196,17 +240,27 @@ func reset_timeline() -> void:
 
 func _clear_render_cache()->void:
 	for i in _cloud_cache.size():_cloud_cache[i]={}
-	for instance:Dictionary in _fog:instance.stateTime=-INF;instance.states=[]
+	for instance:Dictionary in _fog:
+		instance.stateTime=-INF;instance.states=[];instance.compiled=_render_compiler.compile_asset(_assets["fx_groundfog01.nif"])
+	for instance:Dictionary in _weather:
+		instance.stateTime=-INF;instance.states=[];instance.compiled=_render_compiler.compile_asset(_assets[instance.resource])
 
 func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vector3.ZERO) -> void:
 	if not is_instance_valid(_container) or not is_instance_valid(camera): return
-	var supplied_time: Variant = snapshot.get("time_seconds",snapshot.get("time",0.0))
+	var environment:Dictionary=snapshot.get("environment",{})
+	if environment.is_empty():environment=snapshot.get("native",{}).get("environment",{})
+	var supplied_time: Variant = environment.get("acceptedTime",snapshot.get("time_seconds",snapshot.get("time",0.0)))
 	if not (supplied_time is int or supplied_time is float) or not is_finite(float(supplied_time)): return
 	if float(supplied_time)<_time:_clear_render_cache()
 	_time = maxf(0.0,float(supplied_time))
 	# Preserve accepted time even while the optional target motion preference
 	# holds source animation. Rewinds still remove future presentation state.
-	if not _reduced_motion or _time < _cloud_time: _seek_cloud(_time)
+	if not environment.is_empty() and environment.get("sky",{}).has("ring"):
+		if _environment_epoch!=environment.get("epoch"):_clear_render_cache();_environment_epoch=environment.get("epoch")
+		_environment_revision=int(environment.get("revision",-1))
+		if not _same_ring_layout(_ring,environment.sky.ring):_install_ring_layout(environment.sky.ring)
+		_ring=environment.sky.ring.duplicate(true);_cloud_time=float(environment.sky.appTime)
+	elif not _reduced_motion or _time < _cloud_time: _seek_cloud(_time)
 	_sky_origin = camera.global_position+Vector3(0,_sky_height,0)
 	var native_camera := _camera_basis(camera)
 	var scale_adaptation := _sky_radius/SOURCE_METRES
@@ -239,15 +293,66 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 			var variation := (low_bounds[i]-minimum)/maxf(0.001,maximum-minimum)
 			origin.y = _sky_floor+variation*_sky_variation-low_bounds[i]
 		_update_group(_clouds[i],groups[i],Transform3D(Basis.IDENTITY,origin),scale_adaptation)
-	for instance: Dictionary in _fog:
+	for index in _fog.size():
+		var instance:Dictionary=_fog[index]
 		var source_time:float=_cloud_time+float(instance.phase)
 		if source_time!=float(instance.stateTime):
-			instance.states=_render_compiler.render_states(_compiled["fx_groundfog01.nif"],source_time,{},true)
+			var clocks:Array=environment.get("source",{}).get("fogClocks",[])
+			if index<clocks.size():
+				var restored:Array=[]
+				for original:Dictionary in _render_compiler.controller_snapshot(instance.compiled):restored.append(clocks[index].duplicate(true))
+				_render_compiler.restore_controllers(instance.compiled,restored)
+			instance.states=_render_compiler.render_states(instance.compiled,source_time,{},true,{},false,false,true)
 			instance.stateTime=source_time
 		_update_group(instance.meshes,instance.states,instance.placement,1.0)
+	_apply_weather(environment,native_camera)
+	var light:Array=environment.get("lighting",{}).get("sourceLightFields",{}).get("lightColor",[1.0,1.0,1.0])
+	if light!=_light_material:
+		_light_material=light.duplicate()
+		for group:Array in _clouds:
+			for record:Dictionary in group:record.material.set_shader_parameter("source_environment_color",Vector3(float(light[0]),float(light[1]),float(light[2])))
 	# Focus is accepted for caller's uniform presentation API. It never replaces
 	# explicit authored fog placement or camera-directed source billboards.
 	_container.set_meta("snapshot_focus",focus)
+
+func _same_ring_layout(left:Dictionary,right:Dictionary)->bool:
+	var a:Array=left.get("nodes",[]);var b:Array=right.get("nodes",[])
+	if a.size()!=b.size():return false
+	for index in a.size():
+		if a[index].name!=b[index].name or a[index].prototype!=b[index].prototype:return false
+	return true
+func _install_ring_layout(ring:Dictionary)->void:
+	for group:Array in _clouds:
+		for record:Dictionary in group:record.node.free()
+	_clouds.clear();_cloud_cache.clear();_light_material.clear()
+	for clone:Dictionary in ring.nodes:
+		var group:Array=[]
+		for mesh:Dictionary in Native.original_meshes(_assets[clone.prototype]):group.append(_create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)]))
+		_clouds.append(group);_cloud_cache.append({})
+
+func _apply_weather(environment:Dictionary,camera:Dictionary)->void:
+	var packets:Array=environment.get("worldClouds",[])
+	for index in _weather.size():
+		var instance:Dictionary=_weather[index]
+		if index>=packets.size():
+			for record:Dictionary in instance.meshes:record.node.visible=false
+			continue
+		var packet:Dictionary=packets[index]
+		var time:=float(packet.appTime)
+		if time!=float(instance.stateTime):
+			if packet.has("controllerState"):_render_compiler.restore_controllers(instance.compiled,packet.controllerState)
+			instance.states=_render_compiler.render_states(instance.compiled,time,{},true,camera,false,false,true)
+			instance.stateTime=time
+		var pose:Array=packet.worldPosition
+		var placement:=Transform3D(Basis.IDENTITY,Vector3(float(pose[0]),float(pose[1]),float(pose[2])))
+		_update_group(instance.meshes,instance.states,placement,float(packet.modelScale))
+		for record:Dictionary in instance.meshes:
+			if record.get("bakedShadow",false):
+				# Original hierarchy/XY motion is retained. Receiver sea height is a
+				# target adapter because game-world and source model units differ.
+				var transform:Transform3D=record.node.global_transform
+				transform.origin.y=_world_shadow_height
+				record.node.global_transform=transform
 
 func _update_group(records: Array, meshes: Array, placement: Transform3D, scale_adaptation: float) -> void:
 	for i in mini(records.size(),meshes.size()):
@@ -286,7 +391,12 @@ static func _mesh_count(groups: Array) -> int:
 func diagnostics() -> Dictionary:
 	var fog_phases: Array = []
 	for instance: Dictionary in _fog: fog_phases.append(instance.phase)
-	return {"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"skyBoundsLayer":_sky_bounds_layer,"cloudMinimumHeight":_sky_floor,"skyRadius":_sky_radius,"independentClock":false,"error":_error}
+	var weather_meshes:=0;var shadow_meshes:=0
+	for instance:Dictionary in _weather:
+		weather_meshes+=instance.meshes.size()
+		for record:Dictionary in instance.meshes:
+			if record.get("bakedShadow",false):shadow_meshes+=1
+	return {"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"skyBoundsLayer":_sky_bounds_layer,"cloudMinimumHeight":_sky_floor,"skyRadius":_sky_radius,"independentClock":false,"error":_error,"worldWeatherInstances":_weather.size(),"worldWeatherMeshes":weather_meshes,"bakedCloudShadowMeshes":shadow_meshes,"independentInstanceClocks":true,"environmentEpoch":_environment_epoch,"environmentRevision":_environment_revision,"bakedShadowAdaptation":{"surfaceHeight":_world_shadow_height,"opacity":_world_shadow_opacity,"depthTest":true},"stormAnimationAuthority":"authored KF target binding; target sequence selection; original KFM event selection unrecovered"}
 
 func dispose() -> void:
 	if is_instance_valid(_container):
@@ -294,8 +404,10 @@ func dispose() -> void:
 		_container.free()
 	_container = null
 	_assets.clear(); _textures.clear(); _texture_entries.clear()
-	_compiled.clear();_cloud_cache.clear()
+	_compiled.clear();_cloud_cache.clear();_weather.clear();_weather_shader_cache.clear()
 	_clouds.clear(); _fog.clear(); _ring.clear(); _journal.clear()
 	_time = 0.0; _cloud_time = 0.0; _sky_origin = Vector3.ZERO; _error = ""
 	_fog_opacity = 1.0; _reduced_motion = false
 	_sky_bounds_layer = false; _sky_floor=80.0; _sky_variation=40.0
+	_environment_epoch=null;_environment_revision=-1
+	_light_material.clear()

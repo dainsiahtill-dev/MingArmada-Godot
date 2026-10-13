@@ -5,6 +5,7 @@ const Dynamics = preload("res://modules/physics_engine/ships/ship_dynamics.gd")
 const ManualHandling = preload("res://modules/physics_engine/ships/manual_handling.gd")
 const Waves = preload("res://modules/physics_engine/ocean/wave_field.gd")
 const CoastalWaves = preload("res://modules/physics_engine/ocean/coastal_wave_field.gd")
+const Weather = preload("res://modules/environment_engine/weather_state.gd")
 const STEP := 1.0 / 120.0
 
 var _ship := Dynamics.new()
@@ -18,10 +19,18 @@ var _deployment := 0.75
 var _trim := 0.8
 var _wind := {"direction": {"x": -1.0, "z": 0.3}, "speed": 12.0}
 var _waves: RefCounted
+var _environment: RefCounted
+var _environment_epoch := 0
 
 func configure(height_sampler: Callable, spec: Dictionary = {}) -> bool:
 	var initial := {"kind": "fuchuan", "position": {"x": -220.0, "z": -80.0}, "heading": 0.4, "time": 0.0, "speed": 0.0, "wind": _wind.duplicate(true), "sailAngle": _trim, "sailDeployment": _deployment}
 	initial.merge(spec.duplicate(true), true)
+	if not initial.get("environmentOptions",{}) is Dictionary: return false
+	var next_environment := Weather.new()
+	var weather_options: Dictionary = {"model_scale":10.0}
+	weather_options.merge(initial.get("environmentOptions",{}),true)
+	weather_options.merge({"epoch":_environment_epoch+1,"route":"sailing"},true)
+	if not next_environment.configure(weather_options): return false
 	_waves = CoastalWaves.new()
 	_waves.configure(height_sampler)
 	_configured = _ship.configure(initial, height_sampler, _waves)
@@ -31,6 +40,9 @@ func configure(height_sampler: Callable, spec: Dictionary = {}) -> bool:
 		_trim = float(initial.sailAngle)
 		_wind = initial.wind.duplicate(true)
 		_accumulator = 0.0
+		_environment_epoch += 1
+		_environment = next_environment
+		_advance_environment()
 	return _configured
 
 func sample_water_height(x: float, z: float, seconds: float) -> float:
@@ -70,6 +82,7 @@ func advance(seconds: float) -> float:
 			controls.manualAssist = ManualHandling.build(current.kind, _turn, speed, 1.0, 1.0, 1.0, _deployment <= 0.05, _deployment)
 		_ship.step(STEP, controls)
 		_time += STEP
+		_advance_environment()
 		consumed += STEP
 		_accumulator -= STEP
 	return consumed
@@ -87,4 +100,11 @@ func snapshot() -> Dictionary:
 	ship["maxSail"] = 100.0
 	ship["crew"] = 100
 	ship["maxCrew"] = 100
-	return {"time": _time, "ship": ship, "focus": {"x": ship.position.x, "z": ship.position.z}, "wind": _wind.duplicate(true), "paused": _paused, "assisted": _assisted}
+	var result: Dictionary = {"time": _time, "ship": ship, "focus": {"x": ship.position.x, "z": ship.position.z}, "wind": _wind.duplicate(true), "paused": _paused, "assisted": _assisted}
+	if _environment: result.environment = _environment.snapshot()
+	return result
+
+func _advance_environment() -> void:
+	if not _environment: return
+	var pose: Dictionary = _ship.get_snapshot()
+	_environment.advance(_time,{"epoch":_environment_epoch,"route":"sailing","position":Vector3(pose.position.x,pose.position.y,pose.position.z),"heading":pose.heading},_wind)
