@@ -73,8 +73,18 @@ static func inverse(value: Dictionary) -> Dictionary:
 	return {"rotation":rotation,"scale":scale,"translation":translation}
 
 static func point(world: Dictionary, value: Array) -> Array:
-	var v: Array = transform_vector(world.rotation,value)
-	return [f32(f32(world.scale*v[0])+world.translation[0]),f32(f32(world.scale*v[1])+world.translation[1]),f32(world.scale*v[2]+world.translation[2])]
+	var m: Array = world.rotation
+	if _VECTOR_BINARY32:
+		# Component stores match the original f32 stores. Only x/y scaling has
+		# an intermediate store; z rounds after its final scale-and-add.
+		var v := Vector3(m[0]*value[0]+m[1]*value[1]+m[2]*value[2],m[3]*value[0]+m[4]*value[1]+m[5]*value[2],m[6]*value[0]+m[7]*value[1]+m[8]*value[2])
+		var scaled := Vector2(world.scale*v.x,world.scale*v.y)
+		var result := Vector3(scaled.x+world.translation[0],scaled.y+world.translation[1],world.scale*v.z+world.translation[2])
+		return [result.x,result.y,result.z]
+	var x: float = f32(m[0]*value[0]+m[1]*value[1]+m[2]*value[2])
+	var y: float = f32(m[3]*value[0]+m[4]*value[1]+m[5]*value[2])
+	var z: float = f32(m[6]*value[0]+m[7]*value[1]+m[8]*value[2])
+	return [f32(f32(world.scale*x)+world.translation[0]),f32(f32(world.scale*y)+world.translation[1]),f32(world.scale*z+world.translation[2])]
 
 static func system_world(world: Dictionary, world_space: bool) -> Dictionary:
 	return {"rotation":identity(),"translation":[0.0,0.0,0.0],"scale":world.scale} if world_space else world

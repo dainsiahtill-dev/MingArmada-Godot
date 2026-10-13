@@ -21,6 +21,33 @@ var _splashes: Array = []
 var _seen: Dictionary = {}
 var _surface_filter: Callable
 var _reference_camera: Camera3D
+var _sea_cache: Dictionary = {}
+var _sea_sampling := false
+
+func _sea_callback() -> Callable:
+	# Keep the original no-filter path invalid, including SourceEffect's fast
+	# unfiltered render path. The valid callback identity stays stable.
+	return _sample_sea if _surface_filter.is_valid() else Callable()
+
+func _sample_sea(x: float,z: float) -> bool:
+	if not _surface_filter.is_valid(): return true
+	if not _sea_sampling: return bool(_surface_filter.call(x,z))
+	# Array components retain the original double XZ; no Vector2 conversion,
+	# spatial quantization or tolerance may merge distinct terrain samples.
+	var key := [x,z]
+	if not _sea_cache.has(key): _sea_cache[key] = bool(_surface_filter.call(x,z))
+	return bool(_sea_cache[key])
+
+func _begin_sea_sampling() -> bool:
+	var was_active := _sea_sampling
+	if not was_active:
+		_sea_cache.clear(); _sea_sampling = true
+	return was_active
+
+func _end_sea_sampling(was_active: bool) -> void:
+	if not was_active:
+		_sea_sampling = false; _sea_cache.clear()
+
 func configure_reference_backend(camera: Camera3D) -> void:
 	_reference_camera = camera
 	for splash: Dictionary in _splashes:
@@ -28,8 +55,10 @@ func configure_reference_backend(camera: Camera3D) -> void:
 
 func configure_surface_filter(sea_at: Callable) -> void:
 	_surface_filter = sea_at
+	_sea_cache.clear(); _sea_sampling = false
+	var sampler := _sea_callback()
 	for splash: Dictionary in _splashes:
-		if splash.has("reference"): splash.reference.configure_surface_filter(sea_at)
+		if splash.has("reference"): splash.reference.configure_surface_filter(sampler)
 
 func configure(water_sampler: Callable) -> void:
 	dispose(); _water = water_sampler
@@ -40,8 +69,10 @@ func apply_snapshot(now: float) -> void:
 	if now == _time:
 		# Paused camera changes still reproject source billboards. Their own
 		# accepted-age memo freezes native particles; generic water stays intact.
+		var was_active := _begin_sea_sampling()
 		for splash: Dictionary in _splashes:
 			if splash.has("fidelity"): splash.reference.apply_snapshot(now-float(splash.time),now)
+		_end_sea_sampling(was_active)
 		return
 	_time = now
 	for id in _seen.keys():
@@ -60,7 +91,7 @@ func add_event(event: Dictionary) -> void:
 	size = clampf(size,0.2,2.0)
 	var point: Dictionary = event.get("position",{})
 	var origin := Vector2(float(point.get("x",NAN)),float(point.get("z",NAN)))
-	if not origin.is_finite() or not Volume.sea(_surface_filter,origin): return
+	if not origin.is_finite() or not Volume.sea(_sea_callback(),origin): return
 	var node := Node3D.new(); node.name = "Splash_"+String(event.get("id","")); add_child(node)
 	node.top_level = true # Event coordinates stay world-space under translated parents.
 	node.global_transform = Transform3D.IDENTITY
@@ -98,11 +129,11 @@ func add_event(event: Dictionary) -> void:
 		if is_instance_valid(_reference_camera):
 			var reference := FidelityReference.new(); reference.name = "FidelityReferenceSplash"; node.add_child(reference)
 			var variant := 1+posmod(splash.seed,3)
-			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_surface_filter,"camera":_reference_camera,"clock_mode":"native"}): splash.reference = reference; splash.fidelity = true
+			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_sea_callback(),"camera":_reference_camera,"clock_mode":"native"}): splash.reference = reference; splash.fidelity = true
 			else: reference.free()
 		else:
 			var reference := Reference.new(); reference.name = "ReferenceSplash"; node.add_child(reference)
-			if reference.configure(splash.birth_origin,size,splash.seed,_water,_surface_filter): splash.reference = reference
+			if reference.configure(splash.birth_origin,size,splash.seed,_water,_sea_callback()): splash.reference = reference
 			else: reference.free()
 	if not id.is_empty(): _seen[id] = stamp
 	_splashes.append(splash); _update(splash,age)
@@ -150,6 +181,8 @@ func _spray_mesh() -> ArrayMesh:
 	return mesh
 
 func _update(splash: Dictionary, age: float) -> void:
+	var was_active := _begin_sea_sampling()
+	var surface_filter := _sea_callback()
 	var radius := (0.8+age*2.4)*float(splash.scale)
 	var vertices := PackedVector3Array(); var uvs := PackedVector2Array()
 	var colors := PackedColorArray(); var indices := PackedInt32Array()
@@ -161,7 +194,7 @@ func _update(splash: Dictionary, age: float) -> void:
 			var height := float(_water.call(p.x,p.y,_time))
 			if not is_finite(height): height = 0.0
 			vertices.append(Vector3(p.x,height+0.10,p.y)); uvs.append(uv); colors.append(Color.WHITE)
-			wet.append(Volume.sea(_surface_filter,p))
+			wet.append(Volume.sea(surface_filter,p))
 			if row < GRID and column < GRID:
 				var a := row*(GRID+1)+column; var b := a+GRID+1
 				indices.append_array(PackedInt32Array([a,b,a+1,a+1,b,b+1]))
@@ -180,9 +213,10 @@ func _update(splash: Dictionary, age: float) -> void:
 		splash.column.visible = false; splash.shell.visible = false
 		splash.drops.visible = false; splash.spray.visible = false; splash.mist.visible = false
 		splash.active_drops = 0; splash.droplet_positions = []
-		splash.froth.mesh = Volume.surface_froth(splash.origin,radius*0.75,_time,_water,_surface_filter)
+		splash.froth.mesh = Volume.surface_froth(splash.origin,radius*0.75,_time,_water,surface_filter)
 		splash.froth.visible = splash.froth.mesh != null
 		splash.froth.material_override.set_shader_parameter("opacity",pow(1.0-age/DURATION,1.35)*0.38)
+		_end_sea_sampling(was_active)
 		return
 	var spray_life := clampf(1.0-age/0.9,0.0,1.0)
 	splash.spray.visible = false # Kept as the existing mask fallback; default uses original mist dependency.
@@ -196,11 +230,12 @@ func _update(splash: Dictionary, age: float) -> void:
 	for component: MeshInstance3D in [splash.column,splash.shell]:
 		component.visible = volume_fade > 0.001
 		if component.visible:
-			component.mesh = Volume.build(splash.birth_origin,age,_time,component == splash.shell,_water,_surface_filter,splash.scale)
+			component.mesh = Volume.build(splash.birth_origin,age,_time,component == splash.shell,_water,surface_filter,splash.scale)
 			component.material_override.set_shader_parameter("opacity",volume_fade*(0.55 if component == splash.shell else 0.72))
-	var cloud := Volume.update_droplets(splash.drops.multimesh,splash.birth_origin,age,splash.seed,_time,_water,_surface_filter,splash.scale)
+	var cloud := Volume.update_droplets(splash.drops.multimesh,splash.birth_origin,age,splash.seed,_time,_water,surface_filter,splash.scale)
 	splash.active_drops = cloud.active; splash.droplet_positions = cloud.positions
 	if splash.has("reference"): splash.reference.apply_snapshot(age,_time)
+	_end_sea_sampling(was_active)
 
 func diagnostics() -> Dictionary:
 	var drops := 0
@@ -213,6 +248,7 @@ func diagnostics() -> Dictionary:
 	return {"splashes":_splashes.size(),"accepted_time":_time,"droplets":drops,"droplet_capacity":_splashes.size()*Volume.DROPLETS,"droplet_positions":positions,"fidelity_sources":sources}
 
 func _clear() -> void:
+	_sea_cache.clear(); _sea_sampling = false
 	for splash: Dictionary in _splashes: splash.node.free()
 	_splashes.clear()
 	_seen.clear()

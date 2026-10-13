@@ -83,6 +83,7 @@ var _waves: RefCounted
 var _filter_mode := 0
 var _stable_carriers := 0
 var _topology_changes := 0
+var _headless_backend := false
 
 func check(ok: bool,detail: String) -> bool:
 	assertions += 1
@@ -150,7 +151,10 @@ func _compare(actual: Node3D,legacy: Node3D,label: String,previous: Dictionary =
 		if old.layout == current.layout:
 			if require_reuse:
 				_stable_carriers += 1
-				check(current.node_id == old.node_id and current.mesh_id == old.mesh_id and current.rid == old.rid,"stable-layout/index carrier retains its mesh instance and RID: "+label)
+				if _headless_backend:
+					check(current.node_id == old.node_id and current.mesh_id != old.mesh_id and current.rid != old.rid,"headless dummy fallback retains its carrier and rebuilds actual readable mesh resources: "+label)
+				else:
+					check(current.node_id == old.node_id and current.mesh_id == old.mesh_id and current.rid == old.rid,"native stable-layout/index carrier retains its mesh instance and RID: "+label)
 		else: _topology_changes += 1 # Rebuild is legal; complete legacy payload still required.
 	return a
 
@@ -213,14 +217,15 @@ func _case(fixture: Dictionary) -> void:
 	actual.dispose(); legacy.dispose(); actual.free(); legacy.free()
 
 func _run() -> void:
+	_headless_backend = DisplayServer.get_name() == "headless"
 	_waves = Waves.new()
 	if not check(_waves.configure(_height),"actual CoastalWaveField configures with its original descriptors"):
 		print("FIDELITY_FX_MESH_REUSE_TESTS assertions=",assertions," failures=",failures); quit(1); return
 	_camera = Camera3D.new(); root.add_child(_camera)
 	for fixture: Dictionary in CASES: _case(fixture)
-	check(_stable_carriers > 0,"real changing source frames exercise stable-layout/index mesh reuse")
+	check(_stable_carriers > 0,"real changing source frames exercise the backend's stable-layout/index resource contract")
 	check(_topology_changes > 0,"real sea filtering exercises changed authored triangle topology")
 	_camera.free()
-	print("FIDELITY_FX_MESH_REUSE_SCOPE stable_carriers=",_stable_carriers," topology_changes=",_topology_changes," legacy_render_sha256=68db4b2380eeeec68e99a6f47286f688a66b7b5f72fb105111f542e6e2a3a185")
+	print("FIDELITY_FX_MESH_REUSE_SCOPE backend=",DisplayServer.get_name()," rendering_method=",RenderingServer.get_current_rendering_method()," nativeReuse=",not _headless_backend," headlessFallback=",_headless_backend," stable_carriers=",_stable_carriers," topology_changes=",_topology_changes," legacy_render_sha256=68db4b2380eeeec68e99a6f47286f688a66b7b5f72fb105111f542e6e2a3a185")
 	print("FIDELITY_FX_MESH_REUSE_TESTS assertions=",assertions," failures=",failures)
 	quit(1 if failures else 0)

@@ -8,10 +8,14 @@ const AddShader = preload("res://modules/scene_engine/fidelity_fx/particle_add.g
 const METRES_PER_UNIT := 0.01
 static var _manifest: Dictionary = {}
 static var _assets: Dictionary = {}
+# Validated owned source data only; spawned lifecycles retain independent state.
+static var _prepared_sources: Dictionary = {}
 static var _textures: Dictionary = {}
 var _replay: RefCounted
 var _geometry: Dictionary = {}
 var _surface_layouts: Dictionary = {}
+# The dummy backend deliberately ignores region writes; retain real arrays there.
+var _region_updates := DisplayServer.get_name() != "headless"
 var _materials: Dictionary = {}
 var _origin := Vector3.ZERO
 var _orientation := Basis.IDENTITY
@@ -98,8 +102,21 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	var direction: Vector3 = options.get("direction",Vector3.FORWARD)
 	direction.y = 0.0
 	if direction.is_finite() and direction.length_squared() > 0.000001: _orientation = Basis.looking_at(direction.normalized(),Vector3.UP)
-	_replay = script.new()
-	if not _replay.configure(asset,_seed): _replay = null; return false
+	if _clock_mode == "native":
+		var prepared: RefCounted = _prepared_sources.get(source)
+		if prepared == null:
+			prepared = script.new()
+			if not prepared.configure(asset,1,false):
+				_last_error = prepared.get_last_error()
+				return false
+			_prepared_sources[source] = prepared
+		_replay = prepared.spawn_native(_seed)
+		if _replay == null:
+			_last_error = prepared.get_last_error()
+			return false
+	else:
+		_replay = script.new()
+		if not _replay.configure(asset,_seed): _replay = null; return false
 	if _clock_mode == "native":
 		# The original first update records visibility without emitting. Anchor
 		# it once at birth so the first accepted display may already be late.
@@ -171,7 +188,7 @@ func apply_snapshot(age: float, absolute_time: float = -1.0) -> bool:
 		return false
 	var mesh_key := {"age":age,"camera":camera_key,"replay_id":replay_id}
 	if mesh_key != _mesh_key:
-		_display_meshes = _replay.meshes(_camera_native())
+		_display_meshes = _replay.display_meshes(_camera_native()) if _clock_mode == "native" else _replay.meshes(_camera_native())
 		_mesh_key = mesh_key
 	# Absolute water time/filter or parent transform can require new placement
 	# without advancing particles or regenerating camera-independent native data.
@@ -273,7 +290,7 @@ func _update_surface(key: String, arrays: Array) -> void:
 	var colors: PackedColorArray = arrays[Mesh.ARRAY_COLOR]
 	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
 	var layout: Dictionary = _surface_layouts.get(key,{})
-	var reuse: bool = (mesh != null and not layout.is_empty() and bool(layout.supported)
+	var reuse: bool = (_region_updates and mesh != null and not layout.is_empty() and bool(layout.supported)
 		and int(layout.mesh_id) == mesh.get_instance_id() and int(layout.vertex_count) == vertices.size()
 		and uv.size() == vertices.size() and colors.size() == vertices.size() and layout.indices == indices)
 	if reuse:
@@ -293,6 +310,9 @@ func _render(meshes: Array) -> void:
 	_rendered = 0; _triangles = 0
 	_game_flash = 0; _draw_order.clear()
 	var used: Dictionary = {}
+	# Ground classification is read-only during this synchronous render. Reuse
+	# exact world XZ results across triangles/records, never across snapshots.
+	var sea_points: Dictionary = {}
 	var ordered: Array = []
 	var records := meshes.duplicate()
 	if not _expired and _render_profile == "game_cannon": records.append_array(_game_flash_meshes())
@@ -331,7 +351,9 @@ func _render(meshes: Array) -> void:
 			if _source.begins_with("cannon_ball") and _sea.is_valid():
 				for index in triangle:
 					var point: Vector3 = points[int(index)]
-					if not bool(_sea.call(point.x,point.z)): wet = false
+					var xz := Vector2(point.x,point.z)
+					if not sea_points.has(xz): sea_points[xz] = bool(_sea.call(point.x,point.z))
+					if not sea_points[xz]: wet = false
 			if not wet: continue
 			indices.append_array(PackedInt32Array([int(triangle[0]),int(triangle[1]),int(triangle[2])]))
 			_triangles += 1
@@ -387,7 +409,7 @@ func _game_flash_meshes() -> Array:
 
 func diagnostics() -> Dictionary:
 	var state: Dictionary = _replay.diagnostics() if _replay != null else {}
-	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"render_profile":_render_profile,"clock_mode":_clock_mode,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
+	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"mesh_resource_reuse":_region_updates,"mesh_update_scope":"stable layout/index region writes with exact per-instance bounds" if _region_updates else "headless dummy region writes are no-ops; rebuild actual ArrayMesh arrays","render_profile":_render_profile,"clock_mode":_clock_mode,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
 	return state
 
 func dispose() -> void:

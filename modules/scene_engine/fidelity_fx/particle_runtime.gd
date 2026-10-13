@@ -1,6 +1,6 @@
 extends RefCounted
-## Source-bound replay facade. Product seek uses explicit 120Hz observer, not game fps.
-## advance_native exposes original variable-dt operations for controlled experiments.
+## Source-bound replay facade. Public configure/seek retain the 120Hz observer.
+## Game presentation explicitly selects original variable-dt native playback.
 const Math = preload("res://modules/scene_engine/fidelity_fx/native_particle_math.gd")
 const Replay = preload("res://modules/scene_engine/fidelity_fx/native_particle_replay.gd")
 const FREQUENCY := 120
@@ -201,7 +201,7 @@ static func _chain_blocks(block: Dictionary, index: Dictionary) -> Array:
 		ref = controller.fields.get("next_controller")
 	return out
 
-func configure(asset: Dictionary, seed: int = 1) -> bool:
+func configure(asset: Dictionary, seed: int = 1, initialize_observer: bool = true) -> bool:
 	if seed < 0 or seed > 0xffffffff: return _fail("Explicit uint32 original CRT state required")
 	var source: Dictionary = asset.duplicate(true)
 	var index := {}
@@ -218,15 +218,40 @@ func configure(asset: Dictionary, seed: int = 1) -> bool:
 	_grid_advances = 0
 	_rebuilds = 0
 	_last_error = ""
-	reset()
+	if initialize_observer:
+		reset()
+	else:
+		# Owned, validated blueprint only: no unused observer pool or birth update.
+		_canonical = null; _native = null; _replay = null
+		_tick = 0; _time_input.clear()
 	return true
 
-func reset() -> void:
-	if _asset.is_empty(): return
+func spawn_native(seed: int) -> RefCounted:
+	if _asset.is_empty():
+		_fail("Validated prepared source required")
+		return null
+	if seed < 0 or seed > 0xffffffff:
+		_fail("Explicit uint32 original CRT state required")
+		return null
+	var child: RefCounted = get_script().new()
+	# The blueprint is shared read-only; every mutable replay/RNG/pool/controller
+	# belongs to this child. Its owner performs the sole first appTime update.
+	child._asset = _asset; child._blocks = _blocks
+	child._seed = seed; child._max_time = _max_time
+	child._native = Replay.new(_asset,seed,_blocks)
+	child._replay = child._native
+	_last_error = ""
+	return child
+
+func _initialize_canonical() -> void:
 	_canonical = Replay.new(_asset,_seed,_blocks)
 	_canonical.advance(0.0)
 	_tick = 0
 	_rebuilds += 1
+
+func reset() -> void:
+	if _asset.is_empty(): return
+	_initialize_canonical()
 	_replay = _canonical.fork()
 	_native = null
 	_time_input = {"kind":"canonical float32 120Hz grid plus at most one display endpoint","frequency":FREQUENCY,"gridTick":0,"lastGridTime":0.0,"endpointTime":null,"endpointDeltaSeconds":0.0,"canonicalGridAdvances":_grid_advances,"rebuilds":_rebuilds}
@@ -235,6 +260,9 @@ func seek(input: float, include_snapshot: bool = true) -> Array:
 	if _asset.is_empty() or not is_finite(input) or input < 0.0 or not is_finite(Math.f32(input)) or Math.f32(input) > _max_time:
 		_last_error = "Observer seek must be finite and within explicit source clip"
 		return []
+	# A native-only owner may later use the public observer API. Initialize its
+	# canonical state without clearing the independent retained native history.
+	if _canonical == null: _initialize_canonical()
 	var target: float = Math.f32(input)
 	var tick: int = int(floor(target*FREQUENCY))
 	while Math.f32((tick+1)/float(FREQUENCY)) <= target: tick += 1
@@ -283,7 +311,13 @@ func authored_meshes(time: float) -> Array:
 	return _replay.authored_meshes(Math.f32(time)).duplicate(true)
 
 func meshes(camera: Dictionary) -> Array:
-	if _replay == null: return []
+	# Public callers own every nested authored field as before.
+	return display_meshes(camera).duplicate(true)
+
+func display_meshes(camera: Dictionary) -> Array:
+	# Fresh replay records, borrowed read-only: authored index/material fields may
+	# reference the immutable blueprint. Only the presentation renderer uses this.
+	if _replay == null or _replay.time == null: return []
 	for basis in ["right","up","direction"]:
 		if not camera.get(basis) is Array or camera[basis].size() != 3:
 			_last_error = "Explicit native camera direction/up/right arrays required"
@@ -292,7 +326,7 @@ func meshes(camera: Dictionary) -> Array:
 			if not _number(component):
 				_last_error = "Finite native camera basis required"
 				return []
-	return _replay.meshes(camera).duplicate(true)
+	return _replay.meshes(camera)
 
 func diagnostics() -> Dictionary:
 	var layers := []
