@@ -19,8 +19,10 @@ var _trails: Dictionary = {}
 var _materials: Array[ShaderMaterial] = []
 var _wave_material: ShaderMaterial
 var _surface_filter: Callable
+var _sampling_scope_factory: Callable
 
 func configure_surface_filter(sea_at: Callable) -> void: _surface_filter = sea_at
+func configure_sampling_scope(factory: Callable) -> void: _sampling_scope_factory = factory
 
 func configure(water_sampler: Callable) -> void:
 	dispose(); _water = water_sampler
@@ -42,6 +44,10 @@ func apply_snapshot(native: Dictionary) -> void:
 	if _time >= 0.0 and now < _time:
 		_clear_trails(); _poses.clear(); _time = -1.0
 	if now == _time: return
+	var sampling_scope: RefCounted
+	if _sampling_scope_factory.is_valid():
+		var supplied: Variant = _sampling_scope_factory.call()
+		if supplied is RefCounted and supplied.has_method("finish"): sampling_scope = supplied
 	var advancing := now > _time and _time >= 0.0
 	var live: Dictionary = {}
 	for ship: Dictionary in native.get("ships", []):
@@ -94,7 +100,9 @@ func apply_snapshot(native: Dictionary) -> void:
 		if now > _time: _poses[id] = pose
 	for id: String in _poses.keys():
 		if not live.has(id): _poses.erase(id); _release(id)
-	if now == _time: return
+	if now == _time:
+		if sampling_scope != null: sampling_scope.call("finish")
+		return
 	_time = now
 	for id: String in _trails.keys():
 		var trail: Dictionary = _trails[id]; var samples: Array = trail.samples
@@ -114,6 +122,7 @@ func apply_snapshot(native: Dictionary) -> void:
 			if wave.visible:
 				wave.mesh = ShipWave.build(attachment,part,_time,_water,_surface_filter)
 				wave.visible = wave.mesh != null
+	if sampling_scope != null: sampling_scope.call("finish")
 
 func _rebuild(trail: Dictionary) -> void:
 	var samples: Array = trail.samples
@@ -191,6 +200,6 @@ func diagnostics() -> Dictionary:
 	return {"trails":_trails.size(),"samples":samples,"accepted_time":_time,"attached_waves":waves,"wave_budget":MAX_TRAILS*3}
 
 func dispose() -> void:
-	_clear_trails(); _poses.clear(); _materials.clear(); _wave_material = null; _water = Callable(); _surface_filter = Callable(); _time = -1.0
+	_clear_trails(); _poses.clear(); _materials.clear(); _wave_material = null; _water = Callable(); _surface_filter = Callable(); _sampling_scope_factory = Callable(); _time = -1.0
 
 func _exit_tree() -> void: dispose()

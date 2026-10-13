@@ -9,7 +9,14 @@ const TAIL_STEP := 0.05
 class TracedPractice:
 	extends "res://game/scenes/naval_practice/naval_practice.gd"
 	var present_calls := 0
+	var local_fire_calls := 0
 	var presented_event_ids: Array[String] = []
+	func _present_local_fire(consumed: float) -> void:
+		local_fire_calls += 1
+		if runtime.simulation:
+			for event: Dictionary in runtime.simulation.get("_events"):
+				presented_event_ids.append(str(event.get("id", "")))
+		super._present_local_fire(consumed)
 	func _present(consumed: float) -> void:
 		present_calls += 1
 		# Observe without draining. The real inherited presentation owns the buffer.
@@ -24,6 +31,8 @@ class ConsumedSeaTrace:
 	var accepted_deltas: Array[float] = []
 	func cancel_camera_drag() -> void: actual.cancel_camera_drag()
 	func camera_status() -> Dictionary: return actual.camera_status()
+	func apply_local_fire(native: Dictionary, events: Array = [], consumed: float = 0.0) -> Array:
+		return actual.apply_local_fire(native, events, consumed)
 	func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.0) -> Array:
 		# Only trace the delta crossing the scene/real-Sea boundary. The actual
 		# source ships, crew, effects and world still execute their original code.
@@ -141,7 +150,7 @@ func _run() -> void:
 	for unused in 4: scene.call("_physics_process", STEP)
 	var fired: Dictionary = runtime.snapshot().naval
 	check(_ship(fired, fired.playerId).ammo.solid < ammo_before and not fired.projectiles.is_empty(), "actual Practice fire consumes ammo and creates authoritative projectiles")
-	check(scene.get("present_calls") == calls_before + 1 and runtime.simulation.get("_events").is_empty(), "fresh fire gets one immediate event flush followed by ordinary render-only physics")
+	check(scene.get("present_calls") == calls_before and scene.get("local_fire_calls") == 1 and runtime.simulation.get("_events").is_empty(), "fresh fire gets one immediate local birth without another full scene presentation")
 	var fire_ids: Array[String] = []
 	for event_id: String in player.get("_seen_events"):
 		if event_id != "practice-schedule-recoil-only" and sea.get("effects").get("_seen").has(event_id): fire_ids.append(event_id)

@@ -7,7 +7,13 @@ const STEP := 1.0 / 60.0
 class TracedMingqi:
 	extends "res://game/scenes/mingqi/mingqi_scene.gd"
 	var present_calls := 0
+	var local_fire_calls := 0
 	var presented_event_ids: Array[String] = []
+	func _present_local_fire(consumed: float) -> void:
+		local_fire_calls += 1
+		for event: Dictionary in runtime._events:
+			presented_event_ids.append(str(event.get("id", "")))
+		super._present_local_fire(consumed)
 	func _present(consumed: float) -> void:
 		present_calls += 1
 		# Observe without draining: the production presentation owns that operation.
@@ -142,17 +148,16 @@ func _run() -> void:
 		calls_before = scene.present_calls
 		for unused in 8:
 			scene._physics_process(STEP)
-		# Fresh shots/hits intentionally retain immediate snapshot + event
-		# transfer, so crew birth pose, retirement and cannon loading stay exact.
-		# The normal eight-tick cadence above is still render-only presentation.
+		# Fire uses local actor/event transfer. Damage still has its separate
+		# immediate path; the normal frame owns the full scene presentation.
 		var fire_ids: Array[String] = []
 		for id in player._seen_events:
 			if id != "schedule-recoil-only" and scene.effects._seen.has(id):
 				fire_ids.append(str(id))
 		check(not fire_ids.is_empty(), "actual accepted player fire reaches the immediate event presentation")
-		check(scene.present_calls == calls_before + 1 and scene.runtime._events.is_empty(), "one fresh fire physics callback flushes events immediately without eight full presentations")
+		check(scene.present_calls == calls_before and scene.local_fire_calls == 1 and scene.runtime._events.is_empty(), "one fresh fire physics callback creates its local birth without a full scene presentation")
 		scene.call("_process", STEP)
-		check(scene.present_calls == calls_before + 2 and scene.runtime._events.is_empty(), "following render updates the latest state without replaying immediate events")
+		check(scene.present_calls == calls_before + 1 and scene.runtime._events.is_empty(), "following render presents the full scene once without replaying local birth events")
 		for id in fire_ids:
 			check(scene.presented_event_ids.count(id) == 1 and scene.effects._seen.has(id), "buffered fire reaches actual combat presentation exactly once: " + id)
 		var effects_before: Dictionary = scene.effects.diagnostics()

@@ -6,6 +6,29 @@ extends RefCounted
 const ReferenceProfile = preload("res://modules/scene_engine/terrain/reference_island_profile.gd")
 const NaturalField = preload("res://modules/scene_engine/terrain/natural_island_field.gd")
 const ShoalField = preload("res://modules/scene_engine/terrain/shoal_field.gd")
+# One maximum Wake presentation: 32 trails * (64 ribbon rows * 5 columns
+# plus three attached waves of 15 rows * 5 columns). Extra points remain exact
+# uncached queries rather than growing a scope beyond its presentation budget.
+const SAMPLING_SCOPE_CAPACITY := 17440
+
+class SamplingScope:
+	extends RefCounted
+	var _provider: RefCounted
+	var _token: int
+	var _revision: int
+	func _init(provider: RefCounted, token: int, revision: int) -> void:
+		_provider = provider; _token = token; _revision = revision
+	func finish() -> void:
+		if _provider == null: return
+		_provider.call("_finish_sampling_scope",_token,_revision)
+		_provider = null
+	func _notification(what: int) -> void:
+		# Godot has already invalidated this guard's instance during PREDELETE;
+		# dispatch directly to the still-retained provider, not through self.
+		if what == NOTIFICATION_PREDELETE and _provider != null:
+			_provider.call("_finish_sampling_scope",_token,_revision)
+			_provider = null
+
 var _ports: Array = []
 var _reference_profiles: Array = []
 var _natural_fields: Array = []
@@ -15,8 +38,13 @@ var _home_z := 0.0
 var _length := 0.0
 var _ux := 0.0
 var _uz := 0.0
+var _sampling_revision := 0
+var _sampling_next_token := 0
+var _sampling_scopes: Array[Dictionary] = []
 
 func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Dictionary = {}) -> bool:
+	_sampling_revision += 1
+	_sampling_scopes.clear()
 	if options.has("natural_islands") and not options.natural_islands is bool: return false
 	if options.get("natural_islands",false) and options.get("reference_islands",false): return false
 	var radius_scale: Variant=options.get("natural_radius_scale",0.8)
@@ -96,6 +124,36 @@ func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Di
 func sample_height(x: float, z: float) -> float:
 	if not is_finite(x) or not is_finite(z):
 		return NAN
+	if _sampling_scopes.is_empty(): return _sample_height_uncached(x,z)
+	var scope: Dictionary = _sampling_scopes.back()
+	var heights: Dictionary = scope.heights
+	if heights.has(x):
+		var existing: Dictionary = heights[x]
+		if existing.has(z): return float(existing[z])
+	var result := _sample_height_uncached(x,z)
+	if int(scope.entries) < SAMPLING_SCOPE_CAPACITY:
+		if not heights.has(x): heights[x] = {}
+		var row: Dictionary = heights[x]
+		row[z] = result
+		scope.entries = int(scope.entries)+1
+	return result
+
+func begin_sampling_scope() -> RefCounted:
+	_sampling_next_token += 1
+	_sampling_scopes.append({"token":_sampling_next_token,"heights":{},"entries":0})
+	# The provider retains only token/cache data, never the guard. Returning or
+	# explicitly finishing the guard can therefore release this cache without
+	# a RefCounted ownership cycle.
+	return SamplingScope.new(self,_sampling_next_token,_sampling_revision)
+
+func _finish_sampling_scope(token: int, revision: int) -> void:
+	if revision != _sampling_revision: return
+	for index in _sampling_scopes.size():
+		if int(_sampling_scopes[index].token) == token:
+			_sampling_scopes.remove_at(index)
+			return
+
+func _sample_height_uncached(x: float, z: float) -> float:
 	var height := -24.0
 	if not _natural_fields.is_empty():
 		for island: Dictionary in _natural_fields: height=maxf(height,island.field.sample_triangle_height(x,z))

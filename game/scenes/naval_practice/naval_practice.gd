@@ -52,6 +52,7 @@ func _command(intent: Dictionary) -> void:
 		_:
 			var receipt: Dictionary=runtime.command(intent)
 			if not receipt.ok: runtime._notice=receipt.get("reason","command-rejected")
+			elif intent.get("type") == "fire": return
 	_present(0)
 func _physics_process(delta: float) -> void:
 	if not interface or _disposed: return
@@ -66,7 +67,13 @@ func _physics_process(delta: float) -> void:
 	var visual: Dictionary = _terminal_presentation.snapshot(native) if _terminal_presentation.is_anchored() else native
 	# Source birth history and Jolt remain on the accepted physics cadence.
 	sea.remember_authoritative_poses(visual,consumed+tail)
-	if not was_anchored and _terminal_presentation.is_anchored() or runtime.requires_immediate_actor_presentation(): _present(0.0)
+	if not was_anchored and _terminal_presentation.is_anchored(): _present(0.0)
+	elif runtime.requires_immediate_actor_presentation():
+		# Crew losses require their original whole-fleet pose/skin transfer.
+		# Fire keeps its accepted birth and native FX cadence without redrawing
+		# camera, unrelated actors, water, world, HUD or chart on each gun.
+		if Sea.requires_full_event_presentation(runtime.simulation._events): _present(0.0)
+		else: _present_local_fire(0.0)
 func _process(_delta: float) -> void:
 	if interface and not _disposed: _present(0.0)
 func _sync_presentation_epoch(native: Dictionary) -> void:
@@ -74,6 +81,14 @@ func _sync_presentation_epoch(native: Dictionary) -> void:
 	if epoch == _presentation_epoch: return
 	_presentation_epoch = epoch; _pending_presentation_seconds = 0.0
 	_terminal_presentation.reset()
+func _present_local_fire(consumed: float) -> void:
+	if not interface or _disposed or not runtime.simulation: return
+	var native: Dictionary=runtime.simulation.snapshot()
+	_sync_presentation_epoch(native)
+	consumed += _pending_presentation_seconds
+	var visual:Dictionary=_terminal_presentation.snapshot(native)
+	var events: Array=sea.apply_local_fire(visual,runtime.drain_events(),consumed)
+	services.present(visual,events,consumed,runtime.is_paused())
 func _present(consumed: float) -> void:
 	var packet: Dictionary=runtime.snapshot()
 	if not interface or packet.is_empty(): return

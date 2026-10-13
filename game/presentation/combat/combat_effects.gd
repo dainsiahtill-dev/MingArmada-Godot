@@ -26,7 +26,7 @@ func set_water_sampler(sampler: Callable) -> void:
 		_source_prewarm = SourceEffect.prewarm_game_sources()
 		if not bool(_source_prewarm.get("ok",false)):
 			push_error("Source effects prewarm failed: "+str(_source_prewarm.get("errors",[])))
-	if _water_splashes: _water_splashes.free()
+	if _water_splashes: _water_splashes.dispose(); _water_splashes.free()
 	_water_splashes = Splashes.new(); _water_splashes.name = "WaterSplashes"
 	add_child(_water_splashes); _water_splashes.configure(sampler)
 	if is_instance_valid(_camera): _water_splashes.configure_reference_backend(_camera)
@@ -150,7 +150,7 @@ func apply_events(events: Array) -> void:
 				if _time-born < 3.333334:
 					var source := SourceEffect.new(); source.name = "CannonSource_"+String(event.id)
 					add_child(source)
-					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera,"render_profile":"game_cannon","clock_mode":"native"}):
+					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera,"render_profile":"game_cannon","clock_mode":"native","render_unit":"system"}):
 						_source_fire.append({"node":source,"time":born,"duration":source.get_playback_duration()}); source.apply_snapshot(_time-born,_time)
 					else: source.free()
 			"hit":
@@ -191,7 +191,7 @@ func _clear_transients() -> void:
 
 func dispose() -> void:
 	_clear_transients()
-	if _water_splashes: _water_splashes.free(); _water_splashes = null
+	if _water_splashes: _water_splashes.dispose(); _water_splashes.free(); _water_splashes = null
 	_time = 0.0
 	_surface_filter = Callable()
 	_camera = null

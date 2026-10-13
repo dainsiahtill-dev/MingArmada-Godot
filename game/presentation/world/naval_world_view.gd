@@ -38,6 +38,7 @@ var _last_tactical := false
 var _battle_id := ""
 var _snapshot: Dictionary = {}
 var _pending_crew_entries: Dictionary = {}
+var _local_presentation_seconds: Dictionary = {}
 var _disposed := true
 var _camera_controller: Callable
 var _camera_rig := CameraRig.new()
@@ -111,8 +112,7 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
 	effects.set_camera(camera)
 	effects.set_surface_filter(_surface_is_water)
-	wakes = Wakes.new(); _own(wakes); wakes.configure(_water)
-	wakes.configure_surface_filter(_surface_is_water)
+	wakes = Wakes.new(); _own(wakes); _configure_wakes()
 	apply_snapshot(native, [], 0.0)
 	for ship: Dictionary in native.get("ships", []):
 		if not ships.has(str(ship.id)) or not sailors.has(str(ship.id)):
@@ -185,15 +185,22 @@ func remember_authoritative_poses(native:Dictionary,consumed:float=0.0)->void:
 
 func _reset_fleet() -> void:
 	_pending_crew_entries.clear()
+	_local_presentation_seconds.clear()
 	for id: String in ships.keys(): _release_ship(id)
 	if effects:
-		_owned.erase(effects); effects.free()
+		_owned.erase(effects); effects.dispose(); effects.free()
 		effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
 		effects.set_camera(camera)
 		effects.set_surface_filter(_surface_is_water)
 	if wakes:
-		wakes.configure(_water)
-		wakes.configure_surface_filter(_surface_is_water)
+		_configure_wakes()
+
+func _configure_wakes() -> void:
+	wakes.configure(_water)
+	wakes.configure_surface_filter(_surface_is_water)
+	var provider: Object = _height.get_object()
+	if is_instance_valid(provider) and provider.has_method("begin_sampling_scope"):
+		wakes.configure_sampling_scope(Callable(provider,"begin_sampling_scope"))
 
 func _surface_is_water(x: float, z: float) -> bool:
 	if not _height.is_valid(): return false
@@ -224,15 +231,87 @@ func _flush_crew_water_entries() -> void:
 
 func _release_ship(id: String) -> void:
 	_kinds.erase(id)
+	_local_presentation_seconds.erase(id)
 	if sailors.has(id):
 		sailors[id].dispose(); sailors.erase(id)
 	if ships.has(id):
 		var view: Node3D = ships[id]
 		view.dispose(); view.free(); ships.erase(id)
 
+static func requires_full_event_presentation(events: Array) -> bool:
+	for event: Dictionary in events:
+		if event.get("type") == "hit" and float(event.get("damage",{}).get("crew",0.0)) > 0.0: return true
+	return false
+
+func _prepare_ship(ship: Dictionary) -> Node3D:
+	var id: String = ship.id
+	if ships.has(id) and _kinds.get(id) != String(ship.kind): _release_ship(id)
+	if ships.has(id): return ships[id]
+	var view := Ship.new(); add_child(view)
+	if not view.configure(String(ship.kind),library): view.free(); return null
+	ships[id] = view
+	view.presentation_event.connect(_on_ship_presentation)
+	_kinds[id] = String(ship.kind)
+	view.set_reduced_motion(bool(_settings.reducedMotion))
+	var crew := Crew.new(); view.add_child(crew)
+	if not crew.configure(String(ship.kind),view.get_model(),library):
+		crew.free(); _release_ship(id); return null
+	crew.set_environment(_water); crew.set_reduced_motion(bool(_settings.reducedMotion))
+	crew.get_impact_pool().visual_event.connect(_on_crew_water_entry)
+	sailors[id] = crew
+	return view
+
+func _source_fire_events(events: Array) -> Array:
+	var result: Array = effects.presentation_events(events)
+	for event: Dictionary in result:
+		if event.get("type") == "fire" and not event.has("source_muzzle_position") and ships.has(str(event.get("shipId",""))):
+			var source_point: Variant = ships[str(event.shipId)].source_fire_position(event)
+			if source_point is Vector3: event.source_muzzle_position={"x":source_point.x,"y":source_point.y,"z":source_point.z}
+	return result
+
+func apply_local_fire(native: Dictionary, events: Array, consumed: float = 0.0) -> Array:
+	if _disposed: return []
+	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)):
+		_pending_crew_entries.clear(); _local_presentation_seconds.clear()
+	var next_battle := String(native.get("battleId", ""))
+	if next_battle != _battle_id:
+		_local_presentation_seconds.clear()
+		if not _battle_id.is_empty(): _reset_fleet()
+	_battle_id = next_battle
+	_snapshot = native.duplicate(true)
+	# Keep exactly the accepted times formerly submitted by immediate fire
+	# _present. Existing source controllers still advance before new births.
+	effects.begin_snapshot(native,consumed)
+	var firing: Dictionary = {}
+	for event: Dictionary in events:
+		if event.get("type") != "fire": continue
+		var id := String(event.get("shipId",""))
+		if firing.has(id): continue
+		var ship := find_ship(native,id)
+		if ship.is_empty(): continue
+		var view := _prepare_ship(ship)
+		if view == null: continue
+		var timed := ship.duplicate(true); timed.time = native.get("time",0.0)
+		var actor_seconds := maxf(0.0,consumed-float(_local_presentation_seconds.get(id,0.0)))
+		view.apply_snapshot(timed,native.get("wind",{}),actor_seconds)
+		var crew: Node3D = sailors[id]; crew.set_ship_model(view.get_model())
+		crew.apply_snapshot(timed,native.get("wind",{}),actor_seconds)
+		_local_presentation_seconds[id] = consumed
+		firing[id] = true
+	effects.finish_snapshot()
+	var presented_events := _source_fire_events(events)
+	for id: String in firing: ships[id].apply_events(presented_events)
+	# Preserve ordered fire velocity caches and reload/reconcile semantics for
+	# every crew owner; only the firing crews received a snapshot above.
+	for crew: Node3D in sailors.values(): crew.apply_events(presented_events)
+	effects.apply_events(presented_events)
+	_flush_crew_water_entries()
+	return presented_events
+
 func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.0) -> Array:
 	if _disposed: return []
-	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)): _pending_crew_entries.clear()
+	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)):
+		_pending_crew_entries.clear(); _local_presentation_seconds.clear()
 	var next_battle := String(native.get("battleId", ""))
 	if next_battle != _battle_id and not _battle_id.is_empty(): _reset_fleet()
 	_battle_id = next_battle
@@ -252,41 +331,26 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	var live: Dictionary = {}
 	for ship: Dictionary in native.get("ships", []):
 		var id: String = ship.id; live[id] = true
-		if ships.has(id) and _kinds.get(id) != String(ship.kind): _release_ship(id)
-		if not ships.has(id):
-			var view := Ship.new(); add_child(view)
-			if not view.configure(String(ship.kind),library): view.free(); continue
-			ships[id] = view
-			view.presentation_event.connect(_on_ship_presentation)
-			_kinds[id] = String(ship.kind)
-			view.set_reduced_motion(bool(_settings.reducedMotion))
-			var crew := Crew.new(); view.add_child(crew)
-			if not crew.configure(String(ship.kind),view.get_model(),library):
-				crew.free(); _release_ship(id); continue
-			crew.set_environment(_water); crew.set_reduced_motion(bool(_settings.reducedMotion))
-			crew.get_impact_pool().visual_event.connect(_on_crew_water_entry)
-			sailors[id] = crew
-		var view: Node3D = ships[id]
+		var view := _prepare_ship(ship)
+		if view == null: continue
 		var timed := ship.duplicate(true); timed.time = native.get("time",0.0)
-		view.apply_snapshot(timed,native.get("wind",{}),consumed)
+		var actor_seconds := maxf(0.0,consumed-float(_local_presentation_seconds.get(id,0.0)))
+		view.apply_snapshot(timed,native.get("wind",{}),actor_seconds)
 		view.set_lod_distance(camera.position.distance_to(view.position))
 		var crew: Node3D = sailors[id]; crew.set_ship_model(view.get_model())
 		crew.set_lod_distance(camera.position.distance_to(view.position)); crew.set_allocation(int(allocations.get(id,0)))
-		crew.apply_snapshot(timed,native.get("wind",{}),consumed)
+		crew.apply_snapshot(timed,native.get("wind",{}),actor_seconds)
 	for id: String in ships.keys():
 		if not live.has(id): _release_ship(id)
 	effects.finish_snapshot()
-	var presented_events: Array = effects.presentation_events(events)
-	for event: Dictionary in presented_events:
-		if event.get("type") == "fire" and not event.has("source_muzzle_position") and ships.has(str(event.get("shipId",""))):
-			var source_point: Variant = ships[str(event.shipId)].source_fire_position(event)
-			if source_point is Vector3: event.source_muzzle_position={"x":source_point.x,"y":source_point.y,"z":source_point.z}
+	var presented_events := _source_fire_events(events)
 	for id: String in ships:
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
 	_flush_crew_water_entries()
 	wakes.apply_snapshot(native)
 	world.apply_snapshot({"time":native.get("time",0.0),"wind":native.get("wind",{}),"battleId":native.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},consumed)
+	_local_presentation_seconds.clear()
 	return presented_events
 
 func _update_camera(native: Dictionary, consumed: float) -> void:
@@ -332,6 +396,7 @@ func dispose() -> void:
 	for node in _owned:
 		if is_instance_valid(node):
 			if node == world: world.dispose()
+			elif node == effects: effects.dispose()
 			node.free()
 	_owned.clear()
 	if library: library.dispose()
@@ -339,5 +404,6 @@ func dispose() -> void:
 	_environment = null; _sun = null; _height = Callable(); _water = Callable()
 	_ports.clear(); _snapshot.clear(); _battle_id = ""; _camera_ready = false
 	_pending_crew_entries.clear()
+	_local_presentation_seconds.clear()
 
 func _exit_tree() -> void: dispose()

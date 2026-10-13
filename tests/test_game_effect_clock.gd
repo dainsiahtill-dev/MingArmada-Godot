@@ -53,6 +53,7 @@ func _generic_water_payload() -> Dictionary:
 
 func _source_is_native(source: Node3D,label: String) -> bool:
 	var diagnostics: Dictionary = source.call("diagnostics")
+	check(diagnostics.get("render_unit", "") == "system", label+" uses one render carrier per original particle system")
 	return check(String(diagnostics.get("time_input",{}).get("kind","")).begins_with("original variable-dt"),label+" selects original variable appTime rather than the offline observer")
 
 func _tick(count: int) -> Dictionary:

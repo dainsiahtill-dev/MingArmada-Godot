@@ -3,12 +3,18 @@ extends RefCounted
 const Math = preload("res://modules/scene_engine/fidelity_fx/native_particle_math.gd")
 const Pool = preload("res://modules/scene_engine/fidelity_fx/native_particle_pool.gd")
 const Emitter = preload("res://modules/scene_engine/fidelity_fx/native_emitter_controller.gd")
+const Batch = preload("res://modules/scene_engine/fidelity_fx/cpu_particle_batch.gd")
 var asset: Dictionary
 var blocks: Dictionary
 var seed_value: int
 var rng
 var systems: Array = []
 var time = null
+# Lazy, independent presentation storage. Forks share only immutable blueprints;
+# neither native state publication nor the legacy particle API exposes batches.
+var _particle_batches: Dictionary = {}
+var _batch_records: Dictionary = {}
+var batch_error := ""
 
 func _init(source: Dictionary = {}, seed: int = 1, index: Dictionary = {}) -> void:
 	asset = source
@@ -197,6 +203,49 @@ func particle_meshes(camera: Dictionary) -> Array:
 			meshes.append({"asset":asset.name,"block":system.block.id,"name":system.block.name,"particle":i,"texture":str(source.fields.file_name).to_lower(),"vertices":vertices,"uvs":uvs,"triangles":quad.triangles,"color":quad.color.slice(0,3),"alpha":quad.color[3],"alphaFlags":alpha.get("fields",{}).get("flags",0),"threshold":alpha.get("fields",{}).get("threshold",0),"clampMode":desc.clamp_mode,"filterMode":desc.filter_mode,"world":{"translation":Math.point(system.world,particle.position)},"argb":quad.argb})
 	return meshes
 
+func particle_system_meshes(camera: Dictionary) -> Array:
+	batch_error = ""
+	var meshes: Array = []
+	for system: Dictionary in systems:
+		var id := int(system.block.id)
+		var batch: RefCounted = _particle_batches.get(id)
+		if batch == null:
+			# Reserve each original system's complete capacity, including zero-active
+			# systems. Every lifecycle owns these buffers; no static mutable arena.
+			batch = Batch.new(int(system.pool.capacity)); _particle_batches[id] = batch
+		if system.pool.num_active == 0:
+			batch.fill(system.pool.particles,0,system.world,camera)
+			continue
+		var record: Dictionary = _batch_records.get(id,{})
+		var texturing: Dictionary
+		if record.is_empty():
+			var properties := {}
+			for ref in system.block.fields.properties:
+				var property: Dictionary = blocks[int(ref.ref)]; properties[property.type] = property
+			texturing = properties.NiTexturingProperty
+			var desc: Dictionary = texturing.fields.base_texture
+			var alpha: Dictionary = properties.get("NiAlphaProperty",{}).get("fields",{})
+			record = {"asset":asset.name,"block":id,"name":system.block.name,"kind":"particle system","batch":batch,
+				"texture":str(blocks[int(desc.source.ref)].fields.file_name).to_lower(),"alphaFlags":alpha.get("flags",0),"threshold":alpha.get("threshold",0),
+				"clampMode":desc.clamp_mode,"filterMode":desc.filter_mode,"texturing_block":int(texturing.id)}
+			_batch_records[id] = record
+		else: texturing = blocks[int(record.texturing_block)]
+		var values := {}
+		for controller in controllers(texturing): values[int(controller.fields.operation)] = sample_property_controller(controller)
+		var uv_template := _particle_uv_template(texturing.fields.base_texture,values)
+		var data: Dictionary = blocks[int(system.block.fields.data.ref)].fields
+		# Filling is observable work. Never put this call in assert: release
+		# exports omit assertions, but must still produce the complete stream.
+		var filled: bool = batch.fill(system.pool.particles,int(system.pool.num_active),system.world,camera,uv_template,bool(data.get("has_vertex_colors",true)))
+		if not filled:
+			batch_error = "Original CPU particle batch rejected its native active prefix"
+			return []
+		# Borrowed mutable system descriptor. Caller consumes after its worker join
+		# and before a subsequent fill; main never reads a pending worker payload.
+		record.world = system.world; record.bounds = system.bounds
+		meshes.append(record)
+	return meshes
+
 func _visit_mesh(block: Dictionary, inherited: Dictionary, visible: bool, now: float, worlds: Dictionary, meshes: Array) -> void:
 	var properties: Dictionary = inherited.duplicate()
 	for ref in block.fields.get("properties",[]):
@@ -238,3 +287,14 @@ func authored_meshes(now: float) -> Array:
 
 func meshes(camera: Dictionary) -> Array:
 	return particle_meshes(camera)+authored_meshes(time)
+
+func batch_meshes(camera: Dictionary) -> Array:
+	var meshes := particle_system_meshes(camera)
+	if not batch_error.is_empty(): return []
+	# Authored splash columns/rings retain distinct geometry, controllers and
+	# materials. Their sort key uses the source geometry's bound, before waves.
+	for record: Dictionary in authored_meshes(time):
+		var data: Dictionary = blocks[int(blocks[int(record.block)].fields.data.ref)].fields
+		record.bounds = {"center":Math.vector(data.center),"radius":data.radius}
+		meshes.append(record)
+	return meshes

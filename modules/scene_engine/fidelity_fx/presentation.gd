@@ -5,6 +5,8 @@ const MANIFEST := "res://assets/data/fidelity_fx/manifest.json"
 const RUNTIME := "res://modules/scene_engine/fidelity_fx/particle_runtime.gd"
 const MixShader = preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
 const AddShader = preload("res://modules/scene_engine/fidelity_fx/particle_add.gdshader")
+const NativeMath = preload("res://modules/scene_engine/fidelity_fx/native_particle_math.gd")
+const CpuBatch = preload("res://modules/scene_engine/fidelity_fx/cpu_particle_batch.gd")
 const METRES_PER_UNIT := 0.01
 const GAME_SOURCES := ["fx_cannon_fire_01.nif","cannon_ball_splash_01.nif","cannon_ball_splash_02.nif","cannon_ball_splash_03.nif"]
 static var _manifest: Dictionary = {}
@@ -33,6 +35,7 @@ var _seed := 1
 var _configured := false
 var _render_profile := "native"
 var _clock_mode := "observer"
+var _render_unit := "particle"
 var _expired := false
 var _last_error := ""
 var _draw_order: Array = []
@@ -129,6 +132,10 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	_source = source
 	_render_profile = String(options.get("render_profile","native"))
 	_clock_mode = String(options.get("clock_mode","observer"))
+	_render_unit = String(options.get("render_unit","particle"))
+	if _render_unit not in ["particle","system"]:
+		_last_error = "Unsupported effect render unit"
+		return false
 	if _clock_mode not in ["observer","native"]:
 		_last_error = "Unsupported source clock mode"
 		return false
@@ -157,8 +164,9 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 		_replay = script.new()
 		if not _replay.configure(asset,_seed): _replay = null; return false
 	if _clock_mode == "native":
-		# The original first update records visibility without emitting. Anchor
-		# it once at birth so the first accepted display may already be late.
+		# Gameplay clock adapter: preserve the existing zero birth anchor. The
+		# recovered 60ms smoke/32ms splash counters and complete original clone
+		# controller initial state are not integrated by this batching change.
 		_replay.advance_native(0.0,false)
 		_seek_age = 0.0; _seek_replay_id = _replay.get_instance_id()
 		_seek_error = _replay.get_last_error()
@@ -208,7 +216,7 @@ func _snapshot_key(age: float, absolute_time: float) -> Dictionary:
 	var accepted_time := age if absolute_time < 0.0 else absolute_time
 	return {"age":age,"absolute_input":absolute_time,"absolute_time":accepted_time,"camera":_camera_key(),
 		"transform":global_transform,"filter_revision":_filter_revision,"water":_water,"sea":_sea,
-		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"replay_id":_replay.get_instance_id()}
+		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"render_unit":_render_unit,"replay_id":_replay.get_instance_id()}
 
 static func _run_native_snapshot(job: Dictionary) -> void:
 	# This Callable belongs to the Script resource, not a Node. The job owns the
@@ -217,8 +225,13 @@ static func _run_native_snapshot(job: Dictionary) -> void:
 	if job.advance:
 		provider.advance_native(float(job.age),false)
 		job.error = String(provider.call("get_last_error")) if provider.has_method("get_last_error") else String(provider.diagnostics().get("last_error",""))
+		# Camera/batch generation may fail after this native advance succeeded.
+		# Retain only the advance result in the simulation/age cache so a valid
+		# same-age camera retry can regenerate data without another native update.
+		job.advance_error = job.error
 	if String(job.error).is_empty() and job.needs_mesh:
-		job.records = provider.display_meshes(job.camera)
+		job.records = provider.batch_meshes(job.camera) if job.get("render_unit","particle") == "system" else provider.display_meshes(job.camera)
+		if job.get("render_unit","particle") == "system": job.error = provider.get_last_error()
 	job.complete = true
 
 func _join_native_snapshot() -> Dictionary:
@@ -257,7 +270,7 @@ func begin_snapshot(age: float, absolute_time: float = -1.0) -> bool:
 		"replay_id":replay_id,"advance":advance,"expired":expired,"mesh_key":mesh_key,"needs_mesh":needs_mesh}
 	if advance or needs_mesh:
 		_worker_job = {"provider":_replay,"age":seek_age,"camera":_camera_native().duplicate(true),
-			"advance":advance,"needs_mesh":needs_mesh,"error":_seek_error,"records":[],"complete":false}
+			"advance":advance,"needs_mesh":needs_mesh,"render_unit":_render_unit,"advance_error":_seek_error,"error":_seek_error,"records":[],"complete":false}
 		# Resolve the base Script resource on main. No Node-bound work or callbacks
 		# enter the pool; texture/material/water/sea/render stay after the join.
 		var script: Script = load("res://modules/scene_engine/fidelity_fx/presentation.gd")
@@ -272,11 +285,12 @@ func finish_snapshot() -> bool:
 	var job := _join_native_snapshot()
 	if frame.advance:
 		_seek_age = float(frame.seek_age); _seek_replay_id = int(frame.replay_id)
-		_seek_error = String(job.get("error",""))
+		_seek_error = String(job.get("advance_error",job.get("error","")))
 		_mesh_key.clear(); _display_meshes.clear()
 	if frame.needs_mesh:
 		_display_meshes = job.get("records",[])
-		_mesh_key = frame.mesh_key
+		if String(job.get("error","")).is_empty(): _mesh_key = frame.mesh_key
+		else: _mesh_key.clear()
 	_age = float(frame.age); _absolute_time = float(frame.absolute_time)
 	_expired = bool(frame.expired)
 	_last_error = "Explicit source controller clip expired" if _expired else String(job.get("error",_seek_error))
@@ -303,7 +317,7 @@ func _apply_snapshot_sync(age: float, absolute_time: float = -1.0) -> bool:
 	var camera_key := _camera_key()
 	var key := {"age":age,"absolute_input":absolute_time,"absolute_time":accepted_time,"camera":camera_key,
 		"transform":global_transform,"filter_revision":_filter_revision,"water":_water,"sea":_sea,
-		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"replay_id":replay_id}
+		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"render_unit":_render_unit,"replay_id":replay_id}
 	if key == _present_key: return _present_result
 	_age = age; _absolute_time = accepted_time
 	var duration := get_playback_duration()
@@ -320,8 +334,16 @@ func _apply_snapshot_sync(age: float, absolute_time: float = -1.0) -> bool:
 		return false
 	var mesh_key := {"age":age,"camera":camera_key,"replay_id":replay_id}
 	if mesh_key != _mesh_key:
-		_display_meshes = _replay.display_meshes(_camera_native()) if _clock_mode == "native" else _replay.meshes(_camera_native())
-		_mesh_key = mesh_key
+		if _render_unit == "system":
+			_display_meshes = _replay.batch_meshes(_camera_native())
+			_last_error = _replay.get_last_error()
+		else: _display_meshes = _replay.display_meshes(_camera_native()) if _clock_mode == "native" else _replay.meshes(_camera_native())
+		if _last_error.is_empty(): _mesh_key = mesh_key
+		else: _mesh_key.clear()
+		if not _last_error.is_empty():
+			_render([])
+			_present_key = key; _present_result = false
+			return false
 	# Absolute water time/filter or parent transform can require new placement
 	# without advancing particles or regenerating camera-independent native data.
 	_render(_display_meshes)
@@ -414,7 +436,7 @@ static func _surface_attributes(uv: PackedVector2Array, colors: PackedColorArray
 		data.encode_float(offset+8,uv[index].y)
 	return data
 
-func _update_surface(key: String, arrays: Array) -> void:
+func _update_surface(key: String, arrays: Array, original_attributes: PackedByteArray = PackedByteArray()) -> void:
 	var node: MeshInstance3D = _geometry[key]
 	var mesh := node.mesh as ArrayMesh
 	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
@@ -427,7 +449,7 @@ func _update_surface(key: String, arrays: Array) -> void:
 		and uv.size() == vertices.size() and colors.size() == vertices.size() and layout.indices == indices)
 	if reuse:
 		mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
-		mesh.surface_update_attribute_region(0,0,_surface_attributes(uv,colors))
+		mesh.surface_update_attribute_region(0,0,original_attributes if not original_attributes.is_empty() else _surface_attributes(uv,colors))
 		# Region writes retain the initial resource AABB. The renderer must use
 		# this frame's exact local bounds for culling and transparent depth.
 		var bounds := _local_bounds(vertices)
@@ -437,8 +459,13 @@ func _update_surface(key: String, arrays: Array) -> void:
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
 		node.mesh = mesh
 		_surface_layouts[key] = _surface_layout(mesh,indices)
+		if _region_updates and not original_attributes.is_empty() and bool(_surface_layouts[key].supported):
+			mesh.surface_update_attribute_region(0,0,original_attributes)
 
 func _render(meshes: Array) -> void:
+	if _render_unit == "system":
+		_render_systems(meshes)
+		return
 	_rendered = 0; _triangles = 0
 	_game_flash = 0; _draw_order.clear()
 	var used: Dictionary = {}
@@ -511,6 +538,113 @@ func _render(meshes: Array) -> void:
 	for key in _geometry:
 		if not used.has(key) and _geometry[key].visible: _geometry[key].visible = false
 
+func _system_point(local: Vector3, world: Dictionary) -> Vector3:
+	# Apply system.world once, retaining the native stores used by Math.point.
+	# The GPU receives carrier-relative Godot positions. This is the Godot
+	# placement adapter; vertex_bytes remains the original system-local stream.
+	var m: Array = world.rotation; var t: Array = world.translation
+	var v := Vector3(m[0]*local.x+m[1]*local.y+m[2]*local.z,m[3]*local.x+m[4]*local.y+m[5]*local.z,m[6]*local.x+m[7]*local.y+m[8]*local.z)
+	var scaled := Vector2(world.scale*v.x,world.scale*v.y)
+	var native := Vector3(scaled.x+t[0],scaled.y+t[1],world.scale*v.z+t[2])
+	return _origin+_orientation*Vector3(native.x,native.z,-native.y)*(METRES_PER_UNIT*_size)
+
+func _render_systems(meshes: Array) -> void:
+	_rendered = 0; _triangles = 0; _game_flash = 0; _draw_order.clear()
+	var used: Dictionary = {}; var sea_points: Dictionary = {}
+	var records := meshes.duplicate()
+	if not _expired and _render_profile == "game_cannon": records.append_array(_game_flash_meshes())
+	var draws: Array = []; var ids := PackedInt32Array(); var depths := PackedFloat32Array()
+	var forward := -_camera.global_basis.z if is_instance_valid(_camera) else Vector3.FORWARD
+	var adapter_index := 0
+	for record: Dictionary in records:
+		var system: bool = record.get("kind","") == "particle system"
+		# Adapter identity follows its source record order, independently of the
+		# active native-system count and before any geometry/sea filtering.
+		var key := "system:"+str(record.block) if system else "authored:"+str(record.block) if record.has("block") else "adapter:"+str(adapter_index)
+		if not record.has("block"): adapter_index += 1
+		var points := PackedVector3Array()
+		var uv := PackedVector2Array(); var colors := PackedColorArray(); var source_indices := PackedInt32Array()
+		var attributes := PackedByteArray(); var center := Vector3.ZERO
+		if system:
+			var batch: RefCounted = record.batch
+			var count := int(batch.vertex_count)
+			if count == 0: continue
+			points.resize(count)
+			for index in count: points[index] = _system_point(batch.vertices[index],record.world)
+			uv = batch.uvs.slice(0,count); colors = batch.colors.slice(0,count)
+			source_indices = batch.indices.slice(0,int(batch.index_count))
+			attributes = batch.attribute_bytes.slice(0,count*12)
+		else:
+			var source_points: Array = record.vertices
+			points.resize(source_points.size()); uv.resize(source_points.size()); colors.resize(source_points.size())
+			var rgb: Array = record.get("color",[1.0,1.0,1.0])
+			var color := Color(float(rgb[0]),float(rgb[1]),float(rgb[2]),float(record.get("alpha",1.0)))
+			var ring: bool = _source.begins_with("cannon_ball") and record.get("kind","") == "authored mesh" and not String(record.get("name","")).begins_with("Cylinder")
+			for index in source_points.size():
+				var point := _origin+_orientation*native_to_godot(source_points[index])*(METRES_PER_UNIT*_size)
+				if ring and _water.is_valid():
+					var height := float(_water.call(point.x,point.z,_absolute_time))
+					if is_finite(height): point.y = height+0.06
+				points[index] = point
+				uv[index] = Vector2(float(record.uvs[index][0]),float(record.uvs[index][1])); colors[index] = color
+			for triangle: Array in record.triangles:
+				source_indices.append(int(triangle[0])); source_indices.append(int(triangle[1])); source_indices.append(int(triangle[2]))
+		if points.is_empty(): continue
+		if record.has("bounds"):
+			var native_center: Array = NativeMath.point(record.world,record.bounds.center)
+			center = _origin+_orientation*native_to_godot(native_center)*(METRES_PER_UNIT*_size)
+		else:
+			# Explicit game muzzle adapter has no recovered native geometry bound.
+			for point: Vector3 in points: center += point
+			center /= points.size()
+		var indices := PackedInt32Array()
+		if _source.begins_with("cannon_ball") and _sea.is_valid():
+			for offset in range(0,source_indices.size(),3):
+				var wet := true
+				for corner in 3:
+					var point: Vector3 = points[source_indices[offset+corner]]; var xz := Vector2(point.x,point.z)
+					if not sea_points.has(xz): sea_points[xz] = bool(_sea.call(point.x,point.z))
+					if not sea_points[xz]: wet = false
+				if wet:
+					indices.append(source_indices[offset]); indices.append(source_indices[offset+1]); indices.append(source_indices[offset+2])
+		else: indices = source_indices
+		if indices.is_empty(): continue
+		for index in points.size(): points[index] -= center
+		var depth := NativeMath.f32(center.z*forward.z+center.y*forward.y+center.x*forward.x)
+		ids.append(draws.size()); depths.append(depth)
+		draws.append({"record":record,"key":key,"vertices":points,"uv":uv,"colors":colors,"indices":indices,"attributes":attributes,"center":center,"depth":depth})
+	# 5538F0/553A60 equal-key swaps, then original reverse submission. Godot's
+	# renderer orders geometry globally using the native bound center origin;
+	# CPU list equality does not claim original driver/pixel/tie-order equality.
+	CpuBatch.sort_transparent(ids,depths,ids.size())
+	for index in range(ids.size()-1,-1,-1):
+		var draw: Dictionary = draws[ids[index]]; var record: Dictionary = draw.record
+		var material := _material(record)
+		if material == null: continue
+		var key: String = draw.key; var kind := String(record.get("kind","game adapter"))
+		if not _geometry.has(key):
+			var node := MeshInstance3D.new(); node.name = "SourceSystem_"+str(_geometry.size())
+			node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			node.sorting_use_aabb_center = false
+			add_child(node); _geometry[key] = node
+		var arrays: Array = []; arrays.resize(Mesh.ARRAY_MAX)
+		arrays[Mesh.ARRAY_VERTEX] = draw.vertices; arrays[Mesh.ARRAY_TEX_UV] = draw.uv
+		arrays[Mesh.ARRAY_COLOR] = draw.colors; arrays[Mesh.ARRAY_INDEX] = draw.indices
+		_update_surface(key,arrays,draw.attributes)
+		var node: MeshInstance3D = _geometry[key]
+		node.position = draw.center; node.custom_aabb = _local_bounds(draw.vertices)
+		if node.material_override != material: node.material_override = material
+		if not node.visible: node.visible = true
+		node.set_meta("display_role",record.get("display_role","native"))
+		node.set_meta("source_block",int(record.get("block",-1))); node.set_meta("source_kind",kind)
+		used[key] = true
+		_triangles += int(draw.indices.size()/3.0)
+		if record.get("display_role","native") == "game_flash": _game_flash += 1
+		else: _rendered += 1
+		_draw_order.append({"name":record.get("name",""),"texture":record.texture,"depth":draw.depth,"display_role":record.get("display_role","native"),"block":record.get("block",-1),"kind":kind})
+	for key: Variant in _geometry:
+		if not used.has(key) and _geometry[key].visible: _geometry[key].visible = false
+
 func _game_flash_meshes() -> Array:
 	# This small axial streak is a game muzzle-light adapter using original DDS.
 	# It is NOT claimed as a recovered extra native emitter or original fire mesh.
@@ -544,6 +678,11 @@ func diagnostics() -> Dictionary:
 	var state: Dictionary = _replay.diagnostics() if _replay != null else {}
 	state["worker"] = {"dispatched":_worker_dispatched,"joined":_worker_joined,"pending":int(_worker_task >= 0)}
 	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"mesh_resource_reuse":_region_updates,"mesh_update_scope":"stable layout/index region writes with exact per-instance bounds" if _region_updates else "headless dummy region writes are no-ops; rebuild actual ArrayMesh arrays","render_profile":_render_profile,"clock_mode":_clock_mode,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
+	state.render_unit = _render_unit
+	state.time_adapter_scope = "Gameplay appTime seconds and zero birth anchor retained; original 60ms smoke/32ms splash counters and full clone/controller initial state not integrated"
+	if _render_unit == "system":
+		state.sort_scope = "one packed particle-system geometry plus separate authored meshes; original CPU quicksort/equal-depth swaps; engine geometry sorting uses native world-bound center; global GPU tie/order/pixels unverified"
+		state.mesh_update_scope = "actual 4N vertices/6N indices per active system; stable topology reuses native ArrayMesh regions, changed active count rebuilds; headless dummy rebuilds readable arrays"
 	return state
 
 func dispose() -> void:
@@ -556,7 +695,7 @@ func dispose() -> void:
 	_geometry.clear(); _surface_layouts.clear(); _materials.clear(); _replay = null; _camera = null
 	_water = Callable(); _sea = Callable(); _configured = false
 	_origin = Vector3.ZERO; _orientation = Basis.IDENTITY; _age = -1.0; _rendered = 0; _triangles = 0
-	_absolute_time = -1.0; _render_profile = "native"; _clock_mode = "observer"; _expired = false; _last_error = ""
+	_absolute_time = -1.0; _render_profile = "native"; _clock_mode = "observer"; _render_unit = "particle"; _expired = false; _last_error = ""
 	_draw_order.clear(); _game_flash = 0
 	_present_key.clear(); _present_result = false
 	_mesh_key.clear(); _display_meshes.clear()

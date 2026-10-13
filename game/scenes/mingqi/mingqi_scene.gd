@@ -136,6 +136,7 @@ func _command(intent: Dictionary) -> void:
 			_save_status = "存档已验证、保存并载入。准备好后继续航行。" if result.ok else "导入未成功："+_save_failure(result.get("reason","save-invalid"))
 		_: result = runtime.command(intent)
 	if not result.ok: runtime._notify(result.get("reason","command-rejected"))
+	elif intent.get("type") == "fire": return
 	_present(0)
 func _physics_process(delta: float) -> void:
 	if not world or _capture_mode or _disposed: return
@@ -153,10 +154,13 @@ func _physics_process(delta: float) -> void:
 	# entire scene repeatedly before the engine can produce a single frame.
 	var visual: Dictionary = _terminal_presentation.snapshot(native) if _terminal_presentation.is_anchored() else native
 	sea.remember_authoritative_poses(visual,consumed+tail)
-	if not was_anchored and _terminal_presentation.is_anchored() or runtime.requires_immediate_actor_presentation():
+	if not was_anchored and _terminal_presentation.is_anchored():
 		# Preserve the original hit-to-skin transfer and impact birth timing.
 		# These sparse events require a pose before spawning their physical rig.
 		_present(0.0)
+	elif runtime.requires_immediate_actor_presentation():
+		if NavalWorldView.requires_full_event_presentation(runtime._events): _present(0.0)
+		else: _present_local_fire(0.0)
 func _process(_delta: float) -> void:
 	if not world or _capture_mode or _disposed: return
 	_present(0.0)
@@ -172,6 +176,14 @@ func _sync_legacy_zoom() -> void:
 func _sync_view_handles() -> void:
 	world = sea.world; camera = sea.camera; effects = sea.effects
 	library = sea.library; ships = sea.ships; sailors = sea.sailors
+func _present_local_fire(consumed: float) -> void:
+	if not world or _disposed or not runtime.simulation: return
+	consumed += _pending_presentation_seconds
+	var native: Dictionary = runtime.simulation.snapshot()
+	var visual: Dictionary = _terminal_presentation.snapshot(native)
+	var events: Array = sea.apply_local_fire(visual,runtime.drain_events(),consumed)
+	_sync_view_handles()
+	services.present(visual,events,consumed,runtime.is_paused())
 func _present(consumed: float) -> void:
 	if not world or _disposed: return
 	consumed += _pending_presentation_seconds

@@ -202,17 +202,26 @@ func _build_patch(packet: Dictionary,texture: Texture2D,ground: Texture2D,bounds
 	var node:=MeshInstance3D.new(); node.name="NaturalSurf_%d"%_materials.size(); node.mesh=mesh; node.material_override=material
 	node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF; add_child(node)
 	_materials.append(material); _packets.append(packet); _vertices+=vertices.size()
+	_states.append({})
 
 func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 	var value: Variant=snapshot.get("time")
 	if not _configured or not (value is float or value is int) or not is_finite(float(value)): return
 	if _has_applied_time and float(value)==_time: return
 	_has_applied_time=true
-	_time=float(value); _states.clear()
+	_time=float(value)
+	# Each configured patch owns one mutable state; diagnostics detach their
+	# public snapshot. No packet/controller output is shared between patches.
+	var sample_in_place := _sampler.has_method("sample_into")
 	for i in _materials.size():
 		var packet: Dictionary=_packets[i]
 		var packet_time: float=_time*float(packet.clockSpeed)+float(packet.clockOffset)
-		var state: Dictionary=_sampler.sample(int(packet.sourceIndex),packet_time)
+		var state: Dictionary=_states[i]
+		if sample_in_place: _sampler.sample_into(int(packet.sourceIndex),packet_time,state)
+		else:
+			# Existing injected samplers retain their sample() protocol and side
+			# effects. Merge its fresh result into this patch's owned state.
+			state.merge(_sampler.sample(int(packet.sourceIndex),packet_time),true)
 		var phase: float=_sampler.alpha_phase
 		# GAME adaptation: the recovered alpha has a 47.7% full-bright plateau.
 		# Grow then erode during that approach; keep the exact source sample
@@ -230,7 +239,6 @@ func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 		state.nativeFrontDistance=state.frontDistance
 		state.nativeAlpha=state.alpha; state.visibleAlpha=visible_alpha; state.lifeEnvelope=envelope
 		state.lifePhase=phase; state.packetTime=packet_time; state.sourceIndex=packet.sourceIndex; state.pairId=packet.pairId
-		_states.append(state)
 
 func sync_surface_state(ocean_material: ShaderMaterial,_state: Dictionary = {}) -> bool:
 	if not _configured or ocean_material==null or ocean_material.shader==null: return false

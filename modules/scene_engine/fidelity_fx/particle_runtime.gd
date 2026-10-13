@@ -328,6 +328,23 @@ func display_meshes(camera: Dictionary) -> Array:
 				return []
 	return _replay.meshes(camera)
 
+func batch_meshes(camera: Dictionary) -> Array:
+	# Pure RefCounted data work, permitted while a Source worker exclusively owns
+	# this replay. No public particle wrappers, Nodes, textures or GPU resources.
+	# Mutable per-system storage is borrowed until the next exclusive fill.
+	if _replay == null or _replay.time == null: return []
+	for basis in ["right","up","direction"]:
+		if not camera.get(basis) is Array or camera[basis].size() != 3:
+			_last_error = "Explicit native camera direction/up/right arrays required"
+			return []
+		for component in camera[basis]:
+			if not _number(component):
+				_last_error = "Finite native camera basis required"
+				return []
+	var records: Array = _replay.batch_meshes(camera)
+	_last_error = _replay.batch_error
+	return records
+
 func diagnostics() -> Dictionary:
 	var layers := []
 	var active := 0

@@ -157,7 +157,7 @@ func add_event(event: Dictionary) -> void:
 		if is_instance_valid(_reference_camera):
 			var reference := FidelityReference.new(); reference.name = "FidelityReferenceSplash"; node.add_child(reference)
 			var variant := 1+posmod(splash.seed,3)
-			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_sea_callback(),"camera":_reference_camera,"clock_mode":"native"}): splash.reference = reference; splash.fidelity = true
+			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_sea_callback(),"camera":_reference_camera,"clock_mode":"native","render_unit":"system"}): splash.reference = reference; splash.fidelity = true
 			else: reference.free()
 		else:
 			var reference := Reference.new(); reference.name = "ReferenceSplash"; node.add_child(reference)

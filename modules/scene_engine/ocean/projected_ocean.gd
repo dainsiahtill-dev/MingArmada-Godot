@@ -41,6 +41,9 @@ var _last_camera_projection := Projection()
 var _last_world_transform := Transform3D.IDENTITY
 var _last_viewport_size := Vector2.ZERO
 var _projection_padding := 0.0
+var _local_rays := PackedVector3Array()
+var _ray_layout_key: Dictionary = {}
+var _ray_cache_builds := 0
 var _surface_optics := SurfaceOptics.new()
 var _reference_renderer: Node3D
 var _original_layers := 1
@@ -243,6 +246,27 @@ func set_projection_padding(fraction: float) -> void:
 	_projection_padding = clampf(fraction, 0.0, 0.25)
 	_projection_initialized = false
 
+func get_projection_work_diagnostics() -> Dictionary:
+	return {"rayCacheBuilds":_ray_cache_builds,"rayCount":_local_rays.size()}
+
+func _ensure_local_rays(camera_projection: Projection, camera_viewport: Viewport) -> bool:
+	# Camera motion rotates these directions but does not change the screen
+	# layout. Keep the native Camera3D projection formula and screen mapping.
+	var viewport_rect := camera_viewport.get_visible_rect()
+	var key := {"camera":_camera.get_instance_id(),"projection":camera_projection,
+		"viewport_rect":viewport_rect,"viewport_transform":camera_viewport.get_final_transform(),
+		"render_size":camera_viewport.get_texture().get_size(),
+		"padding":_projection_padding,"vertices":_uvs.size()}
+	if key == _ray_layout_key: return false
+	_local_rays.resize(_uvs.size())
+	for index in _uvs.size():
+		var padded := (_uvs[index]-Vector2(0.5,0.5))*(1.0+_projection_padding*2.0)+Vector2(0.5,0.5)
+		var screen_position := Vector2(padded.x*viewport_rect.size.x,(1.0-padded.y)*viewport_rect.size.y)
+		_local_rays[index] = _camera.project_local_ray_normal(screen_position)
+	_ray_layout_key = key
+	_ray_cache_builds += 1
+	return true
+
 func set_shore_field(texture: Texture2D, bounds: Vector4, coast_texture: Texture2D = null) -> void:
 	# Both enhanced samplers fetch four endpoint texels; reject malformed fields
 	# atomically rather than replacing an accepted physical attenuation texture.
@@ -284,19 +308,20 @@ func update_projection() -> void:
 	var camera_position := _camera.global_position
 	_water_material.set_shader_parameter("camera_position", camera_position)
 	var camera_projection := _camera.get_camera_projection()
-	if _projection_initialized and _last_camera_transform == _camera.global_transform and _last_camera_projection == camera_projection and _last_world_transform == global_transform and _last_viewport_size == viewport_size:
+	var ray_layout_changed := _ensure_local_rays(camera_projection,camera_viewport)
+	if not ray_layout_changed and _projection_initialized and _last_camera_transform == _camera.global_transform and _last_camera_projection == camera_projection and _last_world_transform == global_transform and _last_viewport_size == viewport_size:
 		return
 	_last_camera_transform = _camera.global_transform
 	_last_camera_projection = camera_projection
 	_last_world_transform = global_transform
 	_last_viewport_size = viewport_size
 	_projection_initialized = true
+	# Native project_ray_normal rotates a local ray by the camera transform
+	# basis, then normalizes. Hoist the same basis and ocean inverse once.
+	var ray_basis := _camera.get_camera_transform().basis
+	var world_inverse := global_transform.affine_inverse()
 	for index in _vertices.size():
-		var uv := _uvs[index]
-		# Original JS rows are clipY -1 -> +1. Godot screen Y points downward.
-		var padded := (uv - Vector2(0.5, 0.5)) * (1.0 + _projection_padding * 2.0) + Vector2(0.5, 0.5)
-		var screen_position := Vector2(padded.x * viewport_size.x, (1.0 - padded.y) * viewport_size.y)
-		var direction := _camera.project_ray_normal(screen_position)
+		var direction := (ray_basis*_local_rays[index]).normalized()
 		var distance := _fallback_distance
 		if absf(direction.y) >= 1.0e-4:
 			var intersection_distance := -camera_position.y / direction.y
@@ -304,10 +329,12 @@ func update_projection() -> void:
 				distance = minf(intersection_distance, _maximum_distance) if _has_maximum_distance else intersection_distance
 		var world_position := camera_position + direction * distance
 		world_position.y = 0.0
-		_vertices[index] = to_local(world_position)
+		_vertices[index] = world_inverse*world_position
 	_upload_grid()
 
 func _create_grid() -> void:
+	_ray_layout_key.clear()
+	_local_rays.clear()
 	var vertex_count := (_segments + 1) * (_segments + 1)
 	_vertices.resize(vertex_count)
 	_normals.resize(vertex_count)

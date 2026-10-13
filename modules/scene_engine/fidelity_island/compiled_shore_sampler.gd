@@ -118,14 +118,22 @@ func _texture(desc: PackedFloat64Array,tu: float,su: float) -> void:
 	texture_matrix = Basis(Vector3(_matrix[0],_matrix[1],_matrix[2]),Vector3(_matrix[3],_matrix[4],_matrix[5]),Vector3(_matrix[6],_matrix[7],_matrix[8]))
 
 func sample(index: int,time: float) -> Dictionary:
+	# Public sampling keeps fresh, independently owned outputs. The live surf
+	# consumer supplies its already allocated per-patch state below.
+	var state: Dictionary = {}
+	sample_into(index,time,state)
+	return state
+
+func sample_into(index: int,time: float,state: Dictionary) -> void:
 	var prepared: Dictionary = _sources[index]
 	_rounding[0]=time
 	var now: float = _rounding[0]
 	var translation_time: float = _mapped(prepared.translation,now)
 	var alpha_time: float = _mapped(prepared.alpha,now)
 	var scale_time: float = alpha_time if prepared.shared_scale_alpha else _mapped(prepared.scale,now)
-	var state := {"translationU":_interpolate(_curves.translation,translation_time),"scaleU":_interpolate(_curves.scale,scale_time),"alpha":_interpolate(_curves.alpha,alpha_time)}
+	state.translationU = _interpolate(_curves.translation,translation_time)
+	state.scaleU = _interpolate(_curves.scale,scale_time)
+	state.alpha = _interpolate(_curves.alpha,alpha_time)
 	var alpha_clock: PackedFloat64Array = prepared.alpha
 	alpha_phase = (alpha_time-alpha_clock[3])/(alpha_clock[4]-alpha_clock[3])
 	_texture(prepared.texture,float(state.translationU),float(state.scaleU))
-	return state

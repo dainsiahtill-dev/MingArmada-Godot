@@ -15,6 +15,8 @@ class Probe extends Node3D:
 	var last_frame:=Transform3D.IDENTITY
 	func advance_impacts(_phase:float,_consumed:float,frame:Transform3D)->void:impact_steps+=1;last_frame=frame
 	func apply_snapshot(_snapshot:Dictionary,_wind_or_consumed:Variant=null,_consumed:float=0.0)->void:calls+=1
+	func begin_snapshot(snapshot:Dictionary,consumed:float=0.0)->void:apply_snapshot(snapshot,consumed)
+	func finish_snapshot()->void:pass
 	func apply_events(_events:Array)->void:calls+=1
 	func presentation_events(events:Array)->Array:return events.duplicate(true)
 	func set_ship_model(_model:Node3D)->void:calls+=1
