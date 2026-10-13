@@ -301,15 +301,28 @@ static func particle_quad_prepared(particle: Dictionary, context: Dictionary) ->
 	var sum: Array = context.sum
 	var difference: Array = context.difference
 	var factor: float = particle.size*particle.radius
-	var a: Array = [f32(sum[0]*factor),f32(sum[1]*factor),f32(sum[2]*factor)]
-	var b: Array = [f32(difference[0]*factor),f32(difference[1]*factor),difference[2]*factor]
 	var p: Array = particle.position
-	var vertices: Array = [[],[],[],[]]
-	for i in 3:
-		vertices[0].append(f32(p[i]-a[i]))
-		vertices[1].append(f32(p[i]-b[i]))
-		vertices[2].append(f32(a[i]+p[i]))
-		vertices[3].append(f32(b[i]+p[i]))
+	var vertices: Array
+	if _VECTOR_BINARY32:
+		# Group only the original component stores. b.z deliberately retains
+		# double precision until the two final vertex stores.
+		var a3 := Vector3(sum[0]*factor,sum[1]*factor,sum[2]*factor)
+		var b2 := Vector2(difference[0]*factor,difference[1]*factor)
+		var bz: float = difference[2]*factor
+		var v0 := Vector3(p[0]-a3.x,p[1]-a3.y,p[2]-a3.z)
+		var v1 := Vector3(p[0]-b2.x,p[1]-b2.y,p[2]-bz)
+		var v2 := Vector3(a3.x+p[0],a3.y+p[1],a3.z+p[2])
+		var v3 := Vector3(b2.x+p[0],b2.y+p[1],bz+p[2])
+		vertices = [[v0.x,v0.y,v0.z],[v1.x,v1.y,v1.z],[v2.x,v2.y,v2.z],[v3.x,v3.y,v3.z]]
+	else:
+		var a: Array = [f32(sum[0]*factor),f32(sum[1]*factor),f32(sum[2]*factor)]
+		var b: Array = [f32(difference[0]*factor),f32(difference[1]*factor),difference[2]*factor]
+		vertices = [[],[],[],[]]
+		for i in 3:
+			vertices[0].append(f32(p[i]-a[i]))
+			vertices[1].append(f32(p[i]-b[i]))
+			vertices[2].append(f32(a[i]+p[i]))
+			vertices[3].append(f32(b[i]+p[i]))
 	var bytes := []
 	var colors := []
 	for component in particle.color:

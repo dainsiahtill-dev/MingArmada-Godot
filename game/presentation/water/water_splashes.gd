@@ -23,6 +23,8 @@ var _surface_filter: Callable
 var _reference_camera: Camera3D
 var _sea_cache: Dictionary = {}
 var _sea_sampling := false
+var _pending_snapshot := false
+var _pending_same_time := false
 
 func _sea_callback() -> Callable:
 	# Keep the original no-filter path invalid, including SourceEffect's fast
@@ -49,11 +51,13 @@ func _end_sea_sampling(was_active: bool) -> void:
 		_sea_sampling = false; _sea_cache.clear()
 
 func configure_reference_backend(camera: Camera3D) -> void:
+	finish_snapshot()
 	_reference_camera = camera
 	for splash: Dictionary in _splashes:
 		if splash.has("fidelity"): splash.reference.set_camera(camera)
 
 func configure_surface_filter(sea_at: Callable) -> void:
+	finish_snapshot()
 	_surface_filter = sea_at
 	_sea_cache.clear(); _sea_sampling = false
 	var sampler := _sea_callback()
@@ -61,29 +65,53 @@ func configure_surface_filter(sea_at: Callable) -> void:
 		if splash.has("reference"): splash.reference.configure_surface_filter(sampler)
 
 func configure(water_sampler: Callable) -> void:
+	finish_snapshot()
 	dispose(); _water = water_sampler
 
 func apply_snapshot(now: float) -> void:
+	begin_snapshot(now)
+	finish_snapshot()
+
+func begin_snapshot(now: float) -> void:
+	# Every accepted appTime is completed before another one is submitted.
+	# Workers own only source Runtime state/mesh math; water stays on main.
+	finish_snapshot()
 	if not is_finite(now) or now < 0.0: return
 	if _time >= 0 and now < _time: _clear()
-	if now == _time:
+	_pending_same_time = now == _time
+	_time = now
+	_pending_snapshot = true
+	if not _pending_same_time:
+		for id in _seen.keys():
+			if now-float(_seen[id]) >= DURATION: _seen.erase(id)
+		for index in range(_splashes.size()-1,-1,-1):
+			var splash: Dictionary = _splashes[index]; var age := now-float(splash.time)
+			if age < 0.0 or age >= DURATION:
+				_free_splash(splash); _splashes.remove_at(index)
+	for splash: Dictionary in _splashes:
+		if splash.has("fidelity"): splash.reference.begin_snapshot(now-float(splash.time),now)
+
+func finish_snapshot() -> void:
+	if not _pending_snapshot: return
+	var same_time := _pending_same_time
+	_pending_snapshot = false; _pending_same_time = false
+	if same_time:
 		# Paused camera changes still reproject source billboards. Their own
 		# accepted-age memo freezes native particles; generic water stays intact.
 		var was_active := _begin_sea_sampling()
 		for splash: Dictionary in _splashes:
-			if splash.has("fidelity"): splash.reference.apply_snapshot(now-float(splash.time),now)
+			if splash.has("fidelity"): splash.reference.apply_snapshot(_time-float(splash.time),_time)
 		_end_sea_sampling(was_active)
 		return
-	_time = now
-	for id in _seen.keys():
-		if now-float(_seen[id]) >= DURATION: _seen.erase(id)
 	for index in range(_splashes.size()-1,-1,-1):
-		var splash: Dictionary = _splashes[index]; var age := now-float(splash.time)
-		if age < 0.0 or age >= DURATION:
-			splash.node.free(); _splashes.remove_at(index); continue
-		_update(splash,age)
+		var splash: Dictionary = _splashes[index]
+		_update(splash,_time-float(splash.time))
+
+func has_pending_snapshot() -> bool:
+	return _pending_snapshot
 
 func add_event(event: Dictionary) -> void:
+	finish_snapshot()
 	var stamp := float(event.get("time",_time)); var age := _time-stamp
 	var id := String(event.get("id",""))
 	var size := float(event.get("scale",1.0))
@@ -238,6 +266,7 @@ func _update(splash: Dictionary, age: float) -> void:
 	_end_sea_sampling(was_active)
 
 func diagnostics() -> Dictionary:
+	finish_snapshot()
 	var drops := 0
 	var positions: Array[Vector3] = []
 	for splash: Dictionary in _splashes:
@@ -245,11 +274,18 @@ func diagnostics() -> Dictionary:
 	var sources: Array=[]
 	for splash: Dictionary in _splashes:
 		if splash.has("fidelity"): sources.append(splash.reference.diagnostics())
-	return {"splashes":_splashes.size(),"accepted_time":_time,"droplets":drops,"droplet_capacity":_splashes.size()*Volume.DROPLETS,"droplet_positions":positions,"fidelity_sources":sources}
+	return {"splashes":_splashes.size(),"accepted_time":_time,"droplets":drops,"droplet_capacity":_splashes.size()*Volume.DROPLETS,"droplet_positions":positions,"fidelity_sources":sources,"pending_snapshot":_pending_snapshot}
+
+func _free_splash(splash: Dictionary) -> void:
+	# Dispose joins and discards source work before its Node/resources disappear.
+	# No generic geometry or doomed source payload is presented during teardown.
+	if splash.has("reference"): splash.reference.dispose()
+	splash.node.free()
 
 func _clear() -> void:
+	_pending_snapshot = false; _pending_same_time = false
 	_sea_cache.clear(); _sea_sampling = false
-	for splash: Dictionary in _splashes: splash.node.free()
+	for splash: Dictionary in _splashes: _free_splash(splash)
 	_splashes.clear()
 	_seen.clear()
 

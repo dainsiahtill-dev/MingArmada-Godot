@@ -6,6 +6,7 @@ const RUNTIME := "res://modules/scene_engine/fidelity_fx/particle_runtime.gd"
 const MixShader = preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
 const AddShader = preload("res://modules/scene_engine/fidelity_fx/particle_add.gdshader")
 const METRES_PER_UNIT := 0.01
+const GAME_SOURCES := ["fx_cannon_fire_01.nif","cannon_ball_splash_01.nif","cannon_ball_splash_02.nif","cannon_ball_splash_03.nif"]
 static var _manifest: Dictionary = {}
 static var _assets: Dictionary = {}
 # Validated owned source data only; spawned lifecycles retain independent state.
@@ -44,6 +45,11 @@ var _seek_age := NAN
 var _seek_replay_id := 0
 var _seek_error := ""
 var _filter_revision := 0
+var _pending_snapshot: Dictionary = {}
+var _worker_job: Dictionary = {}
+var _worker_task := -1
+var _worker_dispatched := 0
+var _worker_joined := 0
 const GAME_FLASH_DURATION := 0.14
 
 static func load_manifest() -> Dictionary:
@@ -77,6 +83,39 @@ static func _texture(name: String) -> Texture2D:
 		_textures[key] = texture
 		return texture
 	return null
+
+static func prewarm_game_sources() -> Dictionary:
+	# Loading owns cold source validation and original texture uploads. No replay,
+	# pool, material, render carrier or birth update is created by preparation.
+	var report := {"ok":false,"sources":[],"textures":[],"errors":[]}
+	var script: Script = load(RUNTIME) if FileAccess.file_exists(RUNTIME) else null
+	if script == null:
+		report.errors.append("Source replay runtime unavailable")
+		return report
+	for source: String in GAME_SOURCES:
+		var asset := _asset(source)
+		if asset.is_empty():
+			report.errors.append("Source asset unavailable: "+source)
+			continue
+		var prepared: RefCounted = _prepared_sources.get(source)
+		if prepared == null:
+			prepared = script.new()
+			if not prepared.configure(asset,1,false):
+				report.errors.append(source+": "+prepared.get_last_error())
+				continue
+			_prepared_sources[source] = prepared
+		report.sources.append(source)
+		var blueprint: Dictionary = prepared.get("_asset")
+		for block: Dictionary in blueprint.blocks:
+			if block.type != "NiSourceTexture": continue
+			var name := String(block.fields.get("file_name","")).to_lower()
+			if report.textures.has(name): continue
+			if name.is_empty() or _texture(name) == null:
+				report.errors.append("Source texture unavailable: "+name)
+				continue
+			report.textures.append(name)
+	report.ok = report.errors.is_empty()
+	return report
 
 func configure(source: String, options: Dictionary = {}) -> bool:
 	dispose()
@@ -129,6 +168,7 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	return true
 
 func set_camera(camera: Camera3D) -> void:
+	if has_pending_snapshot(): finish_snapshot()
 	if camera == _camera: return
 	_camera = camera
 	_present_key.clear()
@@ -137,6 +177,7 @@ func get_playback_duration() -> float:
 	if _replay.has_method("get_playback_duration"): return float(_replay.call("get_playback_duration"))
 	return float(_replay.diagnostics().get("max_time",0.0))
 func configure_surface_filter(sea_at: Callable) -> void:
+	if has_pending_snapshot(): finish_snapshot()
 	_sea = sea_at
 	# The same callable may now refer to changed terrain/provider state.
 	_filter_revision += 1
@@ -163,7 +204,98 @@ func _seek_display(age: float, replay_id: int) -> void:
 	_seek_error = String(_replay.call("get_last_error")) if _replay.has_method("get_last_error") else String(_replay.diagnostics().get("last_error",""))
 	_mesh_key.clear(); _display_meshes.clear()
 
+func _snapshot_key(age: float, absolute_time: float) -> Dictionary:
+	var accepted_time := age if absolute_time < 0.0 else absolute_time
+	return {"age":age,"absolute_input":absolute_time,"absolute_time":accepted_time,"camera":_camera_key(),
+		"transform":global_transform,"filter_revision":_filter_revision,"water":_water,"sea":_sea,
+		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"replay_id":_replay.get_instance_id()}
+
+static func _run_native_snapshot(job: Dictionary) -> void:
+	# This Callable belongs to the Script resource, not a Node. The job owns the
+	# provider exclusively until main joins it; all camera input is copied data.
+	var provider: RefCounted = job.provider
+	if job.advance:
+		provider.advance_native(float(job.age),false)
+		job.error = String(provider.call("get_last_error")) if provider.has_method("get_last_error") else String(provider.diagnostics().get("last_error",""))
+	if String(job.error).is_empty() and job.needs_mesh:
+		job.records = provider.display_meshes(job.camera)
+	job.complete = true
+
+func _join_native_snapshot() -> Dictionary:
+	if _worker_task < 0: return {}
+	var task := _worker_task
+	var error := WorkerThreadPool.wait_for_task_completion(task)
+	_worker_task = -1
+	_worker_joined += 1
+	var job := _worker_job
+	_worker_job = {}
+	if error != OK or not bool(job.get("complete",false)):
+		job.error = "Native effect worker did not complete its accepted frame"
+	return job
+
+func has_pending_snapshot() -> bool:
+	# Only main owns this frame dictionary; checking it never reads worker output.
+	return not _pending_snapshot.is_empty()
+
+func begin_snapshot(age: float, absolute_time: float = -1.0) -> bool:
+	if not _configured or _replay == null or not is_finite(age) or age < 0.0 or not is_finite(absolute_time): return false
+	var key := _snapshot_key(age,absolute_time)
+	if has_pending_snapshot():
+		if key == _pending_snapshot.key: return true
+		finish_snapshot()
+	# Study and the public synchronous path retain the original virtual seams.
+	if _clock_mode != "native": return _apply_snapshot_sync(age,absolute_time)
+	if key == _present_key: return _present_result
+	var duration := get_playback_duration()
+	var replay_id := _replay.get_instance_id()
+	var seek_age := minf(age,duration)
+	var advance := seek_age != _seek_age or replay_id != _seek_replay_id
+	var expired := age > duration
+	var mesh_key := {"age":age,"camera":key.camera,"replay_id":replay_id}
+	var needs_mesh := not expired and (advance or mesh_key != _mesh_key)
+	_pending_snapshot = {"key":key,"age":age,"absolute_time":key.absolute_time,"seek_age":seek_age,
+		"replay_id":replay_id,"advance":advance,"expired":expired,"mesh_key":mesh_key,"needs_mesh":needs_mesh}
+	if advance or needs_mesh:
+		_worker_job = {"provider":_replay,"age":seek_age,"camera":_camera_native().duplicate(true),
+			"advance":advance,"needs_mesh":needs_mesh,"error":_seek_error,"records":[],"complete":false}
+		# Resolve the base Script resource on main. No Node-bound work or callbacks
+		# enter the pool; texture/material/water/sea/render stay after the join.
+		var script: Script = load("res://modules/scene_engine/fidelity_fx/presentation.gd")
+		_worker_task = WorkerThreadPool.add_task(Callable(script,"_run_native_snapshot").bind(_worker_job),false,"Native source frame")
+		_worker_dispatched += 1
+	return true
+
+func finish_snapshot() -> bool:
+	if not has_pending_snapshot(): return _present_result
+	var frame := _pending_snapshot
+	_pending_snapshot = {}
+	var job := _join_native_snapshot()
+	if frame.advance:
+		_seek_age = float(frame.seek_age); _seek_replay_id = int(frame.replay_id)
+		_seek_error = String(job.get("error",""))
+		_mesh_key.clear(); _display_meshes.clear()
+	if frame.needs_mesh:
+		_display_meshes = job.get("records",[])
+		_mesh_key = frame.mesh_key
+	_age = float(frame.age); _absolute_time = float(frame.absolute_time)
+	_expired = bool(frame.expired)
+	_last_error = "Explicit source controller clip expired" if _expired else String(job.get("error",_seek_error))
+	if _expired or not _last_error.is_empty():
+		_render([])
+		_present_key = frame.key; _present_result = false
+		return false
+	_render(_display_meshes)
+	_present_key = frame.key; _present_result = true
+	return true
+
 func apply_snapshot(age: float, absolute_time: float = -1.0) -> bool:
+	if has_pending_snapshot():
+		if _configured and _replay != null and is_finite(age) and age >= 0.0 and is_finite(absolute_time) and _snapshot_key(age,absolute_time) == _pending_snapshot.key:
+			return finish_snapshot()
+		finish_snapshot()
+	return _apply_snapshot_sync(age,absolute_time)
+
+func _apply_snapshot_sync(age: float, absolute_time: float = -1.0) -> bool:
 	# Reject before touching the retained accepted frame or any replay clock.
 	if not _configured or _replay == null or not is_finite(age) or age < 0.0 or not is_finite(absolute_time): return false
 	var accepted_time := age if absolute_time < 0.0 else absolute_time
@@ -408,11 +540,17 @@ func _game_flash_meshes() -> Array:
 	return out
 
 func diagnostics() -> Dictionary:
+	if has_pending_snapshot(): finish_snapshot()
 	var state: Dictionary = _replay.diagnostics() if _replay != null else {}
+	state["worker"] = {"dispatched":_worker_dispatched,"joined":_worker_joined,"pending":int(_worker_task >= 0)}
 	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"mesh_resource_reuse":_region_updates,"mesh_update_scope":"stable layout/index region writes with exact per-instance bounds" if _region_updates else "headless dummy region writes are no-ops; rebuild actual ArrayMesh arrays","render_profile":_render_profile,"clock_mode":_clock_mode,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
 	return state
 
 func dispose() -> void:
+	# Retire the task before releasing its provider. Destruction never renders an
+	# old payload or touches camera/water owners that may already be leaving.
+	_join_native_snapshot()
+	_pending_snapshot.clear()
 	for node: Node in _geometry.values():
 		if is_instance_valid(node): node.free()
 	_geometry.clear(); _surface_layouts.clear(); _materials.clear(); _replay = null; _camera = null

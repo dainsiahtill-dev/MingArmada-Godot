@@ -12,17 +12,27 @@ var _water_splashes: Node3D
 var _surface_filter: Callable
 var _camera: Camera3D
 var _source_fire: Array = []
+var _source_prewarm: Dictionary = {}
+var _pending_snapshot: Dictionary = {}
+var _snapshot_pending := false
 func set_camera(camera: Camera3D) -> void:
+	finish_snapshot()
 	_camera = camera
 	if _water_splashes: _water_splashes.configure_reference_backend(camera)
 	for effect: Dictionary in _source_fire: effect.node.set_camera(camera)
 func set_water_sampler(sampler: Callable) -> void:
+	finish_snapshot()
+	if _source_prewarm.is_empty():
+		_source_prewarm = SourceEffect.prewarm_game_sources()
+		if not bool(_source_prewarm.get("ok",false)):
+			push_error("Source effects prewarm failed: "+str(_source_prewarm.get("errors",[])))
 	if _water_splashes: _water_splashes.free()
 	_water_splashes = Splashes.new(); _water_splashes.name = "WaterSplashes"
 	add_child(_water_splashes); _water_splashes.configure(sampler)
 	if is_instance_valid(_camera): _water_splashes.configure_reference_backend(_camera)
 	if _surface_filter.is_valid(): _water_splashes.configure_surface_filter(_surface_filter)
 func set_surface_filter(surface_filter: Callable) -> void:
+	finish_snapshot()
 	_surface_filter = surface_filter
 	if _water_splashes: _water_splashes.configure_surface_filter(surface_filter)
 func _ready() -> void:
@@ -39,17 +49,36 @@ func presentation_events(events: Array) -> Array:
 			event.velocity.y -= 9.81*maxf(0,event.time-observed.time)
 	return result
 func apply_snapshot(native: Dictionary,_consumed: float) -> void:
+	begin_snapshot(native,_consumed)
+	finish_snapshot()
+
+func has_pending_snapshot() -> bool: return _snapshot_pending
+
+func begin_snapshot(native: Dictionary,_consumed: float = 0.0) -> void:
+	finish_snapshot()
 	var now := float(native.time)
 	if not is_finite(now) or now < 0: return
 	if now < _time: _clear_transients()
 	_time = now
-	if _water_splashes: _water_splashes.apply_snapshot(_time)
+	# This dictionary is borrowed read-only until the matching finish. The Sea
+	# completes the pair in this same frame before handling new events.
+	_pending_snapshot = native
+	_snapshot_pending = true
+	if _water_splashes: _water_splashes.begin_snapshot(_time)
 	for index in range(_source_fire.size()-1,-1,-1):
 		var effect: Dictionary = _source_fire[index]
 		var age := _time-float(effect.time)
 		if age < 0.0 or age >= float(effect.duration):
-			effect.node.free(); _source_fire.remove_at(index); continue
-		effect.node.apply_snapshot(age,_time)
+			effect.node.dispose(); effect.node.free(); _source_fire.remove_at(index); continue
+		effect.node.begin_snapshot(age,_time)
+
+func finish_snapshot() -> void:
+	if not _snapshot_pending: return
+	_snapshot_pending = false
+	var native := _pending_snapshot
+	_pending_snapshot = {}
+	if _water_splashes: _water_splashes.finish_snapshot()
+	for effect: Dictionary in _source_fire: effect.node.finish_snapshot()
 	var present: Array = []
 	# Settled authority may retain shots that will never advance again. Retire
 	# only their drawn carriers; native ballistics and the final hit events stay
@@ -105,6 +134,7 @@ func _update_puff(puff: Dictionary, age: float) -> void:
 	puff.node.scale = Vector3.ONE*(puff.size+age*puff.growth)
 	puff.material.albedo_color.a = (1-age/puff.duration)*puff.alpha
 func apply_events(events: Array) -> void:
+	finish_snapshot()
 	for event: Dictionary in events:
 		if _seen.has(event.id): continue
 		_seen[event.id] = true
@@ -139,17 +169,23 @@ func apply_events(events: Array) -> void:
 					_water_splashes.add_event(froth)
 	while _seen.size() > 512: _seen.erase(_seen.keys()[0])
 func diagnostics() -> Dictionary:
+	finish_snapshot()
 	var particles := 0
 	var sources: Array = []
 	for effect: Dictionary in _source_fire:
 		var state: Dictionary = effect.node.diagnostics(); sources.append(state)
 		particles += int(state.get("particles",state.get("active",0)))
-	return {"projectiles":_balls.size(),"puffs":_puffs.size(),"events":_seen.size(),"splashes":_water_splashes.diagnostics().splashes if _water_splashes else 0,"source_fire":_source_fire.size(),"source_particles":particles,"source_effects":sources,"water":_water_splashes.diagnostics() if _water_splashes else {}}
+	return {"projectiles":_balls.size(),"puffs":_puffs.size(),"events":_seen.size(),"splashes":_water_splashes.diagnostics().splashes if _water_splashes else 0,"source_fire":_source_fire.size(),"source_particles":particles,"source_effects":sources,"sourcePrewarm":_source_prewarm.duplicate(true),"water":_water_splashes.diagnostics() if _water_splashes else {}}
 
 func _clear_transients() -> void:
+	# Source disposal joins its exclusive CPU job and discards the old draw
+	# payload. Do not render a frame whose providers may be being destroyed.
+	_snapshot_pending = false
+	_pending_snapshot = {}
 	for ball: Node in _balls.values(): ball.free()
 	for puff: Dictionary in _puffs: puff.node.free()
-	for effect: Dictionary in _source_fire: effect.node.free()
+	for effect: Dictionary in _source_fire:
+		effect.node.dispose(); effect.node.free()
 	_source_fire.clear()
 	_balls.clear(); _puffs.clear(); _seen.clear(); _velocities.clear()
 
@@ -159,5 +195,6 @@ func dispose() -> void:
 	_time = 0.0
 	_surface_filter = Callable()
 	_camera = null
+	_source_prewarm.clear()
 
 func _exit_tree() -> void: dispose()

@@ -238,7 +238,9 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	_battle_id = next_battle
 	_snapshot = native.duplicate(true)
 	_update_camera(native, consumed)
-	effects.apply_snapshot(native,consumed)
+	# Source particle math overlaps the independent ship/crew presentation.
+	# All jobs finish in this frame; rendering and callbacks stay on main.
+	effects.begin_snapshot(native,consumed)
 	var requests: Array = []
 	for ship: Dictionary in native.get("ships", []):
 		var p: Dictionary = ship.visual.position
@@ -273,6 +275,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 		crew.apply_snapshot(timed,native.get("wind",{}),consumed)
 	for id: String in ships.keys():
 		if not live.has(id): _release_ship(id)
+	effects.finish_snapshot()
 	var presented_events: Array = effects.presentation_events(events)
 	for event: Dictionary in presented_events:
 		if event.get("type") == "fire" and not event.has("source_muzzle_position") and ships.has(str(event.get("shipId",""))):
