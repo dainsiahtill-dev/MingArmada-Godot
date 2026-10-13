@@ -1,10 +1,9 @@
 extends SceneTree
-## Frozen historical voyage regression. Its recorded unsafe-circle witnesses
-## belong to the source-profile geography, not today's natural campaign map.
-## Current natural egress is covered by test_natural_wet_route_egress.gd.
+## Historical voyage oracle plus current source-triangle navigation guards.
+## Historical basis is explicit test-only terrain, not current campaign geometry.
 const Encounter=preload("res://modules/naval_simulation/encounter.gd")
 const Height=preload("res://modules/scene_engine/terrain/height_field.gd")
-const Layout=preload("res://game/scenes/common/reference_geography.gd")
+const RecordedHeight=preload("res://tests/fixtures/wet_route_egress_recorded_height.gd")
 const Planner=preload("res://modules/naval_simulation/navigation/wet_route_planner.gd")
 const Egress=preload("res://modules/naval_simulation/navigation/wet_route_egress.gd")
 # Frozen raw-profile layout recorded in INPUT.sourceHashes. Current source art
@@ -13,13 +12,13 @@ const RECORDED_LAYOUT={"reference_islands":true,"reference_profiles":{"xiamen":"
 const INPUT="res://docs/migration/evidence/opening-story/port-approach-and-voyage-clarity/journey-second-corrected.json"
 const ID="mingqi-1650-grain-a"
 var record: Dictionary
-var heights=Height.new()
+var heights=RecordedHeight.new()
 var assertions=0
 var failures=0
 func check(ok: bool,label: String) -> void:
 	assertions+=1
 	if not ok:failures+=1;printerr("FAIL: ",label)
-func fixture(seconds: float=2999.8) -> RefCounted:
+func fixture(seconds: float=2999.8, terrain: RefCounted=null) -> RefCounted:
 	var stage: Dictionary
 	for frame: Dictionary in record.stages:
 		if frame.simulationSeconds==seconds:stage=frame;break
@@ -28,7 +27,8 @@ func fixture(seconds: float=2999.8) -> RefCounted:
 		var native: Dictionary=s.nativeDiagnostics.duplicate(true)
 		native.position=s.position;native.heading=s.heading;native.speed=0
 		setups.append(native)
-	var e=Encounter.new({"mode":"continuous","routePlanning":true,"referenceHandling":true,"ships":setups,"playerId":record.final.campaign.flagshipId,"controllableShipIds":stage.runtime.controllableShipIds,"hostileTargets":{},"sampleTerrainHeight":heights.sample_height,"wind":record.final.naval.wind,"oceanWaves":[]})
+	var provider: RefCounted=heights if terrain==null else terrain
+	var e=Encounter.new({"mode":"continuous","routePlanning":true,"referenceHandling":true,"ships":setups,"playerId":record.final.campaign.flagshipId,"controllableShipIds":stage.runtime.controllableShipIds,"hostileTargets":{},"sampleTerrainHeight":provider.sample_height,"wind":record.final.naval.wind,"oceanWaves":[]})
 	check(e.last_error.is_empty(),"recorded scalar fixture builds real Encounter")
 	for s: Dictionary in stage.ships:
 		var ship: Dictionary=e._ship(s.id)
@@ -37,6 +37,51 @@ func fixture(seconds: float=2999.8) -> RefCounted:
 		ship.previous=e._visual(ship)
 		if s.navigation!=null:ship.state.navigation=s.navigation.duplicate(true)
 	return e
+func current_terrain_guards() -> void:
+	print("EGRESS_CURRENT_STAGE start elapsed_ms=",Time.get_ticks_msec())
+	var current_heights=Height.new()
+	check(current_heights.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,RECORDED_LAYOUT),"current source-triangle terrain configured independently")
+	var obsolete=fixture(2999.8,current_heights);var old_ship: Dictionary=obsolete._ship(ID);var old_pose: Dictionary=obsolete._visual(old_ship)
+	check(not obsolete._wet_hull(old_ship,old_pose.position.x,old_pose.position.z,old_pose.heading),"historical recorded hull is dry under current accepted source orientation")
+	var old_input: Dictionary=obsolete._egress_input(old_ship,old_pose)
+	check(Egress.assess(old_input.own,{"x":old_pose.position.x,"z":old_pose.position.z-32.0},[],current_heights.sample_height).get("reason")=="current-depth","current terrain rejects old exact witness at actual depth gate")
+	obsolete._autopilot(old_ship)
+	check(not old_ship.has("wetRouteEgress") and old_ship.state.rudder==0 and old_ship.state.sailDeployment==0,"old dry recorded witness cannot acquire current egress or reopen sails")
+	# A newly constructed independent boat; no correction of a running pose,
+	# terrain override, owner injection or modification of recorded evidence.
+	var initial: Dictionary=obsolete.config.duplicate(true)
+	initial.ships=initial.ships.filter(func(body):return body.id==ID)
+	initial.ships[0].team="player"
+	initial.ships[0].position={"x":-11.0,"y":0.0,"z":392.0};initial.ships[0].heading=2.7784601719502664;initial.ships[0].speed=0.0
+	initial.playerId=ID;initial.controllableShipIds=[ID]
+	var current=Encounter.new(initial);var ship: Dictionary=current._ship(ID);var goal={"x":-60.0,"z":250.0}
+	check(current.last_error.is_empty() and current.navigate(ID,goal).ok,"current fixed wet near-shore boat accepts authorized original goal")
+	var pose: Dictionary=current._visual(ship)
+	check(current._wet_hull(ship,pose.position.x,pose.position.z,pose.heading),"current fixed near-shore actual hull is wet")
+	var route: Dictionary=Planner.new().plan(pose.position,goal,ship.state.dimensions,current_heights.sample_height)
+	check(not route.ok and route.get("reason")=="unsafe-endpoint","current fixed hull remains outside conservative circle-safe Planner domain")
+	var before: Dictionary=ship.core.get_snapshot();current._autopilot(ship)
+	check(ship.has("wetRouteEgress") and not ship.wetRouteEgress.holding and ship.egressClearance.ok and ship.core.get_snapshot()==before,"current real Egress acquires fresh checked owner without rewriting native motion")
+	if not ship.has("wetRouteEgress"):return
+	print("EGRESS_CURRENT_STAGE acquired elapsed_ms=",Time.get_ticks_msec())
+	var wet=true
+	for index in 60:
+		current.step(1.0/60.0);pose=current._visual(ship)
+		wet=wet and current._wet_hull(ship,pose.position.x,pose.position.z,pose.heading)
+	check(wet and ship.has("wetRouteEgress") and not ship.wetRouteEgress.holding and ship.egressClearance.ok and ship.state.navigation==goal,"current native60tick turn retains wet hull checked owner and authorized goal")
+	print("EGRESS_CURRENT_STAGE turn elapsed_ms=",Time.get_ticks_msec())
+	# Public reconciliation introduces a real moving peer after valid acquisition.
+	# It starts 80m to port, crossing the connector 16m ahead; no present overlap.
+	var peer: Dictionary=initial.ships[0].duplicate(true)
+	peer.id="current-egress-crossing";peer.team="neutral";peer.position={"x":pose.position.x-80.0,"y":0.0,"z":pose.position.z-16.0};peer.heading=0.0;peer.speed=1.0;peer.sailDeployment=0.0;peer.rudder=0.0
+	var reconciliation: Dictionary=current.reconcileShips([initial.ships[0],peer],current.policy)
+	check(reconciliation.ok,"public reconciliation adds real current crossing peer: "+str(reconciliation))
+	ship=current._ship(ID)
+	var fresh_input: Dictionary=current._egress_input(ship,current._visual(ship))
+	check(fresh_input.peers.size()==1 and not Egress.Clearance._moving_overlap(ship.state.dimensions,{"x":pose.position.x,"z":pose.position.z,"heading":pose.heading,"padding":0.0},fresh_input.peers[0],0.0) and current._visual(ship)==pose and ship.state.navigation==goal,"current reconciled peer leaves actual boat motion goal and present collision clearance intact")
+	var held: Dictionary=current._autopilot(ship)
+	check(ship.has("wetRouteEgress") and ship.wetRouteEgress.holding and ship.egressClearance.get("reason")=="predicted-peer" and ship.egressClearance.get("peerId")==peer.id and ship.state.rudder==0 and ship.state.sailDeployment==0 and held.get("targetYawRateRad",1)==0 and held.get("brakeDeceleration",0)>0,"current fresh peer rejection latches furled neutral physical braking")
+	check(current.navigate(ID,null).ok and not ship.has("wetRouteEgress") and ship.state.rudder==0 and ship.state.sailDeployment==0,"current public cancellation revokes owner and owned travel outputs")
 func safe_fixture() -> RefCounted:
 	# Select an isolated fixture at construction, before any native step. The
 	# original recorded moving-peer fixture remains intact in the first case.
@@ -56,6 +101,8 @@ func _initialize() -> void:
 	check(not Planner.new().plan(p.position,ship.state.navigation,ship.state.dimensions,heights.sample_height).ok,"unchanged original Planner rejects circle-unsafe start")
 	e._autopilot(ship)
 	check(ship.has("wetRouteEgress"),"wet low-speed unsafe-start gets independently owned directed connector")
+	if not ship.has("wetRouteEgress"):
+		finish();return
 	check(ship.route.points.is_empty() and ship.wetRouteEgress.node.z<p.position.z,"short connector remains separate from ordinary45m waypoint pop")
 	check(ship.state.sailDeployment==0,"turn starts with furled sails")
 	var original_goal: Dictionary=ship.state.navigation.duplicate(true)
@@ -144,7 +191,10 @@ func _initialize() -> void:
 	check(ship.has("wetRouteEgress") and ship.wetRouteEgress.holding and ship.state.sailDeployment==0 and held.get("targetYawRateRad",1)==0 and held.get("brakeDeceleration",0)>0,"fresh depth hazard latches neutral furled braking")
 	e.config.sampleTerrainHeight=heights.sample_height;e._autopilot(ship)
 	check(ship.has("wetRouteEgress") and ship.wetRouteEgress.holding and ship.state.sailDeployment==0,"removed hazard does not automatically reopen sails")
-	var report={"assertions":assertions,"failures":failures,"scope":"historical source-profile recorded scalar fixtures and isolated native short continuous turn; current natural campaign covered separately","encounterSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/encounter.gd").sha256_text(),"moduleSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/navigation/wet_route_egress.gd").sha256_text(),"fixtureSha256":FileAccess.get_file_as_string(INPUT).sha256_text()}
+	current_terrain_guards()
+	finish()
+func finish() -> void:
+	var report={"assertions":assertions,"failures":failures,"scope":"68 historical source-profile oracle checks plus current accepted source-triangle old-witness rejection and independent wet near-shore ownership/peer/cancellation; no full campaign/GPU claim","historicalTerrainSourceCommit":RecordedHeight.SOURCE_COMMIT,"currentWitness":{"position":{"x":-11.0,"z":392.0},"heading":2.7784601719502664,"goal":{"x":-60.0,"z":250.0}},"encounterSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/encounter.gd").sha256_text(),"moduleSha256":FileAccess.get_file_as_string("res://modules/naval_simulation/navigation/wet_route_egress.gd").sha256_text(),"fixtureSha256":FileAccess.get_file_as_string(INPUT).sha256_text()}
 	var output=FileAccess.open("res://build/port-approach-work/wet-route-egress/unit.json",FileAccess.WRITE)
 	output.store_string(JSON.stringify(report,"\t"));output.close()
 	print("WET_ROUTE_EGRESS assertions=",assertions," failures=",failures)

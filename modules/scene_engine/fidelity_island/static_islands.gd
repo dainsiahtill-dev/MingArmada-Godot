@@ -135,22 +135,7 @@ func configure(profiles: Array, height_sampler: Callable, materials: Array, opti
 	return true
 
 static func _render_window(profile: Dictionary) -> Rect2i:
-	var lower := Vector2i.ZERO
-	var upper := Vector2i(int(profile.width)-1,int(profile.height)-1)
-	if profile.has("dock"):
-		var dock := Coordinates._vector2(profile.dock)
-		var inward := Coordinates._vector2(profile.inward).normalized()
-		var across := Vector2(-inward.y,inward.x)
-		# ReferenceProfile's harbor target cannot be positive outside native H
-		# bounds before along20m; its adaptation is zero beyond along95m or
-		# lateral35m. Bound that finite possible-land rectangle in source pixels,
-		# with one neighbor pixel for shared-edge normals and complete triangles.
-		for along: float in [20.0,95.0]:
-			for lateral: float in [-35.0,35.0]:
-				var pixel := Coordinates.world_to_source_pixel(dock+inward*along+across*lateral,profile)
-				lower = lower.min(Vector2i(int(floor(pixel.x))-1,int(floor(pixel.y))-1))
-				upper = upper.max(Vector2i(int(ceil(pixel.x))+1,int(ceil(pixel.y))+1))
-	return Rect2i(lower,upper-lower+Vector2i.ONE)
+	return ReferenceProfile.target_render_window(profile)
 
 func _build_mesh(profile: Dictionary, sampler: Callable, material: Material) -> IslandMesh:
 	var window := _render_window(profile)

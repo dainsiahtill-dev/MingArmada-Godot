@@ -77,7 +77,7 @@ func controllers(block: Dictionary) -> Array:
 		ref = controller.fields.get("next_controller")
 	return out
 
-func advance(now: float, source_outer:Dictionary={}) -> void:
+func advance(now: float, source_outer:Dictionary={}, allow_births:bool=true) -> void:
 	now = Math.f32(now)
 	var worlds: Dictionary = authored_world_transforms(now,source_outer)
 	for system in systems:
@@ -92,7 +92,11 @@ func advance(now: float, source_outer:Dictionary={}) -> void:
 		var previous: float = system.lastUpdate if system.lastUpdate != null else now
 		var relative: Dictionary = Math.compose(Math.inverse(system.world),worlds[int(system.emitter.fields.emitter_object.ref)])
 		var packets: Array = system.controller.advance(now,previous)
-		for packet in packets: system.pool.emit(system.emitter.fields,packet,relative,rng)
+		# Optional target gameplay gate. The source emitter/controller clocks and
+		# existing particle modifiers still advance; suppressed births are never
+		# queued for a later resume. Default keeps original replay behavior.
+		if allow_births:
+			for packet in packets: system.pool.emit(system.emitter.fields,packet,relative,rng)
 		system.pool.commit()
 		if needs_reset or (system.lastUpdate != null and system.lastUpdate > now):
 			system.pool.reset()

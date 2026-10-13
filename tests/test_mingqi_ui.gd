@@ -191,10 +191,13 @@ func _verify_layout_lifecycle(Interface) -> void:
 	for frame in 8: await process_frame
 	var hud = ui.find_child("hud", true, false)
 	print("HUD_FIRST_PACKET size=", hud.size, " minimum=", hud.get_combined_minimum_size())
-	check(hud.size.x <= 430 and hud.size.y <= 350, "single initial snapshot settles to compact HUD without manual layout")
+	# 44feae1 added mouse-course and camera instructions. Use this suite's
+	# established 390px compact limit and additionally reject lifecycle growth.
+	var initial_height: float = hud.size.y
+	check(hud.size.x <= 430 and initial_height <= 390, "single initial snapshot settles to compact HUD without manual layout")
 	ui.open_panel("convoy")
 	for frame in 8: await process_frame
-	check(hud.size.y <= 350, "panel selection keeps compact HUD without new snapshot")
+	check(is_equal_approx(hud.size.y,initial_height), "panel selection preserves settled HUD height without new snapshot")
 	ui.open_menu()
 	for frame in 8: await process_frame
 	var picker = ui.find_child("import_file_picker", true, false)
@@ -204,7 +207,7 @@ func _verify_layout_lifecycle(Interface) -> void:
 	picker.canceled.emit()
 	ui.close_menu()
 	for frame in 8: await process_frame
-	check(not ui.find_child("voyage_menu", true, false).visible and not picker.visible and hud.size.y <= 350, "closing actual file dialog and menu preserves compact HUD")
+	check(not ui.find_child("voyage_menu", true, false).visible and not picker.visible and is_equal_approx(hud.size.y,initial_height), "closing actual file dialog and menu preserves settled HUD height")
 	ui.close_panel()
 	var old_operation = ui.find_child("operation", true, false)
 	packet.campaign = reference.steps[-1].state
@@ -214,7 +217,7 @@ func _verify_layout_lifecycle(Interface) -> void:
 	for frame in 8: await process_frame
 	hud = ui.find_child("hud", true, false)
 	check(not operation.visible, "closed operation stays closed across structural snapshot rebuild")
-	check(hud.size.y <= 350, "rebuilt HUD settles without repeated snapshots")
+	check(is_equal_approx(hud.size.y,initial_height), "rebuilt HUD returns to original settled height without repeated snapshots")
 	ui.open_panel("tactics")
 	packet.runtime.generation = 41
 	ui.apply_snapshot(packet)

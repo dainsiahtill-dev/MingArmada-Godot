@@ -10,6 +10,7 @@ var _owner:Node3D
 var _epoch:Variant=null
 var _time:=-1.0
 var _errors:Dictionary={}
+var _target_rewind_guards:=0
 func _init(parent:Node3D)->void:_owner=parent
 func transfer_owner(parent:Node3D)->void:
 	# In-memory quality rebuild transfers sole ownership, retaining original
@@ -30,7 +31,13 @@ static func route(native:Dictionary,ship:Dictionary={})->String:
 func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 	var epoch:Variant=native.get("wake",{}).get("epoch",native.get("environment",{}).get("epoch",0))
 	if _epoch!=null and _epoch!=epoch:dispose()
-	_epoch=epoch;_time=float(native.get("time",_time))
+	var presentation_time:=float(native.get("time",_time))
+	if _time>=0.0 and presentation_time<_time:
+		# Target presentation rewind guard: discard this owner's future visual
+		# timeline and accept a fresh earlier packet. This is not restoration of
+		# old original history, and does not change History's native time reject.
+		dispose();_target_rewind_guards+=1
+	_epoch=epoch;_time=presentation_time
 	var live:Dictionary={}
 	for ship:Dictionary in native.get("ships",[]):
 		var selected:=route(native,ship)
@@ -52,7 +59,13 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 			_actors[id]=actor
 		var actor:Dictionary=_actors[id];var call_index:Variant=packet.get("sourceCallIndex",native.get("wake",{}).get("sourceCallIndex",null))
 		if call_index==null:_errors[id]="Explicit source-call index missing";continue
-		if actor.call!=null and int(call_index)<=int(actor.call):continue
+		if actor.call!=null and int(call_index)<=int(actor.call):
+			# Original history/RNG advancement is deduplicated. Per-pass camera
+			# orientation remains presentation work at the accepted source clock.
+			if int(call_index)==int(actor.call) and actor.froth!=null:
+				var camera:Variant=packet.get("froth",{}).get("sourceCamera",packet.get("sourceCamera",null))
+				if camera is Dictionary:actor.froth.redraw_camera(camera)
+			continue
 		actor.call=call_index
 		if selected=="scene_30":
 			var accepted:bool=actor.history.update(packet.sourcePosition,float(packet.sourceClock),packet.get("markerId","root"))
@@ -61,7 +74,7 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 			# follows accepted ocean time without recomputing source profile/alpha.
 			elif actor.history.last_result=="distance-rejected" and not actor.geometry.is_empty():
 				_fit_water(actor.geometry,_time,water)
-			if not actor.geometry.is_empty():actor.surface.submit("SceneStrip",actor.geometry.vertices,actor.geometry.uvs,actor.geometry.colors,actor.geometry.indices,{"texture":"wake3unique.dds","alphaFlags":4333,"clampMode":3})
+			if not actor.geometry.is_empty():actor.surface.submit("SceneStrip",actor.geometry.vertices,actor.geometry.uvs,actor.geometry.colors,actor.geometry.indices,Surface.scene_strip_descriptor(actor.geometry))
 		else:_battle(actor,packet,water,sea)
 		if actor.froth!=null:
 			var attached:=packet.duplicate();attached.merge(packet.get("froth",{}),true)
@@ -112,7 +125,7 @@ func diagnostics()->Dictionary:
 		else:samples+=actor.battle_history.get("x",[]).size();battle_draws+=actor.geometry.get("draw_arguments",[]).size()
 		if actor.froth!=null:
 			var report:Dictionary=actor.froth.diagnostics();froth_meshes+=report.authored_meshes;systems+=report.particle_systems;births+=report.native_births
-	return {"source_routes":routes,"source_updates":updates,"source_samples":samples,"authored_froth_meshes":froth_meshes,"source_particle_systems":systems,"source_particle_births":births,"source_battle_draws":battle_draws,"source_region_uploads":regions,"source_errors":_errors.duplicate(),"source_native_equivalent":false,"source_unresolved":["full strip/head/normalize/self-cross ABI","zero-length NaN LUT","475550 full lifecycle","DX9 backend/pixels"],"source_adaptations":["source units/accepted cadence","finite first-frame tangent/profile guard","target water surface fit","sea clipping","battle material carrier"]}
+	return {"source_routes":routes,"source_updates":updates,"source_samples":samples,"authored_froth_meshes":froth_meshes,"source_particle_systems":systems,"source_particle_births":births,"source_battle_draws":battle_draws,"source_region_uploads":regions,"source_errors":_errors.duplicate(),"source_target_rewind_guards":_target_rewind_guards,"source_native_equivalent":false,"source_finite_geometry_contract":"2026-10-13 native continuation; fixture-tested Godot translation","source_unresolved":["original geometry initial buffers","x87 midpoint/CRT NaN domains","475550 original lifecycle","DX9 backend/pixels"],"source_adaptations":["source units/accepted cadence","zero-total/nonfinite GPU rejection","target water surface fit","sea clipping","battle material carrier","target presentation rewind restart, no original history restoration"]}
 func _release(id:String)->void:
 	var actor:Dictionary=_actors[id]
 	if actor.froth!=null:actor.froth.dispose()

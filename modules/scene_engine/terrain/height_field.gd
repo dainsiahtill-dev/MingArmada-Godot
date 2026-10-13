@@ -1,6 +1,6 @@
 extends RefCounted
-## Numeric terrain authority: natural cached triangles for the formal campaign;
-## explicit original-profile or historical ridge providers for source fixtures.
+## Numeric terrain authority: cached natural/reference render triangles for
+## target gameplay; raw original-profile math remains an explicit comparison API.
 ## This module owns no business port catalog and imports no simulation rules.
 
 const ReferenceProfile = preload("res://modules/scene_engine/terrain/reference_island_profile.gd")
@@ -41,6 +41,7 @@ var _uz := 0.0
 var _sampling_revision := 0
 var _sampling_next_token := 0
 var _sampling_scopes: Array[Dictionary] = []
+var _original_reference_sampler:=Callable()
 
 func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Dictionary = {}) -> bool:
 	_sampling_revision += 1
@@ -105,8 +106,22 @@ func configure_ports(ports: Array, include_shoal_shelf: bool = true, options: Di
 			art.merge(options.get("reference_art_by_profile",{}).get(id,{}),true)
 			if data.is_empty() or not profile.configure(port,data,id,art): return false
 			profiles.append(profile)
+	var original_sampler:=Callable()
+	if not profiles.is_empty():
+		var shelf:=_reference_shelf(ports,include_shoal_shelf)
+		original_sampler=_sample_reference_source.bind(profiles,shelf)
+		# The cache key includes every accepted source/mapping/art/harbor and
+		# global height owner. Cached immutable grids never cross configurations.
+		var records: Array=[]
+		for profile: RefCounted in profiles: records.append(profile.diagnostics())
+		# Keep scalar input precision too: diagnostic Vector2 strings alone are
+		# not a sufficient identity for closely spaced harbor/center coordinates.
+		var authority_key:=JSON.stringify({"ports":ports,"options":options,"profiles":records,"shelf":shelf})
+		for profile: RefCounted in profiles:
+			if not profile.configure_target_triangle_authority(original_sampler,authority_key): return false
 	_ports = ports.duplicate(true)
 	_reference_profiles=profiles
+	_original_reference_sampler=original_sampler
 	_natural_fields=natural_fields
 	_natural_shoal=natural_shoal
 	_length = 0.0
@@ -160,7 +175,13 @@ func _sample_height_uncached(x: float, z: float) -> float:
 		if _natural_shoal!=null: height=maxf(height,_natural_shoal.sample_triangle_height(x,z))
 		return height
 	if not _reference_profiles.is_empty():
-		for profile: RefCounted in _reference_profiles: height=maxf(height,float(profile.sample_height(x,z)))
+		var covered:=false
+		for profile: RefCounted in _reference_profiles:
+			var triangle: float=profile.sample_target_triangle_height(x,z)
+			if is_finite(triangle): height=maxf(height,triangle);covered=true
+		# Match the retained mesh where it exists. Outside finite island bounds,
+		# keep the original offshore depth/supply-shelf navigation authority.
+		return height if covered else sample_original_reference_height(x,z)
 	else:
 		for island: Dictionary in _ports:
 			var dx := (x - float(island.islandX)) / float(island.radius)
@@ -178,6 +199,30 @@ func _sample_height_uncached(x: float, z: float) -> float:
 		if distance < 135.0:
 			var t := clampf((135.0 - distance) / 45.0, 0.0, 1.0)
 			height = maxf(height, -24.0 + 21.6 * t * t * (3.0 - 2.0 * t))
+	return height
+
+func sample_original_reference_height(x: float,z: float) -> float:
+	if not is_finite(x) or not is_finite(z): return NAN
+	return float(_original_reference_sampler.call(x,z)) if _original_reference_sampler.is_valid() else -24.0
+
+static func _reference_shelf(ports: Array,enabled: bool) -> Dictionary:
+	if not enabled or ports.size()<2: return {}
+	var dx:=float(ports[1].x)-float(ports[0].x)
+	var dz:=float(ports[1].z)-float(ports[0].z)
+	var length:=sqrt(dx*dx+dz*dz)
+	return {"x":float(ports[0].x),"z":float(ports[0].z),"length":length,"ux":dx/length,"uz":dz/length} if length>0.0 else {}
+
+static func _sample_reference_source(x: float,z: float,profiles: Array,shelf: Dictionary) -> float:
+	var height:=-24.0
+	for profile: RefCounted in profiles: height=maxf(height,float(profile.sample_height(x,z)))
+	if not shelf.is_empty():
+		var along: float=(x-float(shelf.x))*float(shelf.ux)+(z-float(shelf.z))*float(shelf.uz)
+		var across: float=-(x-float(shelf.x))*float(shelf.uz)+(z-float(shelf.z))*float(shelf.ux)
+		var end_distance:=maxf(maxf(float(shelf.length)*.32-along,0.0),along-float(shelf.length)*.68)
+		var distance:=sqrt(across*across+end_distance*end_distance)
+		if distance<135.0:
+			var t:=clampf((135.0-distance)/45.0,0.0,1.0)
+			height=maxf(height,-24.0+21.6*t*t*(3.0-2.0*t))
 	return height
 
 func reference_profiles() -> Array:

@@ -4,6 +4,7 @@ extends RefCounted
 var rd:RenderingDevice
 var _owned:Array[RID]=[]
 var _frame_owned:Array[RID]=[]
+var _dependency_kinds:Dictionary={}
 var _volume_shader:=RID()
 var _quad_shader:=RID()
 var _sampler:=RID()
@@ -88,24 +89,38 @@ func _pipeline(shader:RID,operation:int,cull:int,quad:bool=false)->RID:
 		attachment.dst_color_blend_factor=RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
 	blend.attachments=[attachment]
 	var result:=rd.render_pipeline_create(shader,rd.framebuffer_get_format(_framebuffer),-1 if quad else _vertex_format,RenderingDevice.RENDER_PRIMITIVE_TRIANGLES,raster,RDPipelineMultisampleState.new(),stencil_state(operation,quad),blend)
-	_frame_owned.append(result);return result
+	_frame_owned.append(result);_dependency_kinds[result]="pipeline";return result
+
+func _device_owns(resource:RID)->bool:
+	if not resource.is_valid():return false
+	# A nonzero RID token survives dependency-driven deletion. In particular,
+	# resizing the scene auto-frees our framebuffer when its color is freed.
+	match _dependency_kinds.get(resource,""):
+		"framebuffer":return rd.framebuffer_is_valid(resource)
+		"pipeline":return rd.render_pipeline_is_valid(resource)
+		"texture":return rd.texture_is_valid(resource)
+		"uniform_set":return rd.uniform_set_is_valid(resource)
+	# Shader/sampler and mesh buffer trees are entirely owner-local; reverse
+	# teardown releases their arrays before their buffers and shaders last.
+	return true
 
 func _free_list(items:Array[RID])->void:
 	if rd!=null:
 		for i in range(items.size()-1,-1,-1):
-			if items[i].is_valid():rd.free_rid(items[i])
+			if _device_owns(items[i]):rd.free_rid(items[i])
+			_dependency_kinds.erase(items[i])
 	items.clear()
 
 func _ensure_target(color:RID,size:Vector2i)->bool:
-	if _color==color and _size==size and _framebuffer.is_valid():return true
+	if _color==color and _size==size and rd.framebuffer_is_valid(_framebuffer):return true
 	_free_list(_frame_owned);_color=color;_size=size
 	var format:=RDTextureFormat.new();format.width=size.x;format.height=size.y
 	format.format=RenderingDevice.DATA_FORMAT_D24_UNORM_S8_UINT
 	format.usage_bits=RenderingDevice.TEXTURE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT
 	if not rd.texture_is_format_supported_for_usage(format.format,format.usage_bits):format.format=RenderingDevice.DATA_FORMAT_D32_SFLOAT_S8_UINT
 	if not rd.texture_is_format_supported_for_usage(format.format,format.usage_bits):last_error="No supported depth-stencil attachment";return false
-	_stencil=rd.texture_create(format,RDTextureView.new());_frame_owned.append(_stencil)
-	_framebuffer=rd.framebuffer_create([color,_stencil]);_frame_owned.append(_framebuffer)
+	_stencil=rd.texture_create(format,RDTextureView.new());_frame_owned.append(_stencil);_dependency_kinds[_stencil]="texture"
+	_framebuffer=rd.framebuffer_create([color,_stencil]);_frame_owned.append(_framebuffer);_dependency_kinds[_framebuffer]="framebuffer"
 	if not _framebuffer.is_valid():last_error="Scene color cannot be used as attachment";return false
 	_increment=_pipeline(_volume_shader,RenderingDevice.STENCIL_OP_INCREMENT_AND_CLAMP,RenderingDevice.POLYGON_CULL_BACK)
 	_decrement=_pipeline(_volume_shader,RenderingDevice.STENCIL_OP_DECREMENT_AND_CLAMP,RenderingDevice.POLYGON_CULL_FRONT)
@@ -143,12 +158,21 @@ func _retire_meshes(retained:Dictionary)->void:
 	for key in _mesh_cache.keys():
 		if not retained.has(key):_free_list(_mesh_cache[key].owned);_mesh_cache.erase(key)
 
+func clear_geometry()->void:
+	# Called by compositor on render thread even when there are no draws.
+	_retire_meshes({})
+
+func cached_mesh_count()->int:
+	return _mesh_cache.size()
+
 func render(color:RID,depth:RID,size:Vector2i,view_projection:Projection,volumes:Array,shadow_color:Color=Color(0,0,0,0.5))->bool:
 	if rd==null or not _volume_shader.is_valid() or size.x<=0 or size.y<=0:return false
+	if not rd.texture_is_valid(color) or not rd.texture_is_valid(depth):last_error="Scene render target no longer owned by device";return false
 	if not _ensure_target(color,size):return false
 	var uniform:=RDUniform.new();uniform.uniform_type=RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE;uniform.binding=0
 	uniform.add_id(_sampler);uniform.add_id(depth)
 	var set:=rd.uniform_set_create([uniform],_volume_shader,0)
+	_dependency_kinds[set]="uniform_set"
 	var transient:Array[RID]=[set];var prepared:Array=[];var retained:Dictionary={}
 	for volume:Dictionary in volumes:
 		var data:Dictionary=volume.geometry
@@ -174,4 +198,5 @@ func render(color:RID,depth:RID,size:Vector2i,view_projection:Projection,volumes
 func dispose()->void:
 	_retire_meshes({})
 	_free_list(_frame_owned);_free_list(_owned);rd=null
+	_dependency_kinds.clear()
 	_volume_shader=RID();_quad_shader=RID();_framebuffer=RID();_color=RID();_size=Vector2i.ZERO

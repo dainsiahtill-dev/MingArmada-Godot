@@ -257,6 +257,18 @@ func _compile_node(blocks:Dictionary,block:Dictionary,inherited:Dictionary,asset
 		var has_transform:bool=bool(desc.get("has_texture_transform",false))
 		var static_uv:PackedFloat32Array=_texture_transform(desc,{}) if has_transform else PackedFloat32Array([1,0,0,0,1,0,0,0,1])
 		var source:Dictionary={"asset":asset_name,"block":int(block.id),"texture":str(Native._ref(blocks,desc.get("source")).get("fields",{}).get("file_name","")).to_lower(),"localVertices":local_vertices,"sourceUV":data.fields.uv_sets[int(desc.get("uv_set",0))],"triangles":data.effective_triangles,"alpha":float(material.get("fields",{}).get("alpha",1.0)),"color":[float(diffuse.get("r",1.0)),float(diffuse.get("g",1.0)),float(diffuse.get("b",1.0))],"uvMatrix":static_uv,"alphaFlags":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("flags",0)),"threshold":int(props.get("NiAlphaProperty",{}).get("fields",{}).get("threshold",0)),"clampMode":int(desc.get("clamp_mode",3)),"filterMode":int(desc.get("filter_mode",2)),"depthFlags":int(props.get("NiZBufferProperty",{}).get("fields",{}).get("flags",3)),"depthFunction":int(props.get("NiZBufferProperty",{}).get("fields",{}).get("function",3)),"stencil":props.get("NiStencilProperty",{}).get("fields",{}).duplicate(true)}
+		# Retain inherited/overridden source properties rather than globally
+		# enabling vertex alpha on clouds, shadow planes or particle systems.
+		var vertex_property:Dictionary=props.get("NiVertexColorProperty",{}).get("fields",{})
+		var authored_colors:=PackedColorArray()
+		if bool(data.fields.get("has_vertex_colors",false)):
+			for color:Dictionary in data.fields.get("vertex_colors",[]):authored_colors.append(Color(float(color.r),float(color.g),float(color.b),float(color.a)))
+		source.authoredVertexColors=authored_colors
+		source.hasVertexColors=authored_colors.size()==local_vertices.size() and not authored_colors.is_empty()
+		source.vertexMode=int(vertex_property.get("vertex_mode",2))
+		source.lightingMode=int(vertex_property.get("lighting_mode",1))
+		var emissive:Dictionary=material.get("fields",{}).get("emissive_color",{})
+		source.emissiveColor=[float(emissive.get("r",0.0)),float(emissive.get("g",0.0)),float(emissive.get("b",0.0))]
 		var leaf:Dictionary={"source":source,"desc":desc,"hasTransform":has_transform,"alphaControllers":[],"uvControllers":[]}
 		for controller:Dictionary in Native._controllers(blocks,material):
 			if controller.type=="NiAlphaController":leaf.alphaControllers.append(_controller(controller,Native._ref(blocks,controller.fields.data).fields.data))
@@ -268,6 +280,26 @@ func _compile_node(blocks:Dictionary,block:Dictionary,inherited:Dictionary,asset
 		node.leaf=leaf
 	for reference:Variant in fields.get("children",[]):node.children.append(_compile_node(blocks,Native._ref(blocks,reference),props,asset_name))
 	return node
+
+static func authored_surface_colors(state:Dictionary)->PackedColorArray:
+	# NiVertexColorProperty: 0=ignore, 1=emission, 2=ambient/diffuse.
+	# Lighting 0 disables ambient/diffuse; 1 keeps them. Only the diffuse
+	# source carries authored alpha. Preserve material/controller alpha once.
+	# This is the existing unlit Godot observer's color selection, not a
+	# reconstruction of DX9 specular/ambient/emission lighting and pixels.
+	var mode:=int(state.get("vertexMode",0))
+	var lighting:=int(state.get("lightingMode",1))
+	var use_colors:=bool(state.get("hasVertexColors",false)) and (mode==1 or (mode==2 and lighting==1))
+	var original:PackedColorArray=state.get("authoredVertexColors",PackedColorArray())
+	var selected:Array=state.get("emissiveColor",[0.0,0.0,0.0]) if mode==2 and lighting==0 else state.get("color",[1.0,1.0,1.0])
+	var alpha:=float(state.get("alpha",1.0))
+	var colors:=PackedColorArray()
+	for i in state.localVertices.size():
+		if use_colors:
+			var color:Color=original[i]
+			colors.append(Color(color.r,color.g,color.b,color.a*alpha if mode==2 else alpha))
+		else:colors.append(Color(float(selected[0]),float(selected[1]),float(selected[2]),alpha))
+	return colors
 
 func _clock_time(controller:Dictionary,time:float,persistent:bool=false)->float:
 	# Native instance owns its history. Seek/rebuild is an explicit lifecycle

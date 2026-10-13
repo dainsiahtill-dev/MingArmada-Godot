@@ -115,6 +115,8 @@ func run_fences() -> void:
 	made=at_port();check(made.ok,"live unanchored guard fixture")
 	if made.ok:
 		r=made.runtime
+		check(not r.command({"type":"controls","rudder":0.3,"sailDeployment":0.0}).ok,"aftermath helm input respects docked authority")
+		check(send(r,"depart",{},"aftermath-unanchor-depart").ok,"public departure enables legal aftermath helm fixture")
 		check(r.command({"type":"controls","rudder":0.3,"sailDeployment":0.0}).ok,"actual rudder command releases native anchor")
 		r.advance(1.0/60.0);before=r.campaign.snapshot()
 		check(not r.simulation.encounter.isAnchored(before.flagshipId) and not r.snapshot().runtime.eligibility.story.get("second-return",{}).get("ok",false),"actual unanchored vessel rejects projected scene eligibility")

@@ -49,6 +49,34 @@ var _display_fog_density := 0.0015
 var atmosphere: RefCounted
 var _atmosphere_options: Dictionary = {}
 var _weather_epoch := ""
+var _source_lighting: Dictionary = {}
+var _native_environment: Environment
+var _native_sun: DirectionalLight3D
+
+func bind_environment(environment: Environment, sun: DirectionalLight3D) -> void:
+	_native_environment=environment;_native_sun=sun
+	_apply_source_lighting()
+
+func _apply_source_lighting() -> void:
+	if _source_lighting.is_empty():return
+	var d:Array=_source_lighting.get("direction",[0.0,1.0,0.0])
+	var direction:=Vector3(d[0],d[1],d[2]).normalized()
+	var rgb:Array=_source_lighting.get("color",[1.0,1.0,1.0])
+	var ambient:Array=_source_lighting.get("ambientColor",[0.4,0.4,0.4])
+	if is_instance_valid(_native_sun):
+		_native_sun.basis=Basis.looking_at(-direction,Vector3.RIGHT if absf(direction.dot(Vector3.UP))>0.999 else Vector3.UP)
+		_native_sun.light_color=Color(rgb[0],rgb[1],rgb[2]);_native_sun.light_energy=float(_source_lighting.get("energy",1.0))
+	if _native_environment!=null:_native_environment.ambient_light_color=Color(ambient[0],ambient[1],ambient[2])
+	if not is_instance_valid(_ocean):return
+	var material:=_ocean.material_override as ShaderMaterial
+	if material:
+		material.set_shader_parameter("sun_position",direction*100000.0)
+		material.set_shader_parameter("u_sun",direction)
+		material.set_shader_parameter("u_sun_color",Vector3(rgb[0],rgb[1],rgb[2]))
+	var sky:ShaderMaterial=_ocean.get_sky_material()
+	if sky:
+		sky.set_shader_parameter("u_sun",direction)
+		sky.set_shader_parameter("u_sun_color",Vector3(rgb[0],rgb[1],rgb[2]))
 
 func configure(height_sampler: Callable, wave_descriptors: Array = [], options: Dictionary = {}) -> bool:
 	# A quality rebuild may replace sea and terrain without throwing away the
@@ -323,7 +351,11 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 		surf.sync_surface_state(_ocean.material_override as ShaderMaterial)
 		surf.apply_snapshot(_simulation_time)
 	if is_instance_valid(_natural_world): _natural_world.apply_snapshot({"time":_simulation_time,"focus":focus},consumed)
-	if atmosphere: atmosphere.apply_snapshot({"time":_simulation_time},_camera,Vector3(focus.x,0.0,focus.y))
+	var environment:Dictionary=snapshot.get("environment",{})
+	if environment.get("lighting",{}).get("target") is Dictionary:
+		_source_lighting=environment.lighting.target.duplicate(true)
+	_apply_source_lighting()
+	if atmosphere: atmosphere.apply_snapshot(snapshot,_camera,Vector3(focus.x,0.0,focus.y))
 	# consumed is accepted for shared presentation API; this world does not bill it.
 	if consumed < 0.0:
 		return
@@ -621,6 +653,7 @@ func fidelity_diagnostics() -> Dictionary:
 
 func dispose() -> void:
 	_disposed = true
+	_source_lighting.clear();_native_environment=null;_native_sun=null
 	if atmosphere: atmosphere.dispose()
 	atmosphere = null; _atmosphere_options.clear()
 	_weather_epoch = ""

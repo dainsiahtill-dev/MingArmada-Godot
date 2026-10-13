@@ -5,7 +5,7 @@ var _mutex:=Mutex.new()
 var _volumes:Array=[]
 var _color:=Color(0,0,0,0.5)
 var _disposed:=false
-var _status:Dictionary={"frames":0,"draws":0,"error":"","initialized":false}
+var _status:Dictionary={"frames":0,"draws":0,"error":"","initialized":false,"cachedMeshes":0}
 
 func _init()->void:
 	effect_callback_type=EFFECT_CALLBACK_TYPE_POST_TRANSPARENT
@@ -23,7 +23,10 @@ func _render_callback(callback_type:int,render_data:RenderData)->void:
 	if _disposed:_mutex.unlock();return
 	var volumes:=_volumes;var color:=_color
 	_mutex.unlock()
-	if volumes.is_empty():return
+	if volumes.is_empty():
+		if _backend!=null:_backend.clear_geometry()
+		_mutex.lock();_status.cachedMeshes=0;_mutex.unlock()
+		return
 	if _backend==null:
 		_backend=Backend.new()
 		if not _backend.initialize(RenderingServer.get_rendering_device()):
@@ -40,6 +43,7 @@ func _render_callback(callback_type:int,render_data:RenderData)->void:
 		success=_backend.render(buffers.get_color_layer(eye),buffers.get_depth_layer(eye),buffers.get_internal_size(),projection*Projection(eye_view),volumes,color) and success
 	_mutex.lock()
 	_status.initialized=true;_status.frames+=int(success);_status.draws=_backend.draw_count;_status.error=_backend.last_error
+	_status.cachedMeshes=_backend.cached_mesh_count()
 	_mutex.unlock()
 
 func dispose()->void:

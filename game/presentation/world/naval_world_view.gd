@@ -9,6 +9,9 @@ const Crew = preload("res://game/presentation/crew/crew_view.gd")
 const Effects = preload("res://game/presentation/combat/combat_effects.gd")
 const Wakes = preload("res://game/presentation/water/wake_trails.gd")
 const CameraRig = preload("res://game/presentation/world/ship_camera_controller.gd")
+const WaterPacket = preload("res://game/presentation/world/source_water_packet.gd")
+const ShadowRenderer = preload("res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd")
+const RigidCasters = preload("res://game/presentation/world/target_rigid_shadow_caster.gd")
 const QUALITY := {
 	"low":{"resolution":40,"chunk_radius":2,"shadows":false,"bloom":false},
 	"balanced":{"resolution":64,"chunk_radius":3,"shadows":true,"bloom":false},
@@ -18,6 +21,9 @@ var camera: Camera3D
 var effects: Node3D
 var wakes: Node3D
 var library: RefCounted
+var source_shadows: RefCounted
+var _rigid_casters := RigidCasters.new()
+var _shadow_capability: Dictionary = {}
 var ships: Dictionary = {}
 var sailors: Dictionary = {}
 var _kinds: Dictionary = {}
@@ -113,6 +119,7 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	effects.set_camera(camera)
 	effects.set_surface_filter(_surface_is_water)
 	wakes = Wakes.new(); _own(wakes); _configure_wakes()
+	source_shadows=ShadowRenderer.new();_shadow_capability=source_shadows.configure(self,camera)
 	apply_snapshot(native, [], 0.0)
 	for ship: Dictionary in native.get("ships", []):
 		if not ships.has(str(ship.id)) or not sailors.has(str(ship.id)):
@@ -146,6 +153,7 @@ func _bind_reference_environment() -> void:
 	_sun.basis = Basis.looking_at(-sun_direction,Vector3.UP)
 	_sun.light_color = Color(1.0,0.95,0.82); _sun.light_energy = 1.1
 	camera.environment = _environment
+	world.bind_environment(_environment,_sun)
 
 func apply_settings(settings: Dictionary) -> void:
 	var old_quality: String = _settings.quality
@@ -156,10 +164,11 @@ func apply_settings(settings: Dictionary) -> void:
 	_environment.glow_enabled = bool(QUALITY.get(_settings.quality, QUALITY.balanced).bloom)
 	if old_quality != _settings.quality:
 		_configure_world()
-		world.apply_snapshot({"time":_snapshot.get("time",0.0),"wind":_snapshot.get("wind",{}),"battleId":_snapshot.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},0.0)
+		world.apply_snapshot(_world_packet(_snapshot),0.0)
 	for crew in sailors.values(): crew.set_reduced_motion(bool(_settings.reducedMotion))
 	for ship in ships.values(): ship.set_reduced_motion(bool(_settings.reducedMotion))
 	world.set_reduced_motion(bool(_settings.reducedMotion))
+	_apply_source_shadows(_snapshot)
 
 func observe_projectiles(native: Dictionary) -> void:
 	if not _disposed: effects.observe_projectiles(native)
@@ -348,10 +357,31 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
 	_flush_crew_water_entries()
-	wakes.apply_snapshot(native)
-	world.apply_snapshot({"time":native.get("time",0.0),"wind":native.get("wind",{}),"battleId":native.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},consumed)
+	wakes.apply_snapshot(WaterPacket.compose(native,ships,camera))
+	world.apply_snapshot(_world_packet(native),consumed)
+	_apply_source_shadows(native)
 	_local_presentation_seconds.clear()
 	return presented_events
+
+func _world_packet(native:Dictionary)->Dictionary:
+	var packet:=native.duplicate(false)
+	packet.focus={"x":_last_target.x,"z":_last_target.z}
+	return packet
+
+func _apply_source_shadows(native:Dictionary)->void:
+	if source_shadows==null:return
+	var packet:=_rigid_casters.compose(native,ships,-_sun.global_basis.z,source_shadow_status().stencilActive,bool(QUALITY.get(_settings.quality,QUALITY.balanced).shadows))
+	packet.actors.merge(ships,false)
+	source_shadows.apply_snapshot(packet.native,packet.actors,native.get("environment",{}))
+
+func source_shadow_status()->Dictionary:
+	var report:Dictionary=source_shadows.diagnostics() if source_shadows else {}
+	var gpu:Dictionary=report.get("gpu",{})
+	var active:=bool(_shadow_capability.get("activeCompositor",false)) and bool(gpu.get("initialized",false)) and str(gpu.get("error","")).is_empty()
+	report.stencilActive=active
+	report.presentationMode="source_stencil" if active else "target_shadow_maps_fallback"
+	report.casterAdapter=_rigid_casters.diagnostics()
+	return report
 
 func _update_camera(native: Dictionary, consumed: float) -> void:
 	var ship := find_ship(native,String(native.get("playerId","")))
@@ -389,6 +419,8 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 
 func dispose() -> void:
 	_disposed = true
+	if source_shadows:source_shadows.dispose()
+	source_shadows=null;_shadow_capability.clear();_rigid_casters.dispose()
 	_camera_controller = Callable()
 	_camera_rig.reset(); cancel_camera_drag()
 	_camera_owner = ""; _camera_tick = 0

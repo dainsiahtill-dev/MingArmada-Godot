@@ -155,6 +155,10 @@ func remember_authoritative_pose(ship:Dictionary,accepted_time:float)->Variant:
 
 func _record_source_pose(accepted_time:float=NAN,model_pose:Variant=null,ship_pose:Variant=null) -> void:
 	if _models.is_empty(): return
+	# Offline ship-book/provider callers have no authoritative world pose.
+	# Explicit captured poses remain valid; never query global transforms on
+	# a detached node or fabricate identity birth history for its effects.
+	if not is_inside_tree() and (not model_pose is Transform3D or not ship_pose is Transform3D): return
 	var time:=_time if is_nan(accepted_time) else accepted_time
 	if not is_finite(time):return
 	if not _source_poses.is_empty() and time<float(_source_poses[-1].time)-1.0e-8:_source_poses.clear()
@@ -304,6 +308,18 @@ func source_water_attachment() -> Dictionary:
 	for role: String in ["wake","bow"]:
 		var p: Array = markers[role].position
 		result[role] = model.global_transform * (Vector3(p[0],p[2],-p[1])*unit)
+	# Target sailing-trail input separates travel from displayed six-axis
+	# floating. Keep the authored model transform and real Dummy_Wake, but
+	# apply only hull yaw and horizontal translation to the history marker.
+	# Raw wake/bow above remain the full displayed pose for local froth.
+	var yaw_basis := Basis.from_euler(Vector3(0.0,rotation.y,0.0),rotation_order).scaled_local(scale)
+	var travel_pose := Transform3D(yaw_basis,Vector3(position.x,0.0,position.z))
+	var parent := get_parent_node_3d()
+	if not is_set_as_top_level() and parent!=null:travel_pose=parent.global_transform*travel_pose
+	var wake_point: Array = markers.wake.position
+	result.trail=travel_pose*model.transform*(Vector3(wake_point[0],wake_point[2],-wake_point[1])*unit)
+	result.trail.y=0.0
+	result.trailPolicy="target yaw-only horizontal travel marker; raw six-axis markers retained for froth"
 	return result
 
 func dispose() -> void:

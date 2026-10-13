@@ -93,10 +93,12 @@ func _initialize() -> void:
 	var unsafe_runtime:=Runtime.new()
 	check(unsafe_runtime.configure(func(_x: float,_z: float)->float: return -24.0).ok,"second native debtor starts without fixture state edits")
 	check(intent(unsafe_runtime,"accept-convoy","unsafe-accept").ok,"second debtor borrows the actual convoy")
+	check(not unsafe_runtime.command({"type":"controls","rudder":0.3,"sailDeployment":0.0}).ok,"docked debtor cannot bypass public departure with helm input")
+	check(intent(unsafe_runtime,"depart","unsafe-depart").ok,"public departure enables legal unanchored debtor fixture")
 	check(unsafe_runtime.command({"type":"controls","rudder":0.3,"sailDeployment":0.0}).ok,"actual queued rudder intent reaches native handling")
 	unsafe_runtime.advance(1.0/60.0)
 	var unsafe_packet: Dictionary=unsafe_runtime.snapshot()
-	check(unsafe_packet.campaign.currentPortId=="xiamen" and unsafe_packet.runtime.canDock.xiamen.ok,"low-speed vessel is still close enough to port")
+	check(unsafe_packet.campaign.currentPortId==null and unsafe_packet.runtime.canDock.xiamen.ok,"departed low-speed vessel is still close enough to port")
 	check(not unsafe_runtime.simulation.encounter.isAnchored(unsafe_packet.campaign.flagshipId),"live rudder makes the actual vessel unanchored")
 	check(not unsafe_packet.runtime.eligibility.story["pilot-plan"].ok and not unsafe_packet.runtime.eligibility.repayDebt.ok,"story/pay hints require stronger docking than proximity")
 	before=unsafe_packet.campaign

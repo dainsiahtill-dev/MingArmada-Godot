@@ -1,7 +1,11 @@
 extends SceneTree
 ## Architecture acceptance: injected callbacks are allowed; concrete reverse imports are not.
 
-const ROOTS := ["res://modules/contracts", "res://modules/physics_engine", "res://modules/scene_engine", "res://modules/naval_simulation", "res://game/domain"]
+const ROOTS := ["res://modules/contracts", "res://modules/physics_engine", "res://modules/scene_engine", "res://modules/environment_engine", "res://modules/naval_simulation", "res://game/domain"]
+# Existing source-data algorithms live under the older scene package. The
+# authority may reuse only these audited scalar/compiler helpers, never a
+# renderer. They also receive the pure-code guard below.
+const SHARED_SOURCE_DATA := ["res://modules/scene_engine/fidelity_fx/cloud_native.gd", "res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd", "res://modules/scene_engine/fidelity_island/native_math.gd", "res://modules/scene_engine/fidelity_island/daylight.gd"]
 var failures: Array[String] = []
 var assertions := 0
 var scanned := 0
@@ -36,6 +40,10 @@ func _self_test() -> void:
 	_check(not _violations("res://modules/physics_engine/ships/fixture.gd", 'extends RefCounted\nconst Bad = preload("../../scene_engine/world/world_view.gd")').is_empty(), "Relative imports cannot bypass layer guard")
 	_check(not _violations("res://modules/naval_simulation/fixture.gd", 'extends RefCounted\nconst Bad = preload("res://game/runtime/mingqi_runtime.gd")').is_empty(), "Naval simulation cannot import gameplay runtime")
 	_check(not _violations("res://modules/naval_simulation/fixture.gd", 'extends RefCounted\nvar bad = Node3D.new()').is_empty(), "Naval simulation cannot construct render nodes")
+	_check(_violations("res://modules/naval_simulation/fixture.gd", 'extends RefCounted\nconst Weather = preload("res://modules/environment_engine/weather_state.gd")').is_empty(), "Naval authority may consume independent environment state")
+	_check(not _violations("res://modules/environment_engine/fixture.gd", 'extends RefCounted\nconst Bad = preload("res://modules/scene_engine/world/world_view.gd")').is_empty(), "Environment cannot import a scene renderer")
+	_check(not _violations("res://modules/environment_engine/fixture.gd", 'extends RefCounted\nvar bad = Node3D.new()').is_empty(), "Environment must remain independent of scene nodes")
+	_check(not _violations(SHARED_SOURCE_DATA[1], 'extends RefCounted\nvar bad = ImageTexture.new()').is_empty(), "Shared scalar compiler cannot acquire GPU presentation resources")
 
 func _violations(file: String, source: String) -> Array[String]:
 	var result: Array[String] = []
@@ -57,7 +65,7 @@ func _violations(file: String, source: String) -> Array[String]:
 		if project_classes.has(word) and not _dependency_allowed(file, project_classes[word]):
 			result.append("forbidden project class " + word + " from " + project_classes[word])
 		var numerical := file.begins_with("res://modules/physics_engine/") and not file.begins_with("res://modules/physics_engine/impacts/")
-		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/") or file.begins_with("res://modules/naval_simulation/")
+		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/") or file.begins_with("res://modules/naval_simulation/") or file.begins_with("res://modules/environment_engine/") or file in SHARED_SOURCE_DATA
 		if ClassDB.class_exists(word):
 			if pure and (word == "SceneTree" or ClassDB.is_parent_class(word, "Node")):
 				result.append("pure code uses native scene type " + word)
@@ -78,7 +86,10 @@ func _violations(file: String, source: String) -> Array[String]:
 func _dependency_allowed(file: String, dependency: String) -> bool:
 	var allowed: Array[String] = ["res://modules/contracts/"]
 	if file.begins_with("res://modules/physics_engine/"): allowed.append("res://modules/physics_engine/")
-	elif file.begins_with("res://modules/naval_simulation/"): allowed.append_array(["res://modules/naval_simulation/", "res://modules/physics_engine/"])
+	elif file.begins_with("res://modules/naval_simulation/"): allowed.append_array(["res://modules/naval_simulation/", "res://modules/physics_engine/", "res://modules/environment_engine/"])
+	elif file.begins_with("res://modules/environment_engine/"):
+		allowed.append_array(["res://modules/environment_engine/", "res://assets/"])
+		if dependency in SHARED_SOURCE_DATA:return true
 	elif file.begins_with("res://modules/scene_engine/"): allowed.append_array(["res://modules/scene_engine/", "res://assets/"])
 	elif file.begins_with("res://game/domain/"): allowed.append("res://game/domain/")
 	for prefix in allowed:

@@ -289,12 +289,12 @@ func seek(input: float, include_snapshot: bool = true) -> Array:
 func advance(time: float) -> Array:
 	return seek(time)
 
-func advance_native(time: float, include_snapshot: bool = true) -> Array:
+func advance_native(time: float, include_snapshot: bool = true, allow_births:bool=true) -> Array:
 	if _asset.is_empty() or not is_finite(time) or not is_finite(Math.f32(time)):
 		_last_error = "Native advance requires finite explicit appTime"
 		return []
 	if _native == null: _native = Replay.new(_asset,_seed,_blocks)
-	_native.advance(time,_source_outer)
+	_native.advance(time,_source_outer,allow_births)
 	_replay = _native
 	_time_input = {"kind":"original variable-dt appTime sequence; first update records visibility without births","appTime":Math.f32(time),"frequency":null,"gridTick":null}
 	_last_error = ""

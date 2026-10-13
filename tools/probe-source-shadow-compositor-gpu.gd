@@ -17,12 +17,15 @@ func run()->void:
 	await RenderingServer.frame_post_draw
 	var image:=root.get_texture().get_image();image.save_png("C:/Users/dains/AppData/Local/Temp/source-shadow-gpu-compositor.png")
 	var center:=image.get_pixel(image.get_width()/2,image.get_height()/2)
+	var active_cache:int=renderer.diagnostics().gpu.get("cachedMeshes",-1)
+	var active_draws:int=renderer.diagnostics().gpu.draws
 	renderer.apply_snapshot({}, {})
 	for i in 3:await process_frame
 	await RenderingServer.frame_post_draw
 	var baseline:=root.get_texture().get_image().get_pixel(image.get_width()/2,image.get_height()/2)
-	print("COMPOSITOR_GPU ",renderer.diagnostics()," center=",center," baseline=",baseline)
-	var ok:bool=renderer.diagnostics().gpu.frames>0 and renderer.diagnostics().gpu.error.is_empty() and center.r<baseline.r-0.05 and baseline.r>0.99
+	var empty_cache:int=renderer.diagnostics().gpu.get("cachedMeshes",-1)
+	print("COMPOSITOR_GPU ",renderer.diagnostics()," center=",center," baseline=",baseline," active_cache=",active_cache," empty_cache=",empty_cache)
+	var ok:bool=renderer.diagnostics().gpu.frames>0 and renderer.diagnostics().gpu.error.is_empty() and center.r<baseline.r-0.05 and baseline.r>0.99 and active_cache==1 and empty_cache==0 and renderer.diagnostics().gpu.draws==active_draws
 	renderer.dispose()
 	for i in 3:await process_frame
 	world.free()

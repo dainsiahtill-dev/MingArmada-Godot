@@ -7,6 +7,9 @@ const SOURCE_HASHES := {
 	"virgin_islands":"5224fcf8947623796cf50f4ffffbb1a59a385af3df9a4c8604a2ad3fbc6fe06f"}
 const IDS := ["cat_island","coastal2","virgin_islands"]
 const SEA_INDEX := 128.0
+const Coordinates = preload("res://modules/scene_engine/fidelity_island/source_coordinates.gd")
+const TARGET_CACHE_LIMIT := 12
+static var _target_height_cache: Dictionary = {}
 const OUTSIDE_HEIGHT := -24.0
 const ART_DEFAULTS := {"sea_index":128.0,"height_gain":1.0,"smoothing_radius":0,"border_rounding":0.0,"border_fade_pixels":5.0,"harbor_land_half_width":18.0,"harbor_land_fade_width":17.0}
 var _values:=PackedByteArray()
@@ -26,6 +29,101 @@ var _minimum:=94.0
 var _maximum:=172.0
 var _id:=""
 var _art: Dictionary=ART_DEFAULTS.duplicate()
+var _target_heights:=PackedFloat32Array()
+var _target_window:=Rect2i()
+var _target_column_axis:=Vector2.ZERO
+var _target_row_axis:=Vector2.ZERO
+var _target_world_min:=Vector2.ZERO
+var _target_world_max:=Vector2.ZERO
+var _target_inward:=Vector2.ZERO
+var _target_outward:=Vector2.ZERO
+var _target_across:=Vector2.ZERO
+var _target_source_across:=Vector2.ZERO
+
+static func target_render_window(profile: Dictionary) -> Rect2i:
+	var lower:=Vector2i.ZERO
+	var upper:=Vector2i(int(profile.width)-1,int(profile.height)-1)
+	if profile.has("dock"):
+		var dock:=Coordinates._vector2(profile.dock)
+		var inward:=Coordinates._vector2(profile.inward).normalized()
+		var across:=Vector2(-inward.y,inward.x)
+		# Same finite possible-land apron and shared-edge neighbors as the
+		# immutable renderer. Neither topology nor native pixel spacing changes.
+		for along: float in [20.0,95.0]:
+			for lateral: float in [-35.0,35.0]:
+				var pixel:=Coordinates.world_to_source_pixel(dock+inward*along+across*lateral,profile)
+				lower=lower.min(Vector2i(int(floor(pixel.x))-1,int(floor(pixel.y))-1))
+				upper=upper.max(Vector2i(int(ceil(pixel.x))+1,int(ceil(pixel.y))+1))
+	return Rect2i(lower,upper-lower+Vector2i.ONE)
+
+func configure_target_triangle_authority(original_sampler: Callable, authority_key: String) -> bool:
+	if _values.is_empty() or not original_sampler.is_valid(): return false
+	var mapping:=diagnostics()
+	var window:=target_render_window(mapping)
+	var axes:=Coordinates.source_axes(mapping)
+	var heights:=PackedFloat32Array()
+	var world_min:=Vector2(INF,INF)
+	var world_max:=Vector2(-INF,-INF)
+	var cache_key:=authority_key+"|"+JSON.stringify(mapping)
+	if _target_height_cache.has(cache_key):
+		var cached: Dictionary=_target_height_cache[cache_key]
+		heights=cached.heights;world_min=cached.world_min;world_max=cached.world_max
+	else:
+		heights.resize(window.size.x*window.size.y)
+		for row in window.size.y:
+			for column in window.size.x:
+				var source_column:=column+window.position.x
+				var source_row:=row+window.position.y
+				# Preserve the exact Float32 map and conversion used by the old
+				# renderer before adopting its triangle surface for target physics.
+				var offset: Vector2=(axes.column*(float(source_column)-_source_center.x)+axes.row*(float(source_row)-_source_center.y))*_scale
+				var world: Vector2=_center+offset
+				world_min=world_min.min(world);world_max=world_max.max(world)
+				var h:=float(original_sampler.call(world.x,world.y))
+				if not is_finite(h): return false
+				heights[row*window.size.x+column]=h
+		if _target_height_cache.size()>=TARGET_CACHE_LIMIT:
+			_target_height_cache.erase(_target_height_cache.keys()[0])
+		_target_height_cache[cache_key]={"heights":heights,"world_min":world_min,"world_max":world_max}
+	_target_heights=heights;_target_window=window
+	_target_column_axis=axes.column;_target_row_axis=axes.row
+	_target_world_min=world_min;_target_world_max=world_max
+	_target_inward=Coordinates._vector2(mapping.inward).normalized()
+	_target_outward=Coordinates._vector2(mapping.sourceOutward).normalized()
+	_target_across=Vector2(-_target_inward.y,_target_inward.x)
+	_target_source_across=Vector2(-_target_outward.y,_target_outward.x)
+	return true
+
+func sample_target_triangle_height(x: float,z: float) -> float:
+	if not is_finite(x) or not is_finite(z) or _target_heights.is_empty(): return NAN
+	var world:=Vector2(x,z)
+	# Most samples belong to one island. Reject other finite grids before
+	# coordinate projection; no raw sampling or all-profile vertex work occurs.
+	if world.x<_target_world_min.x or world.y<_target_world_min.y or world.x>_target_world_max.x or world.y>_target_world_max.y: return NAN
+	# Mapping was validated once during configuration. These are the same
+	# normalized Float32 vectors and arithmetic as the mesh query helper.
+	var world_offset:=world-_center
+	var pixel: Vector2=_source_center+(_target_outward*world_offset.dot(-_target_inward)+_target_source_across*world_offset.dot(_target_across))/_scale
+	var nearest:=Vector2i(roundi(pixel.x),roundi(pixel.y))
+	if _target_window.has_point(nearest):
+		var offset:=(_target_column_axis*(float(nearest.x)-_source_center.x)+_target_row_axis*(float(nearest.y)-_source_center.y))*_scale
+		# Inverse-map rounding must not change any existing render vertex.
+		# This is exact world-coordinate identity, not a tolerance/snap region.
+		if world==_center+offset:
+			return _target_heights[(nearest.y-_target_window.position.y)*_target_window.size.x+nearest.x-_target_window.position.x]
+	var local:=pixel-Vector2(_target_window.position)
+	var size:=_target_window.size
+	if local.x<0.0 or local.y<0.0 or local.x>size.x-1 or local.y>size.y-1: return NAN
+	var column:=mini(int(floor(local.x)),size.x-2)
+	var row:=mini(int(floor(local.y)),size.y-2)
+	var fx:=clampf(local.x-column,0.0,1.0)
+	var fy:=clampf(local.y-row,0.0,1.0)
+	var a:=row*size.x+column
+	var ah:=_target_heights[a];var bh:=_target_heights[a+size.x]
+	var ch:=_target_heights[a+1];var dh:=_target_heights[a+size.x+1]
+	if ((column+_target_window.position.x) ^ (row+_target_window.position.y)) & 1:
+		return ah+(dh-bh)*fx+(bh-ah)*fy if fy>=fx else ah+(ch-ah)*fx+(dh-ch)*fy
+	return ah+(ch-ah)*fx+(bh-ah)*fy if fx+fy<=1.0 else dh+(bh-dh)*(1.0-fx)+(ch-dh)*(1.0-fy)
 
 static func load_source(id: String) -> Dictionary:
 	if not SOURCE_HASHES.has(id): return {}
@@ -131,6 +229,7 @@ func configure(port: Dictionary,data: Dictionary,id: String,art_options: Diction
 	_center=center; _dock=dock; _inward=inward; _across=Vector2(-inward.y,inward.x)
 	_scale=float(port.radius)*.92/source_radius
 	_peak=float(port.peak); _minimum=minimum; _maximum=maximum; _id=id
+	_target_heights=PackedFloat32Array();_target_window=Rect2i()
 	return true
 
 func sample_height(x: float,z: float) -> float:

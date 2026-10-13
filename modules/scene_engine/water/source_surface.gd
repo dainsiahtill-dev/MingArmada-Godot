@@ -2,6 +2,7 @@ extends RefCounted
 ## Shared original DDS/mip and bounded dynamic surface adapter for water effects.
 const Mix=preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
 const Add=preload("res://modules/scene_engine/fidelity_fx/particle_add.gdshader")
+const SceneWake=preload("res://modules/scene_engine/water/source_scene_wake.gdshader")
 const Upload=preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
 static var _textures:Dictionary={}
 var nodes:Dictionary={}
@@ -26,18 +27,46 @@ static func texture(name:String)->Texture2D:
 
 func _init(owner:Node3D)->void:parent=owner
 func material(record:Dictionary)->ShaderMaterial:
-	var key:=str(record.texture)+":"+str(record.get("alphaFlags",4333))+":"+str(record.get("clampMode",3))
-	if _materials.has(key):return _materials[key]
+	var scene_trail:=bool(record.get("scene_trail",false))
+	var key:=str(record.texture)+":"+str(record.get("alphaFlags",4333))+":"+str(record.get("clampMode",3))+":"+str(scene_trail)
+	if _materials.has(key):
+		if scene_trail:_scene_trail_parameters(_materials[key],record)
+		return _materials[key]
 	var original:=texture(record.texture)
 	if original==null:return null
 	var flags:=int(record.get("alphaFlags",4333));var destination:=(flags>>5)&15
-	var out:=ShaderMaterial.new();out.shader=Add if flags&1 and destination==0 else Mix;out.render_priority=3
+	var out:=ShaderMaterial.new();out.shader=SceneWake if scene_trail else (Add if flags&1 and destination==0 else Mix);out.render_priority=3
 	out.set_shader_parameter("source_texture",original);out.set_shader_parameter("source_texture_repeat",original)
 	var clamp_mode:=int(record.get("clampMode",3))
 	out.set_shader_parameter("source_repeat",clamp_mode==3);out.set_shader_parameter("source_clamp_mode",clamp_mode)
 	out.set_shader_parameter("source_mip_count",original.get_image().get_mipmap_count()+1)
 	out.set_shader_parameter("alpha_threshold",float(record.get("threshold",0))/255.0 if flags&512 else -1.0)
+	if scene_trail:
+		# Surface overlay bypasses the transparent sea's different tessellation,
+		# while opaque hulls and terrain retain a small contact-depth fade.
+		out.set_shader_parameter("soft_depth_distance",0.08)
+		_scene_trail_parameters(out,record)
 	_materials[key]=out;return out
+
+static func scene_strip_descriptor(geometry:Dictionary)->Dictionary:
+	var out:={"texture":"wake3unique.dds","alphaFlags":4333,"clampMode":3,"scene_trail":true,"tail_v":0.0,"tail_span_v":0.0}
+	var uv:PackedVector2Array=geometry.get("uvs",PackedVector2Array())
+	var count:=mini(uv.size(),int(geometry.get("draw_vertex_count",58)))
+	var colors:PackedColorArray=geometry.get("colors",PackedColorArray())
+	var tail:=count-1
+	# Source draw count includes collapsed inactive rows, whose UVs deliberately
+	# retain old values. Their alpha is zero: locate the actual visible prefix.
+	if colors.size()>=count:
+		while tail>=1 and colors[tail].a<=0.0 and colors[tail-1].a<=0.0:tail-=2
+	if tail>=3:
+		out.tail_v=uv[tail].y
+		out.tail_span_v=uv[maxi(1,tail-6)].y-uv[tail].y
+	return out
+
+static func _scene_trail_parameters(out:ShaderMaterial,record:Dictionary)->void:
+	var terminal:=float(record.get("tail_v",0.0));var span:=float(record.get("tail_span_v",0.0))
+	out.set_shader_parameter("tail_v",terminal if is_finite(terminal) else 0.0)
+	out.set_shader_parameter("tail_span_v",span if is_finite(span) else 0.0)
 
 func submit(key:String,vertices:PackedVector3Array,uvs:PackedVector2Array,colors:PackedColorArray,indices:PackedInt32Array,record:Dictionary)->void:
 	if not nodes.has(key):

@@ -20,7 +20,8 @@ func _run()->void:
 	if report.has("source_updates"):
 		wake.apply_snapshot(packet(59,5.9,800));check(wake.diagnostics().source_updates==60,"repeated presentation call cannot consume history again")
 		wake.apply_snapshot(packet(60,5.9,340));check(wake.diagnostics().source_updates==61,"new original source call accepts displacement at same source clock")
-		wake.apply_snapshot(packet(61,5.0,344));check(wake.diagnostics().source_updates==61,"source clock rewind rejects without clearing history")
+		var source_rewind:Dictionary=packet(61,5.0,344);source_rewind.time=6.0
+		wake.apply_snapshot(source_rewind);check(wake.diagnostics().source_updates==61,"source clock rewind with forward target presentation time rejects without clearing native history")
 		var rendered:=0
 		for parent:Node in wake.get_children():
 			for node:Node in parent.get_children():
@@ -32,7 +33,7 @@ func _run()->void:
 	if wake.has_method("take_source_state"):
 		var state:RefCounted=wake.take_source_state()
 		wake.configure(_water);wake.restore_source_state(state)
-		wake.apply_snapshot(packet(61,5.0,344))
+		var replay:Dictionary=packet(61,5.0,344);replay.time=6.0;wake.apply_snapshot(replay)
 		check(wake.diagnostics().source_updates==61 and wake.diagnostics().source_samples==30,"same-call quality replay preserves original ring and rejects duplicate consumption")
 	wake.apply_snapshot({"time":6.0,"wake":{"route":"scene_30","epoch":1,"sourceCallIndex":62},"ships":[]})
 	check(wake.diagnostics().get("source_samples",0)==0,"removed actor releases original source history and attached resources")

@@ -15,6 +15,10 @@ var _packet:Dictionary={}
 var _history:Array=[]
 var _journal:Array=[]
 const CHECKPOINT_INTERVAL:=128
+var _journal_start_index:=0
+var _origin_checkpoint:Dictionary={}
+var _retention_seconds:=120.0
+var _admission:Dictionary={"accepted":true,"reason":"initial","requestedTime":0.0}
 var _accepted:=0.0
 var _calls:=0
 var _epoch:=0
@@ -44,7 +48,7 @@ static func _valid_options(options:Dictionary)->bool:
 	for key:String in ["crt_seed","sky_crt_seed"]:
 		var seed:Variant=options.get(key,1)
 		if not (seed is int or seed is float) or not is_finite(float(seed)) or float(seed)!=floor(float(seed)) or float(seed)<0.0 or float(seed)>4294967295.0:return false
-	for key:String in ["source_calls_per_second","source_position_units_per_metre","model_scale"]:
+	for key:String in ["source_calls_per_second","source_position_units_per_metre","model_scale","history_retention_seconds"]:
 		var value:Variant=options.get(key,1.0)
 		if not (value is int or value is float) or not is_finite(float(value)) or float(value)<=0.0:return false
 	if options.has("initial_state"):
@@ -135,6 +139,7 @@ func reset(options:Dictionary={})->void:
 	if not _valid_options(options):return
 	if not options.is_empty():_options=options.duplicate(true)
 	_rate=float(_options.get("source_calls_per_second",32.0));_units=float(_options.get("source_position_units_per_metre",10.0))
+	_retention_seconds=float(_options.get("history_retention_seconds",120.0))
 	_epoch=int(_options.get("epoch",_epoch+1));_accepted=0.0;_calls=0;_revision=0
 	_last_light_time=-1;_last_light.clear();_published_nodes=[];_published_updates=-1
 	_rng=Cloud.OriginalCrtRand.new(int(_options.get("crt_seed",1)))
@@ -152,12 +157,43 @@ func reset(options:Dictionary={})->void:
 		var phase:=Cloud.f32(index*33.333335876464844*Cloud.FOG_PHASE_SCALE)
 		var clock:=SourceMath.ControllerClock.new({"flags":44,"frequency":1.0,"phase":0.0,"start_time":0.0,"stop_time":33.333335876464844})
 		clock.advance(phase);_fog_clocks.append({"phase":phase,"clock":clock})
-	_history.clear();_journal.clear();_packet=_make_packet(0.0,[],{})
+	_history.clear();_journal.clear();_journal_start_index=0;_packet=_make_packet(0.0,[],{})
 	_record()
+	_origin_checkpoint=_history[0]
+	_admission={"accepted":true,"reason":"initial","requestedTime":0.0}
 func _record()->void:
 	# Packet is private and frozen after construction. Only snapshot() duplicates
 	# it for callers; retained accepted history can share immutable source arrays.
-	_history.append({"time":_accepted,"journalIndex":_journal.size(),"packet":_packet})
+	_history.append({"time":_accepted,"journalIndex":_journal_start_index+_journal.size(),"packet":_packet})
+
+func _prune_history()->void:
+	# Named target service policy: retain the latest source-time window and one
+	# preceding anchor. Prune at sparse checkpoint boundaries, never per-frame
+	# shift a growing lifetime array. Initial epoch state remains separately held.
+	var cutoff:=maxf(0.0,_accepted-_retention_seconds)
+	var low:=0;var high:=_history.size()-1
+	while low<high:
+		var middle:=int((low+high+1)/2)
+		if float(_history[middle].time)<=cutoff:low=middle
+		else:high=middle-1
+	if low==0:return
+	var anchor:Dictionary=_history[low]
+	var discarded:=int(anchor.journalIndex)-_journal_start_index
+	_journal=_journal.slice(discarded)
+	_journal_start_index=int(anchor.journalIndex)
+	_history=_history.slice(low)
+
+func _recorded_end()->float:
+	return float(_journal[-1].time) if not _journal.is_empty() else float(_history[0].time)
+
+func _retained_from(end:float)->float:
+	# An admitted new branch can shorten recorded end, but it cannot recover
+	# already pruned input. Never widen admission behind its actual anchor.
+	return maxf(maxf(0.0,end-_retention_seconds),float(_history[0].time) if not _history.is_empty() else 0.0)
+
+func diagnostics()->Dictionary:
+	var end:=_recorded_end() if not _history.is_empty() else 0.0
+	return {"historyRetentionSeconds":_retention_seconds,"retainedFrom":_retained_from(end),"retainedThrough":end,"anchorTime":float(_history[0].time) if not _history.is_empty() else 0.0,"journalInputs":_journal.size(),"checkpoints":_history.size(),"journalStartIndex":_journal_start_index,"checkpointInterval":CHECKPOINT_INTERVAL,"admission":_admission.duplicate(true),"authority":"target rolling retention/admission service policy; not original runtime behavior","zeroResetAvailable":not _origin_checkpoint.is_empty()}
 func _restore(row:Dictionary)->void:
 	_packet=row.packet.duplicate(true)
 	_accepted=float(row.time);_state=_packet.source.weather.duplicate(true);_rng.state=int(_packet.source.rngState);_rng.draws=int(_packet.source.rngDraws)
@@ -172,12 +208,29 @@ func advance(accepted_time:float,observer:Dictionary={},wind:Dictionary={},pause
 	if _packet.is_empty():configure()
 	if observer.has("epoch") and int(observer.epoch)!=_epoch:
 		var next:=_options.duplicate(true);next.epoch=int(observer.epoch);reset(next)
-	if paused or not is_finite(accepted_time) or accepted_time<0.0:return snapshot()
-	if accepted_time==_accepted:return snapshot()
+	if paused:return snapshot()
+	if not is_finite(accepted_time) or accepted_time<0.0:
+		_admission={"accepted":false,"reason":"invalid_time","requestedTime":accepted_time}
+		return snapshot()
+	if accepted_time==_accepted:
+		_admission={"accepted":true,"reason":"duplicate","requestedTime":accepted_time}
+		return snapshot()
+	if accepted_time==0.0:
+		# The retained initial epoch state is an explicit reset, not an attempt
+		# to recreate pruned intermediate inputs. Forward now starts a new branch.
+		_restore(_origin_checkpoint)
+		_journal.clear();_journal_start_index=0;_history=[_origin_checkpoint]
+		_admission={"accepted":true,"reason":"time_zero_reset","requestedTime":0.0}
+		return snapshot()
 	# Normal forward update never scans retained history. Replay only enters the
 	# existing accepted domain; each checkpoint limits controller/sky replay to
-	# 127 inputs, while the compact journal preserves every supplied delta.
-	var recorded_end:=float(_journal[-1].time) if not _journal.is_empty() else 0.0
+	# 127 inputs within the retained rolling domain. Admission occurs before any
+	# source/RNG/clock mutation; obsolete intermediate history is never invented.
+	var recorded_end:=_recorded_end()
+	var retained_from:=_retained_from(recorded_end)
+	if accepted_time<retained_from:
+		_admission={"accepted":false,"reason":"outside_retained_history","requestedTime":accepted_time,"retainedFrom":retained_from,"retainedThrough":recorded_end}
+		return snapshot()
 	if accepted_time<=recorded_end or accepted_time<_accepted:
 		var low:=0;var high:=_history.size()-1
 		while low<high:
@@ -186,12 +239,14 @@ func advance(accepted_time:float,observer:Dictionary={},wind:Dictionary={},pause
 			else:high=middle-1
 		var checkpoint:Dictionary=_history[low]
 		_restore(checkpoint)
-		var cursor:=int(checkpoint.journalIndex)
+		var cursor:=int(checkpoint.journalIndex)-_journal_start_index
 		while cursor<_journal.size() and float(_journal[cursor].time)<=accepted_time:
 			var input:Dictionary=_journal[cursor]
 			_advance_forward(float(input.time),input.observer,input.wind,false)
 			cursor+=1
-		if accepted_time==_accepted:return snapshot()
+		if accepted_time==_accepted:
+			_admission={"accepted":true,"reason":"retained_replay","requestedTime":accepted_time}
+			return snapshot()
 		# A new accepted point inside recorded history creates a new branch.
 		_journal.resize(cursor)
 		while float(_history[-1].time)>_accepted:_history.pop_back()
@@ -199,6 +254,7 @@ func advance(accepted_time:float,observer:Dictionary={},wind:Dictionary={},pause
 		# Rejoin retained future inputs before a new point beyond recorded end.
 		advance(recorded_end)
 	_advance_forward(accepted_time,observer,wind,true)
+	_admission={"accepted":true,"reason":"forward","requestedTime":accepted_time}
 	return snapshot()
 
 func _advance_forward(accepted_time:float,observer:Dictionary,wind:Dictionary,record:bool)->void:
@@ -225,7 +281,8 @@ func _advance_forward(accepted_time:float,observer:Dictionary,wind:Dictionary,re
 	_packet.source.targetWindInput=wind.duplicate(true)
 	if record:
 		_journal.append({"time":accepted_time,"observer":observer.duplicate(true),"wind":wind.duplicate(true)})
-		if _journal.size()%CHECKPOINT_INTERVAL==0:_record()
+		if (_journal_start_index+_journal.size())%CHECKPOINT_INTERVAL==0:
+			_record();_prune_history()
 func _make_packet(delta:float,events:Array,observer:Dictionary)->Dictionary:
 	var clouds:Array=[]
 	for index in 3:

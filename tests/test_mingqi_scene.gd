@@ -25,6 +25,9 @@ func _run() -> void:
 	# UI output naming is tested by its own real-control suite; root validates
 	# integration with the canonical intent and a regular focused HUD button.
 	check(scene.runtime.command({"type":"accept-convoy","commandId":"scene-test-accept","expectedRevision":before.campaign.revision}).ok,"native scene accepts real canonical convoy intent")
+	# Public sailing requires departure since 44feae1; HUD focus must be
+	# exercised in a legally sailing state rather than bypassing the dock gate.
+	check(scene.runtime.command({"type":"depart","commandId":"scene-test-depart","expectedRevision":scene.runtime.snapshot().campaign.revision}).ok and scene.runtime.snapshot().campaign.currentPortId == null,"public departure enables actual sailing controls before HUD focus test")
 	scene._present(0)
 	var buttons: Array = scene.interface.find_children("*","Button",true,false)
 	check(not buttons.is_empty(),"actual native interface has focusable controls")

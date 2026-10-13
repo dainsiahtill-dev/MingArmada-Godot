@@ -10,6 +10,10 @@ const WaveDescriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const CrewView = preload("res://game/presentation/crew/crew_view.gd")
 const SeaChartOverlay = preload("res://game/scenes/common/sea_chart_overlay.gd")
 const NauticalChart = preload("res://game/ui/charts/nautical_chart.gd")
+const Wakes = preload("res://game/presentation/water/wake_trails.gd")
+const WaterPacket = preload("res://game/presentation/world/source_water_packet.gd")
+const ShadowRenderer = preload("res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd")
+const RigidCasters = preload("res://game/presentation/world/target_rigid_shadow_caster.gd")
 
 var runtime := Runtime.new()
 var heights := HeightField.new()
@@ -29,6 +33,11 @@ var chart_caption: Label
 var chart_close: Button
 var chart_open := false
 var _pause_before_chart := false
+var wakes: Node3D
+var source_shadows: RefCounted
+var _rigid_casters := RigidCasters.new()
+var _shadow_capability: Dictionary = {}
+var _sun: DirectionalLight3D
 
 func _ready() -> void:
 	DisplayServer.window_set_title("海上明旗 · Godot 航行迁移")
@@ -56,6 +65,7 @@ func _ready() -> void:
 	environment.environment = lighting
 	add_child(environment)
 	var sun := DirectionalLight3D.new()
+	_sun=sun
 	add_child(sun)
 	sun.position = Vector3(300, 150, 100)
 	sun.look_at(Vector3.ZERO)
@@ -74,6 +84,11 @@ func _ready() -> void:
 		push_error("World composition failed")
 		get_tree().quit(1)
 		return
+	world.bind_environment(lighting,sun)
+	var sky_material:ShaderMaterial=world.get_ocean().get_sky_material()
+	if sky_material:
+		var sky:=Sky.new();sky.sky_material=sky_material;lighting.sky=sky;lighting.background_mode=Environment.BG_SKY
+	camera.environment=lighting
 	ship = ShipView.new()
 	add_child(ship)
 	if not ship.configure("fuchuan"):
@@ -86,6 +101,10 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	crew.set_environment(runtime.sample_water_height)
+	wakes=Wakes.new();add_child(wakes);wakes.configure(runtime.sample_water_height)
+	wakes.configure_surface_filter(func(x:float,z:float)->bool:return heights.sample_height(x,z)<0.0)
+	if heights.has_method("begin_sampling_scope"):wakes.configure_sampling_scope(Callable(heights,"begin_sampling_scope"))
+	source_shadows=ShadowRenderer.new();_shadow_capability=source_shadows.configure(self,camera)
 	hud = Hud.new()
 	add_child(hud)
 	hud.command_requested.connect(_trial_command)
@@ -125,6 +144,16 @@ func _apply_snapshot(consumed: float) -> void:
 		crew.set_ship_model(ship.get_model())
 		crew.set_lod_distance(camera.position.distance_to(ship.position))
 		crew.apply_snapshot(previous.ship, previous.wind, consumed)
+	var state:Dictionary=previous.ship.duplicate(true)
+	state.id="trial-player";state.time=previous.time
+	var native:={"time":previous.time,"environment":previous.get("environment",{}),"ships":[state]}
+	var actors:={"trial-player":ship}
+	if wakes:wakes.apply_snapshot(WaterPacket.compose(native,actors,camera))
+	if source_shadows:
+		var gpu:Dictionary=source_shadows.diagnostics().get("gpu",{})
+		var stencil_active:=bool(_shadow_capability.get("activeCompositor",false)) and bool(gpu.get("initialized",false)) and str(gpu.get("error","")).is_empty()
+		var packet:=_rigid_casters.compose(native,actors,-_sun.global_basis.z,stencil_active)
+		source_shadows.apply_snapshot(packet.native,packet.actors,native.environment)
 	hud.apply_snapshot(previous)
 	_present_charts(previous)
 
@@ -262,6 +291,9 @@ func _capture(label: String) -> void:
 	print("NATIVE_SAILING_VIEWPORT_SAVED ", label)
 
 func _exit_tree() -> void:
+	if source_shadows:source_shadows.dispose()
+	_rigid_casters.dispose()
+	if is_instance_valid(wakes):wakes.dispose()
 	if chart_open: runtime.command({"type":"pause","value":_pause_before_chart})
 	if is_instance_valid(mini_chart): mini_chart.dispose()
 	if is_instance_valid(expanded_chart): expanded_chart.dispose()

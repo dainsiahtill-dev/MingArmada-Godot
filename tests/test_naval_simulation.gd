@@ -22,7 +22,12 @@ func _initialize() -> void:
 			else:
 				result = game.callv(action.method, action.args)
 			compare(result, record.result, case.name + "/" + action.method + "/result")
-			compare(game.snapshot(), record.snapshot, case.name + "/" + action.method + "/snapshot")
+			# Frozen naval-core oracle predates the additive environment service.
+			# Keep every original motion/combat key exact; weather has its own
+			# independent source fixtures and authority integration tests.
+			var core_snapshot: Dictionary = game.snapshot()
+			core_snapshot.erase("environment")
+			compare(core_snapshot, record.snapshot, case.name + "/" + action.method + "/snapshot")
 			compare(game.drain_events(), record.events, case.name + "/events")
 			compare(game.order_status(), record.orders, case.name + "/orders")
 			for id in record.navigation: compare(game.navigation_status(id), record.navigation[id], case.name + "/navigation/" + id)

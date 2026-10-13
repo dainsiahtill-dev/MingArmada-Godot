@@ -39,6 +39,7 @@ var _world_shadow_height:=0.12
 var _world_shadow_opacity:=0.38
 var _weather_shader_cache:Dictionary={}
 var _light_material:Array=[]
+var _display_environment:Dictionary={}
 
 static func _json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
@@ -236,6 +237,7 @@ func reset_timeline() -> void:
 	_ring = Native.create_cloud_ring(_seed)
 	_journal.clear()
 	_time = 0.0; _cloud_time = 0.0
+	_display_environment.clear();_environment_epoch=null;_environment_revision=-1
 	_clear_render_cache()
 
 func _clear_render_cache()->void:
@@ -256,11 +258,20 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 	# Preserve accepted time even while the optional target motion preference
 	# holds source animation. Rewinds still remove future presentation state.
 	if not environment.is_empty() and environment.get("sky",{}).has("ring"):
-		if _environment_epoch!=environment.get("epoch"):_clear_render_cache();_environment_epoch=environment.get("epoch")
+		var new_epoch:bool=_environment_epoch!=environment.get("epoch")
+		if new_epoch:_clear_render_cache();_environment_epoch=environment.get("epoch")
 		_environment_revision=int(environment.get("revision",-1))
-		if not _same_ring_layout(_ring,environment.sky.ring):_install_ring_layout(environment.sky.ring)
-		_ring=environment.sky.ring.duplicate(true);_cloud_time=float(environment.sky.appTime)
-	elif not _reduced_motion or _time < _cloud_time: _seek_cloud(_time)
+		# Accepted metadata always advances. Display state is a local motion
+		# preference, detached from producer RNG and controller history. Epoch
+		# changes install their first packet even when motion remains reduced.
+		if new_epoch or _display_environment.is_empty() or not _reduced_motion:
+			_display_environment=environment.duplicate(true)
+			if not _same_ring_layout(_ring,_display_environment.sky.ring):_install_ring_layout(_display_environment.sky.ring)
+			_ring=_display_environment.sky.ring.duplicate(true);_cloud_time=float(_display_environment.sky.appTime)
+		environment=_display_environment
+	else:
+		_display_environment.clear()
+		if not _reduced_motion or _time < _cloud_time:_seek_cloud(_time)
 	_sky_origin = camera.global_position+Vector3(0,_sky_height,0)
 	var native_camera := _camera_basis(camera)
 	var scale_adaptation := _sky_radius/SOURCE_METRES
@@ -410,4 +421,4 @@ func dispose() -> void:
 	_fog_opacity = 1.0; _reduced_motion = false
 	_sky_bounds_layer = false; _sky_floor=80.0; _sky_variation=40.0
 	_environment_epoch=null;_environment_revision=-1
-	_light_material.clear()
+	_light_material.clear();_display_environment.clear()
