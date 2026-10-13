@@ -20,6 +20,7 @@ func _init(seed: int = 1650, captain_name: String = "林船长", campaign_id: St
 	_state = _initial(seed, captain_name, campaign_id)
 
 func snapshot() -> Dictionary: return _state.duplicate(true)
+func current_port_id() -> Variant: return _state.get("currentPortId")
 func serialize(now_utc: String = "2026-10-11T00:00:00.000Z") -> String:
 	return SaveCodec.encode(_state, now_utc)
 func restore(json: String) -> bool:

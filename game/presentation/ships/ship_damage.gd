@@ -156,10 +156,7 @@ func apply_snapshot(ship: Dictionary, now: float, reduced_motion := false) -> Ar
 		rest.basis *= Basis(Vector3.BACK, 0.0 if reduced_motion else sin(now * 4.0) * 0.025)
 		entry.node.transform = Transform3D(rig_fall, entry.pivot - rig_fall * entry.pivot) * rest
 	for model in _models:
-		var rest: Transform3D = _rests[model.get_instance_id()]
-		var progress := clampf((now - _sink_start) / SINK_DURATION, 0.0, 1.0) if is_finite(_sink_start) else 0.0
-		model.position = rest.origin + Vector3.DOWN * _depth * progress * progress
-		model.rotation.z = rest.basis.get_euler().z + sin(progress * PI * 0.5) * 0.32
+		model.transform = model_transform_at(model, now)
 	for key: Array in [["mast-break", _mast_start, MAST_KEY], ["destruction-explosion", _sink_start, EXPLOSION_KEY], ["sinking-froth", _sink_start, FROTH_KEY]]:
 		var at: float = key[1] + key[2]
 		if is_finite(at) and now >= at and not _sent.has(key[0]):
@@ -167,6 +164,17 @@ func apply_snapshot(ship: Dictionary, now: float, reduced_motion := false) -> Ar
 			if not first and previous < at:
 				events.append({"type": key[0], "time": at, "id": "%s:%s:%s" % [ship.get("id", ""), key[0], at], "shipId": ship.get("id", ""), "targetId": ship.get("id", "")})
 	return events
+
+func model_transform_at(model: Node3D, at: float) -> Transform3D:
+	# Rendering and delayed placement share the immutable rest and sink phase.
+	var rest: Transform3D = _rests.get(model.get_instance_id(), Transform3D.IDENTITY)
+	if not is_finite(at) or not is_finite(_sink_start): return rest
+	var progress := clampf((at - _sink_start) / SINK_DURATION, 0.0, 1.0)
+	if progress == 0.0: return rest
+	var angles := rest.basis.orthonormalized().get_euler(model.rotation_order)
+	angles.z += sin(progress * PI * 0.5) * 0.32
+	var basis := Basis.from_euler(angles, model.rotation_order).scaled_local(rest.basis.get_scale())
+	return Transform3D(basis, rest.origin + Vector3.DOWN * _depth * progress * progress)
 
 static func sail_tears(stage: int, seed: int = 0) -> PackedVector4Array:
 	var result := PackedVector4Array()

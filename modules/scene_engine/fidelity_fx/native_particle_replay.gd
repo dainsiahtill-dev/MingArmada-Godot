@@ -10,11 +10,14 @@ var rng
 var systems: Array = []
 var time = null
 
-func _init(source: Dictionary, seed: int, index: Dictionary) -> void:
+func _init(source: Dictionary = {}, seed: int = 1, index: Dictionary = {}) -> void:
 	asset = source
 	blocks = index
 	seed_value = seed
 	rng = Math.CrtRand.new(seed)
+	# Forks fill an empty replay with already prepared blueprint references and
+	# independent mutable state. Do not build original pools only to replace them.
+	if source.is_empty(): return
 	for block in asset.blocks:
 		if block.type != "NiParticleSystem": continue
 		var controller: Dictionary
@@ -118,20 +121,21 @@ func advance(now: float) -> void:
 	time = now
 
 func fork():
-	var out = get_script().new(asset,seed_value,blocks)
+	var out = get_script().new({},seed_value,{})
+	out.asset = asset
+	out.blocks = blocks
 	out.time = time
 	out.rng.state = rng.state
 	out.rng.draws = rng.draws
 	for i in systems.size():
 		var source: Dictionary = systems[i]
-		var target: Dictionary = out.systems[i]
+		var target: Dictionary = source.duplicate()
+		target.modifiers = source.modifiers.duplicate()
 		target.controller = source.controller.fork()
 		target.pool = source.pool.fork()
-		target.lastUpdate = source.lastUpdate
-		target.lastResetMapped = source.lastResetMapped
 		target.world = source.world.duplicate(true)
 		target.bounds = source.bounds.duplicate(true)
-		target.boundCounter = source.boundCounter
+		out.systems.append(target)
 	return out
 
 func source_state() -> Dictionary:
@@ -158,9 +162,19 @@ func snapshot() -> Array:
 func sample_property_controller(controller: Dictionary):
 	return Math.sample_keys(blocks[int(controller.fields.data.ref)].fields.data,Math.controller_time(controller.fields,time))
 
+func _particle_quad_context(world: Dictionary, camera: Dictionary) -> Dictionary:
+	return Math.particle_quad_context(world,camera)
+
+func _particle_quad_from_context(particle: Dictionary, context: Dictionary) -> Dictionary:
+	return Math.particle_quad_prepared(particle,context)
+
+func _particle_uv_template(desc: Dictionary, values: Dictionary) -> Array:
+	return Math.particle_uv_template(desc,values)
+
 func particle_meshes(camera: Dictionary) -> Array:
 	var meshes := []
 	for system in systems:
+		if system.pool.num_active == 0: continue
 		var properties := {}
 		for ref in system.block.fields.properties:
 			var property: Dictionary = blocks[int(ref.ref)]
@@ -171,13 +185,15 @@ func particle_meshes(camera: Dictionary) -> Array:
 		var source: Dictionary = blocks[int(desc.source.ref)]
 		var values := {}
 		for controller in controllers(texturing): values[int(controller.fields.operation)] = sample_property_controller(controller)
+		var context := _particle_quad_context(system.world,camera)
+		var uv_template := _particle_uv_template(desc,values)
 		for i in system.pool.num_active:
 			var particle: Dictionary = system.pool.particles[i]
-			var quad: Dictionary = Math.particle_quad(particle,system.world,camera)
+			var quad: Dictionary = _particle_quad_from_context(particle,context)
 			var vertices := []
-			var uvs := []
+			# Output records retain their original independent writable UV arrays.
+			var uvs := uv_template.duplicate(true)
 			for p in quad.vertices: vertices.append(Math.point(system.world,p))
-			for uv in quad.uvs: uvs.append(Math.texture_uv(uv,desc,values))
 			meshes.append({"asset":asset.name,"block":system.block.id,"name":system.block.name,"particle":i,"texture":str(source.fields.file_name).to_lower(),"vertices":vertices,"uvs":uvs,"triangles":quad.triangles,"color":quad.color.slice(0,3),"alpha":quad.color[3],"alphaFlags":alpha.get("fields",{}).get("flags",0),"threshold":alpha.get("fields",{}).get("threshold",0),"clampMode":desc.clamp_mode,"filterMode":desc.filter_mode,"world":{"translation":Math.point(system.world,particle.position)},"argb":quad.argb})
 	return meshes
 

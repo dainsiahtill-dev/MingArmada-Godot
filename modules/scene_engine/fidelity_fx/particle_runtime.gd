@@ -231,7 +231,7 @@ func reset() -> void:
 	_native = null
 	_time_input = {"kind":"canonical float32 120Hz grid plus at most one display endpoint","frequency":FREQUENCY,"gridTick":0,"lastGridTime":0.0,"endpointTime":null,"endpointDeltaSeconds":0.0,"canonicalGridAdvances":_grid_advances,"rebuilds":_rebuilds}
 
-func seek(input: float) -> Array:
+func seek(input: float, include_snapshot: bool = true) -> Array:
 	if _asset.is_empty() or not is_finite(input) or input < 0.0 or not is_finite(Math.f32(input)) or Math.f32(input) > _max_time:
 		_last_error = "Observer seek must be finite and within explicit source clip"
 		return []
@@ -251,12 +251,14 @@ func seek(input: float) -> Array:
 	if endpoint: _replay.advance(target)
 	_time_input = {"kind":"canonical float32 120Hz grid plus at most one display endpoint","frequency":FREQUENCY,"gridTick":_tick,"lastGridTime":grid_time,"endpointTime":target if endpoint else null,"endpointDeltaSeconds":target-grid_time if endpoint else 0.0,"canonicalGridAdvances":_grid_advances,"rebuilds":_rebuilds}
 	_last_error = ""
-	return snapshot()
+	# Rendering consumes meshes, not the public particle record publication.
+	# The default retains the existing deep-owned API for callers/oracles.
+	return snapshot() if include_snapshot else []
 
 func advance(time: float) -> Array:
 	return seek(time)
 
-func advance_native(time: float) -> Array:
+func advance_native(time: float, include_snapshot: bool = true) -> Array:
 	if _asset.is_empty() or not is_finite(time) or not is_finite(Math.f32(time)):
 		_last_error = "Native advance requires finite explicit appTime"
 		return []
@@ -265,10 +267,13 @@ func advance_native(time: float) -> Array:
 	_replay = _native
 	_time_input = {"kind":"original variable-dt appTime sequence; first update records visibility without births","appTime":Math.f32(time),"frequency":null,"gridTick":null}
 	_last_error = ""
-	return snapshot()
+	return snapshot() if include_snapshot else []
 
 func snapshot() -> Array:
 	return _replay.snapshot() if _replay != null else []
+
+func get_last_error() -> String: return _last_error
+func get_playback_duration() -> float: return _max_time
 
 func source_state() -> Dictionary:
 	return _replay.source_state() if _replay != null else {}

@@ -35,6 +35,7 @@ func _restart() -> Dictionary:
 	_pauses=retained; _quote.clear(); _notice=""; _generation+=1; _disposed=false; _sync_pause()
 	return {"ok":true}
 func is_paused() -> bool: return not _pauses.is_empty()
+func presentation_pause_reasons() -> Array: return _pauses.keys()
 func _sync_pause() -> void:
 	if simulation: simulation.set_paused(is_paused())
 func set_pause(reason: String,value: bool) -> Dictionary:
@@ -73,6 +74,10 @@ func command(intent: Dictionary) -> Dictionary:
 			return receipt
 	if is_paused() or simulation.snapshot().status in ["victory","defeat","surrendered"]: return no("请先继续航行")
 	match intent.get("type",""):
+		"mouse-course":
+			if not intent.get("point") is Dictionary: return no("请选择有效的海面位置")
+			return simulation.set_course(intent.point)
+		"stop-sailing": return simulation.stop_course()
 		"trim": simulation.toggle_trim()
 		"sails":
 			var value: Variant=intent.get("value")
@@ -106,6 +111,13 @@ func snapshot() -> Dictionary:
 	var assistance_notice: String = {"wind-recovery":"迎风起步辅助：先转出迎风区，再逐渐升帆。A/D 转舵可立即接管。","blocked":"起步辅助已停止；调整航向后重新按 W。"}.get(phase, "")
 	return {"naval":simulation.snapshot(),"runtime":{"generation":_generation,"mode":_options.get("mode","duel"),"paused":is_paused(),"pauseReasons":_pauses.keys(),"handlingMode":_handling,"notice":_notice if not _notice.is_empty() else assistance_notice,"surrenderQuote":_quote.duplicate(true)}}
 func render_snapshot() -> Dictionary: return simulation.render_snapshot() if not _disposed and simulation else {}
+func requires_immediate_actor_presentation() -> bool:
+	if _disposed or not simulation: return false
+	# Observe without draining: the scene presents original ordered events once.
+	for event: Dictionary in simulation._events:
+		if event.get("type") == "fire": return true
+		if event.get("type") == "hit" and float(event.get("damage",{}).get("crew",0.0)) > 0.0: return true
+	return false
 func drain_events() -> Array: return simulation.drain_events() if not _disposed and simulation else []
 func sample_water_height(x: float,z: float,seconds: float) -> float: return _waves.sample_height(x,z,seconds) if _waves else 0
 func dispose() -> void:

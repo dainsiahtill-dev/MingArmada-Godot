@@ -51,7 +51,11 @@ func apply_snapshot(native: Dictionary,_consumed: float) -> void:
 			effect.node.free(); _source_fire.remove_at(index); continue
 		effect.node.apply_snapshot(age,_time)
 	var present: Array = []
-	for projectile: Dictionary in native.get("projectiles",[]):
+	# Settled authority may retain shots that will never advance again. Retire
+	# only their drawn carriers; native ballistics and the final hit events stay
+	# intact while smoke, crew contacts and sinking effects finish separately.
+	var live_projectiles: Array = [] if native.get("status","") in ["victory","defeat","surrendered"] else native.get("projectiles",[])
+	for projectile: Dictionary in live_projectiles:
 		present.append(projectile.id)
 		if not _balls.has(projectile.id):
 			var ball := MeshInstance3D.new(); var shape := SphereMesh.new(); shape.radius = 0.18; shape.height = 0.36
@@ -79,6 +83,7 @@ func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: 
 		mesh.mesh = QuadMesh.new(); mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		material.albedo_texture = texture
 		material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		material.billboard_keep_scale = true
 		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		material.texture_repeat = false
 		material.cull_mode = BaseMaterial3D.CULL_DISABLED
@@ -115,7 +120,7 @@ func apply_events(events: Array) -> void:
 				if _time-born < 3.333334:
 					var source := SourceEffect.new(); source.name = "CannonSource_"+String(event.id)
 					add_child(source)
-					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera,"render_profile":"game_cannon"}):
+					if source.configure("fx_cannon_fire_01.nif",{"origin":point,"direction":velocity,"seed":absi(String(event.id).hash()),"camera":_camera,"render_profile":"game_cannon","clock_mode":"native"}):
 						_source_fire.append({"node":source,"time":born,"duration":source.get_playback_duration()}); source.apply_snapshot(_time-born,_time)
 					else: source.free()
 			"hit":
@@ -125,6 +130,7 @@ func apply_events(events: Array) -> void:
 			"mast-break":
 				for i in 8: _puff(point,Color(0.50,0.33,0.17,0.70),0.10,1.2,Vector3(sin(i*2.1)*2.0,1.1+i*.12,cos(i*2.1)*2.0),0.12,born)
 			"destruction-explosion":
+				point = _vector(event.get("source_effect_position", event.get("position", {})))
 				_puff(point,Color(1.0,0.65,0.22,0.85),3.0,0.18,Vector3.UP,4.0,born,"fx_cannon_smoke_03.dds",true)
 				for i in 8: _puff(point,Color(0.43,0.42,0.38,0.72),2.8+i*.3,3.0,Vector3(sin(i)*.65,1.5,cos(i)*.65),1.25,born,"fx_cannon_smoke_0%d.dds"%[2+i%2])
 			"sinking-froth":

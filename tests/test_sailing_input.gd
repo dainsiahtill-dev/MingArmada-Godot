@@ -8,8 +8,10 @@ func check(ok: bool,detail: String) -> void:
 	assertions += 1
 	if not ok: failures += 1; printerr("FAIL: ",detail)
 func make_runtime() -> RefCounted:
-	var r := Runtime.new(); r.configure(func(_x: float,_z: float)->float: return -24.0)
-	r.command({"type":"accept-convoy","commandId":"input-accept","expectedRevision":r.snapshot().campaign.revision})
+	var r := Runtime.new()
+	check(r.configure(func(_x: float,_z: float)->float: return -24.0).ok,"sailing input fixture configures actual runtime")
+	check(r.command({"type":"accept-convoy","commandId":"input-accept","expectedRevision":r.snapshot().campaign.revision}).ok,"sailing input fixture publicly accepts lease")
+	check(r.command({"type":"depart","commandId":"input-depart","expectedRevision":r.snapshot().campaign.revision}).ok and r.snapshot().campaign.currentPortId == null,"sailing input fixture publicly departs before sailing commands")
 	return r
 func player(r: RefCounted) -> Dictionary: return Runtime._ship(r.simulation.encounter.snapshot(),r.simulation.snapshot().playerId)
 func navigate(r: RefCounted) -> void:
@@ -101,10 +103,17 @@ func _run() -> void:
 	check(not player(r).autoTrim,"manual trim reaches first tick after navigation cancellation")
 	r.dispose()
 	r = Runtime.new(); r.configure(func(_x: float,_z: float)->float: return -24.0)
+	var port_before: Dictionary = r.snapshot()
 	r.set_held("KeyW",true)
-	check(r.simulation.has_pending_input() and not r.check_safety().ok,"held unconsumed input blocks save safety")
+	check(not r.simulation.has_pending_input(),"unleased port W cannot acquire pending sailing input")
+	check(r.snapshot().naval == port_before.naval and r.snapshot().campaign == port_before.campaign,"rejected port W preserves native and business authority")
+	r.set_held("KeyW",false); r.dispose()
+	r = make_runtime()
+	r.set_held("KeyW",true)
+	var fence: Dictionary = r.check_safety()
+	check(r.simulation.has_pending_input() and not fence.ok and fence.get("reason") == "save-pending-input","departed held unconsumed input blocks the actual pending-input save fence")
 	r.set_held("KeyW",false)
-	check(not r.simulation.has_pending_input(),"released input clears pending fence without consumption")
+	check(not r.simulation.has_pending_input() and r.check_safety().get("reason") != "save-pending-input","released input clears pending fence without consumption")
 	r.set_pause("player",true); check(not r.simulation.has_pending_input(),"pause clears input fence")
 	r.dispose()
 	for reason in ["loading","error","result"]:
@@ -140,10 +149,11 @@ func _run() -> void:
 		check(not player(r).autoTrim if second == "ship_auto_trim" else absf(player(r).rudder-0.6)<1e-12,"same tick partial controls preserve second intent: "+second)
 		ui.queue_free(); r.dispose(); await process_frame
 	r = make_runtime()
+	var accepted_sails: float = player(r).sailDeployment
 	r.command({"type":"controls","sailDeployment":0.8})
 	r.set_pause("player",true); r.set_pause("player",false)
 	r.command({"type":"controls","autoTrim":false}); r.advance(1.0/60)
-	check(player(r).sailDeployment == 0 and not player(r).autoTrim,"pause discards unconsumed partial controls without stale merge")
+	check(player(r).sailDeployment == accepted_sails and not player(r).autoTrim,"pause discards unconsumed partial controls while retaining last accepted sails without stale merge")
 	r.dispose()
 	await trial_chart_tests()
 	print("SAILING_INPUT_TESTS assertions=",assertions," failures=",failures)

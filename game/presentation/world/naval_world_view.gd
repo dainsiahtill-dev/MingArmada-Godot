@@ -8,6 +8,7 @@ const Ship = preload("res://game/presentation/ships/ship_view.gd")
 const Crew = preload("res://game/presentation/crew/crew_view.gd")
 const Effects = preload("res://game/presentation/combat/combat_effects.gd")
 const Wakes = preload("res://game/presentation/water/wake_trails.gd")
+const CameraRig = preload("res://game/presentation/world/ship_camera_controller.gd")
 const QUALITY := {
 	"low":{"resolution":40,"chunk_radius":2,"shadows":false,"bloom":false},
 	"balanced":{"resolution":64,"chunk_radius":3,"shadows":true,"bloom":false},
@@ -36,10 +37,46 @@ var _camera_ready := false
 var _last_tactical := false
 var _battle_id := ""
 var _snapshot: Dictionary = {}
+var _pending_crew_entries: Dictionary = {}
 var _disposed := true
 var _camera_controller: Callable
+var _camera_rig := CameraRig.new()
+var _camera_dragging := false
+var _camera_owner := ""
+var _camera_tick := 0
 func set_camera_controller(controller: Callable) -> void:
 	_camera_controller = controller
+	cancel_camera_drag()
+
+func handle_camera_input(event: InputEvent) -> bool:
+	if _disposed or _camera_controller.is_valid(): return false
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			_camera_dragging = event.pressed
+			return true
+		if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+			var steps: float = event.factor*(1.0 if event.button_index == MOUSE_BUTTON_WHEEL_UP else -1.0)
+			if _camera_rig.zoom_by(steps):
+				zoom = float(_camera_rig.status().zoom)
+				return true
+	elif event is InputEventMouseMotion and _camera_dragging:
+		return _camera_rig.orbit(event.relative)
+	return false
+
+func cancel_camera_drag() -> void:
+	_camera_dragging = false
+
+func recenter_camera() -> void:
+	if _disposed or _camera_controller.is_valid(): return
+	cancel_camera_drag()
+	tactical = false
+	zoom = 1.0
+	_camera_rig.recenter()
+
+func camera_status() -> Dictionary:
+	var result := _camera_rig.status()
+	result.dragging = _camera_dragging
+	return result
 
 static func find_ship(native: Dictionary, id: String) -> Dictionary:
 	for ship: Dictionary in native.get("ships", []):
@@ -147,6 +184,7 @@ func remember_authoritative_poses(native:Dictionary,consumed:float=0.0)->void:
 		if pose is Transform3D and sailors.has(id):sailors[id].advance_impacts(float(supplied),consumed,pose)
 
 func _reset_fleet() -> void:
+	_pending_crew_entries.clear()
 	for id: String in ships.keys(): _release_ship(id)
 	if effects:
 		_owned.erase(effects); effects.free()
@@ -168,7 +206,21 @@ func _on_ship_presentation(event: Dictionary) -> void:
 func _on_crew_water_entry(event: Dictionary) -> void:
 	if _disposed or not is_instance_valid(effects) or event.get("type") != "crew-water-entry": return
 	var point: Vector3 = event.get("position",Vector3.ZERO)
-	effects.apply_events([{"type":"splash","id":"crew-entry:%s:%s" % [event.get("event_id",""),event.get("body_id","")],"time":event.get("time",0.0),"position":{"x":point.x,"y":point.y,"z":point.z},"scale":0.45}])
+	var stamp: Variant = event.get("time",0.0)
+	if not point.is_finite() or not (stamp is int or stamp is float) or not is_finite(float(stamp)) or float(stamp) < 0.0: return
+	var id := "crew-entry:%s:%s" % [event.get("event_id",""),event.get("body_id","")]
+	# Jolt contact can arrive during physics before the next drawn snapshot.
+	# Preserve its actual birth instead of feeding a future event into Effects'
+	# reject-and-deduplicate guard. The presentation owner flushes it below.
+	_pending_crew_entries[id] = {"type":"splash","id":id,"time":float(stamp),"position":{"x":point.x,"y":point.y,"z":point.z},"scale":0.45}
+
+func _flush_crew_water_entries() -> void:
+	var ready: Array = []
+	for id: String in _pending_crew_entries.keys():
+		var event: Dictionary = _pending_crew_entries[id]
+		if float(event.time) <= float(effects.get("_time")):
+			ready.append(event); _pending_crew_entries.erase(id)
+	if not ready.is_empty(): effects.apply_events(ready)
 
 func _release_ship(id: String) -> void:
 	_kinds.erase(id)
@@ -180,6 +232,7 @@ func _release_ship(id: String) -> void:
 
 func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.0) -> Array:
 	if _disposed: return []
+	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)): _pending_crew_entries.clear()
 	var next_battle := String(native.get("battleId", ""))
 	if next_battle != _battle_id and not _battle_id.is_empty(): _reset_fleet()
 	_battle_id = next_battle
@@ -228,6 +281,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	for id: String in ships:
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
+	_flush_crew_water_entries()
 	wakes.apply_snapshot(native)
 	world.apply_snapshot({"time":native.get("time",0.0),"wind":native.get("wind",{}),"battleId":native.get("battleId",""),"focus":{"x":_last_target.x,"z":_last_target.z}},consumed)
 	return presented_events
@@ -241,26 +295,36 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 		_last_target = target
 		_camera_controller.call()
 		return
-	var mode_changed := _last_tactical != tactical
-	if not _camera_ready or mode_changed:
-		_camera_target = target
-	elif bool(_settings.cameraFollow) or tactical:
-		if consumed > 0.0: _camera_target = _camera_target.lerp(target,1.0-exp(-6.0*consumed))
-		elif target != _last_target: _camera_target += target-_last_target
+	var owner := "%s/%s/%s" % [native.get("battleId",""),ship.get("id",""),ship.get("kind","")]
+	if owner != _camera_owner:
+		_camera_rig.reset(); cancel_camera_drag()
+		if not _camera_owner.is_empty(): zoom = 1.0
+		_camera_owner = owner
+		_camera_tick = 0
+	var now := Time.get_ticks_usec()
+	var input_seconds := minf(float(now-_camera_tick)/1000000.0,0.1) if _camera_tick > 0 else 0.0
+	_camera_tick = now
+	var frame := _camera_rig.step(ship,consumed,_settings,tactical,zoom,input_seconds)
+	if frame.is_empty(): return
+	_camera_target = frame.target
 	_last_target = target; _camera_ready = true; _last_tactical = tactical
-	var offset := Vector3(80,115,-110) if tactical else Vector3(33,24,-39)
-	var seconds := fmod(float(native.get("time",0.0)),10000.0)
-	var strength := float(_settings.cameraShake)*0.35 if not tactical and not bool(_settings.reducedMotion) else 0.0
-	var shake := Vector3(sin(seconds*13.0),sin(seconds*17.0)*0.6,sin(seconds*11.0))*strength
-	camera.position = _camera_target+offset*zoom+shake
-	var roll := 0.0 if bool(_settings.reducedMotion) else float(ship.visual.get("heel",0.0))*(1.0-float(_settings.horizonStability))
-	var heading := float(ship.visual.get("heading",0.0))
-	var up := Vector3(sin(roll)*cos(heading),cos(roll),-sin(roll)*sin(heading))
-	camera.look_at(_camera_target,up)
+	var eye: Vector3 = frame.position
+	# A low orbit near a mountainous shore must remain above terrain as well
+	# as water. This is a single sampler lookup, not a new world presentation.
+	if _height.is_valid():
+		var world_eye := to_global(eye)
+		var terrain: Variant = _height.call(world_eye.x,world_eye.z)
+		if (terrain is float or terrain is int) and is_finite(float(terrain)):
+			world_eye.y = maxf(world_eye.y,float(terrain)+4.0)
+			eye = to_local(world_eye)
+	camera.position = eye
+	camera.look_at(_camera_target,frame.up)
 
 func dispose() -> void:
 	_disposed = true
 	_camera_controller = Callable()
+	_camera_rig.reset(); cancel_camera_drag()
+	_camera_owner = ""; _camera_tick = 0
 	for id: String in ships.keys(): _release_ship(id)
 	for node in _owned:
 		if is_instance_valid(node):
@@ -271,5 +335,6 @@ func dispose() -> void:
 	library = null; world = null; camera = null; effects = null; wakes = null
 	_environment = null; _sun = null; _height = Callable(); _water = Callable()
 	_ports.clear(); _snapshot.clear(); _battle_id = ""; _camera_ready = false
+	_pending_crew_entries.clear()
 
 func _exit_tree() -> void: dispose()

@@ -4,6 +4,9 @@ extends RefCounted
 const Shared = preload("res://modules/scene_engine/fidelity_island/native_math.gd")
 const GRAVITY_SCALE := 1.600000023841858
 const SIZE_FLOOR := 0.00009999999747378752
+## Vector components store binary32 in normal builds. Double-precision builds
+## retain the explicit byte conversion; neither path uses mutable shared state.
+const _VECTOR_BINARY32 := Vector3(16777217.0,0.0,0.0).x == 16777216.0
 const ROTATION_ORDERS := [[0,1,2],[0,2,1],[1,2,0],[1,0,2],[2,0,1],[2,1,0]]
 
 class CrtRand extends RefCounted:
@@ -21,7 +24,7 @@ class CrtRand extends RefCounted:
 		return (state >> 16)&0x7fff
 
 static func f32(value: float) -> float:
-	return Shared.f32(value)
+	return Vector3(value,0.0,0.0).x if _VECTOR_BINARY32 else Shared.f32(value)
 
 static func identity() -> Array:
 	return [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]
@@ -271,6 +274,52 @@ static func nearest_even(value: float) -> int:
 	var part: float = value-base
 	if part == 0.5: return base if base%2 == 0 else base+1
 	return int(floor(value+0.5))
+
+static func particle_quad_context(world: Dictionary, camera: Dictionary) -> Dictionary:
+	# This is the unchanged scalar prefix of particle_quad. Its inputs belong
+	# to one system/view, so the same native float stores need only run once.
+	var scaled := []
+	for component in world.rotation: scaled.append(f32(component*world.scale))
+	var right: Array = transform_transpose(scaled,camera.right)
+	var up: Array = transform_transpose(scaled,camera.up)
+	var inverse_scale: float = 1.0/world.scale
+	var sum: Array = [f32((right[0]+up[0])*inverse_scale),f32((up[1]+right[1])*inverse_scale),f32(f32(up[2]+right[2])*inverse_scale)]
+	var difference: Array = [f32((up[0]-right[0])*inverse_scale),f32((up[1]-right[1])*inverse_scale),f32(f32(up[2]-right[2])*inverse_scale)]
+	return {"sum":sum,"difference":difference}
+
+static func particle_quad_prepared(particle: Dictionary, context: Dictionary) -> Dictionary:
+	var sum: Array = context.sum
+	var difference: Array = context.difference
+	var factor: float = particle.size*particle.radius
+	var a: Array = [f32(sum[0]*factor),f32(sum[1]*factor),f32(sum[2]*factor)]
+	var b: Array = [f32(difference[0]*factor),f32(difference[1]*factor),difference[2]*factor]
+	var p: Array = particle.position
+	var vertices: Array = [[],[],[],[]]
+	for i in 3:
+		vertices[0].append(f32(p[i]-a[i]))
+		vertices[1].append(f32(p[i]-b[i]))
+		vertices[2].append(f32(a[i]+p[i]))
+		vertices[3].append(f32(b[i]+p[i]))
+	var bytes := []
+	var colors := []
+	for component in particle.color:
+		var byte: int = nearest_even(f32(component*255.0))&255
+		bytes.append(byte)
+		colors.append(byte/255.0)
+	var argb: int = ((bytes[3]<<24)|(bytes[0]<<16)|(bytes[1]<<8)|bytes[2])&0xffffffff
+	return {"vertices":vertices,"uvs":[[0,1],[1,1],[1,0],[0,0]],"triangles":[[0,1,2],[0,2,3]],"argb":argb,"color":colors}
+
+static func particle_uv_template(desc: Dictionary, values: Dictionary = {}) -> Array:
+	var corners: Array = [[0,1],[1,1],[1,0],[0,0]]
+	if not desc.get("has_texture_transform",false): return corners
+	var overrides := {}
+	var names := ["translationU","translationV","rotation","scaleU","scaleV"]
+	for operation in values: overrides[names[int(operation)]] = values[operation]
+	var matrix: PackedFloat32Array = Shared.texture_transform(desc,overrides)
+	var result := []
+	for uv: Array in corners:
+		result.append([f32(matrix[0]*uv[0]+matrix[3]*uv[1]+matrix[6]),f32(matrix[1]*uv[0]+matrix[4]*uv[1]+matrix[7])])
+	return result
 
 static func particle_quad(particle: Dictionary, world: Dictionary, camera: Dictionary) -> Dictionary:
 	var scaled := []

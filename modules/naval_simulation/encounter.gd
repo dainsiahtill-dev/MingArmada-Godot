@@ -11,6 +11,7 @@ const Planner = preload("res://modules/naval_simulation/navigation/wet_route_pla
 const Approach = preload("res://modules/naval_simulation/navigation/approach_clearance.gd")
 const Egress = preload("res://modules/naval_simulation/navigation/wet_route_egress.gd")
 const Manual = preload("res://modules/physics_engine/ships/manual_handling.gd")
+const Casual = preload("res://modules/naval_simulation/controls/casual_sailing.gd")
 const Collator = preload("res://modules/naval_simulation/id_collator.gd")
 const DT = 1.0 / 60.0
 const GRAVITY = 9.81
@@ -532,7 +533,9 @@ func _fixed_tick() -> void:
 			ship.state.sailAngle = _wrap(atan2(wz, wx) - visual.heading) / 2.0
 		ship.core.set_sail_deployment(ship.state.sailDeployment); ship.core.set_sail_condition(ship.state.sail / ship.state.maxSail); ship.core.set_sail_angle(ship.state.sailAngle)
 		var controls = {"throttle": 0.0, "rudderAngleDeg": ship.state.rudder * 30, "crewSteeringForce": minf(ship.state.crew, ship.state.maxCrew) * 200 * ship.state.stats.steeringMultiplier, "time": tick * DT}
-		if ship.has("manualHandling"): controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
+		if ship.has("manualHandling"):
+			controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
+			if not controls.manualAssist.is_empty(): controls.throttle = Casual.throttle(ship.state, visual, wind, ship.manualHandling, controls.manualAssist.powerFraction, ship.core.drive_max_accel)
 		elif navigation_assists.has(ship.state.id): controls.manualAssist = navigation_assists[ship.state.id]
 		ship.core.step(DT, controls)
 		_shore(ship)
@@ -1209,18 +1212,23 @@ func reconcile_ships(setups: Variant, next_policy: Variant = null) -> Dictionary
 	_finish(); return _ok()
 func reconcileShips(setups: Variant, next_policy: Variant = null) -> Dictionary: return reconcile_ships(setups, next_policy)
 func reconcile(setups: Variant, next_policy: Variant = null) -> Dictionary: return reconcile_ships(setups, next_policy)
-func _manual_reason(ship: Dictionary) -> String:
-	if ship.state.id != player_id or ship.state.team != "player" or not _controlled(ship.state.id) or ship.state.id in policy.get("capturedShipIds", []): return "Ship not authorized"
+func _manual_reason(ship: Dictionary, replace_navigation: bool = false) -> String:
+	if ship.state.id != player_id or ship.state.team != "player" or not _controlled(ship.state.id) or ship.state.id in policy.get("capturedShipIds", []) or ship.state.id in policy.get("lockedShipIds", []): return "Ship not authorized"
 	if ship.sunk or ship.state.hull <= 0 or ship.state.crew <= 0: return "Ship not operational"
 	if status in ["surrendered", "defeat", "victory"]: return "Encounter ended"
-	if ship.state.has("navigation") or hasActiveOrder(ship.state.id): return "navigation-active"
+	if not replace_navigation and (ship.state.has("navigation") or hasActiveOrder(ship.state.id)): return "navigation-active"
 	return ""
+func manual_control_permission(id: String, replace_navigation: bool = false) -> Dictionary:
+	var ship: Dictionary = _ship(id)
+	if ship.is_empty(): return _no("Unknown ship")
+	var reason: String = _manual_reason(ship, replace_navigation)
+	return _ok() if reason.is_empty() else _no(reason)
 func set_manual_handling(id: String, request: Variant) -> Dictionary:
 	var ship = _ship(id)
 	if ship.is_empty(): return _no("Unknown ship")
 	ship.erase("manualHandling")
 	if request == null: return _ok()
-	if not request is Dictionary or request.get("mode") != "assisted" or not [request.get("turnIntent"), request.get("sailIntent")].all(_finite) or absf(request.turnIntent) > 1 or request.sailIntent < 0 or request.sailIntent > 1 or not request.get("braking") is bool or not request.get("recovery") is bool: return _no("Invalid manual handling")
+	if not request is Dictionary or request.get("mode") != "assisted" or not [request.get("turnIntent"), request.get("sailIntent")].all(_finite) or absf(request.turnIntent) > 1 or request.sailIntent < 0 or request.sailIntent > 1 or not request.get("braking") is bool or not request.get("recovery") is bool or request.has("casual") and not request.casual is bool: return _no("Invalid manual handling")
 	var reason = _manual_reason(ship)
 	if not reason.is_empty(): return _no(reason)
 	ship.manualHandling = request.duplicate(true); return _ok()

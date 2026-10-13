@@ -37,7 +37,12 @@ func configure(water_sampler: Callable) -> void:
 func apply_snapshot(now: float) -> void:
 	if not is_finite(now) or now < 0.0: return
 	if _time >= 0 and now < _time: _clear()
-	if now == _time: return
+	if now == _time:
+		# Paused camera changes still reproject source billboards. Their own
+		# accepted-age memo freezes native particles; generic water stays intact.
+		for splash: Dictionary in _splashes:
+			if splash.has("fidelity"): splash.reference.apply_snapshot(now-float(splash.time),now)
+		return
 	_time = now
 	for id in _seen.keys():
 		if now-float(_seen[id]) >= DURATION: _seen.erase(id)
@@ -93,7 +98,7 @@ func add_event(event: Dictionary) -> void:
 		if is_instance_valid(_reference_camera):
 			var reference := FidelityReference.new(); reference.name = "FidelityReferenceSplash"; node.add_child(reference)
 			var variant := 1+posmod(splash.seed,3)
-			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_surface_filter,"camera":_reference_camera}): splash.reference = reference; splash.fidelity = true
+			if reference.configure("cannon_ball_splash_0%d.nif"%variant,{"origin":splash.birth_origin,"scale":size,"seed":splash.seed,"water":_water,"sea":_surface_filter,"camera":_reference_camera,"clock_mode":"native"}): splash.reference = reference; splash.fidelity = true
 			else: reference.free()
 		else:
 			var reference := Reference.new(); reference.name = "ReferenceSplash"; node.add_child(reference)

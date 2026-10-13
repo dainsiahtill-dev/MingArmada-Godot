@@ -93,6 +93,7 @@ func _cargo(cargo: Dictionary) -> String:
 func _authorized(id: String) -> bool: return id in _runtime().get("controllableShipIds", _runtime().get("policy", {}).get("controllableShipIds", []))
 func _operational() -> bool: return not _state().is_empty() and not _runtime().get("error", false) and not _runtime().get("status", "ready") in ["loading", "disposed", "error"]
 func _reason(value) -> String:
+	if str(value) == "flagship-sunk": return "旗舰已沉没，本次航程结束。按 Esc 打开菜单，载入存档或返回主菜单。"
 	var reasons := {"unsafe-port": "进入港口附近，收帆停稳并脱离交战。", "unsafe-dock": "靠港条件尚未满足，请安全停船。", "not-in-port": "请先靠泊港口。", "ship-not-docked": "所选船只尚未安全锚泊。", "save-safe-port-required": "请先将船队停在安全港口。", "save-active-boarding": "请先结束接舷战。", "save-local-hostile-threat": "附近有敌舰，请脱离威胁。", "save-pending-attacks": "炮击尚未结束，请稍候。", "save-pending-input": "操船尚未结束，请停船后重试。", "save-flagship-unavailable": "旗舰已沉没，当前航程无法保存。", "insufficient-silver": "银两不足。", "insufficient-stock": "港口库存不足。", "insufficient-capacity": "货舱余量不足。", "insufficient-cargo": "可售货物不足。", "invalid-quantity": "请输入有效的正整数。", "contract-cargo": "委托货物不能自行交易。", "ship-working": "船只仍在作业。", "no-damage": "船体与帆装无需修理。", "no-wounded": "所选船只没有伤员。", "insufficient-wounded": "治伤人数超过实际伤员。", "refit-forbidden": "帆装改造限厦门港的自有船只。", "no-prisoners": "所选船只没有俘虏。", "route-too-shallow": "航路水深不足，船只吃水过深。", "stale-revision": "航况已变化，请重新确认后下令。", "fast-forward-danger": "附近有威胁或浅水危险，无法快进。", "target-not-weakened": "敌舰尚未削弱。", "invalid-boarding": "检查两船距离、船速、船员与作业状态。", "prize-market-unavailable": "战利船市场仅在厦门与金门。", "prize-not-close": "两船须相距不超过 36 米且相对速度不超过 3 m/s。", "prize-cargo-not-empty": "售船前须清空货物。", "ship-ordered": "相关船只仍有航行或战术指令。", "unauthorized-order": "所选船只当前不受指挥。", "target-unavailable": "目标已离开或不可用。", "runtime-unavailable": "航程暂时无法接受操作。", "save-unverified": "等待航况核验。"}
 	var text := str(value)
 	if text.is_empty(): return ""
@@ -214,7 +215,7 @@ func _build() -> void:
 		var id := str(_state().get("flagshipId",""))
 		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Color("a9c3bd"))
 	_watchers.append(func(): broadside.visible = not _native(str(_state().get("flagshipId",""))).is_empty())
-	_text(head, "time_state", func(): return ("已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Color("a9c3bd"))
+	_text(head, "time_state", func(): return ("航程结束" if _naval().get("status", "") == "defeat" else "已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Color("a9c3bd"))
 	var goal := _row(head)
 	goal.name = "objective_row"
 	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 13, Color("e3c88d"))
@@ -240,9 +241,10 @@ func _build() -> void:
 	var cameras := _row(head)
 	_local_button(cameras, "camera_captain", "驾驶视角", func(): view_requested.emit(false))
 	_local_button(cameras, "camera_tactical", "高位海图", func(): view_requested.emit(true))
+	_button(cameras, "stop_sailing", "停船", func(): return {"type": "stop-sailing"}, _can_mouse_sail)
 	var notice := _text(head, "notice", func(): return _reason(_runtime().get("notice", _runtime().get("reason", ""))), 14, Color("ffd99a"))
 	_watchers.append(func(): notice.visible = not notice.text.is_empty())
-	_text(head, "keys", func(): return "W/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Color("a9c3bd"))
+	_text(head, "keys", func(): return ("先离港，再左键点海面航行 · 中键停船" if _state().get("currentPortId") != null else "左键点海面持续航行 · 中键停船") + "\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Color("a9c3bd"))
 	_operation = _box(_screen, "operation")
 	var operation_column := _column(_operation)
 	var heading := _row(operation_column)
@@ -571,6 +573,11 @@ func _build_ship(parent: Control) -> void:
 func _can_sail() -> bool:
 	var id := str(_state().get("flagshipId", ""))
 	return _operational() and not _runtime().get("paused", true) and _authorized(id) and not _native(id).is_empty()
+func _can_mouse_sail() -> bool:
+	if not _operational() or _runtime().get("paused", true) or _state().get("currentPortId") != null: return false
+	var id: String = str(_naval().get("playerId", _state().get("flagshipId", "")))
+	var ship: Dictionary = _native(id)
+	return _authorized(id) and ship.get("hull", 0) > 0 and ship.get("crew", 0) > 0
 func _can_fire(side: String) -> bool:
 	var ship := _native(str(_state().get("flagshipId", "")))
 	return _can_sail() and ship.get("hull", 0) > 0 and ship.get("cannonsPerSide", 0) > 0 and ship.get("cooldownSeconds", {}).get(side, 1) <= 0 and ship.get("ammo", {}).get(ship.get("ammoType", "solid"), 0) > 0

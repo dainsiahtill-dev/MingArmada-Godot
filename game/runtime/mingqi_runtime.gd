@@ -87,7 +87,7 @@ func build_native(session: RefCounted, paused: bool = true) -> Dictionary:
 	for wave: Dictionary in descriptors: wave.direction = {"x":wave.direction.x,"y":wave.direction.z}
 	var encounter := Encounter.new({"mode":"continuous","routePlanning":true,"seed":state.seed,"battleId":epoch,"playerId":state.flagshipId,"ships":setups,"controllableShipIds":policy.controllableShipIds,"hostileTargets":policy.hostileTargets,"sampleTerrainHeight":_height,"oceanWaves":descriptors,"waveSampler":_waves,"referenceHandling":_reference_enhancements,"referenceGunnery":_reference_enhancements})
 	if not encounter.last_error.is_empty(): return _no(encounter.last_error)
-	var input := Simulation.new(encounter); input.set_handling_mode(_handling_mode); input.set_paused(paused)
+	var input := Simulation.new(encounter); input.set_handling_mode(_handling_mode); input.set_sailing_allowed(state.currentPortId == null); input.set_paused(paused)
 	var handoff := Bridge.new(session,input)
 	var projected: Dictionary = session.project_native(handoff.command_context().native)
 	if not projected.ok: return projected
@@ -98,6 +98,10 @@ func _observe(events: Array) -> void:
 func _notify(message: String) -> void: _notice = message; _notice_revision += 1
 func _fail(reason: String) -> void: _error = true; _notify(reason); set_pause("error",true)
 func is_paused() -> bool: return _rate == 0 or not _pauses.is_empty()
+func presentation_pause_reasons() -> Array:
+	var reasons := _pauses.keys()
+	if _rate == 0: reasons.append("rate-zero")
+	return reasons
 func set_pause(reason: String,value: bool) -> Dictionary:
 	if not reason in PAUSES: return _no("invalid-pause-reason")
 	var before := is_paused()
@@ -120,7 +124,7 @@ func set_time_scale(rate: float) -> Dictionary:
 func set_handling_mode(mode: String) -> void:
 	if mode in ["assisted","realistic"]: _handling_mode = mode; simulation.set_handling_mode(mode)
 func set_held(code: String,down: bool) -> void:
-	if simulation and not _disposed and (not down or not is_paused()): simulation.set_held(code,down)
+	if simulation and not _disposed and (not down or not is_paused() and campaign.current_port_id() == null): simulation.set_held(code,down)
 func command(input: Dictionary) -> Dictionary:
 	if _disposed or not simulation: return _no("runtime-unavailable")
 	var result: Dictionary
@@ -130,7 +134,12 @@ func command(input: Dictionary) -> Dictionary:
 		if is_paused() and type in ["depart","start-boarding","board-action"]: return _no("runtime-paused")
 		if type == "assign-order" and is_paused(): return draft_order(input)
 		result = campaign.command(input,bridge.command_context())
-	elif type == "pause": result = set_pause("player",input.get("value",not is_paused()))
+	elif type == "pause":
+		var requested: bool = input.get("value",not is_paused())
+		# A deliberate Continue action resumes a focus-loss pause. Other owners
+		# (menu/loading/result/etc.) keep their independent pause authority.
+		if not requested: set_pause("blur",false)
+		result = set_pause("player",requested)
 	elif type == "time-scale": result = set_time_scale(input.get("value",1.0))
 	elif type == "menu": result = set_pause("menu",input.get("value",true))
 	elif type == "select-ship":
@@ -138,10 +147,19 @@ func command(input: Dictionary) -> Dictionary:
 	elif type == "navigate":
 		if is_paused(): return _no("runtime-paused")
 		result = simulation.encounter.navigate(input.get("shipId",simulation.snapshot().playerId),input.get("point")); simulation.refresh_snapshot()
+	elif type in ["mouse-course","stop-sailing"]:
+		if is_paused(): return _no("请先继续航行")
+		if campaign.current_port_id() != null: return _no("请先离港，再选择航向")
+		if type == "mouse-course":
+			if not input.get("point") is Dictionary: return _no("请选择有效的海面位置")
+			result = simulation.set_course(input.point)
+		else: result = simulation.stop_course()
 	elif type in ["controls","fire","select-ammo"]:
 		if is_paused(): return _no("runtime-paused")
+		if type == "controls" and campaign.current_port_id() != null: return _no("请先离港，再操纵船帆和船舵")
 		result = _queue_sailing_intent(input)
 	else: return _no("unknown-runtime-command")
+	if result.get("ok",false): simulation.set_sailing_allowed(campaign.current_port_id() == null)
 	if not result.get("ok",false): _notify(result.get("reason","command-rejected"))
 	return result
 func _queue_sailing_intent(input: Dictionary) -> Dictionary:
@@ -208,6 +226,7 @@ func fast_forward_danger() -> bool:
 func advance(frame_seconds: float) -> float:
 	_accepted = 0; _rejected = 0
 	if _disposed or not simulation or is_paused() or not is_finite(frame_seconds) or frame_seconds < 0: return 0
+	simulation.set_sailing_allowed(campaign.current_port_id() == null)
 	if _rate == 8 and fast_forward_danger(): _rate = 1; _notify("fast-forward-danger")
 	var requested := _pending+frame_seconds*_rate
 	if requested > MAX_PENDING_SECONDS:

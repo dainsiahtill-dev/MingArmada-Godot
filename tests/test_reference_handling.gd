@@ -48,15 +48,21 @@ func _initialize() -> void:
 	check(Manual.sanitize(bad).is_empty(), "nonfinite response rate rejects entire assist")
 	bad.responseRate = 8.1
 	check(Manual.sanitize(bad).is_empty(), "response beyond torque controller limit rejects entire assist")
-	var encounter := Encounter.new({"referenceHandling":true,"oceanWaves":[],"ships":[{"id":"player","kind":"heavy","team":"player","position":{"x":0.0,"z":0.0},"stats":{"cargoMass":330000.0}}],"sampleTerrainHeight":func(_x,_z): return -80.0,"wind":{"direction":{"x":1.0,"y":0.0},"speed":12.0}})
+	var encounter := Encounter.new({"referenceHandling":true,"mode":"continuous","playerId":"player","controllableShipIds":["player"],"hostileTargets":{},"oceanWaves":[],"ships":[{"id":"player","kind":"heavy","team":"player","position":{"x":0.0,"z":0.0},"heading":0.0,"speed":0.0,"sailDeployment":0.0,"stats":{"cargoMass":330000.0}}],"sampleTerrainHeight":func(_x,_z): return -80.0,"wind":{"direction":{"x":1.0,"y":0.0},"speed":12.0}})
 	var sim := Simulation.new(encounter); sim.set_handling_mode("assisted"); sim.set_held("KeyW",true)
-	var recovered := false
-	for tick in 2940:
+	var max_heading := 0.0
+	var recovery_seen := false
+	for tick in 360:
 		sim.advance(1.0/60.0)
-		if absf(sim.snapshot().ships[0].visual.heading)>deg_to_rad(50) and sim.snapshot().ships[0].sailDeployment>0.95 and not sim._assist.active(): recovered=true; break
-	check(recovered and sim.handling_status().phase != "blocked", "loaded heavy ship escapes headwind and restores sails within accepted-time cargo budget")
-	print("REFERENCE_HANDLING_RECOVERY acceptedSeconds=",sim.snapshot().time," headingDegrees=",rad_to_deg(sim.snapshot().ships[0].visual.heading)," phase=",sim.handling_status().phase)
-	check(Vector2(sim.snapshot().ships[0].visual.velocity.x,sim.snapshot().ships[0].visual.velocity.z).length() > 0.01, "restored sails produce actual wind-powered startup after headwind escape")
+		var ship: Dictionary = sim.snapshot().ships[0]
+		max_heading = maxf(max_heading,absf(atan2(sin(ship.visual.heading),cos(ship.visual.heading))))
+		recovery_seen = recovery_seen or sim.handling_status().phase in ["wind-recovery","blocked"]
+	var underway: Dictionary = sim.snapshot()
+	var loaded: Dictionary = underway.ships[0]
+	check(underway.tick == 360 and absf(underway.time-6.0)<1e-9 and max_heading<deg_to_rad(5),"loaded heavy ship keeps original heading through six accepted headwind seconds")
+	check(loaded.sailDeployment>0.95 and not recovery_seen and not sim._assist.active(),"held W raises full sails without automatic wind escape or recovery block")
+	check(loaded.visual.velocity.x>0.5 and loaded.visual.position.x>=3.0,"loaded heavy headwind assistance produces useful real forward speed and travel")
+	print("REFERENCE_HANDLING_HEADWIND acceptedSeconds=",underway.time," maxHeadingDegrees=",rad_to_deg(max_heading)," forwardMeters=",loaded.visual.position.x," forwardMetersPerSecond=",loaded.visual.velocity.x," sails=",loaded.sailDeployment," phase=",sim.handling_status().phase)
 	for kind in ["fisherman","merchant","heavy"]:
 		var straight := Encounter.new({"referenceHandling":true,"oceanWaves":[],"ships":[{"id":"player","kind":kind,"team":"player","position":{"x":0.0,"z":0.0}}],"wind":{"direction":{"x":-0.8,"y":-0.6},"speed":14.0}})
 		var turning := Encounter.new(straight.config)

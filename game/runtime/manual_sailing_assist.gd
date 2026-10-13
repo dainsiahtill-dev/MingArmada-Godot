@@ -18,6 +18,10 @@ static func _wrap(value: float) -> float: return atan2(sin(value),cos(value))
 
 func advance(seconds: float, ship: Dictionary, wind: Dictionary, input: Dictionary, find_heading: Callable) -> void:
 	if not is_finite(seconds) or seconds <= 0: return
+	if input.get("casual", false):
+		_recovery.clear(); _stalled = 0.0; _fresh_forward_required = false
+		_status = {"phase":"turning" if input.turn else "braking" if input.backward or input.sailIntent <= 0.05 else "cruising"}
+		return
 	if not input.forward: release_forward()
 	if input.turn or input.backward or input.manualTrim or not input.autoTrim: cancel()
 	if input.turn: _status = {"phase":"turning"}; return

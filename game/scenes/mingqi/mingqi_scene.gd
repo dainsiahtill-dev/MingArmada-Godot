@@ -10,6 +10,8 @@ const NavalWorldView = preload("res://game/presentation/world/naval_world_view.g
 const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
 const Services = preload("res://game/scenes/common/sea_services.gd")
 const SeaChart = preload("res://game/scenes/common/sea_chart_overlay.gd")
+const TerminalPresentation = preload("res://game/scenes/common/terminal_presentation_clock.gd")
+const MouseCourse = preload("res://game/scenes/common/mouse_course_projection.gd")
 var runtime := Runtime.new()
 var storage := Storage.new()
 var heights := HeightField.new()
@@ -32,9 +34,12 @@ var _capture_mode := false
 var _disposed := false
 var _activated := false
 var _zoom := 1.0
+var _last_legacy_zoom := 1.0
 var _verified_checkpoint := ""
 var _save_status := ""
 var _pending_presentation_seconds := 0.0
+var _terminal_presentation := TerminalPresentation.new()
+var _mouse_course := MouseCourse.new()
 const KEYS := {KEY_W:"KeyW",KEY_S:"KeyS",KEY_A:"KeyA",KEY_D:"KeyD",KEY_UP:"ArrowUp",KEY_DOWN:"ArrowDown",KEY_LEFT:"ArrowLeft",KEY_RIGHT:"ArrowRight",KEY_BRACKETLEFT:"BracketLeft",KEY_BRACKETRIGHT:"BracketRight"}
 func _ready() -> void:
 	_capture_mode = "--capture-mingqi" in OS.get_cmdline_user_args()
@@ -104,6 +109,7 @@ func _checkpoint_export() -> Dictionary:
 func _save_failure(reason: String) -> String:
 	return {"save-directory-failed":"无法创建存档目录。", "save-write-failed":"存档写入失败。", "save-readback-failed":"存档读回不一致，未确认保存。", "save-read-failed":"存档读取失败。", "save-invalid":"存档无效或版本不受支持。", "save-not-found":"没有上次已验证的安全存档。", "save-replace-failed":"存档替换失败，保留上次安全存档。", "save-backup-failed":"存档备份失败。", "save-recovery-failed":"存档恢复失败。"}.get(reason,interface._reason(reason))
 func _command(intent: Dictionary) -> void:
+	if sea and intent.get("type") in ["menu", "open-settings", "main-menu", "import-save"]: sea.cancel_camera_drag()
 	var result: Dictionary
 	match intent.get("type"):
 		"menu":
@@ -125,6 +131,7 @@ func _command(intent: Dictionary) -> void:
 			result = runtime.adopt_save(intent.get("json",""),storage,_utc())
 			if result.ok:
 				_pending_presentation_seconds = 0.0
+				_terminal_presentation.reset()
 				_confirm_checkpoint(); interface.open_menu()
 			_save_status = "存档已验证、保存并载入。准备好后继续航行。" if result.ok else "导入未成功："+_save_failure(result.get("reason","save-invalid"))
 		_: result = runtime.command(intent)
@@ -137,11 +144,16 @@ func _physics_process(delta: float) -> void:
 	sea.observe_projectiles(runtime.simulation.snapshot())
 	var consumed: float = runtime.advance(delta)
 	_pending_presentation_seconds += consumed
+	var native: Dictionary = runtime.simulation.snapshot()
+	var was_anchored := _terminal_presentation.is_anchored()
+	var tail := _terminal_presentation.advance(native,runtime.presentation_pause_reasons(),delta,consumed)
+	_pending_presentation_seconds += tail
 	# Birth poses and Jolt impacts still follow each accepted physics step.
 	# Updating all source effects and UI here makes catch-up steps draw the
 	# entire scene repeatedly before the engine can produce a single frame.
-	sea.remember_authoritative_poses(runtime.simulation.snapshot(),consumed)
-	if runtime.requires_immediate_actor_presentation():
+	var visual: Dictionary = _terminal_presentation.snapshot(native) if _terminal_presentation.is_anchored() else native
+	sea.remember_authoritative_poses(visual,consumed+tail)
+	if not was_anchored and _terminal_presentation.is_anchored() or runtime.requires_immediate_actor_presentation():
 		# Preserve the original hit-to-skin transfer and impact birth timing.
 		# These sparse events require a pose before spawning their physical rig.
 		_present(0.0)
@@ -149,7 +161,14 @@ func _process(_delta: float) -> void:
 	if not world or _capture_mode or _disposed: return
 	_present(0.0)
 func _update_camera(native: Dictionary,delta: float) -> void:
-	sea.tactical = tactical; sea.zoom = _zoom; sea._update_camera(native,delta)
+	_sync_legacy_zoom()
+	sea.tactical = tactical; sea._update_camera(native,delta)
+func _sync_legacy_zoom() -> void:
+	# Existing captures may assign _zoom. Normal presentation mirrors the Sea's
+	# current intent; it must not overwrite a wheel/orbit controller every frame.
+	if _zoom != _last_legacy_zoom: sea.zoom = _zoom
+	else: _zoom = sea.zoom
+	_last_legacy_zoom = _zoom
 func _sync_view_handles() -> void:
 	world = sea.world; camera = sea.camera; effects = sea.effects
 	library = sea.library; ships = sea.ships; sailors = sea.sailors
@@ -158,17 +177,35 @@ func _present(consumed: float) -> void:
 	consumed += _pending_presentation_seconds
 	_pending_presentation_seconds = 0.0
 	var packet: Dictionary = runtime.snapshot(); var native: Dictionary = packet.naval
+	var visual: Dictionary = _terminal_presentation.snapshot(native)
 	packet.runtime.hasCheckpoint = not _verified_checkpoint.is_empty()
 	packet.runtime.saveStatus = _save_status
-	sea.tactical = tactical; sea.zoom = _zoom
-	var events: Array = sea.apply_snapshot(native,runtime.drain_events(),consumed)
+	_sync_legacy_zoom()
+	sea.tactical = tactical
+	var events: Array = sea.apply_snapshot(visual,runtime.drain_events(),consumed)
 	_sync_view_handles()
-	services.present(native,events,consumed,bool(packet.runtime.paused))
+	# Consult current blockers even for a menu command before the next physics
+	# callback. The final accepted tail interval still reaches presentation audio.
+	var reasons: Array = runtime.presentation_pause_reasons()
+	var result_only: bool = reasons.size() == 1 and reasons[0] == "result"
+	var tail_audio: bool = result_only and _terminal_presentation.allows_playback() and (_terminal_presentation.is_playing() or consumed > 0.0)
+	services.present(visual,events,consumed,bool(packet.runtime.paused) and not tail_audio)
 	interface.apply_snapshot(packet)
+	if not _mouse_sailing_ready(): _mouse_course.cancel_gesture()
+	if not _camera_input_ready(): sea.cancel_camera_drag()
 	if minimap: minimap.present(native,{},not interface.visible or interface.is_panel_open() or interface.is_menu_open() or services.captures_keyboard())
 func _input(event: InputEvent) -> void:
+	# Raw release must end a drag even if GUI handles it before world input.
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
+		if sea: sea.cancel_camera_drag()
+	# Deferred cancellation also clears UI-consumed releases, after world input.
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed: _mouse_course.cancel_gesture()
+		else: _mouse_course.call_deferred("cancel_gesture")
+	if event is InputEventKey and event.pressed: _mouse_course.cancel_gesture()
 	if not interface or not event is InputEventKey or not event.pressed or event.echo: return
 	var code: int = event.physical_keycode if event.physical_keycode else event.keycode
+	if code == KEY_ESCAPE and sea: sea.cancel_camera_drag()
 	if services.captures_keyboard():
 		if code == KEY_ESCAPE: services.close_settings(); _present(0.0)
 		get_viewport().set_input_as_handled(); return
@@ -194,9 +231,47 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_ESCAPE: interface.open_menu()
 		KEY_F12: _capture("manual-%d"%Time.get_unix_time_from_system())
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP: _zoom = clampf(_zoom*0.9,0.55,2)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN: _zoom = clampf(_zoom*1.1,0.55,2)
+	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]: _mouse_course.cancel_gesture()
+	if not _camera_input_ready():
+		if sea: sea.cancel_camera_drag()
+	elif event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode if event.physical_keycode else event.keycode) == KEY_F:
+		_mouse_course.cancel_gesture()
+		tactical = false
+		sea.recenter_camera(); _sync_legacy_zoom()
+		get_viewport().set_input_as_handled(); return
+	elif sea.handle_camera_input(event):
+		_mouse_course.cancel_gesture(); _sync_legacy_zoom()
+		get_viewport().set_input_as_handled(); return
+	if not _mouse_sailing_ready():
+		_mouse_course.cancel_gesture()
+		return
+	var intent: Dictionary = _mouse_course.consume(event)
+	if intent.is_empty(): return
+	if intent.type == "mouse-course":
+		var projected: Dictionary = _mouse_course.project(sea.camera, intent.screen, heights.sample_height)
+		if not projected.get("ok", false): return
+		intent = {"type": "mouse-course", "point": projected.point}
+	_command(intent)
+	get_viewport().set_input_as_handled()
+func _mouse_sailing_ready() -> bool:
+	return not _disposed and sea != null and interface != null and services != null and interface.visible and not sea.camera_status().dragging and not runtime.is_paused() and not interface.is_panel_open() and not interface.is_menu_open() and not interface.captures_keyboard() and not services.captures_keyboard()
+func _camera_input_ready() -> bool:
+	# Observing is allowed at port and during player pause; modal/edit input owns
+	# the pointer and keyboard until it closes. Camera input never grants sailing.
+	if _disposed or sea == null or interface == null or services == null or not interface.visible: return false
+	if interface.is_panel_open() or interface.is_menu_open() or services.captures_keyboard(): return false
+	var focus: Control = get_viewport().gui_get_focus_owner()
+	if focus is Range or focus is OptionButton: return false
+	if focus is LineEdit and focus.editable: return false
+	if focus is TextEdit and focus.editable: return false
+	return true
+func _notification(what: int) -> void:
+	if _disposed or not runtime or runtime._disposed: return
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		_mouse_course.cancel_gesture()
+		if sea: sea.cancel_camera_drag()
+		runtime.set_pause("blur", true)
+		if interface: _present(0.0)
 func _capture_run() -> void:
 	interface.open_panel("convoy")
 	for i in 8: await get_tree().process_frame
@@ -243,6 +318,7 @@ func _exit_tree() -> void:
 	if _disposed: return
 	_disposed = true
 	_pending_presentation_seconds = 0.0
+	_terminal_presentation.reset()
 	if services: services.dispose()
 	if minimap: minimap.dispose()
 	if sea: sea.dispose()

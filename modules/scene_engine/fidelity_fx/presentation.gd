@@ -11,6 +11,7 @@ static var _assets: Dictionary = {}
 static var _textures: Dictionary = {}
 var _replay: RefCounted
 var _geometry: Dictionary = {}
+var _surface_layouts: Dictionary = {}
 var _materials: Dictionary = {}
 var _origin := Vector3.ZERO
 var _orientation := Basis.IDENTITY
@@ -26,10 +27,19 @@ var _triangles := 0
 var _seed := 1
 var _configured := false
 var _render_profile := "native"
+var _clock_mode := "observer"
 var _expired := false
 var _last_error := ""
 var _draw_order: Array = []
 var _game_flash := 0
+var _present_key: Dictionary = {}
+var _present_result := false
+var _mesh_key: Dictionary = {}
+var _display_meshes: Array = []
+var _seek_age := NAN
+var _seek_replay_id := 0
+var _seek_error := ""
+var _filter_revision := 0
 const GAME_FLASH_DURATION := 0.14
 
 static func load_manifest() -> Dictionary:
@@ -75,6 +85,10 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	_seed = int(options.get("seed",1))
 	_source = source
 	_render_profile = String(options.get("render_profile","native"))
+	_clock_mode = String(options.get("clock_mode","observer"))
+	if _clock_mode not in ["observer","native"]:
+		_last_error = "Unsupported source clock mode"
+		return false
 	if _render_profile not in ["native","game_cannon","game_smoke"] or (_render_profile != "native" and not source.begins_with("fx_cannon_fire")):
 		_last_error = "Unsupported effect display profile"
 		return false
@@ -86,15 +100,30 @@ func configure(source: String, options: Dictionary = {}) -> bool:
 	if direction.is_finite() and direction.length_squared() > 0.000001: _orientation = Basis.looking_at(direction.normalized(),Vector3.UP)
 	_replay = script.new()
 	if not _replay.configure(asset,_seed): _replay = null; return false
+	if _clock_mode == "native":
+		# The original first update records visibility without emitting. Anchor
+		# it once at birth so the first accepted display may already be late.
+		_replay.advance_native(0.0,false)
+		_seek_age = 0.0; _seek_replay_id = _replay.get_instance_id()
+		_seek_error = _replay.get_last_error()
 	top_level = true
 	global_transform = Transform3D.IDENTITY
 	_configured = true
 	return true
 
-func set_camera(camera: Camera3D) -> void: _camera = camera
+func set_camera(camera: Camera3D) -> void:
+	if camera == _camera: return
+	_camera = camera
+	_present_key.clear()
 func get_playback_duration() -> float:
-	return float(_replay.diagnostics().get("max_time",0.0)) if _replay != null else 0.0
-func configure_surface_filter(sea_at: Callable) -> void: _sea = sea_at
+	if _replay == null: return 0.0
+	if _replay.has_method("get_playback_duration"): return float(_replay.call("get_playback_duration"))
+	return float(_replay.diagnostics().get("max_time",0.0))
+func configure_surface_filter(sea_at: Callable) -> void:
+	_sea = sea_at
+	# The same callable may now refer to changed terrain/provider state.
+	_filter_revision += 1
+	_present_key.clear()
 static func native_to_godot(point: Array) -> Vector3: return Vector3(float(point[0]),float(point[2]),-float(point[1]))
 static func godot_to_native(point: Vector3) -> Array: return [point.x,-point.z,point.y]
 func _camera_native() -> Dictionary:
@@ -106,23 +135,48 @@ func _camera_native() -> Dictionary:
 	var inverse := _orientation.inverse()
 	return {"right":godot_to_native(inverse*right),"up":godot_to_native(inverse*up),"direction":godot_to_native(inverse*direction)}
 
+func _camera_key() -> Dictionary:
+	return {"id":_camera.get_instance_id(),"transform":_camera.global_transform} if is_instance_valid(_camera) else {"id":0,"transform":Transform3D.IDENTITY}
+
+func _seek_display(age: float, replay_id: int) -> void:
+	if age == _seek_age and replay_id == _seek_replay_id: return
+	if _clock_mode == "native": _replay.advance_native(age,false)
+	else: _replay.seek(age,false)
+	_seek_age = age; _seek_replay_id = replay_id
+	_seek_error = String(_replay.call("get_last_error")) if _replay.has_method("get_last_error") else String(_replay.diagnostics().get("last_error",""))
+	_mesh_key.clear(); _display_meshes.clear()
+
 func apply_snapshot(age: float, absolute_time: float = -1.0) -> bool:
-	if not _configured or not is_finite(age) or age < 0.0: return false
-	_age = age
-	_absolute_time = age if absolute_time < 0.0 else absolute_time
-	if not is_finite(_absolute_time): return false
-	if age > get_playback_duration():
-		_replay.seek(get_playback_duration())
+	# Reject before touching the retained accepted frame or any replay clock.
+	if not _configured or _replay == null or not is_finite(age) or age < 0.0 or not is_finite(absolute_time): return false
+	var accepted_time := age if absolute_time < 0.0 else absolute_time
+	var replay_id := _replay.get_instance_id()
+	var camera_key := _camera_key()
+	var key := {"age":age,"absolute_input":absolute_time,"absolute_time":accepted_time,"camera":camera_key,
+		"transform":global_transform,"filter_revision":_filter_revision,"water":_water,"sea":_sea,
+		"origin":_origin,"orientation":_orientation,"scale":_size,"profile":_render_profile,"clock_mode":_clock_mode,"replay_id":replay_id}
+	if key == _present_key: return _present_result
+	_age = age; _absolute_time = accepted_time
+	var duration := get_playback_duration()
+	_seek_display(minf(age,duration),replay_id)
+	if age > duration:
+		_expired = true; _last_error = "Explicit source controller clip expired"
 		_render([])
-		_expired = true
-		_last_error = "Explicit source controller clip expired"
+		_present_key = key; _present_result = false
 		return false
-	_expired = false
-	_replay.seek(age)
-	_last_error = String(_replay.diagnostics().get("last_error",""))
-	if not _last_error.is_empty(): _render([]); return false
-	var meshes: Array = _replay.meshes(_camera_native())
-	_render(meshes)
+	_expired = false; _last_error = _seek_error
+	if not _last_error.is_empty():
+		_render([])
+		_present_key = key; _present_result = false
+		return false
+	var mesh_key := {"age":age,"camera":camera_key,"replay_id":replay_id}
+	if mesh_key != _mesh_key:
+		_display_meshes = _replay.meshes(_camera_native())
+		_mesh_key = mesh_key
+	# Absolute water time/filter or parent transform can require new placement
+	# without advancing particles or regenerating camera-independent native data.
+	_render(_display_meshes)
+	_present_key = key; _present_result = true
 	return true
 
 func _material(mesh: Dictionary) -> ShaderMaterial:
@@ -172,10 +226,73 @@ func _material(mesh: Dictionary) -> ShaderMaterial:
 	_materials[key] = material
 	return material
 
+func _surface_layout(mesh: ArrayMesh, indices: PackedInt32Array) -> Dictionary:
+	var count := mesh.surface_get_array_len(0)
+	var format := int(mesh.surface_get_format(0))
+	var layout := {"mesh_id":mesh.get_instance_id(),"vertex_count":count,"indices":indices.duplicate(),
+		"vertex_stride":RenderingServer.mesh_surface_get_format_vertex_stride(format,count),
+		"attribute_stride":RenderingServer.mesh_surface_get_format_attribute_stride(format,count),
+		"color_offset":RenderingServer.mesh_surface_get_format_offset(format,count,Mesh.ARRAY_COLOR),
+		"uv_offset":RenderingServer.mesh_surface_get_format_offset(format,count,Mesh.ARRAY_TEX_UV)}
+	var arrays_mask := (1 << Mesh.ARRAY_MAX)-1
+	var expected := Mesh.ARRAY_FORMAT_VERTEX|Mesh.ARRAY_FORMAT_COLOR|Mesh.ARRAY_FORMAT_TEX_UV|Mesh.ARRAY_FORMAT_INDEX
+	layout.supported = ((format & arrays_mask) == expected
+		and (format & (Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_COMPRESS_ATTRIBUTES)) == 0
+		and layout.vertex_stride == 12 and layout.attribute_stride == 12 and layout.color_offset == 0 and layout.uv_offset == 4)
+	return layout
+
+static func _local_bounds(vertices: PackedVector3Array) -> AABB:
+	var low := vertices[0]
+	var high := low
+	for vertex: Vector3 in vertices:
+		low = low.min(vertex); high = high.max(vertex)
+	# Match RenderingServer's minimum extent, including planar/degenerate quads.
+	return AABB(low,(high-low).max(Vector3(0.00001,0.00001,0.00001)))
+
+static func _surface_attributes(uv: PackedVector2Array, colors: PackedColorArray) -> PackedByteArray:
+	var data := PackedByteArray()
+	data.resize(uv.size()*12)
+	for index in uv.size():
+		var offset := index*12
+		var color: Color = colors[index]
+		# Match the original ArrayMesh writer: float Color fields, double *255,
+		# clamp, then truncation. Keep UV float32, not half or compressed UNORM.
+		data[offset] = int(clampf(color.r*255.0,0.0,255.0))
+		data[offset+1] = int(clampf(color.g*255.0,0.0,255.0))
+		data[offset+2] = int(clampf(color.b*255.0,0.0,255.0))
+		data[offset+3] = int(clampf(color.a*255.0,0.0,255.0))
+		data.encode_float(offset+4,uv[index].x)
+		data.encode_float(offset+8,uv[index].y)
+	return data
+
+func _update_surface(key: String, arrays: Array) -> void:
+	var node: MeshInstance3D = _geometry[key]
+	var mesh := node.mesh as ArrayMesh
+	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var uv: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+	var colors: PackedColorArray = arrays[Mesh.ARRAY_COLOR]
+	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+	var layout: Dictionary = _surface_layouts.get(key,{})
+	var reuse: bool = (mesh != null and not layout.is_empty() and bool(layout.supported)
+		and int(layout.mesh_id) == mesh.get_instance_id() and int(layout.vertex_count) == vertices.size()
+		and uv.size() == vertices.size() and colors.size() == vertices.size() and layout.indices == indices)
+	if reuse:
+		mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
+		mesh.surface_update_attribute_region(0,0,_surface_attributes(uv,colors))
+		# Region writes retain the initial resource AABB. The renderer must use
+		# this frame's exact local bounds for culling and transparent depth.
+		var bounds := _local_bounds(vertices)
+		if mesh.custom_aabb != bounds: mesh.custom_aabb = bounds
+	else:
+		mesh = ArrayMesh.new()
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
+		node.mesh = mesh
+		_surface_layouts[key] = _surface_layout(mesh,indices)
+
 func _render(meshes: Array) -> void:
 	_rendered = 0; _triangles = 0
 	_game_flash = 0; _draw_order.clear()
-	for key in _geometry: _geometry[key].visible = false
+	var used: Dictionary = {}
 	var ordered: Array = []
 	var records := meshes.duplicate()
 	if not _expired and _render_profile == "game_cannon": records.append_array(_game_flash_meshes())
@@ -230,11 +347,15 @@ func _render(meshes: Array) -> void:
 		var arrays: Array = []; arrays.resize(Mesh.ARRAY_MAX)
 		arrays[Mesh.ARRAY_VERTEX]=vertices; arrays[Mesh.ARRAY_TEX_UV]=uv
 		arrays[Mesh.ARRAY_COLOR]=colors; arrays[Mesh.ARRAY_INDEX]=indices
-		var mesh := ArrayMesh.new(); mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+		_update_surface(key,arrays)
 		_geometry[key].position = draw.center
-		_geometry[key].mesh = mesh; _geometry[key].material_override = material; _geometry[key].visible = true
+		if _geometry[key].material_override != material: _geometry[key].material_override = material
+		if not _geometry[key].visible: _geometry[key].visible = true
+		used[key] = true
 		_geometry[key].set_meta("display_role",role)
 		_draw_order.append({"name":record.get("name",""),"texture":record.texture,"depth":draw.depth,"display_role":role})
+	for key in _geometry:
+		if not used.has(key) and _geometry[key].visible: _geometry[key].visible = false
 
 func _game_flash_meshes() -> Array:
 	# This small axial streak is a game muzzle-light adapter using original DDS.
@@ -266,15 +387,18 @@ func _game_flash_meshes() -> Array:
 
 func diagnostics() -> Dictionary:
 	var state: Dictionary = _replay.diagnostics() if _replay != null else {}
-	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"render_profile":_render_profile,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
+	state.merge({"configured":_configured,"source":_source,"age":_age,"accepted_time":_absolute_time,"rendered_meshes":_rendered,"rendered_triangles":_triangles,"origin":_origin,"orientation":_orientation,"seed":_seed,"owned_nodes":_geometry.size(),"render_profile":_render_profile,"clock_mode":_clock_mode,"game_flash":_game_flash,"game_flash_duration":GAME_FLASH_DURATION,"playback_duration":get_playback_duration(),"expired":_expired,"render_error":_last_error,"draw_order":_draw_order.duplicate(true),"sort_scope":"one quad/mesh per spatial instance; local far-to-near list; engine transparent sorting across effects, GPU order unverified","scope":"native replay/packed RGBA/UV/mips unchanged; .01 metres/unit and water-ring adapter; game profiles add warm muzzle streak or grey soft smoke"},true)
 	return state
 
 func dispose() -> void:
 	for node: Node in _geometry.values():
 		if is_instance_valid(node): node.free()
-	_geometry.clear(); _materials.clear(); _replay = null; _camera = null
+	_geometry.clear(); _surface_layouts.clear(); _materials.clear(); _replay = null; _camera = null
 	_water = Callable(); _sea = Callable(); _configured = false
 	_origin = Vector3.ZERO; _orientation = Basis.IDENTITY; _age = -1.0; _rendered = 0; _triangles = 0
-	_absolute_time = -1.0; _render_profile = "native"; _expired = false; _last_error = ""
+	_absolute_time = -1.0; _render_profile = "native"; _clock_mode = "observer"; _expired = false; _last_error = ""
 	_draw_order.clear(); _game_flash = 0
+	_present_key.clear(); _present_result = false
+	_mesh_key.clear(); _display_meshes.clear()
+	_seek_age = NAN; _seek_replay_id = 0; _seek_error = ""; _filter_revision = 0
 func _exit_tree() -> void: dispose()

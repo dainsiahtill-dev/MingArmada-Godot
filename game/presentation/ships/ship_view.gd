@@ -4,6 +4,8 @@ extends Node3D
 const AssetLibrary = preload("res://modules/scene_engine/assets/asset_library.gd")
 const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
+const DeckSupport = preload("res://game/presentation/crew/deck_stations.gd")
+const DESTRUCTION_ANCHOR_LIFT := 0.35
 signal presentation_event(event: Dictionary)
 var _damage = ShipDamage.new()
 const KINDS := ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]
@@ -26,6 +28,7 @@ var _seen_events: Dictionary = {}
 const SOURCE_POSE_SECONDS := 4.0
 const SOURCE_POSE_LIMIT := 256
 var _source_poses: Array[Dictionary] = []
+var _destruction_support: Variant = null
 var _disposed := true
 var _reduced_motion := false
 
@@ -60,6 +63,10 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 			if String(node.name).begins_with("barrel_"):
 				_barrel_rest[node.get_instance_id()] = node.position.z
 	_damage.configure(_models)
+	var deck := DeckSupport.new()
+	if deck.configure(kind, _models[0]):
+		var support: Dictionary = deck.sample(0.0, 0.0)
+		if not support.is_empty(): _destruction_support = support.point + Vector3.UP * DESTRUCTION_ANCHOR_LIFT
 	return true
 
 func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0.0) -> void:
@@ -115,11 +122,18 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 						node.set_blend_shape_value(index, inflation)
 			if _barrel_rest.has(id):
 				node.position.z = float(_barrel_rest[id]) + float(_recoil.get(String(node.name), 0.0))
-	for event: Dictionary in _damage.apply_snapshot(ship, _time, _reduced_motion):
+	var damage_events: Array = _damage.apply_snapshot(ship, _time, _reduced_motion)
+	# The current body/model frame must be available before same-time keys emit.
+	_record_source_pose()
+	for event: Dictionary in damage_events:
 		event.position = {"x": global_position.x, "y": global_position.y, "z": global_position.z}
+		if event.type == "destruction-explosion" and _destruction_support is Vector3:
+			var born_ship: Variant = _source_pose_at(float(event.time), "ship_transform")
+			if born_ship is Transform3D:
+				var anchor: Vector3 = born_ship * _damage.model_transform_at(_models[0], float(event.time)) * _destruction_support
+				if anchor.is_finite(): event.source_effect_position = {"x": anchor.x, "y": anchor.y, "z": anchor.z}
 		presentation_event.emit(event)
 	set_lod_distance([0.0, 220.0, 650.0][_lod])
-	_record_source_pose()
 
 func remember_authoritative_pose(ship:Dictionary,accepted_time:float)->Variant:
 	# A physics observation records the exact transform that Node3D's normal
@@ -136,15 +150,15 @@ func remember_authoritative_pose(ship:Dictionary,accepted_time:float)->Variant:
 	var global_pose:Transform3D=local if is_set_as_top_level() or parent==null else parent.global_transform*local
 	var model_pose:Transform3D=global_pose*_models[0].transform
 	if not model_pose.is_finite():return null
-	_record_source_pose(accepted_time,model_pose)
+	_record_source_pose(accepted_time,model_pose,global_pose)
 	return model_pose
 
-func _record_source_pose(accepted_time:float=NAN,model_pose:Variant=null) -> void:
+func _record_source_pose(accepted_time:float=NAN,model_pose:Variant=null,ship_pose:Variant=null) -> void:
 	if _models.is_empty(): return
 	var time:=_time if is_nan(accepted_time) else accepted_time
 	if not is_finite(time):return
 	if not _source_poses.is_empty() and time<float(_source_poses[-1].time)-1.0e-8:_source_poses.clear()
-	var record := {"time":time,"transform":model_pose if model_pose is Transform3D else _models[0].global_transform}
+	var record := {"time":time,"transform":model_pose if model_pose is Transform3D else _models[0].global_transform,"ship_transform":ship_pose if ship_pose is Transform3D else global_transform}
 	if not _source_poses.is_empty() and absf(float(_source_poses[-1].time)-time) <= 1.0e-8:
 		_source_poses[-1] = record
 	else:
@@ -152,18 +166,25 @@ func _record_source_pose(accepted_time:float=NAN,model_pose:Variant=null) -> voi
 	while _source_poses.size() > 1 and (_source_poses.size() > SOURCE_POSE_LIMIT or float(_source_poses[0].time) < time-SOURCE_POSE_SECONDS):
 		_source_poses.pop_front()
 
-func _source_pose_at(time: float) -> Variant:
+func _source_pose_at(time: float, field: String = "transform") -> Variant:
 	# Outside the bounded accepted history, callers use the native event mouth.
 	# A latest ship transform must never relocate a delayed shot to the new ship.
 	if not is_finite(time) or _source_poses.is_empty(): return null
 	if time < float(_source_poses[0].time)-1.0e-8 or time > float(_source_poses[-1].time)+1.0e-8: return null
 	for i in _source_poses.size():
 		var before: Dictionary = _source_poses[i]
-		if absf(time-float(before.time)) <= 1.0e-8: return before.transform
+		if absf(time-float(before.time)) <= 1.0e-8: return before.get(field)
 		if i+1 < _source_poses.size():
 			var after: Dictionary = _source_poses[i+1]
 			if time > float(before.time) and time < float(after.time):
-				return (before.transform as Transform3D).interpolate_with(after.transform,(time-float(before.time))/(float(after.time)-float(before.time)))
+				var from_pose: Variant = before.get(field)
+				var to_pose: Variant = after.get(field)
+				if not from_pose is Transform3D or not to_pose is Transform3D: return null
+				var weight := (time-float(before.time))/(float(after.time)-float(before.time))
+				# Retain constant affine shear while interpolating translation.
+				if field == "ship_transform" and from_pose.basis.is_equal_approx(to_pose.basis):
+					return Transform3D(from_pose.basis, from_pose.origin.lerp(to_pose.origin, weight))
+				return (from_pose as Transform3D).interpolate_with(to_pose, weight)
 	return null
 
 func apply_events(events: Array) -> void:
@@ -288,6 +309,7 @@ func dispose() -> void:
 	_next_gun = {"port": 0, "starboard": 0}
 	_seen_events.clear()
 	_source_poses.clear()
+	_destruction_support = null
 	_snapshot.clear()
 	_wind.clear()
 	_time = 0.0

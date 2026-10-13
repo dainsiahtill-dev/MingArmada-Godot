@@ -35,13 +35,13 @@ func _ready() -> void:
 	var ammo:=HFlowContainer.new(); column.add_child(ammo)
 	for entry in [["solid","实心弹 1"],["chain","链弹 2"],["grape","葡萄弹 3"]]: button(ammo,entry[0],entry[1],{"type":"select-ammo","ammo":entry[0]})
 	var sailing:=HFlowContainer.new(); column.add_child(sailing)
-	button(sailing,"trim","自动调帆 R",{"type":"trim"}); button(sailing,"pause","暂停",{"type":"pause"})
+	button(sailing,"stop_sailing","停船",{"type":"stop-sailing"}); button(sailing,"trim","自动调帆 R",{"type":"trim"}); button(sailing,"pause","暂停",{"type":"pause"})
 	var views:=HFlowContainer.new(); column.add_child(views)
 	var captain:=button(views,"captain_view","船长视角",{}); captain.pressed.connect(func(): view_requested.emit(false))
 	var tactical:=button(views,"tactical_view","高位视角",{}); tactical.pressed.connect(func(): view_requested.emit(true))
 	var actions:=HFlowContainer.new(); column.add_child(actions)
 	button(actions,"surrender","降旗投降",{"type":"begin-surrender"}); button(actions,"settings","设置",{"type":"open-settings"})
-	var hint:=Label.new(); hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; hint.text="W/S 升帆与收帆 · A/D 转舵\n空格 朝最近敌舰开炮 · M 航图\n[ / ] 调整帆角 · Esc 菜单"; hint.add_theme_font_size_override("font_size",14); hint.add_theme_color_override("font_color",Color("d2c6a7")); column.add_child(hint)
+	var hint:=Label.new(); hint.name="MouseSailingHint"; hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; hint.text="左键点海面持续航行 · 中键停船\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升帆与收帆 · A/D 转舵\n空格 朝最近敌舰开炮 · M 航图\n[ / ] 调整帆角 · Esc 菜单"; hint.add_theme_font_size_override("font_size",14); hint.add_theme_color_override("font_color",Color("d2c6a7")); column.add_child(hint)
 	_notice=Label.new(); _notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _notice.add_theme_color_override("font_color",Color("e7c887")); column.add_child(_notice)
 	_modal=PanelContainer.new(); _modal.add_theme_stylebox_override("panel",style.duplicate()); _screen.add_child(_modal)
 	var modal_column:=VBoxContainer.new(); modal_column.add_theme_constant_override("separation",12); _modal.add_child(modal_column)
@@ -82,7 +82,8 @@ func apply_snapshot(packet: Dictionary) -> void:
 	_buttons.resume.visible=_menu and not terminal and quote.is_empty()
 	_buttons.confirm_surrender.visible=not quote.is_empty(); _buttons.cancel_surrender.visible=not quote.is_empty()
 	_buttons.restart.visible=quote.is_empty(); _buttons.main_menu.visible=quote.is_empty()
-	for id in ["fire_port","fire_starboard","solid","chain","grape","trim","surrender"]: _buttons[id].disabled=state.paused or terminal
+	for id in ["fire_port","fire_starboard","solid","chain","grape","trim","surrender","stop_sailing"]: _buttons[id].disabled=state.paused or terminal
+	_buttons.stop_sailing.disabled=_buttons.stop_sailing.disabled or player.hull<=0 or player.crew<=0
 	var gunnery_lines: Array[String] = []
 	for side in ["port","starboard"]:
 		var readiness := Cannon.broadside_status(native,player.id,side)

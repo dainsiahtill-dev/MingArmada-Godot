@@ -12,7 +12,8 @@ var last_mapped = null
 var force_update := false
 var calls := 0
 
-func _init(controller: Dictionary, source: Dictionary) -> void:
+func _init(controller: Dictionary = {}, source: Dictionary = {}) -> void:
+	if controller.is_empty(): return
 	fields = controller.duplicate(true)
 	fields.start_time = Math.f32(fields.start_time)
 	fields.stop_time = Math.f32(fields.stop_time)
@@ -152,7 +153,13 @@ func step_mapped(mapped: float, app_time: float, system_previous_time: float) ->
 	return packets
 
 func fork():
-	var out = get_script().new(fields,data)
+	var out = get_script().new()
+	# Wire fields and key groups are immutable after source preparation. Only
+	# each emitter's scheduling state and ControllerClock advance independently.
+	out.fields = fields
+	out.data = data
+	out.clock = Shared.ControllerClock.new({})
+	out.clock.controller = clock.controller
 	out.previous_mapped = previous_mapped
 	out.previous_visible = previous_visible
 	out.last_app = last_app
