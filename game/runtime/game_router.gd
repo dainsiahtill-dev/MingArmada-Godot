@@ -8,7 +8,7 @@ const LegacyRuntime = preload("res://game/runtime/legacy_runtime.gd")
 const Menu = preload("res://game/ui/menu/main_menu.gd")
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","practice","water-study","fidelity-island","fidelity-source"]
+const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","laboratory","practice","water-study","fidelity-island","fidelity-source"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 var generation := 1
 var mingqi_storage: RefCounted
@@ -61,7 +61,7 @@ func prepare_entry(request: Dictionary) -> Dictionary:
 	var options := {"mode":mode,"captainName":Menu.normalized_name(request.get("name",Menu.DEFAULT_NAME)),"seed":seed,"handlingMode":settings_storage.snapshot().handling,"dev":dev,"qa":qa}
 	if mode == "mingqi-continue": return _restore(mingqi_storage.read_checkpoint(),"mingqi",options,true)
 	if mode == "continue": return _restore(legacy_storage.read_checkpoint(),"career",options,false)
-	return _stamp({"ok":true,"mode":mode,"options":options,"initial_save":"","explicit_import":false,"persist_name":type == "start"})
+	return _stamp({"ok":true,"mode":mode,"options":options,"initial_save":"","explicit_import":false,"persist_name":type == "start" and mode != "laboratory"})
 
 func _validate(raw: String, mode: String) -> Dictionary:
 	if mode == "career": return LegacyRuntime.validate_save(raw)
@@ -142,8 +142,8 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 			if not result.get("ok",false): return result
 			node = result.get("scene")
 		elif result is Node: node = result
-	elif mode in ["duel","fleet","sail"]:
-		var resource = load("res://game/scenes/naval_practice/naval_practice.gd")
+	elif mode in ["duel","fleet","sail","laboratory"]:
+		var resource = load("res://game/research/laboratory.gd" if mode == "laboratory" else "res://game/scenes/naval_practice/naval_practice.gd")
 		if resource is GDScript: node = resource.new()
 	if not node: return _no("entry-resource-unavailable")
 	for property in node.get_property_list():

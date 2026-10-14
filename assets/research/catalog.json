@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "topics": [
+    {
+      "id": "hull-contact", "title": "船体与海面的接触水沫", "category": "船舶表现",
+      "abstract": "让水沫随真实船体水线、相对入水速度与转向变化；保持尾迹和船舶操控。",
+      "status": "integrated-retrospective", "retrospective": true,
+      "paper": "res://assets/research/papers/hull-contact.md", "demo": "hull-contact",
+      "sources": ["res://modules/scene_engine/water/hull_contact_froth.gd", "res://modules/scene_engine/water/hull_contact_foam.gdshader", "res://game/presentation/ships/hull_waterline_profile.gd", "res://docs/migration/hull-dynamics-2026-10-14.md"],
+      "evidence": ["res://docs/migration/evidence/hull-dynamics-2026-10-14/DELIVERY_VERIFY.json", "res://docs/migration/evidence/hull-dynamics-2026-10-14/performance/comparison-gpu.json"]
+    },
+    {
+      "id": "ocean-surface", "title": "近海与远海的水面层次", "category": "海面渲染",
+      "abstract": "研究多尺度波浪、法线、反射与光学衰减，避免远海发白和近海缺乏细节。",
+      "status": "integrated-retrospective", "retrospective": true,
+      "paper": "res://assets/research/papers/ocean-surface.md", "demo": "ocean-surface",
+      "sources": ["res://modules/scene_engine/ocean/projected_ocean.gd", "res://docs/migration/reference-ocean-world-integration.md", "res://docs/migration/reference-implementation-ocean-optics.md"],
+      "evidence": ["res://docs/migration/reference-surface-optics-review.md"]
+    },
+    {
+      "id": "shore-surf", "title": "沿岸推进浪与残沫的融合", "category": "岸线表现",
+      "abstract": "将推进过程、透明度包络和错开的短浪结合，控制贴岸残沫，避免固定白圈与重复矩阵。",
+      "status": "integrated-retrospective", "retrospective": true,
+      "paper": "res://assets/research/papers/shore-surf.md", "demo": "shore-surf",
+      "sources": ["res://docs/migration/reference-shore-foam-fusion.md", "res://docs/migration/fidelity-island-integration-2026-10-12.md"],
+      "evidence": ["res://docs/migration/reference-demo-port-acceptance.md"]
+    },
+    {
+      "id": "weather-shadow", "title": "天气、移动云层与云影", "category": "环境表现",
+      "abstract": "区分天空云环、移动天气中心与纹理云影，记录原实现证据和 Godot 的接入边界。",
+      "status": "integrated-retrospective", "retrospective": true,
+      "paper": "res://assets/research/papers/weather-shadow.md", "demo": "weather-shadow",
+      "sources": ["res://docs/migration/weather-cloud-shadow-wake-integration-2026-10-13.md", "res://docs/migration/weather-cloud-shadow-wake-delivery-2026-10-13.md"],
+      "evidence": ["res://docs/migration/rea-latest-handoff-2026-10-12.md"]
+    },
+    {
+      "id": "shadow-edges", "title": "阴影轮廓边的等价加速", "category": "性能与正确性",
+      "abstract": "用边索引消除线性查找热点，同时保持原有边序、取消奇偶与阴影体积结果。",
+      "status": "integrated-retrospective", "retrospective": true,
+      "paper": "res://assets/research/papers/shadow-edges.md", "demo": "",
+      "sources": ["res://game/presentation/world/target_rigid_shadow_caster.gd", "res://tests/test_target_rigid_shadow_edges.gd", "res://docs/migration/hull-dynamics-2026-10-14.md"],
+      "evidence": ["res://docs/migration/evidence/hull-dynamics-2026-10-14/shadow-regressions.json", "res://docs/migration/evidence/hull-dynamics-2026-10-14/performance/world-cpu-after-shadow.json"]
+    }
+  ]
+}

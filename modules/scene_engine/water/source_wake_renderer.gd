@@ -5,6 +5,7 @@ const Battle=preload("res://modules/scene_engine/water/source_battle_trail.gd")
 const Geometry=preload("res://modules/scene_engine/water/source_wake_geometry.gd")
 const Surface=preload("res://modules/scene_engine/water/source_surface.gd")
 const Froth=preload("res://modules/scene_engine/water/source_froth.gd")
+const ContactFroth=preload("res://modules/scene_engine/water/hull_contact_froth.gd")
 var _actors:Dictionary={}
 var _owner:Node3D
 var _epoch:Variant=null
@@ -30,7 +31,9 @@ static func route(native:Dictionary,ship:Dictionary={})->String:
 	return str(environment_route.get("wake","")) if environment_route is Dictionary else ""
 func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 	var epoch:Variant=native.get("wake",{}).get("epoch",native.get("environment",{}).get("epoch",0))
-	if _epoch!=null and _epoch!=epoch:dispose()
+	# Session IDs may switch between integer revisions and battle strings.
+	# Godot rejects != across these types; either change starts a fresh owner.
+	if _epoch!=null and (typeof(_epoch)!=typeof(epoch) or _epoch!=epoch):dispose()
 	var presentation_time:=float(native.get("time",_time))
 	if _time>=0.0 and presentation_time<_time:
 		# Target presentation rewind guard: discard this owner's future visual
@@ -54,7 +57,10 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 			if selected=="scene_30":actor.history=History.new(packet.get("ini",{}),packet.modelScale,packet.get("markerId","root"),packet.sourcePosition)
 			var froth_packet:Dictionary=packet.get("froth",{})
 			if (froth_packet.has("family") or froth_packet.has("sourceResourceName")) and froth_packet.has("seed"):
-				actor.froth=Froth.new();var configured:Dictionary=actor.froth.configure(node,int(froth_packet.get("family",-1)),int(froth_packet.seed),str(froth_packet.get("sourceResourceName","")))
+				# Real target hulls use waterline contact flow; raw source fixtures
+				# retain their authored replay. This only changes the local effect.
+				actor.froth=ContactFroth.new() if froth_packet.has("surfaceProfile") else Froth.new()
+				var configured:Dictionary=actor.froth.configure(node,int(froth_packet.get("family",-1)),int(froth_packet.seed),str(froth_packet.get("sourceResourceName","")))
 				if not configured.ok:_errors[id]=configured.error
 			_actors[id]=actor
 		var actor:Dictionary=_actors[id];var call_index:Variant=packet.get("sourceCallIndex",native.get("wake",{}).get("sourceCallIndex",null))
@@ -115,7 +121,7 @@ func _battle(actor:Dictionary,packet:Dictionary,water:Callable,sea:Callable)->vo
 		actor.surface.submit("BattleDraw_"+str(draw_index),vertices,uvs,colors,indices,{"texture":"wake3.dds","alphaFlags":4333,"clampMode":3})
 
 func diagnostics()->Dictionary:
-	var routes:Dictionary={};var updates:=0;var samples:=0;var froth_meshes:=0;var systems:=0;var births:=0;var regions:=0;var battle_draws:=0
+	var routes:Dictionary={};var updates:=0;var samples:=0;var froth_meshes:=0;var systems:=0;var births:=0;var regions:=0;var battle_draws:=0;var contact_ribbons:=0;var contact_droplets:=0
 	for actor:Dictionary in _actors.values():
 		routes[actor.route]=int(routes.get(actor.route,0))+1;regions+=int(actor.surface.region_uploads)
 		if actor.history!=null:
@@ -125,7 +131,8 @@ func diagnostics()->Dictionary:
 		else:samples+=actor.battle_history.get("x",[]).size();battle_draws+=actor.geometry.get("draw_arguments",[]).size()
 		if actor.froth!=null:
 			var report:Dictionary=actor.froth.diagnostics();froth_meshes+=report.authored_meshes;systems+=report.particle_systems;births+=report.native_births
-	return {"source_routes":routes,"source_updates":updates,"source_samples":samples,"authored_froth_meshes":froth_meshes,"source_particle_systems":systems,"source_particle_births":births,"source_battle_draws":battle_draws,"source_region_uploads":regions,"source_errors":_errors.duplicate(),"source_target_rewind_guards":_target_rewind_guards,"source_native_equivalent":false,"source_finite_geometry_contract":"2026-10-13 native continuation; fixture-tested Godot translation","source_unresolved":["original geometry initial buffers","x87 midpoint/CRT NaN domains","475550 original lifecycle","DX9 backend/pixels"],"source_adaptations":["source units/accepted cadence","zero-total/nonfinite GPU rejection","target water surface fit","sea clipping","battle material carrier","target presentation rewind restart, no original history restoration"]}
+			contact_ribbons+=int(report.get("target_ribbons",0));contact_droplets+=int(report.get("target_droplets",0))
+	return {"source_routes":routes,"source_updates":updates,"source_samples":samples,"authored_froth_meshes":froth_meshes,"target_contact_ribbons":contact_ribbons,"target_contact_droplets":contact_droplets,"source_particle_systems":systems,"source_particle_births":births,"source_battle_draws":battle_draws,"source_region_uploads":regions,"source_errors":_errors.duplicate(),"source_target_rewind_guards":_target_rewind_guards,"source_native_equivalent":false,"source_finite_geometry_contract":"2026-10-13 native continuation; fixture-tested Godot translation","source_unresolved":["original geometry initial buffers","x87 midpoint/CRT NaN domains","475550 original lifecycle","DX9 backend/pixels"],"source_adaptations":["source units/accepted cadence","zero-total/nonfinite GPU rejection","target water surface fit","target hull-contact local foam and spray","sea clipping","battle material carrier","target presentation rewind restart, no original history restoration"]}
 func _release(id:String)->void:
 	var actor:Dictionary=_actors[id]
 	if actor.froth!=null:actor.froth.dispose()

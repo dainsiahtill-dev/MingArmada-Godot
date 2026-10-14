@@ -6,6 +6,21 @@ var _geometry:Dictionary={}
 var _parts:Dictionary={}
 var _shadow_modes:Dictionary={}
 var _errors:Array=[]
+static func _toggle_indexed_edge(edges:Array,lookup:Dictionary,a:int,b:int)->void:
+	# Exact native parity/orientation/order, with an integer index instead of
+	# scanning the current edge array. A uint16 pair fits losslessly in int64.
+	a=a&65535;b=b&65535
+	var key:int=(mini(a,b)<<16)|maxi(a,b)
+	if lookup.has(key):
+		var index:int=lookup[key];var last:=edges.size()-1
+		if index!=last:
+			var moved:Array=edges[last]
+			edges[index]=moved
+			var moved_key:int=(mini(moved[0],moved[1])<<16)|maxi(moved[0],moved[1])
+			lookup[moved_key]=index
+		edges.pop_back();lookup.erase(key)
+	else:
+		lookup[key]=edges.size();edges.append([a,b])
 func _mesh_geometry(mesh:Mesh)->Dictionary:
 	var id:=mesh.get_instance_id()
 	if _geometry.has(id):return _geometry[id]
@@ -56,12 +71,12 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 			var previous:Dictionary=_parts.get(id,{})
 			var dirty:bool=previous.get("revision",-1)!=geometry.revision or previous.get("light",[])!=local_light
 			if dirty:
-				var edges:Array=[];var caps:Array=[]
+				var edges:Array=[];var caps:Array=[];var edge_lookup:Dictionary={}
 				for face:Dictionary in geometry.faces:
 					if face.normal.dot(direction)>=0.0:continue
 					var triangle:Array=face.indices
 					caps.append_array(triangle)
-					for i in 3:Math.toggle_edge(edges,triangle[i],triangle[(i+1)%3])
+					for i in 3:_toggle_indexed_edge(edges,edge_lookup,triangle[i],triangle[(i+1)%3])
 				if 1+2*edges.size()+caps.size()>65535:_errors.append(id+": volume exceeds uint16 scope");continue
 				previous={"revision":geometry.revision,"light":local_light,"edges":edges,"caps":caps}
 				_parts[id]=previous

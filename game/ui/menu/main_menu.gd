@@ -103,7 +103,7 @@ func _request(entry: String) -> void:
 	if _phase != "menu" or _generation < 0: return
 	if entry == "continue" and _model.get("hasLegacySave",false) != true: return
 	if entry in DEVELOPMENT_MODES and not _qa_enabled(): return
-	if entry not in MODES and entry not in ["ships","practice","water-study","fidelity-island","fidelity-source","quit"]: return
+	if entry not in MODES and entry not in ["ships","laboratory","practice","water-study","fidelity-island","fidelity-source","quit"]: return
 	var payload: Dictionary = {"type":"start" if entry in MODES else entry,"name":_draft_name}
 	if entry in MODES:
 		if entry == "mingqi" and _qa_enabled():
@@ -235,6 +235,7 @@ func build() -> void:
 	var battles := HBoxContainer.new(); battles.name = "Battles"; battles.add_theme_constant_override("separation",10); column.add_child(battles)
 	_entry(battles,"duel","单舰炮战","一对一交锋"); _entry(battles,"fleet","舰队遭遇","一对二挑战")
 	_entry(column,"sail","自由试航","练习风帆与操舵")
+	_entry(column,"laboratory","实验室","研究报告 · 独立可复现实验")
 	_entry(column,"fidelity-island","海面与海岛验收","正式航海世界 · 海水、海岛与动态岸浪")
 	_entry(column,"ships","检阅船只","福船、渔舟与远洋商船")
 	_development = VBoxContainer.new(); _development.name = "DevelopmentEntries"; _development.add_theme_constant_override("separation",10); column.add_child(_development)
