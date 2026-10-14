@@ -53,7 +53,7 @@ func run() -> void:
 		if entry.type == "choice":
 			check(entry.choices[0].has("value") and entry.choices[0].has("label"), "choice values have display labels")
 		elif entry.type == "range":
-			check(entry.min == 0.0 and entry.max == 2.0 and entry.step > 0.0, "detail strength has bounded numeric range")
+			check(entry.min == 0.0 and entry.max == (2.0 if entry.id=="detail_strength" else 1.0) and entry.step > 0.0, "optical control has bounded numeric range: "+entry.id)
 	for key: String in defaults:
 		check(key == "paused" or key in names, "experiment factor has descriptor; pause belongs to host: " + key)
 	var frozen := stable_state(demo)

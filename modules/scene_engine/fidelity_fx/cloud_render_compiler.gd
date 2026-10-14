@@ -4,6 +4,7 @@ extends RefCounted
 ## preserve the source operation/store order using one owner-local binary32 buffer.
 const Native=preload("res://modules/scene_engine/fidelity_fx/cloud_native.gd")
 const SourceMath=preload("res://modules/scene_engine/fidelity_island/native_math.gd")
+const TransformKernel=preload("res://modules/scene_engine/fidelity_fx/cloud_transform_kernel.gd")
 var _float_store:=PackedFloat32Array()
 
 func _init()->void:_float_store.resize(1)
@@ -100,21 +101,13 @@ func _texture_transform(desc:Dictionary,overrides:Dictionary={})->PackedFloat32A
 	return PackedFloat32Array([c*su,-s*sv,0.0,s*su,c*sv,0.0,su*(_f32(-cu-tu)*c+(tv-cv)*s)+cu,sv*((tv-cv)*c-_f32(-cu-tu)*s)+cv,1.0])
 
 func _multiply_matrix(a:Array,b:Array)->Array:
-	var result:Array=[]
-	for i in 9:
-		var row:=int(i/3);var col:=i%3
-		result.append(_f32(float(a[row*3])*float(b[col])+float(a[row*3+1])*float(b[3+col])+float(a[row*3+2])*float(b[6+col])))
-	return result
+	return TransformKernel.multiply(a,b)
 
 func _transform_vector(matrix:Array,vector:Array)->Array:
-	var result:Array=[]
-	for row in 3:result.append(_f32(float(matrix[row*3])*float(vector[0])+float(matrix[row*3+1])*float(vector[1])+float(matrix[row*3+2])*float(vector[2])))
-	return result
+	return TransformKernel.transform(matrix,vector)
 
 func _transform_transpose(matrix:Array,vector:Array)->Array:
-	var result:Array=[]
-	for col in 3:result.append(_f32(float(matrix[6+col])*float(vector[2])+float(matrix[3+col])*float(vector[1])+float(matrix[col])*float(vector[0])))
-	return result
+	return TransformKernel.transpose_transform(matrix,vector)
 
 func _compose_transform(parent:Dictionary,local:Dictionary)->Dictionary:
 	var moved:=_transform_vector(parent.rotation,local.translation)

@@ -158,7 +158,12 @@ func toggle_trim() -> void:
 	_cancel_navigation(); _assist.cancel(); _manual_active = true; encounter.setManualHandling(_current.playerId,null); _auto_trim = not _auto_trim
 func set_paused(value: bool) -> void:
 	if value == _paused: return
+	# Pausing clears transient keys/actions and native assistance, not an already
+	# accepted sail setting's owner. Without this, non-course input silently
+	# resumes realistic forces and stalls in headwind despite retaining its sails.
+	var retain_manual: bool = _manual_active and _mode == "assisted"
 	_paused = value; _accumulator = 0; _previous = _current.duplicate(true); _clear_assistance(true,true); _queued.clear()
+	_manual_active = retain_manual and _sailing_allowed and encounter.player_id == _current.playerId and encounter.battle_id == _current.battleId and encounter.manual_control_permission(encounter.player_id).ok
 	if not value and not _course.is_empty():
 		if _permission(true).ok and _course.playerId == encounter.player_id and _course.battleId == encounter.battle_id: _manual_active = true
 		else: _course.clear()

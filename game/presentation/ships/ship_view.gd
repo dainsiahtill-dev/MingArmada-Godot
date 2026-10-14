@@ -330,6 +330,18 @@ func source_water_attachment() -> Dictionary:
 	result.trail=travel_pose*model.transform*(Vector3(wake_point[0],wake_point[2],-wake_point[1])*unit)
 	result.trail.y=0.0
 	result.trailPolicy="target yaw-only horizontal travel marker; raw six-axis markers retained for froth"
+	# The original Dummy_Wake may be near the model origin. Target water flow
+	# starts at this model's actual opposite-to-bow waterline end instead.
+	if result.has("surfaceProfile"):
+		var sections: Array = result.surfaceProfile.sections
+		if sections.size() >= 2:
+			var bow_marker: Array = markers.bow.position
+			var bow_z := -float(bow_marker[1]) * unit
+			var first: Dictionary = sections[0]
+			var last: Dictionary = sections[-1]
+			var stern: Dictionary = last if absf(bow_z-float(first.z)) < absf(bow_z-float(last.z)) else first
+			result.flowStern = travel_pose * model.transform * Vector3((float(stern.left)+float(stern.right))*0.5,0.0,float(stern.z))
+			result.flowStern.y = 0.0
 	return result
 
 func dispose() -> void:

@@ -1,12 +1,15 @@
 extends Node3D
 ## Isolated observer of production Ocean. Host alone accepts fixed-step time.
 const Ocean = preload("res://modules/scene_engine/ocean/projected_ocean.gd")
+const Shoal = preload("res://modules/scene_engine/terrain/shoal_field.gd")
+const NaturalWorld = preload("res://modules/scene_engine/terrain/natural_world.gd")
+const ShoreField = preload("res://modules/scene_engine/ocean/shore_field.gd")
 const Waves = preload("res://modules/physics_engine/ocean/wave_field.gd")
 const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
 const CAMERAS := ["camera_near", "camera_mid", "camera_horizon"]
-const DEFAULTS := {"paused": false, "camera_mode": "camera_near", "optics_mode": "soft", "reflection_enabled": true, "refraction_enabled": true, "detail_strength": 1.0}
-const SCOPE := "Independent shared production five-wave Ocean, shader, textures and projected ArrayMesh. Fixed opaque posts and submerged color tiles are optical calibration fixtures, not ships or terrain. No shore field: production deep-water fallback is -20m. Low-view projected coverage retains production limits. Legacy selects existing mirror-response uniform, not a historical game build. No campaign, RNG, new water shader or water algorithm; no full-game performance claim."
+const DEFAULTS := {"paused": false, "camera_mode": "camera_near", "optics_mode": "soft", "reflection_enabled": true, "refraction_enabled": true, "detail_strength": 1.0, "projection_guard": true, "fixture":"optics", "bank_water_weight":0.65,"bank_palette_weight":0.65}
+const SCOPE := "Independent shared production five-wave Ocean, shader, textures and projected ArrayMesh. Default opaque posts and submerged color tiles calibrate optics without ships or terrain; its deep-water fallback is -20m. The supply-shoal fixture instead uses the actual navigation grid and terrain material. Projection guard compares conservative five-wave coverage with the retained mean-plane baseline. Legacy selects the existing mirror response, not a historical game build. No campaign, RNG or full-game performance claim."
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
 var _configured := false
@@ -18,6 +21,11 @@ var _camera: Camera3D
 var _ocean: MeshInstance3D
 var _waves: RefCounted
 var _fixture_materials: Array[Material] = []
+var _shoal: RefCounted
+var _shoal_world: Node3D
+var _shore_field: RefCounted
+var _shoal_texture: ImageTexture
+var _shoal_focus := Vector3.ZERO
 var _tick := 0
 var _accumulator := 0.0
 var _orbit_yaw := 0.0
@@ -35,6 +43,10 @@ func get_default_options() -> Dictionary:
 
 func control_spec() -> Array:
 	return [
+		{"id":"fixture","label":"观察夹具","type":"choice","value":_options.fixture,"choices":[{"value":"optics","label":"原光学标定"},{"value":"supply_shoal","label":"原导航浅滩"}]},
+		{"id":"bank_water_weight","label":"离岸浅滩水体散射","type":"range","value":_options.bank_water_weight,"min":0.0,"max":1.0,"step":0.05},
+		{"id":"bank_palette_weight","label":"离岸浅滩保留海色","type":"range","value":_options.bank_palette_weight,"min":0.0,"max":1.0,"step":0.05},
+		{"id":"projection_guard","label":"五波位移覆盖","type":"toggle","value":_options.projection_guard},
 		{"id": "camera_mode", "label": "固定镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "camera_near", "label": "近海"}, {"value": "camera_mid", "label": "中景"}, {"value": "camera_horizon", "label": "低位远景"}]},
 		{"id": "optics_mode", "label": "光学响应", "type": "choice", "value": _options.optics_mode, "choices": [{"value": "soft", "label": "当前柔化"}, {"value": "legacy", "label": "旧镜面响应"}]},
 		{"id": "reflection_enabled", "label": "实际平面镜像", "type": "toggle", "value": _options.reflection_enabled},
@@ -46,13 +58,16 @@ func _validate(candidate: Dictionary) -> String:
 	for key: String in candidate:
 		if not DEFAULTS.has(key):
 			return "unknown-parameter:" + key
-	for key: String in ["paused", "reflection_enabled", "refraction_enabled"]:
+	for key: String in ["paused", "reflection_enabled", "refraction_enabled", "projection_guard"]:
 		if not candidate[key] is bool:
 			return "invalid-" + key
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS:
 		return "invalid-camera_mode"
 	if not candidate.optics_mode is String or candidate.optics_mode not in ["soft", "legacy"]:
 		return "invalid-optics_mode"
+	if not candidate.fixture is String or candidate.fixture not in ["optics","supply_shoal"]: return "invalid-fixture"
+	if not (candidate.bank_water_weight is float or candidate.bank_water_weight is int) or not is_finite(float(candidate.bank_water_weight)) or candidate.bank_water_weight<0.0 or candidate.bank_water_weight>1.0: return "invalid-bank_water_weight"
+	if not (candidate.bank_palette_weight is float or candidate.bank_palette_weight is int) or not is_finite(float(candidate.bank_palette_weight)) or candidate.bank_palette_weight<0.0 or candidate.bank_palette_weight>1.0: return "invalid-bank_palette_weight"
 	var detail: Variant = candidate.detail_strength
 	if not (detail is float or detail is int) or not is_finite(float(detail)) or float(detail) < 0.0 or float(detail) > 2.0:
 		return "invalid-detail_strength"
@@ -89,6 +104,7 @@ func set_parameter(id: String, value: Variant) -> Dictionary:
 	var error := _validate(candidate)
 	if not error.is_empty():
 		return {"ok": false, "reset_required": false, "reason": error}
+	if id=="fixture": return {"ok":false,"reset_required":true,"reason":"fixture-requires-explicit-reset"}
 	_options = candidate
 	_options.detail_strength = float(candidate.detail_strength)
 	if id == "camera_mode":
@@ -112,6 +128,7 @@ func reset_experiment(options: Dictionary = {}) -> Dictionary:
 	return receipt
 
 func advance(delta: float) -> void:
+	refresh_viewport()
 	if not _ready_experiment or _disposed or _options.paused or not is_finite(delta) or delta <= 0.0:
 		return
 	_accumulator += minf(delta, STEP * MAX_CATCHUP)
@@ -125,6 +142,9 @@ func advance(delta: float) -> void:
 
 func set_paused(value: bool) -> void:
 	_options.paused = value
+
+func refresh_viewport() -> void:
+	if _ready_experiment and is_instance_valid(_ocean): _ocean.update_projection()
 
 func set_camera_mode(value: String) -> void:
 	set_parameter("camera_mode", value)
@@ -185,13 +205,36 @@ func _build_experiment() -> void:
 	settings.background_mode = Environment.BG_SKY
 	# Geometry fixtures demonstrate actual reflected objects and opaque depth.
 	# Submerged targets stay below the maximum +/-3.5m production wave excursion.
-	for index in 3:
-		_add_target(Vector3(5.0, 12.0 + index * 3.0, 5.0), Vector3(-16.0 + index * 16.0, 4.0 + index * 1.5, -28.0), [Color("a14930"), Color("d4be88"), Color("253846")][index])
-	for row in 3:
-		for column in 3:
-			_add_target(Vector3(9.0, 0.25, 10.0), Vector3((column - 1) * 10.0, -5.0, (row - 1) * 11.0), Color("be793d") if (row + column) % 2 == 0 else Color("344d60"))
+	if _options.fixture=="supply_shoal":
+		if not _build_shoal():
+			dispose();_reason="production-shoal-configuration-failed";return
+	else:
+		for index in 3:
+			_add_target(Vector3(5.0, 12.0 + index * 3.0, 5.0), Vector3(-16.0 + index * 16.0, 4.0 + index * 1.5, -28.0), [Color("a14930"), Color("d4be88"), Color("253846")][index])
+		for row in 3:
+			for column in 3:
+				_add_target(Vector3(9.0, 0.25, 10.0), Vector3((column - 1) * 10.0, -5.0, (row - 1) * 11.0), Color("be793d") if (row + column) % 2 == 0 else Color("344d60"))
 	_ready_experiment = true
 	_refresh()
+
+func _build_shoal() -> bool:
+	var geography: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/reference/mingqi-geography.json"))
+	if not geography is Dictionary or not geography.get("ports") is Array or geography.ports.size()<2: return false
+	var a: Dictionary=geography.ports[0];var b: Dictionary=geography.ports[1]
+	_shoal=Shoal.new()
+	if not _shoal.configure(Vector2(a.x,a.z),Vector2(b.x,b.z)): return false
+	var grid: Dictionary=_shoal.get_grid()
+	var bounds: Rect2=grid.bounds
+	_shoal_focus=Vector3(bounds.get_center().x,0.0,bounds.get_center().y)
+	_shoal_world=NaturalWorld.new();_world.add_child(_shoal_world)
+	if not _shoal_world.configure([{"id":"supply-shoal","field":_shoal,"bounds":bounds,"shoal":true}],_shoal.sample_triangle_height,{"vegetation":false,"shore_surf":false}): return false
+	_shore_field=ShoreField.new()
+	if not _shore_field.configure(_shoal.sample_triangle_height,bounds,512): return false
+	_ocean.set_shore_field(_shore_field.get_texture(),_shore_field.get_bounds(),_shore_field.get_coast_texture())
+	_shoal_texture=ImageTexture.create_from_image(Image.create_from_data(grid.side,grid.side,false,Image.FORMAT_RF,grid.heights.to_byte_array()))
+	_ocean.set_near_shore_field(_shoal_texture,Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
+	_ocean.material_override.set_shader_parameter("mask_dry_terrain",true)
+	return true
 
 func _add_target(size: Vector3, position_value: Vector3, color: Color) -> void:
 	var node := MeshInstance3D.new()
@@ -215,6 +258,10 @@ func _refresh() -> void:
 	_ocean.set_reflection_enabled(_options.reflection_enabled)
 	_ocean.set_refraction_enabled(_options.refraction_enabled)
 	_ocean.material_override.set_shader_parameter("water_legacy_optics", _options.optics_mode == "legacy")
+	_ocean.material_override.set_shader_parameter("detached_bank_water_weight",float(_options.bank_water_weight))
+	_ocean.material_override.set_shader_parameter("detached_bank_palette_weight",float(_options.bank_palette_weight))
+	if is_instance_valid(_shoal_world): _shoal_world.sync_surface_state(_ocean.material_override,{"time":_tick*STEP})
+	_ocean.set_projection_guard_enabled(_options.projection_guard)
 	_ocean.update_projection()
 
 func _update_camera() -> void:
@@ -222,6 +269,9 @@ func _update_camera() -> void:
 		return
 	var eye: Vector3 = {"camera_near": Vector3(20.0, 8.0, 26.0), "camera_mid": Vector3(70.0, 28.0, 120.0), "camera_horizon": Vector3(0.0, 7.0, 180.0)}[_options.camera_mode]
 	var focus := Vector3(0.0, 0.0, -12.0) if _options.camera_mode != "camera_horizon" else Vector3(0.0, 1.0, -220.0)
+	if _options.fixture=="supply_shoal":
+		focus=_shoal_focus
+		eye=focus+{"camera_near":Vector3(140,90,160),"camera_mid":Vector3(300,240,360),"camera_horizon":Vector3(240,9,280)}[_options.camera_mode]
 	var offset := (eye - focus).rotated(Vector3.UP, _orbit_yaw)
 	var right := Vector3.UP.cross(offset).normalized()
 	offset = offset.rotated(right, _orbit_pitch) * _zoom
@@ -254,6 +304,13 @@ func inspection_snapshot() -> Dictionary:
 	var reflection_size: Vector2i = optics.get("reflection_size", Vector2i.ZERO)
 	optics.reflection_size = [reflection_size.x, reflection_size.y]
 	state.telemetry = {"uniforms": uniforms, "wave_count": material.get_shader_parameter("wave_count"), "wave_samples": [_waves.sample_height(0.0, 0.0, state.time), _waves.sample_height(25.0, -12.0, state.time), _waves.sample_height(-45.0, 75.0, state.time)], "shader": material.shader.resource_path, "normal_texture": material.get_shader_parameter("normal_texture").resource_path, "carrier": "production-projected-ArrayMesh", "vertices": _ocean.mesh.surface_get_array_len(0), "quality": "balanced", "optics": optics, "projection_work": _ocean.get_projection_work_diagnostics()}
+	if _shoal!=null:
+		state.scope="Actual authored supply-shoal grid and original terrain material, coastal five waves and finite shore-field optics. No islands, fleet, crew or campaign; navigation heights unchanged."
+		state.telemetry.shoal_fingerprint=var_to_bytes(_shoal.get_grid()).hex_encode().sha256_text()
+		state.telemetry.shoal_center_height=_shoal.sample_triangle_height(_shoal_focus.x,_shoal_focus.z)
+		state.telemetry.bank_water_weight=material.get_shader_parameter("detached_bank_water_weight")
+		state.telemetry.bank_palette_weight=material.get_shader_parameter("detached_bank_palette_weight")
+		state.resources.shoal_world=1
 	return state
 
 func dispose() -> void:
@@ -263,7 +320,9 @@ func dispose() -> void:
 	if is_instance_valid(_ocean):
 		_ocean.set_visual_style(0)
 	if is_instance_valid(_world):
+		if is_instance_valid(_shoal_world): _shoal_world.dispose()
 		_world.free()
+	_shoal=null;_shoal_world=null;_shore_field=null;_shoal_texture=null;_shoal_focus=Vector3.ZERO
 	_world = null
 	_camera = null
 	_ocean = null

@@ -1,7 +1,62 @@
 # 阴影轮廓边索引：保序奇偶抵消与 CPU 热点修复
 
+## 2026-10-14 后续实验预注册：刚性数据准备与不可变提交
+
+状态：研究中，以下为修改前假设与接受标准。独立实验拟用 `game/research/demos/shadow_edges_experiment.gd`，仍归属原 `shadow-edges` 课题。
+
+root 新测 `Temp/playable-voyage-cpu-baseline.json` 是 headless CPU 分段：sourceShadows p50约21.18ms（compose约8.04、submit约12.82）、world约29.20ms。不是 GPU draw 或完整帧FPS。五个现有shadow测试本轮基线全通过（`Temp/research/t2-shadow-baseline.json`）。
+
+H3：每帧仍做相同 `face.normal.dot(local_light)` 精确分类，但只在全部面的朝向位模式改变时重建保序edges/caps，可减少稳定silhouette重复工作，不用光向阈值、不跳帧。
+
+H4：目标刚性geometry只在准备时校验和f32化固定源点。相同topology的输出点/indices可冻结复用，逐帧仍按原Math的两次f32与1e9运算求direction及apex。顶层输出和apex每次新建并冻结，不修改旧frame。
+
+H5：保留公开compositor.submit默认deepcopy；仅专门prepared frame凭证可在render thread共享已递归冻结的geometry。generic mutable caster继续原Math及deepcopy，不以声称只读的bool省略验证。
+
+预先接受：ordered edges/caps和Math完整输出精确相等；同侧微小light变化不重建拓扑但direction/apex必须改变；跨面符号变化重建，包含零点边界；旧frame在下次更新、输入holder修改、epoch/reset/dispose后逐字节不变；伪造/被替换positions或edges不能进入prepared快路；默认submit仍隔离mutable输入。固定同三船姿态、seed9713、1/60s，比较120帧成对纯CPU compose+volume原始样本与p50/p95（nearest rank）。任何性能结论只限该范围。GPU/lifecycle由root另测，未测项保持未测。
+
+替代方案：原Math每次完整验证/重建是oracle；量化光向或降频会改精确输出，拒绝；跨线程共享mutable数组有竞态，拒绝。新方案增加明确的准备对象及冻结frame类型，释放跟随adapter/renderer/compositor原生命周期。
+
+H6（独立GPU候选，未接生产）：root四图 `docs/research/evidence/playable-voyage-2026-10-14/ship-line-baseline` 中船上极细黑线仅在stencil打开时出现，mesh最大extent约24m，关闭stencil后消失。怀疑1e9有限apex进入clip运算引起精度/裁剪不稳定，尚未确诊。`tools/verify-shadow-clip-gpu.gd` 仅在独立driver替换backend subclass的volume vertex shader；正scale=max(1,abs(x),abs(y),abs(z))，改用vec4(position/scale,1/scale)。其投影在实数算术下仍为同一个有限点，保持原geometry、双面顺序、depth/stencil规则。先比较同一24s/相机原帧、保留真实船下阴影；若黑线未消失或正常阴影改变则拒绝，不修改生产RD。
+
+H6结果：root实跑 `normalized-clip-candidate-20261014` 退出0/无错误，亲看all-retained黑细线仍在；拒绝此候选，生产shader保持原版。下一步两个分开的单因素诊断：`tools/verify-shadow-receiver-gpu.gd`仅拒绝reverse-Z空receiver=0，1e9几何不变；`tools/verify-shadow-finite-apex-gpu.gd`仅在独立GPU upload将apex改为距首点10000世界米，原Math与所有source数组不变。不把后者称精确同像素优化，先检验巨大挤出是否因果，再决定有界表示是否合法。
+
+诊断有效性补充：root随后两候选均正常退出，但黑线仍可见；因为首轮driver没有记录实际shader/upload处理路径，这只能证明观察图未改善，不能判定各算法已被有效反证。远海ROI `[250,0,470,390]` 相对各自stencil-off，RGB每通道均变暗>10的像素：baseline158、normalized158、receiver158、finite156。driver现经 `shadow_candidate_probe.gd` 在render thread回读实际backend id/script、shader SHA/compile命中、draw/upload/candidate调用数；有限apex还记录修改计数及前后世界米长度。先取得非零处理回执再继续推论，生产RD仍未改。
+
+背景资料仅用于制定下一假设：[NVIDIA GPU Gems 3第11章](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-11-efficient-and-robust-shadow-volumes-using)说明z-pass对相机所在体积、面定向和近远裁剪有约束；其推荐的无限齐次点/深度钳制与当前Godot私有stencil实现并非同一已验证合同。不能从读到这些技术直接宣称本项目故障根因或更换算法完成。
+
+CPU结构诊断（不是GPU修复结论）：真实福船44个caster，将原Math output按精确位置焊接，逐个累计每条无向边的有向出现符号，43件存在非零有向边余额。原Math侧面为`[b,a,apex]`、封口为`[c,b,a]`，target adapter向两者传相同原face方向，near boundary因此同向出现两次。独立仅反转cap输入后41/44完整有向闭合；`native_hull_56_component_00/09/10`仍有局部同向/非流形边。原始 `followup/t2-shadow-closure-diagnostic.json`与复现脚本保留在本轮证据目录。此诊断揭示现有精确Math oracle没有覆盖目标几何合法性；是否对应长线仍需已证明执行路径的GPU单因素对照，生产输入/Math尚未据此改变。
+
+H7预注册：root新的 `finite-apex-readback-20261014/DIAGNOSIS.json` 已证明finite候选实际生效（all-retained meshCalls336、alteredApices336，原最大世界长度约1e9、候选10000，draw680/upload42），但线仍在。因此下一单因素是near cap绕序：只交换原Math output中cap三角形的第1/3索引，所有side indices、positions、direction、1e9 apex、组件与stencil政策不变；不剔除非流形组件。通过字面单三角夹具及真实船输出证明旧输入未改变和有向闭合改善，再用已带render-thread回执的相同24s四图比较。预先接受：远海ROI黑线指标显著减少/消失、船体正常阴影保留、candidate cap修改计数非零；若失败不接target adapter。生产RD/Math保持原版。
+
+H7结果：独立CPU95断言通过（44caster、933cap三角，43件方向不闭合降到3件），但root `cap-winding-candidate-20261014` 实测alteredCalls336后远线仍在，未接生产。这与cap仅覆盖船体投影附近、无法直接改变远处side triangle像素相符。后续定位工具 `tools/diagnose-shadow-casters-gpu.gd` 只向真实compositor提交按原顺序二分的caster子集，所有mesh/船保持显示；每组保存同24s原帧、与stencil-off的固定远海ROI/近船ROI像素差、GPU实际cachedMeshes与源码hash。只递归产生远线的组；若组合有线但两个子组单独无线，明确记录interaction，不误判单个caster。最后恢复全部casters并要求原ROI结果复现。此过滤仅诊断，不是生产删影。
+
+H8定位与候选（2026-10-14，尚未GPU验收）：[实际caster二分](../../../docs/research/evidence/shadow-edges/caster-isolation-20261014/CASTER_ISOLATION.json) valid=true，12组中唯一阳性为 `player:native_hull_56_component_03`；单mesh保留全部158远线像素，其他组0，无组合interaction。它属于fuchuan当前映射的barque源外观，`barque-lowend.nif` 的源mesh56 `hull:2`。只读工具 `tools/inspect-shadow-caster-topology.gd` 重建同一Main/fidelity-island的24s状态，提取40焊接点、44源面、26轮廓边、16caps；实际光方向下源面15与508（组件面7与33）均选中，同向共享焊接边 `4→12`。第三个关联源面18反向、未选中。现有无向奇偶toggle错误地把两条同向共享边一起抵消，导致轮廓顶点4/12有向度数为-2/+2，挤出后两条apex边无法相消。
+
+边端点局部坐标为 `[-0.0986835361,3.6276154518,10.6442127228]` 与 `[0.1036706865,3.6276154518,10.6442127228]`，屏幕投影约 `[476.6685,426.3837]` 与 `[476.3328,426.5207]`。延伸到apex的两条直线在y=0交于x=286.625/286.225，在y=390交于x=460.452/460.055；不足0.4像素宽的裂缝位置与实际远线bbox `[286,0,459,388]` 对应。这是实际源边及数学缺口证据，仍不能代替候选GPU像素验证。
+
+H8单因素候选 `game/research/shadow_directed_boundary_candidate.gd` 从既有caps的源顶点次序计算有向边整数余额，扣除原侧面已提供的边；仅追加缺失侧面。对实际culprit只追加同向边4→12的两片side三角，保留全部42原三角、全部原顶点/1e9 apex/方向、cap绕序与shader；不混入H7、不删任何caster。原Math及正式target adapter完全未改。CPU反例先运行旧输出12断言/4失败，再运行候选16断言/0失败，实际apex有向不平衡总量4降到0。初次测试另有convert内建函数名冲突和整数字面数组与f32数组比较错误，均保留失败回执，不算算法RED。
+
+[只读拓扑、RED/GREEN、源快照清单](../../../docs/research/evidence/shadow-edges/directed-boundary-cpu-20261014/manifest.json) 已保存。最终 `shadow` 相关9个测试脚本全部通过；生产adapter/Math/RD的SHA256与caster二分GPU时完全一致。GPU候选仅通过Godot headless `--check-only`，没有执行图形后端。
+
+后续GPU由 `tools/verify-shadow-directed-boundary-gpu.gd` 仅对上述caster应用候选；保留同24s四图及render-thread `meshCalls/targetCalls/alteredCalls`、新增边及重数、原positions/indices前缀完全不变、shader/source SHA256回执。接受条件：处理计数非零且缺边恰好两片，远线158像素归零、其他正常阴影保留。用户当前优先尾迹研究，本候选仅准备并解析检查，未运行GPU、未接生产。
+
+未来生产修复边界应在 **target adapter/prepared target geometry** 的轮廓构造：反向边可抵消，同向边保留整数重数；源 `SourceShadowMath.toggle_edge/build_volume_component` 保持既有有限oracle合同。不得直接替换通用Math或把本诊断append补片按caster名字硬编码入游戏。正式实现需一般有向边不变量、所有船型/姿态与实际GPU验收；cap绕序为独立问题。参考 [GPU Gems 3 §11.3.1](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-11-efficient-and-robust-shadow-volumes-using) 对开口/非流形及不一致绕序的讨论：它支持先核查网格前提和保持有向闭合，不证明本候选已完整实现其鲁棒算法。
+
+### 本轮 CPU 执行结果
+
+[2026-10-14T105017Z-prepared manifest](../../../docs/research/evidence/shadow-edges/2026-10-14T105017Z-prepared/manifest.json) 保存源码SHA256、基线原件、RED/GREEN、成对原始samples与压缩的完整世界profile。原Math及生产RD shader的SHA与基线相同。状态：CPU精确等价验证通过，性能候选已接原adapter/renderer seam；GPU及黑线candidate尚待root验收。
+
+- `PreparedRigidShadow` 在configure时复制并f32化源点、复制face indices；向外发布的source/edges/caps/volume所有嵌套Array与Dictionary均read-only。每帧原Vector3 dot逐面分类；仅bit-pattern变化重建ordered拓扑。light变化仍按原Math两次f32构造direction和有限apex，旧output顶层数组不修改。
+- `SourceShadowRenderer` 仅接受具体prepared类型且positions/edges/caps为同一对象、light匹配、非skinned时走准备路径。替换mutable位置holder后立即回原Math。`PreparedShadowFrame` 仅共享prepared owner所证明拥有的当前不可变输出；其它容器递归复制冻结，拒绝Object/Callable/Signal引用。公开`submit()`仍deepcopy；新`submit_prepared()`只接该凭证，render callback/RD算法没有改动。
+- 有意义RED：新准备组件缺失；隔离helper基础测试通过后，实际compositor准备接口缺失仍红。最终 `t2-shadow-final-contracts.json` 七文件全部通过；新增准备546断言，独立demo9，原ordered edge5498、原Math177 checks、gates27；renderer/lifecycle各failures=0（原脚本未打印断言数）。最初新测试check返回类型错误单独保留，不能作产品RED。
+- 独立真实福船44caster、120帧，前12帧按预注册规则排除；本轮最终108个样本：原Math volume p50 4.767ms、p95 6.096ms；prepared（包括精确classifier）p50 0.593ms、p95 0.886ms。5324次分类仅50次拓扑重建，完整geometry mismatch=0。原始文件 `t2-shadow-volume-paired-11444.json`。早期临时固定名raw文件曾被全套复跑覆盖，不能追认为首次独立性能数据；测试现使用进程ID唯一输出，并保留已存在文件。
+- 正式自由试航生产组件headless profile12样本：shadow wrapper p50 21.178→5.663ms，p95 22.684→7.940ms；compose8.036→2.364ms、submit12.815→2.533ms。这是CPU分段；该轮world p50反而29.198→38.863ms，其它stage、并发工作和源文件存在变化，不能报告整场加速百分比或60FPS。
+- 本轮GPU黑线候选只通过脚本check-only，尚无本agent执行的图像结论；root已保留独立stencil开/关原帧。其结果与CPU等价优化分别验收。
+
+独立Demo `game/research/demos/shadow_edges_experiment.gd` 已实现统一host合同与control_spec：真实船型、prepared/oracle开关、固定镜头、暂停/重置/释放；固定tick推进原船姿态、局部光变化、准备路径和原Math逐项对照。平面接收面是明确的诊断场景，未加海面/船员，不代表完整游戏负载。root负责统一目录登记和GPU/PCK。
+
 - 课题：`shadow-edges`；整理日期：2026-10-14；报告类型：既有优化的事后工程整理。
-- 状态：目标刚性 hull/mast adapter 已有历史集成与 oracle 回执；本轮未新增独立 Demo。
+- 历史状态：目标刚性 hull/mast adapter 已有历史集成与 oracle 回执；首次事后整理没有独立 Demo。本轮追加实验与当前状态见前文。
 - 摘要：用无向整数边到 slot 的索引替代线性扫描，同时逐元素保留原方向、奇偶取消和 swap-last/pop 顺序。
 - 主要来源：[动态与性能修复报告](../../../docs/migration/hull-dynamics-2026-10-14.md)、[adapter 源码](../../../game/presentation/world/target_rigid_shadow_caster.gd)、[原 Math](../../../modules/scene_engine/fidelity_fx/source_shadow_math.gd)。
 
@@ -23,7 +78,7 @@
 - 无向 key 到原数组 slot 的 Dictionary：期望常数查询；删除时更新移入的 last 边索引，可原样保持数组语义。当前采用。
 - 更换 shadow map/caster 数量：可能更快，却改变画面及场景政策，不是本次边查找优化。
 
-这项优化发生在目标刚性 caster adapter；原 Math、volume 投影数量、renderer/compositor 与 caster 选择规则继续使用既有实现。
+首次索引优化发生在目标刚性 caster adapter；当时原 Math、volume 投影数量、renderer/compositor 与 caster 选择规则继续使用既有实现。本轮后续准备路径的边界与逐项验证见前文。
 
 ## 算法与实现
 
@@ -76,7 +131,7 @@ adapter 配置时对实际三角 mesh 做精确位置焊接，去除 authored UV
 
 硬件/后端来源：Godot 4.7.2、Vulkan Forward+、Intel Arc 130T。CPU 型号与温度/电源策略未在摘要中充分报告；重新比较要补全，不假定其他硬件复现相同数值。
 
-本轮仅读取源码和历史回执；未重新执行 edge 测试、世界 profile 或 GPU。当前课题没有新的独立实验室 Demo，历史结果不能直接填到新 run manifest。
+以上是首次事后整理时读取的历史回执；不能将这些历史结果填入新run。新增独立实验、当前重新执行的edge/世界CPU profile与尚未闭合的GPU状态见前文补充。
 
 ## 局限与失败
 

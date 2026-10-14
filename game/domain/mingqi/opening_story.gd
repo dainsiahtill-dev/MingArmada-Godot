@@ -2,6 +2,7 @@ extends RefCounted
 ## Original opening dialogue. Receipts are the only persistent story authority.
 const Catalog = preload("res://game/domain/mingqi/catalog.gd")
 const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
+const VoyageFlow = preload("res://game/domain/mingqi/voyage_flow.gd")
 const SCENES = ["old-ledger","pilot-plan","first-return"]
 const CHOICES = {"old-ledger":["settle-wages","keep-reserve"],"pilot-plan":["hire-pilot","stay-deep"],"first-return":["crew-dividend","buy-intelligence","keep-capital"]}
 
@@ -184,4 +185,5 @@ static func project(state: Dictionary) -> Dictionary:
 	if not aftermath.get("relationNote","").is_empty():relations.append({"id":"verified-convoy-crew","name":"已核验随航船员","role":"本航承运船","stance":aftermath.relationNote})
 	var projection={"chapter":{"id":"opening-1650","title":"旧账新帆","summary":"从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。"},"objective":aftermath.objective if not aftermath.is_empty() else _objective(state),"scenes":scenes,"relations":relations,"history":history,"debt":{"principal":principal,"creditorName":"林家商行","canRepay":repay_reason.is_empty(),"reason":repay_reason}}
 	if not aftermath.is_empty():projection.bill=aftermath.bill
+	projection.flow=VoyageFlow.project(state)
 	return projection.duplicate(true)

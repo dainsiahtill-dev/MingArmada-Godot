@@ -84,7 +84,7 @@
       "status": "integrated-retrospective",
       "retrospective": true,
       "paper": "res://assets/research/papers/shadow-edges.md",
-      "demo": "",
+      "demo": "shadow-edges",
       "sources": [
         "res://game/presentation/world/target_rigid_shadow_caster.gd",
         "res://tests/test_target_rigid_shadow_edges.gd",
@@ -94,6 +94,27 @@
         "res://docs/migration/evidence/hull-dynamics-2026-10-14/shadow-regressions.json",
         "res://docs/migration/evidence/hull-dynamics-2026-10-14/performance/world-cpu-after-shadow.json"
       ]
+    },
+    {
+      "id": "wake-flow",
+      "title": "航迹水流与船尾扩散",
+      "category": "船舶表现",
+      "abstract": "保留双侧尾浪，用真实船体运动驱动局部波高与持久泡沫；可比较原尾迹、交互水面场和历史失败实验。正在做动态画面验收，正式场景保留原方案。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/wake-flow.md",
+      "demo": "wake-flow",
+      "sources": [
+        "res://docs/research/wake-flow-online-research-2026-10-14.md",
+        "res://game/research/demos/wake_flow_experiment.gd",
+        "res://modules/scene_engine/water/interactive_wake_field.gd",
+        "res://modules/scene_engine/water/ship_water_interaction.gd",
+        "res://modules/scene_engine/ocean/interactive_wake_surface.gdshaderinc",
+        "res://modules/scene_engine/water/wake_flow.gd",
+        "res://modules/scene_engine/water/wake_flow.gdshader",
+        "res://modules/scene_engine/water/source_wake_renderer.gd"
+      ],
+      "evidence": []
     }
   ]
 }

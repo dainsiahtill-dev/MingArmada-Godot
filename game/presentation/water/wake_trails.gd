@@ -25,6 +25,8 @@ var _source_wakes: RefCounted
 
 func configure_surface_filter(sea_at: Callable) -> void: _surface_filter = sea_at
 func configure_sampling_scope(factory: Callable) -> void: _sampling_scope_factory = factory
+func set_interactive_coverage(ids: Array) -> void:
+	if _source_wakes!=null:_source_wakes.set_external_water_coverage(ids)
 func take_source_state() -> RefCounted:
 	var state:RefCounted=_source_wakes
 	_source_wakes=null

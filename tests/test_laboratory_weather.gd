@@ -123,7 +123,7 @@ func run() -> void:
 		elif preset == "storm":
 			check(state.environment.source.weather.centers[0].x == 2000 and state.environment.source.weather.lightTime == 1200, "storm is explicit near-center placement not invented day-mode enum")
 	var specifications: Array = demo.control_spec()
-	check(specifications.size() == 5, "host receives five independent weather controls")
+	check(specifications.size() == 6, "host receives five weather controls and the exact CPU transform comparison")
 	for specification: Dictionary in specifications:
 		check(specification.has_all(["id", "label", "type", "value"]), "control schema is complete: " + specification.id)
 	check(demo.reset_experiment({"preset": "storm", "paused": false, "camera_mode": "overview"}).ok, "close weather observation fixture resets")

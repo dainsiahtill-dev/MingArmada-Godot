@@ -1,5 +1,17 @@
 # 天气、云与云影：源状态推进和目标场景适配
 
+> 2026-10-14 CPU候选（实现前声明）：`profile-world-components.gd`沿普通sail入口，用完整`sea._world_packet(native)`与当前World调用次序测32个新接受时间，headless atmosphere p50 22.712ms、naturalShore16.259ms。旧diagnose工具只传time，走无环境包fallback，不用于本候选归因。独立内部计时40步：TRS compose243481us，scalar sample108779us，minimumZ17851us；包含计时开销，父子不得相加。完整原始数据`Temp/world-components-baseline-20261014.json`及`Temp/world-components-detail-20261014.json`。1704岸浪短片、30云clone/161mesh、6雾/120mesh和3天气实例/45mesh保持。
+>
+> 单因子H5：云层TRS矩阵的9元素GDScript循环重复动态取值/调用；等价展开表达式，并用PackedFloat32Array一次执行同序二进制32位结果存储，可降低CPU而保持每个输出字节。接受：先独立kernel比对旧Compiler及Native，覆盖实际6资源、非单位矩阵/负数/零/极端量级、输出持有和调用者修改隔离；同数据多轮微基准中位数下降，原始样本保留。若不降速或任何位差，不接生产。再通过旧renderer的完整资源/暂停/epoch/rewind/cache回归接线，root复拍GPU。禁止省略任何矩阵项、合并改变舍入次序、减少云/雾/岸浪数量或更新频率。基线hash见`docs/research/evidence/weather-transform/20261014/baseline-hashes.json`。这是CPU候选，不是FPS结论。
+>
+> H5实测与接线：独立kernel缺失RED1/1后7172/0；weather实验缺factor RED1/1后6/0；生产dispatch RED7173/1后7173/0。`cloud_transform_kernel.gd`仅展开multiply/transform/transpose并批量存最终float32，乘加先后与转置反向相加保持；三处私有Compiler委托接线，不改TRS compose/clock/curve/场景容量。基线循环保留在实验`cloud_transform_trial.gd`，weather Demo新增`cpu_transform_batching`，关闭为旧循环，开启为候选；同接受时间不推进RNG/history，重置后完整node/material输出逐字节相同。控制数测试从5更新6，原首次85/1结果保留于`lab-final.json`。
+>
+> 独立同输入交替CPU配对：30天空clone、6完整雾实例，8次暖机、32样本、1/32接受秒；每次完整源graph结果全字节相同。基线p50/p95=14.226/16.589ms，候选12.436/14.116ms，p50下降12.6%。原样本和sourcehash见[配对回执](../../../docs/research/evidence/weather-transform/20261014/independent-pair.json)。这是源render-state编译局部CPU，不包含整个world、GPU或FPS。
+>
+> 当前生产回归8/8、43208断言/0失败：float/scalar/原资源、完整渲染、cache、pause/rewind/epoch、真实NavalWorld接线均覆盖；实验weather85/0、新factor6/0、parameter11/0；无Godot错误，exit0。结果在`docs/research/evidence/weather-transform/20261014/`，最终hash为`source-final.json`。本轮未改变NaturalShore/NaturalWorld/Atmosphere/WorldView/海面shader/地形；无需新catalog课题。
+>
+> 限制与失败保留：`world-candidate-concurrent.json`与回归并行，atmosphere p50升至32.544ms，未改岸浪也升至25.591ms。该结果受CPU争用混杂，不用于前后加速比例或达标声明；只报告独立交替配对结论。生产GPU复拍与整场帧耗时由root串行执行。用户随后优先尾迹表现，本任务到此收敛，不扩展岸浪/旅程或再造课题。独立复现：`rtk proxy <GODOT_EXE> --headless --path . --script res://tools/profile-weather-transform.gd -- --output=<fresh-path>`；正式入口分段复现`tools/profile-world-components.gd`，full环境packet是必要条件。
+
 - 课题：`weather-shadow`；实验版本：environment-lab-v2-observation / 2026-10-14；报告类型：历史整合事后整理 + 新独立工程实验。
 - 状态：新 Demo 的CPU、修后实际GPU及菜单生命周期均有本轮证据；观察面是明确标注的诊断网格，未声称完整天气场景还原。
 - Demo：[weather_shadow_experiment.gd](../../../game/research/demos/weather_shadow_experiment.gd)，实验室目录由宿主登记；配置、时间和资源隔离。

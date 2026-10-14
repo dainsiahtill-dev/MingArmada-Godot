@@ -151,6 +151,44 @@ func _invalid_and_pause() -> void:
 	check(sim.encounter.snapshot().time > frozen.time and _course_active(sim), "resumed course continues only in newly accepted time")
 	sim.set_paused(true)
 
+func _reverse_course() -> void:
+	var sim := _make_sim()
+	check(_set_course(sim,_point(sim)).get("ok",false),"reversal starts with actual headwind propulsion")
+	_advance(sim,360)
+	var initial := _pose(sim)
+	var initial_speed := _speed(sim)
+	check(_set_course(sim,_point(sim,-1000.0,0.0)).get("ok",false),"moving ship accepts opposite mouse course")
+	check(_pose(sim) == initial,"opposite course never snaps pose or velocity at acceptance")
+	var metrics := _advance(sim,1)
+	var first := _pose(sim)
+	check(_speed(sim) > initial_speed-0.1 and absf(_wrap(first.heading-initial.heading)) < 0.02,
+		"first reversal tick retains momentum with bounded native yaw")
+	var samples: Array = []
+	var previous_tick := 1
+	for tick: int in [30,120,480,1440,1920]:
+		var interval := _advance(sim,tick-previous_tick)
+		metrics.maxHeadingDelta = maxf(metrics.maxHeadingDelta,interval.maxHeadingDelta)
+		metrics.maxRudderDelta = maxf(metrics.maxRudderDelta,interval.maxRudderDelta)
+		metrics.finite = metrics.finite and interval.finite
+		var pose := _pose(sim)
+		var error := absf(_wrap(PI-pose.heading))
+		samples.append({"seconds":tick*STEP,"headingDegrees":rad_to_deg(pose.heading),"errorDegrees":rad_to_deg(error),"speed":_speed(sim)})
+		if tick == 480: check(error < PI*0.9,"eight seconds of opposite-course forces materially reduces the 180-degree error")
+		if tick == 1920: check(error < deg_to_rad(5),"opposite course settles within five degrees over 32 accepted seconds")
+		previous_tick = tick
+	check(metrics.finite and metrics.maxHeadingDelta < 0.02 and metrics.maxRudderDelta < 0.25,"entire reverse trajectory retains smooth bounded native motion")
+	print("MOUSE_COURSE_REVERSAL_SAMPLE ",JSON.stringify({"initialSpeed":initial_speed,"samples":samples,"maxHeadingStep":metrics.maxHeadingDelta,"maxRudderStep":metrics.maxRudderDelta}))
+	check(_stop_course(sim).get("ok",false),"reverse-course ship accepts stop")
+	var stop_samples: Array = []
+	previous_tick = 0
+	for tick: int in [30,120,480,1800]:
+		_advance(sim,tick-previous_tick)
+		stop_samples.append({"seconds":tick*STEP,"speed":_speed(sim)})
+		previous_tick = tick
+	check(_speed(sim)<0.05,"opposite-course ship's accepted stop converges to rest")
+	print("MOUSE_COURSE_STOP_SAMPLE ",JSON.stringify(stop_samples))
+	sim.set_paused(true)
+
 func _ownership() -> void:
 	for code: String in ["KeyW", "KeyA", "KeyD"]:
 		var sim: RefCounted = _make_sim()
@@ -285,6 +323,7 @@ func _run() -> void:
 		return
 	_movement(sim)
 	_invalid_and_pause()
+	_reverse_course()
 	_ownership()
 	_authority_gates()
 	_runtime_gates()

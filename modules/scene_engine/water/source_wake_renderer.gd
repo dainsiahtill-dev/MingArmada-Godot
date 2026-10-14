@@ -6,6 +6,7 @@ const Geometry=preload("res://modules/scene_engine/water/source_wake_geometry.gd
 const Surface=preload("res://modules/scene_engine/water/source_surface.gd")
 const Froth=preload("res://modules/scene_engine/water/source_froth.gd")
 const ContactFroth=preload("res://modules/scene_engine/water/hull_contact_froth.gd")
+const WakeFlow=preload("res://modules/scene_engine/water/wake_flow.gd")
 var _actors:Dictionary={}
 var _owner:Node3D
 var _epoch:Variant=null
@@ -53,7 +54,7 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 		if _actors.has(id) and _actors[id].route!=selected:_release(id)
 		if not _actors.has(id):
 			var node:=Node3D.new();node.name="SourceWake_"+id;_owner.add_child(node)
-			var actor:Dictionary={"node":node,"route":selected,"surface":Surface.new(node),"call":null,"history":null,"battle_history":{},"froth":null,"geometry":{}}
+			var actor:Dictionary={"node":node,"route":selected,"surface":Surface.new(node),"call":null,"history":null,"battle_history":{},"froth":null,"flow":null,"geometry":{},"external_covered":false}
 			if selected=="scene_30":actor.history=History.new(packet.get("ini",{}),packet.modelScale,packet.get("markerId","root"),packet.sourcePosition)
 			var froth_packet:Dictionary=packet.get("froth",{})
 			if (froth_packet.has("family") or froth_packet.has("sourceResourceName")) and froth_packet.has("seed"):
@@ -65,6 +66,13 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 			_actors[id]=actor
 		var actor:Dictionary=_actors[id];var call_index:Variant=packet.get("sourceCallIndex",native.get("wake",{}).get("sourceCallIndex",null))
 		if call_index==null:_errors[id]="Explicit source-call index missing";continue
+		# Explicit target-game adapter only. Native history still runs unchanged,
+		# and original fixtures without this contract keep the source renderer.
+		if selected=="scene_30" and packet.get("targetTrail") is Dictionary and packet.targetTrail.get("enabled",false)==true:
+			if actor.flow==null:actor.flow=WakeFlow.new(actor.node)
+			actor.flow.apply_snapshot(packet.targetTrail,_time,water,sea)
+		elif actor.flow!=null:actor.flow.dispose();actor.flow=null
+		_apply_tail_visibility(actor)
 		if actor.call!=null and int(call_index)<=int(actor.call):
 			# Original history/RNG advancement is deduplicated. Per-pass camera
 			# orientation remains presentation work at the accepted source clock.
@@ -82,6 +90,7 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 				_fit_water(actor.geometry,_time,water)
 			if not actor.geometry.is_empty():actor.surface.submit("SceneStrip",actor.geometry.vertices,actor.geometry.uvs,actor.geometry.colors,actor.geometry.indices,Surface.scene_strip_descriptor(actor.geometry))
 		else:_battle(actor,packet,water,sea)
+		_apply_tail_visibility(actor)
 		if actor.froth!=null:
 			var attached:=packet.duplicate();attached.merge(packet.get("froth",{}),true)
 			actor.froth.apply_snapshot(attached,_time,water,sea)
@@ -95,6 +104,19 @@ static func _fit_water(geometry:Dictionary,time:float,water:Callable)->void:
 		var height:=float(water.call(vertices[i].x,vertices[i].z,time))
 		if is_finite(height):vertices[i].y=height+0.10
 	geometry.vertices=vertices
+
+func set_external_water_coverage(ids: Array) -> void:
+	# The shared interactive-water owner calls this only after a valid surface
+	# publication is bound. Original histories and local hull froth stay alive.
+	for id: String in _actors:
+		var actor: Dictionary=_actors[id]
+		actor.external_covered=id in ids
+		_apply_tail_visibility(actor)
+
+func _apply_tail_visibility(actor: Dictionary) -> void:
+	for key: String in actor.surface.nodes:
+		if key!="SceneStrip" and not key.begins_with("BattleDraw_"):continue
+		actor.surface.set_visibility_suppressed(key,bool(actor.external_covered) or (key=="SceneStrip" and actor.flow!=null))
 
 func _battle(actor:Dictionary,packet:Dictionary,water:Callable,sea:Callable)->void:
 	var input:Dictionary=packet.get("battle",{}).duplicate(true)
@@ -135,6 +157,7 @@ func diagnostics()->Dictionary:
 	return {"source_routes":routes,"source_updates":updates,"source_samples":samples,"authored_froth_meshes":froth_meshes,"target_contact_ribbons":contact_ribbons,"target_contact_droplets":contact_droplets,"source_particle_systems":systems,"source_particle_births":births,"source_battle_draws":battle_draws,"source_region_uploads":regions,"source_errors":_errors.duplicate(),"source_target_rewind_guards":_target_rewind_guards,"source_native_equivalent":false,"source_finite_geometry_contract":"2026-10-13 native continuation; fixture-tested Godot translation","source_unresolved":["original geometry initial buffers","x87 midpoint/CRT NaN domains","475550 original lifecycle","DX9 backend/pixels"],"source_adaptations":["source units/accepted cadence","zero-total/nonfinite GPU rejection","target water surface fit","target hull-contact local foam and spray","sea clipping","battle material carrier","target presentation rewind restart, no original history restoration"]}
 func _release(id:String)->void:
 	var actor:Dictionary=_actors[id]
+	if actor.flow!=null:actor.flow.dispose()
 	if actor.froth!=null:actor.froth.dispose()
 	actor.surface.dispose();actor.node.free();_actors.erase(id)
 func dispose()->void:

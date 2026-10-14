@@ -7,6 +7,11 @@
 uniform bool water_legacy_optics = false;
 uniform float water_environment_ripple_gain : hint_range(0.0,1.0) = 0.16;
 uniform float water_environment_horizon_weight : hint_range(0.02,1.0) = 0.52;
+uniform float reflection_edge_feather : hint_range(0.0,0.15) = 0.08;
+
+float reference_reflection_border(float edge, float width) {
+	return smoothstep(0.0,max(width,0.00001),edge);
+}
 
 vec3 reference_water_environment_normal(vec3 optical_macro_normal, vec2 ripple_slopes, float detail_gain) {
 	return normalize(optical_macro_normal + vec3(ripple_slopes.x,0.0,ripple_slopes.y) * clamp(detail_gain,0.0,1.0));

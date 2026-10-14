@@ -3,7 +3,7 @@ extends RefCounted
 const CATALOG_PATH := "res://assets/research/catalog.json"
 const PAPER_ROOT := "res://assets/research/papers/"
 const PAPER_SECTIONS := ["问题与假设","方案比较","算法与实现","实验设计","结果与证据","局限与失败","集成与复现"]
-const DEMO_PATHS := {"hull-contact":"res://game/research/demos/hull_contact_experiment.gd","ocean-surface":"res://game/research/demos/ocean_surface_experiment.gd","shore-surf":"res://game/research/demos/shore_surf_experiment.gd","weather-shadow":"res://game/research/demos/weather_shadow_experiment.gd"}
+const DEMO_PATHS := {"hull-contact":"res://game/research/demos/hull_contact_experiment.gd","ocean-surface":"res://game/research/demos/ocean_surface_experiment.gd","shore-surf":"res://game/research/demos/shore_surf_experiment.gd","weather-shadow":"res://game/research/demos/weather_shadow_experiment.gd","shadow-edges":"res://game/research/demos/shadow_edges_experiment.gd","wake-flow":"res://game/research/demos/wake_flow_experiment.gd"}
 const STATUSES := {"proposed":"提议","researching":"研究中","validated":"独立验证","integration-ready":"待集成","integrated":"已集成","integrated-retrospective":"已集成 · 事后整理","parked":"搁置"}
 var _topics: Array = []
 var _by_id: Dictionary = {}

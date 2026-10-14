@@ -23,6 +23,11 @@ const markers={
  'res://tools/verify-laboratory-environment-gpu.gd':'LABORATORY_ENVIRONMENT_GPU ',
  'res://tools/verify-shore-edge-gpu.gd':'SHORE_EDGE_GPU ',
  'res://tools/verify-shore-edge-production.gd':'SHORE_EDGE_PRODUCTION ',
+ 'res://tools/verify-wake-flow-gpu.gd':'WAKE_FLOW_GPU ',
+ 'res://tools/verify-wake-production-gpu.gd':'WAKE_PRODUCTION_GPU ',
+ 'res://tools/verify-interactive-wake-field-gpu.gd':'INTERACTIVE_WAKE_GPU ',
+ 'res://tools/verify-interactive-wake-lab-gpu.gd':'INTERACTIVE_WAKE_LAB_GPU ',
+ 'res://tools/verify-interactive-wake-production-gpu.gd':'INTERACTIVE_WAKE_PRODUCTION_GPU ',
 };
 const script=args[args.indexOf('--script')+1];
 const marker=markers[script]||(script?.endsWith('verify-laboratory-pack.gd')?'LABORATORY_PACK_TESTS ':null);

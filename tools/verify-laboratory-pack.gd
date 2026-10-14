@@ -32,7 +32,7 @@ func run() -> void:
 	var lab: Control = main.current_scene
 	check(is_instance_valid(lab) and lab.startup_receipt.ok,"packed route activates real laboratory")
 	if is_instance_valid(lab):
-		for topic: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow"]:
+		for topic: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow","shadow-edges","wake-flow"]:
 			check(lab.select_topic(topic),"packed paper selection works: "+topic)
 			var launched: Dictionary = lab.start_demo({"paused":true})
 			check(launched.ok,"packed registered experiment constructs production resources: "+topic)

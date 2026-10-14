@@ -2,6 +2,8 @@ extends RefCounted
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
 const Backend=preload("res://modules/scene_engine/fidelity_fx/source_shadow_rd.gd")
 const Effect=preload("res://modules/scene_engine/fidelity_fx/source_shadow_compositor.gd")
+const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
+const PreparedFrame=preload("res://modules/scene_engine/fidelity_fx/prepared_shadow_frame.gd")
 const PLANE_ASSET="res://modules/scene_engine/fidelity_fx/source_shadow_assets/fluyt.nif.json"
 var _parent:Node3D
 var _camera:Camera3D
@@ -13,13 +15,14 @@ var _planes:Dictionary={}
 var _imperative_planes:Dictionary={}
 var _snapshot_planes:Dictionary={}
 var _rebuild_count:=0
+var _prepared_builds:=0
 var _errors:Array=[]
 var _epoch:Variant=null
 var _options:Dictionary={}
 
 func configure(parent:Node3D,camera:Camera3D,options:Dictionary={})->Dictionary:
 	dispose();_parent=parent;_camera=camera;_options=options.duplicate(true)
-	_rebuild_count=0;_errors=[]
+	_rebuild_count=0;_prepared_builds=0;_errors=[]
 	if is_instance_valid(camera) and DisplayServer.get_name()!="headless" and str(RenderingServer.get_current_rendering_method())!="gl_compatibility":
 		_effect=Effect.new();_original_compositor=camera.compositor
 		_owned_compositor=Compositor.new()
@@ -44,21 +47,30 @@ func apply_snapshot(native:Dictionary,actor_nodes:Dictionary={},environment:Dict
 		var previous:Dictionary=_volumes.get(id,{})
 		var rebuild:bool=bool(caster.get("dirty",false)) or previous.get("light",[])!=caster.localLight or Math.should_rebuild(bool(caster.get("skinned",false)),not previous.is_empty(),caster.worldRotation,previous.get("rotation",[]))
 		var geometry:Dictionary=previous.get("geometry",{})
+		var prepared:Variant=caster.get("preparedRigid")
+		var use_prepared:bool=prepared is Prepared and prepared.matches(caster)
 		if rebuild:
-			geometry=Math.build_volume_component(caster.positions,caster.localLight,caster.edges,caster.capIndices)
+			geometry=prepared.build_volume(caster.localLight) if use_prepared else Math.build_volume_component(caster.positions,caster.localLight,caster.edges,caster.capIndices)
 			if geometry.has("error"):_errors.append("%s: %s" % [id,geometry.error]);continue
 			_rebuild_count+=1
+			_prepared_builds+=int(use_prepared)
 		var transform:Transform3D=caster.get("worldTransform",actor.global_transform)
 		# Caller provides source-to-target basis and units in this transform.
 		retained[id]={"id":id,"geometryRevision":_rebuild_count if rebuild else previous.geometryRevision,"geometry":geometry,"rotation":caster.worldRotation.duplicate() if rebuild else previous.rotation,"light":caster.localLight.duplicate(),"transform":transform}
+		if use_prepared and prepared.owns_volume(geometry):retained[id].preparedOwner=prepared
 	_volumes=retained
 	_reconcile_snapshot_planes(state.get("texturePlanes",{}),actor_nodes,epoch_changed)
-	if _effect!=null:_effect.submit(_volumes.values(),state.get("color",_options.get("color",Color(0,0,0,0.5))))
+	if _effect!=null:
+		var frame:=PreparedFrame.new()
+		var color:Color=state.get("color",_options.get("color",Color(0,0,0,0.5)))
+		if frame.configure(_volumes.values()):_effect.submit_prepared(frame,color)
+		else:_effect.submit(_volumes.values(),color)
 
 func diagnostics()->Dictionary:
 	_prune_dead_planes()
 	var result:=Backend.capability()
 	result.volumeCount=_volumes.size();result.rebuildCount=_rebuild_count;result.texturePlaneCount=_planes.size();result.errors=_errors.duplicate()
+	result.preparedBuilds=_prepared_builds
 	result.gpu=_effect.status() if _effect!=null else {"initialized":false,"frames":0,"draws":0,"error":"No active rendering compositor"}
 	return result
 

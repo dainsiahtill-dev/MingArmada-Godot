@@ -127,6 +127,7 @@ func start_demo(options: Dictionary = {}) -> Dictionary:
 func _sync_controls() -> void:
 	_pause_button.text = "继续" if _demo_options.paused else "暂停"
 	_step_button.disabled = not _demo_options.paused
+	_step_button.text = "单步 1/%d 秒" % roundi(1.0/_experiment_step())
 	if _selected != "hull-contact": _parameter_panel.sync_values(_demo_options); return
 	_contact.set_pressed_no_signal(_demo_options.contact_enabled)
 	find_child("ExperimentCase",true,false).select(CASES.find(_demo_options.scenario))
@@ -175,8 +176,15 @@ func _pause_demo() -> void:
 func step_demo() -> Dictionary:
 	if _disposed or not is_instance_valid(_demo) or not _demo_options.get("paused",false): return {"ok":false,"reason":"暂停后才能单步观察"}
 	_demo_revision += 1
-	_demo.set_paused(false); _demo.advance(1.0/32.0); _demo.set_paused(true)
+	var delta := _experiment_step()
+	_demo.set_paused(false); _demo.advance(delta); _demo.set_paused(true)
 	_update_telemetry(); return {"ok":true}
+
+func _experiment_step() -> float:
+	if not is_instance_valid(_demo): return 1.0/32.0
+	var snapshot: Dictionary = _demo.inspection_snapshot()
+	var step: Variant = snapshot.get("fixed_step",1.0/32.0)
+	return float(step) if (step is float or step is int) and is_finite(float(step)) and float(step)>0.0 and float(step)<=1.0 else 1.0/32.0
 
 func _change_parameter(id: String,value: Variant) -> void:
 	if _disposed or not is_instance_valid(_demo) or not _demo.has_method("set_parameter"): return
@@ -216,6 +224,16 @@ func _telemetry_text(receipt: Dictionary) -> String:
 			return "源短浪已更新 %d 次 · 残沫/花边倍率 %.2f · 控制器周期约 %.2f s" % [int(telemetry.get("source_updates",0)),float(_demo_options.get("residue_opacity",1.0)) if _demo_options.get("residue_enabled",true) else 0.0,float(telemetry.get("source_controller_period_seconds",29.97))]
 		"weather-shadow":
 			return "移动天气实例 %d · 天空云环 %d · 云影网格 %d" % [int(telemetry.get("world_weather_instances",0)),int(telemetry.get("sky_clones",0)),int(telemetry.get("shadow_meshes",0))]
+		"wake-flow":
+			if _demo_options.get("field_enabled",false):
+				var field: Dictionary = receipt.get("field",{})
+				var status: String = str(receipt.get("field_status","pending"))
+				if status=="error": return "局部水流场不可用，保留原尾迹："+str(receipt.get("field_error","未知错误"))
+				return "局部水流场 · %s · GPU 已发布 %.2f s · %d 探针\n双侧尾迹 / 水面起伏 / 持续泡沫；当前显示：%s。" % ["已绑定" if status=="ready" else "准备中，保留原尾迹",float(field.get("time",0)),int(field.get("emitter_count",0)),str(_demo_options.get("field_debug","none"))]
+			var flow: Dictionary = receipt.get("flow",{})
+			return "%s · 航迹 %.1f m · 历史 %d 点\n目标保留双侧尾浪；中线候选仅用于查看失败实验。" % ["历史中线候选 · 未采用" if _demo_options.get("flow_enabled",false) else "原尾迹对照",float(flow.get("length_m",0.0)),int(flow.get("samples",0))]
+		"shadow-edges":
+			return "同一阴影几何的原算法 / 预计算对照；帧内 CPU 耗时不等于整场 FPS。"
 	return "当前参数、镜头和原始状态随截图保存。"
 
 func _view_input(event: InputEvent) -> void:

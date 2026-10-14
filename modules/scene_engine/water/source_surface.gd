@@ -9,6 +9,8 @@ static var _textures:Dictionary={}
 var nodes:Dictionary={}
 var layouts:Dictionary={}
 var _materials:Dictionary={}
+var _eligible:Dictionary={}
+var _visibility_suppressed:Dictionary={}
 var region_uploads:=0
 var rebuilds:=0
 var parent:Node3D
@@ -84,7 +86,8 @@ func submit(key:String,vertices:PackedVector3Array,uvs:PackedVector2Array,colors
 	if not nodes.has(key):
 		var node:=MeshInstance3D.new();node.name=key;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;parent.add_child(node);nodes[key]=node
 	var node:MeshInstance3D=nodes[key]
-	node.visible=not indices.is_empty()
+	_eligible[key]=not indices.is_empty()
+	_apply_visibility(key)
 	if indices.is_empty():return
 	var mesh:ArrayMesh=node.mesh;var layout:Dictionary=layouts.get(key,{})
 	var reuse:bool=DisplayServer.get_name()!="headless" and mesh!=null and layout.get("supported",false) and layout.get("count",0)==vertices.size() and layout.get("indices",PackedInt32Array())==indices
@@ -98,9 +101,20 @@ func submit(key:String,vertices:PackedVector3Array,uvs:PackedVector2Array,colors
 		layouts[key]={"count":count,"indices":indices.duplicate(),"supported":supported};rebuilds+=1
 	node.material_override=material(record)
 
+func set_visibility_suppressed(key:String,suppressed:bool)->void:
+	_visibility_suppressed[key]=suppressed
+	_apply_visibility(key)
+
+func _apply_visibility(key:String)->void:
+	# Cached mesh storage survives empty submissions. Only the current source
+	# submission grants visibility; external effects may suppress that grant.
+	if nodes.has(key):nodes[key].visible=bool(_eligible.get(key,false)) and not bool(_visibility_suppressed.get(key,false))
+
 func hide_unused(used:Dictionary)->void:
 	for key:String in nodes:
-		if not used.has(key):nodes[key].visible=false
+		if not used.has(key):
+			_eligible[key]=false
+			_apply_visibility(key)
 func dispose()->void:
 	for node:Node in nodes.values():node.free()
-	nodes.clear();layouts.clear();_materials.clear()
+	nodes.clear();layouts.clear();_materials.clear();_eligible.clear();_visibility_suppressed.clear()

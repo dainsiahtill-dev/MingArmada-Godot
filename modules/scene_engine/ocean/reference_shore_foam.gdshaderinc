@@ -1,5 +1,9 @@
 // Local sand/water transition and submerged terrain contribution only.
 // Original dynamic lace, normal textures, palette, reflection and waves stay intact.
+float reference_detached_bank(float depth, float coast) {
+	return smoothstep(0.0,2.4,depth)*(1.0-smoothstep(6.0,16.0,depth))*smoothstep(24.0,80.0,coast);
+}
+
 float reference_bottom_visibility(float ground_depth, float border_distance) {
 	return (1.0-smoothstep(8.0,22.0,max(ground_depth,0.0)))*smoothstep(0.0,48.0,max(border_distance,0.0));
 }

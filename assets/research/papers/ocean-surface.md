@@ -1,5 +1,23 @@
 # 五波海面：独立光学响应与镜像／折射对照
 
+> T1 最终冻结：projection coverage默认开，bank双权重0.65，reflection edge0.08；原羽化0.6/0.55与五波/尾迹/3D船员不变。`reflection-edge-1` 保存24张同刻原帧与raw-mirror；已审低位0/2/8秒对照、近景8秒、远景0.5秒。中央绿色倒三角确为岛山镜像，应保留；边缘因子对本组整体观感几乎不变，没有把“大色面全部消失”写为通过。接受的是有限reflection target边界连续合同与未观察到新退化，不是删除正常倒影。
+>
+> 最终投影回执 `Temp/research/voyage-projection-frozen-green.json` 为46断言/0失败，重排相对已GPU验收候选的最大顶点误差0.00153258m（3km域，门槛0.006m）；不是bit等价。相关水面/镜像/实验接口定向回执以前缀`voyage-`保存，完整整场回归与生产GPU截图由主线程负责。本分工现在冻结，新的尾迹表现问题另行只读调查。
+
+> T1 CPU收尾：保留slab算法，把每点basis变换/归一化改为行列仿射分离、射线与平面相交消去归一化。`Temp/research/voyage-projection-equivalence-green.json` 46断言通过，保留GPU已验候选的逐点归一化公式作等价oracle，6mm/3km阈值未放宽。另一次直接native Camera3D逐点参考出现6.69mm远端差（`voyage-projection-final-green.json`文件误名，实际exit1/46项2失败）；这是不同float32运算路径，不能冒充通过。可见屏覆盖与原候选等价各自保留，不宣称数学逐位相同。
+>
+> CPU微测原样本 `voyage-projection-timing.json`：朴素候选32交替样本p50 3.571ms、p95 6.213ms，对应原路径1.533/3.507ms；因此未直接保留该实现。优化后 `voyage-projection-timing-affine.json` 同方法p50 1.913ms，对应原路径1.863ms；候选p95 9.879ms、原路径4.794ms，存在并行机器负载，不能声称p95改善。两组均8对暖机、32对计时，nearest-rank，headless CPU camera-moving80²，不是GPU或整场FPS。原五波、顶点/三角数、时间缓存与镜像均保留，完整帧时由正式实机另测。
+
+> T1 第二阶段根因实验：`visual-diagnose-1` 同刻低位分别关闭折射、关闭镜像、加密160/320。已审原帧：去折射或320密度仍有大色面，去镜像消失，排除几何密度为主因。主岛倒三角包含正常山体倒影，不可整片删除。片元在reflection UV跨0/1时从真实镜像硬切到解析天空，候选以距纹理边缘的0.08归一化宽度平滑覆盖，中心仍完整镜像；width0保留基线。预先接受：同刻低位直/斜边消失，岛影轮廓保留，镜像目标、五波和CPU时间不变；GPU必须审原reflection target以区别倒影本身。此项尚未验收，正式默认0。
+
+> T1 覆盖修复阶段实测：独立GPU `docs/research/evidence/playable-voyage-2026-10-14/visual-candidate-1/GPU_VERIFY.json` 保存24张near/wide/low、0/.5/2/8秒原帧，主线程run退出0且无Godot错误。已审low-t064基线/候选：底部硬直裸露条消失；中央大色面仍在，故只接受覆盖修复，不关闭全部低位观感问题。随后接入正式ProjectedOcean默认：`Temp/research/voyage-projection-production-controls-green.json`（41断言/0失败）、`voyage-water-probe-green.json`、`voyage-projection-oracle-green.json`。旧ray/cache精确oracle显式使用保留的基线模式，新screen-coverage测试使用默认生产路径；均不改五波公式、地形、羽化或尾迹。以下“GPU未验/默认基线”是候选提出时的阶段记录。
+
+> 2026-10-14 T1 新候选（研究中）：低位投影覆盖。基线 `projected_ocean.gd` SHA256 `be04e291b9f8e139c8272da828c651725610ad030be5aac1362ec40ba0254071`。保留原图 `docs/research/evidence/laboratory-environment-2026-10-14/feather-wide-study/low-t064-w00.png`。真实生产网格的新 RED 为 `Temp/research/voyage-projection-red.json`，35 断言、10 失败、exit1；失败是9m/4.5m观察时波峰覆盖不到屏底，以及上方无交点行折回近处。没有用缺函数/解析错误冒充 RED。
+>
+> 排序假设：H1 平均海平面投影没有包含 ±3.5m 位移厚度；H2 有限回退沿倾斜射线再压平，使远端水平距离变短；H3 岸浪/羽化导致缺口（原width0和0.6均失败，已排除为主因）。候选以原五波幅值绝对值之和作保守slab，投影视锥与上下表面交点到y0，扩大屏幕包围矩形；非交点远端固定水平半径。沿用原网格拓扑、材质与物理，镜头局部射线使用缓存的仿射基，避免逐顶点重调Camera API。
+>
+> 比较：固定增大padding不能随观察高度保证覆盖；替换均匀世界网格会改变原近景密度；slab包围方案依赖高度>幅值，但可适应当前最低4.5m观察，代价是更宽的投影范围。预先接受：近/中/低、横/竖视口在±3.5m边界覆盖可见屏底/两侧，远端半径不折返，暂停时间不变；GPU原帧连续0/.5/2/8秒无原直线缺口/大平面，五波/width0.6/weight0.55不变。相机处于波体内部、波峰间实际曲面光栅与整场帧时必须分别验证，不由凸包合同推定。原网格开关在既有ocean-surface/shore-surf Demo提供同刻对照；GPU未验前正式默认仍用基线。
+
 - 课题：`ocean-surface`；报告版本：2026-10-14 独立环境实验；实现负责人：本轮 Ocean Agent。
 - 类型：既有生产集成的事后整理，新增独立实验及新 headless 合同；两类证据分开。
 - 状态：独立 Demo 已通过本轮 CPU、实际菜单与 GPU 对照；只证明记录内的观察条件，不继承整场游戏或原版像素一致性结论。

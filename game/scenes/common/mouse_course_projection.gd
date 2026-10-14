@@ -5,9 +5,17 @@ const CLICK_SLOP := 8.0
 var _pressed := false
 var _press_position := Vector2.ZERO
 var _dragged := false
+var _gesture_id := 0
 func cancel_gesture() -> void:
+	_gesture_id += 1
 	_pressed = false
 	_dragged = false
+func cancel_gesture_after_dispatch() -> void:
+	# GUI consumption is known only after raw input. Cancel that gesture after
+	# dispatch, without letting its cleanup erase a newer press in the same frame.
+	_cancel_if_current.call_deferred(_gesture_id)
+func _cancel_if_current(gesture_id: int) -> void:
+	if gesture_id == _gesture_id: cancel_gesture()
 func consume(event: InputEvent) -> Dictionary:
 	if event is InputEventMouseMotion:
 		if _pressed:
@@ -22,6 +30,7 @@ func consume(event: InputEvent) -> Dictionary:
 		return {}
 	if event.button_index != MOUSE_BUTTON_LEFT: return {}
 	if event.pressed:
+		_gesture_id += 1
 		_pressed = true
 		_press_position = event.position
 		_dragged = false

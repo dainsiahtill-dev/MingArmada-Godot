@@ -12,6 +12,7 @@ const CameraRig = preload("res://game/presentation/world/ship_camera_controller.
 const WaterPacket = preload("res://game/presentation/world/source_water_packet.gd")
 const ShadowRenderer = preload("res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd")
 const RigidCasters = preload("res://game/presentation/world/target_rigid_shadow_caster.gd")
+const InteractiveWater = preload("res://modules/scene_engine/water/interactive_wake_system.gd")
 const QUALITY := {
 	"low":{"resolution":40,"chunk_radius":2,"shadows":false,"bloom":false},
 	"balanced":{"resolution":64,"chunk_radius":3,"shadows":true,"bloom":false},
@@ -51,6 +52,9 @@ var _camera_rig := CameraRig.new()
 var _camera_dragging := false
 var _camera_owner := ""
 var _camera_tick := 0
+var _interactive_water: RefCounted
+var _water_mask_revision := -1
+var _interactive_ocean_id := 0
 func set_camera_controller(controller: Callable) -> void:
 	_camera_controller = controller
 	cancel_camera_drag()
@@ -119,6 +123,7 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	effects.set_camera(camera)
 	effects.set_surface_filter(_surface_is_water)
 	wakes = Wakes.new(); _own(wakes); _configure_wakes()
+	_configure_interactive_water()
 	source_shadows=ShadowRenderer.new();_shadow_capability=source_shadows.configure(self,camera)
 	apply_snapshot(native, [], 0.0)
 	for ship: Dictionary in native.get("ships", []):
@@ -165,6 +170,7 @@ func apply_settings(settings: Dictionary) -> void:
 	if old_quality != _settings.quality:
 		_configure_world()
 		world.apply_snapshot(_world_packet(_snapshot),0.0)
+		_apply_interactive_water(_snapshot)
 	for crew in sailors.values(): crew.set_reduced_motion(bool(_settings.reducedMotion))
 	for ship in ships.values(): ship.set_reduced_motion(bool(_settings.reducedMotion))
 	world.set_reduced_motion(bool(_settings.reducedMotion))
@@ -210,6 +216,42 @@ func _configure_wakes() -> void:
 	var provider: Object = _height.get_object()
 	if is_instance_valid(provider) and provider.has_method("begin_sampling_scope"):
 		wakes.configure_sampling_scope(Callable(provider,"begin_sampling_scope"))
+
+func _configure_interactive_water() -> void:
+	if _interactive_water!=null:_interactive_water.dispose()
+	_interactive_water=null;_water_mask_revision=-1;_interactive_ocean_id=0
+	# Promotion remains explicit until normal-scene GPU and fallback acceptance.
+	if not bool(_options.get("interactive_wake",false)):return
+	_interactive_water=InteractiveWater.new()
+	_water_mask_revision=world.get_interactive_water_mask_revision()
+	_interactive_ocean_id=world.get_ocean().get_instance_id()
+	_interactive_water.configure(world.get_ocean(),_water,world.get_interactive_water_mask(),_options.get("interactive_wake_options",{}))
+
+func _apply_interactive_water(native: Dictionary) -> void:
+	if _interactive_water==null:return
+	var revision: int=world.get_interactive_water_mask_revision()
+	var ocean: MeshInstance3D=world.get_ocean()
+	# Rebuilds publish a new complete terrain mask; ordinary frames only read an
+	# integer revision. No repeated terrain queries or GPU image download.
+	if revision!=_water_mask_revision or _interactive_ocean_id!=ocean.get_instance_id():
+		_water_mask_revision=revision
+		_interactive_ocean_id=ocean.get_instance_id()
+		_interactive_water.set_ocean(ocean,world.get_interactive_water_mask())
+	var inputs: Array=[]
+	for state: Dictionary in native.get("ships",[]):
+		var id:=str(state.get("id",""))
+		if not ships.has(id):continue
+		inputs.append({"id":id,"attachment":ships[id].source_water_attachment(),"hull_alive":float(state.get("hull",100.0))>0.0 and not bool(state.get("sunk",false))})
+	var environment: Dictionary=native.get("environment",{})
+	var seconds:=float(environment.get("acceptedTime",native.get("time",0.0)))
+	var epoch:=str(native.get("battleId",""))+":"+str(environment.get("epoch",""))+":"+str(environment.get("route","sailing"))
+	_interactive_water.apply_snapshot(seconds,str(native.get("playerId","")),inputs,epoch)
+	_interactive_water.poll()
+	wakes.set_interactive_coverage(_interactive_water.covered_actor_ids())
+	ocean.update_projection()
+
+func interactive_water_status() -> Dictionary:
+	return _interactive_water.diagnostics() if _interactive_water!=null else {"enabled":false,"covered":[]}
 
 func _surface_is_water(x: float, z: float) -> bool:
 	if not _height.is_valid(): return false
@@ -359,6 +401,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	_flush_crew_water_entries()
 	wakes.apply_snapshot(WaterPacket.compose(native,ships,camera))
 	world.apply_snapshot(_world_packet(native),consumed)
+	_apply_interactive_water(native)
 	_apply_source_shadows(native)
 	_local_presentation_seconds.clear()
 	return presented_events
@@ -419,6 +462,8 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 
 func dispose() -> void:
 	_disposed = true
+	if _interactive_water!=null:_interactive_water.dispose()
+	_interactive_water=null;_water_mask_revision=-1;_interactive_ocean_id=0
 	if source_shadows:source_shadows.dispose()
 	source_shadows=null;_shadow_capability.clear();_rigid_casters.dispose()
 	_camera_controller = Callable()

@@ -2,25 +2,13 @@ extends RefCounted
 ## Target rigid hull/mast policy. Original classifier and actor+108 light
 ## producer remain unknown. Exact-position welding removes authored UV seams.
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
+const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
 var _geometry:Dictionary={}
 var _parts:Dictionary={}
 var _shadow_modes:Dictionary={}
 var _errors:Array=[]
 static func _toggle_indexed_edge(edges:Array,lookup:Dictionary,a:int,b:int)->void:
-	# Exact native parity/orientation/order, with an integer index instead of
-	# scanning the current edge array. A uint16 pair fits losslessly in int64.
-	a=a&65535;b=b&65535
-	var key:int=(mini(a,b)<<16)|maxi(a,b)
-	if lookup.has(key):
-		var index:int=lookup[key];var last:=edges.size()-1
-		if index!=last:
-			var moved:Array=edges[last]
-			edges[index]=moved
-			var moved_key:int=(mini(moved[0],moved[1])<<16)|maxi(moved[0],moved[1])
-			lookup[moved_key]=index
-		edges.pop_back();lookup.erase(key)
-	else:
-		lookup[key]=edges.size();edges.append([a,b])
+	Prepared.toggle_edge(edges,lookup,a,b)
 func _mesh_geometry(mesh:Mesh)->Dictionary:
 	var id:=mesh.get_instance_id()
 	if _geometry.has(id):return _geometry[id]
@@ -71,17 +59,17 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 			var previous:Dictionary=_parts.get(id,{})
 			var dirty:bool=previous.get("revision",-1)!=geometry.revision or previous.get("light",[])!=local_light
 			if dirty:
-				var edges:Array=[];var caps:Array=[];var edge_lookup:Dictionary={}
-				for face:Dictionary in geometry.faces:
-					if face.normal.dot(direction)>=0.0:continue
-					var triangle:Array=face.indices
-					caps.append_array(triangle)
-					for i in 3:_toggle_indexed_edge(edges,edge_lookup,triangle[i],triangle[(i+1)%3])
-				if 1+2*edges.size()+caps.size()>65535:_errors.append(id+": volume exceeds uint16 scope");continue
-				previous={"revision":geometry.revision,"light":local_light,"edges":edges,"caps":caps}
+				var prepared:RefCounted=previous.get("prepared")
+				if prepared==null or previous.get("revision",-1)!=geometry.revision:
+					prepared=Prepared.new()
+					var configured:Dictionary=prepared.configure(geometry.positions,geometry.faces)
+					if not configured.ok:_errors.append(id+": "+configured.reason);continue
+				var topology:Dictionary=prepared.select_topology(local_light)
+				if topology.has("error"):_errors.append(id+": "+topology.error);continue
+				previous={"revision":geometry.revision,"light":local_light,"edges":topology.edges,"caps":topology.caps,"prepared":prepared}
 				_parts[id]=previous
 			var rotation:=frame.basis.orthonormalized()
-			casters.append({"id":id,"actorId":id,"positions":geometry.positions,"localLight":local_light,"edges":previous.edges,"capIndices":previous.caps,"worldTransform":frame,"worldRotation":[rotation.x.x,rotation.y.x,rotation.z.x,rotation.x.y,rotation.y.y,rotation.z.y,rotation.x.z,rotation.y.z,rotation.z.z],"geometryRevision":geometry.revision,"dirty":dirty,"displayShadows":effective_display,"policy":"target rigid hull/mast triangles; exact seam weld; target inverse-basis light"})
+			casters.append({"id":id,"actorId":id,"positions":previous.prepared.source_positions(),"localLight":local_light,"edges":previous.edges,"capIndices":previous.caps,"worldTransform":frame,"worldRotation":[rotation.x.x,rotation.y.x,rotation.z.x,rotation.x.y,rotation.y.y,rotation.z.y,rotation.x.z,rotation.y.z,rotation.z.z],"geometryRevision":geometry.revision,"dirty":dirty,"displayShadows":effective_display,"preparedRigid":previous.prepared,"policy":"target rigid hull/mast triangles; exact seam weld; target inverse-basis light"})
 			actors[id]=mesh;live[id]=true
 			if not _shadow_modes.has(mesh.get_instance_id()):_shadow_modes[mesh.get_instance_id()]={"node":weakref(mesh),"mode":mesh.cast_shadow}
 			mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if stencil_active and effective_display else _shadow_modes[mesh.get_instance_id()].mode
@@ -99,7 +87,11 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 	if not effective_display:state.texturePlanes={}
 	result.sourceShadows=state
 	return {"native":result,"actors":actors}
-func diagnostics()->Dictionary:return {"policy":"target_rigid_hull_mast","geometryCache":_geometry.size(),"activeCasters":_parts.size(),"errors":_errors.duplicate()}
+func diagnostics()->Dictionary:
+	var topology_builds:=0;var classifications:=0
+	for part:Dictionary in _parts.values():
+		var counters:Dictionary=part.prepared.diagnostics();topology_builds+=counters.topologyBuilds;classifications+=counters.classifications
+	return {"policy":"target_rigid_hull_mast","geometryCache":_geometry.size(),"activeCasters":_parts.size(),"errors":_errors.duplicate(),"topologyBuilds":topology_builds,"classifications":classifications}
 func dispose()->void:
 	for saved:Dictionary in _shadow_modes.values():
 		var mesh:MeshInstance3D=saved.node.get_ref()

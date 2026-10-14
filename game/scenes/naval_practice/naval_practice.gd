@@ -110,7 +110,7 @@ func _input(event: InputEvent) -> void:
 		if sea: sea.cancel_camera_drag()
 	if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
 		if event.pressed: _mouse_course.cancel_gesture()
-		else: _mouse_course.call_deferred("cancel_gesture")
+		else: _mouse_course.cancel_gesture_after_dispatch()
 	if event is InputEventKey and event.pressed: _mouse_course.cancel_gesture()
 	if not interface or not event is InputEventKey or event.echo: return
 	var key: int=event.physical_keycode if event.physical_keycode else event.keycode

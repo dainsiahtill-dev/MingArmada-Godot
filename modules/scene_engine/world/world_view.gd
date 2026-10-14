@@ -11,6 +11,7 @@ const FidelityVegetation = preload("res://modules/scene_engine/fidelity_island/v
 const NaturalWorld = preload("res://modules/scene_engine/terrain/natural_world.gd")
 const Atmosphere = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gd")
 const SourceEffects = preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
+const TerrainWetMask = preload("res://modules/scene_engine/water/terrain_wet_mask.gd")
 const PIER_DECK_HEIGHT := 4.2 # Above the authored offshore 3.5m wave envelope.
 var _height_sampler: Callable
 var _camera: Camera3D
@@ -34,6 +35,10 @@ var _simulation_time := 0.0
 var _shore_field: RefCounted
 var _near_shore_texture: ImageTexture
 var _near_shore_center := Vector2i(2147483647,2147483647)
+var _interactive_water_mask: Dictionary = {}
+var _interactive_water_mask_error := "world-unconfigured"
+var _interactive_water_mask_all_wet := false
+var _interactive_water_mask_revision := 0
 var _shore_spray: Node3D
 var _visual_style := 1
 var _island_details: Node3D
@@ -87,6 +92,7 @@ func configure(height_sampler: Callable, wave_descriptors: Array = [], options: 
 	atmosphere = null
 	dispose()
 	if not height_sampler.is_valid():
+		_invalidate_interactive_water_mask("invalid-height-sampler")
 		if retained_atmosphere: retained_atmosphere.dispose()
 		return false
 	atmosphere = retained_atmosphere
@@ -251,7 +257,14 @@ func _configure_fidelity_islands(options: Dictionary) -> bool:
 
 func _configure_shore(wave_descriptors: Array = []) -> void:
 	var path := "res://modules/scene_engine/ocean/shore_field.gd"
-	if _visual_style == 0 or _ports.is_empty() or not ResourceLoader.exists(path) or not _ocean.has_method("set_shore_field"):
+	if _visual_style == 0 or _ports.is_empty():
+		_interactive_water_mask_all_wet=true
+		_interactive_water_mask={};_interactive_water_mask_error="";_interactive_water_mask_revision+=1
+		return
+	_interactive_water_mask_all_wet=false
+	_invalidate_interactive_water_mask("awaiting-height-lattice")
+	if not ResourceLoader.exists(path) or not _ocean.has_method("set_shore_field"):
+		_invalidate_interactive_water_mask("shore-field-unavailable")
 		return
 	var minimum := Vector2(INF, INF)
 	var maximum := Vector2(-INF, -INF)
@@ -295,7 +308,9 @@ func _configure_shore(wave_descriptors: Array = []) -> void:
 			_shore_spray = null
 
 func _configure_static_shore_field(bounds: Rect2) -> void:
-	if not _ocean.has_method("set_near_shore_field"): return
+	if not _ocean.has_method("set_near_shore_field"):
+		_invalidate_interactive_water_mask("near-shore-field-unavailable");return
+	_invalidate_interactive_water_mask("building-static-height-lattice")
 	var side := _static_shore_resolution
 	var heights := PackedFloat32Array()
 	heights.resize(side*side)
@@ -306,11 +321,43 @@ func _configure_static_shore_field(bounds: Rect2) -> void:
 			# Preserve submerged shoals between finite source islands. They remain
 			# navigation heights from the injected owner, with no rendered land grid.
 			if not is_finite(value): value = float(_height_sampler.call(point.x,point.y))
-			if not is_finite(value): return
+			if not is_finite(value):
+				_invalidate_interactive_water_mask("nonfinite-static-terrain-height");return
 			heights[row*side+column] = value
+	if not _cache_interactive_water_mask(heights,side,bounds):return
 	var image := Image.create_from_data(side,side,false,Image.FORMAT_RF,heights.to_byte_array())
 	_near_shore_texture = ImageTexture.create_from_image(image)
 	_ocean.set_near_shore_field(_near_shore_texture,Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
+
+func get_interactive_water_mask_revision() -> int:
+	return _interactive_water_mask_revision
+
+func get_interactive_water_mask() -> Dictionary:
+	if not _interactive_water_mask_error.is_empty():
+		return {"valid":false,"error":_interactive_water_mask_error,"revision":_interactive_water_mask_revision}
+	if _interactive_water_mask_all_wet:return {}
+	var result:=_interactive_water_mask.duplicate(false)
+	if result.has("data"):result.data=(_interactive_water_mask.data as PackedByteArray).duplicate()
+	return result
+
+func _invalidate_interactive_water_mask(reason: String) -> void:
+	# Keep the last complete bytes internally, but never present stale/unknown
+	# data as a valid new domain or as the intentional empty/all-wet contract.
+	_interactive_water_mask_error=reason
+	_interactive_water_mask_revision+=1
+
+func _cache_interactive_water_mask(heights: PackedFloat32Array,side: int,bounds: Rect2) -> bool:
+	if _interactive_water_mask_all_wet:
+		_interactive_water_mask={};_interactive_water_mask_error="";_interactive_water_mask_revision+=1
+		return true
+	var candidate:=TerrainWetMask.build(heights,side,bounds)
+	if not candidate.valid:
+		_invalidate_interactive_water_mask(str(candidate.error));return false
+	_interactive_water_mask_revision+=1
+	candidate.revision=_interactive_water_mask_revision
+	_interactive_water_mask=candidate
+	_interactive_water_mask_error=""
+	return true
 
 func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	if _disposed:
@@ -402,6 +449,7 @@ func _update_port_support() -> void:
 
 func _update_near_shore_field(center: Vector2i) -> void:
 	if _visual_style != 1 or not is_instance_valid(_ocean) or not _ocean.has_method("set_near_shore_field") or center == _near_shore_center: return
+	_invalidate_interactive_water_mask("building-near-height-lattice")
 	# Use the same vertex lattice and Float32 triangle surface as the actual near
 	# terrain. This field controls visible foam/refraction, not physics attenuation.
 	var tiles := _radius * 2 + 1
@@ -418,8 +466,10 @@ func _update_near_shore_field(center: Vector2i) -> void:
 			if is_instance_valid(chunk) and chunk.has_method("sample_mesh_height"):
 				value = float(chunk.sample_mesh_height(point.x,point.y))
 			if not is_finite(value): value = float(_height_sampler.call(point.x,point.y))
-			if not is_finite(value): return
+			if not is_finite(value):
+				_invalidate_interactive_water_mask("nonfinite-near-terrain-height");return
 			heights[row*side+column] = value
+	if not _cache_interactive_water_mask(heights,side,Rect2(minimum,maximum-minimum)):return
 	var image := Image.create_from_data(side,side,false,Image.FORMAT_RF,heights.to_byte_array())
 	_near_shore_texture = ImageTexture.create_from_image(image)
 	_ocean.set_near_shore_field(_near_shore_texture,Vector4(minimum.x,minimum.y,maximum.x,maximum.y))
@@ -653,6 +703,8 @@ func fidelity_diagnostics() -> Dictionary:
 
 func dispose() -> void:
 	_disposed = true
+	_interactive_water_mask.clear();_interactive_water_mask_all_wet=false
+	_invalidate_interactive_water_mask("world-disposed")
 	_source_lighting.clear();_native_environment=null;_native_sun=null
 	if atmosphere: atmosphere.dispose()
 	atmosphere = null; _atmosphere_options.clear()

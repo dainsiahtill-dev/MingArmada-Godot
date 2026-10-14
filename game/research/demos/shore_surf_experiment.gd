@@ -11,7 +11,7 @@ const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
 const CAMERAS := ["close", "edge", "wide"]
 const FACTORS := ["analytic", "source", "residue"]
-const DEFAULTS := {"camera_mode":"close","paused":false,"analytic_enabled":true,"source_enabled":true,"residue_enabled":true,"analytic_opacity":1.0,"source_opacity":1.0,"residue_opacity":1.0,"shore_edge_feather_m":0.6,"shore_edge_water_weight":0.55,"quality":"balanced","orbit_yaw":0.0,"orbit_pitch":0.0,"zoom":1.0}
+const DEFAULTS := {"camera_mode":"close","paused":false,"analytic_enabled":true,"source_enabled":true,"residue_enabled":true,"analytic_opacity":1.0,"source_opacity":1.0,"residue_opacity":1.0,"shore_edge_feather_m":0.6,"shore_edge_water_weight":0.55,"quality":"balanced","orbit_yaw":0.0,"orbit_pitch":0.0,"zoom":1.0,"projection_guard":true,"reflection_edge_feather":0.08}
 const SCOPE := "Independent actual production Xiamen island: seed1661, 257x257 Float32 triangle terrain; NaturalWorld terrain/source surf, ProjectedOcean five waves and reference_game_water shader, ShoreField512 and exact local terrain-height texture. No fleet, crew, towns, vegetation, atmosphere or shore spray. Three existing presentation seams: analytic advancing fronts (including their tail/contact lace), source short fronts and ocean edge residue/contact lace. coastal_breaker_strength multiplies the analytic front+tail+lace; shoreline_residue_strength controls both edge foam and lace inside that analytic term. These factors have native multiplicative coupling, not three mathematically independent layers. Source heads stay reanchored to the same ocean phase; this is not a second independent trajectory or a complete old-version renderer. Each source sprite also contains its authored thin tail. shore_edge_feather_m=.6m is a water/opaque-scene linear color composition; zero is the hard-edge comparison baseline. Water and island ALPHA stay1, terrain heights and source clocks stay unchanged. This isolated scene does not establish full-game FPS, ship occlusion or shoal coverage."
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
@@ -53,6 +53,8 @@ func control_spec() -> Array:
 		result.append({"id":factor+"_opacity","label":labels[factor]+("透明度" if factor=="source" else "展示强度"),"type":"range","value":_options[factor+"_opacity"],"min":0.0,"max":1.0,"step":0.05})
 	result.append({"id":"shore_edge_feather_m","label":"水岸羽化（垂直米）","type":"range","value":_options.shore_edge_feather_m,"min":0.0,"max":0.6,"step":0.05})
 	result.append({"id":"shore_edge_water_weight","label":"贴岸水色覆盖","type":"range","value":_options.shore_edge_water_weight,"min":0.0,"max":1.0,"step":0.05})
+	result.append({"id":"projection_guard","label":"五波位移覆盖","type":"toggle","value":_options.projection_guard})
+	result.append({"id":"reflection_edge_feather","label":"镜像边缘过渡","type":"range","value":_options.reflection_edge_feather,"min":0.0,"max":0.15,"step":0.01})
 	return result
 
 func _validate(candidate: Dictionary) -> String:
@@ -61,6 +63,8 @@ func _validate(candidate: Dictionary) -> String:
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS: return "invalid-camera_mode"
 	if not candidate.quality is String or candidate.quality not in ["low","balanced","high"]: return "invalid-quality"
 	if not candidate.paused is bool: return "invalid-paused"
+	if not candidate.projection_guard is bool: return "invalid-projection_guard"
+	if not _number(candidate.reflection_edge_feather) or candidate.reflection_edge_feather<0.0 or candidate.reflection_edge_feather>0.15: return "invalid-reflection_edge_feather"
 	if not _number(candidate.shore_edge_feather_m) or float(candidate.shore_edge_feather_m)<0.0 or float(candidate.shore_edge_feather_m)>0.6: return "invalid-shore_edge_feather_m"
 	if not _number(candidate.shore_edge_water_weight) or float(candidate.shore_edge_water_weight)<0.0 or float(candidate.shore_edge_water_weight)>1.0: return "invalid-shore_edge_water_weight"
 	for factor: String in FACTORS:
@@ -263,11 +267,14 @@ func _effective(factor: String) -> float:
 
 func _apply_layers() -> void:
 	if not is_instance_valid(_ocean) or not is_instance_valid(_surf): return
+	_ocean.set_projection_guard_enabled(_options.projection_guard)
+	_ocean.update_projection()
 	var material := _ocean.material_override as ShaderMaterial
 	# Explicit experiment factor permits baseline/candidate A/B independent of
 	# the accepted production default. Only water composition changes, not land.
 	material.set_shader_parameter("shore_edge_feather_m",float(_options.shore_edge_feather_m))
 	material.set_shader_parameter("shore_edge_water_weight",float(_options.shore_edge_water_weight))
+	material.set_shader_parameter("reflection_edge_feather",float(_options.reflection_edge_feather))
 	material.set_shader_parameter("coastal_breaker_strength",0.36*_effective("analytic"))
 	material.set_shader_parameter("shoreline_residue_strength",0.38*_effective("residue"))
 	_surf.visible = _options.source_enabled

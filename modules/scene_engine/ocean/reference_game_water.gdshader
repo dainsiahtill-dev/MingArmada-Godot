@@ -13,6 +13,10 @@ uniform bool mask_dry_terrain = false;
 uniform float shore_edge_feather_m : hint_range(0.0,1.0) = 0.6;
 // Independent local translucency; one restores the same-width coverage response.
 uniform float shore_edge_water_weight : hint_range(0.0,1.0) = 0.55;
+// Accepted isolated bank response. Zero retains the seabed-dominated baseline.
+// This presentation weight never changes bathymetry or the five-wave profile.
+uniform float detached_bank_water_weight : hint_range(0.0,1.0) = 0.65;
+uniform float detached_bank_palette_weight : hint_range(0.0,1.0) = 0.65;
 #include "res://modules/scene_engine/reference_island_water/source_common.gdshaderinc"
 #include "res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc"
 
@@ -20,6 +24,7 @@ uniform float shore_edge_water_weight : hint_range(0.0,1.0) = 0.55;
 #include "res://modules/scene_engine/ocean/integration_wave_functions.gdshaderinc"
 #include "res://modules/scene_engine/ocean/macro_wave_optics.gdshaderinc"
 #include "res://modules/scene_engine/ocean/water_environment_optics.gdshaderinc"
+#include "res://modules/scene_engine/ocean/interactive_wake_surface.gdshaderinc"
 
 uniform float u_strength = 1.0;
 uniform sampler2D u_scene : hint_screen_texture, repeat_disable, filter_linear;
@@ -98,8 +103,10 @@ float linear_depth(vec2 uv,mat4 inverse_projection) {
 }
 void vertex() {
   vec2 base=(MODEL_MATRIX*vec4(VERTEX,1.0)).xz;
-  v_world=vec3(base.x,u_tide+reference_game_height(base,simulation_time),base.y);
+  vec4 wake=interactive_wake_at(base);
+  v_world=vec3(base.x,u_tide+reference_game_height(base,simulation_time)+wake.r,base.y);
   v_normal=reference_game_normal(base,simulation_time);
+  if(interactive_wake_enabled) v_normal=interactive_wake_normal(v_normal,wake.gb);
   VERTEX=(inverse(MODEL_MATRIX)*vec4(v_world,1.0)).xyz;
   NORMAL=inverse(mat3(MODEL_MATRIX))*v_normal;
 }
@@ -127,6 +134,11 @@ void fragment() {
 	// retained five-wave derivative at the pixel; geometry/physics stay intact.
 	vec3 macro_normal=reference_game_normal(v_world.xz,simulation_time);
 	vec3 optical_macro_normal=reference_optical_wave_normal(v_world.xz,simulation_time,dFdx(v_world.xz),dFdy(v_world.xz));
+	vec4 wake=interactive_wake_at(v_world.xz);
+	if(interactive_wake_enabled) {
+		macro_normal=interactive_wake_normal(macro_normal,wake.gb);
+		optical_macro_normal=interactive_wake_normal(optical_macro_normal,wake.gb);
+	}
 	vec3 optical_view=u_eye-v_world;
 	float grazing_visibility=reference_macro_grazing_visibility(normalize(optical_view).y,length(optical_view));
 	if(grazing_visibility<1.0)optical_macro_normal=normalize(mix(vec3(0,1,0),optical_macro_normal,grazing_visibility));
@@ -145,6 +157,10 @@ void fragment() {
 	if(mask_dry_terrain && dry_height > u_tide + .035) discard;
 	float shore_depth=max(-dry_height,0.0);
 	float shallow_mix=1.0-smoothstep(1.5,17.0,shore_depth);
+	// A submerged offshore platform has no dry shoreline. Its bathymetry still
+	// marks a navigable hazard, but should not suppress all broad water texture
+	// with the saturated beach palette merely because its top is flat and shallow.
+	shallow_mix*=1.0-reference_detached_bank(shore_depth,reference_coast_distance(v_world.xz))*detached_bank_palette_weight;
 	// The approved azure/turquoise palette provides absorption's body color;
 	// real scene transmittance remains visible through the shallowest water.
 	vec3 water_color=mix(offshore_color,shallow_color,shallow_mix);
@@ -174,6 +190,8 @@ void fragment() {
 	bottom_gate=max(bottom_gate,smoothstep(10.0,18.0,below_surface));
 	float bottom_visibility=reference_bottom_visibility(max(u_tide-opaque_ground,0.0),reference_bottom_window(opaque_world.xz));
 	refracted=mix(water_color,refracted,1.0-bottom_gate*(1.0-bottom_visibility));
+	float detached_bank=reference_detached_bank(max(u_tide-opaque_ground,0.0),reference_coast_distance(opaque_world.xz));
+	refracted=mix(refracted,water_color,bottom_gate*detached_bank*detached_bank_water_weight);
 	if(!u_refraction_enabled)refracted=water_color;
 	// Keep full texture normals for the blue body, refraction and small glints.
 	// Their old perfect-mirror Fresnel made moderate ripples become broad white
@@ -185,7 +203,11 @@ void fragment() {
 	vec3 reflection=source_sky(reflected_ray);
 	vec4 rp=u_reflection_vp*vec4(v_world,1);
 	vec2 ruv=vec2(rp.x/rp.w*.5+.5,.5-rp.y/rp.w*.5)+vec2(reflection_normal.x,-reflection_normal.z)*.009;
-	if(u_use_reflection&&rp.w>0.0&&all(greaterThan(ruv,vec2(0)))&&all(lessThan(ruv,vec2(1))))reflection=sample_source_reflection(ruv);
+	if(u_use_reflection&&rp.w>0.0&&all(greaterThan(ruv,vec2(0)))&&all(lessThan(ruv,vec2(1)))) {
+		float border=min(min(ruv.x,ruv.y),min(1.0-ruv.x,1.0-ruv.y));
+		float coverage=reflection_edge_feather>0.0?reference_reflection_border(border,reflection_edge_feather):1.0;
+		reflection=mix(reflection,sample_source_reflection(ruv),coverage);
+	}
 	float f=.02+.98*pow(1.0-max(dot(n,view_dir),0.0),5.0);
 	if(!water_legacy_optics) f=reference_water_environment_fresnel(dot(reflection_normal,view_dir),water_environment_horizon_weight);
 	vec3 col=mix(refracted,reflection,f);
@@ -228,6 +250,14 @@ void fragment() {
 		float surf=coastal_breaker_foam(reference_coast_distance(v_world.xz),shore_depth,dry_height,v_world.xz,u_time,foam_noise,shore_noise)*coastal_breaker_strength;
 		col=mix(col,vec3(.89,.96,.94),max(edge_foam*.67*shoreline_residue_strength,surf*.92));
 	}
+	// Density comes from persistent world-space transport, not a hull-attached
+	// repeating white card. Keep water visible through the weakest foam.
+	if(interactive_wake_enabled) {
+		float density=clamp(wake.a,0.0,1.0);
+		float foam_light=.88+.12*max(dot(n,light_direction),0.0);
+		float grain=interactive_wake_foam_grain(v_world.xz,simulation_time);
+		col=mix(col,vec3(.86,.94,.94)*foam_light,density*grain*.90);
+	}
 	float fog=1.0-exp(-length(u_eye-v_world)*display_fog_density);
 	// Source default framebuffer also clamps display RGB; no manual 8-bit
 	// rounding is applied to filtered scene/reflection samples.
@@ -242,4 +272,11 @@ void fragment() {
 		}
 	}
 	ALPHA=1.0;
+	if(interactive_wake_enabled && interactive_wake_debug>0) {
+		vec3 debug_color=vec3(.04,.06,.08);
+		if(interactive_wake_debug==1) debug_color=vec3(.5+wake.r*2.0,.5-wake.r*2.0,.5);
+		if(interactive_wake_debug==2) debug_color=vec3(clamp(wake.a,0.0,1.0));
+		if(interactive_wake_debug==3) debug_color=normalize(vec3(-wake.g,1.0,-wake.b))*.5+.5;
+		ALBEDO=reference_to_linear(clamp(debug_color,vec3(0.0),vec3(1.0)));
+	}
 }

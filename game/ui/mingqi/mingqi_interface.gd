@@ -224,6 +224,8 @@ func _build() -> void:
 	_watchers.append(func():
 		goal.visible = not str(_story().get("objective", {}).get("title", "")).is_empty()
 		goal_button.disabled = not PANELS.has(str(_story().get("objective", {}).get("panel", ""))))
+	var voyage_progress := _text(head, "voyage_progress", _voyage_progress_text, 13, Color("a9c3bd"))
+	_watchers.append(func(): voyage_progress.visible = not voyage_progress.text.is_empty())
 	var time := _row(head)
 	_button(time, "pause", "暂停", func(): return {"type": "pause", "value": not _runtime().get("paused", false)}, func(): return _operational())
 	_watchers.append(func():
@@ -433,6 +435,8 @@ func _build_story(parent: Control) -> void:
 		var objective: Dictionary = _story().get("objective", {})
 		return str(objective.get("title", "")) + "\n" + str(objective.get("detail", "")))
 	_local_button(parent, "story_objective_open", "前往目标页面", func(): open_panel(str(_story().get("objective", {}).get("panel", "story"))))
+	var preparing: bool = _voyage_flow().get("settlements", []).is_empty() and _voyage_flow().get("active", {}).get("stage", "") in ["offered", "loading"]
+	if not preparing: _build_voyage_flow(parent)
 	# Put the newest decision within reach, retaining all earlier scenes below it.
 	var display_scenes: Array = []
 	for scene in _story().get("scenes", []):
@@ -473,6 +477,7 @@ func _build_story(parent: Control) -> void:
 					_watchers.append(func(): reason.visible = not reason.text.is_empty())
 			_:
 				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Color("a9c3bd"))
+	if preparing: _build_voyage_flow(parent)
 	_heading(parent, "账册与债务")
 	_text(parent, "story_debt", func():
 		var debt: Dictionary = _story().get("debt", {})
@@ -518,6 +523,72 @@ func _build_story(parent: Control) -> void:
 			if not message.strip_edges().is_empty(): messages.append(message)
 			if messages.size() == 6: break
 		return "\n\n".join(messages) if not messages.is_empty() else "这一页还没有新的航海记录。")
+
+func _voyage_flow() -> Dictionary: return _story().get("flow", {})
+
+func _voyage_clock(seconds: float) -> String:
+	var whole := int(ceil(maxf(0, seconds)))
+	return "%02d:%02d" % [whole / 60, whole % 60]
+
+func _voyage_progress_text() -> String:
+	var active: Dictionary = _voyage_flow().get("active", {})
+	if active.is_empty(): return ""
+	var stage: String = active.get("stage", "")
+	var phase := str({"offered": "接单", "loading": "整备离港", "underway": "护航送粮", "claim": "领取交差", "closed": "已结账"}.get(stage, "核对航程"))
+	var text := ("首航" if active.get("contractId") == "convoy-001" else "补给航次") + " · " + phase
+	match active.get("deadlineMode"):
+		"remaining": text += " · 期限 " + _voyage_clock(float(active.get("remainingSeconds", 0)))
+		"overdue": text += " · 逾期 " + _voyage_clock(float(active.get("overdueSeconds", 0)))
+		"on-acceptance": text += " · 接单后计时"
+	return text
+
+func _voyage_bill_text() -> String:
+	var lines: PackedStringArray = []
+	for bill: Dictionary in _voyage_flow().get("settlements", []):
+		lines.append("%s交差：实交%d粮 · 损失%d粮\n到账%d两（基础%d + 奖金%d）· 已付租费%d两\n回执所列船只死亡%d人 · 结算时伤员%d人；当前伤情请查船务。" % ["首航" if bill.contractId == "convoy-001" else "补给", bill.delivered, bill.lost, bill.paid, bill.baseReward, bill.bonus, bill.leasePaid, bill.dead, bill.wounded])
+	return "\n\n".join(lines)
+
+func _voyage_upgrade_text() -> String:
+	var upgrade: Dictionary = _voyage_flow().get("upgrade", {})
+	if upgrade.is_empty(): return "当前没有可改造的存活自有船；先检查船只与人员。"
+	if upgrade.status == "working": return "%s · 帆装改造已付%d两，尚需%.0f秒。恢复航程时间后，船坞继续作业。" % [upgrade.name, upgrade.cost, ceil(float(upgrade.remainingSeconds))]
+	if upgrade.status == "completed": return "%s · 帆装改造已完成，实际速度系数 %.2f。此项改造不会再次收费。" % [upgrade.name, upgrade.speedMultiplier]
+	return "%s是你的自有船。厦门帆装改造需%d两、%d秒，完成后速度系数 %.2f → %.2f。%s" % [upgrade.name, upgrade.cost, upgrade.durationSeconds, upgrade.speedMultiplier, upgrade.targetSpeedMultiplier, "回厦门安全靠泊后可申请；金门没有这项船坞作业。" if _state().get("currentPortId") != "xiamen" else "在船务页核对报价并申请。"]
+
+func _open_voyage_service() -> void:
+	var ship_id: String = _voyage_flow().get("upgrade", {}).get("shipId", "")
+	open_panel("port")
+	var selector = _screen.find_child("service_ship", true, false)
+	if selector is OptionButton:
+		for index in selector.item_count:
+			if str(selector.get_item_metadata(index)) == ship_id:
+				selector.select(index)
+				selector.item_selected.emit(index)
+				break
+	var scroll = _screen.find_child("operation_scroll", true, false)
+	if scroll is ScrollContainer and selector is Control: scroll.ensure_control_visible(selector)
+
+func _build_voyage_flow(parent: Control) -> void:
+	if _voyage_flow().is_empty(): return
+	var section := _column(_box(parent, "voyage_closure"))
+	_text(section, "voyage_progress_detail", func():
+		var active: Dictionary = _voyage_flow().get("active", {})
+		var counts: Dictionary = active.get("counts", {})
+		return _voyage_progress_text() + "\n粮船：在途%d · 到达%d · 损失%d。%s" % [counts.get("underway", 0), counts.get("arrived", 0), counts.get("lost", 0), "首航从开局计时；可先暂停，决定旧账与航路。对白可跳过。" if active.get("contractId") == "convoy-001" and active.get("stage") in ["offered", "loading"] else "按实际交付交差，逾期可能失去奖金。" if active.get("stage") != "closed" else "结算后仍须安全靠港，才能保存船队。"], 15)
+	var bill := _text(section, "voyage_bill", _voyage_bill_text, 15, Color("e3c88d"))
+	_watchers.append(func(): bill.visible = not bill.text.is_empty())
+	var decisions := _text(section, "voyage_decisions", func():
+		var entries: PackedStringArray = []
+		for decision: Dictionary in _voyage_flow().get("branches", []): entries.append("%s · 实付%d两" % [_story_choice(str(decision.sceneId), str(decision.choiceId)).get("label", decision.choiceId), decision.silverCost])
+		if not entries.is_empty(): entries.append("当前船员拥护%d · 军方信任%d · 商人信用%d" % [_state().get("reputations", {}).get("crewSupport", 0), _state().get("reputations", {}).get("militaryTrust", 0), _state().get("reputations", {}).get("merchantCredit", 0)])
+		return "\n".join(entries), 14)
+	_watchers.append(func(): decisions.visible = not decisions.text.is_empty())
+	_text(section, "voyage_upgrade", _voyage_upgrade_text, 15)
+	var services := _local_button(section, "voyage_upgrade_open", "查看自有船与改造", _open_voyage_service)
+	_watchers.append(func(): services.disabled = _voyage_flow().get("upgrade", {}).is_empty())
+	_local_button(section, "voyage_next_open", "查看本航 / 下一份委托", func(): open_panel("convoy"))
+	_text(section, "voyage_save", func(): return ("船队已符合安全存档条件。" if _runtime().get("canSave", false) else "存档尚需：" + _reason(_runtime().get("saveReason", "save-unverified"))) + "\n菜单中选择保存并返回主菜单；继续航程时点击「继续海上明旗 · 1650」，恢复实际银两、伤亡和船务进度。", 14)
+	_local_button(section, "voyage_save_open", "查看安全存档", open_menu)
 
 func _navigation_text() -> String:
 	var ship := _native(str(_state().get("flagshipId", "")))

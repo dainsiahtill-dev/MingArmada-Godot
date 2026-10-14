@@ -4,12 +4,13 @@ extends Node3D
 const Weather = preload("res://modules/environment_engine/weather_state.gd")
 const Atmosphere = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gd")
 const Effects = preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
+const TransformTrial = preload("res://game/research/demos/cloud_transform_trial.gd")
 const SkyShader = preload("res://modules/scene_engine/reference_island_water/reference_sky.gdshader")
 const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
 const PRESETS := ["clear", "storm", "sunset"]
 const CAMERAS := ["overview", "sky", "ground"]
-const DEFAULTS := {"preset": "clear", "camera_mode": "overview", "sky_enabled": true, "clouds_enabled": true, "shadows_enabled": true, "paused": false, "crt_seed": 1, "sky_crt_seed": 1, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0}
+const DEFAULTS := {"preset": "clear", "camera_mode": "overview", "sky_enabled": true, "clouds_enabled": true, "shadows_enabled": true, "cpu_transform_batching": true, "paused": false, "crt_seed": 1, "sky_crt_seed": 1, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0}
 const SCOPE := "Unchanged production WeatherState integer three-center rules and explicit CRT RNG; Atmosphere original domecloud1..5 rotation, stormcloud_sound/KF, two cloud00 actors, full DDS mips and baked texture-shadow records. Fixed 32Hz and 10 source units/m are target adapters; sky shader and sun energy are Godot adapters. Clear/storm/sunset are declared initial-state fixtures, not an original weather enum. DIAGNOSTIC RECEIVER: unlit 5m calibration grid above unchanged source-color static sea, not original sea color or landscape. Fixed overview frames center0's first two accepted seconds; ground uses orthographic magnification, native modelScale remains 1. No campaign, ocean-wave, reflection, rain or full native pixel parity claim. Visibility controls never modify accepted weather, sky or controller state."
 const RECEIVER_EXTENT := 10000.0
 const GRID_SPACING := 5.0
@@ -57,7 +58,7 @@ func _validated(options: Dictionary) -> Dictionary:
 		return {"ok": false, "reason": "invalid-preset"}
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS:
 		return {"ok": false, "reason": "invalid-camera_mode"}
-	for key: String in ["paused", "sky_enabled", "clouds_enabled", "shadows_enabled"]:
+	for key: String in ["paused", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching"]:
 		if not candidate[key] is bool:
 			return {"ok": false, "reason": "invalid-" + key}
 	for key: String in ["crt_seed", "sky_crt_seed"]:
@@ -106,11 +107,12 @@ func control_spec() -> Array:
 		{"id": "sky_enabled", "label": "天空云环", "type": "toggle", "value": _options.sky_enabled},
 		{"id": "clouds_enabled", "label": "三中心天气云", "type": "toggle", "value": _options.clouds_enabled},
 		{"id": "shadows_enabled", "label": "烘焙纹理云影", "type": "toggle", "value": _options.shadows_enabled},
+		{"id": "cpu_transform_batching", "label": "CPU矩阵批量存储（逐值对照）", "type": "toggle", "value": _options.cpu_transform_batching},
 		{"id": "camera_mode", "label": "固定观察镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "overview", "label": "云与影近景（校准地面）"}, {"value": "sky", "label": "天空"}, {"value": "ground", "label": "云影俯视（校准地面）"}]}
 	]
 
 func set_parameter(id: String, value: Variant) -> Dictionary:
-	if id not in ["preset", "sky_enabled", "clouds_enabled", "shadows_enabled", "camera_mode"]:
+	if id not in ["preset", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching", "camera_mode"]:
 		return {"ok": false, "reason": "unknown-parameter", "reset_required": false}
 	var candidate: Dictionary = _options.duplicate(true)
 	candidate[id] = value
@@ -123,6 +125,7 @@ func set_parameter(id: String, value: Variant) -> Dictionary:
 		set_camera_mode(value)
 	else:
 		_options[id] = value
+		if id == "cpu_transform_batching" and _atmosphere: _atmosphere.get("_render_compiler").batched = value
 		_refresh_presentation()
 	return {"ok": true, "reset_required": false, "id": id, "value": value}
 
@@ -222,6 +225,9 @@ func _build_experiment() -> void:
 		return
 	_packet = _weather.snapshot()
 	_atmosphere = Atmosphere.new()
+	var trial := TransformTrial.new()
+	trial.batched = _options.cpu_transform_batching
+	_atmosphere.set("_render_compiler", trial)
 	var receipt: Dictionary = _atmosphere.configure(_world, Effects.load_manifest(), {"crt_seed": _options.sky_crt_seed, "cloud_sky_radius": 1600.0, "cloud_sky_height": 380.0, "cloud_bounds_layer": true, "cloud_min_height": 80.0, "cloud_height_variation": 40.0, "fog_placements": [], "cloud_shadow_surface_height": 0.12, "cloud_shadow_opacity": 0.38})
 	if not receipt.get("ok", false):
 		_fail_build(String(receipt.get("error", "atmosphere-configuration-failed")))

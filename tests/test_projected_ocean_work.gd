@@ -65,6 +65,9 @@ func _run() -> void:
 	var camera := Camera3D.new(); viewport.add_child(camera); camera.current=true
 	camera.position=Vector3(30,38,60); camera.look_at(Vector3.ZERO)
 	var ocean: MeshInstance3D=Ocean.new(); viewport.add_child(ocean)
+	# Historical native-ray/cache oracle stays exact in the retained rollback.
+	# Default wave-volume coverage is tested through its visible-screen contract.
+	ocean.set_projection_guard_enabled(false)
 	ocean.configure(camera,null,80,3000.0)
 	ocean.configure_reflection(camera); ocean.enable_surface_optics(true)
 	_geometry(ocean,camera,"baseline perspective oracle before cache guard")

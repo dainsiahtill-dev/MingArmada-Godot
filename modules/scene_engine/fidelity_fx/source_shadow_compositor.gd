@@ -1,5 +1,6 @@
 extends CompositorEffect
 const Backend=preload("res://modules/scene_engine/fidelity_fx/source_shadow_rd.gd")
+const PreparedFrame=preload("res://modules/scene_engine/fidelity_fx/prepared_shadow_frame.gd")
 var _backend:RefCounted
 var _mutex:=Mutex.new()
 var _volumes:Array=[]
@@ -13,6 +14,11 @@ func _init()->void:
 
 func submit(volumes:Array,color:Color)->void:
 	_mutex.lock();_volumes=volumes.duplicate(true);_color=color;_mutex.unlock()
+
+func submit_prepared(frame:PreparedFrame,color:Color)->void:
+	# The certificate owns a recursively immutable snapshot. Keep default submit
+	# unchanged for arbitrary mutable callers; no borrowed arrays cross threads.
+	_mutex.lock();_volumes=frame.snapshot();_color=color;_mutex.unlock()
 
 func status()->Dictionary:
 	_mutex.lock();var result:=_status.duplicate(true);_mutex.unlock();return result

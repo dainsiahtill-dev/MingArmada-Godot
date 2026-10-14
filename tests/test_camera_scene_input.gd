@@ -120,6 +120,28 @@ func _running_orbit_blocks_course(scene: Node) -> void:
 	_pointer(scene, _button(MOUSE_BUTTON_LEFT, false, normal))
 	check(scene.get("command_calls") == commands + 1 and runtime.simulation.handling_status().has("targetHeading"), "ordinary left sea click still reaches actual mouse sailing after the camera gesture ends")
 
+func _rapid_successive_clicks(scene: Node) -> void:
+	var runtime: RefCounted = scene.get("runtime")
+	var screen: Vector2 = _actual_water_screen(scene)
+	if not check(screen.is_finite(), "rapid-click fixture uses the actual water projection"): return
+	var commands: int = scene.get("command_calls")
+	_pointer(scene, _button(MOUSE_BUTTON_LEFT, true, screen))
+	# Only raw input sees a GUI-consumed release. A second sea press can occur
+	# before the event-loop flush; the old deferred cancel must not clear it.
+	scene.call("_input", _button(MOUSE_BUTTON_LEFT, false, screen))
+	_pointer(scene, _button(MOUSE_BUTTON_LEFT, true, screen))
+	await process_frame
+	_pointer(scene, _button(MOUSE_BUTTON_LEFT, false, screen))
+	check(scene.get("command_calls") == commands + 1 and runtime.simulation.handling_status().has("targetHeading"),
+		"old GUI release cleanup cannot swallow a newer sea gesture in the same frame")
+	await process_frame
+	commands = scene.get("command_calls")
+	_pointer(scene, _button(MOUSE_BUTTON_LEFT, true, screen))
+	scene.call("_input", _button(MOUSE_BUTTON_LEFT, false, screen))
+	await process_frame
+	_pointer(scene, _button(MOUSE_BUTTON_LEFT, false, screen))
+	check(scene.get("command_calls") == commands, "GUI release still clears its own unfinished gesture")
+
 func _exercise(mingqi: bool) -> void:
 	var label: String = "Mingqi" if mingqi else "Practice"
 	var scene: Node3D = TracedMingqi.new() if mingqi else TracedPractice.new()
@@ -204,7 +226,19 @@ func _exercise(mingqi: bool) -> void:
 	check(not sea.call("camera_status").get("dragging", true), label + " real window focus-out notification cancels camera drag")
 	after = runtime.snapshot()
 	check(after.naval == authority.naval and after.get("campaign", {}) == authority.get("campaign", {}), label + " all camera and modal callbacks preserve actual frozen native/campaign authority")
-	if not mingqi: _running_orbit_blocks_course(scene)
+	if not mingqi:
+		_running_orbit_blocks_course(scene)
+		await _rapid_successive_clicks(scene)
+	else:
+		ui.close_panel(); ui.close_menu()
+		# Earlier checks deliberately issue several modal callbacks inside one
+		# frame. Reset each owner through the public runtime before departure.
+		runtime.set_pause("menu",false); runtime.set_pause("player",false); runtime.set_pause("blur",false)
+		var accepted: Dictionary = runtime.command({"type":"accept-convoy","commandId":"gesture-accept","expectedRevision":runtime.snapshot().campaign.revision})
+		var departed: Dictionary = runtime.command({"type":"depart","commandId":"gesture-depart","expectedRevision":runtime.snapshot().campaign.revision}) if accepted.get("ok",false) else {}
+		if check(accepted.get("ok",false) and departed.get("ok",false),"Mingqi rapid gesture test leaves port through actual contract and departure commands: " + JSON.stringify({"accepted":accepted,"departed":departed,"pauses":runtime.snapshot().runtime.pauseReasons})):
+			ui.close_panel(); scene.call("_present",0.0)
+			await _rapid_successive_clicks(scene)
 	await _release(scene)
 
 func _run() -> void:

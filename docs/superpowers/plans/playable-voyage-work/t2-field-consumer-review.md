@@ -1,0 +1,26 @@
+# T2 independent read-only field / ocean review
+
+2026-10-14. Reviewed T1 facade/RD/compute shaders and root's projected-ocean consumer after T2 input freeze. No core/consumer edits or GPU execution by this reviewer. Findings were sent to the owning agents and fixed there.
+
+[Archived review evidence](../../../research/evidence/wake-flow/2026-10-14-t2-field-review/manifest.json) includes both concrete headless failure reproductions, post-fix checks and reviewed source hashes.
+
+## Confirmed findings and dispositions
+
+1. **P1 — published texture / bounds mismatch.** The first facade changed the RID inside one already-bound `Texture2DRD` in `_published`; existing material bounds stayed at the previous origin until its next poll. Window remaps could therefore display the new pixels at old world coordinates. Final code uses two wrappers with fixed RIDs and an acquired `{texture,bounds,generation,time}` publication. `_awaiting_ack` prevents another output dispatch until the consumer binds that pair and acknowledges its current generation. T3 now binds before acknowledging. Stale generations and disposed owners cannot release the queue. A second wrapper without acknowledgement would not have protected a delayed consumer; current handshake addresses that case.
+
+2. **P2 — finite clock overflow.** Actual headless `plan_advance(0)` then `plan_advance(1e18)`, fixed_step1/60, produced `steps=tick=-9223372036854775808`, remainder about1.15e18 and dropped_steps0. Raw reproduction: `Temp/research/t2-wake-clock-review.json`, including source hash. Final facade and planner reject time outside±1e12; fixed step is restricted to1/240..1/15. Rejection precedes accepted clock mutation.
+
+3. **P2 — nontransitive near-distance sort.** Pairwise `is_equal_approx(distance)` then ID tie-break violated strict ordering. Fifteen closer emitters plus IDs z/m/a at squared distances400/400.003/400.006 selected m/z/m/a/z/a across the six input permutations, changing the actual16th force source at about20m. Raw reproduction: `Temp/research/t2-wake-selection-review-nearview.json`, including source hash. Final emitter and wake sorting use strict distance; only exact equality uses ID. T1 preserved the failing permutation regression and fixed it.
+
+Independent post-fix run: `Temp/research/t2-review-field-post-fixes.json`: field35 assertions/0 failures; interactive laboratory30/0. This is CPU validation, not a visual or GPU performance verdict.
+
+## Additional checked paths
+
+- **Delayed ACK / slot reuse:** the current output slot remains protected until the sole consumer switches to it. The following dispatch writes the alternate slot. Latest queued input is bounded to one snapshot. Same-time no-work completion may create another acknowledgement generation, but it does not write new pixels or age state.
+- **Readback ordering:** main thread captures a specific RID and copied diagnostics; render thread submits the download before subsequent writes queued on that device. Godot explicitly defines asynchronous results as the texture contents at request time, even though the callback arrives later. Slot reuse need not await the CPU callback after the copy request; disposing the RID does wait for `readbacks==0`. Callback completion transfers resource cleanup back to the render thread. [Official RenderingDevice contract](https://docs.godotengine.org/en/stable/classes/class_renderingdevice.html#class-renderingdevice-method-texture-get-data-async).
+- **Disposal:** queued facade work is discarded, owner epoch invalidates pending publication, wrappers are cleared, and final cleanup reports zero resource counts. Late readback returns an error after disposal. The reviewed consumer unbinds ocean before disposing the field.
+- **World remap:** destination cell world position is `newOrigin+(cell+.5)*dx`; source lookup is `cell+(newOrigin-oldOrigin-flow*dt)/dx`. Old-state mask checks use oldOrigin; destination checks use newOrigin. Static mask UVs map world X/Z to the supplied bounds with nearest sampling. Outside the explicit static mask domain remains wet by current contract. Four-neighbor height and foam writes zero dry destination cells; this is not a promise of obstacle-aware long-distance advection under arbitrary large ambient flow.
+- **Normal channels:** the foam/output kernel writes `(height,dH/dX,dH/dZ,foam)`. Ocean reads GB and subtracts those gradients from base-normal slopes. Vertex position and fragment macro normal use the same world XZ; fragment macro normal is recomputed from the base ocean, so the field slope is not applied twice.
+- **Force convention:** horizontal dipole is positive ahead and negative behind relative motion. Vertical positive vy creates a positive center and negative ring. That is the declared custom signed kernel pinned by the GPU numerical driver, not Crest's `-velocity.y` formula from the research note. Up/down visual acceptance and amplitude remain a distinct experiment; no hydrodynamic equivalence is inferred.
+
+No further definite blocker was established in the reviewed default configuration. Actual render-thread scheduling, mask captures, delayed publication GPU probes and continuous normal/foam appearance remain root's serial GPU acceptance. The current single-consumer acknowledgement contract must be preserved if more ocean/material consumers are added later.

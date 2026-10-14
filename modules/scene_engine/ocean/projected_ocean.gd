@@ -7,6 +7,7 @@ const REFERENCE_GAME_SHADER = preload("res://modules/scene_engine/ocean/referenc
 const ReferenceRenderer = preload("res://modules/scene_engine/reference_island_water/ocean_renderer.gd")
 const Descriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const WaveUniforms = preload("res://modules/scene_engine/ocean/wave_uniforms.gd")
+const Coverage = preload("res://modules/scene_engine/ocean/projected_grid_coverage.gd")
 const REFERENCE_SPARKLE = preload("res://assets/textures/pirates_reference/02_sparkle_b.dds.png")
 const REFERENCE_ORIGINAL_SPARKLE = preload("res://assets/textures/pirates_reference/water_spaarkle.dds.png")
 const REFERENCE_DEEP = preload("res://assets/textures/pirates_reference/duel_ocean deep.dds.png")
@@ -15,6 +16,7 @@ const REFERENCE_CAUSTICS = preload("res://assets/textures/pirates_reference/duel
 const REFERENCE_FOAM_A = preload("res://assets/textures/pirates_reference/foam0008.dds.png")
 const REFERENCE_FOAM_B = preload("res://assets/textures/pirates_reference/foam0009.dds.png")
 const REFERENCE_WHITECAPS = preload("res://assets/textures/pirates_reference/foam0024.dds.png")
+const INTERACTIVE_FROTH = preload("res://assets/textures/pirates_reference/fx_waterfroth_003.dds.png")
 const MINIMUM_RESOLUTION := 16
 const UNBOUNDED_FALLBACK_DISTANCE := 2500.0
 
@@ -41,6 +43,8 @@ var _last_camera_projection := Projection()
 var _last_world_transform := Transform3D.IDENTITY
 var _last_viewport_size := Vector2.ZERO
 var _projection_padding := 0.0
+var _projection_guard_enabled := true
+var _wave_amplitude_bound := 3.5
 var _local_rays := PackedVector3Array()
 var _ray_layout_key: Dictionary = {}
 var _ray_cache_builds := 0
@@ -50,6 +54,10 @@ var _original_layers := 1
 var _layers_saved := false
 var _near_shore_texture: Texture2D
 var _near_shore_bounds := Vector4.ZERO
+var _interactive_wake_texture: Texture2D
+var _interactive_wake_bounds := Vector4.ZERO
+var _interactive_wake_enabled := false
+var _interactive_wake_debug := 0
 var _reference_state := {"preset":"clear","strength":1.0,"tide":0.0,"foamWidth":1.5,"waves":true,"reflection":true,"foam":true,"caustics":true}
 
 func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80, max_distance: float = 3000.0) -> void:
@@ -78,10 +86,12 @@ func configure(camera: Camera3D, normal_texture: Texture2D, resolution: int = 80
 	_water_material.set_shader_parameter("reference_whitecaps_texture", REFERENCE_WHITECAPS)
 	_water_material.set_shader_parameter("coastal_foam_texture_a", REFERENCE_FOAM_A)
 	_water_material.set_shader_parameter("coastal_foam_texture_b", REFERENCE_FOAM_B)
+	_water_material.set_shader_parameter("interactive_wake_foam_texture", INTERACTIVE_FROTH)
 	_water_material.set_shader_parameter("has_coastal_foam_textures", true)
 	_water_material.set_shader_parameter("simulation_time", _simulation_time)
 	_water_material.set_shader_parameter("visual_style", _visual_style)
 	_water_material.set_shader_parameter("coastal_attenuation", _visual_style == 1)
+	_apply_interactive_wake_binding()
 	set_wave_descriptors(_descriptors)
 	if _shore_texture != null:
 		set_shore_field(_shore_texture, _shore_bounds, _coast_texture)
@@ -225,6 +235,31 @@ func set_near_shore_field(texture: Texture2D,bounds: Vector4) -> void:
 	_near_shore_texture=texture; _near_shore_bounds=bounds
 	_update_surface_optics()
 
+func bind_interactive_wake_field(texture: Texture2D, bounds: Vector4, enabled: bool) -> bool:
+	# Caller publishes one completed GPU surface/bounds pair. Pending or invalid
+	# resources must keep their prior binding, rather than hide the fallback.
+	if enabled and (texture==null or not bounds.is_finite() or bounds.z<=bounds.x or bounds.w<=bounds.y or texture.get_width()<2 or texture.get_height()<2): return false
+	if enabled!=_interactive_wake_enabled: _projection_initialized=false
+	_interactive_wake_enabled=enabled
+	_interactive_wake_texture=texture if enabled else null
+	_interactive_wake_bounds=bounds if enabled else Vector4.ZERO
+	_apply_interactive_wake_binding()
+	return true
+
+func set_interactive_wake_debug(mode: String) -> bool:
+	var modes := {"none":0,"height":1,"foam":2,"normal":3}
+	if not modes.has(mode): return false
+	_interactive_wake_debug=int(modes[mode])
+	_apply_interactive_wake_binding()
+	return true
+
+func _apply_interactive_wake_binding() -> void:
+	if _water_material==null: return
+	_water_material.set_shader_parameter("interactive_wake_surface",_interactive_wake_texture)
+	_water_material.set_shader_parameter("interactive_wake_bounds",_interactive_wake_bounds)
+	_water_material.set_shader_parameter("interactive_wake_debug",_interactive_wake_debug)
+	_water_material.set_shader_parameter("interactive_wake_enabled",_interactive_wake_enabled)
+
 func set_visual_style(style: int) -> void:
 	_visual_style = clampi(style, 0, 1)
 	if _water_material:
@@ -236,6 +271,11 @@ func set_wave_descriptors(descriptors: Array) -> bool:
 	var values := WaveUniforms.components(descriptors)
 	if values.is_empty(): return false
 	_descriptors = descriptors.duplicate(true)
+	var amplitude_bound := 0.0
+	for value: Dictionary in descriptors: amplitude_bound+=absf(float(value.amplitude))
+	if amplitude_bound!=_wave_amplitude_bound:
+		_wave_amplitude_bound=amplitude_bound
+		_projection_initialized=false
 	if _water_material:
 		_water_material.set_shader_parameter("wave_components", values)
 		_water_material.set_shader_parameter("wave_count", descriptors.size())
@@ -246,8 +286,13 @@ func set_projection_padding(fraction: float) -> void:
 	_projection_padding = clampf(fraction, 0.0, 0.25)
 	_projection_initialized = false
 
+func set_projection_guard_enabled(enabled: bool) -> void:
+	if enabled==_projection_guard_enabled: return
+	_projection_guard_enabled=enabled
+	_projection_initialized=false
+
 func get_projection_work_diagnostics() -> Dictionary:
-	return {"rayCacheBuilds":_ray_cache_builds,"rayCount":_local_rays.size()}
+	return {"rayCacheBuilds":_ray_cache_builds,"rayCount":_local_rays.size(),"waveGuard":_projection_guard_enabled,"waveAmplitudeBound":_wave_amplitude_bound}
 
 func _ensure_local_rays(camera_projection: Projection, camera_viewport: Viewport) -> bool:
 	# Camera motion rotates these directions but does not change the screen
@@ -316,6 +361,9 @@ func update_projection() -> void:
 	_last_world_transform = global_transform
 	_last_viewport_size = viewport_size
 	_projection_initialized = true
+	if _projection_guard_enabled and _camera.projection!=Camera3D.PROJECTION_ORTHOGONAL:
+		Coverage.project(self,_camera,_wave_amplitude_bound+(0.25 if _interactive_wake_enabled else 0.0))
+		return
 	# Native project_ray_normal rotates a local ray by the camera transform
 	# basis, then normalizes. Hoist the same basis and ocean inverse once.
 	var ray_basis := _camera.get_camera_transform().basis
