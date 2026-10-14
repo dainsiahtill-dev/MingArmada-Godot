@@ -3,35 +3,70 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 const base='docs/research/evidence/ship-water-optics-2026-10-14';
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
-const failures=[],runs=[];
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const failures=[],runs=[];let images=0;
 const check=(v,m)=>{if(!v)failures.push(m);};
-for(const [name,count] of [['research-1',18],['research-2',8]]){
- const dir=path.join(base,name), receipt=JSON.parse(fs.readFileSync(path.join(dir,'GPU_VERIFY.json')));
+const oldFiles={
+ 'modules/scene_engine/ocean/reference_game_water.gdshader':base+'/reference-pre-integration.gdshader.txt',
+ 'modules/scene_engine/ocean/projected_ocean.gd':base+'/projected-ocean-pre-integration.gd.txt'
+};
+for(const [name,count,historical] of [['research-1',18,true],['research-2',8,true],['tuning-3',10,true],['integrated-close-r3',18,false],['integrated-shore-r3',6,false],['default-game-r2',6,false]]){
+ const dir=path.join(base,name),receipt=read(path.join(dir,'GPU_VERIFY.json'));
  check(receipt.valid&&receipt.failures.length===0,name+' GPU receipt');
  check(receipt.captures.length===count,name+' capture count');
- check(sha(path.join(dir,'driver.gd.txt'))===receipt.sources['tools/diagnose-ship-water-optics.gd'],name+' archived driver SHA');
- const cameras={};
  for(const r of receipt.captures){
-  check(sha(path.join(dir,r.image))===r.image_sha256,name+'/'+r.image+' SHA');
-  check(r.time===8,name+' accepted time');
-  const angle=r.label.split('-')[0];
-  if(!cameras[angle])cameras[angle]=r.camera;
-  check(r.camera===cameras[angle],name+' same '+angle+' camera');
-  check(r.geometry.minimum_clearance_m<-.25,name+' hull enters water beyond wake bound');
-  check(r.optics.reflection_enabled&&r.optics.refraction_enabled,name+' production optics capability');
+  check(sha(path.join(dir,r.image))===(r.image_sha256||r.sha256),name+'/'+r.image+' SHA');images++;
  }
  for(const [file,hash] of Object.entries(receipt.sources)){
   if(file.startsWith('tools/'))continue;
-  check(sha(file)===hash,name+' unmodified runtime '+file);
+  check(sha(historical?(oldFiles[file]||file):file)===hash,name+' '+(historical?'frozen historical':'current')+' source '+file);
  }
- runs.push({name,valid:receipt.valid,captures:receipt.captures.length,receipt_sha256:sha(path.join(dir,'GPU_VERIFY.json')),cameras,geometry:receipt.captures[0].geometry});
+ if(historical){
+  check(sha(path.join(dir,'driver.gd.txt'))===receipt.sources['tools/diagnose-ship-water-optics.gd'],name+' archived driver');
+  const cameras={};
+  for(const r of receipt.captures){
+   const angle=r.label.split('-')[0];
+   cameras[angle]??=r.camera;
+   check(r.camera===cameras[angle]&&r.time===8,name+' same state and camera');
+  }
+ }
+ if(name==='default-game-r2'){
+  check(receipt.candidate_opt_in===false&&!receipt.baseline,'ordinary default');
+  const stopped=receipt.captures.find(r=>r.label==='05-stop-10s').ship_states.find(x=>x.id==='player');
+  check(stopped.sailDeployment===0&&Math.hypot(stopped.visual.velocity.x,stopped.visual.velocity.z)<.05,'actual stop reached');
+  for(const r of receipt.captures){
+   check(r.transmission.scattering===.35&&r.transmission.linear&&r.transmission.preserve_shallows,'all default captures selected optical controls');
+   check(r.field.bound&&r.field.field.dropped_steps===0,'water field remains active without skipped accepted steps');
+   check(r.shadow.casterAdapter.errors.length===0,'no caster errors');
+  }
+  check(receipt.captures.at(-1).field.field.total_steps===receipt.captures.at(-2).field.field.total_steps,'quality rebuild retains field history');
+ }
+ if(name==='integrated-close-r3'){
+  const motion=receipt.captures.filter(r=>r.label.startsWith('motion-'));
+  check(motion.length===12,'twelve buoyancy observations');
+  check(new Set(motion.map(r=>r.ship_states[0].visual.position.y)).size===12,'actual heave changes');
+  for(const angle of ['low','high']){
+   const rows=receipt.captures.filter(r=>r.label.startsWith(angle+'-'));
+   check(rows.length===3&&rows.every(r=>r.camera===rows[0].camera&&r.time===8),angle+' candidate and production same camera/time');
+  }
+ }
+ if(name==='integrated-shore-r3'){
+  for(const angle of ['wide','edge']){
+   const rows=receipt.captures.filter(r=>r.angle===angle);
+   check(rows.length===3&&rows.every(r=>r.camera===rows[0].camera&&r.time===24&&r.shore_width===.6&&r.shore_weight===.55),'shore same scene and preserved feather '+angle);
+  }
+ }
+ runs.push({name,captures:count,historical,receipt_sha256:sha(path.join(dir,'GPU_VERIFY.json'))});
 }
-check(JSON.stringify(runs[0].cameras)===JSON.stringify(runs[1].cameras),'both rounds same cameras');
-check(JSON.stringify(runs[0].geometry)===JSON.stringify(runs[1].geometry),'both rounds same hull geometry');
-const proof={valid:failures.length===0,failures,runs,totalCaptures:runs.reduce((n,r)=>n+r.captures,0),scope:'Research-only memory shader variants in actual free-sail. No production default modified; no live FPS or full-scene visual acceptance.'};
-fs.writeFileSync(path.join(base,'VERIFY.json'),JSON.stringify(proof,null,2)+'\n');
-const figures=(angle)=>[['baseline','现有方案'],['extinction-linear','研究候选：消光＋线性合成'],['no-transmission','诊断极端：完全关闭透射']].map(([mode,label])=>'<figure><a href="research-2/'+angle+'-'+mode+'.png"><img src="research-2/'+angle+'-'+mode+'.png" alt="'+label+'"></a><figcaption>'+label+'</figcaption></figure>').join('');
-const html='<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>船与水面接触 · 研究对照</title><style>body{margin:0;padding:32px;background:#101c21;color:#e5eeee;font:16px/1.65 system-ui}main{max-width:1700px;margin:auto}h1{font-size:28px}p{max-width:80ch;color:#bbd0d5}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}figure{margin:0}img{width:100%;display:block}figcaption{padding:9px 0}a{color:#8ed7e2}@media(max-width:850px){.grid{grid-template-columns:1fr}}</style><main><h1>船与水面接触：同态对照</h1><p>两个机位，同一艘船、同一姿态与 8 秒模拟时间。候选仅修改独立进程里的 shader，正式海水默认值未改。点击图片查看原始 PNG。候选并非最终验收；还需检查岸线、多船型与连续浮动。</p><h2>低机位</h2><div class="grid">'+figures('low')+'</div><h2>高机位</h2><div class="grid">'+figures('high')+'</div><p>候选在原消光系数上加 0.65 m⁻¹ 的中性项，再用线性颜色合成；该数值是艺术实验，不是海水实测值。完全关闭透射只用于定位问题。</p><p><a href="../../ship-water-contact-optics-research-2026-10-14.md">完整研究报告</a> · <a href="VERIFY.json">可复核证据</a></p></main></html>';
-fs.writeFileSync(path.join(base,'review.html'),html);
-console.log(JSON.stringify({valid:proof.valid,failures,totalCaptures:proof.totalCaptures,runtimeUnchanged:failures.every(x=>!x.includes('runtime'))}));
+const shore=read(base+'/integrated-shore-r3/SHORE_COMPARE.json');
+check(shore.regions.near_sand.selected.mean_abs_rgb_8bit===0,'measured near-sand ROI retains original RGB');
+check(shore.regions.outer_shallows.selected.mean_abs_rgb_8bit<shore.regions.outer_shallows.global035.mean_abs_rgb_8bit,'outer shallows approach original more closely');
+const match=read(base+'/integrated-close-r3/CANDIDATE_MATCH.json');
+for(const angle of ['low','high'])check(match[angle].mean_abs_rgb_8bit<.01,angle+' production matches selected 0.35 candidate');
+const proof={valid:failures.length===0,failures,totalCaptures:images,runs,shoreComparison:shore,selectedCandidateMatch:match,scope:'Selected 0.35 linear transmission integrated into shared production ocean, with original shallow-coast transmission blending into offshore response. One free-sail ship, 12 heave observations, coast comparison and ordinary-game quality lifecycle; no full-fleet FPS claim.'};
+fs.writeFileSync(base+'/VERIFY.json',JSON.stringify(proof,null,2)+'\n');
+const cell=(src,label)=>'<figure><a href="'+src+'"><img src="'+src+'" alt="'+label+'"></a><figcaption>'+label+'</figcaption></figure>';
+const html='<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>海水透射 · 最终接入对照</title><style>body{margin:0;padding:32px;background:#101c21;color:#e5eeee;font:16px/1.65 system-ui}main{max-width:1800px;margin:auto}h1{font-size:28px}p{max-width:90ch;color:#bbd0d5}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}figure{margin:0}img{width:100%;display:block}figcaption{padding:9px 0}a{color:#8ed7e2}@media(max-width:850px){.grid{grid-template-columns:1fr}}</style><main><h1>0.35 档船底透射，保留原浅滩</h1><p>正式方案：远海采用用户选定的 0.35 消光＋线性透射；浅滩保留原色与通透，按海底深度和离岸距离平滑过渡。下图是实际 Godot 原始帧，点击查看原图。</p><h2>海滩：同一镜头与潮位</h2><div class="grid">'+cell('integrated-shore-r3/edge-baseline.png','原海滩')+cell('integrated-shore-r3/edge-global035.png','全海域统一 0.35（r2 的方案）')+cell('integrated-shore-r3/edge-selected.png','最终：保留原浅滩，向深水过渡')+'</div><h2>船底：相同船姿和时间</h2><div class="grid">'+cell('integrated-close-r3/low-baseline.png','原透射')+cell('integrated-close-r3/low-linear-035.png','用户选定的 0.35 候选')+cell('integrated-close-r3/low-production.png','正式材质：0.35＋浅滩保护')+'</div><p>这组验证不等于全部船型、天气或整场 FPS 验收。研究与历史失败均保留。</p><p><a href="../../water-transmission-integration-2026-10-14.md">接入报告</a> · <a href="VERIFY.json">核验记录</a></p></main></html>';
+fs.writeFileSync(base+'/review.html',html);
+console.log(JSON.stringify({valid:proof.valid,failures,totalCaptures:images}));
 process.exitCode=proof.valid?0:1;

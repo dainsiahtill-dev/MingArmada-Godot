@@ -29,6 +29,7 @@ const markers={
  'res://tools/verify-interactive-wake-lab-gpu.gd':'INTERACTIVE_WAKE_LAB_GPU ',
  'res://tools/verify-interactive-wake-production-gpu.gd':'INTERACTIVE_WAKE_PRODUCTION_GPU ',
  'res://tools/diagnose-ship-water-optics.gd':'INTERACTIVE_WAKE_PRODUCTION_GPU ',
+ 'res://tools/verify-water-transmission-shore.gd':'WATER_TRANSMISSION_SHORE ',
  'res://tools/diagnose-voyage-ship-line.gd':'VOYAGE_SHIP_LINE ',
  'res://tools/verify-shadow-directed-boundary-gpu.gd':'VOYAGE_SHIP_LINE ',
 };

@@ -1,5 +1,12 @@
 // Local sand/water transition and submerged terrain contribution only.
 // Original dynamic lace, normal textures, palette, reflection and waves stay intact.
+// Target art-direction blend: retain clear beach transmission in the shallow
+// coastal band, then smoothly adopt the accepted offshore optical response.
+// Bathymetry/coast distances are world metres, never screen hull depth.
+float reference_shallow_transmission_preservation(float depth, float coast) {
+	return (1.0-smoothstep(1.5,6.0,max(depth,0.0)))*(1.0-smoothstep(24.0,80.0,max(coast,0.0)));
+}
+
 float reference_detached_bank(float depth, float coast) {
 	return smoothstep(0.0,2.4,depth)*(1.0-smoothstep(6.0,16.0,depth))*smoothstep(24.0,80.0,coast);
 }

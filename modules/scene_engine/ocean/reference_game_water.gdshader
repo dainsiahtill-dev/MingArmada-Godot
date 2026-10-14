@@ -39,6 +39,11 @@ uniform bool u_use_reflection = true;
 uniform bool u_foam = true;
 uniform bool u_refraction_enabled = true;
 uniform bool u_caustics = true;
+// Accepted ship/water optical calibration: effective scattering, in m^-1.
+// 0 plus display-domain mixing restores the pre-calibration transmission.
+uniform float water_scattering : hint_range(0.0,1.0) = 0.35;
+uniform bool water_linear_transmission = true;
+uniform bool preserve_shallow_transmission = true;
 // Curved analytic fronts own the advancing trajectory; authored surf follows
 // their phase and supplies irregular texture detail on the same wave heads.
 uniform float coastal_breaker_strength : hint_range(0.0,1.0) = 1.0;
@@ -149,7 +154,7 @@ void fragment() {
 	vec2 refract_uv=clamp(screen_uv+vec2(n.x,-n.z)*.012*min(optical_depth*.15,1.0),vec2(.002),vec2(.998));
 	if(linear_depth(refract_uv,INV_PROJECTION_MATRIX)<water_depth)refract_uv=screen_uv;
 	vec3 scene=sample_source_scene(refract_uv);
-	vec3 transmit=exp(-vec3(.19,.075,.035)*optical_depth);
+	vec3 transmit=exp(-(vec3(.19,.075,.035)+vec3(max(water_scattering,0.0)))*optical_depth);
 	float dry_height=height_at(v_world.xz);
 	// Sparse projected-water vertices can interpolate above a low island even
 	// when each vertex's waves are attenuated correctly. A per-fragment height
@@ -180,6 +185,17 @@ void fragment() {
 		water_color+=vec3(.014,.024,.026)*(surface_luma-.56);
 	}
 	vec3 refracted=scene*transmit+water_color*(1.0-transmit);
+	if(water_linear_transmission) {
+		// Inputs above preserve the reference display palette. Decode only this
+		// transmission blend, then encode for the retained later color stages.
+		refracted=reference_to_display(reference_to_linear(scene)*transmit+reference_to_linear(water_color)*(1.0-transmit));
+	}
+	if(preserve_shallow_transmission) {
+		float preserve=reference_shallow_transmission_preservation(max(u_tide-dry_height,0.0),reference_coast_distance(v_world.xz));
+		vec3 original_transmit=exp(-vec3(.19,.075,.035)*optical_depth);
+		vec3 original_transmission=scene*original_transmit+water_color*(1.0-original_transmit);
+		refracted=mix(refracted,original_transmission,preserve);
+	}
 	// Only seabed contribution fades with true depth and the finite terrain
 	// window. A visible ship hull is classified separately and retains refraction.
 	// This removes the green rectangular floor edge without moving any terrain.

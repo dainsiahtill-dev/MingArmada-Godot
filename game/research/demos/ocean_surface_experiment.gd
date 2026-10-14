@@ -8,7 +8,7 @@ const Waves = preload("res://modules/physics_engine/ocean/wave_field.gd")
 const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
 const CAMERAS := ["camera_near", "camera_mid", "camera_horizon"]
-const DEFAULTS := {"paused": false, "camera_mode": "camera_near", "optics_mode": "soft", "reflection_enabled": true, "refraction_enabled": true, "detail_strength": 1.0, "projection_guard": true, "fixture":"optics", "bank_water_weight":0.65,"bank_palette_weight":0.65}
+const DEFAULTS := {"paused": false, "camera_mode": "camera_near", "optics_mode": "soft", "reflection_enabled": true, "refraction_enabled": true, "detail_strength": 1.0, "projection_guard": true, "fixture":"optics", "bank_water_weight":0.65,"bank_palette_weight":0.65, "water_scattering":0.35, "water_linear_transmission":true, "preserve_shallow_transmission":true}
 const SCOPE := "Independent shared production five-wave Ocean, shader, textures and projected ArrayMesh. Default opaque posts and submerged color tiles calibrate optics without ships or terrain; its deep-water fallback is -20m. The supply-shoal fixture instead uses the actual navigation grid and terrain material. Projection guard compares conservative five-wave coverage with the retained mean-plane baseline. Legacy selects the existing mirror response, not a historical game build. No campaign, RNG or full-game performance claim."
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
@@ -43,6 +43,9 @@ func get_default_options() -> Dictionary:
 
 func control_spec() -> Array:
 	return [
+		{"id":"preserve_shallow_transmission","label":"保留原浅滩通透","type":"toggle","value":_options.preserve_shallow_transmission},
+		{"id":"water_scattering","label":"水中细节消光（每米）","type":"range","value":_options.water_scattering,"min":0.0,"max":1.0,"step":0.05},
+		{"id":"water_linear_transmission","label":"线性透射合成","type":"toggle","value":_options.water_linear_transmission},
 		{"id":"fixture","label":"观察夹具","type":"choice","value":_options.fixture,"choices":[{"value":"optics","label":"原光学标定"},{"value":"supply_shoal","label":"原导航浅滩"}]},
 		{"id":"bank_water_weight","label":"离岸浅滩水体散射","type":"range","value":_options.bank_water_weight,"min":0.0,"max":1.0,"step":0.05},
 		{"id":"bank_palette_weight","label":"离岸浅滩保留海色","type":"range","value":_options.bank_palette_weight,"min":0.0,"max":1.0,"step":0.05},
@@ -58,7 +61,7 @@ func _validate(candidate: Dictionary) -> String:
 	for key: String in candidate:
 		if not DEFAULTS.has(key):
 			return "unknown-parameter:" + key
-	for key: String in ["paused", "reflection_enabled", "refraction_enabled", "projection_guard"]:
+	for key: String in ["paused", "reflection_enabled", "refraction_enabled", "projection_guard", "water_linear_transmission", "preserve_shallow_transmission"]:
 		if not candidate[key] is bool:
 			return "invalid-" + key
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS:
@@ -68,6 +71,7 @@ func _validate(candidate: Dictionary) -> String:
 	if not candidate.fixture is String or candidate.fixture not in ["optics","supply_shoal"]: return "invalid-fixture"
 	if not (candidate.bank_water_weight is float or candidate.bank_water_weight is int) or not is_finite(float(candidate.bank_water_weight)) or candidate.bank_water_weight<0.0 or candidate.bank_water_weight>1.0: return "invalid-bank_water_weight"
 	if not (candidate.bank_palette_weight is float or candidate.bank_palette_weight is int) or not is_finite(float(candidate.bank_palette_weight)) or candidate.bank_palette_weight<0.0 or candidate.bank_palette_weight>1.0: return "invalid-bank_palette_weight"
+	if not (candidate.water_scattering is float or candidate.water_scattering is int) or not is_finite(float(candidate.water_scattering)) or candidate.water_scattering<0.0 or candidate.water_scattering>1.0: return "invalid-water_scattering"
 	var detail: Variant = candidate.detail_strength
 	if not (detail is float or detail is int) or not is_finite(float(detail)) or float(detail) < 0.0 or float(detail) > 2.0:
 		return "invalid-detail_strength"
@@ -257,6 +261,9 @@ func _refresh() -> void:
 	_ocean.set_reference_surface_state({"strength": _options.detail_strength})
 	_ocean.set_reflection_enabled(_options.reflection_enabled)
 	_ocean.set_refraction_enabled(_options.refraction_enabled)
+	_ocean.material_override.set_shader_parameter("preserve_shallow_transmission",_options.preserve_shallow_transmission)
+	_ocean.material_override.set_shader_parameter("water_scattering",float(_options.water_scattering))
+	_ocean.material_override.set_shader_parameter("water_linear_transmission",_options.water_linear_transmission)
 	_ocean.material_override.set_shader_parameter("water_legacy_optics", _options.optics_mode == "legacy")
 	_ocean.material_override.set_shader_parameter("detached_bank_water_weight",float(_options.bank_water_weight))
 	_ocean.material_override.set_shader_parameter("detached_bank_palette_weight",float(_options.bank_palette_weight))
@@ -298,7 +305,7 @@ func inspection_snapshot() -> Dictionary:
 	state.resources = {"world": 1, "ocean": 1, "mirror": 1 if is_instance_valid(mirror) else 0, "ship": 0, "fixtures": _fixture_materials.size(), "materials": _fixture_materials.size() + 2, "wave_owner": 1}
 	var material: ShaderMaterial = _ocean.material_override
 	var uniforms := {}
-	for key: String in ["simulation_time", "u_time", "u_strength", "water_legacy_optics", "u_use_reflection", "u_refraction_enabled"]:
+	for key: String in ["simulation_time", "u_time", "u_strength", "water_legacy_optics", "u_use_reflection", "u_refraction_enabled", "water_scattering", "water_linear_transmission", "preserve_shallow_transmission"]:
 		uniforms[key] = material.get_shader_parameter(key)
 	var optics: Dictionary = _ocean.get_surface_optics_diagnostics()
 	var reflection_size: Vector2i = optics.get("reflection_size", Vector2i.ZERO)

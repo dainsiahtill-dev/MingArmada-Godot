@@ -12,13 +12,16 @@ var output_owned := false
 var records: Array=[]
 var failures: Array[String]=[]
 var frozen: Dictionary={}
+func isolate_input(node:Node)->void:
+	node.set_process_input(false);node.set_process_unhandled_input(false);node.set_process_unhandled_key_input(false)
+	for child:Node in node.get_children():isolate_input(child)
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool,message: String) -> void:
 	if not ok:failures.append(message);printerr("FAIL interactive production: ",message)
 func hashes() -> Dictionary:
 	var result: Dictionary={}
 	for file: String in SOURCES:result[file]=FileAccess.get_sha256("res://"+file)
-	for file: String in ["game/presentation/world/target_shadow_boundary.gd","game/presentation/world/target_rigid_shadow_caster.gd","game/presentation/world/prepared_rigid_shadow.gd","modules/scene_engine/fidelity_fx/source_shadow_math.gd","modules/scene_engine/fidelity_fx/source_shadow_rd.gd"]:
+	for file: String in ["game/presentation/world/target_shadow_boundary.gd","game/presentation/world/target_rigid_shadow_caster.gd","game/presentation/world/prepared_rigid_shadow.gd","modules/scene_engine/fidelity_fx/source_shadow_math.gd","modules/scene_engine/fidelity_fx/source_shadow_rd.gd","modules/scene_engine/ocean/reference_shore_foam.gdshaderinc"]:
 		result[file]=FileAccess.get_sha256("res://"+file)
 	return result
 func settle() -> bool:
@@ -57,6 +60,8 @@ func capture(label: String) -> void:
 	if not baseline:check(status.field.get("land_masked",false),"actual island terrain mask installed")
 	check(scene.sea.sailors.size()>0,"3D crew owners retained")
 	var material: ShaderMaterial=scene.sea.world.get_ocean().material_override
+	var transmission:Dictionary={"scattering":material.get_shader_parameter("water_scattering"),"linear":material.get_shader_parameter("water_linear_transmission"),"preserve_shallows":material.get_shader_parameter("preserve_shallow_transmission")}
+	check(transmission.scattering==.35 and transmission.linear==true and transmission.preserve_shallows==true,"selected transmission survives normal owner updates")
 	check(int(material.get_shader_parameter("wave_count"))==5,"original five sea waves retained")
 	var original: RefCounted=scene.sea.wakes.get("_source_wakes")
 	var visible: Dictionary={}
@@ -71,6 +76,7 @@ func capture(label: String) -> void:
 	check(shadow.get("casterAdapter",{}).get("errors",[]).is_empty(),"rigid shadow adapter errors absent")
 	records.append({"label":label,"image":label+".png","image_sha256":FileAccess.get_sha256(output+"/"+label+".png"),"time":native.time,"player_id":native.playerId,"ship_states":native.ships,"field":status,"mask":mask,"source_visible":visible,"original_wake":scene.sea.wakes.diagnostics(),"crew_owners":scene.sea.sailors.size(),"camera":str(scene.sea.camera.global_transform),"physics_sha256":var_to_bytes(native).hex_encode().sha256_text()})
 	records[-1].shadow=shadow
+	records[-1].transmission=transmission
 	print("INTERACTIVE_PRODUCTION_CAPTURE ",label," time=",native.time," covered=",covered)
 func run() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -94,6 +100,9 @@ func run() -> void:
 	check(scene.startup_receipt.get("ok",false),"actual free-sail startup")
 	if not failures.is_empty():finish();return
 	scene.activate_entry();scene.sea.apply_settings({"quality":"balanced"})
+	# QA commands are the only input. Desktop clicks/keys must not alter the
+	# controlled timeline while the user continues working in other windows.
+	root.gui_disable_input=true;root.unfocusable=true;isolate_input(scene)
 	if baseline or candidate_opt_in:
 		scene.sea._options.interactive_wake=candidate_opt_in
 		scene.sea._configure_interactive_water();scene.sea.wakes.set_interactive_coverage([])
@@ -109,6 +118,9 @@ func run() -> void:
 	await ticks(480);await capture("04-turn-8s")
 	check(scene.runtime.command({"type":"stop-sailing"}).ok,"real stop command")
 	await ticks(600);await capture("05-stop-10s")
+	var stopped:Dictionary=scene.runtime.snapshot().naval.ships[0]
+	var stopped_velocity:Dictionary=stopped.visual.velocity
+	check(float(stopped.sailDeployment)==0.0 and Vector2(stopped_velocity.x,stopped_velocity.z).length()<.05,"stop command reaches a stopped ship")
 	var before: Dictionary=scene.sea.interactive_water_status()
 	var physics:=var_to_bytes(scene.runtime.snapshot())
 	scene.sea.apply_settings({"quality":"high"})

@@ -155,3 +155,10 @@ rtk proxy node tools/verify-godot.mjs --godot $env:GODOT_EXE --filter reference_
 复现新实验：先核对冻结 SHA256，运行独立合同；Godot 打开 `project.godot`、F5，从普通主菜单进入实验室选择本课题，固定 near/mid/horizon、32Hz序列、暂停同刻改变一个因子，保存原帧与参数快照。实际 GPU 结果必须分别确认时间、画面和资源生命周期，再更新本论文。重复 run 使用新目录。
 
 复验后核对投影 grid、五波、terrain、snapshot 时间、镜像 layer 与释放合同，再测正式入口。若失败，回退光学 seam，保留原五波、全部基线与失败截图；新记录使用新目录，不能覆盖历史 RED/GREEN。
+
+
+## 2026-10-14：船底透射与浅滩的接受更新
+
+用户已选定 **0.35 消光＋线性透射**，保留隐约可见的船底；同时要求浅滩保留原色与通透。正式共用海水默认启用三项参数：water_scattering=0.35、water_linear_transmission=true、preserve_shallow_transmission=true。既有实验控制面板已提供这些参数，背景时钟和五波不变。上文早期“未测/不改变正式算法”为历史阶段记录，当前此项状态以[接入报告](../../../docs/research/water-transmission-integration-2026-10-14.md)及其[综合证据](../../../docs/research/evidence/ship-water-optics-2026-10-14/VERIFY.json)为准。
+
+保护权重只取实际海底深度与岸场距离：小于1.5m且距岸24m以内保持原透射；深度1.5–6m、离岸24–80m平滑过渡到新响应。不开辟独立船体颜色区域，不改岸浪或0.6/0.55羽化。线性化只作用于透射合成；颜色与距离参数是本作艺术标定，不声称完整体积散射或实测海水。
