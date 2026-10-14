@@ -3,6 +3,7 @@ extends RefCounted
 const Mix=preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
 const Add=preload("res://modules/scene_engine/fidelity_fx/particle_add.gdshader")
 const SceneWake=preload("res://modules/scene_engine/water/source_scene_wake.gdshader")
+const AttachedFroth=preload("res://modules/scene_engine/water/source_attached_froth.gdshader")
 const Upload=preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
 static var _textures:Dictionary={}
 var nodes:Dictionary={}
@@ -28,14 +29,16 @@ static func texture(name:String)->Texture2D:
 func _init(owner:Node3D)->void:parent=owner
 func material(record:Dictionary)->ShaderMaterial:
 	var scene_trail:=bool(record.get("scene_trail",false))
-	var key:=str(record.texture)+":"+str(record.get("alphaFlags",4333))+":"+str(record.get("clampMode",3))+":"+str(scene_trail)
+	var target_role:=str(record.get("target_froth_role",""))
+	var key:=str(record.texture)+":"+str(record.get("alphaFlags",4333))+":"+str(record.get("clampMode",3))+":"+str(scene_trail)+":"+target_role
 	if _materials.has(key):
 		if scene_trail:_scene_trail_parameters(_materials[key],record)
+		if not target_role.is_empty():_froth_intensity(_materials[key],record)
 		return _materials[key]
 	var original:=texture(record.texture)
 	if original==null:return null
 	var flags:=int(record.get("alphaFlags",4333));var destination:=(flags>>5)&15
-	var out:=ShaderMaterial.new();out.shader=SceneWake if scene_trail else (Add if flags&1 and destination==0 else Mix);out.render_priority=3
+	var out:=ShaderMaterial.new();out.shader=AttachedFroth if target_role in ["side","bow"] else (SceneWake if scene_trail else (Add if flags&1 and destination==0 else Mix));out.render_priority=3
 	out.set_shader_parameter("source_texture",original);out.set_shader_parameter("source_texture_repeat",original)
 	var clamp_mode:=int(record.get("clampMode",3))
 	out.set_shader_parameter("source_repeat",clamp_mode==3);out.set_shader_parameter("source_clamp_mode",clamp_mode)
@@ -46,7 +49,16 @@ func material(record:Dictionary)->ShaderMaterial:
 		# while opaque hulls and terrain retain a small contact-depth fade.
 		out.set_shader_parameter("soft_depth_distance",0.08)
 		_scene_trail_parameters(out,record)
+	if not target_role.is_empty():_froth_intensity(out,record)
 	_materials[key]=out;return out
+
+static func _froth_intensity(out:ShaderMaterial,record:Dictionary)->void:
+	var strength:=float(record.get("target_froth_intensity",1.0))
+	out.set_shader_parameter("display_tint",Color(1,1,1,clampf(strength,0.0,1.0) if is_finite(strength) else 1.0))
+	if str(record.get("target_froth_role","")) in ["side","bow"]:
+		out.set_shader_parameter("soft_depth_distance",0.08)
+		out.set_shader_parameter("hull_world_to_local",record.get("target_froth_world_to_hull",Transform3D.IDENTITY))
+		out.set_shader_parameter("froth_visual_time",float(record.get("target_froth_time",0.0)))
 
 static func scene_strip_descriptor(geometry:Dictionary)->Dictionary:
 	var out:={"texture":"wake3unique.dds","alphaFlags":4333,"clampMode":3,"scene_trail":true,"tail_v":0.0,"tail_span_v":0.0}

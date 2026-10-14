@@ -20,9 +20,13 @@ func pixels(view:SubViewport)->Image:
 	return view.get_texture().get_image()
 func run()->void:
 	var phase:="current"
+	var role:="scene_trail"
 	for argument:String in OS.get_cmdline_user_args():
 		if argument.begins_with("--phase="):phase=argument.trim_prefix("--phase=")
+		if argument.begins_with("--role="):role=argument.trim_prefix("--role=")
 	var output:="res://docs/migration/evidence/wake-regression-2026-10-14/occlusion-gpu/"+phase
+	if role=="side":output="res://docs/migration/evidence/froth-closeup-2026-10-14/occlusion-gpu/"+phase
+	if role=="bow":output="res://docs/migration/evidence/bow-froth-2026-10-14/occlusion-gpu/"+phase
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	var view:=SubViewport.new();view.size=Vector2i(128,128);view.own_world_3d=true;view.render_target_update_mode=SubViewport.UPDATE_ALWAYS;root.add_child(view)
 	var world:=Node3D.new();view.add_child(world)
@@ -32,7 +36,9 @@ func run()->void:
 	ocean_shader.code="shader_type spatial; render_mode unshaded,cull_disabled,depth_draw_always; void fragment(){ALBEDO=vec3(0.02,0.12,0.5);ALPHA=1.0;}";ocean.shader=ocean_shader;quad(world,ocean,.2)
 	var opaque:=ShaderMaterial.new();var opaque_shader:=Shader.new();opaque_shader.code="shader_type spatial;render_mode unshaded,cull_disabled;void fragment(){ALBEDO=vec3(0.0,1.0,0.0);}"
 	opaque.shader=opaque_shader;var hull_node:=quad(world,opaque,.4,-.8,-.2)
-	var surface:=Surface.new(world);var material:=surface.material({"texture":"wake3unique.dds","alphaFlags":4333,"clampMode":3,"scene_trail":true})
+	var descriptor:={"texture":"wake3unique.dds","alphaFlags":4333,"clampMode":3,"scene_trail":role=="scene_trail"}
+	if role in ["side","bow"]:descriptor.merge({"target_froth_role":role,"target_froth_intensity":1.0,"target_froth_world_to_hull":Transform3D.IDENTITY,"target_froth_time":30.0})
+	var surface:=Surface.new(world);var material:=surface.material(descriptor)
 	if phase=="red":
 		var legacy:=Shader.new();legacy.code=material.shader.code.replace("depth_test_disabled,","");material.shader=legacy;material.set_shader_parameter("soft_depth_distance",0.0)
 	var white:=Image.create(4,4,false,Image.FORMAT_RGBA8);white.fill(Color.WHITE);var texture:=ImageTexture.create_from_image(white)
@@ -46,6 +52,6 @@ func run()->void:
 	var behind:Image=await pixels(view);behind.save_png(output+"/opaque-behind.png")
 	var behind_pixel:=behind.get_pixel(32,64)
 	check(behind_pixel.r>.95 and behind_pixel.g>.95 and behind_pixel.b>.95,"opaque geometry behind foam does not erase it")
-	var report:={"failures":failures,"foam":foam.to_html(true),"opaqueHull":hull.to_html(true),"opaqueBehind":behind_pixel.to_html(true),"renderer":RenderingServer.get_current_rendering_method(),"scope":"Actual SourceSurface material, diagnostic transparent sea and opaque hull; original source geometry untouched."}
+	var report:={"failures":failures,"role":role,"foam":foam.to_html(true),"opaqueHull":hull.to_html(true),"opaqueBehind":behind_pixel.to_html(true),"renderer":RenderingServer.get_current_rendering_method(),"scope":"Actual SourceSurface material, diagnostic transparent sea and opaque hull; original source geometry untouched."}
 	var file:=FileAccess.open(output+"/VERIFICATION.json",FileAccess.WRITE);file.store_string(JSON.stringify(report,"\t"));file.close()
 	surface.dispose();view.free();print("SOURCE_WAKE_OCCLUSION_GPU failures=",failures.size()," foam=",foam," hull=",hull);quit(0 if failures.is_empty() else 1)

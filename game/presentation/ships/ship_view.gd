@@ -5,11 +5,13 @@ const AssetLibrary = preload("res://modules/scene_engine/assets/asset_library.gd
 const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 const DeckSupport = preload("res://game/presentation/crew/deck_stations.gd")
+const HullWaterline = preload("res://game/presentation/ships/hull_waterline_profile.gd")
 const DESTRUCTION_ANCHOR_LIFT := 0.35
 signal presentation_event(event: Dictionary)
 var _damage = ShipDamage.new()
 const KINDS := ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]
 var _models: Array[Node3D] = []
+var _waterline_profiles: Array[Dictionary] = []
 var _library: RefCounted
 var _provider: RefCounted
 var _kind := ""
@@ -55,6 +57,7 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 		add_child(model)
 		model.visible = lod == _lod
 		_models.append(model)
+		_waterline_profiles.append(HullWaterline.build(model))
 		for node in model.find_children("*", "Node3D", true, false):
 			if String(node.name).begins_with("mast_") and String(node.name).trim_prefix("mast_").is_valid_int():
 				_mast_yaw[node.get_instance_id()] = node.rotation.y
@@ -305,6 +308,13 @@ func source_water_attachment() -> Dictionary:
 	if not markers.has_all(["wake","bow"]): return {}
 	var unit := float(markers.sourceToWorld)
 	var result := {"sourceToWorld":unit,"sourceResourceName":markers.sourceResourceName,"modelScale":model.global_basis.get_scale().x,"rotation":model.global_basis.orthonormalized(),"markerId":markers.wake.id}
+	if _waterline_profiles.size()>_lod and not _waterline_profiles[_lod].is_empty():
+		# Only transforms change per frame. The actual hull-only Y=0 contour is
+		# cached in model coordinates during configure, independently of motion.
+		var profile:=_waterline_profiles[_lod].duplicate(false)
+		profile.hullToWorld=model.global_transform
+		profile.worldToHull=model.global_transform.affine_inverse()
+		result.surfaceProfile=profile
 	for role: String in ["wake","bow"]:
 		var p: Array = markers[role].position
 		result[role] = model.global_transform * (Vector3(p[0],p[2],-p[1])*unit)
@@ -329,6 +339,7 @@ func dispose() -> void:
 		if is_instance_valid(model):
 			model.free()
 	_models.clear()
+	_waterline_profiles.clear()
 	_mast_yaw.clear()
 	_mast_basis.clear()
 	_rudder_rest.clear()

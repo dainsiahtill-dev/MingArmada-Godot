@@ -35,6 +35,19 @@ static func compose(native:Dictionary,actors:Dictionary,camera:Camera3D)->Dictio
 		var enabled:=speed>0.35 and float(state.get("hull",100.0))>0.0 and not bool(state.get("sunk",false)) and float(state.get("sailDeployment",1.0))>0.0
 		var packet:={"route":route,"sourcePosition":position,"markerId":attachment.markerId,"sourceClock":time,"modelScale":attachment.modelScale,"sourceToWorld":unit,"worldOrigin":[0.0,0.0,0.0],"sourceCallIndex":call_index,"epoch":result.wake.epoch,"sourceRotation":native_rotation(attachment.rotation),"adaptation":"native lowend markers; target scene30 yaw-only horizontal travel input, raw battle/froth poses, world coordinates and family selection"}
 		packet.froth={"family":family,"sourceResourceName":"fx_ship_sidefroth_"+FROTH_NAMES[family]+".nif","sourcePosition":raw_position,"sourceBowPosition":bow,"controllerAppTime":time,"enabled":enabled,"seed":absi(str(state.id).hash())%2147483647,"scalePolicy":"target actual model root scale; native class scale table unavailable"}
+		if attachment.has("surfaceProfile"):
+			# Explicit target footprint/intensity policy; never substitute this
+			# artistic width for native modelScale or original class tables.
+			var profile:Dictionary=attachment.surfaceProfile.duplicate(false)
+			var cruise:=6.0*0.514444
+			var strength:=smoothstep(0.35,cruise,speed) if is_finite(speed) else 0.0
+			var beam:=float(profile.beam)
+			profile.targetOuterWidth=lerpf(clampf(beam*0.07,0.35,0.45),clampf(beam*0.15,0.45,0.8),strength)
+			profile.intensity=0.65*strength if enabled else 0.0
+			profile.targetBowRun=clampf(beam*0.5,1.25,3.0)
+			profile.targetBowCrest=lerpf(0.04,minf(profile.targetOuterWidth*0.42,0.35),strength)
+			profile.bowIntensity=0.65*strength if enabled else 0.0
+			packet.froth.surfaceProfile=profile
 		if is_instance_valid(camera):
 			packet.froth.sourceCamera={"right":native_vector(camera.global_basis.x),"up":native_vector(camera.global_basis.y),"direction":native_vector(-camera.global_basis.z)}
 		# 4756B0 coordinates divide by 400; invert that target mapping. Source
