@@ -8,6 +8,11 @@ uniform float display_fog_density = 0.0015;
 // heights, coastline distance and physics are still evaluated in world metres.
 uniform float surface_visual_scale = 1.0;
 uniform bool mask_dry_terrain = false;
+// Local shoreline coverage, validated against the zero-width baseline in the
+// laboratory. Zero remains an exact rollback; units are vertical world metres.
+uniform float shore_edge_feather_m : hint_range(0.0,1.0) = 0.6;
+// Independent local translucency; one restores the same-width coverage response.
+uniform float shore_edge_water_weight : hint_range(0.0,1.0) = 0.55;
 #include "res://modules/scene_engine/reference_island_water/source_common.gdshaderinc"
 #include "res://modules/scene_engine/ocean/reference_sparkle_fusion.gdshaderinc"
 
@@ -42,6 +47,7 @@ uniform vec3 shallow_color = vec3(.18,.73,.73);
 #include "res://modules/scene_engine/ocean/coastal_visuals.gdshaderinc"
 #include "res://modules/scene_engine/ocean/surface_layers.gdshaderinc"
 #include "res://modules/scene_engine/ocean/reference_shore_foam.gdshaderinc"
+#include "res://modules/scene_engine/ocean/shore_edge_coverage.gdshaderinc"
 // Stable formal game metadata/API aliases; source formulas use u_* uniforms.
 uniform int visual_style = 1;
 uniform bool surface_optics_enabled = true;
@@ -226,5 +232,14 @@ void fragment() {
 	// Source default framebuffer also clamps display RGB; no manual 8-bit
 	// rounding is applied to filtered scene/reflection samples.
 	ALBEDO=reference_to_linear(clamp(mix(col,source_sky(normalize(v_world-u_eye)),fog),vec3(0.0),vec3(1.0)));
+	// Fade to the actual unrefracted opaque pixel at both the dry mask and
+	// water/terrain intersection. Keep islands opaque and the existing depth path.
+	if(shore_edge_feather_m>0.0 && mask_dry_terrain && (has_shore_field || has_reference_near_field)) {
+		float coverage=reference_shore_edge_coverage(u_tide+.035-dry_height,v_world.y-dry_height,optical_depth*abs(view_dir.y),shore_edge_feather_m);
+		if(coverage<1.0) {
+			float water_weight=reference_shore_edge_water_weight(coverage,shore_edge_water_weight);
+			ALBEDO=mix(texture(u_scene,screen_uv).rgb,ALBEDO,water_weight);
+		}
+	}
 	ALPHA=1.0;
 }

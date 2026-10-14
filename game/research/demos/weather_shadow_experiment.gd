@@ -10,7 +10,9 @@ const MAX_CATCHUP := 8
 const PRESETS := ["clear", "storm", "sunset"]
 const CAMERAS := ["overview", "sky", "ground"]
 const DEFAULTS := {"preset": "clear", "camera_mode": "overview", "sky_enabled": true, "clouds_enabled": true, "shadows_enabled": true, "paused": false, "crt_seed": 1, "sky_crt_seed": 1, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0}
-const SCOPE := "Unchanged production WeatherState integer three-center rules and explicit CRT RNG; Atmosphere original domecloud1..5 rotation, stormcloud_sound/KF, two cloud00 actors, full DDS mips and baked texture-shadow records. Fixed 32Hz and 10 source units/m are target adapters; sky shader and sun energy are Godot adapters. Clear/storm/sunset are declared initial-state fixtures, not an original weather enum. Static sea and calibration ground isolate shadow observation; no campaign, ocean-wave, reflection, rain or full native pixel parity claim. Visibility controls never modify accepted weather, sky or controller state."
+const SCOPE := "Unchanged production WeatherState integer three-center rules and explicit CRT RNG; Atmosphere original domecloud1..5 rotation, stormcloud_sound/KF, two cloud00 actors, full DDS mips and baked texture-shadow records. Fixed 32Hz and 10 source units/m are target adapters; sky shader and sun energy are Godot adapters. Clear/storm/sunset are declared initial-state fixtures, not an original weather enum. DIAGNOSTIC RECEIVER: unlit 5m calibration grid above unchanged source-color static sea, not original sea color or landscape. Fixed overview frames center0's first two accepted seconds; ground uses orthographic magnification, native modelScale remains 1. No campaign, ocean-wave, reflection, rain or full native pixel parity claim. Visibility controls never modify accepted weather, sky or controller state."
+const RECEIVER_EXTENT := 10000.0
+const GRID_SPACING := 5.0
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
 var _configured := false
@@ -27,6 +29,9 @@ var _sun: DirectionalLight3D
 var _environment: Environment
 var _sky_material: ShaderMaterial
 var _sea_material: StandardMaterial3D
+var _calibration_material: StandardMaterial3D
+var _grid_texture: ImageTexture
+var _diagnostic_label: Label
 var _packet: Dictionary = {}
 var _source_options: Dictionary = {}
 var _sky_records: Array = []
@@ -101,7 +106,7 @@ func control_spec() -> Array:
 		{"id": "sky_enabled", "label": "天空云环", "type": "toggle", "value": _options.sky_enabled},
 		{"id": "clouds_enabled", "label": "三中心天气云", "type": "toggle", "value": _options.clouds_enabled},
 		{"id": "shadows_enabled", "label": "烘焙纹理云影", "type": "toggle", "value": _options.shadows_enabled},
-		{"id": "camera_mode", "label": "固定观察镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "overview", "label": "全景"}, {"value": "sky", "label": "天空"}, {"value": "ground", "label": "地面云影"}]}
+		{"id": "camera_mode", "label": "固定观察镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "overview", "label": "云与影近景（校准地面）"}, {"value": "sky", "label": "天空"}, {"value": "ground", "label": "云影俯视（校准地面）"}]}
 	]
 
 func set_parameter(id: String, value: Variant) -> Dictionary:
@@ -190,11 +195,26 @@ func _build_experiment() -> void:
 	_world.add_child(_sun)
 	_sea_material = StandardMaterial3D.new()
 	_sea_material.roughness = 0.9
-	_plane("StaticSeaObservationCarrier", Vector2(2800.0, 1800.0), Vector3(350.0, -0.02, 0.0), _sea_material)
-	var ground := StandardMaterial3D.new()
-	ground.albedo_color = Color(0.36, 0.32, 0.23)
-	ground.roughness = 1.0
-	_plane("ShadowCalibrationGround", Vector2(450.0, 360.0), Vector3(600.0, 0.0, 0.0), ground)
+	_plane("StaticSeaObservationCarrier", Vector2(20000.0, 20000.0), Vector3(350.0, -0.02, 0.0), _sea_material)
+	_calibration_material = StandardMaterial3D.new()
+	_calibration_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_calibration_material.roughness = 1.0
+	_grid_texture = _make_grid_texture()
+	_calibration_material.albedo_texture = _grid_texture
+	_calibration_material.uv1_scale = Vector3(RECEIVER_EXTENT / GRID_SPACING, RECEIVER_EXTENT / GRID_SPACING, 1.0)
+	_plane("DiagnosticUnlit5mGridReceiver", Vector2(RECEIVER_EXTENT, RECEIVER_EXTENT), Vector3(350.0, 0.0, 0.0), _calibration_material)
+	var overlay := CanvasLayer.new()
+	overlay.name = "DiagnosticReceiverDisclosure"
+	_world.add_child(overlay)
+	_diagnostic_label = Label.new()
+	_diagnostic_label.position = Vector2(16.0, 12.0)
+	_diagnostic_label.add_theme_color_override("font_color", Color(0.98, 0.97, 0.88))
+	_diagnostic_label.add_theme_color_override("font_shadow_color", Color(0.05, 0.08, 0.10))
+	_diagnostic_label.add_theme_constant_override("shadow_offset_x", 1)
+	_diagnostic_label.add_theme_constant_override("shadow_offset_y", 1)
+	_diagnostic_label.add_theme_font_size_override("font_size", 16)
+	_diagnostic_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	overlay.add_child(_diagnostic_label)
 	_source_options = {"epoch": 1, "crt_seed": _options.crt_seed, "sky_crt_seed": _options.sky_crt_seed, "source_calls_per_second": 32.0, "source_position_units_per_metre": 10.0, "model_scale": 1.0, "hold_light": true, "route": "weather-shadow-laboratory", "initial_state": {"lightTime": 1930 if _options.preset == "sunset" else 1200, "windHeading": 1073741760, "windDisplacement": 0, "windVelocity": 0, "centers": [{"x": 2000 if _options.preset == "storm" else 8000, "y": 0}, {"x": 3000, "y": 4000}, {"x": 6000, "y": -4000}]}}
 	_weather = Weather.new()
 	if not _weather.configure(_source_options):
@@ -230,17 +250,35 @@ func _plane(label: String, size: Vector2, position_value: Vector3, material: Mat
 	node.position = position_value
 	_world.add_child(node)
 
+func _make_grid_texture() -> ImageTexture:
+	# Synthetic calibration texture only. Native DDS bytes/mips remain untouched.
+	var image := Image.create(128, 128, false, Image.FORMAT_RGBA8)
+	for y in 128:
+		for x in 128:
+			var color := Color(0.56, 0.58, 0.54)
+			if x < 4 or y < 4:
+				color = Color(0.40, 0.43, 0.41)
+			image.set_pixel(x, y, color)
+	image.generate_mipmaps()
+	return ImageTexture.create_from_image(image)
+
 func _update_camera() -> void:
 	if not is_instance_valid(_camera):
 		return
-	var target := Vector3(400.0, 25.0, 0.0)
-	var offset := Vector3(100.0, 250.0, 750.0)
+	# Fixed midpoint of center0's declared 0..2s observation window. Never follows
+	# packet position; motion remains visible against the stationary 5m grid.
+	var initial_x := 200.0 if _options.preset == "storm" else 800.0
+	var target := Vector3(initial_x - 96.0, 18.0, 0.0)
+	var offset := Vector3(0.0, 82.0, 128.0)
+	_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 	if _options.camera_mode == "sky":
 		target = Vector3(400.0, 180.0, 0.0)
 		offset = Vector3(0.0, -135.0, 500.0)
 	elif _options.camera_mode == "ground":
-		target = Vector3(600.0, 0.0, 0.0)
-		offset = Vector3(50.0, 14.0, 280.0)
+		target = Vector3(initial_x - 96.0, 0.0, 0.0)
+		offset = Vector3(0.0, 160.0, 40.0)
+		_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+		_camera.size = 180.0 * float(_options.zoom)
 	offset = Basis(Vector3.UP, float(_options.orbit_yaw)) * Basis(Vector3.RIGHT, float(_options.orbit_pitch)) * offset
 	_camera.position = target + offset * float(_options.zoom)
 	_camera.look_at(target, Vector3.UP)
@@ -264,6 +302,7 @@ func _refresh_presentation() -> void:
 	_sky_material.set_shader_parameter("u_time", _tick * STEP)
 	_sky_material.set_shader_parameter("u_eye", _camera.global_position)
 	_sea_material.albedo_color = Color(float(light.waterColor[0]), float(light.waterColor[1]), float(light.waterColor[2]))
+	_diagnostic_label.text = "天空云环 · 原资源 / 原接受时间" if _options.camera_mode == "sky" else "诊断接收面 · 5米网格 · 云与影保持原尺寸 / 原时间"
 
 static func _matrix_values(value: Projection) -> Array:
 	var values: Array = []
@@ -283,11 +322,12 @@ func inspection_snapshot() -> Dictionary:
 	var camera: Dictionary = {}
 	if is_instance_valid(_camera):
 		viewport_size = Vector2i(_camera.get_viewport().get_visible_rect().size)
-		camera = {"mode": _options.camera_mode, "transform": _matrix_values(Projection(_camera.get_camera_transform())), "projection": _matrix_values(_camera.get_camera_projection()), "projection_type": "perspective", "fov_degrees": _camera.fov, "near_m": _camera.near, "far_m": _camera.far}
+		camera = {"mode": _options.camera_mode, "transform": _matrix_values(Projection(_camera.get_camera_transform())), "projection": _matrix_values(_camera.get_camera_projection()), "projection_type": "orthographic" if _camera.projection == Camera3D.PROJECTION_ORTHOGONAL else "perspective", "orthographic_size_m": _camera.size if _camera.projection == Camera3D.PROJECTION_ORTHOGONAL else 0.0, "fov_degrees": _camera.fov, "near_m": _camera.near, "far_m": _camera.far}
 	var renderer: Dictionary = _atmosphere.diagnostics() if _atmosphere else {}
-	var resources := {"weather": 1 if _weather else 0, "atmosphere": 1 if _atmosphere else 0, "world": 1 if is_instance_valid(_world) else 0, "meshes": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (2 if _ready_experiment else 0), "textures": _atmosphere.get("_textures").size() if _atmosphere else 0, "materials": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (3 if _ready_experiment else 0)}
+	var resources := {"weather": 1 if _weather else 0, "atmosphere": 1 if _atmosphere else 0, "world": 1 if is_instance_valid(_world) else 0, "meshes": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (2 if _ready_experiment else 0), "textures": (_atmosphere.get("_textures").size() if _atmosphere else 0) + (1 if _grid_texture else 0), "materials": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (3 if _ready_experiment else 0)}
 	var rng := {"weather": {"seed_decimal": str(_options.crt_seed), "state_decimal": str(_packet.get("source", {}).get("rngState", 0)), "draws": int(_packet.get("source", {}).get("rngDraws", 0)), "word_bits": 32}, "sky": {"seed_decimal": str(_options.sky_crt_seed), "initialization_draws": int(_packet.get("sky", {}).get("ring", {}).get("draws", 0)), "live_rng": "none after deterministic initialization; native ring packet does not retain initializer RNG state", "word_bits": 32}}
-	return {"topic": "weather-shadow", "ready": _ready_experiment, "disposed": _disposed, "reason": _reason, "tick": _tick, "time": _tick * STEP, "step_seconds": STEP, "max_catchup": MAX_CATCHUP, "paused": _options.paused, "parameters": _options.duplicate(true), "camera_mode": _options.camera_mode, "camera": camera, "viewport": [viewport_size.x, viewport_size.y], "resources": resources, "scope": SCOPE, "rng": rng, "environment": _packet.duplicate(true), "inputs": {"weather_options": _source_options.duplicate(true), "observer": {"position": [0.0, 0.0], "heading": 0.0}, "wind": {"speed": 0.0}, "preset_scope": "target fixed initial lightTime/centers; original scene day modes are not weather presets"}, "telemetry": {"world_weather_instances": int(renderer.get("worldWeatherInstances", 0)), "sky_clones": int(renderer.get("cloudClones", 0)), "sky_meshes": _sky_records.size(), "world_cloud_meshes": _cloud_records.size(), "shadow_meshes": _shadow_records.size(), "visible_sky_meshes": _visible(_sky_records), "visible_world_cloud_meshes": _visible(_cloud_records), "visible_shadow_meshes": _visible(_shadow_records), "source_calls": int(_packet.get("sourceCallIndex", 0)), "renderer": renderer, "weather": _weather.diagnostics() if _weather else {}}}
+	var observation := {"diagnostic_surface": true, "grid_spacing_m": GRID_SPACING, "surface_extent_m": RECEIVER_EXTENT, "surface_material": "unlit calibration texture; not original sea/land color", "camera_anchor": [(200.0 if _options.preset == "storm" else 800.0) - 96.0, 0.0, 0.0], "native_model_scale": 1.0, "fixed_observation_window_seconds": [0.0, 2.0], "overlay_label": _diagnostic_label.text if is_instance_valid(_diagnostic_label) else ""}
+	return {"topic": "weather-shadow", "ready": _ready_experiment, "disposed": _disposed, "reason": _reason, "tick": _tick, "time": _tick * STEP, "step_seconds": STEP, "max_catchup": MAX_CATCHUP, "paused": _options.paused, "parameters": _options.duplicate(true), "camera_mode": _options.camera_mode, "camera": camera, "viewport": [viewport_size.x, viewport_size.y], "resources": resources, "scope": SCOPE, "rng": rng, "environment": _packet.duplicate(true), "observation": observation, "inputs": {"weather_options": _source_options.duplicate(true), "observer": {"position": [0.0, 0.0], "heading": 0.0}, "wind": {"speed": 0.0}, "preset_scope": "target fixed initial lightTime/centers; original scene day modes are not weather presets"}, "telemetry": {"world_weather_instances": int(renderer.get("worldWeatherInstances", 0)), "sky_clones": int(renderer.get("cloudClones", 0)), "sky_meshes": _sky_records.size(), "world_cloud_meshes": _cloud_records.size(), "shadow_meshes": _shadow_records.size(), "visible_sky_meshes": _visible(_sky_records), "visible_world_cloud_meshes": _visible(_cloud_records), "visible_shadow_meshes": _visible(_shadow_records), "source_calls": int(_packet.get("sourceCallIndex", 0)), "renderer": renderer, "weather": _weather.diagnostics() if _weather else {}}}
 
 func _fail_build(reason: String) -> void:
 	dispose()
@@ -312,6 +352,9 @@ func dispose() -> void:
 	_environment = null
 	_sky_material = null
 	_sea_material = null
+	_calibration_material = null
+	_grid_texture = null
+	_diagnostic_label = null
 	_packet.clear()
 	_source_options.clear()
 	_accumulator = 0.0

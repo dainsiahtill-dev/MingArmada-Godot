@@ -4,6 +4,7 @@ extends SceneTree
 var assertions := 0
 var failures := 0
 var _script: Script
+var _observation_samples: Array = []
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -125,6 +126,40 @@ func run() -> void:
 	check(specifications.size() == 5, "host receives five independent weather controls")
 	for specification: Dictionary in specifications:
 		check(specification.has_all(["id", "label", "type", "value"]), "control schema is complete: " + specification.id)
+	check(demo.reset_experiment({"preset": "storm", "paused": false, "camera_mode": "overview"}).ok, "close weather observation fixture resets")
+	var observation: Dictionary = demo.inspection_snapshot().get("observation", {})
+	check(observation.has_all(["diagnostic_surface", "grid_spacing_m", "surface_extent_m", "camera_anchor", "native_model_scale"]), "fixture explicitly declares calibration receiver and preserved native scale")
+	if not observation.is_empty():
+		check(observation.diagnostic_surface and observation.grid_spacing_m == 5.0 and observation.native_model_scale == 1.0 and observation.surface_extent_m >= 10000.0, "receiver is a named diagnostic grid without enlarging native cloud/shadow geometry")
+		var frozen_camera: Array = demo.inspection_snapshot().camera.transform
+		for time_index in 3:
+			var packet: Dictionary = demo.inspection_snapshot().environment
+			var actor: Array = packet.worldClouds[0].worldPosition
+			var observer: Camera3D = demo.get("_camera")
+			var projected_cloud := observer.unproject_position(Vector3(float(actor[0]), 36.0, float(actor[2])))
+			var projected_shadow := observer.unproject_position(Vector3(float(actor[0]), 0.12, float(actor[2])))
+			check(projected_cloud.x > 24.0 and projected_cloud.x < 936.0 and projected_cloud.y > 24.0 and projected_cloud.y < 616.0, "fixed overview frames native center0 cloud at accepted second " + str(time_index))
+			check(projected_shadow.x > 24.0 and projected_shadow.x < 936.0 and projected_shadow.y > 24.0 and projected_shadow.y < 616.0, "fixed overview frames native texture shadow at accepted second " + str(time_index))
+			check(demo.inspection_snapshot().camera.transform == frozen_camera and packet.worldClouds[0].modelScale == 1.0, "motion observation keeps fixed camera and native scale")
+			_observation_samples.append({"time": demo.inspection_snapshot().time, "camera": demo.inspection_snapshot().camera, "environment": packet, "projected_cloud": [projected_cloud.x, projected_cloud.y], "projected_shadow": [projected_shadow.x, projected_shadow.y]})
+			if time_index < 2:
+				for _step in 32:
+					demo.advance(0.03125)
+		var untouched := authority(demo)
+		demo.set_paused(true)
+		demo.set_camera_mode("ground")
+		var ground_camera: Camera3D = demo.get("_camera")
+		check(ground_camera.projection == Camera3D.PROJECTION_ORTHOGONAL and authority(demo) == untouched, "ground camera magnifies by projection without simulation or geometry changes")
+		var shadow_position: Array = demo.inspection_snapshot().environment.worldClouds[0].worldPosition
+		var left := ground_camera.unproject_position(Vector3(float(shadow_position[0]) - 10.0, 0.12, float(shadow_position[2])))
+		var right := ground_camera.unproject_position(Vector3(float(shadow_position[0]) + 10.0, 0.12, float(shadow_position[2])))
+		check(absf(right.x - left.x) >= 40.0 and left.x > 10.0 and right.x < 950.0, "twenty-metre native shadow span is measurably framed in ground inspection")
+		var grid_owner: Texture2D = demo.get("_grid_texture")
+		var weak_grid: WeakRef = weakref(grid_owner)
+		grid_owner = null
+		demo.dispose()
+		check(weak_grid.get_ref() == null, "diagnostic grid texture releases with arena")
+		check(demo.configure({}).ok, "fixture rebuilds after diagnostic texture release")
 	var held_weather: RefCounted = demo.get("_weather")
 	var held_atmosphere: RefCounted = demo.get("_atmosphere")
 	var weak_weather: WeakRef = weakref(held_weather)
@@ -143,5 +178,8 @@ func run() -> void:
 	finish()
 
 func finish() -> void:
+	if not _observation_samples.is_empty():
+		var evidence := FileAccess.open("res://Temp/research/lab-weather-fixture-v2-samples.json", FileAccess.WRITE)
+		evidence.store_string(JSON.stringify({"recordType": "cpu-contract", "scope": "camera projection and unchanged native packet; no GPU pixels", "viewport": [960, 640], "samples": _observation_samples}, "\t"))
 	print("LABORATORY_WEATHER_TESTS assertions=", assertions, " failures=", failures)
 	quit(1 if failures else 0)

@@ -70,10 +70,19 @@ func run() -> void:
 	factor("reflection_enabled",false); await capture("ocean-mirror-off")
 	factor("reflection_enabled",true); factor("refraction_enabled",false); await capture("ocean-refraction-off")
 	factor("refraction_enabled",true); factor("detail_strength",0.0); await capture("ocean-detail-zero")
+	lab._change_parameter.call_deferred("detail_strength",0.75)
+	var canceled: Dictionary = await lab.save_experiment_frame(output+"/stale-parameter-frame.png")
+	check(not canceled.ok and not FileAccess.file_exists(output+"/stale-parameter-frame.png"),"parameter mutation cancels stale pending capture")
 	if not launch("shore-surf"): finish(); return
 	for seconds: float in [0.0,6.0,12.0,18.0,24.0]:
 		await advance_to(seconds); await capture("shore-close-t%03d" % int(seconds))
 	factor("camera_mode","wide"); await capture("shore-wide")
+	factor("camera_mode","edge")
+	for width: float in [0.0,0.1,0.35,0.6]:
+		factor("shore_edge_feather_m",width); await capture("shore-edge-width-%02d" % int(width*100))
+	factor("shore_edge_feather_m",0.6)
+	factor("shore_edge_water_weight",1.0); await capture("shore-edge-water-weight-100")
+	factor("shore_edge_water_weight",0.55); await capture("shore-edge-water-weight-55")
 	factor("camera_mode","close")
 	for selected: String in ["analytic","source","residue","off"]:
 		for layer: String in ["analytic","source","residue"]: factor(layer+"_enabled",selected == layer)
@@ -91,6 +100,8 @@ func run() -> void:
 	lab._change_parameter("preset","storm"); factor("camera_mode","overview")
 	await advance_to(2.0); await capture("weather-storm-on")
 	for id: String in ["shadows_enabled","clouds_enabled","sky_enabled"]:
+		factor("camera_mode","sky" if id == "sky_enabled" else "ground" if id == "shadows_enabled" else "overview")
+		await capture("weather-"+id+"-on")
 		factor(id,false); await capture("weather-"+id+"-off"); factor(id,true)
 	lab._show_paper()
 	check(lab._viewport.get_child_count() == 0,"exit disposes independent owners")
@@ -102,7 +113,7 @@ func finish() -> void:
 	for path: String in before: after[path] = FileAccess.get_sha256(path) if FileAccess.file_exists(path) else "absent"
 	check(before == after,"laboratory preserves save and settings bytes")
 	var source_hashes: Dictionary = {}
-	for source: String in ["game/research/laboratory.gd","game/research/parameter_panel.gd","game/research/catalog.gd","assets/research/catalog.json","game/research/demos/ocean_surface_experiment.gd","game/research/demos/shore_surf_experiment.gd","game/research/demos/weather_shadow_experiment.gd"]:
+	for source: String in ["game/research/laboratory.gd","game/research/parameter_panel.gd","game/research/catalog.gd","assets/research/catalog.json","game/research/demos/ocean_surface_experiment.gd","game/research/demos/shore_surf_experiment.gd","game/research/demos/weather_shadow_experiment.gd","modules/scene_engine/ocean/reference_game_water.gdshader","modules/scene_engine/ocean/shore_edge_coverage.gdshaderinc"]:
 		source_hashes[source] = FileAccess.get_sha256("res://"+source)
 	var proof := {"valid":failures.is_empty(),"failures":failures,"engine":Engine.get_version_info(),"gpu":RenderingServer.get_video_adapter_name(),"renderer":RenderingServer.get_current_rendering_method(),"displayServer":DisplayServer.get_name(),"captures":captures,"sequences":sequences,"sourceHashes":source_hashes,"persistedBefore":before,"persistedAfter":after,"scope":"Ordinary menu and real GPU isolated demos; time, factor, image/state, disposal and persisted-byte contracts. PNG artistic review is separate. Actual SubViewport dimensions are saved per frame; no production change, full-game performance or original-renderer parity claim."}
 	var file := FileAccess.open(output+"/GPU_VERIFY.json",FileAccess.WRITE)

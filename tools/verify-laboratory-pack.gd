@@ -32,11 +32,13 @@ func run() -> void:
 	var lab: Control = main.current_scene
 	check(is_instance_valid(lab) and lab.startup_receipt.ok,"packed route activates real laboratory")
 	if is_instance_valid(lab):
-		check(lab.select_topic("hull-contact"),"packed paper selection works")
-		var launched: Dictionary = lab.start_demo({"paused":true})
-		check(launched.ok,"packed registered experiment constructs production resources")
-		var info: Dictionary = lab.inspection_snapshot()
-		check(info.demo.get("ready",false) and info.demo.get("kind") == "fuchuan","packed experiment receipt ready")
+		for topic: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow"]:
+			check(lab.select_topic(topic),"packed paper selection works: "+topic)
+			var launched: Dictionary = lab.start_demo({"paused":true})
+			check(launched.ok,"packed registered experiment constructs production resources: "+topic)
+			var info: Dictionary = lab.inspection_snapshot()
+			check(info.demo.get("ready",false),"packed experiment receipt ready: "+topic)
+			check(lab.step_demo().ok,"packed paused single step: "+topic)
 		check(not FileAccess.file_exists("res://docs/research/README.md"),"documents excluded; runtime reports do not depend on docs")
 		lab.main_menu_requested.emit()
 		for _i in 3: await process_frame

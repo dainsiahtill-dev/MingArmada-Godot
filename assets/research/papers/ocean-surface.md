@@ -2,8 +2,8 @@
 
 - 课题：`ocean-surface`；报告版本：2026-10-14 独立环境实验；实现负责人：本轮 Ocean Agent。
 - 类型：既有生产集成的事后整理，新增独立实验及新 headless 合同；两类证据分开。
-- 状态：研究中。新 Demo 的 CPU 合同已测，真实 GPU 连续画面、主菜单和包内接线由本轮宿主验收补录；不能继承历史 `integrated` 结论。
-- 摘要：复用生产五波、投影 ArrayMesh、海水 shader 和真实纹理，在同一接受时间控制柔化／旧镜面响应、实际平面镜像、深度折射和细节强度。当前只有 headless 合同通过。
+- 状态：独立 Demo 已通过本轮 CPU、实际菜单与 GPU 对照；只证明记录内的观察条件，不继承整场游戏或原版像素一致性结论。
+- 摘要：复用生产五波、投影 ArrayMesh、海水 shader 和真实纹理，在同一接受时间控制柔化／旧镜面响应、实际平面镜像、深度折射和细节强度。
 - Demo：[ocean_surface_experiment.gd](../../../game/research/demos/ocean_surface_experiment.gd)，由独立 SubViewport 宿主推进；无需 HTTP 服务或外部来源目录。
 - 来源：[正式世界海面融合](../../../docs/migration/reference-ocean-world-integration.md)、[ProjectedOcean](../../../modules/scene_engine/ocean/projected_ocean.gd)、[WaveField](../../../modules/physics_engine/ocean/wave_field.gd)。第三方纹理沿用仓库来源记录，没有本轮新增许可推断。
 - 新证据：[RED](../../../Temp/lab-ocean-red.json)、[GREEN](../../../Temp/lab-ocean-green.json)、[源码冻结](../../../Temp/lab-ocean-sources.json)。这些为本地原始回执；宿主最终归档后补充稳定证据路径。
@@ -80,6 +80,10 @@ CPU 固定 viewport 为 800×450，balanced，生产投影分段96；测试从 t
 - 性能标准：分辨率、quality、可见对象相同，分别记录网格更新、镜像、材质 CPU 和实际 frame interval p50/p95；当前报告没有海面专项性能达标数据。
 
 ## 结果与证据
+
+最终宿主实测见 [环境实验交付](../../../docs/research/laboratory-environment-delivery-2026-10-14.md) 和 [GPU 原始回执](../../../docs/research/evidence/laboratory-environment-2026-10-14/final/GPU_VERIFY.json)。近／中／低位远景、t=0/0.5/1/2s，以及镜像、折射、纹理细节与旧镜面响应的同刻对照均保存PNG与状态。镜像柱体可见，低位柔化相较旧响应抑制大面积白反射；没有据此宣称整场FPS改善。普通菜单进入、返回、参数失效截图取消、暂停单步和窗口重投影均已验证。
+
+以下保留实现分工与历史证据；其中“未测”表示当时交接时点，最终本轮状态以上述统一交付为准。
 
 本轮 RED：`rtk proxy node tools/verify-godot.mjs --filter laboratory_ocean --output Temp/lab-ocean-red.json`。缺少独立 Demo 导致期望失败，`LABORATORY_OCEAN_TESTS assertions=1 failures=1`，退出码1；没有用编译错误作为 RED。
 

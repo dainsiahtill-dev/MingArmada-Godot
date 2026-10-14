@@ -9,10 +9,10 @@ const ShoreField = preload("res://modules/scene_engine/ocean/shore_field.gd")
 const Waves = preload("res://modules/contracts/wave_descriptor.gd")
 const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
-const CAMERAS := ["close", "wide"]
+const CAMERAS := ["close", "edge", "wide"]
 const FACTORS := ["analytic", "source", "residue"]
-const DEFAULTS := {"camera_mode":"close","paused":false,"analytic_enabled":true,"source_enabled":true,"residue_enabled":true,"analytic_opacity":1.0,"source_opacity":1.0,"residue_opacity":1.0,"quality":"balanced","orbit_yaw":0.0,"orbit_pitch":0.0,"zoom":1.0}
-const SCOPE := "Independent actual production Xiamen island: seed1661, 257x257 Float32 triangle terrain; NaturalWorld terrain/source surf, ProjectedOcean five waves and reference_game_water shader, ShoreField512 and exact local terrain-height texture. No fleet, crew, towns, vegetation, atmosphere or shore spray. Three existing presentation seams: analytic advancing fronts (including their tail/contact lace), source short fronts and ocean edge residue/contact lace. coastal_breaker_strength multiplies the analytic front+tail+lace; shoreline_residue_strength controls both edge foam and lace inside that analytic term. These factors have native multiplicative coupling, not three mathematically independent layers. Source heads stay reanchored to the same ocean phase; this is not a second independent trajectory or a complete old-version renderer. Each source sprite also contains its authored thin tail. This isolated scene does not establish full-game FPS, ship occlusion or shoal coverage."
+const DEFAULTS := {"camera_mode":"close","paused":false,"analytic_enabled":true,"source_enabled":true,"residue_enabled":true,"analytic_opacity":1.0,"source_opacity":1.0,"residue_opacity":1.0,"shore_edge_feather_m":0.6,"shore_edge_water_weight":0.55,"quality":"balanced","orbit_yaw":0.0,"orbit_pitch":0.0,"zoom":1.0}
+const SCOPE := "Independent actual production Xiamen island: seed1661, 257x257 Float32 triangle terrain; NaturalWorld terrain/source surf, ProjectedOcean five waves and reference_game_water shader, ShoreField512 and exact local terrain-height texture. No fleet, crew, towns, vegetation, atmosphere or shore spray. Three existing presentation seams: analytic advancing fronts (including their tail/contact lace), source short fronts and ocean edge residue/contact lace. coastal_breaker_strength multiplies the analytic front+tail+lace; shoreline_residue_strength controls both edge foam and lace inside that analytic term. These factors have native multiplicative coupling, not three mathematically independent layers. Source heads stay reanchored to the same ocean phase; this is not a second independent trajectory or a complete old-version renderer. Each source sprite also contains its authored thin tail. shore_edge_feather_m=.6m is a water/opaque-scene linear color composition; zero is the hard-edge comparison baseline. Water and island ALPHA stay1, terrain heights and source clocks stay unchanged. This isolated scene does not establish full-game FPS, ship occlusion or shoal coverage."
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
 var _has_configuration := false
@@ -46,11 +46,13 @@ func get_default_options() -> Dictionary:
 	return DEFAULTS.duplicate(true)
 
 func control_spec() -> Array:
-	var result: Array = [{"id":"camera_mode","label":"岸线镜头","type":"choice","value":_options.camera_mode,"choices":[{"value":"close","label":"近岸浪头"},{"value":"wide","label":"整岛岸线"}]}]
+	var result: Array = [{"id":"camera_mode","label":"岸线镜头","type":"choice","value":_options.camera_mode,"choices":[{"value":"close","label":"近岸浪头"},{"value":"edge","label":"俯视水岸交界"},{"value":"wide","label":"整岛岸线"}]}]
 	var labels := {"analytic":"解析推进浪与尾沫","source":"源短浪与薄尾","residue":"岸边残沫与接触花边"}
 	for factor: String in FACTORS:
 		result.append({"id":factor+"_enabled","label":labels[factor],"type":"toggle","value":_options[factor+"_enabled"]})
 		result.append({"id":factor+"_opacity","label":labels[factor]+("透明度" if factor=="source" else "展示强度"),"type":"range","value":_options[factor+"_opacity"],"min":0.0,"max":1.0,"step":0.05})
+	result.append({"id":"shore_edge_feather_m","label":"水岸羽化（垂直米）","type":"range","value":_options.shore_edge_feather_m,"min":0.0,"max":0.6,"step":0.05})
+	result.append({"id":"shore_edge_water_weight","label":"贴岸水色覆盖","type":"range","value":_options.shore_edge_water_weight,"min":0.0,"max":1.0,"step":0.05})
 	return result
 
 func _validate(candidate: Dictionary) -> String:
@@ -59,6 +61,8 @@ func _validate(candidate: Dictionary) -> String:
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS: return "invalid-camera_mode"
 	if not candidate.quality is String or candidate.quality not in ["low","balanced","high"]: return "invalid-quality"
 	if not candidate.paused is bool: return "invalid-paused"
+	if not _number(candidate.shore_edge_feather_m) or float(candidate.shore_edge_feather_m)<0.0 or float(candidate.shore_edge_feather_m)>0.6: return "invalid-shore_edge_feather_m"
+	if not _number(candidate.shore_edge_water_weight) or float(candidate.shore_edge_water_weight)<0.0 or float(candidate.shore_edge_water_weight)>1.0: return "invalid-shore_edge_water_weight"
 	for factor: String in FACTORS:
 		if not candidate[factor+"_enabled"] is bool: return "invalid-"+factor+"_enabled"
 		var value: Variant = candidate[factor+"_opacity"]
@@ -134,6 +138,9 @@ func zoom_camera(amount: float) -> void:
 	_redraw_camera()
 
 func advance(delta: float) -> void:
+	# UI controls may change the SubViewport aspect after _ready. Cached
+	# production projection must refresh even while the accepted clock is paused.
+	refresh_viewport()
 	if not _ready_experiment or _disposed or _options.paused or not is_finite(delta) or delta<=0.0: return
 	_accumulator += minf(delta,STEP*MAX_CATCHUP)
 	var accepted := 0
@@ -142,6 +149,10 @@ func advance(delta: float) -> void:
 		_apply_time()
 		_accumulator -= STEP
 		accepted += 1
+
+func refresh_viewport() -> void:
+	if _ready_experiment and not _disposed and is_instance_valid(_ocean):
+		_ocean.update_projection()
 
 func _build_experiment() -> void:
 	_root = Node3D.new()
@@ -253,6 +264,10 @@ func _effective(factor: String) -> float:
 func _apply_layers() -> void:
 	if not is_instance_valid(_ocean) or not is_instance_valid(_surf): return
 	var material := _ocean.material_override as ShaderMaterial
+	# Explicit experiment factor permits baseline/candidate A/B independent of
+	# the accepted production default. Only water composition changes, not land.
+	material.set_shader_parameter("shore_edge_feather_m",float(_options.shore_edge_feather_m))
+	material.set_shader_parameter("shore_edge_water_weight",float(_options.shore_edge_water_weight))
 	material.set_shader_parameter("coastal_breaker_strength",0.36*_effective("analytic"))
 	material.set_shader_parameter("shoreline_residue_strength",0.38*_effective("residue"))
 	_surf.visible = _options.source_enabled
@@ -264,8 +279,11 @@ func _apply_layers() -> void:
 
 func _redraw_camera() -> void:
 	if not is_instance_valid(_camera): return
-	var focus := _focus if _options.camera_mode == "close" else _island_center
-	var offset := _outward*90.0+Vector3.UP*45.0 if _options.camera_mode == "close" else _outward*330.0+Vector3.UP*230.0
+	var focus := _island_center if _options.camera_mode == "wide" else _focus
+	# Close frames a local coast section and the full advancing wash width;
+	# wide retains the whole-island context. Presets remain fixed/replayable.
+	var offset := _outward*36.0+Vector3.UP*40.0 if _options.camera_mode == "close" else _outward*330.0+Vector3.UP*230.0
+	if _options.camera_mode == "edge": offset = _outward*10.0+Vector3.UP*32.0
 	offset = offset.rotated(Vector3.UP,float(_options.orbit_yaw))
 	var horizontal := Vector2(offset.x,offset.z).length()
 	var elevation := clampf(atan2(offset.y,horizontal)+float(_options.orbit_pitch),0.08,1.4)
@@ -302,6 +320,9 @@ func inspection_snapshot() -> Dictionary:
 			var key := "coastal_breaker_strength" if factor=="analytic" else "shoreline_residue_strength"
 			telemetry.layers[factor] = {"enabled":_options[factor+"_enabled"],"opacity":_options[factor+"_opacity"],"effective_opacity":_effective(factor),"bound_strength":material.get_shader_parameter(key),"seam":key}
 		telemetry.ocean_shader = material.shader.resource_path
+		telemetry.shore_edge_feather_m = material.get_shader_parameter("shore_edge_feather_m")
+		telemetry.shore_edge_water_weight = material.get_shader_parameter("shore_edge_water_weight")
+		telemetry.shore_edge_scope = "Wet-side water coverage in vertical meters; linear optical composition leaves island alpha, terrain heights, source controllers and accepted time unchanged. Width0 is hard-edge baseline;0.6m is the current transition. Water weight1 is prior coverage at the same width;candidate0.55 reduces water color only where coverage is partial, with deep-water/outer-head isolation owned by the shared shader helper. Scene-specific GPU evidence is required."
 		telemetry.optics = _ocean.get_surface_optics_diagnostics()
 		resources.offscreen_targets = telemetry.optics.offscreen_targets
 	var result := {"ready":_ready_experiment,"disposed":_disposed,"reason":_reason,"topic":"shore-surf","time":_tick*STEP,"tick":_tick,"fixed_step":STEP,"paused":_options.paused,"camera_mode":_options.camera_mode,"parameters":_options.duplicate(true),"resources":resources,"scope":SCOPE,"telemetry":telemetry,"camera_transform":[],"camera_projection":[],"viewport_size":[],"quality":_options.quality}

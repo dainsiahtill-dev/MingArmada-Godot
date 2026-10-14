@@ -58,7 +58,7 @@ func run() -> void:
 	if not is_instance_valid(laboratory._demo): finish(before,persisted); return
 	for scenario: String in ["cruise","slow","turn","stop","reentry"]:
 		laboratory._demo_options.scenario = scenario; laboratory._demo_options.paused = false
-		laboratory._reset_demo()
+		laboratory._reset_demo(laboratory._demo_options)
 		laboratory.find_child("ExperimentCase",true,false).select(laboratory.CASES.find(scenario))
 		var timeline: Array = []
 		for tick in 161:
@@ -89,13 +89,13 @@ func run() -> void:
 	laboratory._change_camera(0); laboratory.find_child("ExperimentCamera",true,false).select(0)
 	for kind: String in ["fisherman","merchant","voc","patrol","heavy"]:
 		laboratory._demo_options.kind = kind; laboratory._demo_options.scenario = "cruise"; laboratory._demo_options.paused = false
-		laboratory._reset_demo()
+		laboratory._reset_demo(laboratory._demo_options)
 		laboratory.find_child("ExperimentShip",true,false).select(laboratory.KINDS.find(kind)); laboratory.find_child("ExperimentCase",true,false).select(0)
 		for _tick in 96: laboratory._demo.advance(1.0/32.0)
 		laboratory._update_telemetry(); await capture("ship-"+kind)
 	for extent: float in [1200.0,384.0]:
 		laboratory._demo_options.merge({"kind":"fuchuan","scenario":"cruise","paused":false,"camera_mode":"high","carrier_extent":extent},true)
-		laboratory._reset_demo()
+		laboratory._reset_demo(laboratory._demo_options)
 		for _tick in 128: laboratory._demo.advance(1.0/32.0)
 		laboratory._pause_demo()
 		var state: Dictionary = laboratory._demo.inspection_snapshot()

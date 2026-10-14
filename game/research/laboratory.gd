@@ -120,6 +120,7 @@ func start_demo(options: Dictionary = {}) -> Dictionary:
 	if not bound.ok: _close_demo(); return _demo_failure(bound.reason)
 	_notice.text = ""
 	_sync_controls()
+	_refresh_viewport()
 	_telemetry_seconds = 0.0; _update_telemetry()
 	return {"ok":true}
 
@@ -147,18 +148,21 @@ func _close_demo() -> void:
 	if is_instance_valid(_demo_body): _demo_body.hide()
 
 func _change_case(index: int) -> void:
-	_demo_options.scenario = CASES[index]; _reset_demo()
+	_reset_demo({"scenario":CASES[index]})
 func _change_kind(index: int) -> void:
-	_demo_options.kind = KINDS[index]; _reset_demo()
+	_reset_demo({"kind":KINDS[index]})
 func _change_camera(index: int) -> void:
 	_demo_options.camera_mode = CAMERAS[index]
 	if is_instance_valid(_demo): _demo_revision += 1; _demo.set_camera_mode(CAMERAS[index]); _update_telemetry()
 func _change_carrier(index: int) -> void:
-	_demo_options.carrier_extent = 1200.0 if index == 0 else 384.0; _reset_demo()
-func _reset_demo() -> void:
+	_reset_demo({"carrier_extent":1200.0 if index == 0 else 384.0})
+func _reset_demo(overrides: Dictionary = {}) -> void:
 	if not is_instance_valid(_demo): return
-	var receipt: Dictionary = _demo.reset_experiment(_demo_options)
+	var receipt: Dictionary = _demo.reset_experiment(overrides)
 	if not receipt.ok: _close_demo(); _demo_failure(receipt.get("reason","重置失败")); return
+	_demo_options.merge(overrides,true)
+	var state: Dictionary = _demo.inspection_snapshot()
+	if state.has("parameters"): _demo_options = state.parameters.duplicate(true)
 	_demo_revision += 1
 	_sync_controls()
 	_update_telemetry()
@@ -181,7 +185,7 @@ func _change_parameter(id: String,value: Variant) -> void:
 		_notice.text = "参数未修改："+changed.get("reason","输入无效"); _sync_controls(); return
 	_demo_options[id] = changed.get("value",value)
 	_demo_revision += 1
-	if changed.get("reset_required",false): _reset_demo(); _notice.text = "此参数需重建实验，已按相同初态重置。"
+	if changed.get("reset_required",false): _reset_demo({id:_demo_options[id]}); _notice.text = "此参数需重建实验，已按相同初态重置。"
 	else: _sync_controls(); _update_telemetry()
 func _toggle_contact(enabled: bool) -> void:
 	_demo_options.contact_enabled = enabled
@@ -222,6 +226,13 @@ func _view_input(event: InputEvent) -> void:
 			_demo_revision += 1
 			_demo.zoom_camera(-0.12 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 0.12)
 	elif event is InputEventMouseMotion and _dragging: _demo_revision += 1; _demo.orbit_camera(-event.relative.x*0.006,event.relative.y*0.004)
+	var state: Dictionary = _demo.inspection_snapshot()
+	if state.has("parameters"): _demo_options = state.parameters.duplicate(true)
+
+func _refresh_viewport() -> void:
+	if _disposed or not is_instance_valid(_demo): return
+	_demo_revision += 1
+	_demo.orbit_camera(0.0,0.0)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo or event.keycode != KEY_ESCAPE: return
@@ -327,6 +338,7 @@ func _build_ui() -> void:
 	var container := SubViewportContainer.new(); container.name = "ExperimentView"; container.stretch = true
 	container.size_flags_vertical = Control.SIZE_EXPAND_FILL; container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; _demo_body.add_child(container)
 	_viewport = SubViewport.new(); _viewport.name = "ExperimentViewport"; _viewport.size = Vector2i(1000,600); _viewport.world_3d = World3D.new()
+	_viewport.size_changed.connect(_refresh_viewport)
 	_viewport.msaa_3d = Viewport.MSAA_4X; _viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS; container.add_child(_viewport); container.gui_input.connect(_view_input)
 	_stats = _label(_demo_body,"ExperimentTelemetry","",15)
 	_notice = _label(_demo_body,"ExperimentNotice","",15)
