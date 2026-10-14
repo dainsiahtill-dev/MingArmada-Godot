@@ -60,7 +60,11 @@ func real_adapter_and_publication()->void:
 		renderer.apply_snapshot(packet.native,packet.actors)
 		for caster:Dictionary in packet.native.sourceShadows.casters:
 			var actual:Dictionary=renderer.get("_volumes")[caster.id].geometry
-			check(actual==Math.build_volume_component(caster.positions,caster.localLight,caster.edges,caster.capIndices),"real caster exact full Math at changing local light")
+			var original:Dictionary=Math.build_volume_component(caster.positions,caster.localLight,caster.edges,caster.capIndices)
+			var original_prefix:bool=actual.direction==original.direction and actual.positions.slice(0,original.positions.size())==original.positions and actual.indices.slice(0,original.indices.size())==original.indices
+			# Generic Prepared remains the complete Math oracle above. The target
+			# adapter now appends directed-boundary sides for nonmanifold meshes.
+			check(actual==original if actual.triangleCount==original.triangleCount else original_prefix,"real target retains exact complete Math or its unchanged prefix at changing light")
 	check(var_to_bytes(first)==bytes and var_to_bytes(publication)==publication_bytes,"old render publication remains unchanged while all real casters advance")
 	check(renderer.diagnostics().get("preparedBuilds",0)>0,"actual adapter and renderer use the prepared production path")
 	var generic:Dictionary=packet.native.sourceShadows.casters[0].duplicate(false)

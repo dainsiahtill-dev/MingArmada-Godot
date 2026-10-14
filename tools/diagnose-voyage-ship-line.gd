@@ -2,6 +2,13 @@ extends SceneTree
 const Main=preload("res://game/scenes/main/main_scene.tscn")
 var output:="res://docs/research/evidence/playable-voyage-2026-10-14/ship-line-baseline"
 var captures:Array=[]
+var failures:Array[String]=[]
+var frozen:Dictionary={}
+const SOURCES=["game/presentation/world/target_shadow_boundary.gd","game/presentation/world/target_rigid_shadow_caster.gd","game/presentation/world/prepared_rigid_shadow.gd","modules/scene_engine/fidelity_fx/source_shadow_math.gd","modules/scene_engine/fidelity_fx/source_shadow_rd.gd","tools/diagnose-voyage-ship-line.gd"]
+func hashes()->Dictionary:
+	var result:Dictionary={}
+	for path:String in SOURCES:result[path]=FileAccess.get_sha256("res://"+path)
+	return result
 func _initialize()->void:run.call_deferred()
 func frames(count:int)->void:
 	for _i in count:await process_frame
@@ -9,10 +16,14 @@ func capture(scene:Control,name:String)->void:
 	await frames(3);await RenderingServer.frame_post_draw
 	var image:Image=scene.view.get_texture().get_image()
 	image.save_png(output+"/"+name+".png")
-	captures.append({"image":name+".png","sha256":FileAccess.get_sha256(output+"/"+name+".png"),"time":scene.seconds,"camera":scene.camera.global_transform})
+	var status:Dictionary=scene.sea.source_shadow_status()
+	if not status.get("casterAdapter",{}).get("errors",[]).is_empty():failures.append("caster adapter errors: "+str(status.casterAdapter.errors))
+	captures.append({"image":name+".png","sha256":FileAccess.get_sha256(output+"/"+name+".png"),"time":scene.seconds,"camera":scene.camera.global_transform,"shadow":status})
 func run()->void:
 	for arg:String in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+	if DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(output)):printerr("FAIL fresh output required");quit(1);return
+	frozen=hashes()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	root.size=Vector2i(1600,1000);root.content_scale_size=root.size
 	var main:Node=Main.instantiate();root.add_child(main);await frames(4)
@@ -46,6 +57,7 @@ func run()->void:
 	for ship:Node3D in sea.ships.values():ship.hide()
 	await capture(scene,"ship-hidden")
 	for ship:Node3D in sea.ships.values():ship.show()
-	var proof:={"valid":captures.size()==4,"captures":captures,"meshBounds":bounds,"diagnosticHiddenRiggingNodes":hidden.size(),"scope":"Same-time native world diagnostic only. Temporary visibility gates are not production changes or performance claims."}
+	if hashes()!=frozen:failures.append("source changed during GPU capture")
+	var proof:={"valid":captures.size()==4 and failures.is_empty(),"failures":failures,"sources":frozen,"captures":captures,"meshBounds":bounds,"diagnosticHiddenRiggingNodes":hidden.size(),"scope":"Same-time native world diagnostic only. Temporary visibility gates are not production changes or performance claims."}
 	var file:=FileAccess.open(output+"/DIAGNOSIS.json",FileAccess.WRITE);file.store_string(JSON.stringify(proof,"\t"));file.close()
-	main.free();await frames(2);print("VOYAGE_SHIP_LINE captures=",captures.size()," failures=0");quit(0)
+	main.free();await frames(2);print("VOYAGE_SHIP_LINE captures=",captures.size()," failures=",failures.size());quit(0 if proof.valid else 1)

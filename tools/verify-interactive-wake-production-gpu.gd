@@ -18,6 +18,8 @@ func check(ok: bool,message: String) -> void:
 func hashes() -> Dictionary:
 	var result: Dictionary={}
 	for file: String in SOURCES:result[file]=FileAccess.get_sha256("res://"+file)
+	for file: String in ["game/presentation/world/target_shadow_boundary.gd","game/presentation/world/target_rigid_shadow_caster.gd","game/presentation/world/prepared_rigid_shadow.gd","modules/scene_engine/fidelity_fx/source_shadow_math.gd","modules/scene_engine/fidelity_fx/source_shadow_rd.gd"]:
+		result[file]=FileAccess.get_sha256("res://"+file)
 	return result
 func settle() -> bool:
 	for attempt in 180:
@@ -65,7 +67,10 @@ func capture(label: String) -> void:
 			if id in covered:check(not visible[id],"covered ship original tail suppressed")
 	var mask: Dictionary=scene.sea.world.get_interactive_water_mask()
 	mask.erase("data")
+	var shadow: Dictionary=scene.sea.source_shadow_status()
+	check(shadow.get("casterAdapter",{}).get("errors",[]).is_empty(),"rigid shadow adapter errors absent")
 	records.append({"label":label,"image":label+".png","image_sha256":FileAccess.get_sha256(output+"/"+label+".png"),"time":native.time,"player_id":native.playerId,"ship_states":native.ships,"field":status,"mask":mask,"source_visible":visible,"original_wake":scene.sea.wakes.diagnostics(),"crew_owners":scene.sea.sailors.size(),"camera":str(scene.sea.camera.global_transform),"physics_sha256":var_to_bytes(native).hex_encode().sha256_text()})
+	records[-1].shadow=shadow
 	print("INTERACTIVE_PRODUCTION_CAPTURE ",label," time=",native.time," covered=",covered)
 func run() -> void:
 	for arg: String in OS.get_cmdline_user_args():

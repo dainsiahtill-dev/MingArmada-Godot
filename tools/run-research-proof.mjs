@@ -28,6 +28,9 @@ const markers={
  'res://tools/verify-interactive-wake-field-gpu.gd':'INTERACTIVE_WAKE_GPU ',
  'res://tools/verify-interactive-wake-lab-gpu.gd':'INTERACTIVE_WAKE_LAB_GPU ',
  'res://tools/verify-interactive-wake-production-gpu.gd':'INTERACTIVE_WAKE_PRODUCTION_GPU ',
+ 'res://tools/diagnose-ship-water-optics.gd':'INTERACTIVE_WAKE_PRODUCTION_GPU ',
+ 'res://tools/diagnose-voyage-ship-line.gd':'VOYAGE_SHIP_LINE ',
+ 'res://tools/verify-shadow-directed-boundary-gpu.gd':'VOYAGE_SHIP_LINE ',
 };
 const script=args[args.indexOf('--script')+1];
 const marker=markers[script]||(script?.endsWith('verify-laboratory-pack.gd')?'LABORATORY_PACK_TESTS ':null);

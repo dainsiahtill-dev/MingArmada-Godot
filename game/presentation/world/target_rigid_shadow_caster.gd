@@ -3,6 +3,7 @@ extends RefCounted
 ## producer remain unknown. Exact-position welding removes authored UV seams.
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
 const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
+const Boundary=preload("res://game/presentation/world/target_shadow_boundary.gd")
 var _geometry:Dictionary={}
 var _parts:Dictionary={}
 var _shadow_modes:Dictionary={}
@@ -61,7 +62,7 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 			if dirty:
 				var prepared:RefCounted=previous.get("prepared")
 				if prepared==null or previous.get("revision",-1)!=geometry.revision:
-					prepared=Prepared.new()
+					prepared=Boundary.new()
 					var configured:Dictionary=prepared.configure(geometry.positions,geometry.faces)
 					if not configured.ok:_errors.append(id+": "+configured.reason);continue
 				var topology:Dictionary=prepared.select_topology(local_light)
@@ -88,10 +89,14 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 	result.sourceShadows=state
 	return {"native":result,"actors":actors}
 func diagnostics()->Dictionary:
-	var topology_builds:=0;var classifications:=0
-	for part:Dictionary in _parts.values():
+	var topology_builds:=0;var classifications:=0;var boundary_builds:=0;var added_sides:=0
+	var errors:=_errors.duplicate()
+	for id:String in _parts:
+		var part:Dictionary=_parts[id]
 		var counters:Dictionary=part.prepared.diagnostics();topology_builds+=counters.topologyBuilds;classifications+=counters.classifications
-	return {"policy":"target_rigid_hull_mast","geometryCache":_geometry.size(),"activeCasters":_parts.size(),"errors":_errors.duplicate(),"topologyBuilds":topology_builds,"classifications":classifications}
+		boundary_builds+=int(counters.get("boundaryBuilds",0));added_sides+=int(counters.get("addedSides",0))
+		if not str(counters.get("boundaryError","")).is_empty():errors.append(id+": "+str(counters.boundaryError))
+	return {"policy":"target_rigid_hull_mast","geometryCache":_geometry.size(),"activeCasters":_parts.size(),"errors":errors,"topologyBuilds":topology_builds,"classifications":classifications,"boundaryBuilds":boundary_builds,"addedSides":added_sides}
 func dispose()->void:
 	for saved:Dictionary in _shadow_modes.values():
 		var mesh:MeshInstance3D=saved.node.get_ref()

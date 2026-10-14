@@ -99,22 +99,25 @@
       "id": "wake-flow",
       "title": "航迹水流与船尾扩散",
       "category": "船舶表现",
-      "abstract": "保留双侧尾浪，用真实船体运动驱动局部波高与持久泡沫；可比较原尾迹、交互水面场和历史失败实验。正在做动态画面验收，正式场景保留原方案。",
-      "status": "researching",
+      "abstract": "双侧尾迹已接入正常场景：真实船体驱动局部波高与持久泡沫，转弯留痕、停船消散；实验室保留原方案和场诊断。",
+      "status": "integrated",
       "retrospective": false,
       "paper": "res://assets/research/papers/wake-flow.md",
       "demo": "wake-flow",
       "sources": [
         "res://docs/research/wake-flow-online-research-2026-10-14.md",
         "res://game/research/demos/wake_flow_experiment.gd",
+        "res://modules/scene_engine/water/interactive_wake_system.gd",
         "res://modules/scene_engine/water/interactive_wake_field.gd",
         "res://modules/scene_engine/water/ship_water_interaction.gd",
         "res://modules/scene_engine/ocean/interactive_wake_surface.gdshaderinc",
-        "res://modules/scene_engine/water/wake_flow.gd",
-        "res://modules/scene_engine/water/wake_flow.gdshader",
-        "res://modules/scene_engine/water/source_wake_renderer.gd"
+        "res://game/presentation/world/naval_world_view.gd"
       ],
-      "evidence": []
+      "evidence": [
+        "res://docs/research/evidence/wake-flow/interactive-field-gpu-4/GPU_VERIFY.json",
+        "res://docs/research/evidence/wake-flow/interactive-lab-3/PAIR_VERIFY.json",
+        "res://docs/research/evidence/wake-flow/interactive-production-1/default/GPU_VERIFY.json"
+      ]
     }
   ]
 }

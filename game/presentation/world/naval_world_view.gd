@@ -220,8 +220,9 @@ func _configure_wakes() -> void:
 func _configure_interactive_water() -> void:
 	if _interactive_water!=null:_interactive_water.dispose()
 	_interactive_water=null;_water_mask_revision=-1;_interactive_ocean_id=0
-	# Promotion remains explicit until normal-scene GPU and fallback acceptance.
-	if not bool(_options.get("interactive_wake",false)):return
+	# Accepted in the wake-flow lab and actual free-sail GPU path. An explicit
+	# false retains the original renderer for comparison and recovery.
+	if not bool(_options.get("interactive_wake",true)):return
 	_interactive_water=InteractiveWater.new()
 	_water_mask_revision=world.get_interactive_water_mask_revision()
 	_interactive_ocean_id=world.get_ocean().get_instance_id()

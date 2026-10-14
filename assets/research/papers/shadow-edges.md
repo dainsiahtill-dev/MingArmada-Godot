@@ -1,5 +1,21 @@
 # 阴影轮廓边索引：保序奇偶抵消与 CPU 热点修复
 
+## 2026-10-14 最新补充：通用 target 有向边重数修复
+
+以下为后续新增证据，不把前文历史“尚未GPU”阶段改写为当时已验证。root 的单caster候选已通过真实GPU：同24s远线像素158→0，近船阴影29→22；actual backend回读targetCalls=alteredCalls=8、rejectedCalls=0，仅补2片侧面，原positions/indices前缀及direction保持不变。[原始对照](../../../docs/research/evidence/shadow-edges/DIRECTED_BOUNDARY_GPU_COMPARE.json)。随后root运行未注入候选的正式通用路径：[production DIAGNOSIS](../../../docs/research/evidence/shadow-edges/directed-boundary-production-20261014-r1/DIAGNOSIS.json) valid=true，同24s四张原帧，activeCasters44、addedSides4、errors空；同ROI远线0、近船22，与隔离候选一致。
+
+后续[普通自由试航六帧](../../../docs/research/evidence/wake-flow/interactive-production-1/final/GPU_VERIFY.json)同样valid=true、failures空，时间0/4/12/20/30/30s，每帧activeCasters及volumeCount均81；addedSides为30/30/34/26/30/30，各层shadow errors均空。root亲看cruise/turn/stop原图确认长线消失、双尾保留；30s暂停画质重建前后classification与boundaryBuilds不变。该运行无候选shadow backend注入。六张状态截图与固定诊断场景都不是完整游戏帧时间或全场景像素等价证明。
+
+H9：以原caps的有向边整数重数减去原侧面已有贡献，把非零余额作为缺失侧面追加到原volume末尾。新 `game/presentation/world/target_shadow_boundary.gd` 继承原PreparedRigid，target adapter统一实例化该子类，无caster ID、模型名称或类型过滤。保留所有源vertices/indices原前缀和方向；已有apex直接采用原结果。原side数量为0而caps非空时，在全部原cap顶点之后追加apex，不改变原index0。超过65535顶点的修复不展开，不截断/丢caster：继续显示原完整geometry，并由boundaryError明确报告未修补限制。
+
+原Math、RD shader与Prepared源代码不变。SourceShadowRenderer及PreparedShadowFrame通过既有具体基类、输入identity与输出ownership合同接收该子类，仍共享递归冻结的当前geometry。换mutable holder继续回原Math。仅原immutable indices对象随精确face-sign拓扑变化时扫描caps/edges；同符号微小light变化复用修补indices，仅更新原f32 apex及冻结的顶层位置列表，不新增逐帧全局边扫描。
+
+预先反例与验收：零side非空caps、同向两/三/四重边、反向抵消、正常闭合边界不变；原prefix逐元素保持、旧publication不变、缓存计数不随同拓扑light增长、无名字过滤、uint16上限不丢caster。实际行为RED51断言/14失败→GREEN57/0（构造出新增几何后多执行6个检查），shadow10文件全通过。首次完整回归中旧target“完整Math相等”断言36项失败，属于本次明确追加修补与旧目标等价合同的差异；最终保留generic Prepared完整oracle，target无补边要求完整相等、有补边要求原positions/indices/direction前缀精确相等。失败回执均保留，不掩盖为原Math视觉等价优化。
+
+[完整基线、候选源码及RED/GREEN/回归](../../../docs/research/evidence/shadow-edges/target-directed-boundary-20261014/manifest.json)；[生产接缝与诊断报告](../../../docs/superpowers/plans/playable-voyage-work/t2-target-shadow-boundary-report.md)。公开 `scene.sea.source_shadow_status().casterAdapter` 新增boundaryBuilds与addedSides，errors包含上限限制；计数应在实际volume提交后读取。通用生产GPU固定场景证据见上文；未测性能，不用缓存断言宣称整场加速。原cap绕序问题不混入本次修复。
+
+[独立只读审阅](../../../docs/superpowers/plans/playable-voyage-work/shadow-directed-boundary-review.md)无阻断发现：独立复跑boundary57/0、preparation546/0，冻结源码及未改的Prepared/Math/RD哈希一致；审阅原图后确认正式all-retained/stencil-off与隔离候选对应图文件哈希相同。rigging-hidden实际匹配0节点，因此不作为有效消融；超uint16回原输出仅保留功能与诊断，不宣称该输入已修复。
+
 ## 2026-10-14 后续实验预注册：刚性数据准备与不可变提交
 
 状态：研究中，以下为修改前假设与接受标准。独立实验拟用 `game/research/demos/shadow_edges_experiment.gd`，仍归属原 `shadow-edges` 课题。

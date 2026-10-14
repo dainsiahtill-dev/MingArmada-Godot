@@ -55,29 +55,29 @@ GPU algorithm responsibilities:
 
 ### T1 GPU field — voyage_visual
 Files: new `interactive_wake_field.gd`, `interactive_wake_field_rd.gd`, `interactive_wake_height.glsl`, `interactive_wake_foam.glsl`, numerical CPU reference/test helpers scoped to this topic.
-- [ ] Write tests/probes for impulse propagation, bounded density decay, coordinate remap, pause/duplicate/rewind, resource ownership. Preserve RED.
-- [ ] Implement the shared interface and compile/parse checks; independent CPU numerical reference explains the compute math.
-- [ ] Deliver GPU validation driver using explicit readback and exact source hashes; root executes GPU. Do not touch ocean shader, lab host, producer, production callers or old trail code.
+- [x] Write tests/probes for impulse propagation, bounded density decay, coordinate remap, pause/duplicate/rewind, resource ownership. Preserve RED.
+- [x] Implement the shared interface and compile/parse checks; independent CPU numerical reference explains the compute math.
+- [x] Deliver GPU validation driver using explicit readback and exact source hashes; root executes GPU. Do not touch ocean shader, lab host, producer, production callers or old trail code.
 
 ### T2 Real hull input — voyage_controls
 Files: new `ship_water_interaction.gd`, `test_ship_water_interaction.gd`, fixtures/tools if necessary. Shadow candidate remains parked until its own GPU acceptance.
-- [ ] RED: unchanged XY with rising Y must emit finite vertical velocity; fully dry must have0wetness; zero speed but bobbing can remain active; 4 actual ship models world units.
-- [ ] Implement actual probes and short double-arm source metadata via shared contract; no own clock and no GPU.
-- [ ] GREEN + packet lifecycle/teleport/repeated-time tests; document exact coefficients and inputs, no visual success claims.
+- [x] RED: unchanged XY with rising Y must emit finite vertical velocity; fully dry must have0wetness; zero speed but bobbing can remain active; 4 actual ship models world units.
+- [x] Implement actual probes and short double-arm source metadata via shared contract; no own clock and no GPU.
+- [x] GREEN + packet lifecycle/teleport/repeated-time tests; document exact coefficients and inputs, no visual success claims.
 
 ### T3 Existing laboratory — voyage_story
 Files: `wake_flow_experiment.gd`, its tests and new GPU harness; avoid root's shared ocean/catal​og edits.
-- [ ] Keep current original source baseline and archived v2 distinguished. Add a new explicit `field_enabled` experimental factor; default source baseline until GPU accepted.
-- [ ] Wrap/reuse existing real Ship/Crew/Ocean/SailingRuntime; invoke producer then field after accepted poses; disable original tail only when valid field candidate is actually ready. Local contact froth remains a separate visible factor.
-- [ ] Add field/force/foam diagnostic views, clear field reset, pause+single-step, straight/turn/stop/reentry/small-vessel; failure cannot silently look like success.
-- [ ] GPU harness saves consecutive frame/time/field receipt, controls/ship/camera hashes; independent water quality/performance labels. No GPU run by workers.
+- [x] Keep current original source baseline and archived v2 distinguished. Add a new explicit `field_enabled` experimental factor; default source baseline until GPU accepted.
+- [x] Wrap/reuse existing real Ship/Crew/Ocean/SailingRuntime; invoke producer then field after accepted poses; disable original tail only when valid field candidate is actually ready. Local contact froth remains a separate visible factor.
+- [x] Add field/force/foam diagnostic views, clear field reset, pause+single-step, straight/turn/stop/reentry/small-vessel; failure cannot silently look like success.
+- [x] GPU harness saves consecutive frame/time/field receipt, controls/ship/camera hashes; independent water quality/performance labels. No GPU run by workers.
 
 ### T4 Root shared render + acceptance
-- [ ] Add optional field texture/bounds to projected ocean and shader, default off. Height/slope/foam must change the actual sea; keep old five waves and shore logic intact.
-- [ ] Run CPU tests and GPU numerical readback; inspect real field debug and normal modes. Test same input A/B, up/down, start/stop, both turn directions, zoom/orbit and multiple vessel scales.
-- [ ] If the local solver does not yield clear double arms, use a documented historical wave/shape source, not a central white trail; retain unsuccessful candidates.
-- [ ] Connect only validated candidate through normal rendering owner, with old route fallback and lifecycle/terrain gates. Independent review of a scoped diff before claiming integration.
-- [ ] Update bundled paper, sources, images/manifest and laboratory status. Actual game acceptance separate from isolated demo. No claim of 60FPS without a live measured run.
+- [x] Add optional field texture/bounds to projected ocean and shader, default off. Height/slope/foam must change the actual sea; keep old five waves and shore logic intact.
+- [x] Run CPU tests and GPU numerical readback; inspect real field debug and normal modes. Test same input A/B, up/down, start/stop, both turn directions, zoom/orbit and multiple vessel scales.
+- [x] If the local solver does not yield clear double arms, use a documented historical wave/shape source, not a central white trail; retain unsuccessful candidates.
+- [x] Connect only validated candidate through normal rendering owner, with old route fallback and lifecycle/terrain gates. Independent review of a scoped diff before claiming integration.
+- [x] Update bundled paper, sources, images/manifest and laboratory status. Actual game acceptance separate from isolated demo. No claim of 60FPS without a live measured run.
 
 ## Execution Ledger
 
@@ -92,3 +92,18 @@ Files: `wake_flow_experiment.gd`, its tests and new GPU harness; avoid root's sh
 - Independent review found a required fix: `SourceSurface.submit` can keep an old mesh when a later source submission has empty indices. `set_external_water_coverage([])` must not restore visibility from that cached mesh. Preserve current source eligibility before applying field coverage; reproduce with `Temp/research/probe-fallback-stale-geometry-review.gd` / `t2-fallback-stale-geometry-review.json`.
 - T3 is fixing camera duplicate submissions and adopting the production projected ocean for the wake experiment. Wait for its freeze, rerun paired source/field GPU, then continue normal-scene acceptance. Old finite384m plane side-view evidence remains labeled as such.
 - User now requests a detailed explanation of the scientific research attitude and step-by-step method for guiding other models. Do not claim the unfinished integration complete.
+
+
+### Final integration after the method discussion — 2026-10-14
+
+This supersedes the earlier checkpoint; its default-off and pending items describe the historical state only.
+
+- SourceSurface fallback eligibility repaired (39/0; independent review), system reset failure guarded (62/0). Cached source geometry cannot become visible just because external coverage ends.
+- The lab now uses the same projected ocean as production. `interactive-lab-3/PAIR_VERIFY.json` proves 97 source/field frames with identical ship, camera and accepted time; finite-plane horizon artifacts remain only in archived lab-2 evidence.
+- Actual free-sail source, candidate and default paths each passed six GPU keyframes: initial, cruise, longer cruise, mouse turn, stopped decay, paused quality rebuild. The default path has no candidate opt-in; original five ocean waves and 3D crew remain.
+- `NavalWorldView` now enables the new field by default. A maximum of three complete nearby ships receives the field; unsupported/far ships retain source history. Terrain masking is conservative at the existing sampled resolution, not a fine shoreline collision solver.
+- The runtime does not synchronously read back GPU state. QA deliberately waits for accepted-time results and does not establish live game FPS.
+- Source and unsuccessful candidates, formulas/units, reproducible checks, limits and current integration are recorded in `assets/research/papers/wake-flow.md`; the catalog status is integrated. Historical v1/v2 remain archived in `docs/research/wake-flow-history-v1-v2-2026-10-14.md`.
+- Separate shadow defect: isolated directed-boundary repair removed the long line (ROI 158→0 dark pixels). The generic target adapter now also passed production GPU (far0, near22); no caster-ID filter or original Math/RD change. Evidence: `docs/research/evidence/shadow-edges/DIRECTED_BOUNDARY_GPU_COMPARE.json`. Final independent review and combined normal-game capture are tracked in their own report.
+
+- Final combined default GPU run also passed: `interactive-production-1/final/GPU_VERIFY.json` has six frames, player bound, zero dropped steps, no caster errors, and same-mask quality preserves1800steps. Root inspected cruise/turn/stop original PNGs: two wake arms remain and the long black line is absent. Independent shadow review found no blocker; 57 boundary +546 prepared-shadow checks passed.
