@@ -64,6 +64,9 @@ func _test_original_runtime_tracks() -> void:
 	for track: Dictionary in fixture.tracks:
 		var spec: Dictionary = track.initial.duplicate(true)
 		spec.kind = track.kind
+		# Frozen source equivalence is explicit; production model has separate contact tests.
+		if not spec.has("config"):spec.config={}
+		spec.config.waterRelativeBuoyancy=false
 		var waves: RefCounted = FlatWaves.new() if spec.get("sampler") == "flat" else WaveField.new()
 		var engine = _solver_script.new()
 		_check(engine.configure(spec, Callable(), waves), track.name + " configure")

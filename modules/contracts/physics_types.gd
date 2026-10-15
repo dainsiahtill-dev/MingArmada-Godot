@@ -16,7 +16,7 @@ const DEFAULT_CONFIG := {
 	"yawDamp": 0.5, "maxYawRate": 0.8, "lateralDampCoeff": 0.08,
 	"keelLiftSlope": 5.0, "keelStallDeg": 22.0, "keelAreaFactor": 0.25, "keelCd0": 0.03, "keelInducedDragFactor": 0.12,
 	"sailPressureScale": 5.0, "noGoZoneDeg": 35.0, "noGoFadeDeg": 15.0,
-	"buoyancyEnabled": true, "heaveDamp": 2.5,
+	"buoyancyEnabled": true, "heaveDamp": 2.5, "waterRelativeBuoyancy": true,
 }
 const MIN_DRAFT_METERS := 0.05
 

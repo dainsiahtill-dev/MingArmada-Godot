@@ -13,7 +13,7 @@ const MAX_CATCHUP := 8
 const KINDS := ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]
 const SCENARIOS := ["cruise", "slow", "turn", "stop", "reentry"]
 const CAMERAS := ["side", "front", "high"]
-const DEFAULTS := {"kind": "fuchuan", "scenario": "cruise", "camera_mode": "side", "contact_enabled": true, "paused": false, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0, "quality": "balanced", "carrier_extent": 1200.0}
+const DEFAULTS := {"kind": "fuchuan", "scenario": "cruise", "camera_mode": "side", "contact_enabled": true, "water_relative_buoyancy":true, "paused": false, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0, "quality": "balanced", "carrier_extent": 1200.0}
 const SCOPE := "Production Ship/Crew/WaterPacket/WakeRenderer and SailingRuntime physics; deep open water at -20m. Uniform 1200m PlaneMesh with 512 subdivisions carries unchanged production Ocean material, five waves, reflection, optics and depth. This close-view carrier differs from the game's projected grid. A/B toggles visibility of current local hull-contact foam and spray; same pose, source tail and contact timeline remain. Reentry adds an explicit 2m presentation stress overlay, not a native-physics event. Independent experiment is not full-game FPS or old-version comparison."
 
 var _options: Dictionary = DEFAULTS.duplicate(true)
@@ -40,6 +40,9 @@ var _orbit_yaw := 0.0
 var _orbit_pitch := 0.0
 var _zoom := 1.0
 
+func get_default_options() -> Dictionary:
+	return DEFAULTS.duplicate(true)
+
 func _ready() -> void:
 	set_process(false)
 	set_physics_process(false)
@@ -58,7 +61,7 @@ func configure(options: Dictionary) -> Dictionary:
 			return {"ok": false, "ready": _ready_experiment, "pending": false, "reason": "invalid-" + field}
 	if candidate.kind not in KINDS or candidate.scenario not in SCENARIOS or candidate.camera_mode not in CAMERAS:
 		return {"ok": false, "ready": _ready_experiment, "pending": false, "reason": "unsupported-experiment-option"}
-	for field: String in ["paused", "contact_enabled"]:
+	for field: String in ["paused", "contact_enabled","water_relative_buoyancy"]:
 		if not candidate[field] is bool:
 			return {"ok": false, "ready": _ready_experiment, "pending": false, "reason": "invalid-" + field}
 	for field: String in ["orbit_yaw", "orbit_pitch", "zoom", "carrier_extent"]:
@@ -159,6 +162,7 @@ func zoom_camera(amount: float) -> void:
 func inspection_snapshot() -> Dictionary:
 	var time := float(_native_snapshot.get("time", 0.0))
 	var result := {"ready": _ready_experiment, "disposed": _disposed, "reason": _reason, "kind": _options.kind, "scenario": _options.scenario, "camera_mode": _options.camera_mode, "paused": _options.paused, "contact_enabled": _options.contact_enabled, "tick": _tick, "time": time, "presentation_time": _tick * STEP, "fixed_step": STEP, "native_step": Runtime.STEP, "native_owner": "SailingRuntime", "native_runtime_id": _runtime.get_instance_id() if _runtime != null else 0, "ship": _display_ship.duplicate(true), "native_ship": _native_snapshot.get("ship", {}).duplicate(true), "diagnostic_overlay_m": _overlay, "scope": SCOPE, "seed_policy": "production WaterPacket: absi('player'.hash()) % 2147483647", "camera_position": _camera.global_position if is_instance_valid(_camera) else Vector3.ZERO, "contact_visible": is_instance_valid(_contact_container) and _contact_container.visible, "tail_visible": false, "tail": {}, "contact": {}, "crew": {}, "resources": {"world": 1 if is_instance_valid(_world) else 0, "ship": 1 if is_instance_valid(_ship) else 0, "crew": 1 if is_instance_valid(_crew) else 0, "ocean": 1 if is_instance_valid(_ocean) else 0, "wake": 1 if _renderer != null else 0, "runtime": 1 if _runtime != null else 0}}
+	if _runtime!=null:result.buoyancy=_runtime._ship.get_buoyancy_debug()
 	result.merge(_replay_metadata())
 	if _options.carrier_extent == 384.0:
 		result.scope = SCOPE.replace("Uniform 1200m PlaneMesh with 512 subdivisions", "Controlled experimental 384m PlaneMesh with 512 subdivisions and only +/-192m local water coverage")
@@ -268,7 +272,7 @@ func _build_experiment() -> void:
 	sun.shadow_enabled = true
 	_runtime = Runtime.new()
 	var slow: bool = _options.scenario == "slow"
-	if not _runtime.configure(_ground, {"kind": _options.kind, "position": {"x": 0.0, "z": 0.0}, "heading": 0.45, "speed": 0.8 if slow else 3.086, "time": 0.0, "wind": {"direction": {"x": -1.0, "z": 0.3}, "speed": 14.0}, "sailDeployment": 0.2 if slow else 1.0}):
+	if not _runtime.configure(_ground, {"kind": _options.kind, "config":{"waterRelativeBuoyancy":_options.water_relative_buoyancy}, "position": {"x": 0.0, "z": 0.0}, "heading": 0.45, "speed": 0.8 if slow else 3.086, "time": 0.0, "wind": {"direction": {"x": -1.0, "z": 0.3}, "speed": 14.0}, "sailDeployment": 0.2 if slow else 1.0}):
 		_fail_build("runtime-configuration-failed")
 		return
 	_ship = Ship.new()

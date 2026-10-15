@@ -5,7 +5,7 @@
       "id": "hull-contact",
       "title": "船体与海面的接触水沫",
       "category": "船舶表现",
-      "abstract": "让水沫随真实船体水线、相对入水速度与转向变化；保持尾迹和船舶操控。",
+      "abstract": "以真实船壳、水面相对速度与各船吃水驱动稳定浮动和接触水沫；实验室可对照旧浮动算法。",
       "status": "integrated-retrospective",
       "retrospective": true,
       "paper": "res://assets/research/papers/hull-contact.md",
@@ -14,11 +14,14 @@
         "res://modules/scene_engine/water/hull_contact_froth.gd",
         "res://modules/scene_engine/water/hull_contact_foam.gdshader",
         "res://game/presentation/ships/hull_waterline_profile.gd",
-        "res://docs/migration/hull-dynamics-2026-10-14.md"
+        "res://docs/migration/hull-dynamics-2026-10-14.md",
+        "res://modules/physics_engine/ships/ship_dynamics.gd",
+        "res://docs/research/ship-buoyancy-contact-2026-10-14.md"
       ],
       "evidence": [
         "res://docs/migration/evidence/hull-dynamics-2026-10-14/DELIVERY_VERIFY.json",
-        "res://docs/migration/evidence/hull-dynamics-2026-10-14/performance/comparison-gpu.json"
+        "res://docs/migration/evidence/hull-dynamics-2026-10-14/performance/comparison-gpu.json",
+        "res://docs/research/evidence/ship-buoyancy-2026-10-14/VERIFY.json"
       ]
     },
     {
@@ -74,10 +77,12 @@
       "sources": [
         "res://game/research/demos/weather_shadow_experiment.gd",
         "res://docs/migration/weather-cloud-shadow-wake-integration-2026-10-13.md",
-        "res://docs/migration/weather-cloud-shadow-wake-delivery-2026-10-13.md"
+        "res://docs/migration/weather-cloud-shadow-wake-delivery-2026-10-13.md",
+        "res://docs/research/cloud-ocean-composition-2026-10-14.md"
       ],
       "evidence": [
-        "res://docs/migration/rea-latest-handoff-2026-10-12.md"
+        "res://docs/migration/rea-latest-handoff-2026-10-12.md",
+        "res://docs/research/evidence/cloud-ocean-composition-2026-10-14/VERIFY.json"
       ]
     },
     {

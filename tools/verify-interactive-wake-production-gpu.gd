@@ -21,6 +21,8 @@ func check(ok: bool,message: String) -> void:
 func hashes() -> Dictionary:
 	var result: Dictionary={}
 	for file: String in SOURCES:result[file]=FileAccess.get_sha256("res://"+file)
+	for file:String in ["modules/physics_engine/ships/ship_dynamics.gd","modules/contracts/physics_types.gd","modules/naval_simulation/encounter.gd"]:
+		result[file]=FileAccess.get_sha256("res://"+file)
 	for file: String in ["game/presentation/world/target_shadow_boundary.gd","game/presentation/world/target_rigid_shadow_caster.gd","game/presentation/world/prepared_rigid_shadow.gd","modules/scene_engine/fidelity_fx/source_shadow_math.gd","modules/scene_engine/fidelity_fx/source_shadow_rd.gd","modules/scene_engine/ocean/reference_shore_foam.gdshaderinc"]:
 		result[file]=FileAccess.get_sha256("res://"+file)
 	return result

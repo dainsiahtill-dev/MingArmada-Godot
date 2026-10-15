@@ -1,6 +1,7 @@
 extends RefCounted
 
-# Exact scalar marine integration order from frozen NormPhysicsEngine.
+# Scalar marine integration. Production uses water-relative buoyancy; the
+# explicit legacy branch retains frozen NormPhysicsEngine oracle arithmetic.
 # All spatial state remains 64-bit scalar float; conversion to Vector3 belongs
 # at presentation/contact adapters. No scene, naval, domain or UI dependencies.
 const Types = preload("res://modules/contracts/physics_types.gd")
@@ -42,6 +43,8 @@ var _vx := 0.0
 var _vz := 0.0
 var _yaw_rate := 0.0
 var _base_y := 0.0
+var _water_motion_heights:Array[float]=[]
+var _water_motion_time:=NAN
 var _heave := 0.0
 var _heave_rate := 0.0
 var _pitch := 0.0
@@ -170,6 +173,7 @@ func configure(spec: Dictionary, terrain: Callable = Callable(), waves: RefCount
 	_controls = {"throttle": 0.0, "rudderAngleDeg": 0.0, "crewSteeringForce": 0.0, "manualAssist": {}}
 	_sail_debug = {"valid": false, "apparentWindSpeed": 0.0, "trueWindSpeed": 0.0, "relativeWindDirDotForward": 0.0, "sailAngleRad": 0.0, "aoaRad": 0.0, "runBlend": 0.0, "cl": 0.0, "cd": 0.0, "forwardForce": 0.0}
 	_configured = true
+	_reset_water_motion()
 	return true
 
 func get_snapshot() -> Dictionary:
@@ -194,7 +198,9 @@ func set_config(partial: Dictionary) -> bool:
 	candidate.merge(partial, true)
 	if not _valid_config(candidate) or not Types.valid_draft(_draft, _beam, _mass(), candidate.heaveDamp, candidate.waterAreaFactor):
 		return false
+	var changed:bool=candidate.waterRelativeBuoyancy!=_config.waterRelativeBuoyancy
 	_config = candidate
+	if changed:_reset_water_motion()
 	return true
 
 func set_cargo_mass(cargo_kg: float) -> bool:
@@ -238,6 +244,7 @@ func set_base_y(y: float) -> bool:
 		return false
 	_base_y = y
 	_buoyancy_offset = null
+	_reset_water_motion()
 	return true
 
 func set_state(position: Dictionary, heading: float) -> bool:
@@ -247,6 +254,7 @@ func set_state(position: Dictionary, heading: float) -> bool:
 	_z = position.z
 	_heading = heading
 	_buoyancy_offset = null
+	_reset_water_motion()
 	return true
 
 func set_speed(speed: float) -> bool:
@@ -288,6 +296,8 @@ func resolve_horizontal_contact(normal: Dictionary, offset: Dictionary) -> float
 func step(delta: float, controls: Dictionary = {}) -> Dictionary:
 	var dt := ClockContract.accepted_delta(delta)
 	if not _configured or dt == 0.0:
+		return get_snapshot()
+	if _config.waterRelativeBuoyancy and Types.finite_number(controls.get("time")) and float(controls.time) <= _time:
 		return get_snapshot()
 	_accept_controls(controls)
 	_time = Types.finite_or(controls.get("time"), _time + dt)
@@ -422,6 +432,8 @@ func step_buoyancy(delta: float, accepted_time: Variant = null) -> Dictionary:
 	var dt := ClockContract.accepted_delta(delta)
 	if not _configured or dt == 0.0:
 		return get_snapshot()
+	if _config.waterRelativeBuoyancy and Types.finite_number(accepted_time) and float(accepted_time) <= _time:
+		return get_snapshot()
 	_time = Types.finite_or(accepted_time, _time + dt)
 	var has_wave := _update_wave_sample(cos(_heading), sin(_heading))
 	_step_buoyancy(dt, has_wave, 0.0)
@@ -519,7 +531,113 @@ func _update_wave_sample(fx: float, fz: float) -> bool:
 	_wave_heel = atan2((heights[1] + heights[2]) * 0.5 - (heights[0] + heights[3]) * 0.5, _sample_side * 2.0)
 	return true
 
+func _reset_water_motion() -> void:
+	_water_motion_heights.clear()
+	_water_motion_time=NAN
+	if _config.waterRelativeBuoyancy and _update_wave_sample(cos(_heading),sin(_heading)):
+		for p:Dictionary in _wave_points:_water_motion_heights.append(float(p.y))
+		_water_motion_time=_time
+		if _buoyancy_offset==null:_buoyancy_offset=_base_y+_heave-_wave_average
+
+func get_buoyancy_debug() -> Dictionary:
+	return {"relative_model":_config.waterRelativeBuoyancy,"draft_m":_draft,"relative_limit_m":_draft*.25,
+		"water_average_m":_wave_average,"reference_offset_m":_buoyancy_offset,
+		"waterline_y_m":_base_y+_heave,"relative_error_m":_base_y+_heave-_wave_average-float(_buoyancy_offset if _buoyancy_offset!=null else 0.0)}
+
+func _accept_water_motion(dt:float)->Array[float]:
+	var rates:Array[float]=[0.0,0.0,0.0,0.0]
+	var elapsed:=_time-_water_motion_time
+	if _water_motion_heights.size()==4 and elapsed>0.0 and elapsed<=dt*1.01:
+		for i in 4:rates[i]=(float(_wave_points[i].y)-_water_motion_heights[i])/elapsed
+	_water_motion_heights.clear()
+	for p:Dictionary in _wave_points:_water_motion_heights.append(float(p.y))
+	_water_motion_time=_time
+	return rates
+
 func _step_buoyancy(dt: float, has_wave: bool, external_roll_torque: float) -> void:
+	if not _config.waterRelativeBuoyancy:
+		_step_legacy_buoyancy(dt,has_wave,external_roll_torque)
+		return
+	var mass := _mass()
+	var roll_inertia := mass * _roll_radius * _roll_radius
+	if not _config.buoyancyEnabled:
+		_heave = 0.0
+		_heave_rate = 0.0
+		_pitch = 0.0
+		_pitch_rate = 0.0
+		_buoyancy_offset = null
+		if roll_inertia > 0.0:
+			var restoring := mass * 9.81 * _roll_gm * sin(_heel)
+			var acceleration := (external_roll_torque - restoring) / roll_inertia - 0.6 * _heel_rate
+			_heel_rate += acceleration * dt
+			_heel += _heel_rate * dt
+			_heel = clampf(_heel, -PI / 3.0 * 0.99, PI / 3.0 * 0.99)
+		return
+	if _waves == null:
+		return
+	var center_water := _water_height(_x, _z)
+	var water_ref := _wave_average if has_wave else center_water
+	if not is_finite(water_ref):
+		return
+	if _buoyancy_offset == null:
+		_buoyancy_offset = _base_y + _heave - water_ref
+	var water_offset: float = _buoyancy_offset
+	var sample_forward := _sample_forward if _sample_forward > 0.0 else maxf(0.5, _length * 0.35)
+	var sample_side := _sample_side if _sample_side > 0.0 else maxf(0.25, _beam * 0.45)
+	var stiffness := (mass * 9.81) / _draft / 4.0
+	var damping: float = mass * (2.0 * sqrt(9.81 / _draft)) / 4.0
+	var water_rates:=_accept_water_motion(dt)
+	var boat_y := _base_y + _heave
+	var sin_pitch := sin(_pitch)
+	var sin_heel := sin(_heel)
+	var x_offsets := [sample_forward, sample_forward, -sample_forward, -sample_forward]
+	var z_offsets := [sample_side, -sample_side, -sample_side, sample_side]
+	var force := 0.0
+	var roll_torque := 0.0
+	var pitch_torque := 0.0
+	for i in range(4):
+		var x: float = x_offsets[i]
+		var z: float = z_offsets[i]
+		var water_y: float = (float(_wave_points[i].y) if has_wave else center_water) + water_offset
+		var hull_y := boat_y - _draft + x * sin_pitch - z * sin_heel
+		var depth := water_y - hull_y
+		if depth <= 0.0:
+			continue
+		var point_velocity := _heave_rate + x * _pitch_rate - z * _heel_rate - water_rates[i]
+		var point_force := maxf(0.0, stiffness * depth - damping * point_velocity)
+		force += point_force
+		roll_torque += -z * point_force
+		pitch_torque += x * point_force
+	var heave_acc := (force - mass * 9.81) / mass
+	_heave_rate += heave_acc * dt
+	_heave += _heave_rate * dt
+
+	var pitch_inertia := (1.0 / 12.0) * mass * (_length * _length + _height * _height)
+	if pitch_inertia > 0.0:
+		var pitch_acc := pitch_torque / pitch_inertia - 0.6 * _pitch_rate
+		_pitch_rate += pitch_acc * dt
+		_pitch += _pitch_rate * dt
+		_pitch = clampf(_pitch, -PI / 10.0, PI / 10.0)
+	if roll_inertia > 0.0:
+		var heel_acc := (roll_torque + external_roll_torque) / roll_inertia - 0.6 * _heel_rate
+		_heel_rate += heel_acc * dt
+		_heel += _heel_rate * dt
+		_heel = clampf(_heel, -PI / 7.0 * 0.99, PI / 7.0 * 0.99)
+
+	# A local immersion envelope, not a fixed world ceiling. Follow the moving
+	# reference and remove outward relative velocity when the guard is active.
+	var center_velocity:float=(water_rates[0]+water_rates[1]+water_rates[2]+water_rates[3])*.25
+	var reference_heave:=water_ref+water_offset-_base_y
+	var travel:=_draft*.25
+	var relative:=_heave-reference_heave
+	if relative>travel:
+		_heave=reference_heave+travel
+		_heave_rate=minf(_heave_rate,center_velocity)
+	elif relative < -travel:
+		_heave=reference_heave-travel
+		_heave_rate=maxf(_heave_rate,center_velocity)
+
+func _step_legacy_buoyancy(dt: float, has_wave: bool, external_roll_torque: float) -> void:
 	var mass := _mass()
 	var roll_inertia := mass * _roll_radius * _roll_radius
 	if not _config.buoyancyEnabled:
@@ -604,7 +722,7 @@ func _accept_controls(input: Dictionary) -> void:
 
 func _valid_config(config: Dictionary) -> bool:
 	for key: String in config:
-		if key == "buoyancyEnabled":
+		if key in ["buoyancyEnabled","waterRelativeBuoyancy"]:
 			if not config[key] is bool:
 				return false
 		elif not Types.finite_number(config[key]):

@@ -6,6 +6,9 @@ const RenderCompiler = preload("res://modules/scene_engine/fidelity_fx/cloud_ren
 const SourceMath = preload("res://modules/scene_engine/fidelity_island/native_math.gd")
 const SHADER = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gdshader")
 const SOURCE_METRES := 0.01
+## The sea composites refraction at transparent priority 1 and writes depth.
+## Clouds must blend afterwards while keeping depth tests against sea/land.
+const CLOUD_RENDER_PRIORITY := 2
 const AXES := Basis(Vector3(1,0,0),Vector3(0,0,-1),Vector3(0,1,0))
 
 var _container: Node3D
@@ -116,7 +119,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 	for clone: Dictionary in _ring.nodes:
 		var group: Array = []
 		for mesh: Dictionary in Native.original_meshes(_assets[clone.prototype]):
-			var record := _create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)])
+			var record := _create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)],true)
 			if record.is_empty(): return _fail("Unsupported original cloud render state")
 			group.append(record)
 		_clouds.append(group)
@@ -142,6 +145,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 			if record.is_empty():return _fail("Unsupported original world weather render state")
 			record.bakedShadow=str(mesh.texture) in ["cloud_sh.dds","stormshadow.dds"]
 			if record.bakedShadow:record.material.set_shader_parameter("display_opacity",_world_shadow_opacity)
+			else:record.material.render_priority=CLOUD_RENDER_PRIORITY
 			group.append(record)
 		_weather.append({"meshes":group,"compiled":graph,"resource":resource,"stateTime":-INF,"states":[]})
 	return {"ok":true,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"liveOriginalRandState":"unresolved; explicit target CRT seed","skyPlacement":"explicit camera-follow target adaptation","fogWorldPlacement":"explicit target adaptation; original placement unrecovered"}
@@ -151,7 +155,7 @@ func _fail(reason: String) -> Dictionary:
 	_error = reason
 	return {"ok":false,"error":reason}
 
-func _create_mesh(source: Dictionary, name: String) -> Dictionary:
+func _create_mesh(source: Dictionary, name: String, sky_cloud: bool = false) -> Dictionary:
 	if int(source.filterMode) != 2 or not _textures.has(source.texture): return {}
 	if int(source.clampMode) not in [0,3]: return {} # No current source asset uses mixed-axis addressing.
 	var test_enabled := (int(source.alphaFlags)&512) != 0
@@ -171,6 +175,7 @@ func _create_mesh(source: Dictionary, name: String) -> Dictionary:
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 	var material := ShaderMaterial.new()
+	if sky_cloud:material.render_priority=CLOUD_RENDER_PRIORITY
 	material.shader = SHADER
 	# Preserve authored blend/depth gates where Godot exposes them. In particular
 	# flags0 stormshadow is adapted to depth-test at sea height, avoiding an
@@ -338,7 +343,7 @@ func _install_ring_layout(ring:Dictionary)->void:
 	_clouds.clear();_cloud_cache.clear();_light_material.clear()
 	for clone:Dictionary in ring.nodes:
 		var group:Array=[]
-		for mesh:Dictionary in Native.original_meshes(_assets[clone.prototype]):group.append(_create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)]))
+		for mesh:Dictionary in Native.original_meshes(_assets[clone.prototype]):group.append(_create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)],true))
 		_clouds.append(group);_cloud_cache.append({})
 
 func _apply_weather(environment:Dictionary,camera:Dictionary)->void:

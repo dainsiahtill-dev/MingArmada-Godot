@@ -149,6 +149,9 @@ func _create_ship(setup: Dictionary, environment: Dictionary = config, wave_fiel
 	var state = _normalize(setup)
 	var core = Physics.new()
 	var body = {"kind": setup.kind, "position": setup.position, "heading": setup.get("heading", 0), "speed": setup.get("speed", 0), "draft": state.dimensions.draft, "cargoMass": state.stats.cargoMass, "wind": environment.get("wind", wind), "sailDeployment": state.sailDeployment, "sailCondition": state.sail / state.maxSail, "sailPowerScale": pow(state.stats.speedMultiplier, 2), "time": accepted_tick * DT, "config": {}}
+	# Old detached source fixtures retain their frozen buoyancy. Every formal
+	# game runtime injects the shared coastal wave sampler.
+	body.config.waterRelativeBuoyancy = environment.has("waveSampler")
 	if environment.has("oceanWaves"): body.config.heaveTravelLimit = wave_field.heave_excursion + state.dimensions.draft * 2
 	else: body.baseY = wave_field.sample(setup.position.x, setup.position.z, accepted_tick * DT).height; body.config.heaveTravelLimit = state.dimensions.draft * 2
 	if not core.configure(body, environment.get("sampleTerrainHeight", Callable()), wave_field): last_error = "Invalid ship physics configuration"; return {}

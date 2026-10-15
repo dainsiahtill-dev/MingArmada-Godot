@@ -130,6 +130,7 @@ func _sync_controls() -> void:
 	_step_button.text = "单步 1/%d 秒" % roundi(1.0/_experiment_step())
 	if _selected != "hull-contact": _parameter_panel.sync_values(_demo_options); return
 	_contact.set_pressed_no_signal(_demo_options.contact_enabled)
+	find_child("WaterRelativeBuoyancy",true,false).set_pressed_no_signal(_demo_options.get("water_relative_buoyancy",true))
 	find_child("ExperimentCase",true,false).select(CASES.find(_demo_options.scenario))
 	find_child("ExperimentShip",true,false).select(KINDS.find(_demo_options.kind))
 	find_child("ExperimentCamera",true,false).select(CAMERAS.find(_demo_options.camera_mode))
@@ -213,6 +214,9 @@ func _update_telemetry() -> void:
 		return
 	var contact: Dictionary = receipt.get("contact",{})
 	_stats.text = "实验时间 %.2f s · 步 %d · 相对入水响应 %.3f · %s\n同一状态对照：只开关接触水沫，保留尾迹。右键环绕 / 滚轮缩放。载体对照重置初态；近场载体只覆盖 ±192 m。" % [float(receipt.get("time",0)),int(receipt.get("tick",0)),float(contact.get("impact_strength",0)),"已暂停" if receipt.get("paused",false) else "运行中"]
+
+	var buoyancy:Dictionary=receipt.get("buoyancy",{})
+	_stats.text+="\n水线相对偏差 %.2f m · 吃水 %.2f m · %s" % [float(buoyancy.get("relative_error_m",0)),float(buoyancy.get("draft_m",0)),"相对水面阻尼" if buoyancy.get("relative_model",true) else "旧世界速度阻尼"]
 
 func _telemetry_text(receipt: Dictionary) -> String:
 	var telemetry: Variant = receipt.get("telemetry",{})
@@ -346,6 +350,8 @@ func _build_ui() -> void:
 	_option(_hull_controls,"ExperimentCase",CASE_LABELS,_change_case); _option(_hull_controls,"ExperimentShip",KIND_LABELS,_change_kind); _option(_hull_controls,"ExperimentCamera",CAMERA_LABELS,_change_camera)
 	_option(_hull_controls,"ExperimentCarrier",["海面载体：1200m 基准","海面载体：384m 近场"],_change_carrier)
 	_contact = CheckBox.new(); _contact.name = "ContactEnabled"; _contact.text = "船体接触水沫"; _contact.button_pressed = true; _contact.toggled.connect(_toggle_contact); _hull_controls.add_child(_contact)
+	var buoyancy:=CheckBox.new();buoyancy.name="WaterRelativeBuoyancy";buoyancy.text="相对水面浮动（关闭看旧方案）";buoyancy.button_pressed=true
+	buoyancy.toggled.connect(func(value:bool):_reset_demo({"water_relative_buoyancy":value}));_hull_controls.add_child(buoyancy)
 	_parameter_panel = ParameterPanel.new(); _parameter_panel.name = "TopicParameters"; _parameter_panel.add_theme_constant_override("h_separation",10); _demo_body.add_child(_parameter_panel)
 	_parameter_panel.parameter_changed.connect(_change_parameter)
 	var controls := HFlowContainer.new(); controls.add_theme_constant_override("h_separation",10); _demo_body.add_child(controls)
