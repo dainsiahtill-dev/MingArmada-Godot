@@ -71,3 +71,15 @@ rtk proxy $env:GODOT_EXE --headless --path . --script res://tools/measure-physic
 ```
 
 正式接线维持唯一frame时间owner、无accumulator单tick、公开detached快照和Jolt视觉12体预算。本机独立GPU已留证，完整游戏帧率和主课题最终接受项完成前保持研究中。回退恢复该课题seam及目录状态，不删除存档、用户设置、原始证据或其他未提交工作；不将本Demo的省略项用于产品提速宣称。
+
+## 主课题后续验收补充（2026-10-21）
+
+本节为上述独立数值Demo及其GPU截图之后的主课题结果，不改写早期实验时间线或其source hashes。更正预算措辞：Jolt限制为最多12个角色碰撞实例，每实例可包含多个骨骼刚体/关节，不能理解为12个RigidBody。
+
+主课题两批已完成物理/固定tick、FX动态缓冲及资源、settings与AssetLibrary、ShipView/3Dcrew、cloud曲线和保守岸浪裁剪的生产收敛。新版官方全套286/286、0失败/超时/Godot ERROR；1098份源码/测试/配置/runner文件执行前后完全相同，耗时22分50.818秒。实验室课题和本独立Demo代码保持原验收版本。
+
+实际公开自由试航，Intel Arc130T/Godot4.7.2 Forward+，1600×900 balanced，seed1661，每一行3船35名可见3D人物，正常有焦点未暂停：两轮正序/反序mean分别94.242→72.700ms、93.702→72.606ms。两次进程mean等权93.972→72.653ms，缩短22.69%，约10.64→13.76FPS；分位数不平均，慢帧不修剪。此为整个收敛变更集相对最初生产的收益，不是本数值Demo或culling-only的单独归因。**16.67ms/60FPS尚未达到**，因此主课题仍保留研究中/性能门槛开放。
+
+岸浪实际GPU06为1940/0，三个非空案例主/反射pure-redraw、hold、candidate均零字节差；其scope明确排除Crew/UI/forest，保留地形/海面/光照/船体/compositor。GPU05另保留forest的两个有效案例，重入树叶噪声导致该整组1907/2，原件保留。candidate01一条异常GPU query使其原GPU均值不可用，未删数据或据此解释wall收益。资源直读测试85条导出WARNING与真实发布验收分开；离线模型烘焙、导出一致性及连续炮火/大舰队长时压力尚需后续关闭。
+
+完整当前状态：[架构验收记录](../../../docs/architecture/convergence-acceptance-2026-10-21.md)、[双配对原始性能](../../../docs/research/evidence/architecture-convergence-2026-10-21/live-second/COMPARISON.json)、[最终完整回归](../../../docs/research/evidence/architecture-convergence-2026-10-21/full-suite-second-summary.json)、[图文证据](../../../docs/research/evidence/architecture-convergence-2026-10-21/review-final.html)。论文更新只补证据与范围，未改变算法、参数或Demo行为；另存`physics/lab-paper-final-note.json`记录新旧hash。

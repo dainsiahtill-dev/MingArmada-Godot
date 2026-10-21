@@ -39,4 +39,5 @@
 - [x] Shore原生GPU06实际1940/0：close-up、near-plane、同刻重入的main/reflection均有原shader非空贡献，纯redraw/同刻baseline与candidate零字节差异；[原始回执](../research/evidence/architecture-convergence-2026-10-21/shore/culling-gpu-06/receipt.json)。范围为shore-environment-no-foliage，保留ground/ocean/depth/灯光/船体/compositor，排除Crew/UI/foliage，不代表被排除owner的全世界像素等价或GPU耗时收益。
 - [x] 实际GPU workload census03完成1904/0，5 epochs / 80 samples / 12 captures；[工作量与恢复证据](../research/evidence/architecture-convergence-2026-10-21/workload-README.md)。节点库存、draw计数与各epoch耗时不能相互替代，不从非同刻epoch相减推断单组件收益。
 - [x] 实际公开入口两轮有效quiet paired整场：94.242→72.700ms、93.702→72.606ms。失焦/暂停的无效记录保留且不纳入；该结果仍未达到16.67ms目标。
-- [ ] 最终集成候选完整套件及整体验收：1098个源码/测试/工具文件已冻结，全套正在执行；完成后核对全程hash、原始回执与覆盖范围，再记录最终结论。第一批284/284不能替代此版本结果。
+- [x] 最终集成候选完整回归与证据收口：286/286通过，0失败/超时/Godot ERROR，22分50.818秒；1098份冻结文件新增/移除/变化均0。[最终摘要](../research/evidence/architecture-convergence-2026-10-21/full-suite-second-summary.json)。第一批284/284作为独立历史检查点保留。
+- [ ] 性能门槛：16.67ms/60FPS未达到。当前两轮整场均值约72.65ms；剩余CPU/GPU归因、连续炮火/大舰队长时压力、canonical模型烘焙和导出一致性仍为后续门槛，不能写成已优化完毕。
