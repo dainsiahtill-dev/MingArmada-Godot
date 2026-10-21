@@ -8,7 +8,7 @@
 
 | 证据 | 当前测量 | 解释 |
 | --- | --- | --- |
-| `shore/baseline-01.json` | 1704 patches；每新 time 5112 dynamic material writes；full/omitted-submit mean 13.602/13.529 ms | 不能把 material setters 数量当作已证明的主要原因；调色板方案未实施 |
+| `shore/baseline-01.json` | 1704 patches；每新 time 5112 dynamic material writes；full/omitted-submit mean 13.602/13.529 ms | 只否定本次“setter本身占主要CPU”的假设；不否定GPU/driver批处理。调色板/geometry batch均未实施或评测 |
 | `shore/world-detail-02.json` | p50 shore 14.287 ms，surface sync 1.410 ms，atmosphere 13.628 ms | 直接现有 World 方法的 headless 分段；nested timers 不能相加 |
 | 同上 | cloud lifecycle 0.025 ms，ocean projection 1.546 ms，shadow apply 1.657 ms | 生命周期不是主要 CPU 热点，不为 threading 改其算法 |
 | `shore/world-compiler-detail-01.json` | 每新呈现时间 438 curve samples、369 clocks、49 UV matrices；天空重算另有 161 minimum-Z | 该 run 内层计时有 observer 开销，只用于定位工作分布 |
@@ -47,6 +47,20 @@ owner保留 accepted_time 与 evaluated_time/submitted_time 两种事实。离�
 建议单独冻结P0同步候选，统计每帧可见owner/patch、sampler调用、matrix生成、surface/dynamic setters，比较主视图外但反射可见、极低镜头/大浪/涨潮、同刻转头、teleport、viewport缩放、reflection开关、rewind/epoch/重配和diagnostic拉取。离开任意时长后当前输出必须与连续frozen source完整字节相等；可见patch每个接受time仍执行原计算，任何可能可见的岛都不能跳。只有确认大部分实际工作可被保守排除，才能报告收益。
 
 P0与早发jobs组合需要额外决策：early begin时反射camera可能未同步，不能拿旧视锥当当前证据。首版P0采用late同步测试；若以后需要early dispatch，要么用与当前mirror完全等价的纯数值projection输入，要么early视图不确定即保守dispatch，再由late视图决定提交。不得提前移动原ocean/GPU提交来制造重叠。
+
+### 独立driver准备状态
+
+`tools/research-shore-frustum-culling.gd` 与 `tools/research-shore-culling-prototype.gd` 在root确认第一轮完整suite 284/284通过后，已执行check-only及actual-scene语义/计数验证。**生产仍未接入，GPU/FPS收益仍未验证。** 它们不被game/modules/tests引用。Factory在内存中保留原shore configure/采样/材质提交函数的完整源码，仅改名加wrapper和setter/sample counter；driver通过实际public sail入口获得六岛真实field/packets/geometry，再配置配对prototype。
+
+计划验证完整source diagnostics字节、原shader实际dynamic/surface值、全部mesh arrays/packet/RNG布局hash及可数工作；含任意离开/重入、同刻恢复、paused、rewind、near-plane触边、无camera与缺失reflection保守fallback、diagnostics即时刷新但不写离屏材质，以及同刻改wave/tide后的displacement bound。mirror-only用两台实际Camera3D的独立供给视锥证明union逻辑，**不宣称这等于实际反射GPU截图验收**。prototype仅保守跳CPU求值/提交，不隐藏或合并原Node。
+
+结果见 `shore/culling-run-02.json` 与 `shore/culling-README.md`：243848断言/0失败，84份完整source hash相等，1704 patches全部保留。真实生产主+反射视锥当前只有264 patches所属岛可见，1440 patches所属五岛完全在union外；该新time sample1704→264，dynamic+simulation-time写6816→1056。这个特定视图工作量减少84.5%，不是GPU/FPS收益。headless driver已经通过原始/派生方法编译及case验证；正式GPU与quiet pair由root独占后续执行。
+
+复现命令（必须避免与正式GPU/其他benchmark并行，输出路径必须全新）：
+
+```powershell
+rtk proxy C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe --headless --path . --script res://tools/research-shore-frustum-culling.gd -- --output=res://docs/research/evidence/architecture-convergence-2026-10-21/shore/culling-research-01.json
+```
 
 ## 当前调用与真实 owner
 
@@ -130,12 +144,30 @@ P0与早发jobs组合需要额外决策：early begin时反射camera可能未同
 
 ## 其余可能更大的方向，暂不实施
 
-- 1704 shore MeshInstance/material 的提交与透明绘制仍在，CPU jobs 不解决主 GPU 约30ms。可另立几何提交研究，但不能直接全岛合并：`natural_shore_surf.gdshader:2` 使用 `blend_mix, depth_draw_never`，合并会改变跨patch透明排序、局部裁剪与AABB；每patch拓扑/UV/阈值也不同。需要实际 pass/drawcall/overdraw证据后再选有空间粒度的 batch，原数量与几何必须保留。
+- 1704 shore MeshInstance/material 的提交与透明绘制仍在，CPU jobs 不解决主 GPU 约30ms。**headless省略setters不能否定GPU/driver batching**；GPU状态table若与geometry合批结合有另一条收益路径。目前1704是场景对象数，不是已测实际drawcalls；现有frustum、main/reflection passes都影响实际统计。完整suite结束后才允许实际读取各viewport RenderingServer drawcalls/objects/primitives与GPU frame/pass时间，避免把场景对象数冒充真实drawcalls。
 - 若 shore jobs 的 join/争用吞掉收益，精确 scalar kernel 的 native/GDExtension adapter 才是下一候选，必须保留 binary32 store 与double表达式树，不启用改变语义的 fast-math，并对同一 frozen source逐字节验证。这一方向当前没有性能证据，也不属于本 jobs 课题。
 - ocean projection约1.5ms、lifecycle约0.025ms现有分段不足以解释主要差距，暂不扩大这些算法。GPU需要独立pass级归因，不能从source代码量或shader setter数量猜测。
+
+### 只读批处理可行性：真实形状、材质与排序
+
+`natural_shore_surf.gd:156–205` 实际输出不是每patch一个四顶点quad，而是由length/span决定 `along_count/across_count`、STEP=1.25m的细分矩形grid；全部原顶点需要继续执行当前波高shader。不能用统一四角quad替换细分grid，否则波面插值变了。patch的center/tangent/outward、span/length/offshoreStart、dimensionScale各异，pair共享几何但controller相位不同。GPU用不同TRS重建相同形状还可能重排原CPU Vector2的float32 stores，不能未经验证假定逐顶点相等。
+
+源数据 `assets/data/fidelity_island/shore-scene.json` 的只读检查给出正向合并条件：八个source meshes全部使用同一 `surf_bart3.dds`、同一UV bounds（全quad只有一个extent）及alpha threshold=20。Source meshes分别含9/34/16/16 quads，后四个为配对；实际目标geometry仍由每packet长度和宽度重建。每岛ground texture不同，surface wave/coast/normal参数大多共享；dimensionScale决定的crest width/tail length需保留为每patch静态数据。
+
+更直接的候选是**岛×texture×有限岸段空间cluster的merged indexed grids + float state texture**：把原position/UV/index arrays原样拼接，加静态patch ID，不重建四角或公式近似，避免形状/CPU浮点重排。每patch matrix9+alpha1+metres1按原uniform的f32 bytes更新scene-local table；crest/tail/UV bounds等保留静态属性或静态table。Shader仍用原full mips/filter/source_color、波高、湿边discard、feather、alpha threshold与颜色公式。不同岛/viewport owner不共享可变table，无全局shader clock。格式/大小/精度不可用则回退旧renderer。
+
+MultiMesh也可作为候选，但需要按真实grid拓扑分桶；或通过 `INSTANCE_ID + VERTEX_ID` 从静态float vertex/UV table读取每个原顶点，不能把不同细分与尺寸硬套单个quad。静态vertex table新增带宽和fetch成本，未测前不能认为必胜；不改变原顶点数量或网格密度。官方MultiMesh文档指出其作为一个空间对象裁剪，因此全岛一个大batch可能在岸线边缘画更多离屏几何；优先比较有有限空间尺寸的clusters，不跨六岛合成全局batch。
+
+透明排序是**需要保持/测量的实际合同，不是拒绝研究的理由**。当前shader为 `blend_mix, depth_draw_never, cull_disabled`，render_priority=4，`ALBEDO=texture.rgb`。对导出的原RGBA mip0只读统计，alpha>0像素有**755种不同RGB**，并非纯白；因此不能声称重叠alpha混合可交换。合并会把引擎逐geometry排序变成batch级排序，配对与邻patch重叠必须验证。保留原创建/triangle顺序是初始候选，具体排序key/中心需在运行中观察当前Godot对象属性与实际render结果；不能由通用文档假定当前backend相等。
+
+main与reflection可能需要不同透明顺序。一个所有view共用的CPU index重排不能自动保证两套顺序，必须验证重叠区域；无法保持时可保留相关co-located/相交group为独立draw，或按视图使用独立有限geometry/sort adapter，比较CPU/VRAM成本。不能改成alpha-scissor、alpha-hash、depth-prepass、白色材质或OIT来绕过问题，因为那改变原颜色/混合合同。
+
+每cluster的AABB来自**全部原wave grid世界几何**，加当前wave/tide位移bound；主/反射union只用于CPU是否更新，GPU各自视图仍正常裁剪。批处理本身不改变reflection viewport、cull mask、water pass、node layer或draw priority。GPU验收应对主/反射分别记录drawcalls、可见triangles、overdraw/时间以及近景交叠、浅岸湿边、不同tide/wave、远近mip与镜头转动/反射的截图差异。先用实际计数确认它是不是更大根因，再决定批处理规模。
 
 ## 官方 API 依据
 
 [Godot thread-safe APIs](https://docs.godotengine.org/en/stable/tutorials/performance/thread_safe_apis.html) 明确活跃 SceneTree 不支持线程访问，并提醒避免在worker直接触GPU；共享可变 Resource/容器尺寸变化需要同步。本设计使用完全独占的数值状态，不把文档允许部分并发容器操作误当成整个复合采样线程安全。
 
 [WorkerThreadPool](https://docs.godotengine.org/en/stable/classes/class_workerthreadpool.html) 提供普通/group任务及显式wait；每个任务必须wait以回收其资源，过小任务可能变慢。只在main等待独立jobs，不让worker相互wait，避免任务依赖死锁。官方类名是 `WorkerThreadPool`。
+
+[MultiMesh](https://docs.godotengine.org/en/stable/classes/class_multimesh.html) 说明GPU instancing可减少独立draw开销，同时整个对象按一个空间范围裁剪、需自有AABB；[3D rendering limitations](https://docs.godotengine.org/en/stable/tutorials/3d/3d_rendering_limitations.html#transparency-sorting) 说明透明几何的排序粒度和混合限制。这里只用于界定下一独立batch实验，没有据此预设当前backend实际drawcalls或像素等价。

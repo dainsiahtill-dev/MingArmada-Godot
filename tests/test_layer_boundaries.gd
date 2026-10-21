@@ -6,6 +6,9 @@ const ROOTS := ["res://modules/contracts", "res://modules/physics_engine", "res:
 # authority may reuse only these audited scalar/compiler helpers, never a
 # renderer. They also receive the pure-code guard below.
 const SHARED_SOURCE_DATA := ["res://modules/scene_engine/fidelity_fx/cloud_native.gd", "res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd", "res://modules/scene_engine/fidelity_island/native_math.gd", "res://modules/scene_engine/fidelity_island/daylight.gd"]
+# Transitive numerical helpers inherit purity without becoming additional
+# environment-layer import entry points.
+const SHARED_SOURCE_HELPERS := ["res://modules/scene_engine/fidelity_fx/cloud_transform_kernel.gd", "res://modules/scene_engine/fidelity_fx/cloud_curve_sampler.gd"]
 var failures: Array[String] = []
 var assertions := 0
 var scanned := 0
@@ -44,6 +47,11 @@ func _self_test() -> void:
 	_check(not _violations("res://modules/environment_engine/fixture.gd", 'extends RefCounted\nconst Bad = preload("res://modules/scene_engine/world/world_view.gd")').is_empty(), "Environment cannot import a scene renderer")
 	_check(not _violations("res://modules/environment_engine/fixture.gd", 'extends RefCounted\nvar bad = Node3D.new()').is_empty(), "Environment must remain independent of scene nodes")
 	_check(not _violations(SHARED_SOURCE_DATA[1], 'extends RefCounted\nvar bad = ImageTexture.new()').is_empty(), "Shared scalar compiler cannot acquire GPU presentation resources")
+	for helper: String in SHARED_SOURCE_HELPERS:
+		_check(not _violations(helper, 'extends RefCounted\nvar bad = Node3D.new()').is_empty(), "Shared numerical helper cannot create scene nodes: " + helper)
+		_check(not _violations(helper, 'extends RefCounted\nvar bad = ImageTexture.new()').is_empty(), "Shared numerical helper cannot acquire GPU textures: " + helper)
+		_check(not _violations(helper, 'extends RefCounted\nvar bad = Time.get_ticks_usec()').is_empty(), "Shared numerical helper cannot own a wall clock: " + helper)
+		_check(_violations(helper, 'extends RefCounted\nvar values = PackedFloat32Array([1.0, 2.0])').is_empty(), "Shared numerical helper retains pure value storage: " + helper)
 
 func _violations(file: String, source: String) -> Array[String]:
 	var result: Array[String] = []
@@ -65,7 +73,7 @@ func _violations(file: String, source: String) -> Array[String]:
 		if project_classes.has(word) and not _dependency_allowed(file, project_classes[word]):
 			result.append("forbidden project class " + word + " from " + project_classes[word])
 		var numerical := file.begins_with("res://modules/physics_engine/") and not file.begins_with("res://modules/physics_engine/impacts/")
-		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/") or file.begins_with("res://modules/naval_simulation/") or file.begins_with("res://modules/environment_engine/") or file in SHARED_SOURCE_DATA
+		var pure := numerical or file.begins_with("res://modules/contracts/") or file.begins_with("res://game/domain/") or file.begins_with("res://modules/naval_simulation/") or file.begins_with("res://modules/environment_engine/") or file in SHARED_SOURCE_DATA or file in SHARED_SOURCE_HELPERS
 		if ClassDB.class_exists(word):
 			if pure and (word == "SceneTree" or ClassDB.is_parent_class(word, "Node")):
 				result.append("pure code uses native scene type " + word)

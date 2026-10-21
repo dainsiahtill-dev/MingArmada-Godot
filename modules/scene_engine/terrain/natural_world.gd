@@ -74,6 +74,8 @@ func supports(center: Vector2,radius: float) -> bool:
 		var bounds: Rect2=entry.bounds
 		if center.distance_to(center.clamp(bounds.position,bounds.end))<=radius: return true
 	return false
+func set_view_cameras(main:Camera3D,reflection:Camera3D=null,reflection_enabled:bool=false)->void:
+	for shore:Node3D in _dynamic_shore:shore.set_view_cameras(main,reflection,reflection_enabled)
 func sync_surface_state(ocean_material: ShaderMaterial,state: Dictionary = {}) -> void:
 	for terrain: Node3D in _terrain: terrain.sync_surface_state(ocean_material,state)
 	for shore: Node3D in _dynamic_shore: shore.sync_surface_state(ocean_material,state)

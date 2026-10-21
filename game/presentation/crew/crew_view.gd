@@ -94,7 +94,10 @@ func set_reduced_motion(enabled: bool) -> void:
 	_reconcile()
 
 func set_allocation(count: int) -> void:
-	_allocation = clampi(count, 0, 24)
+	var next := clampi(count, 0, 24)
+	if next == _allocation:
+		return
+	_allocation = next
 	_reconcile()
 
 static func allocate_sailors(requests: Array) -> Dictionary:
@@ -116,6 +119,8 @@ static func allocate_sailors(requests: Array) -> Dictionary:
 func set_lod_distance(distance: float) -> void:
 	if not is_finite(distance):
 		return
+	var previous_lod := _lod
+	var previous_far := _distance > 1800.0
 	_distance = maxf(0.0, distance)
 	if _lod == 0 and distance > 110.0:
 		_lod = 1
@@ -125,6 +130,8 @@ func set_lod_distance(distance: float) -> void:
 		_lod = 2
 	if _lod == 2 and distance < 270.0:
 		_lod = 0 if distance < 90.0 else 1
+	if previous_lod == _lod and previous_far == (_distance > 1800.0):
+		return
 	_reconcile()
 
 func apply_snapshot(ship: Dictionary, _wind: Dictionary = {}, consumed: float = 0.0) -> void:

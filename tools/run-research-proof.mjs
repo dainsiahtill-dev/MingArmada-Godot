@@ -20,6 +20,8 @@ clearTimeout(timer);result.finishedAtUtc=new Date().toISOString();
 result.diagnostics=(result.stdout+'\n'+result.stderr).split(/\r?\n/).filter(x=>/SCRIPT ERROR:|\bERROR:|\b(?:Parse|Compile) Error:|Failed to load (?:script|resource)/i.test(x));
 result.valid=result.exitCode===0&&!result.timedOut&&!result.processError&&result.diagnostics.length===0;
 const markers={
+ "res://tools/capture-shore-frustum-culling.gd":"SHORE_CULLING_GPU_TESTS ",
+ "res://tools/verify-architecture-workload-gpu.gd":"ARCHITECTURE_WORKLOAD_GPU ",
  "res://tools/verify-architecture-lab-gpu.gd":"ARCHITECTURE_LAB_GPU ",
  'res://tools/verify-laboratory-environment-gpu.gd':'LABORATORY_ENVIRONMENT_GPU ',
  'res://tools/verify-shore-edge-gpu.gd':'SHORE_EDGE_GPU ',
@@ -39,7 +41,7 @@ const marker=markers[script]||(script?.endsWith('verify-laboratory-pack.gd')?'LA
 if(marker){
  result.expectedCompletionMarker=marker;
  const lines=result.stdout.split(/\r?\n/).filter(x=>x.startsWith(marker));
- result.completionConfirmed=lines.length===1&&/failures=0$/.test(lines[0]);
+ result.completionConfirmed=lines.length===1&&(script.endsWith("capture-shore-frustum-culling.gd")?/failures=0 reason=complete stage=complete output=.+$/.test(lines[0]):/failures=0$/.test(lines[0]));
  result.valid=result.valid&&result.completionConfirmed;
 }
 await writeFile(destination,JSON.stringify(result,null,2)+'\n');

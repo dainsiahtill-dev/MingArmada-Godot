@@ -14,7 +14,7 @@ Primary APIs: [Godot shader interpolation and texelFetch](https://docs.godotengi
 
 ## Measured decision and narrower compiler candidate
 
-`shore/baseline-01.json` verifies 1704 patches and 5112 dynamic writes, but full submission mean 13.602 ms versus omitted-submission diagnostic 13.529 ms gives no material measured CPU benefit. No table/shader/opacity changes are implemented. Counts alone do not identify a performance cause.
+`shore/baseline-01.json` verifies 1704 patches and 5112 dynamic writes, but full submission mean 13.602 ms versus omitted-submission diagnostic 13.529 ms gives no material measured CPU benefit from omitting setters. This does not evaluate or reject GPU/driver gains from merging geometry/drawcalls with a float state table. No table/shader/opacity changes are implemented. Counts alone do not identify a performance cause; 1704 scene MeshInstances are not a measured drawcall total.
 
 The direct live-world probe (`tools/profile-world-live-components.gd`) instruments configured production objects and preserves all script properties. It executes the actual current `World.apply_snapshot`, including the reflection camera, rather than reimplementing its sequence. `shore/world-detail-02.json`: p50 world 32.479 ms, shore sampling/submission 14.287 ms, surface synchronization 1.410 ms, atmosphere 13.628 ms, ocean projection 1.546 ms. Nested timers must not be summed. Cloud lifecycle itself costs 0.025 ms; changing its algorithm cannot address this hot path. Same-time refresh performs no curve compilation or shore shader writes.
 

@@ -533,6 +533,14 @@ func _sync_chunk_surface(chunk: Node3D) -> void:
 func _sync_terrain_surface() -> void:
 	if _visual_style != 1: return
 	if is_instance_valid(_natural_world):
+		var reflection_target:SubViewport=_ocean.get_reflection_viewport()
+		var reflection_disabled:=is_instance_valid(reflection_target) and reflection_target.render_target_update_mode==SubViewport.UPDATE_DISABLED
+		# A missing viewport is incomplete view information, rather than proof that
+		# reflection is disabled. Null main forces the conservative full path.
+		var main_view:Camera3D=_camera if is_instance_valid(reflection_target) else null
+		# set_simulation_time already synchronized the real mirror. Shore owners
+		# retain camera references and read fresh frusta at both sync and apply.
+		_natural_world.set_view_cameras(main_view,_ocean.get_reflection_camera(),not reflection_disabled)
 		_natural_world.sync_surface_state(_ocean.material_override as ShaderMaterial,{"time":_simulation_time})
 		return
 	if is_instance_valid(_static_islands):

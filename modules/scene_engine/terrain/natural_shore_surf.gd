@@ -4,6 +4,7 @@ extends Node3D
 ## come from the caller, and geometry is built once rather than on camera moves.
 const Source = preload("res://modules/scene_engine/fidelity_island/mesh_asset.gd")
 const PreparedSampler = preload("res://modules/scene_engine/fidelity_island/compiled_shore_sampler.gd")
+const ViewBounds = preload("res://modules/scene_engine/terrain/shore_view_bounds.gd")
 const SHADER = preload("res://modules/scene_engine/terrain/natural_shore_surf.gdshader")
 const SOURCE_PATH := "res://assets/data/fidelity_island/shore-scene.json"
 const DEFAULT_SPAN := 12.0
@@ -29,6 +30,16 @@ var _native_uv := Vector4(0.0,0.0,3.0,1.0)
 var _authored_aspect := 1.0
 var _patch_length := 12.0
 var _wave_span := DEFAULT_SPAN
+var _view_bounds:=ViewBounds.new()
+var _ocean_material:ShaderMaterial
+var _accepted_time:=0.0
+var _submitted_time:=0.0
+var _has_submitted_time:=false
+var _submit_materials:=true
+var _staged_materials:Dictionary={}
+var _sampled_patches:=0
+var _material_writes:=0
+var _skipped_frames:=0
 
 func configure(field: RefCounted, options: Dictionary = {}) -> bool:
 	if _configured or field==null or not field.has_method("get_grid") or not field.has_method("sample_triangle_height"): return false
@@ -205,6 +216,37 @@ func _build_patch(packet: Dictionary,texture: Texture2D,ground: Texture2D,bounds
 	_states.append({})
 
 func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
+	var value:Variant=snapshot.get("time")
+	if not _configured or not (value is float or value is int) or not is_finite(float(value)):return
+	_accepted_time=float(value)
+	# Exact script identity is deliberate: injected samplers (including subclasses)
+	# may retain history or side effects, so they keep the original sync protocol.
+	var pure:bool=_sampler.get_script()==PreparedSampler
+	if pure and not _view_bounds.may_draw(self,_ocean_material,_surface_state):_skipped_frames+=1;return
+	if not pure:_view_bounds.keep_visible("injected-sampler-sync")
+	if _ocean_material!=null:_sync_surface_state(_ocean_material)
+	if _has_applied_time and _time==_accepted_time and (not _has_submitted_time or _submitted_time!=_accepted_time or not _staged_materials.is_empty()):
+		var complete:=_staged_materials.size()==_materials.size()
+		for material:ShaderMaterial in _materials:
+			if _staged_materials.get(material.get_instance_id(),{}).size()!=3:complete=false;break
+		if complete:
+			for material:ShaderMaterial in _materials:
+				for key:String in _staged_materials[material.get_instance_id()]:_write_material(material,key,_staged_materials[material.get_instance_id()][key])
+		else:_has_applied_time=false
+	_apply_source_snapshot(snapshot,_consumed)
+	_submitted_time=_accepted_time;_has_submitted_time=true;_staged_materials.clear()
+
+func set_view_cameras(main:Camera3D,reflection:Camera3D=null,reflection_enabled:bool=false)->void:
+	_view_bounds.set_cameras(main,reflection,reflection_enabled)
+
+func _write_material(material:ShaderMaterial,key:String,value:Variant)->void:
+	if _submit_materials:_material_writes+=1;material.set_shader_parameter(key,value)
+	else:
+		var identity:=material.get_instance_id()
+		if not _staged_materials.has(identity):_staged_materials[identity]={}
+		_staged_materials[identity][key]=value
+
+func _apply_source_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 	var value: Variant=snapshot.get("time")
 	if not _configured or not (value is float or value is int) or not is_finite(float(value)): return
 	if _has_applied_time and float(value)==_time: return
@@ -214,6 +256,7 @@ func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 	# public snapshot. No packet/controller output is shared between patches.
 	var sample_in_place := _sampler.has_method("sample_into")
 	for i in _materials.size():
+		_sampled_patches+=1
 		var packet: Dictionary=_packets[i]
 		var packet_time: float=_time*float(packet.clockSpeed)+float(packet.clockOffset)
 		var state: Dictionary=_states[i]
@@ -228,10 +271,10 @@ func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 		# separately so this envelope is never mistaken for recovered evidence.
 		var envelope: float=smoothstep(0.07,0.29,phase)*(1.0-smoothstep(0.32,0.88,phase))
 		var visible_alpha: float=clampf(state.alpha,0.0,1.0)*envelope*DISPLAY_ALPHA_PEAK
-		_materials[i].set_shader_parameter("texture_matrix",_sampler.texture_matrix)
-		_materials[i].set_shader_parameter("controller_alpha",visible_alpha)
+		_write_material(_materials[i],"texture_matrix",_sampler.texture_matrix)
+		_write_material(_materials[i],"controller_alpha",visible_alpha)
 		var extent: Vector4=packet.uvBounds
-		_materials[i].set_shader_parameter("packet_u_metres",float(packet.span)/(extent.z-extent.x)/float(state.scaleU))
+		_write_material(_materials[i],"packet_u_metres",float(packet.span)/(extent.z-extent.x)/float(state.scaleU))
 		# Source evidence only: invert the recovered transform at Native U=.75.
 		# The game's rendered head is separately reanchored to the ocean phase
 		# and strongest texture column; this is not its rendered trajectory.
@@ -241,29 +284,54 @@ func apply_snapshot(snapshot: Dictionary,_consumed: float = 0.0) -> void:
 		state.lifePhase=phase; state.packetTime=packet_time; state.sourceIndex=packet.sourceIndex; state.pairId=packet.pairId
 
 func sync_surface_state(ocean_material: ShaderMaterial,_state: Dictionary = {}) -> bool:
-	if not _configured or ocean_material==null or ocean_material.shader==null: return false
+	_ocean_material=ocean_material
+	if _configured and _sampler.get_script()==PreparedSampler and not _view_bounds.may_draw(self,ocean_material,_surface_state):return true
+	return _sync_surface_state(ocean_material,_state)
+
+func _surface_count(ocean_material:ShaderMaterial)->int:
+	if ocean_material==null or ocean_material.shader==null:return -1
 	var components: Variant=ocean_material.get_shader_parameter("wave_components")
 	var count: Variant=ocean_material.get_shader_parameter("wave_count")
 	var time: Variant=ocean_material.get_shader_parameter("simulation_time")
-	if not components is PackedVector4Array or not (count is int or count is float) or not (time is int or time is float) or not is_finite(float(time)): return false
-	if not is_finite(float(count)) or int(count)!=float(count) or int(count)<0 or int(count)>8 or components.size()<int(count): return false
+	if not components is PackedVector4Array or not (count is int or count is float) or not (time is int or time is float) or not is_finite(float(time)): return -1
+	if not is_finite(float(count)) or int(count)!=float(count) or int(count)<0 or int(count)>8 or components.size()<int(count): return -1
 	for component: Vector4 in components:
-		if not component.is_finite(): return false
-	_surface_wave_count=int(count)
+		if not component.is_finite(): return -1
+	return int(count)
+
+func _sync_surface_state(ocean_material: ShaderMaterial,_state: Dictionary = {}) -> bool:
+	if not _configured:return false
+	var count:=_surface_count(ocean_material)
+	if count<0:return false
+	_surface_wave_count=count
 	for key: String in ["wave_components","wave_count","simulation_time","shore_height_texture","shore_bounds","has_shore_field","coastal_attenuation","coast_distance_texture","has_coast_distance","normal_texture","surface_visual_scale","surface_tide"]:
 		var current: Variant=ocean_material.get_shader_parameter("u_tide" if key=="surface_tide" else key)
 		if _surface_state.has(key) and _surface_state[key]==current: continue
 		# ShaderMaterial retains PackedArray references. Snapshot changed wave
 		# values so caller mutations cannot make the cache appear already current.
 		if key=="wave_components": current=current.duplicate()
-		for material: ShaderMaterial in _materials: material.set_shader_parameter(key,current)
+		for material: ShaderMaterial in _materials: _write_material(material,key,current)
 		_surface_state[key]=current
 	return true
 
 func diagnostics() -> Dictionary:
+	if _configured and (not _has_applied_time or _time!=_accepted_time):
+		_submit_materials=false;_apply_source_snapshot({"time":_accepted_time});_submit_materials=true
+	# This scalar diagnostic follows current accepted surface state even when its
+	# source time is unchanged. The cache still records only uploaded values.
+	if _configured and _ocean_material!=null:
+		var count:=_surface_count(_ocean_material)
+		if count>=0:_surface_wave_count=count
 	return {"layout":"authored_short_patches","authoredUvAspect":_authored_aspect,"patchLength":_patch_length,"waveSpan":_wave_span,"contourCount":_contours.size(),"patchCount":_materials.size(),"pairCount":int(_packets.size()/2),"vertices":_vertices,"geometryBuilds":_geometry_builds,"maxCoastHeightError":_coast_error,"originalTexture":"surf_bart3.dds","originalControllers":true,"frontDriver":"ocean_phase_reanchor","surfaceWaveCount":_surface_wave_count,"time":_time,"packets":_packets.duplicate(true),"states":_states.duplicate(true),"scope":"Co-located authored pairs with exact source controller diagnostics. GAME adapter reanchors texture heads to the primary ocean arc; native scale controls texture width and native alpha receives a grow/erosion envelope. Native translation/frontDistance is source evidence, not a second rendered trajectory; no terrain edits"}
+
+func presentation_diagnostics()->Dictionary:
+	var result:Dictionary=_view_bounds.diagnostics()
+	result.merge({"samples":_sampled_patches,"materialWrites":_material_writes,"skippedFrames":_skipped_frames,"acceptedTime":_accepted_time,"evaluatedTime":_time,"submittedTime":_submitted_time,"hasSubmittedTime":_has_submitted_time})
+	return result
 func dispose() -> void:
 	for child: Node in get_children(): remove_child(child); child.free()
 	_materials.clear(); _packets.clear(); _states.clear(); _contours.clear(); _source.clear(); _field=null
 	_sampler=null; _has_applied_time=false; _surface_state.clear()
+	_view_bounds.reset();_ocean_material=null;_accepted_time=0.0;_submitted_time=0.0;_has_submitted_time=false
+	_submit_materials=true;_staged_materials.clear();_sampled_patches=0;_material_writes=0;_skipped_frames=0
 	_vertices=0; _geometry_builds=0; _surface_wave_count=0; _coast_error=0.0; _configured=false
