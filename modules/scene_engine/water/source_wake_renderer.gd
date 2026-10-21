@@ -13,6 +13,8 @@ var _epoch:Variant=null
 var _time:=-1.0
 var _errors:Dictionary={}
 var _target_rewind_guards:=0
+var _water:Callable
+var _sea:Callable
 func _init(parent:Node3D)->void:_owner=parent
 func transfer_owner(parent:Node3D)->void:
 	# In-memory quality rebuild transfers sole ownership, retaining original
@@ -42,6 +44,7 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 		# old original history, and does not change History's native time reject.
 		dispose();_target_rewind_guards+=1
 	_epoch=epoch;_time=presentation_time
+	_water=water;_sea=sea
 	var live:Dictionary={}
 	for ship:Dictionary in native.get("ships",[]):
 		var selected:=route(native,ship)
@@ -54,7 +57,7 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 		if _actors.has(id) and _actors[id].route!=selected:_release(id)
 		if not _actors.has(id):
 			var node:=Node3D.new();node.name="SourceWake_"+id;_owner.add_child(node)
-			var actor:Dictionary={"node":node,"route":selected,"surface":Surface.new(node),"call":null,"history":null,"battle_history":{},"froth":null,"flow":null,"geometry":{},"external_covered":false}
+			var actor:Dictionary={"node":node,"route":selected,"surface":Surface.new(node),"call":null,"history":null,"battle_history":{},"froth":null,"flow":null,"geometry":{},"external_covered":false,"source_geometry":{},"tail_projection":{},"tail_source_time":-1.0,"tail_time":-1.0,"tail_dirty":false,"tail_source_dirty":false}
 			if selected=="scene_30":actor.history=History.new(packet.get("ini",{}),packet.modelScale,packet.get("markerId","root"),packet.sourcePosition)
 			var froth_packet:Dictionary=packet.get("froth",{})
 			if (froth_packet.has("family") or froth_packet.has("sourceResourceName")) and froth_packet.has("seed"):
@@ -83,12 +86,19 @@ func apply_snapshot(native:Dictionary,water:Callable,sea:Callable)->void:
 		actor.call=call_index
 		if selected=="scene_30":
 			var accepted:bool=actor.history.update(packet.sourcePosition,float(packet.sourceClock),packet.get("markerId","root"))
-			if accepted:actor.geometry=Geometry.build(actor.history,packet,_time,water,sea)
+			if accepted:
+				# Native geometry has retained inactive rows; advance that state even
+				# under coverage, while omitting water fit, clip and GPU submission.
+				actor.source_geometry=Geometry.advance_source(actor.history,packet)
+				# Rejected source calls never remap the last accepted carrier.
+				actor.tail_projection={"sourceToWorld":packet.sourceToWorld,"worldOrigin":packet.get("worldOrigin",[0.0,0.0,0.0]).duplicate()}
+				actor.tail_source_time=_time;actor.tail_time=_time
+				actor.tail_source_dirty=true;actor.tail_dirty=true
 			# Source distance rejection holds source rows. Target water fit still
 			# follows accepted ocean time without recomputing source profile/alpha.
-			elif actor.history.last_result=="distance-rejected" and not actor.geometry.is_empty():
-				_fit_water(actor.geometry,_time,water)
-			if not actor.geometry.is_empty():actor.surface.submit("SceneStrip",actor.geometry.vertices,actor.geometry.uvs,actor.geometry.colors,actor.geometry.indices,Surface.scene_strip_descriptor(actor.geometry))
+			elif actor.history.last_result=="distance-rejected" and not actor.source_geometry.is_empty():
+				actor.tail_time=_time;actor.tail_dirty=true
+			if not actor.external_covered:_present_tail(actor,true)
 		else:_battle(actor,packet,water,sea)
 		_apply_tail_visibility(actor)
 		if actor.froth!=null:
@@ -111,7 +121,24 @@ func set_external_water_coverage(ids: Array) -> void:
 	for id: String in _actors:
 		var actor: Dictionary=_actors[id]
 		actor.external_covered=id in ids
+		# Restoring a valid field's fallback consumes no history/controller call.
+		# Rebuild now, including a paused same-time publication or field error.
+		if not actor.external_covered and actor.tail_dirty:_present_tail(actor)
 		_apply_tail_visibility(actor)
+
+func _present_tail(actor:Dictionary,force_submission:bool=false)->void:
+	if actor.external_covered:return
+	if actor.route=="scene_30":
+		if actor.tail_source_dirty:
+			actor.geometry=Geometry.project_source(actor.source_geometry,actor.tail_projection,float(actor.tail_source_time),_water,_sea)
+			actor.tail_source_dirty=false
+		if actor.tail_dirty and actor.tail_time!=actor.tail_source_time and not actor.geometry.is_empty():
+			_fit_water(actor.geometry,float(actor.tail_time),_water)
+		if (actor.tail_dirty or force_submission) and not actor.geometry.is_empty():
+			actor.surface.submit("SceneStrip",actor.geometry.vertices,actor.geometry.uvs,actor.geometry.colors,actor.geometry.indices,Surface.scene_strip_descriptor(actor.geometry))
+	elif actor.tail_dirty:
+		_draw_battle(actor,actor.tail_projection,_water,_sea)
+	actor.tail_dirty=false
 
 func _apply_tail_visibility(actor: Dictionary) -> void:
 	for key: String in actor.surface.nodes:
@@ -128,13 +155,18 @@ func _battle(actor:Dictionary,packet:Dictionary,water:Callable,sea:Callable)->vo
 			for _i in 90:actor.battle_history.x.append(int(packet.sourcePosition[0]));actor.battle_history.y.append(int(packet.sourcePosition[1]));actor.battle_history.heading.append(int(input.heading))
 		input.history=actor.battle_history
 	var out:=Battle.draw(input);actor.battle_history=out.history;actor.geometry={"draw_arguments":out.draw_arguments,"native_equivalent":false,"adaptations":["source integer->target units","water_surface_fit","source draw carrier/material backend"]}
+	actor.tail_projection={"sourceToWorld":packet.sourceToWorld,"worldOrigin":packet.get("worldOrigin",[0.0,0.0,0.0]).duplicate()}
+	actor.tail_time=_time;actor.tail_dirty=true
+	if not actor.external_covered:_present_tail(actor)
+
+func _draw_battle(actor:Dictionary,packet:Dictionary,water:Callable,sea:Callable)->void:
 	var unit:=float(packet.sourceToWorld);var origin_array:Array=packet.get("worldOrigin",[0.0,0.0,0.0]);var origin:=Vector3(origin_array[0],origin_array[1],origin_array[2])
-	for draw_index in out.draw_arguments.size():
-		var args:Array=out.draw_arguments[draw_index];var vertices:=PackedVector3Array();var uvs:=PackedVector2Array();var colors:=PackedColorArray();var indices:=PackedInt32Array();var wet:Array=[]
+	for draw_index in actor.geometry.draw_arguments.size():
+		var args:Array=actor.geometry.draw_arguments[draw_index];var vertices:=PackedVector3Array();var uvs:=PackedVector2Array();var colors:=PackedColorArray();var indices:=PackedInt32Array();var wet:Array=[]
 		for i in 4:
 			var p:=Surface.native_to_world([Battle.signed(int(args[i*3])),Battle.signed(int(args[i*3+1])),0.0],unit,origin)
 			if water.is_valid():
-				var height:=float(water.call(p.x,p.z,_time))
+				var height:=float(water.call(p.x,p.z,float(actor.tail_time)))
 				if is_finite(height):p.y=height+0.10+float(draw_index%3)*0.002
 			vertices.append(p);wet.append(not sea.is_valid() or bool(sea.call(p.x,p.z)))
 			uvs.append(Vector2(float(args[12+i*2])/1000.0,float(args[13+i*2])/1000.0));colors.append(Color(1,1,1,float((int(args[20+i])>>24)&255)/255.0))
@@ -163,3 +195,4 @@ func _release(id:String)->void:
 func dispose()->void:
 	for id:String in _actors.keys():_release(id)
 	_epoch=null;_time=-1.0;_errors.clear()
+	_water=Callable();_sea=Callable()

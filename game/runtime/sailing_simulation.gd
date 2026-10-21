@@ -172,39 +172,49 @@ func advance(frame_seconds: float) -> void:
 	if _paused or not is_finite(frame_seconds) or frame_seconds <= 0: return
 	_accumulator = minf(0.1,_accumulator+minf(frame_seconds,0.1))
 	while _accumulator+1e-10 >= STEP:
-		var adopted_rudder: bool = _consume_actions()
-		if _mode == "assisted" and _manual_active:
-			var fresh: Dictionary = encounter.snapshot(); var fresh_player := _ship(fresh,fresh.playerId)
-			if fresh.playerId != _current.playerId or fresh.battleId != _current.battleId or fresh_player.is_empty() or fresh_player.has("navigation") or encounter.hasActiveOrder(fresh.playerId) or fresh_player.hull <= 0 or fresh_player.crew <= 0 or fresh_player.team != "player" or not encounter.manual_control_permission(fresh.playerId).ok: refresh_snapshot()
-		var turn := float(int(_has("KeyD","ArrowRight"))-int(_has("KeyA","ArrowLeft"))) if _has("KeyD","ArrowRight") or _has("KeyA","ArrowLeft") else _rudder_intent
-		if not _course.is_empty():
-			var authority: Dictionary = encounter.snapshot()
-			var controlled: Dictionary = _ship(authority,authority.playerId)
-			if not controlled.is_empty():
-				var heading_error: float = atan2(sin(_course.heading-controlled.visual.heading),cos(_course.heading-controlled.visual.heading))
-				turn = clampf(heading_error*2.5,-1.0,1.0)
-		if not adopted_rudder: _rudder += (turn-_rudder)*(1-exp(-(10 if _mode == "assisted" else 8)*STEP))
-		if absf(_rudder) < 1e-10: _rudder = 0
-		var sails := int(_has("KeyW","ArrowUp"))-int(_has("KeyS","ArrowDown"))
-		_deployment = clampf(_deployment+sails*STEP*((0.75 if sails > 0 else 0.9) if _mode == "assisted" else 0.35),0,1)
-		var trim := int(_held.has("BracketRight"))-int(_held.has("BracketLeft"))
-		if trim: _auto_trim = false; _sail_angle = clampf(_sail_angle+trim*STEP*0.7,-PI/2,PI/2)
-		var input := {"forward":_has("KeyW","ArrowUp"),"backward":_has("KeyS","ArrowDown"),"turn":turn,"turnIntent":_rudder if turn or adopted_rudder else 0.0,"sailIntent":_deployment,"autoTrim":_auto_trim,"manualTrim":trim != 0,"casual":_mode == "assisted"}
-		var player := _ship(_current,_current.playerId)
-		if not player.is_empty() and not player.has("navigation") and not encounter.hasActiveOrder(_current.playerId):
-			var assisted := _mode == "assisted" and _manual_active
-			var control := _assist.controls(player,input) if assisted else {"turnIntent":input.turnIntent,"sailDeployment":_deployment,"recovery":false,"braking":false}
-			var result: Dictionary = encounter.command({"type":"controls","rudder":control.turnIntent if control.recovery else _rudder,"sailDeployment":control.sailDeployment,"sailAngle":_sail_angle,"autoTrim":_auto_trim})
-			if result.ok and assisted:
-				var applied: Dictionary = encounter.setManualHandling(_current.playerId,{"mode":"assisted","turnIntent":control.turnIntent,"sailIntent":_deployment,"braking":control.braking,"recovery":control.recovery,"casual":true})
-				if not applied.ok: _clear_assistance(true); _assist.block(applied.get("reason","Ship not authorized"))
-			elif not result.ok: _clear_assistance(true); _restore_controls()
-		_previous = _current.duplicate(true); encounter.step(STEP); _current = encounter.snapshot()
-		var consumed: float = (_current.tick-_previous.tick)*STEP
-		var actual := _ship(_current,_current.playerId)
-		if _mode == "assisted" and _manual_active and not actual.is_empty() and consumed > 0: _assist.advance(consumed,actual,_current.wind,input,func() -> Dictionary: return encounter.findManualRecoveryHeading(_current.playerId))
-		if actual.has("navigation") or encounter.hasActiveOrder(_current.playerId): _restore_controls()
-		_events.append_array(encounter.drainEvents()); _accumulator = maxf(0,_accumulator-STEP)
+		advance_fixed()
+		_accumulator = maxf(0,_accumulator-STEP)
+
+func advance_fixed() -> float:
+	if _paused:return 0.0
+	var adopted_rudder: bool = _consume_actions()
+	if _mode == "assisted" and _manual_active:
+		var fresh: Dictionary = encounter.snapshot(); var fresh_player := _ship(fresh,fresh.playerId)
+		if fresh.playerId != _current.playerId or fresh.battleId != _current.battleId or fresh_player.is_empty() or fresh_player.has("navigation") or encounter.hasActiveOrder(fresh.playerId) or fresh_player.hull <= 0 or fresh_player.crew <= 0 or fresh_player.team != "player" or not encounter.manual_control_permission(fresh.playerId).ok: refresh_snapshot()
+	var turn := float(int(_has("KeyD","ArrowRight"))-int(_has("KeyA","ArrowLeft"))) if _has("KeyD","ArrowRight") or _has("KeyA","ArrowLeft") else _rudder_intent
+	if not _course.is_empty():
+		var authority: Dictionary = encounter.snapshot()
+		var controlled: Dictionary = _ship(authority,authority.playerId)
+		if not controlled.is_empty():
+			var heading_error: float = atan2(sin(_course.heading-controlled.visual.heading),cos(_course.heading-controlled.visual.heading))
+			turn = clampf(heading_error*2.5,-1.0,1.0)
+	if not adopted_rudder: _rudder += (turn-_rudder)*(1-exp(-(10 if _mode == "assisted" else 8)*STEP))
+	if absf(_rudder) < 1e-10: _rudder = 0
+	var sails := int(_has("KeyW","ArrowUp"))-int(_has("KeyS","ArrowDown"))
+	_deployment = clampf(_deployment+sails*STEP*((0.75 if sails > 0 else 0.9) if _mode == "assisted" else 0.35),0,1)
+	var trim := int(_held.has("BracketRight"))-int(_held.has("BracketLeft"))
+	if trim: _auto_trim = false; _sail_angle = clampf(_sail_angle+trim*STEP*0.7,-PI/2,PI/2)
+	var input := {"forward":_has("KeyW","ArrowUp"),"backward":_has("KeyS","ArrowDown"),"turn":turn,"turnIntent":_rudder if turn or adopted_rudder else 0.0,"sailIntent":_deployment,"autoTrim":_auto_trim,"manualTrim":trim != 0,"casual":_mode == "assisted"}
+	var player := _ship(_current,_current.playerId)
+	if not player.is_empty() and not player.has("navigation") and not encounter.hasActiveOrder(_current.playerId):
+		var assisted := _mode == "assisted" and _manual_active
+		var control := _assist.controls(player,input) if assisted else {"turnIntent":input.turnIntent,"sailDeployment":_deployment,"recovery":false,"braking":false}
+		var result: Dictionary = encounter.command({"type":"controls","rudder":control.turnIntent if control.recovery else _rudder,"sailDeployment":control.sailDeployment,"sailAngle":_sail_angle,"autoTrim":_auto_trim})
+		if result.ok and assisted:
+			var applied: Dictionary = encounter.setManualHandling(_current.playerId,{"mode":"assisted","turnIntent":control.turnIntent,"sailIntent":_deployment,"braking":control.braking,"recovery":control.recovery,"casual":true})
+			if not applied.ok: _clear_assistance(true); _assist.block(applied.get("reason","Ship not authorized"))
+		elif not result.ok: _clear_assistance(true); _restore_controls()
+	_previous = _current; encounter.step_fixed(); _current = encounter.snapshot()
+	var consumed: float = (_current.tick-_previous.tick)*STEP
+	var actual := _ship(_current,_current.playerId)
+	if _mode == "assisted" and _manual_active and not actual.is_empty() and consumed > 0: _assist.advance(consumed,actual,_current.wind,input,func() -> Dictionary: return encounter.findManualRecoveryHeading(_current.playerId))
+	if actual.has("navigation") or encounter.hasActiveOrder(_current.playerId): _restore_controls()
+	_events.append_array(encounter.drainEvents())
+	return consumed
+
+func current_tick() -> int:return int(_current.get("tick",0))
+func current_time() -> float:return float(_current.get("time",0.0))
+func current_status() -> String:return str(_current.get("status",""))
 func snapshot() -> Dictionary: return _current.duplicate(true)
 func render_snapshot() -> Dictionary:
 	var alpha := _accumulator/STEP; var next := _current.duplicate(true)

@@ -65,6 +65,9 @@ class WorldTrace:
 	func apply_snapshot(native: Dictionary, consumed: float) -> void:
 		calls += 1
 		actual.apply_snapshot(native, consumed)
+	func get_interactive_water_mask_revision() -> int: return actual.get_interactive_water_mask_revision()
+	func get_interactive_water_mask() -> Dictionary: return actual.get_interactive_water_mask()
+	func get_ocean() -> MeshInstance3D: return actual.get_ocean()
 
 class InterfaceTrace:
 	extends CanvasLayer

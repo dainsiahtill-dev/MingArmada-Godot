@@ -181,7 +181,7 @@ func _stable_sort(values: Array, less: Callable) -> void:
 		values[slot] = candidate
 func _distance(a: Dictionary, b: Dictionary) -> float: return sqrt(pow(a.x - b.x, 2) + pow(a.z - b.z, 2))
 func _speed(v: Dictionary) -> float: return sqrt(v.velocity.x * v.velocity.x + v.velocity.z * v.velocity.z)
-func _height(x: float, z: float) -> float: return ocean.sample(x, z, tick * DT).height
+func _height(x: float, z: float) -> float: return ocean.sample_height(x, z, tick * DT)
 func _ok() -> Dictionary: return {"ok": true}
 func _no(reason: String) -> Dictionary: return {"ok": false, "reason": reason}
 func _controlled(id: String) -> bool:
@@ -400,6 +400,13 @@ func preview_surrender(captor_id: Variant = null) -> Dictionary:
 	if captor.is_empty() or not captor in captors: return _no("Captor must be a live hostile ship")
 	return {"ok": true, "offer": {"request": {"battleId": battle_id, "tick": tick, "captorId": captor.state.id}, "captorName": captor.state.name}}
 func previewSurrender(captor_id: Variant = null) -> Dictionary: return preview_surrender(captor_id)
+func step_fixed() -> void:
+	# The caller has already budgeted one 60Hz tick. No second wall-time
+	# accumulator or catch-up policy belongs inside this authority operation.
+	if status == "surrendered":
+		for ship in ships:_clear_terminal_stop(ship)
+		return
+	_fixed_tick()
 func step(seconds: float) -> void:
 	if not is_finite(seconds) or seconds <= 0: return
 	if status == "surrendered":
@@ -408,7 +415,7 @@ func step(seconds: float) -> void:
 	accumulator += minf(seconds, 0.1)
 	var count = 0
 	while accumulator + 1e-10 >= DT and count < 6:
-		accumulator = maxf(0, accumulator - DT); _fixed_tick(); count += 1
+		accumulator = maxf(0, accumulator - DT); step_fixed(); count += 1
 	if count == 6 and accumulator >= DT: accumulator = fmod(accumulator, DT)
 func _target(ship: Dictionary, side: String, ammo: String, constrained: String = "") -> Dictionary:
 	var v = _visual(ship)
@@ -552,7 +559,7 @@ func _fixed_tick() -> void:
 			controls.manualAssist = Manual.build(ship.state.kind, ship.manualHandling.turnIntent, _speed(visual), ship.state.crew / ship.state.maxCrew, ship.state.hull / ship.state.maxHull, ship.state.sail / ship.state.maxSail, ship.manualHandling.braking, ship.state.sailDeployment, config.get("referenceHandling", false))
 			if not controls.manualAssist.is_empty(): controls.throttle = Casual.throttle(ship.state, visual, wind, ship.manualHandling, controls.manualAssist.powerFraction, ship.core.drive_max_accel)
 		elif navigation_assists.has(ship.state.id): controls.manualAssist = navigation_assists[ship.state.id]
-		ship.core.step(DT, controls)
+		ship.core.step_in_place(DT, controls)
 		_shore(ship)
 	_contacts()
 	for ship in ships:

@@ -20,6 +20,7 @@ clearTimeout(timer);result.finishedAtUtc=new Date().toISOString();
 result.diagnostics=(result.stdout+'\n'+result.stderr).split(/\r?\n/).filter(x=>/SCRIPT ERROR:|\bERROR:|\b(?:Parse|Compile) Error:|Failed to load (?:script|resource)/i.test(x));
 result.valid=result.exitCode===0&&!result.timedOut&&!result.processError&&result.diagnostics.length===0;
 const markers={
+ "res://tools/verify-architecture-lab-gpu.gd":"ARCHITECTURE_LAB_GPU ",
  'res://tools/verify-laboratory-environment-gpu.gd':'LABORATORY_ENVIRONMENT_GPU ',
  'res://tools/verify-shore-edge-gpu.gd':'SHORE_EDGE_GPU ',
  'res://tools/verify-shore-edge-production.gd':'SHORE_EDGE_PRODUCTION ',

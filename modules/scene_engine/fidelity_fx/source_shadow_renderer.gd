@@ -2,7 +2,7 @@ extends RefCounted
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
 const Backend=preload("res://modules/scene_engine/fidelity_fx/source_shadow_rd.gd")
 const Effect=preload("res://modules/scene_engine/fidelity_fx/source_shadow_compositor.gd")
-const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
+const Prepared=preload("res://modules/scene_engine/fidelity_fx/prepared_rigid_shadow.gd")
 const PreparedFrame=preload("res://modules/scene_engine/fidelity_fx/prepared_shadow_frame.gd")
 const PLANE_ASSET="res://modules/scene_engine/fidelity_fx/source_shadow_assets/fluyt.nif.json"
 var _parent:Node3D

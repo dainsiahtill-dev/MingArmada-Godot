@@ -20,6 +20,35 @@ func check(ok: bool, reason: String) -> void:
 		failures += 1
 		printerr("FAIL: ",reason)
 
+func landing_triangle(island: MeshInstance3D, field: RefCounted, point: Vector2) -> Dictionary:
+	# Independent oracle: search the submitted index buffer in world XZ and use
+	# scalar barycentric weights. Do not call either production triangle sampler
+	# or its source-pixel/parity interpolation helper.
+	var arrays: Array = island.mesh.surface_get_arrays(0)
+	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+	var x := float(point.x)-float(island.position.x)
+	var z := float(point.y)-float(island.position.z)
+	for cursor in range(0,indices.size(),3):
+		var a := vertices[indices[cursor]]
+		var b := vertices[indices[cursor+1]]
+		var c := vertices[indices[cursor+2]]
+		if x<minf(a.x,minf(b.x,c.x)) or x>maxf(a.x,maxf(b.x,c.x)) or z<minf(a.z,minf(b.z,c.z)) or z>maxf(a.z,maxf(b.z,c.z)): continue
+		var denominator: float = (float(b.z)-c.z)*(float(a.x)-c.x)+(float(c.x)-b.x)*(float(a.z)-c.z)
+		if absf(denominator)<.000000001: continue
+		var wa: float = ((float(b.z)-c.z)*(x-c.x)+(float(c.x)-b.x)*(z-c.z))/denominator
+		var wb: float = ((float(c.z)-a.z)*(x-c.x)+(float(a.x)-c.x)*(z-c.z))/denominator
+		var wc := 1.0-wa-wb
+		if minf(wa,minf(wb,wc))<-.00000001: continue
+		var corners := []
+		for vertex: Vector3 in [a,b,c]:
+			var world := Vector2(vertex.x,vertex.z)+Vector2(island.position.x,island.position.z)
+			var authored: float = field.sample_original_reference_height(world.x,world.y)
+			check(absf(vertex.y-authored)<.0001,"submitted landing triangle vertex retains original authored source height")
+			corners.append({"world":world,"renderHeight":vertex.y,"authoringHeight":authored})
+		return {"height":wa*a.y+wb*b.y+wc*c.y,"weights":[wa,wb,wc],"corners":corners}
+	return {}
+
 func _run() -> void:
 	var ports: Array = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json"))
 	var field := HeightField.new()
@@ -50,8 +79,16 @@ func _run() -> void:
 				var point := dock+inward*along+across*lateral
 				check(field.sample_height(point.x,point.y)<=-7.9,"source rotation retains actual navigable dock approach: "+id)
 		var landing := dock+inward*43.0
-		check(absf(field.sample_height(landing.x,landing.y)-2.1)<.0001,"source rotation retains the pier's 2.1 metre landing height: "+id)
-		records.append({"id":id,"sourcePeak":PEAKS[id],"worldPeak":world,"height":peak_height,"inlandDistance":(world-island_center).dot(inward),"landingHeight":field.sample_height(landing.x,landing.y)})
+		# The analytic harbor profile reaches 2.1m at along=43. The retained
+		# Float32 source mesh interpolates adjacent vertices across this knee;
+		# an interior triangle point need not equal the analytic curve there.
+		check(absf(field.sample_original_reference_height(landing.x,landing.y)-2.1)<.0001,"original source rotation retains the pier's 2.1 metre authoring target: "+id)
+		var triangle := landing_triangle(meshes.get_meshes()[index],field,landing)
+		check(not triangle.is_empty(),"pier landing lies inside an actual submitted source triangle: "+id)
+		if not triangle.is_empty():
+			check(absf(field.sample_height(landing.x,landing.y)-float(triangle.height))<.0001,"physical landing retains the independent indexed mesh triangle height: "+id)
+			check(absf(meshes.sample_mesh_height(landing.x,landing.y)-float(triangle.height))<.0001,"render query retains the independent indexed mesh triangle height: "+id)
+		records.append({"id":id,"sourcePeak":PEAKS[id],"worldPeak":world,"height":peak_height,"inlandDistance":(world-island_center).dot(inward),"landingHeight":field.sample_height(landing.x,landing.y),"landingTriangle":triangle})
 	print("REFERENCE_PEAK_ORIENTATION_GEOMETRY ",JSON.stringify(records))
 	meshes.dispose()
 	print("REFERENCE_PEAK_ORIENTATION_TESTS assertions=",assertions," failures=",failures)

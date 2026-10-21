@@ -1,6 +1,7 @@
 extends Node3D
 ## Render completed source replay in the game. Runtime stays in native units;
 ## event placement, metre scale and wave-conforming rings are explicit adapters.
+const SurfaceBuffer = preload("res://modules/scene_engine/rendering/dynamic_surface_buffer.gd")
 const MANIFEST := "res://assets/data/fidelity_fx/manifest.json"
 const RUNTIME := "res://modules/scene_engine/fidelity_fx/particle_runtime.gd"
 const MixShader = preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
@@ -69,7 +70,7 @@ static func _asset(name: String) -> Dictionary:
 		if parsed is Dictionary: _assets[name] = parsed; return parsed
 	return {}
 
-static func _texture(name: String) -> Texture2D:
+static func get_texture(name: String) -> Texture2D:
 	var key := name.to_lower()
 	if _textures.has(key): return _textures[key]
 	for entry: Dictionary in load_manifest().get("textures",[]):
@@ -108,12 +109,9 @@ static func prewarm_game_sources() -> Dictionary:
 				continue
 			_prepared_sources[source] = prepared
 		report.sources.append(source)
-		var blueprint: Dictionary = prepared.get("_asset")
-		for block: Dictionary in blueprint.blocks:
-			if block.type != "NiSourceTexture": continue
-			var name := String(block.fields.get("file_name","")).to_lower()
+		for name: String in prepared.texture_dependencies():
 			if report.textures.has(name): continue
-			if name.is_empty() or _texture(name) == null:
+			if name.is_empty() or get_texture(name) == null:
 				report.errors.append("Source texture unavailable: "+name)
 				continue
 			report.textures.append(name)
@@ -369,7 +367,7 @@ func _material(mesh: Dictionary) -> ShaderMaterial:
 	if material != null:
 		if role == "game_flash": material.set_shader_parameter("display_tint",mesh.display_tint)
 		return material
-	var texture := _texture(String(mesh.texture))
+	var texture := get_texture(String(mesh.texture))
 	if texture == null: return null
 	material = ShaderMaterial.new()
 	# Additional fire is explicitly the game's display profile. Native source
@@ -398,69 +396,19 @@ func _material(mesh: Dictionary) -> ShaderMaterial:
 	return material
 
 func _surface_layout(mesh: ArrayMesh, indices: PackedInt32Array) -> Dictionary:
-	var count := mesh.surface_get_array_len(0)
-	var format := int(mesh.surface_get_format(0))
-	var layout := {"mesh_id":mesh.get_instance_id(),"vertex_count":count,"indices":indices.duplicate(),
-		"vertex_stride":RenderingServer.mesh_surface_get_format_vertex_stride(format,count),
-		"attribute_stride":RenderingServer.mesh_surface_get_format_attribute_stride(format,count),
-		"color_offset":RenderingServer.mesh_surface_get_format_offset(format,count,Mesh.ARRAY_COLOR),
-		"uv_offset":RenderingServer.mesh_surface_get_format_offset(format,count,Mesh.ARRAY_TEX_UV)}
-	var arrays_mask := (1 << Mesh.ARRAY_MAX)-1
-	var expected := Mesh.ARRAY_FORMAT_VERTEX|Mesh.ARRAY_FORMAT_COLOR|Mesh.ARRAY_FORMAT_TEX_UV|Mesh.ARRAY_FORMAT_INDEX
-	layout.supported = ((format & arrays_mask) == expected
-		and (format & (Mesh.ARRAY_FLAG_USE_2D_VERTICES|Mesh.ARRAY_FLAG_COMPRESS_ATTRIBUTES)) == 0
-		and layout.vertex_stride == 12 and layout.attribute_stride == 12 and layout.color_offset == 0 and layout.uv_offset == 4)
-	return layout
+	return SurfaceBuffer.layout(mesh,indices)
 
 static func _local_bounds(vertices: PackedVector3Array) -> AABB:
-	var low := vertices[0]
-	var high := low
-	for vertex: Vector3 in vertices:
-		low = low.min(vertex); high = high.max(vertex)
-	# Match RenderingServer's minimum extent, including planar/degenerate quads.
-	return AABB(low,(high-low).max(Vector3(0.00001,0.00001,0.00001)))
+	return SurfaceBuffer.bounds(vertices)
 
 static func _surface_attributes(uv: PackedVector2Array, colors: PackedColorArray) -> PackedByteArray:
-	var data := PackedByteArray()
-	data.resize(uv.size()*12)
-	for index in uv.size():
-		var offset := index*12
-		var color: Color = colors[index]
-		# Match the original ArrayMesh writer: float Color fields, double *255,
-		# clamp, then truncation. Keep UV float32, not half or compressed UNORM.
-		data[offset] = int(clampf(color.r*255.0,0.0,255.0))
-		data[offset+1] = int(clampf(color.g*255.0,0.0,255.0))
-		data[offset+2] = int(clampf(color.b*255.0,0.0,255.0))
-		data[offset+3] = int(clampf(color.a*255.0,0.0,255.0))
-		data.encode_float(offset+4,uv[index].x)
-		data.encode_float(offset+8,uv[index].y)
-	return data
+	return SurfaceBuffer.attributes(uv,colors)
+
+static func _texture(name: String) -> Texture2D:
+	return get_texture(name)
 
 func _update_surface(key: String, arrays: Array, original_attributes: PackedByteArray = PackedByteArray()) -> void:
-	var node: MeshInstance3D = _geometry[key]
-	var mesh := node.mesh as ArrayMesh
-	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
-	var uv: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
-	var colors: PackedColorArray = arrays[Mesh.ARRAY_COLOR]
-	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
-	var layout: Dictionary = _surface_layouts.get(key,{})
-	var reuse: bool = (_region_updates and mesh != null and not layout.is_empty() and bool(layout.supported)
-		and int(layout.mesh_id) == mesh.get_instance_id() and int(layout.vertex_count) == vertices.size()
-		and uv.size() == vertices.size() and colors.size() == vertices.size() and layout.indices == indices)
-	if reuse:
-		mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
-		mesh.surface_update_attribute_region(0,0,original_attributes if not original_attributes.is_empty() else _surface_attributes(uv,colors))
-		# Region writes retain the initial resource AABB. The renderer must use
-		# this frame's exact local bounds for culling and transparent depth.
-		var bounds := _local_bounds(vertices)
-		if mesh.custom_aabb != bounds: mesh.custom_aabb = bounds
-	else:
-		mesh = ArrayMesh.new()
-		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
-		node.mesh = mesh
-		_surface_layouts[key] = _surface_layout(mesh,indices)
-		if _region_updates and not original_attributes.is_empty() and bool(_surface_layouts[key].supported):
-			mesh.surface_update_attribute_region(0,0,original_attributes)
+	_surface_layouts[key] = SurfaceBuffer.submit(_geometry[key],arrays,_surface_layouts.get(key,{}),_region_updates,original_attributes)
 
 func _render(meshes: Array) -> void:
 	if _render_unit == "system":

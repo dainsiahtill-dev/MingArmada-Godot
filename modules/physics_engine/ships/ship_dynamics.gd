@@ -294,11 +294,17 @@ func resolve_horizontal_contact(normal: Dictionary, offset: Dictionary) -> float
 	return _yaw_rate
 
 func step(delta: float, controls: Dictionary = {}) -> Dictionary:
+	step_in_place(delta, controls)
+	return get_snapshot()
+
+## Internal authority callers can advance without allocating a discarded snapshot.
+## Public step() keeps the original detached return contract.
+func step_in_place(delta: float, controls: Dictionary = {}) -> void:
 	var dt := ClockContract.accepted_delta(delta)
 	if not _configured or dt == 0.0:
-		return get_snapshot()
+		return
 	if _config.waterRelativeBuoyancy and Types.finite_number(controls.get("time")) and float(controls.time) <= _time:
-		return get_snapshot()
+		return
 	_accept_controls(controls)
 	_time = Types.finite_or(controls.get("time"), _time + dt)
 	var fx := cos(_heading)
@@ -426,7 +432,6 @@ func step(delta: float, controls: Dictionary = {}) -> Dictionary:
 	_heading += _yaw_rate * dt
 	_x += _vx * dt
 	_z += _vz * dt
-	return get_snapshot()
 
 func step_buoyancy(delta: float, accepted_time: Variant = null) -> Dictionary:
 	var dt := ClockContract.accepted_delta(delta)
@@ -732,7 +737,11 @@ func _valid_config(config: Dictionary) -> bool:
 	return config.heaveDamp >= 0.0 and config.waterAreaFactor >= 0.0 and config.maxYawRate >= 0.0
 
 func _water_height(x: float, z: float) -> float:
-	if _waves == null or not _waves.has_method("sample"):
+	if _waves == null:
+		return NAN
+	if _waves.has_method("sample_height"):
+		return Types.finite_or(_waves.sample_height(x, z, _time), NAN)
+	if not _waves.has_method("sample"):
 		return NAN
 	var sampled: Variant = _waves.sample(x, z, _time)
 	return Types.finite_or(sampled.get("height"), NAN) if sampled is Dictionary else NAN

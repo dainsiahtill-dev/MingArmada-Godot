@@ -69,7 +69,18 @@ static func _result(state:Dictionary,packet:Dictionary,time:float,water:Callable
 			if wet[a+1] and wet[b] and wet[b+1]:indices.append_array(PackedInt32Array([a+1,b+1,b]))
 	return {"vertices":vertices,"uvs":state.native_uvs.duplicate(),"colors":state.native_colors.duplicate(),"indices":indices,"native_vertices":state.native_vertices.duplicate(),"native_equivalent":false,"finite_source_geometry":rejected.is_empty(),"finite_tangent_guard":false,"cross_repairs":repairs,"draw_vertex_count":count,"source_buffer_capacity":CAPACITY,"gpu_rejected":rejected,"precision":"Godot arithmetic with binary32 stores, not x87 bit equivalence","adaptations":["empty target initial buffers","zero-total/nonfinite GPU rejection","water_surface_fit","sea_triangle_clip"],"unresolved":["original geometry constructor/initial buffers","x87 midpoint rounding","original CRT NaN domain","DX9 draw/pixels"]}
 
+static func _source_result(state:Dictionary,count:int,repairs:int,rejected:String="")->Dictionary:
+	# Keep the accepted native buffers even while a different water carrier is
+	# visible. Inactive native UVs/vertices depend on prior source submissions.
+	return {"state":state.duplicate(false),"count":count,"repairs":repairs,"rejected":rejected}
+
+static func project_source(source:Dictionary,packet:Dictionary,time:float,water:Callable,sea:Callable)->Dictionary:
+	return _result(source.state,packet,time,water,sea,int(source.count),int(source.repairs),str(source.rejected))
+
 static func build(history:RefCounted,packet:Dictionary,time:float,water:Callable,sea:Callable)->Dictionary:
+	return project_source(advance_source(history,packet),packet,time,water,sea)
+
+static func advance_source(history:RefCounted,packet:Dictionary)->Dictionary:
 	var state:=_state(history)
 	var current_array:Array=packet.get("sourcePosition",history.points[history.head].p)
 	var current:=Vector3(_f32(current_array[0]),_f32(current_array[1]),_f32(current_array[2]))
@@ -82,7 +93,7 @@ static func build(history:RefCounted,packet:Dictionary,time:float,water:Callable
 	# The original first accepted sample can produce NaN geometry under the
 	# declared CRT oracle. Never send that unverified domain to the Godot GPU.
 	if not current.is_finite() or not is_finite(denominator) or denominator<=0.0:
-		return _result(state,packet,time,water,sea,draw_count,0,"zero-total/nonfinite source domain")
+		return _source_result(state,draw_count,0,"zero-total/nonfinite source domain")
 	var vertices:PackedVector3Array=state.native_vertices.duplicate()
 	var uvs:PackedVector2Array=state.native_uvs.duplicate()
 	var colors:PackedColorArray=state.native_colors.duplicate()
@@ -126,8 +137,8 @@ static func build(history:RefCounted,packet:Dictionary,time:float,water:Callable
 		colors[row*2]=Color(1,1,1,alpha);colors[row*2+1]=Color(1,1,1,alpha)
 		uvs[row*2]=Vector2(0.0,p.v);uvs[row*2+1]=Vector2(1.0,p.v)
 	for vertex:Vector3 in vertices:
-		if not vertex.is_finite():return _result(state,packet,time,water,sea,draw_count,0,"nonfinite source geometry")
+		if not vertex.is_finite():return _source_result(state,draw_count,0,"nonfinite source geometry")
 	var repairs:=_repair(vertices)
 	state.native_vertices=vertices;state.native_uvs=uvs;state.native_colors=colors
 	history.set_meta(STATE_KEY,state)
-	return _result(state,packet,time,water,sea,draw_count,repairs)
+	return _source_result(state,draw_count,repairs)

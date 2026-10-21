@@ -371,3 +371,12 @@ func diagnostics() -> Dictionary:
 			for modifier in system.modifiers: order.append({"type":modifier.type,"order":modifier.fields.order})
 			layers.append({"block":system.block.id,"name":system.block.name,"capacity":pool.capacity,"active":pool.num_active,"pendingCount":pool.pending_count,"pendingStart":pool.pending_start,"births":pool.births,"requested":pool.requested,"deaths":pool.deaths,"modifierOrder":order,"world":system.world.duplicate(true),"bounds":system.bounds.duplicate(true),"boundCounter":system.boundCounter})
 	return {"configured":not _asset.is_empty(),"asset":_asset.get("name",""),"systems":layers.size(),"system_count":layers.size(),"particles":active,"active":active,"births":births,"requested":requested,"deaths":deaths,"rng_state":_replay.rng.state if _replay != null else _seed,"rng_draws":_replay.rng.draws if _replay != null else 0,"time":_replay.time if _replay != null else null,"max_time":_max_time,"time_input":_time_input.duplicate(true),"layers":layers,"last_error":_last_error,"source_scope":"35 selected native particle systems and authored splash meshes; seed explicit; 120Hz observer is adapter; D3D lighting/raster/vertex-color upload unresolved"}
+
+# Prewarm reads resource names, never the mutable replay blueprint.
+func texture_dependencies() -> PackedStringArray:
+	var names := PackedStringArray()
+	for block: Dictionary in _asset.get("blocks",[]):
+		if block.type != "NiSourceTexture": continue
+		var name := String(block.fields.get("file_name","")).to_lower()
+		if not names.has(name): names.append(name)
+	return names

@@ -13,10 +13,17 @@ var _layer: CanvasLayer
 var _menu_was_paused := false
 var _disposed := false
 
+static func resolve_settings(storage: RefCounted = null) -> RefCounted:
+	# The app loads its store before injection. Standalone scene owners resolve
+	# their own store before building the first world at the confirmed quality.
+	if storage != null: return storage
+	var owned := UserSettings.new()
+	owned.load_settings()
+	return owned
+
 func configure(runtime: RefCounted, sea: Node3D, storage: RefCounted = null) -> void:
 	_runtime = runtime; _sea = sea
-	settings_storage = storage if storage else UserSettings.new()
-	settings_storage.load_settings()
+	settings_storage = resolve_settings(storage)
 	audio = GameAudio.new(); add_child(audio)
 	_layer = CanvasLayer.new(); _layer.layer = 50; add_child(_layer)
 	settings_panel = SettingsPanel.new(); _layer.add_child(settings_panel)

@@ -42,7 +42,9 @@ func _ready() -> void:
 	startup_receipt=runtime.configure(heights.sample_height,startup_options)
 	if not startup_receipt.ok: return
 	runtime.set_pause("loading",true)
+	settings_storage = Services.resolve_settings(settings_storage)
 	sea=Sea.new(); add_child(sea)
+	sea.apply_settings(settings_storage.snapshot())
 	if not sea.configure(heights.sample_height,Catalog.DATA.PORTS,runtime.sample_water_height,runtime.snapshot().naval): startup_receipt={"ok":false,"reason":"visual-qa-world-failed"}; return
 	services=Services.new(); add_child(services); services.configure(SettingsRuntime.new(runtime,_reset_frame_clock),sea,settings_storage)
 	interface=Inspector.new(); add_child(interface); interface.command_requested.connect(_command); interface.view_requested.connect(func(value): sea.tactical=value; _present(0,true))

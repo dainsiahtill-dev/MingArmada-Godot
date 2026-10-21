@@ -1,7 +1,7 @@
 extends RefCounted
 ## Main-thread publication certificate. No mutable input holder reaches the render thread.
 ## Only a live PreparedRigidShadow owner certifies its exact current immutable output.
-const Prepared = preload("res://game/presentation/world/prepared_rigid_shadow.gd")
+const Prepared = preload("res://modules/scene_engine/fidelity_fx/prepared_rigid_shadow.gd")
 var _snapshot:Array=[]
 func _init()->void:_snapshot.make_read_only()
 

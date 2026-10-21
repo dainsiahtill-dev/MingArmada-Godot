@@ -1,5 +1,5 @@
 extends Node3D
-## Isolation and inspection adapter for unchanged production weather/atmosphere.
+## Isolation and inspection adapter for production weather/atmosphere.
 ## Laboratory alone advances accepted time. Visibility never advances producers.
 const Weather = preload("res://modules/environment_engine/weather_state.gd")
 const Atmosphere = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gd")
@@ -8,10 +8,11 @@ const TransformTrial = preload("res://game/research/demos/cloud_transform_trial.
 const SkyShader = preload("res://modules/scene_engine/reference_island_water/reference_sky.gdshader")
 const STEP := 1.0 / 32.0
 const MAX_CATCHUP := 8
-const PRESETS := ["clear", "storm", "sunset"]
+const PRESETS := ["clear", "storm", "sunset", "cloud_exit"]
+const CENTER0_X := {"clear": 8000, "storm": 2000, "sunset": 8000, "cloud_exit": -15980}
 const CAMERAS := ["overview", "sky", "ground"]
-const DEFAULTS := {"preset": "clear", "camera_mode": "overview", "sky_enabled": true, "clouds_enabled": true, "shadows_enabled": true, "cpu_transform_batching": true, "paused": false, "crt_seed": 1, "sky_crt_seed": 1, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0}
-const SCOPE := "Unchanged production WeatherState integer three-center rules and explicit CRT RNG; Atmosphere original domecloud1..5 rotation, stormcloud_sound/KF, two cloud00 actors, full DDS mips and baked texture-shadow records. Fixed 32Hz and 10 source units/m are target adapters; sky shader and sun energy are Godot adapters. Clear/storm/sunset are declared initial-state fixtures, not an original weather enum. DIAGNOSTIC RECEIVER: unlit 5m calibration grid above unchanged source-color static sea, not original sea color or landscape. Fixed overview frames center0's first two accepted seconds; ground uses orthographic magnification, native modelScale remains 1. No campaign, ocean-wave, reflection, rain or full native pixel parity claim. Visibility controls never modify accepted weather, sky or controller state."
+const DEFAULTS := {"preset": "clear", "camera_mode": "overview", "sky_enabled": true, "clouds_enabled": true, "shadows_enabled": true, "cpu_transform_batching": true, "cloud_lifecycle": true, "paused": false, "crt_seed": 1, "sky_crt_seed": 1, "orbit_yaw": 0.0, "orbit_pitch": 0.0, "zoom": 1.0}
+const SCOPE := "Unchanged production WeatherState integer three-center rules and explicit CRT RNG; Atmosphere original domecloud1..5 rotation, stormcloud_sound/KF, two cloud00 actors, full DDS mips and baked texture-shadow records. Fixed 32Hz and 10 source units/m are target adapters; sky shader and sun energy are Godot adapters. Clear/storm/sunset/cloud_exit are declared initial-state fixtures, not an original weather enum. Cloud lifecycle is a target display adapter: source centers still reset; visible clouds and their shadows continue drifting until the complete bounds leave view. Disable it for the direct source-reset baseline. DIAGNOSTIC RECEIVER: unlit 5m calibration grid above unchanged source-color static sea, not original sea color or landscape. Fixed overview frames center0's first two outgoing accepted seconds; ground uses orthographic magnification, native modelScale remains 1. No campaign, ocean-wave, reflection, rain or full native pixel parity claim. Display controls never modify accepted weather, sky or controller state."
 const RECEIVER_EXTENT := 10000.0
 const GRID_SPACING := 5.0
 
@@ -58,7 +59,7 @@ func _validated(options: Dictionary) -> Dictionary:
 		return {"ok": false, "reason": "invalid-preset"}
 	if not candidate.camera_mode is String or candidate.camera_mode not in CAMERAS:
 		return {"ok": false, "reason": "invalid-camera_mode"}
-	for key: String in ["paused", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching"]:
+	for key: String in ["paused", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching", "cloud_lifecycle"]:
 		if not candidate[key] is bool:
 			return {"ok": false, "reason": "invalid-" + key}
 	for key: String in ["crt_seed", "sky_crt_seed"]:
@@ -103,16 +104,17 @@ func reset_experiment(options: Dictionary = {}) -> Dictionary:
 
 func control_spec() -> Array:
 	return [
-		{"id": "preset", "label": "初态预设（重置）", "type": "choice", "value": _options.preset, "choices": [{"value": "clear", "label": "晴天基准"}, {"value": "storm", "label": "风暴中心近景"}, {"value": "sunset", "label": "黄昏光照"}]},
+		{"id": "preset", "label": "初态预设（重置）", "type": "choice", "value": _options.preset, "choices": [{"value": "clear", "label": "晴天基准"}, {"value": "storm", "label": "风暴中心近景"}, {"value": "sunset", "label": "黄昏光照"}, {"value": "cloud_exit", "label": "可见云离场回收对照"}]},
 		{"id": "sky_enabled", "label": "天空云环", "type": "toggle", "value": _options.sky_enabled},
 		{"id": "clouds_enabled", "label": "三中心天气云", "type": "toggle", "value": _options.clouds_enabled},
 		{"id": "shadows_enabled", "label": "烘焙纹理云影", "type": "toggle", "value": _options.shadows_enabled},
 		{"id": "cpu_transform_batching", "label": "CPU矩阵批量存储（逐值对照）", "type": "toggle", "value": _options.cpu_transform_batching},
-		{"id": "camera_mode", "label": "固定观察镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "overview", "label": "云与影近景（校准地面）"}, {"value": "sky", "label": "天空"}, {"value": "ground", "label": "云影俯视（校准地面）"}]}
+		{"id": "camera_mode", "label": "固定观察镜头", "type": "choice", "value": _options.camera_mode, "choices": [{"value": "overview", "label": "云与影近景（校准地面）"}, {"value": "sky", "label": "天空"}, {"value": "ground", "label": "云影俯视（校准地面）"}]},
+		{"id": "cloud_lifecycle", "label": "可见云与云影出镜后回收（A/B）", "type": "toggle", "value": _options.cloud_lifecycle}
 	]
 
 func set_parameter(id: String, value: Variant) -> Dictionary:
-	if id not in ["preset", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching", "camera_mode"]:
+	if id not in ["preset", "sky_enabled", "clouds_enabled", "shadows_enabled", "cpu_transform_batching", "camera_mode", "cloud_lifecycle"]:
 		return {"ok": false, "reason": "unknown-parameter", "reset_required": false}
 	var candidate: Dictionary = _options.duplicate(true)
 	candidate[id] = value
@@ -126,6 +128,7 @@ func set_parameter(id: String, value: Variant) -> Dictionary:
 	else:
 		_options[id] = value
 		if id == "cpu_transform_batching" and _atmosphere: _atmosphere.get("_render_compiler").batched = value
+		if id == "cloud_lifecycle" and _atmosphere: _atmosphere.set_cloud_lifecycle_enabled(value)
 		_refresh_presentation()
 	return {"ok": true, "reset_required": false, "id": id, "value": value}
 
@@ -218,7 +221,7 @@ func _build_experiment() -> void:
 	_diagnostic_label.add_theme_font_size_override("font_size", 16)
 	_diagnostic_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	overlay.add_child(_diagnostic_label)
-	_source_options = {"epoch": 1, "crt_seed": _options.crt_seed, "sky_crt_seed": _options.sky_crt_seed, "source_calls_per_second": 32.0, "source_position_units_per_metre": 10.0, "model_scale": 1.0, "hold_light": true, "route": "weather-shadow-laboratory", "initial_state": {"lightTime": 1930 if _options.preset == "sunset" else 1200, "windHeading": 1073741760, "windDisplacement": 0, "windVelocity": 0, "centers": [{"x": 2000 if _options.preset == "storm" else 8000, "y": 0}, {"x": 3000, "y": 4000}, {"x": 6000, "y": -4000}]}}
+	_source_options = {"epoch": 1, "crt_seed": _options.crt_seed, "sky_crt_seed": _options.sky_crt_seed, "source_calls_per_second": 32.0, "source_position_units_per_metre": 10.0, "model_scale": 1.0, "hold_light": true, "route": "weather-shadow-laboratory", "initial_state": {"lightTime": 1930 if _options.preset == "sunset" else 1200, "windHeading": 1073741760, "windDisplacement": 0, "windVelocity": 0, "centers": [{"x": CENTER0_X[_options.preset], "y": 0}, {"x": 3000, "y": 4000}, {"x": 6000, "y": -4000}]}}
 	_weather = Weather.new()
 	if not _weather.configure(_source_options):
 		_fail_build("weather-configuration-failed")
@@ -232,6 +235,7 @@ func _build_experiment() -> void:
 	if not receipt.get("ok", false):
 		_fail_build(String(receipt.get("error", "atmosphere-configuration-failed")))
 		return
+	_atmosphere.set_cloud_lifecycle_enabled(_options.cloud_lifecycle)
 	# Production renderer owns records and resources. This local adapter retains
 	# references only to gate current visibility after its normal packet update.
 	for group: Array in _atmosphere.get("_clouds"):
@@ -273,7 +277,7 @@ func _update_camera() -> void:
 		return
 	# Fixed midpoint of center0's declared 0..2s observation window. Never follows
 	# packet position; motion remains visible against the stationary 5m grid.
-	var initial_x := 200.0 if _options.preset == "storm" else 800.0
+	var initial_x := float(CENTER0_X[_options.preset]) / 10.0
 	var target := Vector3(initial_x - 96.0, 18.0, 0.0)
 	var offset := Vector3(0.0, 82.0, 128.0)
 	_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
@@ -309,6 +313,7 @@ func _refresh_presentation() -> void:
 	_sky_material.set_shader_parameter("u_eye", _camera.global_position)
 	_sea_material.albedo_color = Color(float(light.waterColor[0]), float(light.waterColor[1]), float(light.waterColor[2]))
 	_diagnostic_label.text = "天空云环 · 原资源 / 原接受时间" if _options.camera_mode == "sky" else "诊断接收面 · 5米网格 · 云与影保持原尺寸 / 原时间"
+	_diagnostic_label.text += "\n源天气中心照常复位 · " + ("可见云与云影出镜后回收（候选）" if _options.cloud_lifecycle else "按源中心直接重定位（基线）")
 
 static func _matrix_values(value: Projection) -> Array:
 	var values: Array = []
@@ -332,7 +337,7 @@ func inspection_snapshot() -> Dictionary:
 	var renderer: Dictionary = _atmosphere.diagnostics() if _atmosphere else {}
 	var resources := {"weather": 1 if _weather else 0, "atmosphere": 1 if _atmosphere else 0, "world": 1 if is_instance_valid(_world) else 0, "meshes": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (2 if _ready_experiment else 0), "textures": (_atmosphere.get("_textures").size() if _atmosphere else 0) + (1 if _grid_texture else 0), "materials": _sky_records.size() + _cloud_records.size() + _shadow_records.size() + (3 if _ready_experiment else 0)}
 	var rng := {"weather": {"seed_decimal": str(_options.crt_seed), "state_decimal": str(_packet.get("source", {}).get("rngState", 0)), "draws": int(_packet.get("source", {}).get("rngDraws", 0)), "word_bits": 32}, "sky": {"seed_decimal": str(_options.sky_crt_seed), "initialization_draws": int(_packet.get("sky", {}).get("ring", {}).get("draws", 0)), "live_rng": "none after deterministic initialization; native ring packet does not retain initializer RNG state", "word_bits": 32}}
-	var observation := {"diagnostic_surface": true, "grid_spacing_m": GRID_SPACING, "surface_extent_m": RECEIVER_EXTENT, "surface_material": "unlit calibration texture; not original sea/land color", "camera_anchor": [(200.0 if _options.preset == "storm" else 800.0) - 96.0, 0.0, 0.0], "native_model_scale": 1.0, "fixed_observation_window_seconds": [0.0, 2.0], "overlay_label": _diagnostic_label.text if is_instance_valid(_diagnostic_label) else ""}
+	var observation := {"diagnostic_surface": true, "grid_spacing_m": GRID_SPACING, "surface_extent_m": RECEIVER_EXTENT, "surface_material": "unlit calibration texture; not original sea/land color", "camera_anchor": [float(CENTER0_X[_options.preset]) / 10.0 - 96.0, 0.0, 0.0], "native_model_scale": 1.0, "fixed_observation_window_seconds": [0.0, 2.0], "source_reset_fixture": _options.preset == "cloud_exit", "source_center_reset": "unchanged; display recycling waits for complete cloud and shadow exit when lifecycle enabled", "overlay_label": _diagnostic_label.text if is_instance_valid(_diagnostic_label) else ""}
 	return {"topic": "weather-shadow", "ready": _ready_experiment, "disposed": _disposed, "reason": _reason, "tick": _tick, "time": _tick * STEP, "step_seconds": STEP, "max_catchup": MAX_CATCHUP, "paused": _options.paused, "parameters": _options.duplicate(true), "camera_mode": _options.camera_mode, "camera": camera, "viewport": [viewport_size.x, viewport_size.y], "resources": resources, "scope": SCOPE, "rng": rng, "environment": _packet.duplicate(true), "observation": observation, "inputs": {"weather_options": _source_options.duplicate(true), "observer": {"position": [0.0, 0.0], "heading": 0.0}, "wind": {"speed": 0.0}, "preset_scope": "target fixed initial lightTime/centers; original scene day modes are not weather presets"}, "telemetry": {"world_weather_instances": int(renderer.get("worldWeatherInstances", 0)), "sky_clones": int(renderer.get("cloudClones", 0)), "sky_meshes": _sky_records.size(), "world_cloud_meshes": _cloud_records.size(), "shadow_meshes": _shadow_records.size(), "visible_sky_meshes": _visible(_sky_records), "visible_world_cloud_meshes": _visible(_cloud_records), "visible_shadow_meshes": _visible(_shadow_records), "source_calls": int(_packet.get("sourceCallIndex", 0)), "renderer": renderer, "weather": _weather.diagnostics() if _weather else {}}}
 
 func _fail_build(reason: String) -> void:

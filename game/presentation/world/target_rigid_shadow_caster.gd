@@ -2,7 +2,7 @@ extends RefCounted
 ## Target rigid hull/mast policy. Original classifier and actor+108 light
 ## producer remain unknown. Exact-position welding removes authored UV seams.
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
-const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
+const Prepared=preload("res://modules/scene_engine/fidelity_fx/prepared_rigid_shadow.gd")
 const Boundary=preload("res://game/presentation/world/target_shadow_boundary.gd")
 var _geometry:Dictionary={}
 var _parts:Dictionary={}

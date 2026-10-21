@@ -4,7 +4,7 @@ const Mix=preload("res://modules/scene_engine/fidelity_fx/particle.gdshader")
 const Add=preload("res://modules/scene_engine/fidelity_fx/particle_add.gdshader")
 const SceneWake=preload("res://modules/scene_engine/water/source_scene_wake.gdshader")
 const AttachedFroth=preload("res://modules/scene_engine/water/source_attached_froth.gdshader")
-const Upload=preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
+const Upload=preload("res://modules/scene_engine/rendering/dynamic_surface_buffer.gd")
 static var _textures:Dictionary={}
 var nodes:Dictionary={}
 var layouts:Dictionary={}
@@ -89,16 +89,11 @@ func submit(key:String,vertices:PackedVector3Array,uvs:PackedVector2Array,colors
 	_eligible[key]=not indices.is_empty()
 	_apply_visibility(key)
 	if indices.is_empty():return
-	var mesh:ArrayMesh=node.mesh;var layout:Dictionary=layouts.get(key,{})
-	var reuse:bool=DisplayServer.get_name()!="headless" and mesh!=null and layout.get("supported",false) and layout.get("count",0)==vertices.size() and layout.get("indices",PackedInt32Array())==indices
-	if reuse:
-		mesh.surface_update_vertex_region(0,0,vertices.to_byte_array());mesh.surface_update_attribute_region(0,0,Upload._surface_attributes(uvs,colors));mesh.custom_aabb=Upload._local_bounds(vertices);region_uploads+=1
-	else:
-		var arrays:Array=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=uvs;arrays[Mesh.ARRAY_COLOR]=colors;arrays[Mesh.ARRAY_INDEX]=indices
-		mesh=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE);node.mesh=mesh
-		var count:=vertices.size();var format:=mesh.surface_get_format(0)
-		var supported:=RenderingServer.mesh_surface_get_format_vertex_stride(format,count)==12 and RenderingServer.mesh_surface_get_format_attribute_stride(format,count)==12 and RenderingServer.mesh_surface_get_format_offset(format,count,Mesh.ARRAY_TEX_UV)==4 and not format&Mesh.ARRAY_FLAG_COMPRESS_ATTRIBUTES
-		layouts[key]={"count":count,"indices":indices.duplicate(),"supported":supported};rebuilds+=1
+	var arrays:Array=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=uvs;arrays[Mesh.ARRAY_COLOR]=colors;arrays[Mesh.ARRAY_INDEX]=indices
+	var receipt:Dictionary=Upload.submit(node,arrays,layouts.get(key,{}),DisplayServer.get_name()!="headless")
+	layouts[key]=receipt
+	if receipt.reused:region_uploads+=1
+	else:rebuilds+=1
 	node.material_override=material(record)
 
 func set_visibility_suppressed(key:String,suppressed:bool)->void:

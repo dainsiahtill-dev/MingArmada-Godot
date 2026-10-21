@@ -24,6 +24,11 @@ var _mast_yaw: Dictionary = {}
 var _mast_basis: Dictionary = {}
 var _rudder_rest: Dictionary = {}
 var _barrel_rest: Dictionary = {}
+var _pose_masts: Array[Dictionary] = []
+var _pose_rudders: Array[Dictionary] = []
+var _pose_flags: Array[Node3D] = []
+var _pose_sails: Array[Dictionary] = []
+var _pose_barrels: Array[Dictionary] = []
 var _recoil: Dictionary = {}
 var _next_gun := {"port": 0, "starboard": 0}
 var _seen_events: Dictionary = {}
@@ -59,12 +64,25 @@ func configure(kind: String, asset_library: RefCounted = null) -> bool:
 		_models.append(model)
 		_waterline_profiles.append(HullWaterline.build(model))
 		for node in model.find_children("*", "Node3D", true, false):
-			if String(node.name).begins_with("mast_") and String(node.name).trim_prefix("mast_").is_valid_int():
+			var role_name := String(node.name)
+			if role_name.begins_with("mast_") and role_name.trim_prefix("mast_").is_valid_int():
 				_mast_yaw[node.get_instance_id()] = node.rotation.y
 				_mast_basis[node.get_instance_id()] = node.basis
-			if String(node.name) == "rudder_pivot": _rudder_rest[node.get_instance_id()] = node.rotation.y
-			if String(node.name).begins_with("barrel_"):
+				_pose_masts.append({"node":node,"basis":node.basis,"trim":float(node.get_meta("sail_trim_origin",PI/2.0))})
+			if role_name == "rudder_pivot":
+				_rudder_rest[node.get_instance_id()] = node.rotation.y
+				_pose_rudders.append({"node":node,"rest":node.rotation.y})
+			if role_name.begins_with("flag_"): _pose_flags.append(node)
+			if node is MeshInstance3D and node.mesh and role_name.begins_with("sail_"):
+				var furl := -1; var inflate := -1
+				for index in node.mesh.get_blend_shape_count():
+					var morph: StringName = node.mesh.get_blend_shape_name(index)
+					if morph == &"furl": furl = index
+					elif morph == &"inflate": inflate = index
+				if furl >= 0 or inflate >= 0: _pose_sails.append({"node":node,"furl":furl,"inflate":inflate})
+			if role_name.begins_with("barrel_"):
 				_barrel_rest[node.get_instance_id()] = node.position.z
+				_pose_barrels.append({"node":node,"name":role_name,"rest":node.position.z})
 	_damage.configure(_models)
 	var deck := DeckSupport.new()
 	if deck.configure(kind, _models[0]):
@@ -107,24 +125,20 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 	var sail_health := clampf(float(ship.get("sail", 100.0)) / maxf(1.0, float(ship.get("maxSail", 100.0))), 0.0, 1.0)
 	var speed := maxf(0.0, float(wind.get("speed", 0.0)))
 	var inflation := _inflation_sign(visual, sail_angle, wind) * minf(1.0, speed / 18.0) * sail_health * deployment
-	for model in _models:
-		for node in model.find_children("*", "Node3D", true, false):
-			var id: int = node.get_instance_id()
-			if _mast_yaw.has(id):
-				node.basis = Basis(Vector3.UP,float(node.get_meta("sail_trim_origin",PI/2.0)) - sail_angle) * _mast_basis[id]
-			if String(node.name) == "rudder_pivot":
-				node.rotation.y = float(_rudder_rest.get(id,0.0)) + clampf(float(ship.get("rudder", 0.0)), -1.0, 1.0) * 0.42
-			if String(node.name).begins_with("flag_"):
-				node.rotation.z = 0.0 if _reduced_motion else sin(_time * 4.0) * 0.025
-			if node is MeshInstance3D and node.mesh and String(node.name).begins_with("sail_"):
-				for index in node.mesh.get_blend_shape_count():
-					var morph: StringName = node.mesh.get_blend_shape_name(index)
-					if morph == &"furl":
-						node.set_blend_shape_value(index, 1.0 - deployment)
-					elif morph == &"inflate":
-						node.set_blend_shape_value(index, inflation)
-			if _barrel_rest.has(id):
-				node.position.z = float(_barrel_rest[id]) + float(_recoil.get(String(node.name), 0.0))
+	# Authored role topology is fixed for this configuration. Damage changes
+	# transforms/materials, not these Nodes; reconfigure/dispose replaces bindings.
+	for role: Dictionary in _pose_masts:
+		if is_instance_valid(role.node): role.node.basis = Basis(Vector3.UP,float(role.trim) - sail_angle) * role.basis
+	for role: Dictionary in _pose_rudders:
+		if is_instance_valid(role.node): role.node.rotation.y = float(role.rest) + clampf(float(ship.get("rudder",0.0)),-1.0,1.0) * 0.42
+	for node: Node3D in _pose_flags:
+		if is_instance_valid(node): node.rotation.z = 0.0 if _reduced_motion else sin(_time * 4.0) * 0.025
+	for role: Dictionary in _pose_sails:
+		if not is_instance_valid(role.node): continue
+		if int(role.furl) >= 0: role.node.set_blend_shape_value(int(role.furl),1.0 - deployment)
+		if int(role.inflate) >= 0: role.node.set_blend_shape_value(int(role.inflate),inflation)
+	for role: Dictionary in _pose_barrels:
+		if is_instance_valid(role.node): role.node.position.z = float(role.rest) + float(_recoil.get(role.name,0.0))
 	var damage_events: Array = _damage.apply_snapshot(ship, _time, _reduced_motion)
 	# The current body/model frame must be available before same-time keys emit.
 	_record_source_pose()
@@ -351,6 +365,7 @@ func dispose() -> void:
 		if is_instance_valid(model):
 			model.free()
 	_models.clear()
+	_pose_masts.clear(); _pose_rudders.clear(); _pose_flags.clear(); _pose_sails.clear(); _pose_barrels.clear()
 	_waterline_profiles.clear()
 	_mast_yaw.clear()
 	_mast_basis.clear()

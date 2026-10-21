@@ -5,6 +5,7 @@ extends RefCounted
 const Native=preload("res://modules/scene_engine/fidelity_fx/cloud_native.gd")
 const SourceMath=preload("res://modules/scene_engine/fidelity_island/native_math.gd")
 const TransformKernel=preload("res://modules/scene_engine/fidelity_fx/cloud_transform_kernel.gd")
+const CurveSampler=preload("res://modules/scene_engine/fidelity_fx/cloud_curve_sampler.gd")
 var _float_store:=PackedFloat32Array()
 
 func _init()->void:_float_store.resize(1)
@@ -226,7 +227,11 @@ func _compile_static_billboard(node:Dictionary,inherited:Dictionary)->void:
 	for child:Dictionary in node.children:_compile_static_billboard(child,relative)
 
 func _controller(controller:Dictionary,data:Dictionary)->Dictionary:
-	return {"clock":SourceMath.ControllerClock.new(controller.fields),"flags":int(controller.fields.get("flags",0)),"data":data}
+	var prepared:Dictionary={"clock":SourceMath.ControllerClock.new(controller.fields),"flags":int(controller.fields.get("flags",0)),"data":data,"sampler":CurveSampler.new(data)}
+	if not data.has("keys"):
+		for name:String in ["translations","scales"]:
+			if not data.get(name,{}).get("keys",[]).is_empty():prepared[name]=CurveSampler.new(data[name])
+	return prepared
 
 func _compile_node(blocks:Dictionary,block:Dictionary,inherited:Dictionary,asset_name:String)->Dictionary:
 	if block.is_empty():return {}
@@ -329,10 +334,9 @@ func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictiona
 	var local:Dictionary=node.local.duplicate() if animate else node.local
 	if animate:
 		for controller:Dictionary in node.keyframes:
-			var data:Dictionary=controller.data
 			var mapped:float=_clock_time(controller,time,persistent)
-			if not data.get("translations",{}).get("keys",[]).is_empty():local.translation=_sample(data.translations,mapped)
-			if not data.get("scales",{}).get("keys",[]).is_empty():local.scale=_sample(data.scales,mapped)
+			if controller.has("translations"):local.translation=controller.translations.sample(mapped)
+			if controller.has("scales"):local.scale=controller.scales.sample(mapped)
 	var world:Dictionary=_compose_transform(parent,local)
 	var billboard:Dictionary={}
 	if not inherited_billboard.is_empty():billboard={"parent":inherited_billboard.parent,"relative":_compose_transform(inherited_billboard.relative,local) if animate else node.staticBillboardRelative}
@@ -342,11 +346,11 @@ func _render_node(node:Dictionary,parent:Dictionary,inherited_billboard:Dictiona
 		var leaf:Dictionary=node.leaf
 		var state:Dictionary=leaf.source.duplicate()
 		if animate:
-			for controller:Dictionary in leaf.alphaControllers:state.alpha=_sample(controller.data,_clock_time(controller,time,persistent))
+			for controller:Dictionary in leaf.alphaControllers:state.alpha=controller.sampler.sample(_clock_time(controller,time,persistent))
 			if leaf.hasTransform and not leaf.uvControllers.is_empty():
 				var values:Dictionary={}
 				var names:Array=["translationU","translationV","rotation","scaleU","scaleV"]
-				for controller:Dictionary in leaf.uvControllers:values[names[int(controller.operation)]]=_sample(controller.data,_clock_time(controller,time,persistent))
+				for controller:Dictionary in leaf.uvControllers:values[names[int(controller.operation)]]=controller.sampler.sample(_clock_time(controller,time,persistent))
 				state.uvMatrix=_texture_transform(leaf.desc,values)
 		state.world=world
 		if not billboard.is_empty():state.billboard=billboard

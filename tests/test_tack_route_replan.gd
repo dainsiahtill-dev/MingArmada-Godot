@@ -10,7 +10,7 @@ func prepared(expired: bool=true) -> RefCounted:
 	return e
 func _initialize() -> void:
 	record=JSON.parse_string(FileAccess.get_file_as_string(INPUT))
-	check(heights.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,Layout.options()),"formal terrain configured")
+	check(heights.configure_ports(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/mingqi_geography.json")),true,RECORDED_LAYOUT),"historical recorded terrain configured")
 	var fresh=prepared(false);var expired=prepared(true)
 	fresh._autopilot(fresh._ship(ID));expired._autopilot(expired._ship(ID))
 	check(fresh._ship(ID).tack.side==1,"fresh route keeps explicitly hypothetical+1 unfinished tack")

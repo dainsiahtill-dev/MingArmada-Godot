@@ -170,3 +170,29 @@ rtk proxy node tools/verify-godot.mjs --godot $env:GODOT_EXE --filter source_env
 
 既有weather-shadow实验继续消费同一Atmosphere。海面截断反例需要真正的透明海面，本轮用正常自由试航隔离回归工具重放，不在校准地面实验中伪造可见差异，也不新增首页示例。
 复现工具：`tools/verify-cloud-ocean-composition.gd`。范围为合成/遮挡修复；不声称新云造型、降雨或完整原版天气像素还原。
+
+## 2026-10-15 补充：世界云离场生命周期 A/B
+
+本轮沿用 `weather-shadow` 与同一独立 Demo；新增的是第七个实验控制 `cloud_lifecycle`，默认开启。源天气中心仍按原整数规则复位，RNG、源风场、天空环及 controller 接受时钟保持权威。开启时，可见世界云与其纹理影连续漂移，完整保守边界离开受保护视锥后才回收并安排下一代；关闭时直接使用逻辑中心位置，保留可见瞬移基线。该显示生命周期是目标适配，不能称原游戏回收算法。[问题、方案和预先接受标准](../../../docs/research/world-cloud-lifecycle-2026-10-15.md)记录三实例上限、镜像保护、48m扩张及重建/同刻刷新边界。
+
+H6：相同 seed、初态、32Hz输入与固定相机，仅切换 `cloud_lifecycle`，可令源中心在镜头中复位时，旧云及全部云影继续向西移动而不直接跨越千米；两组完整权威 environment 逐字节相同。最小反例是 `cloud_exit` 初态：center0为 `(-15980,0)` 源单位，另外两中心不变。中心0在首个1/32s步越过西侧距离门槛并复位。固定overview仍围绕初始世界x=-1598m的0–2s连续离场轨迹中点，即 `(-1694,18,0)`；这让基线故障立刻可复现，无需等待自然长程重置。ground继续用同一x中心的正交投影；模型尺寸、纹理、5m校准网格和光照不变。此预设是明确诊断夹具，不能称常规天气枚举。
+
+独立 CPU 接受项在实现前由行为测试固定：L1 默认选项传递到真实 Atmosphere，暂停开关及转镜头不消费权威时间、RNG或回收状态；非法非bool原子拒绝。L2 `cloud_exit` 零时刻云体/云影观察点处于960×640固定镜头内，首32Hz步确实生成新的源generation，而原可见云仍retiring=true、recycles=0。manager的generation记录最新观察到的源代数，因此该字段应为1，不能把它误称当前可见物体的出生代数；旧物体保留由实际mesh位置验证。L3 该步每个原云/影mesh位移小于10m且中心向西；关闭候选后同一源packet的首mesh位置与候选相距大于1000m。L4 A/B资源数、实际相机、源天气/天空/controller及RNG相同；宿主恰好显示七个控制。测试入口为 [test_laboratory_weather_lifecycle.gd](../../../tests/test_laboratory_weather_lifecycle.gd)，旧实验室天气和CPU矩阵对照继续回归。
+
+首次 [RED](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/lab-cpu/red.json) 已执行：新控制尚未实现时1断言、1失败，退出1。最新 [GREEN](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/lab-cpu/green.json) 为三文件112断言/0失败：既有weather86/0、生命周期20/0、CPU矩阵对照6/0；每个唯一完成标记存在，exit0、无Godot ERROR。真实首32Hz步全部云/影mesh最大位移3.0120849609375m，基线首mesh与候选相距2953.84521484375m；两组完整权威environment相同、资源数和相机相同。[目录回归](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/lab-cpu/catalog.json) 同样通过。此处只报告实验室定向headless结果，不称全项目回归；本候选GPU连续原帧及正式入口结果分别记录，headless位移、frustum或资源合同不能代替真实GPU观感、镜像像素和整场性能结果。
+
+保留两次中间失败：[首次接线](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/lab-cpu/first-integration-failure.json)发现生产视锥条件表达式返回未类型化空Array，导致原weather失败及新实验超时；修复显式Array[Plane]初始化后该错误消失。[第二次](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/lab-cpu/generation-semantics-failure.json)仅一项失败，原因是测试把manager.generation误当显示出生代数；查实际合同后改为断言最新源generation=1、retiring=true、recycles=0，并继续以全部mesh位移验证物体保留，没有更改生命周期实现来迎合错误预期。
+
+实验室复现：F5进入普通首页“实验室”，选择既有“天气、移动云层与云影”，选择“可见云离场回收对照”预设并重置，保留overview、默认seed、zoom=1和三个可见性开关。先暂停，在0秒保存inspection与原帧；单步一次到0.03125秒，候选应保留原云及云影并向西移动。关闭“可见云与云影出镜后回收（A/B）”，同条件重置并单步一次，保存直接源复位基线。两组对照完整environment，不用候选的视觉位置替代源天气中心。随后按固定接受步长连续推进、保存出镜前后原帧及inspection；只有旧物体完整出镜才可回收，不能把暂停转镜头当作一次生命周期推进。实验叠字明确显示“源天气中心照常复位”和当前候选/基线。
+
+本实验接收面无真实海面反射，因此镜像保护仍须由独立/正式GPU工具和生产合同验证。观察固定近景只预先保证离场轨迹0–2s；基线复位后离开原镜头正是失败现象，不能自动转镜头追踪后声称连续性。开关实验策略可能立即重置显示历史，严格A/B必须分别“同条件重置”；该切换不推进权威状态。
+
+```powershell
+rtk proxy node tools/verify-godot.mjs --filter laboratory_weather --output Temp/research/weather-lifecycle-lab-<new-run>.json
+```
+
+最终GPU与正式接线：见[完整交付记录](../../../docs/research/world-cloud-lifecycle-2026-10-15.md)。最终独立lab-3在129个接受时刻/组保存50张原帧，覆盖3.5625秒的完整离场回收前后；正式production-2从真实自由试航保存20组主/倒影共40张原帧，原重置帧的生产位移1.599976m，基线2951.203857m。七时刻主/镜像差分均通过，重置后的云可见且连续移动。生产默认启用，质量变更复用原owner；恢复减弱动态不会补完冻结期间位移。原天气/RNG保持相同，仍仅三个世界实例。
+
+[可播放的逐帧A/B](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/review.html)关联原始回执、PNG散列、明确的近重置初态和失败夹具。production-1遗漏simulation快照刷新，旧0秒云不在目标镜头，连续性失败，已排除；不得用该轮缺目标的截图作结论。显式rewind/新epoch仍按源状态重建显示，没有任意历史相机轨迹恢复承诺。整项目回归与云专项证据分别列示，不把微型CPU计时称为完整游戏FPS。
+
+最终全套回归272文件：265通过、7失败，保留[原始完整回执](../../../docs/research/evidence/world-cloud-lifecycle-2026-10-15/full-headless.json)。两个60秒超时项在180秒保护下串行复跑分别37.923/29.603秒通过，原失败不覆盖；其余五处地形/阴影架构/旧测试夹具问题及直接依赖核对见完整研究记录的回归表。云、原天气、正式大气及实验室相关合同均通过。

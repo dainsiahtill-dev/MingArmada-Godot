@@ -56,7 +56,9 @@ func _ready() -> void:
 		if not startup_receipt.ok: return
 		_confirm_checkpoint(initial_save)
 	if startup_options.get("staged",false): runtime.set_pause("loading",true)
+	settings_storage = Services.resolve_settings(settings_storage)
 	sea = NavalWorldView.new(); add_child(sea)
+	sea.apply_settings(settings_storage.snapshot())
 	if not sea.configure(heights.sample_height,geography,runtime.sample_water_height,runtime.snapshot().naval): _reject_startup("world-startup-failed"); return
 	_sync_view_handles()
 	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)

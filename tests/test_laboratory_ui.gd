@@ -11,7 +11,7 @@ func _run() -> void:
 	var lab: Control = load("res://game/research/laboratory.gd").new()
 	root.add_child(lab); await process_frame
 	check(lab.startup_receipt.get("ok",false),"laboratory startup succeeds")
-	check(lab.inspection_snapshot().topic_count == 6,"six visual papers in one entry")
+	check(lab.inspection_snapshot().topic_count == 7,"six visual papers and architecture research share one entry")
 	check(lab.select_topic("hull-contact"),"hull paper selectable")
 	check(lab.find_child("ResearchPaper",true,false).get_parsed_text().contains("问题与假设"),"paper rendered inside game")
 	check(not lab.select_topic("missing"),"missing selection leaves current subject intact")

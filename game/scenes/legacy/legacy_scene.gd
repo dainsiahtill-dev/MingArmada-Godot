@@ -43,7 +43,9 @@ func _ready() -> void:
 		if not startup_receipt.ok: return
 		runtime.set_pause("loading",true)
 	if startup_options.get("staged",false): runtime.set_pause("loading",true)
+	settings_storage = Services.resolve_settings(settings_storage)
 	sea = Sea.new(); add_child(sea)
+	sea.apply_settings(settings_storage.snapshot())
 	if not sea.configure(heights.sample_height,Catalog.DATA.PORTS,runtime.sample_water_height,runtime.snapshot().naval): push_error("Legacy world startup failed"); return
 	services = Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
 	interface = Interface.new(); add_child(interface)

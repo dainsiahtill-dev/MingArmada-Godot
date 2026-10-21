@@ -402,7 +402,12 @@ func apply_snapshot(snapshot: Dictionary, consumed: float = 0.0) -> void:
 	if environment.get("lighting",{}).get("target") is Dictionary:
 		_source_lighting=environment.lighting.target.duplicate(true)
 	_apply_source_lighting()
-	if atmosphere: atmosphere.apply_snapshot(snapshot,_camera,Vector3(focus.x,0.0,focus.y))
+	if atmosphere:
+		var reflected_view:Camera3D=null
+		var reflection_target:SubViewport=_ocean.get_reflection_viewport()
+		if is_instance_valid(reflection_target) and reflection_target.render_target_update_mode!=SubViewport.UPDATE_DISABLED:
+			reflected_view=_ocean.get_reflection_camera()
+		atmosphere.apply_snapshot(snapshot,_camera,Vector3(focus.x,0.0,focus.y),reflected_view)
 	# consumed is accepted for shared presentation API; this world does not bill it.
 	if consumed < 0.0:
 		return

@@ -234,11 +234,11 @@ func advance(frame_seconds: float) -> float:
 	_pending = minf(requested,MAX_PENDING_SECONDS)
 	var iterations := 0
 	while _pending+1e-10 >= STEP and iterations < MAX_TICKS and not is_paused():
-		var tick: int = simulation.snapshot().tick
-		simulation.advance(STEP)
+		var tick: int = simulation.current_tick()
+		simulation.advance_fixed()
 		for outcome: Dictionary in simulation.drain_results():
 			if not outcome.result.get("ok",false): _notify(outcome.result.get("reason","command-rejected"))
-		if simulation.snapshot().tick != tick+1: _fail("native-tick-budget-mismatch"); break
+		if simulation.current_tick() != tick+1: _fail("native-tick-budget-mismatch"); break
 		_pending = maxf(0,_pending-STEP); iterations += 1; _accepted = iterations*STEP
 		var reconciled: Dictionary = bridge.reconcile()
 		var business: Dictionary = campaign.advance(STEP,bridge.near_ids(),bridge.command_context() if reconciled.ok else {})

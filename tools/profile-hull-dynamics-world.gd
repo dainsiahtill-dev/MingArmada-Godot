@@ -180,6 +180,7 @@ func profile_sea(native: Dictionary, events: Array, consumed: float, costs: Dict
 	costs.wakesLocalContact = float(local_us)/1000.0
 	costs.wakesOldRemainder = maxf(0.0,float(costs.wakesTotal)-float(costs.wakesLocalContact))
 	measure(costs,"world",func(): sea.world.apply_snapshot(sea._world_packet(native),consumed))
+	measure(costs,"interactiveWater",func(): sea._apply_interactive_water(native))
 	var shadow_inputs: Dictionary = profile_shadows(sea,native,costs)
 	sea.get("_local_presentation_seconds").clear()
 	costs.seaInstrumentedWall = float(Time.get_ticks_usec()-sea_begin)/1000.0

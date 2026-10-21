@@ -3,6 +3,7 @@ extends RefCounted
 ## No independent process clock, physics, gameplay state or synthetic sky mesh.
 const Native = preload("res://modules/scene_engine/fidelity_fx/cloud_native.gd")
 const RenderCompiler = preload("res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd")
+const CloudLifecycle = preload("res://modules/scene_engine/fidelity_fx/world_cloud_lifecycle.gd")
 const SourceMath = preload("res://modules/scene_engine/fidelity_island/native_math.gd")
 const SHADER = preload("res://modules/scene_engine/fidelity_fx/atmosphere.gdshader")
 const SOURCE_METRES := 0.01
@@ -43,6 +44,8 @@ var _world_shadow_opacity:=0.38
 var _weather_shader_cache:Dictionary={}
 var _light_material:Array=[]
 var _display_environment:Dictionary={}
+var _cloud_lifecycle:=CloudLifecycle.new()
+var _cloud_lifecycle_enabled:=true
 
 static func _json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
@@ -78,6 +81,7 @@ func configure(parent: Node3D, asset_manifest: Dictionary, options: Dictionary =
 	_fog_opacity = float(options.get("fog_opacity",1.0))
 	if not is_finite(_fog_opacity) or _fog_opacity < 0.0 or _fog_opacity > 1.0: return _fail("Invalid target ground-fog opacity")
 	_reduced_motion = bool(options.get("reduced_motion",false))
+	_cloud_lifecycle_enabled=bool(options.get("cloud_lifecycle",true))
 	_world_shadow_height=float(options.get("cloud_shadow_surface_height",0.12))
 	_world_shadow_opacity=clampf(float(options.get("cloud_shadow_opacity",0.38)),0.0,1.0)
 	for entry: Dictionary in asset_manifest.get("atmosphere",{}).get("assets",[]):
@@ -233,7 +237,13 @@ func _seek_cloud(time: float) -> void:
 	_cloud_time = time
 
 func set_reduced_motion(enabled: bool) -> void:
+	if _reduced_motion and not enabled:_cloud_lifecycle.rebase_time(_time)
 	_reduced_motion = enabled
+
+func set_cloud_lifecycle_enabled(enabled:bool)->void:
+	if enabled==_cloud_lifecycle_enabled:return
+	_cloud_lifecycle_enabled=enabled
+	_cloud_lifecycle.clear()
 
 func reset_timeline() -> void:
 	# A new encounter is a new input sequence, not a seek into a prior encounter.
@@ -246,19 +256,22 @@ func reset_timeline() -> void:
 	_clear_render_cache()
 
 func _clear_render_cache()->void:
+	_cloud_lifecycle.clear()
 	for i in _cloud_cache.size():_cloud_cache[i]={}
 	for instance:Dictionary in _fog:
 		instance.stateTime=-INF;instance.states=[];instance.compiled=_render_compiler.compile_asset(_assets["fx_groundfog01.nif"])
 	for instance:Dictionary in _weather:
 		instance.stateTime=-INF;instance.states=[];instance.compiled=_render_compiler.compile_asset(_assets[instance.resource])
+		instance.erase("lifecycleRadius")
 
-func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vector3.ZERO) -> void:
+func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vector3.ZERO, reflection_camera:Camera3D=null) -> void:
 	if not is_instance_valid(_container) or not is_instance_valid(camera): return
 	var environment:Dictionary=snapshot.get("environment",{})
 	if environment.is_empty():environment=snapshot.get("native",{}).get("environment",{})
 	var supplied_time: Variant = environment.get("acceptedTime",snapshot.get("time_seconds",snapshot.get("time",0.0)))
 	if not (supplied_time is int or supplied_time is float) or not is_finite(float(supplied_time)): return
-	if float(supplied_time)<_time:_clear_render_cache()
+	if float(supplied_time)<_time:
+		_clear_render_cache();_display_environment.clear()
 	_time = maxf(0.0,float(supplied_time))
 	# Preserve accepted time even while the optional target motion preference
 	# holds source animation. Rewinds still remove future presentation state.
@@ -321,7 +334,7 @@ func apply_snapshot(snapshot: Dictionary, camera: Camera3D, focus: Vector3 = Vec
 			instance.states=_render_compiler.render_states(instance.compiled,source_time,{},true,{},false,false,true)
 			instance.stateTime=source_time
 		_update_group(instance.meshes,instance.states,instance.placement,1.0)
-	_apply_weather(environment,native_camera)
+	_apply_weather(environment,native_camera,camera,reflection_camera)
 	var light:Array=environment.get("lighting",{}).get("sourceLightFields",{}).get("lightColor",[1.0,1.0,1.0])
 	if light!=_light_material:
 		_light_material=light.duplicate()
@@ -346,8 +359,32 @@ func _install_ring_layout(ring:Dictionary)->void:
 		for mesh:Dictionary in Native.original_meshes(_assets[clone.prototype]):group.append(_create_mesh(mesh,"OriginalCloud_%s_%d"%[str(clone.name).strip_edges(),int(mesh.block)],true))
 		_clouds.append(group);_cloud_cache.append({})
 
-func _apply_weather(environment:Dictionary,camera:Dictionary)->void:
+func _weather_radius(instance:Dictionary,scale_adaptation:float,root_height:float)->float:
+	# Enclose the complete hierarchy, including invisible KF parts and any
+	# billboard orientation. Receiver shadows are placed on a separate sea plane.
+	var radius:=0.0
+	for i in mini(instance.meshes.size(),instance.states.size()):
+		var record:Dictionary=instance.meshes[i]
+		var state:Dictionary=instance.states[i]
+		var offset:=_native_to_godot(state.world.translation)*SOURCE_METRES*scale_adaptation
+		var extent:=float(record.radius)*absf(float(state.world.scale)*scale_adaptation)
+		var billboard:Dictionary=state.get("billboard",{})
+		if not billboard.is_empty():
+			var frame:Dictionary=billboard.parent
+			var relative:Dictionary=billboard.relative
+			offset=_native_to_godot(frame.translation)*SOURCE_METRES*scale_adaptation
+			extent=(_native_to_godot(relative.translation).length()*SOURCE_METRES+float(record.radius)*absf(float(relative.scale)))*absf(float(frame.scale)*scale_adaptation)
+		if record.get("bakedShadow",false):offset.y=_world_shadow_height-root_height
+		radius=maxf(radius,offset.length()+extent)
+	return radius
+
+func _apply_weather(environment:Dictionary,camera:Dictionary,view:Camera3D,reflection:Camera3D)->void:
 	var packets:Array=environment.get("worldClouds",[])
+	var planes:Array[Plane]=[]
+	var additional:Array[Plane]=[]
+	if _cloud_lifecycle_enabled:planes.assign(view.get_frustum())
+	if _cloud_lifecycle_enabled and is_instance_valid(reflection) and reflection.is_inside_tree():additional.assign(reflection.get_frustum())
+	var visible:=func(center:Vector3,radius:float)->bool:return CloudLifecycle.sphere_in_views(center,radius,planes,additional)
 	for index in _weather.size():
 		var instance:Dictionary=_weather[index]
 		if index>=packets.size():
@@ -361,6 +398,11 @@ func _apply_weather(environment:Dictionary,camera:Dictionary)->void:
 			instance.stateTime=time
 		var pose:Array=packet.worldPosition
 		var placement:=Transform3D(Basis.IDENTITY,Vector3(float(pose[0]),float(pose[1]),float(pose[2])))
+		if _cloud_lifecycle_enabled and packet.has("driftVelocity") and packet.has("generation"):
+			# Never shrink the actor envelope as a KF part fades or contracts.
+			instance.lifecycleRadius=maxf(float(instance.get("lifecycleRadius",0.0)),_weather_radius(instance,float(packet.modelScale),placement.origin.y))
+			var display:Dictionary=_cloud_lifecycle.advance(index,packet,time,instance.lifecycleRadius,visible)
+			if not display.is_empty():placement.origin=display.position
 		_update_group(instance.meshes,instance.states,placement,float(packet.modelScale))
 		for record:Dictionary in instance.meshes:
 			if record.get("bakedShadow",false):
@@ -412,7 +454,7 @@ func diagnostics() -> Dictionary:
 		weather_meshes+=instance.meshes.size()
 		for record:Dictionary in instance.meshes:
 			if record.get("bakedShadow",false):shadow_meshes+=1
-	return {"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"skyBoundsLayer":_sky_bounds_layer,"cloudMinimumHeight":_sky_floor,"skyRadius":_sky_radius,"independentClock":false,"error":_error,"worldWeatherInstances":_weather.size(),"worldWeatherMeshes":weather_meshes,"bakedCloudShadowMeshes":shadow_meshes,"independentInstanceClocks":true,"environmentEpoch":_environment_epoch,"environmentRevision":_environment_revision,"bakedShadowAdaptation":{"surfaceHeight":_world_shadow_height,"opacity":_world_shadow_opacity,"depthTest":true},"stormAnimationAuthority":"authored KF target binding; target sequence selection; original KFM event selection unrecovered"}
+	return {"worldCloudLifecycle":{"enabled":_cloud_lifecycle_enabled,"states":_cloud_lifecycle.snapshot(),"viewMarginMetres":CloudLifecycle.VIEW_MARGIN_METRES,"authority":"target display policy; original source reset/RNG retained"},"time":_time,"animationTime":_cloud_time,"historySteps":_journal.size(),"reducedMotion":_reduced_motion,"fogOpacity":_fog_opacity,"cloudClones":_clouds.size(),"cloudMeshes":_mesh_count(_clouds),"fogInstances":_fog.size(),"fogMeshes":_fog.size()*20,"fogPhases":fog_phases,"cloudUpdates":int(_ring.get("updates",0)),"cloudAccumulator":float(_ring.get("accumulator",0.0)),"firstCloudRotation":_ring.nodes[0].rotation.duplicate() if not _ring.is_empty() else [],"skyOrigin":_sky_origin,"sourceMetres":SOURCE_METRES,"cameraFollowSky":true,"skyBoundsLayer":_sky_bounds_layer,"cloudMinimumHeight":_sky_floor,"skyRadius":_sky_radius,"independentClock":false,"error":_error,"worldWeatherInstances":_weather.size(),"worldWeatherMeshes":weather_meshes,"bakedCloudShadowMeshes":shadow_meshes,"independentInstanceClocks":true,"environmentEpoch":_environment_epoch,"environmentRevision":_environment_revision,"bakedShadowAdaptation":{"surfaceHeight":_world_shadow_height,"opacity":_world_shadow_opacity,"depthTest":true},"stormAnimationAuthority":"authored KF target binding; target sequence selection; original KFM event selection unrecovered"}
 
 func dispose() -> void:
 	if is_instance_valid(_container):
@@ -426,4 +468,4 @@ func dispose() -> void:
 	_fog_opacity = 1.0; _reduced_motion = false
 	_sky_bounds_layer = false; _sky_floor=80.0; _sky_variation=40.0
 	_environment_epoch=null;_environment_revision=-1
-	_light_material.clear();_display_environment.clear()
+	_light_material.clear();_display_environment.clear();_cloud_lifecycle.clear();_cloud_lifecycle_enabled=true

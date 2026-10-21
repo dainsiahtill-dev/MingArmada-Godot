@@ -69,7 +69,7 @@
       "id": "weather-shadow",
       "title": "天气、移动云层与云影",
       "category": "环境表现",
-      "abstract": "区分天空云环、移动天气中心与纹理云影，记录原实现证据和 Godot 的接入边界。",
+      "abstract": "区分天空云环、移动天气中心与纹理云影；保留源天气中心复位，以 A/B 对照可见云与云影出镜后回收。",
       "status": "integrated-retrospective",
       "retrospective": true,
       "paper": "res://assets/research/papers/weather-shadow.md",
@@ -78,11 +78,16 @@
         "res://game/research/demos/weather_shadow_experiment.gd",
         "res://docs/migration/weather-cloud-shadow-wake-integration-2026-10-13.md",
         "res://docs/migration/weather-cloud-shadow-wake-delivery-2026-10-13.md",
-        "res://docs/research/cloud-ocean-composition-2026-10-14.md"
+        "res://docs/research/cloud-ocean-composition-2026-10-14.md",
+        "res://docs/research/world-cloud-lifecycle-2026-10-15.md",
+        "res://modules/scene_engine/fidelity_fx/world_cloud_lifecycle.gd",
+        "res://modules/scene_engine/fidelity_fx/atmosphere.gd",
+        "res://modules/environment_engine/weather_state.gd"
       ],
       "evidence": [
         "res://docs/migration/rea-latest-handoff-2026-10-12.md",
-        "res://docs/research/evidence/cloud-ocean-composition-2026-10-14/VERIFY.json"
+        "res://docs/research/evidence/cloud-ocean-composition-2026-10-14/VERIFY.json",
+        "res://docs/research/evidence/world-cloud-lifecycle-2026-10-15/VERIFY.json"
       ]
     },
     {
@@ -126,6 +131,36 @@
         "res://docs/research/evidence/wake-flow/interactive-field-gpu-4/GPU_VERIFY.json",
         "res://docs/research/evidence/wake-flow/interactive-lab-3/PAIR_VERIFY.json",
         "res://docs/research/evidence/wake-flow/interactive-production-1/default/GPU_VERIFY.json"
+      ]
+    },
+    {
+      "id": "architecture-convergence-2026-10-21",
+      "title": "架构基础收敛：采样与固定步",
+      "category": "性能与正确性",
+      "abstract": "真实六船可选，同步对照完整波面与仅取水位，观察60Hz权威、渲染插值和实际地形查询计数；CPU/GPU对照已留证，完整游戏帧率另验。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/architecture-convergence-2026-10-21.md",
+      "demo": "architecture-convergence-2026-10-21",
+      "sources": [
+        "res://game/research/demos/architecture_convergence_experiment.gd",
+        "res://tests/test_laboratory_architecture.gd",
+        "res://modules/physics_engine/ocean/ocean_adapter.gd",
+        "res://modules/physics_engine/ships/ship_dynamics.gd",
+        "res://game/runtime/sailing_simulation.gd",
+        "res://modules/naval_simulation/encounter.gd",
+        "res://docs/architecture/convergence-2026-10-21.md",
+        "res://docs/research/physics-convergence-2026-10-21.md",
+        "res://tools/measure-physics-convergence.gd"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/physics/green-02.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/physics/cpu-pairs-03.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/physics/cpu-pairs-03-process.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/physics/lab-green-03.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/physics/catalog-green-01.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/lab-gpu/GPU_VERIFY.json",
+        "res://docs/research/evidence/architecture-convergence-2026-10-21/lab-gpu/PROCESS_VALIDATION.json"
       ]
     }
   ]

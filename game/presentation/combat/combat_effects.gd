@@ -102,13 +102,13 @@ func _puff(position: Vector3,color: Color,size: float,duration: float,velocity: 
 	if _puffs.size() >= 160: return
 	var stamp := _time if born < 0.0 else born
 	if not is_finite(stamp) or stamp > _time or _time-stamp >= duration: return
+	var texture: Texture2D = SourceEffect.get_texture(texture_name) if not texture_name.is_empty() else null
+	if not texture_name.is_empty() and texture == null: return
 	var mesh := MeshInstance3D.new()
 	var material := StandardMaterial3D.new(); material.albedo_color = color; material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	if not texture_name.is_empty():
 		# Reuse the original DDS and authored mips already owned by the source
 		# renderer. These destruction overlays are explicit game presentation.
-		var texture: Texture2D = SourceEffect._texture(texture_name)
-		if texture == null: return
 		mesh.mesh = QuadMesh.new(); mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		material.albedo_texture = texture
 		material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED

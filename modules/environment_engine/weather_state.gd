@@ -32,6 +32,7 @@ var _last_light_time:=-1
 var _last_light:Dictionary={}
 var _published_nodes:Array=[]
 var _published_updates:=-1
+var _cloud_generations:Array[int]=[0,0,0]
 
 static func _json(path:String)->Dictionary:return JSON.parse_string(FileAccess.get_file_as_string(path))
 
@@ -89,6 +90,7 @@ func step_original_weather(input:Dictionary,environment:Dictionary,rand:Callable
 	for key:String in ["lightTime","windHeading","windDisplacement","windVelocity"]:state[key]=int(state[key])
 	for center:Dictionary in state.centers:center.x=int(center.x);center.y=int(center.y)
 	var events:Array=[]
+	var reset_centers:Array[int]=[]
 	if not environment.holdLight and int(state.lightTime)!=1200:
 		state.lightTime=i32(i32(int(state.lightTime)+(int(state.lightTime)&3))+4)%2400
 		events.append({"entry":"0x4AC640","lightTime":state.lightTime,"scope":"External light/scene update stub"})
@@ -109,10 +111,11 @@ func step_original_weather(input:Dictionary,environment:Dictionary,rand:Callable
 		var dy:=_abs(i32(int(center.y)-i32(1000*int(environment.playerMapY))))
 		var distance:=_div(i32(dx+i32(2*dy)) if dx<=dy else i32(dy+i32(2*dx)),2)
 		if int(center.x)<i32(1000*int(environment.playerMapX)) and distance>16000:
+			reset_centers.append(index)
 			center.x=i32(1000*i32(i32(_div(i32(12*int(environment.pace)),3)-int(rand.call())%3)+int(environment.playerMapX)))
 			center.y=i32(1000*i32(i32(i32(fixed_trig(12,i32(int(environment.shipHeading)+0x40000000),int(environment.sineBoundary))+int(rand.call())%21)+int(environment.playerMapY))-10))
 			if index==0:events.append({"entry":"0x487410","soundEvent":105,"scope":"External audio stub"})
-	return {"state":state,"externalOperations":events}
+	return {"state":state,"externalOperations":events,"resetCenters":reset_centers}
 
 static func original_scene_day_mode(source_time:int)->Dictionary:
 	var mode:=0 if source_time>=1000 and source_time<1500 else (1 if source_time>=1500 and source_time<2030 else 2)
@@ -137,6 +140,7 @@ func configure(options:Dictionary={})->bool:
 	return true
 func reset(options:Dictionary={})->void:
 	if not _valid_options(options):return
+	_cloud_generations=[0,0,0]
 	if not options.is_empty():_options=options.duplicate(true)
 	_rate=float(_options.get("source_calls_per_second",32.0));_units=float(_options.get("source_position_units_per_metre",10.0))
 	_retention_seconds=float(_options.get("history_retention_seconds",120.0))
@@ -198,6 +202,7 @@ func _restore(row:Dictionary)->void:
 	_packet=row.packet.duplicate(true)
 	_accepted=float(row.time);_state=_packet.source.weather.duplicate(true);_rng.state=int(_packet.source.rngState);_rng.draws=int(_packet.source.rngDraws)
 	_ring=_packet.sky.ring.duplicate(true);_calls=int(_packet.sourceCallIndex);_revision=int(_packet.revision)
+	for index in 3:_cloud_generations[index]=int(_packet.worldClouds[index].get("generation",0))
 	_published_updates=-1
 	for index in _weather_graphs.size():_compiler.restore_controllers(_weather_graphs[index],_packet.worldClouds[index].controllerState)
 	for index in _fog_clocks.size():
@@ -270,6 +275,7 @@ func _advance_forward(accepted_time:float,observer:Dictionary,wind:Dictionary,re
 	while _calls<target_calls:
 		environment.frame=_calls
 		var result:=step_original_weather(_state,environment,_rng.next)
+		for index:int in result.resetCenters:_cloud_generations[index]+=1
 		_state=result.state;events.append_array(result.externalOperations);_calls+=1
 	var delta:=accepted_time-_accepted
 	Cloud.advance_clouds(_ring,delta)
@@ -285,10 +291,16 @@ func _advance_forward(accepted_time:float,observer:Dictionary,wind:Dictionary,re
 			_record();_prune_history()
 func _make_packet(delta:float,events:Array,observer:Dictionary)->Dictionary:
 	var clouds:Array=[]
+	var source:Dictionary=_options.get("source_environment",{})
+	var amount:=_div(int(source.get("movementSpeed",500)),16)
+	var boundary:=int(source.get("sineBoundary",65536))
+	var speed_x:float=-fixed_trig(amount,int(_state.windHeading),boundary)*_rate/_units
+	var speed_z:float=fixed_trig(amount,i32(int(_state.windHeading)+0x40000000),boundary)*_rate/_units
+	if source.get("pause",false):speed_x=0.0;speed_z=0.0
 	for index in 3:
 		var center:Dictionary=_state.centers[index]
 		var height:=300 if index==0 else 500
-		clouds.append({"index":index,"resource":"stormcloud_sound.nif" if index==0 else "cloud00.nif","sourcePosition":[int(center.x),int(center.y),height],"worldPosition":[float(center.x)/_units,height/_units,-float(center.y)/_units],"modelScale":float(_options.get("model_scale",1.0)),"appTime":_accepted,"controllerState":_compiler.controller_snapshot(_weather_graphs[index])})
+		clouds.append({"index":index,"generation":_cloud_generations[index],"driftVelocity":[speed_x,0.0,speed_z],"resource":"stormcloud_sound.nif" if index==0 else "cloud00.nif","sourcePosition":[int(center.x),int(center.y),height],"worldPosition":[float(center.x)/_units,height/_units,-float(center.y)/_units],"modelScale":float(_options.get("model_scale",1.0)),"appTime":_accepted,"controllerState":_compiler.controller_snapshot(_weather_graphs[index])})
 	var day:=original_scene_day_mode(int(_state.lightTime))
 	var source_time:=Cloud.f32(int(_state.lightTime)*0.009999999776482582)
 	if _last_light_time!=int(_state.lightTime):

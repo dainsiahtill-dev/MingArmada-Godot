@@ -2,14 +2,23 @@ extends RefCounted
 ## Caches immutable PackedScenes; every consumer owns fresh nodes and skeletons.
 
 var _scenes: Dictionary = {}
+var _adapters: Dictionary = {}
+var _cache_hits := 0
+var _runtime_imports := 0
+var _imported_scenes := 0
+var _model_instances := 0
 var _disposed := false
 
 func instantiate_model(path: String) -> Node3D:
 	if _disposed or not path.begins_with("res://assets/models/"):
 		return null
+	if _scenes.has(path): _cache_hits += 1
 	if not _scenes.has(path):
 		# Exported projects may store only Godot's imported PackedScene. Runtime
-		# authoring uses original GLB bytes; both paths retain separate skeletons.
+		# authoring retains original GLB vertex order used by paired sail morphs.
+		# Imported-first remains unaccepted until its reordered geometry and
+		# animation tracks pass that compatibility gate. Both adapters are visible
+		# in diagnostics and issue independently owned Nodes/skeletons.
 		if not FileAccess.file_exists(path):
 			if not ResourceLoader.exists(path):
 				return null
@@ -17,8 +26,11 @@ func instantiate_model(path: String) -> Node3D:
 			if not imported is PackedScene:
 				return null
 			_scenes[path] = imported
+			_adapters[path] = "godot-imported"
+			_imported_scenes += 1
 			var exported_instance := imported.instantiate() as Node3D
 			_enable_authored_colors(exported_instance)
+			if exported_instance != null: _model_instances += 1
 			return exported_instance
 		var document := GLTFDocument.new()
 		var state := GLTFState.new()
@@ -34,7 +46,11 @@ func instantiate_model(path: String) -> Node3D:
 		if error != OK:
 			return null
 		_scenes[path] = packed
-	return _scenes[path].instantiate() as Node3D
+		_adapters[path] = "source-authoring"
+		_runtime_imports += 1
+	var instance := _scenes[path].instantiate() as Node3D
+	if instance != null: _model_instances += 1
+	return instance
 
 func _enable_authored_colors(node: Node) -> void:
 	if node is MeshInstance3D and node.mesh:
@@ -50,9 +66,14 @@ func _enable_authored_colors(node: Node) -> void:
 func get_cached_count() -> int:
 	return _scenes.size()
 
+func get_model_load_diagnostics() -> Dictionary:
+	# Totals describe this cache lifetime; no active model Node is retained.
+	return {"disposed":_disposed,"cachedScenes":_scenes.size(),"cacheHits":_cache_hits,"runtimeImports":_runtime_imports,"importedScenes":_imported_scenes,"modelInstances":_model_instances,"adapters":_adapters.duplicate()}
+
 func dispose() -> void:
 	_disposed = true
 	if has_meta("reference_ship_provider"):
 		get_meta("reference_ship_provider").dispose()
 		remove_meta("reference_ship_provider")
 	_scenes.clear()
+	_adapters.clear()

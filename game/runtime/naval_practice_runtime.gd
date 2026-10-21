@@ -73,7 +73,7 @@ func command(intent: Dictionary) -> Dictionary:
 				_quote.clear(); _pauses.erase("surrender"); _pauses.result=true
 				simulation.refresh_snapshot(); _sync_pause()
 			return receipt
-	if is_paused() or simulation.snapshot().status in ["victory","defeat","surrendered"]: return no("请先继续航行")
+	if is_paused() or simulation.current_status() in ["victory","defeat","surrendered"]: return no("请先继续航行")
 	match intent.get("type",""):
 		"mouse-course":
 			if not intent.get("point") is Dictionary: return no("请选择有效的海面位置")
@@ -99,13 +99,12 @@ func nearest_side() -> String:
 	return "starboard" if -sin(player.visual.heading)*dx+cos(player.visual.heading)*dz>=0 else "port"
 func advance(seconds: float) -> float:
 	if _disposed or not simulation or is_paused(): return 0
-	var before: float=simulation.snapshot().time
+	var before: float=simulation.current_time()
 	simulation.advance(seconds)
 	for receipt: Dictionary in simulation.drain_results():
 		if not receipt.result.ok: _notice=receipt.result.get("reason","command-rejected")
-	var native: Dictionary=simulation.snapshot()
-	if native.status in ["victory","defeat","surrendered"]: set_pause("result",true)
-	return native.time-before
+	if simulation.current_status() in ["victory","defeat","surrendered"]: set_pause("result",true)
+	return simulation.current_time()-before
 func snapshot() -> Dictionary:
 	if _disposed or not simulation: return {}
 	var phase: String = simulation.handling_status().get("phase","idle")
