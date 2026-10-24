@@ -1,0 +1,120 @@
+{
+  "id": "char-ismail",
+  "name": "依斯迈",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创马来舟主；以运费、水和返程为合作条件，保留自有舟与船工。",
+  "visualBrief": "成年至中年，短胡、结实脸颊、细纹编织帽/头布、蓝绿粗布上衣；区域形制须单独考据，不能加幻想苏丹饰物。身体略前倾守住水器、与对方隔舟谈价。",
+  "storyRefs": [
+    "zheng_a3_s10"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "dialogue"
+  ],
+  "variants": [
+    "舟主谈价",
+    "无风共劳"
+  ],
+  "modelStrategy": "区域男性共享头部固定形变+成人体；衣帽样式待区域史料复核。",
+  "historicalStatus": "原创马来舟主。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射ismail，右下；创作头像，区域衣帽仍待史审。",
+      "cropNormalized": {
+        "x": 0.6666666666666666,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-regional-male",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "依斯迈"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-ismail",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-ismail/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射ismail，右下；创作头像，区域衣帽仍待史审。",
+      "cropNormalized": {
+        "x": 0.6666666666666666,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-ismail/reference/zheng_a3_s10-9c790155.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-ismail/reference/crew-portraits-723ae50b.png",
+    "role": "portrait-atlas-crop",
+    "note": "CSS映射ismail，右下；创作头像，区域衣帽仍待史审。",
+    "cropNormalized": {
+      "x": 0.6666666666666666,
+      "y": 0.5,
+      "width": 0.3333333333333333,
+      "height": 0.5
+    },
+    "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+    "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s10",
+      "legacyTitle": "没有风的四天",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "id": "npc-lookout",
+  "name": "瞭望与传旗水手",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "海战与航行中观察、报船影、传信号的岗位原型。",
+  "visualBrief": "青年至中年，窄袖短褂、头布；抬手遮日、扶栏望远、举信号布；不默认望远镜等新装备。",
+  "storyRefs": [
+    "zheng_a3_s1",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "crew-assign",
+    "sailing-hud",
+    "battle-orders"
+  ],
+  "variants": [
+    "瞭望",
+    "传旗"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+      "role": "ui-context",
+      "note": "岗位界面参考，仅作功能上下文，无独立瞭望员肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-lookout",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-lookout/reference/zheng_a3_s1-a9bc1b0f.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+      "sha256": "a9bc1b0fe7339ffa44d5f861b11a6181a7506c6235decfee47dac52d6016714f",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-lookout/reference/crew-assign-44fb66fc.jpg",
+      "role": "ui-context",
+      "note": "岗位界面参考，仅作功能上下文，无独立瞭望员肖像。",
+      "sourcePath": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+      "sha256": "44fb66fca3ef463e8ba3734139f0c4448433e9e0e3602b34cbc95efa21c9b3c9",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-lookout/reference/zheng_a3_s1-a9bc1b0f.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+    "sha256": "a9bc1b0fe7339ffa44d5f861b11a6181a7506c6235decfee47dac52d6016714f",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-assign",
+      "title": "岗位与值守"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "battle-orders",
+      "title": "令旗与舰队指挥"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-10-23T18:49:57.582Z",
+  "sourceSha256": "8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749",
+  "passed": true,
+  "adoptionAndDecode": [
+    {
+      "cmd": "rtk proxy node docs/narrative/illustrated-2026-10-24/prepare-candidate.mjs",
+      "chunk_id": "b4b174",
+      "wall_time_seconds": 0.2135179,
+      "exit_code": 0,
+      "original_token_count": 52,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"sourceSha256\":\"8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749\",\"chapters\":22,\"images\":44,\"uniqueHashes\":44}\n"
+    },
+    {
+      "cmd": "rtk proxy python docs/narrative/illustrated-2026-10-24/decode-images.py",
+      "chunk_id": "e45a8c",
+      "wall_time_seconds": 1.594519,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"passed\": true, \"images\": 44, \"sourceSha256\": \"8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749\"}\r\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/illustrated-2026-10-24/adopt.mjs",
+      "chunk_id": "08ee9c",
+      "wall_time_seconds": 4.2662882,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"adopted\":true,\"sourceSha256\":\"8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749\",\"images\":44}\n"
+    }
+  ],
+  "build": [
+    {
+      "cmd": "rtk proxy node tools/build-zheng-story.mjs",
+      "chunk_id": "eb46a8",
+      "wall_time_seconds": 0.11824,
+      "exit_code": 0,
+      "original_token_count": 58,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nBuilt docs\\narrative\\zheng-zhilong\\story-data.js (228647 bytes; 6 acts).\nMirrored docs\\narrative\\zheng-zhilong\\zheng-zhilong-story.json (228549 bytes).\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/illustrated-2026-10-24/export.mjs",
+      "chunk_id": "4e26ed",
+      "wall_time_seconds": 0.1159788,
+      "exit_code": 0,
+      "original_token_count": 145,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"sourceSha256\":\"8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749\",\"version\":\"historical-reboot-illustrated-2026-10-24\",\"images\":44,\"files\":[{\"file\":\"novel.md\",\"bytes\":119989,\"sha256\":\"a44e73a54c087d8ac162d214664048b6847a0a7c8f1c5a57dccd996aee5f0d01\"},{\"file\":\"screenplay.md\",\"bytes\":195738,\"sha256\":\"25e9e359c6ed7a5866beb2d082ca470cf1c0d5414b6b3e2240e9a9bb3a22e6ba\"},{\"file\":\"game-scenes.md\",\"bytes\":40165,\"sha256\":\"d8e5617893c76cff2f720bdcf8f52f6946ed3f0a79fe637433c9e5bdbc076f07\"}]}\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/render-zheng-screenplay.mjs",
+      "chunk_id": "01d752",
+      "wall_time_seconds": 0.1114962,
+      "exit_code": 0,
+      "original_token_count": 46,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRendered docs\\narrative\\zheng-zhilong-campaign-script-2026-10-21.md (196354 bytes; 6 acts; 22 scenes).\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/build-production-resource-library.mjs",
+      "chunk_id": "c484bc",
+      "wall_time_seconds": 1.9294594,
+      "exit_code": 0,
+      "original_token_count": 386,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRESOURCE_LIBRARY_BUILT {\"total\":170,\"categories\":[{\"id\":\"named-character\",\"name\":\"剧情人物\",\"count\":26},{\"id\":\"npc-archetype\",\"name\":\"NPC职业原型\",\"count\":28},{\"id\":\"ship\",\"name\":\"船型\",\"count\":8},{\"id\":\"cannon\",\"name\":\"火炮与炮架部件\",\"count\":6},{\"id\":\"firearm\",\"name\":\"个人火器\",\"count\":2},{\"id\":\"melee-weapon\",\"name\":\"冷兵器\",\"count\":3},{\"id\":\"ammunition\",\"name\":\"弹药外观\",\"count\":4},{\"id\":\"building\",\"name\":\"建筑与构件\",\"count\":15},{\"id\":\"coastal-building\",\"name\":\"沿海设施\",\"count\":6},{\"id\":\"scene-map\",\"name\":\"场景与地图\",\"count\":15},{\"id\":\"nature\",\"name\":\"自然与材质条件\",\"count\":10},{\"id\":\"prop\",\"name\":\"道具与货物\",\"count\":47}],\"phases\":{\"P0\":88,\"P1\":72,\"P2\":10},\"legacyBaseModels\":83,\"namedCharacters\":26,\"onScreenCharacters\":18,\"mentionedOnlyCharacters\":8,\"npcArchetypes\":28,\"cannonBarrelTypes\":3,\"cannonComponents\":3,\"images\":393,\"distinctImageFiles\":391,\"distinctImageContents\":211,\"archivedReferenceSources\":82,\"coveredStoryScenes\":43,\"coveredUiPages\":58,\"currentScenes\":22,\"legacyScenes\":43,\"mappedSuccessorScenes\":17,\"uiPagesWithoutObjectLinks\":[\"main-menu\",\"load-game\",\"settings\",\"accessibility\",\"experiment-detail\",\"pause-menu\",\"save-game\",\"chapter-select\",\"decision\",\"quest-journal\",\"chronicle\",\"bounty-board\",\"defeat\",\"notification-log\"],\"generatedConcepts\":21,\"technicalSketches\":108,\"evidence\":{\"dedicated-concept\":23,\"dedicated-original\":17,\"technical-sketch\":88,\"context-reference\":42}}\n"
+    }
+  ],
+  "initialChecks": [
+    {
+      "cmd": "rtk proxy node --test tools/zheng-illustration-contract.test.mjs tools/zheng-story-contract.test.mjs tools/zheng-reboot-aliases.test.mjs tools/verify-zheng-literary.test.mjs",
+      "chunk_id": "cc1907",
+      "wall_time_seconds": 1.0626577,
+      "exit_code": 0,
+      "original_token_count": 1177,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n✔ archived V7 story passes without changing the source fixture (96.8648ms)\n✔ rejects one fewer paragraph in yiguan_a1_s1 (82.2946ms)\n✔ rejects one fewer paragraph in yiguan_a2_s2 (82.2332ms)\n✔ rejects one fewer paragraph in yiguan_a3_s3 (72.1557ms)\n✔ rejects one fewer paragraph in yiguan_a5_s1 (74.7522ms)\n✔ rejects one fewer paragraph in yiguan_a4_s4 (67.7707ms)\n✔ rejects missing paragraph specifications instead of silently skipping a scene (68.4355ms)\n✔ rejects duplicate paragraph specifications instead of overwriting a count (65.2606ms)\n✔ archived v6 baseline rejects a matching accidental change to bible and story (70.4333ms)\n✔ 44 independent PNGs satisfy the complete chapter-pairs contract (18.7893ms)\n✔ only the exact illustrated source note migration is allowed (6.5985ms)\n✔ the illustrated edition must not retain the no-new-art source note (6.0315ms)\n✔ the illustration note migration does not permit changing source reliability notes (6.6987ms)\n✔ other wording within the migrated note must remain exact (9.7683ms)\n✔ the illustration note migration does not permit changing chapter history (5.6399ms)\n✔ a missing chapter image cannot be hidden by an extra image in another chapter (6.1633ms)\n✔ two paths containing identical PNG bytes cannot count as two new pictures (6.0993ms)\n✔ duplicate source image paths are rejected even with distinct frame IDs (4.9499ms)\n✔ paragraph position 0 is rejected (7.2071ms)\n✔ paragraph position 999 is rejected (6.4753ms)\n✔ paragraph position 1.5 is rejected (10.352ms)\n✔ paragraph position \"2\" is rejected (3.9918ms)\n✔ reversed scene placement is rejected (5.3072ms)\n✔ truncated PNG is rejected even if its manifest hash matches (4.2234ms)\n✔ manifest must identify the exact current source bytes (4.1895ms)\n✔ manifest mismatch in id is rejected (4.8128ms)\n✔ manifest mismatch in sceneId is rejected (5.0446ms)\n✔ manifest mismatch in image is rejected (4.7645ms)\n✔ manifest mismatch in afterParagraph is rejected (5.443ms)\n✔ manifest mismatch in caption is rejected (3.9065ms)\n✔ manifest mismatch in alt is rejected (8.7449ms)\n✔ manifest mismatch in width is rejected (5.0161ms)\n✔ manifest mismatch in height is rejected (4.3045ms)\n✔ a manifest entry cannot conceal a changed asset (4.6519ms)\n✔ unsafe or old path images/old/scene.png is rejected before reading (4.5311ms)\n✔ unsafe or old path images/illustrated-2026-10-24/../scene.png is rejected before reading (5.9804ms)\n✔ unsafe or old path https://example.com/scene.png is rejected before reading (4.0015ms)\n✔ source dimensions must agree with the actual PNG (4.9779ms)\n✔ unknown illustrated source versions are rejected (9.367ms)\n✔ a ready primary image cannot duplicate a paragraph illustration (5.0013ms)\n✔ changing one prose character is rejected (4.0534ms)\n✔ a valid but different legacy alias target is rejected (5.1783ms)\n✔ a substitute text baseline cannot approve changed prose (3.6818ms)\n✔ an altered baseline object cannot borrow the approved baseline hash (4.608ms)\n✔ illustrated editorial artifacts cannot target the prior report directory (5.7987ms)\n✔ illustrated downloads insert images after the intended paragraphs with reader-local paths (2.7435ms)\n✔ existing text-only downloads remain byte-identical (1.3645ms)\n✔ the historical text-only edition still rejects inserted art (15.5379ms)\n✔ reader normalization retains a descriptive alt and the illustrated edition identity (8.5448ms)\n✔ published bookmark zheng_a4_s1 keeps its historical period (0.6018ms)\n✔ published bookmark zheng_a5_s1 keeps its historical period (0.4137ms)\n✔ published bookmark zheng_a5_s4 keeps its historical period (0.1663ms)\n✔ published bookmark yiguan_a2_s1 keeps its historical period (0.1864ms)\n✔ published bookmark yiguan_a4_s1 keeps its historical period (0.3209ms)\n✔ published bookmark yiguan_a5_s1 keeps its historical period (0.1543ms)\n✔ new historical edition has explicit variable-length six-part contract (1.8425ms)\n✔ edition cannot reduce its promised chapters by declaring new counts (0.5451ms)\n✔ unknown edition cannot fall back to historical reboot (0.2394ms)\n✔ all sixty-three published bookmarks remain valid navigation aliases (0.3852ms)\n✔ dropping a previous five-act bookmark is rejected (0.335ms)\n✔ alias to an absent or chained chapter is rejected (0.1947ms)\n✔ legacy five-act contract still enforced (0.1684ms)\n✔ original six-act data remains recognized (0.1246ms)\nℹ tests 63\nℹ suites 0\nℹ pass 63\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 773.9069\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-zheng-story.mjs",
+      "chunk_id": "15ff24",
+      "wall_time_seconds": 0.2681886,
+      "exit_code": 1,
+      "original_token_count": 96,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nWarning: Detected unsettled top-level await at file:///C:/Users/dains/Documents/Git/ming-armada/tools/verify-zheng-story.mjs:496\r\n      const report = await verifyStory({ allowPendingImages: args.includes('--allow-pending-images'), textOnly: args.includes('--text-only') });\r\n                     ^\r\n\r\n\r\n\r\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/zheng-zhilong/verify-reader.mjs",
+      "chunk_id": "a03432",
+      "wall_time_seconds": 4.6857141,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nZHENG_REBOOT_READER_STATIC checks=937 failures=0 chapters=22\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-production-resource-library.mjs",
+      "chunk_id": "e7505a",
+      "wall_time_seconds": 10.0023053,
+      "session_id": 55548,
+      "original_token_count": 20,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/illustrated-2026-10-24/verify-http.mjs",
+      "chunk_id": "8c7ba8",
+      "wall_time_seconds": 10.0046788,
+      "session_id": 47943,
+      "original_token_count": 34,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nHTTP checked 6/53\nHTTP checked 12/53\nHTTP checked 18/53\n"
+    }
+  ],
+  "finalChecks": [
+    {
+      "cmd": "rtk proxy node --test tools/zheng-illustration-contract.test.mjs tools/zheng-story-contract.test.mjs tools/zheng-reboot-aliases.test.mjs tools/verify-zheng-literary.test.mjs tools/verify-zheng-story-cli.test.mjs",
+      "chunk_id": "706da5",
+      "wall_time_seconds": 4.6403327,
+      "exit_code": 0,
+      "original_token_count": 1203,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n✔ archived V7 story passes without changing the source fixture (89.223ms)\n✔ rejects one fewer paragraph in yiguan_a1_s1 (82.7965ms)\n✔ rejects one fewer paragraph in yiguan_a2_s2 (82.2078ms)\n✔ rejects one fewer paragraph in yiguan_a3_s3 (70.9791ms)\n✔ rejects one fewer paragraph in yiguan_a5_s1 (62.6417ms)\n✔ rejects one fewer paragraph in yiguan_a4_s4 (67.1939ms)\n✔ rejects missing paragraph specifications instead of silently skipping a scene (63.6178ms)\n✔ rejects duplicate paragraph specifications instead of overwriting a count (63.4105ms)\n✔ archived v6 baseline rejects a matching accidental change to bible and story (67.1066ms)\n✔ the real story verification CLI completes the adopted historical illustration checks (4345.4932ms)\n✔ 44 independent PNGs satisfy the complete chapter-pairs contract (16.2034ms)\n✔ only the exact illustrated source note migration is allowed (6.4337ms)\n✔ the illustrated edition must not retain the no-new-art source note (4.8526ms)\n✔ the illustration note migration does not permit changing source reliability notes (6.3453ms)\n✔ other wording within the migrated note must remain exact (9.732ms)\n✔ the illustration note migration does not permit changing chapter history (5.215ms)\n✔ a missing chapter image cannot be hidden by an extra image in another chapter (4.6975ms)\n✔ two paths containing identical PNG bytes cannot count as two new pictures (5.0701ms)\n✔ duplicate source image paths are rejected even with distinct frame IDs (4.7567ms)\n✔ paragraph position 0 is rejected (6.5339ms)\n✔ paragraph position 999 is rejected (9.9033ms)\n✔ paragraph position 1.5 is rejected (5.7357ms)\n✔ paragraph position \"2\" is rejected (5.0945ms)\n✔ reversed scene placement is rejected (3.7689ms)\n✔ truncated PNG is rejected even if its manifest hash matches (3.8434ms)\n✔ manifest must identify the exact current source bytes (4.1753ms)\n✔ manifest mismatch in id is rejected (4.5779ms)\n✔ manifest mismatch in sceneId is rejected (6.0212ms)\n✔ manifest mismatch in image is rejected (4.3586ms)\n✔ manifest mismatch in afterParagraph is rejected (4.0701ms)\n✔ manifest mismatch in caption is rejected (4.189ms)\n✔ manifest mismatch in alt is rejected (4.1579ms)\n✔ manifest mismatch in width is rejected (10.4425ms)\n✔ manifest mismatch in height is rejected (5.272ms)\n✔ a manifest entry cannot conceal a changed asset (4.2119ms)\n✔ unsafe or old path images/old/scene.png is rejected before reading (4.0306ms)\n✔ unsafe or old path images/illustrated-2026-10-24/../scene.png is rejected before reading (3.6652ms)\n✔ unsafe or old path https://example.com/scene.png is rejected before reading (6.6666ms)\n✔ source dimensions must agree with the actual PNG (5.9374ms)\n✔ unknown illustrated source versions are rejected (4.3789ms)\n✔ a ready primary image cannot duplicate a paragraph illustration (3.8985ms)\n✔ changing one prose character is rejected (8.8452ms)\n✔ a valid but different legacy alias target is rejected (5.0411ms)\n✔ a substitute text baseline cannot approve changed prose (4.2255ms)\n✔ an altered baseline object cannot borrow the approved baseline hash (4.7381ms)\n✔ illustrated editorial artifacts cannot target the prior report directory (4.0215ms)\n✔ illustrated downloads insert images after the intended paragraphs with reader-local paths (1.9699ms)\n✔ existing text-only downloads remain byte-identical (2.5521ms)\n✔ the historical text-only edition still rejects inserted art (11.1308ms)\n✔ reader normalization retains a descriptive alt and the illustrated edition identity (6.3619ms)\n✔ published bookmark zheng_a4_s1 keeps its historical period (0.777ms)\n✔ published bookmark zheng_a5_s1 keeps its historical period (0.133ms)\n✔ published bookmark zheng_a5_s4 keeps its historical period (0.0766ms)\n✔ published bookmark yiguan_a2_s1 keeps its historical period (0.168ms)\n✔ published bookmark yiguan_a4_s1 keeps its historical period (0.1267ms)\n✔ published bookmark yiguan_a5_s1 keeps its historical period (0.0753ms)\n✔ new historical edition has explicit variable-length six-part contract (1.5897ms)\n✔ edition cannot reduce its promised chapters by declaring new counts (0.3304ms)\n✔ unknown edition cannot fall back to historical reboot (0.1367ms)\n✔ all sixty-three published bookmarks remain valid navigation aliases (0.2987ms)\n✔ dropping a previous five-act bookmark is rejected (0.2355ms)\n✔ alias to an absent or chained chapter is rejected (0.1368ms)\n✔ legacy five-act contract still enforced (0.1388ms)\n✔ original six-act data remains recognized (0.0895ms)\nℹ tests 64\nℹ suites 0\nℹ pass 64\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 4449.2815\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-zheng-story.mjs",
+      "chunk_id": "b1cfeb",
+      "wall_time_seconds": 4.5271148,
+      "exit_code": 0,
+      "original_token_count": 79,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nStory verification: passed; 926/926 checks; 44/44 images; 44 distinct image hashes.\nReport: docs/narrative/zheng-zhilong/verification.json. Browser QA: not-assessed.\nText: passed; illustrations: passed; literary acceptance: not-assessed.\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/zheng-zhilong/verify-reader.mjs",
+      "chunk_id": "a03432",
+      "wall_time_seconds": 4.6857141,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nZHENG_REBOOT_READER_STATIC checks=937 failures=0 chapters=22\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-production-resource-library.mjs",
+      "chunk_id": "c870de",
+      "wall_time_seconds": 0.0000048,
+      "session_id": 55548,
+      "original_token_count": 143,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRESOURCE_LIBRARY_VERIFIED {\"checks\":13,\"passed\":13,\"failed\":0,\"requirements\":170,\"categories\":{\"named-character\":26,\"npc-archetype\":28,\"ship\":8,\"cannon\":6,\"firearm\":2,\"melee-weapon\":3,\"ammunition\":4,\"building\":15,\"coastal-building\":6,\"scene-map\":15,\"nature\":10,\"prop\":47},\"phases\":{\"P0\":88,\"P1\":72,\"P2\":10},\"legacyBaseModels\":83,\"referencedScenes\":43,\"validSceneDomain\":43,\"referencedUiPages\":58,\"validUiDomain\":72,\"nativeOriginals\":21,\"rasterDecoded\":283,\"svgXmlValidated\":108,\"svgRendered\":108,\"totalImageFiles\":391,\"unreferencedLibraryImages\":0,\"negativeControls\":21}\n",
+      "exit_code": 0
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/illustrated-2026-10-24/verify-http.mjs",
+      "chunk_id": "d9b68a",
+      "wall_time_seconds": 0.0000081,
+      "session_id": 47943,
+      "original_token_count": 63,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nHTTP checked 6/53\nHTTP checked 12/53\nHTTP checked 18/53\nHTTP checked 24/53\nHTTP checked 30/53\nHTTP checked 36/53\nHTTP checked 42/53\nHTTP checked 48/53\nHTTP checked 53/53\n{\"passed\":true,\"files\":53,\"images\":44,\"sourceSha256\":\"8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749\",\"failures\":[]}\n",
+      "exit_code": 0
+    }
+  ],
+  "notes": [
+    "Initial real verify-story CLI failed due circular top-level await. PNG parsing was extracted into a pure module; final CLI and 64-test suite both pass. Initial failure preserved here.",
+    "DOM tool lacks real image.decode/naturalWidth and reliable document descendant selectors/geometry; see separate DOM evidence and exclusions.",
+    "No commit, push, service or firewall changes."
+  ]
+}

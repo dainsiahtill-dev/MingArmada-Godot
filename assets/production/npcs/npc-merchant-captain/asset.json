@@ -1,0 +1,132 @@
+{
+  "id": "npc-merchant-captain",
+  "name": "普通唐船船主",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "含早期大船船主、受验货老船主、等泊船主、告状船主；同职业不等于同一人。",
+  "visualBrief": "中年至老年海上经营者，素深袍/短褂、布帽、短须；摊旗、保护小包、退让泊位、问责的不同姿态。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a1_s5",
+    "zheng_a1_s6",
+    "zheng_a2_s6",
+    "zheng_a5_s2",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "trade-order",
+    "sea-encounter"
+  ],
+  "variants": [
+    "早期大船主",
+    "受验老船主",
+    "候泊船主",
+    "护航告状人"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-merchant-captain",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-merchant-captain/reference/zheng_a5_s6-7efaccf5.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-merchant-captain/reference/zheng_a5_s6-7efaccf5.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+    "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s6",
+      "legacyTitle": "替谁说停船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    }
+  ]
+}

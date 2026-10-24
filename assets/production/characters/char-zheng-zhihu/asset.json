@@ -1,0 +1,142 @@
+{
+  "id": "char-zheng-zhihu",
+  "name": "郑芝虎",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "郑芝龙之弟，独立领船共战，1635未归；不可与陈添或成年阿禾合并。",
+  "visualBrief": "青年至壮年，方颌、短胡、褐色头布、暗红无袖外褂配深内衣；临战前倾但按号令停。与芝龙有亲缘线索而非复制脸；1635不制作有争议死亡演出。",
+  "storyRefs": [
+    "zheng_a4_s3",
+    "zheng_a4_s7",
+    "zheng_a5_s4",
+    "zheng_a5_s5"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "fleet",
+    "dialogue",
+    "relationships"
+  ],
+  "variants": [
+    "分队领船",
+    "火攻待令"
+  ],
+  "modelStrategy": "共享成年男性身体+固定独立面部形变；旧生产表没有芝虎专属head，需后续预算补审。",
+  "historicalStatus": "历史人物；未归与寻弟沿用剧本，不拍定异说死法，肖像为创作。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射zhihu，左下；与右上陈添严格分开。",
+      "cropNormalized": {
+        "x": 0,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-padded-armor"
+  ],
+  "aliases": [
+    "芝虎",
+    "弟弟（芝龙语境）"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-zheng-zhihu",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-zheng-zhihu/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射zhihu，左下；与右上陈添严格分开。",
+      "cropNormalized": {
+        "x": 0,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-zheng-zhihu/reference/crew-portraits-723ae50b.png",
+    "role": "portrait-atlas-crop",
+    "note": "CSS映射zhihu，左下；与右上陈添严格分开。",
+    "cropNormalized": {
+      "x": 0,
+      "y": 0.5,
+      "width": 0.3333333333333333,
+      "height": 0.5
+    },
+    "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+    "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    }
+  ]
+}

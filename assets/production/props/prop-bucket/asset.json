@@ -1,0 +1,124 @@
+{
+  "id": "prop-bucket",
+  "name": "提水小桶",
+  "category": "prop",
+  "phase": "P0",
+  "description": "堵漏、救火和生活提水；体量与淡水储桶不同。",
+  "visualBrief": "直壁或稍收底木桶、弧形提梁、桶口可见；单手握点与倒水转轴清楚，不用现代塑料或镀锌铁桶。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a4_s7",
+    "zheng_a5_s3"
+  ],
+  "uiPages": [
+    "battle-damage",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "干湿",
+    "装水／空桶节点"
+  ],
+  "modelStrategy": "独立小桶基模；水面为共享平面／效果，不为每个水量增加模型。",
+  "historicalStatus": "needs-concept；救火补漏系统需要，具体提梁形式为设计方案。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-bucket"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-bucket",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-bucket/reference/zheng_a1_s3-ecf367d9.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s3.png",
+      "sha256": "ecf367d95301c4a410686c43e45a9958f334f97baa49b15c098a115ee76e9418",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-bucket/reference/zheng_a5_s3-572fe434.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-bucket",
+      "path": "assets/production/props/prop-bucket/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "14c170cffe4586f7f6cf0de445a822f8062567dbd63c4789272e5a79a875b8b9",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-bucket",
+    "path": "assets/production/props/prop-bucket/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "14c170cffe4586f7f6cf0de445a822f8062567dbd63c4789272e5a79a875b8b9",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s2",
+      "title": "来船没有回礼",
+      "legacyId": "zheng_a5_s3",
+      "legacyTitle": "港里先起的火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

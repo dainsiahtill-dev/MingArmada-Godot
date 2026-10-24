@@ -1,0 +1,143 @@
+{
+  "id": "prop-chart",
+  "name": "船图、针路簿与水程笺",
+  "category": "prop",
+  "phase": "P1",
+  "description": "幼儿歪船图、伏击所得水程笺与导航文书共享纸面家族；亲情纪念和航海资料内容分开。",
+  "visualBrief": "旧纸张／薄册、朴素墨线、折痕与软毛边；歪船图保留母画船身、幼儿后添帆的叙事，不画现代等高线海图。",
+  "storyRefs": [
+    "zheng_a2_s5",
+    "zheng_a4_s6",
+    "zheng_a5_s2",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "inventory",
+    "item-detail",
+    "sea-chart",
+    "route-plan",
+    "home",
+    "child-growth"
+  ],
+  "variants": [
+    "歪船图",
+    "水程笺",
+    "针路簿封面／内页"
+  ],
+  "modelStrategy": "复用prop-letter纸张模块，薄册装订节点作配置；本条映射旧prop-chart但不重复造另一套纸。大地图仅共享视觉语汇，不把UI地图当手持器物尺寸。",
+  "historicalStatus": "原创叙事图与航海UI已有参考；真实针路、港位与文字另需史料校核，禁止把概念海图当史料。",
+  "existingImages": [
+    {
+      "path": "assets/art/maps/ming-nautical-chart-v2.png",
+      "role": "ui-background-reference",
+      "note": "既有原创航行UI底图，只作线色与纸感参考，不作为真实针路或本条结构图。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-chart"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-chart",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-chart/reference/ming-nautical-chart-v2-16f5d1dc.png",
+      "role": "ui-background-reference",
+      "note": "既有原创航行UI底图，只作线色与纸感参考，不作为真实针路或本条结构图。",
+      "sourcePath": "assets/art/maps/ming-nautical-chart-v2.png",
+      "sha256": "16f5d1dc1b66b83f2cf5407ac8fc33ccfdb5383619bd77dec5c2050f154dfd30",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-chart/reference/zheng_a5_s2-a2d9d545.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-chart",
+      "path": "assets/production/props/prop-chart/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "b10a0e6b5eb697542fd03074d40816ca1786250cba37cfb6db98af3471d1e152",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-chart",
+    "path": "assets/production/props/prop-chart/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "b10a0e6b5eb697542fd03074d40816ca1786250cba37cfb6db98af3471d1e152",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "sea-chart",
+      "title": "东洋航海图"
+    },
+    {
+      "id": "route-plan",
+      "title": "航路筹划"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    }
+  ]
+}

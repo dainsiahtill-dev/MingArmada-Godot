@@ -1,0 +1,74 @@
+{
+  "id": "gun-swivel-mount",
+  "name": "佛朗机叉式旋架与甲板座",
+  "category": "cannon",
+  "phase": "P1",
+  "description": "仅随佛朗机候选制作，补足其与轮式炮架不同的船舷安装轮廓。",
+  "visualBrief": "金属U形叉架承接两侧炮耳，下部有竖直支轴，木质船舷插座作小型独立节点；叉架、支轴和船舷连接处可读，避免现代云台造型。",
+  "storyRefs": [
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "ship-refit",
+    "battle-hud",
+    "history-notes"
+  ],
+  "variants": [
+    "木座旧化",
+    "完好／松脱状态"
+  ],
+  "modelStrategy": "与gun-folangji装配；叉架与座组成一个安装模块，不为每艘船复制新件。仅当P1采用佛朗机时生产。",
+  "historicalStatus": "needs-concept；HS-01直接记录同代旋回炮叉架与船舷孔位；福建特定安装形式未确证。",
+  "existingImages": [],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "火炮与炮架部件",
+  "assetDirectory": "assets/production/cannons/gun-swivel-mount",
+  "dependencies": [],
+  "images": [
+    {
+      "id": "gun-swivel-mount",
+      "path": "assets/production/cannons/gun-swivel-mount/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "7241b5c7d1f3e2854fd7be77e54a0e1155ac824605ef5fe4a470c14e30f8c721",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "gun-swivel-mount",
+    "path": "assets/production/cannons/gun-swivel-mount/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "7241b5c7d1f3e2854fd7be77e54a0e1155ac824605ef5fe4a470c14e30f8c721",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-refit",
+      "title": "舰船改装"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

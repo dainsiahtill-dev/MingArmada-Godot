@@ -1,0 +1,49 @@
+{
+  "id": "shipyard-cradle",
+  "name": "船坞修船支架",
+  "category": "港口与室内模块",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "空架",
+    "托船配置"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "storyRefs": [],
+  "existing": [],
+  "productionStatus": "needs-new",
+  "notes": [
+    "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+    "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a2_s7",
+    "zheng_a4_s2",
+    "zheng_a5_s7",
+    "zheng_a6_s5"
+  ],
+  "group": "buildings",
+  "artJobs": [
+    "shipyard-cradle"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/buildings/shipyard-cradle",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "coastal-shipyard-cradle"
+  ],
+  "sketchStatus": "not-generated"
+}

@@ -1,0 +1,114 @@
+{
+  "id": "nature-grass",
+  "name": "岸边草簇",
+  "category": "nature",
+  "phase": "P0",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "建议0.15—0.8米高的岸草簇，多方向窄叶、根部聚合；沙岸干湿线以上使用，不以全地面高密草铺满港口通道。",
+  "storyRefs": [
+    "zheng_a1_s5",
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "sea-chart",
+    "port-hub",
+    "battle-hud",
+    "home"
+  ],
+  "variants": [
+    "草色"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 nature-grass；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "assets/textures/fidelity_island/terrain/grassbeach.png",
+      "role": "material-reference",
+      "note": "旧岸草地材质，仅地表颜色与过渡参考；不是草簇结构图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "nature-grass"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "dependencies": [],
+  "categoryName": "自然与材质条件",
+  "assetDirectory": "assets/production/nature/nature-grass",
+  "images": [
+    {
+      "path": "assets/production/nature/nature-grass/reference/grassbeach-7d8078a9.png",
+      "role": "material-reference",
+      "note": "旧岸草地材质，仅地表颜色与过渡参考；不是草簇结构图。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/grassbeach.png",
+      "sha256": "7d8078a9a6af250d3b95a18efbda6f34c1030d48f8eaa8976122ab712cffe0ac",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "id": "nature-grass",
+      "path": "assets/production/nature/nature-grass/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "22230edf94898e692dbe53384851d3025c56d6a6c332506964ba5001eaec84d9",
+      "sha256": "a5976555e9e775d2255d6d83c777e0cbf26a8ce88416857af5509bba17ee9c6b",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "nature-grass",
+    "path": "assets/production/nature/nature-grass/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "22230edf94898e692dbe53384851d3025c56d6a6c332506964ba5001eaec84d9",
+    "sha256": "a5976555e9e775d2255d6d83c777e0cbf26a8ce88416857af5509bba17ee9c6b",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "sea-chart",
+      "title": "东洋航海图"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    }
+  ]
+}

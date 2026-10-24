@@ -1,0 +1,139 @@
+{
+  "id": "map-liaoluo-bay",
+  "name": "1633料罗湾火攻与接应差异包",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "既定史实骨架下的协同火攻可玩空间，重点是驶近、风变、保留接应运力与撤回。",
+  "visualBrief": "宽湾水面、远岸辨向、敌舰泊阵与外侧接应区；火船进路和小艇回线独立、能读风向；只用历史地名，不从概念画声称精确1633岸线。",
+  "storyRefs": [
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "battle-hud",
+    "battle-orders",
+    "fleet",
+    "route-plan",
+    "battle-result",
+    "history-notes"
+  ],
+  "variants": [
+    "等待时机",
+    "火船驶近",
+    "接应撤回",
+    "战后水面"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海母场景＋湾岸差异＋敌舰/火船实例；三个过程图仍是一张场景的状态参考。",
+  "historicalStatus": "料罗湾1633战胜荷方与火攻是当前剧本采用的历史骨架；具体岸线、逐舰阵位、风时、接应安排和原创人物动作未据原始战报精确复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+      "role": "story-context",
+      "note": "料罗湾整幅战斗情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process1.png",
+      "role": "process-context",
+      "note": "既有火攻过程图；不是独立地图。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process2.png",
+      "role": "process-context",
+      "note": "既有接应过程图；不是独立地图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "map-open-sea-mother",
+    "nature-island-terrain"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-liaoluo-bay",
+  "images": [
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4-523047d4.png",
+      "role": "story-context",
+      "note": "料罗湾整幅战斗情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4_process1-5dbdaa3e.png",
+      "role": "process-context",
+      "note": "既有火攻过程图；不是独立地图。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process1.png",
+      "sha256": "5dbdaa3e5cb6f56afae2e0eccb86a9c8a9ed806983dc6767e70bb3281677adeb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4_process2-12e39cc6.png",
+      "role": "process-context",
+      "note": "既有接应过程图；不是独立地图。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process2.png",
+      "sha256": "12e39cc67fabe27593a06e807b6749df191d4cc4888c1c616a81c08ef8c5028e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-liaoluo-bay",
+      "path": "assets/production/maps/map-liaoluo-bay/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "262bca593b5a659b37c49835839449e184c264972a611181959151dd8172ba41",
+      "sha256": "e6f0ee575c23d1425e0d479204d0fea34b9383517598a8d08acf00dac9e32006",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-liaoluo-bay",
+    "path": "assets/production/maps/map-liaoluo-bay/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "262bca593b5a659b37c49835839449e184c264972a611181959151dd8172ba41",
+    "sha256": "e6f0ee575c23d1425e0d479204d0fea34b9383517598a8d08acf00dac9e32006",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "battle-orders",
+      "title": "令旗与舰队指挥"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "route-plan",
+      "title": "航路筹划"
+    },
+    {
+      "id": "battle-result",
+      "title": "海战结果"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

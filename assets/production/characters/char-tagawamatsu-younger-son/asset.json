@@ -1,0 +1,106 @@
+{
+  "id": "char-tagawamatsu-younger-son",
+  "name": "田川氏幼子",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "1630在平户与兄长分别，1635后随母长大；身份独立于福松。",
+  "visualBrief": "幼童到少年，年龄跨度按1630/1635后两阶段制作，朴素平户短衣；早期抱小碗，后期松开母亲的手。脸应与福松区分，未锁姓名、年龄数字或肖像。",
+  "storyRefs": [
+    "zheng_a5_s1",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "family",
+    "child-growth",
+    "dialogue"
+  ],
+  "variants": [
+    "1630幼童",
+    "1635后少年"
+  ],
+  "modelStrategy": "儿童共享身体+不同头部形变；本条独立身份但不强制独立新基模，后续若少年比例不兼容再重算。",
+  "historicalStatus": "历史家庭成员背景，当前剧本只称幼子；本清单不擅自绑定实姓名。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "role": "scene-character-reference",
+      "note": "目视田川氏牵一儿童背影；仅作母子身高、衣装关系参考，无正脸。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-child"
+  ],
+  "aliases": [
+    "幼子",
+    "福松的弟弟"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-tagawamatsu-younger-son",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-tagawamatsu-younger-son/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-44d9a381-b14b-4a53-9489-edd861793b1f.png",
+      "promptId": "char-tagawamatsu-younger-son",
+      "sha256": "6e252b35c0bbf006eb383f7f78fe62ee4d04685b29dcc2479b4390d5ac9aef21",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu-younger-son/reference/zheng_a6_s1-fdd59fb8.png",
+      "role": "scene-character-reference",
+      "note": "目视田川氏牵一儿童背影；仅作母子身高、衣装关系参考，无正脸。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-tagawamatsu-younger-son/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-44d9a381-b14b-4a53-9489-edd861793b1f.png",
+    "promptId": "char-tagawamatsu-younger-son",
+    "sha256": "6e252b35c0bbf006eb383f7f78fe62ee4d04685b29dcc2479b4390d5ac9aef21",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

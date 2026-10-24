@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>海上明旗 · 完整游戏界面原型</title>
+  <meta name="description" content="72页游戏界面演示保留旧版43场剧情样例；新版《一官入海》已改写为五幕二十场，请以最新剧本为准。">
+  <link rel="stylesheet" href="styles.css?v=15"><link rel="stylesheet" href="ships.css?v=15"><link rel="stylesheet" href="life.css?v=15"><link rel="stylesheet" href="world.css?v=15"><link rel="stylesheet" href="finish.css?v=15">
+  <script defer src="data.js?v=15"></script><script defer src="ui-core.js?v=15"></script>
+  <script defer src="render-world.js?v=15"></script><script defer src="render-ships.js?v=15"></script><script defer src="render-life.js?v=15"></script><script defer src="review-assets.js?v=15"></script><script defer src="app.js?v=15"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">跳至当前界面</a>
+  <header class="review-bar"><a class="review-brand" href="#main-menu"><span class="seal">明</span><strong>海上明旗</strong><span>界面原型</span></a><nav aria-label="审阅工具"><button data-view="overview">全部页面 <span id="page-count">72</span></button><button data-view="states">状态画册</button><button data-view="systems">系统总表</button><button data-view="flows">玩法流程</button><button data-view="assets">模型与美术</button><button id="screen-directory">页面目录</button></nav><span class="prototype-label">交互为内存演示</span></header>
+  <aside class="narrative-version-notice" aria-label="剧情版本说明"><strong>剧情已重写为五幕二十场</strong><span>此界面原型仍保留旧稿剧情与经营演示，尚未接入新版主线。</span><a href="../../../narrative/zheng-zhilong/index.html?edition=5#top" target="_blank" rel="noopener">阅读《一官入海》第五稿 ↗</a></aside>
+  <main id="main-content" tabindex="-1"></main>
+  <dialog id="directory-dialog"><div class="dialog-heading"><div><p class="context-label">界面索引</p><h2>每一段海上生涯</h2></div><button id="directory-close" class="icon-button" aria-label="关闭目录">×</button></div><label class="search-field">搜索页面或系统<input id="page-search" type="search" placeholder="如：家书、船坞、接舷"></label><div id="directory-results"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>此交互原型需要启用JavaScript。完整系统清单仍可从上一级systems.md阅读。</noscript>
+</body></html>

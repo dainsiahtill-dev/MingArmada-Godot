@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const dir=path.dirname(fileURLToPath(import.meta.url)),source=path.resolve(dir,'../zheng-zhilong-story.json');
+const bytes=fs.readFileSync(source),story=JSON.parse(bytes),baseline=path.join(dir,'baseline.json');
+if(fs.existsSync(baseline))throw new Error('This polish workspace already has a baseline; inspect it instead of overwriting.');
+if(story.narrativeContract?.edition!=='historical-reboot'||story.acts?.length!==6)throw new Error('Expected current six-part historical novel');
+fs.writeFileSync(baseline,bytes);
+for(const [name,start,end] of [['parts-1-2.json',0,2],['parts-3-4.json',2,4],['parts-5-6.json',4,6]])fs.writeFileSync(path.join(dir,name),JSON.stringify({acts:story.acts.slice(start,end)},null,2)+'\n');
+const record={started:new Date().toISOString(),sha256:crypto.createHash('sha256').update(bytes).digest('hex'),version:story.version,chapters:story.acts.flatMap(a=>a.scenes).length};
+fs.writeFileSync(path.join(dir,'baseline-record.json'),JSON.stringify(record,null,2)+'\n');
+console.log(JSON.stringify(record));

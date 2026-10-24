@@ -1,0 +1,3962 @@
+{
+  "systems": [
+    {
+      "id": "career",
+      "name": "生涯与起航",
+      "category": "起航与基础",
+      "priority": "P0",
+      "purpose": "从主菜单建立1621—1646郑芝龙生涯，清楚说明网页原型、原生游戏与旧存档之间的边界。",
+      "storyRefs": [],
+      "mechanics": [
+        "新生涯从澳门货栈起步，主角身份沿用一官／郑芝龙，不开放自创人物替换史实角色",
+        "继续游戏显示章节、泊地、航次与保存时间；原型演示档独立于Godot正式存档",
+        "章节预览允许浏览全部界面，但不伪称战役已经在原生游戏实现"
+      ],
+      "pages": [
+        "main-menu",
+        "new-career",
+        "load-game"
+      ]
+    },
+    {
+      "id": "preferences",
+      "name": "设置与无障碍",
+      "category": "起航与基础",
+      "priority": "P0",
+      "purpose": "使读字、操船、战斗指令与镜头舒适度可调。",
+      "storyRefs": [],
+      "mechanics": [
+        "鼠标点海面设航向为默认，提供辅助转向、镜头灵敏度与指令提示",
+        "分别调节音乐、环境、对白与炮击音量；字幕字号及背景对比可调",
+        "颜色与形状双重传达敌我、装填、风险；支持减少动态、键盘导航和长按替代"
+      ],
+      "pages": [
+        "settings",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "laboratory",
+      "name": "实验室与图鉴预览",
+      "category": "起航与基础",
+      "priority": "P1",
+      "purpose": "复用项目统一实验室入口，展示表现研究及其证据状态。",
+      "storyRefs": [],
+      "mechanics": [
+        "按海面、风帆、操船、尾迹、岸浪和海战表现浏览已登记课题",
+        "区分已验证、待测、未接入与当前游戏使用状态",
+        "网页展示参数对照与报告入口；原生实验运行另行交给Godot，不用静态图替代实测"
+      ],
+      "pages": [
+        "laboratory",
+        "experiment-detail"
+      ]
+    },
+    {
+      "id": "narrative",
+      "name": "六幕章场与剧情演出",
+      "category": "叙事与记录",
+      "priority": "P0",
+      "purpose": "将43场正文转为可进入、可回顾的章场体验，保留人物欲望、决定与后果。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s2",
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s6",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a4_s5",
+        "zheng_a4_s7",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a5_s6",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a5_s5",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "章首、场景简报、人物对话、行动安排与章末回顾各有独立呈现",
+        "当前43场choices为空；剧情抉择页是未来局部玩法方案预览，不据此声称已有故事分支",
+        "固定历史节点与剧本既定责任不得被一次选择抹去；局部资源、执行路线和对话态度可讨论",
+        "家人、盟友和船员具有独立去留，不以好感达标强制归附"
+      ],
+      "pages": [
+        "chapter-select",
+        "scene-briefing",
+        "dialogue",
+        "decision",
+        "ending"
+      ]
+    },
+    {
+      "id": "history",
+      "name": "编年与史料注",
+      "category": "叙事与记录",
+      "priority": "P1",
+      "purpose": "让玩家区分历史骨架、晚出材料、研究推断与原创私人场面。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s2",
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s6",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a4_s5",
+        "zheng_a4_s7",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a5_s6",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a5_s5",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "按年份和六幕关联场次，解释同一人物在福松、森、成功等称呼间的变化",
+        "史料注显示原剧本history.note及sources，不将概念插图当作史料",
+        "湾口起火、阮老六、杜七及跨文化个人遭遇明确标注原创，不扩写成确证战绩"
+      ],
+      "pages": [
+        "history-notes",
+        "chronicle"
+      ]
+    },
+    {
+      "id": "navigation",
+      "name": "航行与海图",
+      "category": "航海探索",
+      "priority": "P0",
+      "purpose": "提供易上手的海上移动、航路规划与抵港目标。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a4_s6",
+        "zheng_a5_s4",
+        "zheng_a5_s7"
+      ],
+      "mechanics": [
+        "鼠标点水面设置目的航向，航向线、预计到达和可达反馈同时可见",
+        "海图在港口、锚地、航路和任务水域间切换；未知区域与已掌握情报分开",
+        "逆风自动辅助保持可前进；手动微调是可选进阶操作，不以硬核打舵锁住普通玩家",
+        "抵近港口后明确显示靠泊范围、当前目标和返港步骤"
+      ],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "destination-detail",
+        "route-plan"
+      ]
+    },
+    {
+      "id": "weather",
+      "name": "风向潮候与航次风险",
+      "category": "航海探索",
+      "priority": "P0",
+      "purpose": "把风、潮、雾与无风变成能看懂的航行信息和剧情条件。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s1",
+        "zheng_a3_s10",
+        "zheng_a4_s6",
+        "zheng_a5_s4",
+        "zheng_a5_s7"
+      ],
+      "mechanics": [
+        "用风向箭头、顺逆风文字及帆效反馈解释当前速度",
+        "航前显示大致潮窗、沿岸危险与下一补给点，不要求计算真实潮汐表",
+        "无风、雾航和风暴为有边界的航次状态；缺水通过补给与事件反馈处理，不另起逐口喝水模拟",
+        "关键火攻等待风信时显示等待成本和接应安排"
+      ],
+      "pages": [
+        "weather-wind"
+      ]
+    },
+    {
+      "id": "encounters",
+      "name": "海上遭遇与临场交涉",
+      "category": "航海探索",
+      "priority": "P0",
+      "purpose": "处理索路、盘查、求援、追船和同行交易，使非战斗出路有实际代价。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a4_s6",
+        "zheng_a5_s6"
+      ],
+      "mechanics": [
+        "接近船只先辨旗号、距离、已知来历与对方要求，再选择交涉、规避或应战",
+        "对方国籍不直接决定敌我；具体集团、当事人和既有事件决定关系",
+        "木筹、旗结与委托纸可提供线索，不等于对所有海域永久免检",
+        "临场方案显示需付的货、银、人手与退路，不用单一成功率掩盖空间关系"
+      ],
+      "pages": [
+        "sea-encounter"
+      ]
+    },
+    {
+      "id": "ships",
+      "name": "舰船状态、改装与维修",
+      "category": "舰船与物资",
+      "priority": "P0",
+      "purpose": "让第一条夺得的快船到后期官旗战船均有可读的用途和养护负担。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a2_s8",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s2",
+        "zheng_a3_s3",
+        "zheng_a4_s2",
+        "zheng_a5_s3",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "船体、帆桅、火炮、操纵、载货与船员需求分栏展示",
+        "改装按槽位比较取舍；坏炮架须修复后才能投入，不把购得炮身等同完整火力",
+        "维修区分港内全修、海上应急与拖带；材料、银两、耗时和可航状态明确",
+        "新桅和装饰不优先于人命，折桅等固定场景结果保留于损伤记录"
+      ],
+      "pages": [
+        "ship-overview",
+        "ship-refit",
+        "ship-repair"
+      ]
+    },
+    {
+      "id": "fleet",
+      "name": "船队编组与协同",
+      "category": "舰船与物资",
+      "priority": "P0",
+      "purpose": "将伙伴独立领船、护粮、封口、火攻与接应组织成可理解的分工。",
+      "storyRefs": [
+        "zheng_a3_s1",
+        "zheng_a3_s2",
+        "zheng_a3_s3",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a5_s4",
+        "zheng_a6_s4"
+      ],
+      "mechanics": [
+        "旗舰、盟船、货船、护卫和接应艇各有任务，不把盟船自动并入玩家财产",
+        "拖动编组或点选岗位即可排船；更改接应显示原约与风险确认",
+        "显示各船负责人、可航状态、承担成本与号令响应",
+        "1646只释放愿留海者的部分小艇，不把分流包装为和平传位"
+      ],
+      "pages": [
+        "fleet"
+      ]
+    },
+    {
+      "id": "cargo",
+      "name": "货舱与装载",
+      "category": "舰船与物资",
+      "priority": "P0",
+      "purpose": "在货物、补给、战具与任务托运之间做有限且清晰的取舍。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s6",
+        "zheng_a3_s10",
+        "zheng_a4_s6"
+      ],
+      "mechanics": [
+        "以容量、载重、稳妥程度和用途展示货舱，不做逐箱摆放硬核模拟",
+        "自有、托运、争议原主和任务封存货分开标记；占用不等于所有权",
+        "补给预留显示可支持的航段范围，少装水多装货的后果有可读警示",
+        "紧急抛货列出货主、预计损失与释放容量；抛掉任务货产生后续记录"
+      ],
+      "pages": [
+        "cargo-hold"
+      ]
+    },
+    {
+      "id": "inventory",
+      "name": "背包、装备与重要物件",
+      "category": "舰船与物资",
+      "priority": "P0",
+      "purpose": "承载人物随身用品与跨幕物件线索，避免货舱和背包混杂。",
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s3",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s9",
+        "zheng_a4_s1",
+        "zheng_a4_s4",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "物品分常用品、武器工具、文书凭据与纪念物；大宗贸易货留在货舱",
+        "人物装备位展示刀、护具、工具和携带文书，换装可预览用途",
+        "旧木筹、损货回单、红线袋船图、家书与工具带附出现和流转记录",
+        "关键任务及家族纪念物不可误卖；不存在现代稀有度抽卡或商城强化"
+      ],
+      "pages": [
+        "inventory",
+        "item-detail",
+        "equipment"
+      ]
+    },
+    {
+      "id": "character",
+      "name": "人物经历与能力",
+      "category": "人物与船员",
+      "priority": "P1",
+      "purpose": "以可追溯经历呈现一官的语言、航海、交涉与统筹成长。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s5",
+        "zheng_a2_s1",
+        "zheng_a2_s8",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a4_s4",
+        "zheng_a5_s4",
+        "zheng_a6_s2"
+      ],
+      "mechanics": [
+        "能力以熟练经历和实际任务解锁，不把初到澳门写成精通所有语言",
+        "成长选择围绕通译、掌船、炮术、经营与指挥，不堆砌超自然技能",
+        "人物身份、名号和任职沿编年变化；官身增加职责和边界",
+        "每项能力说明最近证据与使用场景，数值不能消除固定人物冲突"
+      ],
+      "pages": [
+        "character-profile",
+        "character-growth"
+      ]
+    },
+    {
+      "id": "crew",
+      "name": "船员名册与个人处境",
+      "category": "人物与船员",
+      "priority": "P0",
+      "purpose": "追踪船上的具体人、伤势、约定与自主去留。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a3_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s2",
+        "zheng_a5_s3",
+        "zheng_a6_s4"
+      ],
+      "mechanics": [
+        "名册显示岗位、所属船、状态、熟练、工资约定和当前诉求",
+        "关键人物有经历与关系，不把阿旺、阿禾、安东和依斯迈都当永久队友",
+        "受伤、暂离、雇期结束与主动离队有各自说明；不按死亡一类处理",
+        "玩家能照料和履约，不能用一个忠诚数值覆盖拒绝或旧损"
+      ],
+      "pages": [
+        "crew-roster",
+        "crew-detail"
+      ]
+    },
+    {
+      "id": "recruitment",
+      "name": "招募与雇用约定",
+      "category": "人物与船员",
+      "priority": "P1",
+      "purpose": "使分利、工钱、补给和风险共同决定招募。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a2_s5",
+        "zheng_a3_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s9",
+        "zheng_a3_s8",
+        "zheng_a4_s2",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "港口候选显示专长、雇期、索求和不接受的条件",
+        "先发粮、固定工钱或航次分成有清晰成本，不以一顿饭锁定终身忠诚",
+        "签约前预览所属船和岗位；临时同行与正式船员分开",
+        "与剧情已自主离开的人重逢须尊重原有立场，不直接重置招募"
+      ],
+      "pages": [
+        "crew-recruit"
+      ]
+    },
+    {
+      "id": "stations",
+      "name": "岗位与值守",
+      "category": "人物与船员",
+      "priority": "P0",
+      "purpose": "让舵工、炮手、修船、瞭望和接应职责在航行与海战间可读地分配。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a2_s8",
+        "zheng_a3_s1",
+        "zheng_a3_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7"
+      ],
+      "mechanics": [
+        "每艘船有有限岗位及最低人手，缺人时说明受影响操作",
+        "一键按专长分派后允许点选调整；不用逐个拖动几十名水手",
+        "战斗调往救火、堵漏或接应会影响装填和机动，变更即时反馈",
+        "受伤和不在本船的人不可被重复派岗"
+      ],
+      "pages": [
+        "crew-assign"
+      ]
+    },
+    {
+      "id": "morale-pay",
+      "name": "士气、工钱与承诺",
+      "category": "人物与船员",
+      "priority": "P0",
+      "purpose": "把船上生计与具体履约记录连接，呈现组织扩张的真实代价。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a3_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s3",
+        "zheng_a6_s4"
+      ],
+      "mechanics": [
+        "士气由近期伤损、粮水、分利、欠薪和履约共同解释",
+        "工资、伤药、损船赔付和航次分成分账；延期仍保留欠额",
+        "批量支付前预览余额与下一航预留，支付后留下收讫记录",
+        "一次发钱不能自动和好或抹去失援，重要人物态度沿剧情记录"
+      ],
+      "pages": [
+        "crew-morale"
+      ]
+    },
+    {
+      "id": "gunnery",
+      "name": "海战炮击与船队号令",
+      "category": "海战与救援",
+      "priority": "P0",
+      "purpose": "在空间、风位、射界和装填间形成可读海战指挥。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a2_s7",
+        "zheng_a3_s3",
+        "zheng_a4_s6",
+        "zheng_a4_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "mechanics": [
+        "目标轮廓、左右舷射界、有效距离与友军位置同时可见",
+        "弹药用途、数量、每舷装填和受潮故障有独立反馈，不以按钮亮起替代状态",
+        "号令包含集中火力、牵制、封口、护送、回援和撤离；可在战术暂停时下达",
+        "火攻需要选船、顺风接近和接应运力，耗掉的船材及伤损进入结算"
+      ],
+      "pages": [
+        "battle-hud",
+        "battle-orders",
+        "ammo-loading"
+      ]
+    },
+    {
+      "id": "boarding",
+      "name": "接舷与夺船",
+      "category": "海战与救援",
+      "priority": "P0",
+      "purpose": "从靠舷、钩索与甲板控制呈现夺船、抵抗和救人。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a3_s6",
+        "zheng_a3_s8",
+        "zheng_a4_s7",
+        "zheng_a5_s6"
+      ],
+      "mechanics": [
+        "只有距离、相对速度与可用人手满足时显示接舷机会",
+        "分队可守过板、断索、压制上层、开启舱门与护送被掳者",
+        "敌我船体和连板关系可读；人质出现可改变火攻计划",
+        "被俘船员、民货和船壳分开处置，不将夺船等同获得全部货物所有权"
+      ],
+      "pages": [
+        "boarding"
+      ]
+    },
+    {
+      "id": "damage-rescue",
+      "name": "战损、救火与海上救援",
+      "category": "海战与救援",
+      "priority": "P0",
+      "purpose": "处理漏水、火势、断桅、落水和伤员，给放弃财物救人明确反馈。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a3_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a5_s5"
+      ],
+      "mechanics": [
+        "船体剖面标出漏点、火区、危险桅索和被困位置",
+        "应急堵漏、灭火、砍桅、抛货、拖带与接人各有时间和人手成本",
+        "可救状态、已救人数、失踪和仍待搜索分开；不得虚构找回芝虎",
+        "撤离与继续救援提示剩余运力和风险，不隐藏己方代价"
+      ],
+      "pages": [
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "settlement",
+      "name": "航次结算与分利账房",
+      "category": "港口与经营",
+      "priority": "P0",
+      "purpose": "把胜负、货损、伤员、争议货、欠款和承诺落到同一航次事实。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s7",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a4_s6",
+        "zheng_a4_s7",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a6_s4"
+      ],
+      "mechanics": [
+        "海战后先结人船状态，再列战利货及可处置权",
+        "战利分配先区分船用、水手份、盟友份、赔付和待辨原主",
+        "航次毛利、成本、净余与尚欠分开，不用总收益遮住损船和伤人",
+        "每笔银的去向可回看；家用、周转和工资不被悄悄合并"
+      ],
+      "pages": [
+        "battle-result",
+        "prize-distribution",
+        "voyage-result",
+        "accounts"
+      ]
+    },
+    {
+      "id": "port",
+      "name": "港口与锚地活动",
+      "category": "港口与经营",
+      "priority": "P0",
+      "purpose": "用场景化港口汇合人物、服务、任务和出航准备。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s4",
+        "zheng_a4_s4",
+        "zheng_a5_s2",
+        "zheng_a5_s3"
+      ],
+      "mechanics": [
+        "澳门、平户、沿海锚地和厦门的服务与人物按年代开放",
+        "市场、船坞、货栈、招募、官署和家宅是明确地点入口",
+        "港口状态显示泊船、可办事项、限制与离港准备；不虚构已实现全球地图",
+        "港火等剧情状态改变可用设施，并把救援和重建置于原有经营之上"
+      ],
+      "pages": [
+        "port-hub"
+      ]
+    },
+    {
+      "id": "trade",
+      "name": "市场交易与隐蔽销货",
+      "category": "港口与经营",
+      "priority": "P0",
+      "purpose": "以货源、价格、容量与所有权呈现互利贸易和争议交易。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s1",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a3_s10",
+        "zheng_a4_s6"
+      ],
+      "mechanics": [
+        "港市展示当地库存、买卖价、货舱余量和已有契约需求",
+        "成交前列数量、单价、费用与最终余额；不同港口不保证永远套利",
+        "隐蔽锚地可销货、换粮药或打听消息；争议货提示原主线索与追索风险",
+        "大宗商货、个人装备和封存物各走自己的清单，关键物不可误卖"
+      ],
+      "pages": [
+        "market",
+        "trade-order",
+        "black-market"
+      ]
+    },
+    {
+      "id": "contracts",
+      "name": "委托、合货与契约",
+      "category": "港口与经营",
+      "priority": "P0",
+      "purpose": "把雇佣、托运、合货、偿损和护航变成可核对的条件。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s5",
+        "zheng_a2_s3",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s2",
+        "zheng_a3_s9",
+        "zheng_a3_s3",
+        "zheng_a4_s2",
+        "zheng_a5_s6"
+      ],
+      "mechanics": [
+        "契约列出委托方、交付物、地点、期限、分成和谁承担损失",
+        "可接、进行中、待交割、争议和违约有不同状态",
+        "接单前同步检查可航船、容量和补给；签下的承诺写入日志与账房",
+        "借船、偿损与合伙不是同一所有权关系；口头保证也可成为待兑现事项"
+      ],
+      "pages": [
+        "contract-board",
+        "contract-detail"
+      ]
+    },
+    {
+      "id": "dock-services",
+      "name": "船坞交易与出航补给",
+      "category": "港口与经营",
+      "priority": "P0",
+      "purpose": "以服务式界面完成购船、修复报价及粮水材料准备。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s5",
+        "zheng_a2_s8",
+        "zheng_a2_s7",
+        "zheng_a2_s5",
+        "zheng_a3_s2",
+        "zheng_a3_s10",
+        "zheng_a4_s2",
+        "zheng_a5_s3",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "船坞可比较船型用途、价银、所需人手与交付状态，不堆砌无来源传奇舰",
+        "补给按计划航段、船员和风险建议粮水、药材、木料与弹药",
+        "一键补齐前列费用和容量；不足时给减少货物、缩短航路或延期的可行方案",
+        "购船、修船与船队使用权分开，不能购买盟友已有船壳消除旧约"
+      ],
+      "pages": [
+        "shipyard",
+        "supplies"
+      ]
+    },
+    {
+      "id": "journal",
+      "name": "任务日志与情报",
+      "category": "叙事与记录",
+      "priority": "P0",
+      "purpose": "把当前目标、过去事实、未证消息和后续欠事放在可追踪的位置。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s2",
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s6",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a4_s5",
+        "zheng_a4_s7",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a5_s6",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a5_s5",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "主线、支线、航次委托和待兑现承诺可分别筛选",
+        "每项任务给当前动作、地点、相关人物、完成凭据和已发生后果",
+        "情报显示来源、日期、可信范围和是否核实；新伙计的诱骗不是系统真值",
+        "通知记录保留错过的目标变更、到期、战损与物资提示，不重复刷屏"
+      ],
+      "pages": [
+        "quest-journal",
+        "quest-detail",
+        "intelligence",
+        "notification-log"
+      ]
+    },
+    {
+      "id": "relationships",
+      "name": "人情、旧恩与盟约",
+      "category": "势力与人情",
+      "priority": "P1",
+      "purpose": "用事件和诉求解释关系，保留冲突中双方各自的权利。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s7",
+        "zheng_a3_s2",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s3",
+        "zheng_a4_s5",
+        "zheng_a5_s6",
+        "zheng_a5_s4",
+        "zheng_a6_s3",
+        "zheng_a6_s4"
+      ],
+      "mechanics": [
+        "人物关系按亲属、同行、雇佣、盟友和旧怨组织，不只显示单条好感值",
+        "展示已兑现、未兑现、争议中的恩债和承诺，并链接具体场景",
+        "杜七出船救人与后来劫货同时存在，不能用善恶标签抹平",
+        "妻儿与船员的自主决定不可由送礼或付钱一键反转"
+      ],
+      "pages": [
+        "relationships"
+      ]
+    },
+    {
+      "id": "factions",
+      "name": "势力、外交与海令",
+      "category": "势力与人情",
+      "priority": "P1",
+      "purpose": "呈现商路控制、官身责任、独立盟船与武装集团的条件关系。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s6",
+        "zheng_a2_s8",
+        "zheng_a3_s9",
+        "zheng_a3_s2",
+        "zheng_a3_s8",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a4_s5",
+        "zheng_a5_s6",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "mechanics": [
+        "势力按具体组织和人物区分，同国籍商人、水手与武装团体不自动同阵营",
+        "外交可谈互利、合货、盟约、停手、通行与受抚条件，不能万能消除政治冲突",
+        "海令、凭据、保护旗与民间追索分别标明颁发者、适用范围和风险",
+        "悬赏板区分民间报酬与官府文告；两个价码中的追索明确为原创民间酬赏",
+        "官旗扩大通路也带来报效和清剿义务；旧伙伴身份改变需可见"
+      ],
+      "pages": [
+        "factions",
+        "faction-detail",
+        "diplomacy",
+        "sea-permits",
+        "bounty-board"
+      ]
+    },
+    {
+      "id": "household",
+      "name": "家园、家书与下一代",
+      "category": "家业与亲情",
+      "priority": "P1",
+      "purpose": "呈现平户与福建两岸的家、通信、家用和人物成长。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s7",
+        "zheng_a4_s5",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a5_s7",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "mechanics": [
+        "家园是时代与处境中的住所和亲属事务，不扩张为全能领地建造",
+        "家书需选择可信托话人和航路；显示写成、托寄、在途、收到或未知",
+        "寄信与汇款分别列明内容和金额；挪家用会留账，不因未来盈利自动抹去失约",
+        "子女成长按年份与教育经历推进，不以点数购买立场；母亲和儿子有独立决定",
+        "1630迎子、1645团聚、1646分途与田川氏罹难保持固定骨架，不做婚育奖励或惩罚分支"
+      ],
+      "pages": [
+        "home",
+        "family",
+        "child-growth",
+        "letters",
+        "letter-detail",
+        "send-letter-remittance"
+      ]
+    },
+    {
+      "id": "session-guidance",
+      "name": "暂停、存档、教程与失败恢复",
+      "category": "起航与基础",
+      "priority": "P0",
+      "purpose": "让长篇生涯可安全退出、恢复并学会操作。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a2_s7",
+        "zheng_a3_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "mechanics": [
+        "暂停可返回当前航次、打开设置、查阅操作、保存或回主菜单",
+        "存档区分自动、手动和章场检查点；只预览网页演示档，正式接入须另做原生合同验证",
+        "教程按操船、海图、货舱、装填、接舷与救援分段，允许重看和跳过提示",
+        "失败显示直接原因、损失与最近检查点；固定剧情损失不作为可刷掉的失败",
+        "战斗预警、按键和风险均可配合无障碍设置"
+      ],
+      "pages": [
+        "pause-menu",
+        "save-game",
+        "tutorial",
+        "defeat"
+      ]
+    }
+  ],
+  "screenGroups": [
+    {
+      "id": "start",
+      "name": "起航与系统",
+      "screens": [
+        {
+          "id": "main-menu",
+          "title": "一官入海 · 主菜单",
+          "systemId": "career",
+          "kind": "hub",
+          "description": "海天与帆船主视觉；六幕生涯标题、续航摘要和四个清楚入口。角落显示网页UI原型与全部页面预览。",
+          "storyRefs": [],
+          "primaryActions": [
+            "继续生涯",
+            "开始新生涯",
+            "打开实验室",
+            "进入设置"
+          ],
+          "states": [
+            "没有演示存档",
+            "已有航次存档",
+            "全部页面可预览"
+          ]
+        },
+        {
+          "id": "new-career",
+          "title": "新生涯",
+          "systemId": "career",
+          "kind": "setup",
+          "description": "1621澳门起点、主角背景、六幕跨度与玩法说明并置；可选操作辅助和叙事提示，确认后进入第一场。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s5"
+          ],
+          "primaryActions": [
+            "选择操作辅助",
+            "阅读生涯说明",
+            "确认起航"
+          ],
+          "states": [
+            "首次开始",
+            "确认新档",
+            "保留既有存档"
+          ]
+        },
+        {
+          "id": "load-game",
+          "title": "载入生涯",
+          "systemId": "career",
+          "kind": "list",
+          "description": "存档卡以章节、年月、泊地、船队和当前目标识别；自动档与手动档有独立标识和预览摘要。",
+          "storyRefs": [],
+          "primaryActions": [
+            "选择存档",
+            "预览航次",
+            "载入演示档"
+          ],
+          "states": [
+            "自动档",
+            "手动档",
+            "不兼容说明",
+            "空档位"
+          ]
+        },
+        {
+          "id": "settings",
+          "title": "航行与声音设置",
+          "systemId": "preferences",
+          "kind": "settings",
+          "description": "左右分栏设置导航；操船辅助、镜头、音量、字幕、画面舒适度分区，右侧实时示例。",
+          "storyRefs": [],
+          "primaryActions": [
+            "调整操船辅助",
+            "试听音量",
+            "恢复默认",
+            "应用设置"
+          ],
+          "states": [
+            "未修改",
+            "待应用",
+            "已保存"
+          ]
+        },
+        {
+          "id": "accessibility",
+          "title": "无障碍与阅读",
+          "systemId": "preferences",
+          "kind": "settings",
+          "description": "用同一段对话与海战标记实时预览字号、字幕底色、形状标识、减少动态和键盘焦点。",
+          "storyRefs": [],
+          "primaryActions": [
+            "放大文字",
+            "切换标记样式",
+            "开启减少动态",
+            "测试键盘导航"
+          ],
+          "states": [
+            "常规对比",
+            "高对比",
+            "大字模式",
+            "减少动态"
+          ]
+        },
+        {
+          "id": "laboratory",
+          "title": "航海实验室",
+          "systemId": "laboratory",
+          "kind": "laboratory",
+          "description": "课题目录配研究状态和独立预览；海面、帆、尾迹、岸浪、操船与炮击按表现主题浏览。",
+          "storyRefs": [],
+          "primaryActions": [
+            "筛选课题",
+            "查看实验",
+            "阅读证据"
+          ],
+          "states": [
+            "已验证",
+            "待测",
+            "尚未接入"
+          ]
+        },
+        {
+          "id": "experiment-detail",
+          "title": "实验课题与对照",
+          "systemId": "laboratory",
+          "kind": "laboratory",
+          "description": "主区域为基线与候选对照，侧栏显示参数、验证记录和限制；原生运行入口明确需Godot。",
+          "storyRefs": [],
+          "primaryActions": [
+            "切换基线候选",
+            "调整演示参数",
+            "查看报告",
+            "恢复初态"
+          ],
+          "states": [
+            "基线",
+            "候选",
+            "报告待补",
+            "原生运行另开"
+          ]
+        },
+        {
+          "id": "pause-menu",
+          "title": "暂停",
+          "systemId": "session-guidance",
+          "kind": "overlay",
+          "description": "以当前画面和航次摘要为背景；当前位置、未完成目标、保存状态先于返回与退出操作。",
+          "storyRefs": [],
+          "primaryActions": [
+            "返回航行",
+            "保存生涯",
+            "查看教程",
+            "返回主菜单"
+          ],
+          "states": [
+            "航行暂停",
+            "战术暂停",
+            "尚有未保存变更"
+          ]
+        },
+        {
+          "id": "save-game",
+          "title": "保存生涯",
+          "systemId": "session-guidance",
+          "kind": "dialog",
+          "description": "保存槽与本次摘要并列；新档命名、已有槽覆盖确认和演示档保存结果可见。",
+          "storyRefs": [],
+          "primaryActions": [
+            "选择档位",
+            "命名存档",
+            "保存演示档",
+            "确认覆盖"
+          ],
+          "states": [
+            "空档位",
+            "确认覆盖",
+            "保存成功",
+            "存储不可用"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "story",
+      "name": "章场与叙事",
+      "screens": [
+        {
+          "id": "chapter-select",
+          "title": "六幕章场",
+          "systemId": "narrative",
+          "kind": "timeline",
+          "description": "六幕横向或纵向航程轴，43场按剧本真实顺序展开；年份、场名、故事摘要与进度可检索。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a1_s5",
+            "zheng_a1_s6",
+            "zheng_a2_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a2_s8",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s2",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s10",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a4_s1",
+            "zheng_a4_s2",
+            "zheng_a4_s6",
+            "zheng_a4_s3",
+            "zheng_a4_s4",
+            "zheng_a4_s5",
+            "zheng_a4_s7",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s6",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7",
+            "zheng_a5_s5",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3",
+            "zheng_a6_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "选择一幕",
+            "打开场景",
+            "回到当前进度",
+            "预览全部章场"
+          ],
+          "states": [
+            "未开始",
+            "进行中",
+            "已回顾",
+            "原型全解锁"
+          ]
+        },
+        {
+          "id": "scene-briefing",
+          "title": "章场简报",
+          "systemId": "narrative",
+          "kind": "briefing",
+          "description": "场景大图配年份、地点、人物与眼前任务；把此场已定前提和可操作部分明确分开。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a2_s7",
+            "zheng_a3_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "查看本场目标",
+            "检查准备",
+            "进入场景"
+          ],
+          "states": [
+            "准备阶段",
+            "剧情前提已定",
+            "缺少出航条件"
+          ]
+        },
+        {
+          "id": "dialogue",
+          "title": "人物对话",
+          "systemId": "narrative",
+          "kind": "dialogue",
+          "description": "人物肖像、说话位置和正文阅读节奏突出；可展开对话记录、人物来历和史料注。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a3_s4",
+            "zheng_a4_s5",
+            "zheng_a6_s2",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "继续对白",
+            "查看对话记录",
+            "查看人物",
+            "打开史料注"
+          ],
+          "states": [
+            "普通对白",
+            "重要承诺",
+            "人物拒绝",
+            "历史节点"
+          ]
+        },
+        {
+          "id": "decision",
+          "title": "行动安排",
+          "systemId": "narrative",
+          "kind": "decision",
+          "description": "用可比较方案列出目标、需付资源、可知风险和不可承诺结果；固定剧情步骤只显示执行安排。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a2_s8",
+            "zheng_a3_s10",
+            "zheng_a4_s7",
+            "zheng_a5_s4",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "比较方案",
+            "查看承担者",
+            "确认行动",
+            "返回准备"
+          ],
+          "states": [
+            "局部方案预览",
+            "固定剧情步骤",
+            "资源不足",
+            "结果待发生"
+          ]
+        },
+        {
+          "id": "history-notes",
+          "title": "史料与创作边界",
+          "systemId": "history",
+          "kind": "codex",
+          "description": "当前场史料等级、原注、来源链接与原创部分各有清楚文字；湾口战事保留醒目的虚构说明。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a1_s5",
+            "zheng_a1_s6",
+            "zheng_a2_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a2_s8",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s2",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s10",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a4_s1",
+            "zheng_a4_s2",
+            "zheng_a4_s6",
+            "zheng_a4_s3",
+            "zheng_a4_s4",
+            "zheng_a4_s5",
+            "zheng_a4_s7",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s6",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7",
+            "zheng_a5_s5",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3",
+            "zheng_a6_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "阅读原注",
+            "打开来源",
+            "查看相关编年",
+            "返回场景"
+          ],
+          "states": [
+            "历史骨架",
+            "晚出材料",
+            "研究推断",
+            "原创场面"
+          ]
+        },
+        {
+          "id": "ending",
+          "title": "未回的船 · 终章",
+          "systemId": "narrative",
+          "kind": "ending",
+          "description": "分幅呈现北去芝龙、福建成功和阿旺归家；以物件与未清事项回顾六幕，保留未能团圆的结果。",
+          "storyRefs": [
+            "zheng_a6_s3",
+            "zheng_a6_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "回顾六幕",
+            "查看人物去向",
+            "查看未清账目",
+            "返回主菜单"
+          ],
+          "states": [
+            "首次终章",
+            "章节回顾",
+            "固定历史结局"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "voyage",
+      "name": "航行与海图",
+      "screens": [
+        {
+          "id": "sailing-hud",
+          "title": "海上航行",
+          "systemId": "navigation",
+          "kind": "hud",
+          "description": "画面保留海面；边缘依次布置当前目标、航向罗盘、风向、帆速、船况及一排常用指令。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a1_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s10",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "点击海面设航向",
+            "调整航速",
+            "打开海图",
+            "靠泊"
+          ],
+          "states": [
+            "顺风前进",
+            "逆风辅助",
+            "接近目的地",
+            "应急状态"
+          ]
+        },
+        {
+          "id": "sea-chart",
+          "title": "东洋航海图",
+          "systemId": "navigation",
+          "kind": "chart",
+          "description": "海图为主，澳门、平户、大员、福建沿海与已知锚地显示年代适用性；侧栏只保留选中地点和航路信息。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a2_s1",
+            "zheng_a2_s6",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a4_s3",
+            "zheng_a5_s4",
+            "zheng_a6_s1"
+          ],
+          "primaryActions": [
+            "选择目的地",
+            "筛选任务海域",
+            "查看已知情报",
+            "规划航路"
+          ],
+          "states": [
+            "已知港口",
+            "情报未核",
+            "当前航路",
+            "航区受限"
+          ]
+        },
+        {
+          "id": "destination-detail",
+          "title": "目的地与靠泊",
+          "systemId": "navigation",
+          "kind": "detail",
+          "description": "地点插画、航程、可用服务、进港条件与当前任务并置；不以现代港口旅游卡替代游戏信息。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s1",
+            "zheng_a3_s7",
+            "zheng_a4_s4",
+            "zheng_a5_s2"
+          ],
+          "primaryActions": [
+            "设为目的地",
+            "查看港内服务",
+            "阅读通行条件",
+            "返回海图"
+          ],
+          "states": [
+            "可进港",
+            "需要凭据",
+            "接近靠泊范围",
+            "设施受损"
+          ]
+        },
+        {
+          "id": "route-plan",
+          "title": "航路筹划",
+          "systemId": "navigation",
+          "kind": "planner",
+          "description": "两条候选航路直接画在海图上；比较预计航段、风潮、补给、盘查与护送，底部汇总准备缺口。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s10",
+            "zheng_a3_s3",
+            "zheng_a4_s6",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "选择航路",
+            "预留补给",
+            "安排护卫",
+            "确认出航"
+          ],
+          "states": [
+            "沿岸稳妥",
+            "外海较快",
+            "补给不足",
+            "航路已定"
+          ]
+        },
+        {
+          "id": "weather-wind",
+          "title": "风信与潮候",
+          "systemId": "weather",
+          "kind": "instrument",
+          "description": "罗盘、风帆示意和未来短时趋势为核心；文字解释顺逆风与风变，关键潮窗关联当前航次。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a3_s1",
+            "zheng_a3_s10",
+            "zheng_a4_s6",
+            "zheng_a5_s4",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "查看风向趋势",
+            "切换海图风层",
+            "等待合适风信",
+            "返回航行"
+          ],
+          "states": [
+            "有利风",
+            "逆风",
+            "无风",
+            "风暴临近"
+          ]
+        },
+        {
+          "id": "sea-encounter",
+          "title": "海上来船",
+          "systemId": "encounters",
+          "kind": "event",
+          "description": "船与船的距离示意配旗号、已知来历、来意和退路；木筹验认、收费、扣查或求援用不同筹码呈现。",
+          "storyRefs": [
+            "zheng_a1_s6",
+            "zheng_a2_s8",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a3_s9",
+            "zheng_a3_s10",
+            "zheng_a3_s8",
+            "zheng_a4_s6",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "辨认来船",
+            "开始交涉",
+            "保持距离",
+            "进入战斗准备"
+          ],
+          "states": [
+            "身份不明",
+            "索路收费",
+            "扣船盘查",
+            "同行求助"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ships",
+      "name": "舰船与货舱",
+      "screens": [
+        {
+          "id": "ship-overview",
+          "title": "舰船总览",
+          "systemId": "ships",
+          "kind": "ship",
+          "description": "船体立绘或剖面占主区，帆桅、炮位、载货、船员与损伤围绕船身布置；显示当前是否适航。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a2_s7",
+            "zheng_a2_s8",
+            "zheng_a3_s2",
+            "zheng_a5_s3",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "设为当前船",
+            "查看改装",
+            "安排维修",
+            "打开货舱"
+          ],
+          "states": [
+            "适航",
+            "须拖带",
+            "待交付"
+          ],
+          "defaultStateAliases": [
+            "受损可航"
+          ]
+        },
+        {
+          "id": "fleet",
+          "title": "船队编组",
+          "systemId": "fleet",
+          "kind": "fleet",
+          "description": "海面阵位与船只名册联动；旗舰、顺生、货船与接应艇的任务、负责人和独立所有者清楚可见。",
+          "storyRefs": [
+            "zheng_a3_s1",
+            "zheng_a3_s2",
+            "zheng_a3_s3",
+            "zheng_a4_s3",
+            "zheng_a5_s4",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "调整编组",
+            "分派护送",
+            "指定接应",
+            "确认号令"
+          ],
+          "states": [
+            "独船",
+            "联合舰队",
+            "人员分流"
+          ],
+          "defaultStateAliases": [
+            "两船协同"
+          ]
+        },
+        {
+          "id": "ship-refit",
+          "title": "舰船改装",
+          "systemId": "ships",
+          "kind": "loadout",
+          "description": "船身槽位与装备比较面板并列，轻炮、炮架、帆具、货舱和救援艇形成有限取舍。",
+          "storyRefs": [
+            "zheng_a2_s8",
+            "zheng_a2_s7",
+            "zheng_a2_s5",
+            "zheng_a5_s4",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "比较部件",
+            "安装改装",
+            "预览取舍",
+            "确认费用"
+          ],
+          "states": [
+            "缺少材料",
+            "炮架待修",
+            "容量冲突"
+          ],
+          "defaultStateAliases": [
+            "可安装"
+          ]
+        },
+        {
+          "id": "ship-repair",
+          "title": "船坞维修",
+          "systemId": "ships",
+          "kind": "workshop",
+          "description": "损伤清单直接对应船体位置；报价拆成木料、帆索、炮架、人手与工时，并区别应急和全修。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a2_s8",
+            "zheng_a3_s3",
+            "zheng_a4_s2",
+            "zheng_a5_s3",
+            "zheng_a5_s7",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "选择维修项",
+            "比较应急全修",
+            "确认修理",
+            "查看材料缺口"
+          ],
+          "states": [
+            "等待材料",
+            "修理中",
+            "修复完毕"
+          ],
+          "defaultStateAliases": [
+            "应急可航"
+          ]
+        },
+        {
+          "id": "cargo-hold",
+          "title": "货舱装载",
+          "systemId": "cargo",
+          "kind": "cargo",
+          "description": "容量条与四类货清单并列：自有、托运、补给、封存；选中货物显示所属与任务风险，支持有限配载。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a3_s6",
+            "zheng_a3_s10",
+            "zheng_a4_s6"
+          ],
+          "primaryActions": [
+            "装入货物",
+            "卸货转船",
+            "预留补给",
+            "紧急抛货"
+          ],
+          "states": [
+            "载重临界",
+            "争议货待辨",
+            "抛货确认"
+          ],
+          "defaultStateAliases": [
+            "正常装载"
+          ]
+        },
+        {
+          "id": "shipyard",
+          "title": "船坞与船型",
+          "systemId": "dock-services",
+          "kind": "shipyard",
+          "description": "船型横向比较与泊位场景结合；用途、载量、最低人手、修复需求和银价便于比较。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a2_s7",
+            "zheng_a3_s2",
+            "zheng_a4_s2",
+            "zheng_a5_s3",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "比较船型",
+            "查看购船报价",
+            "查看自有船",
+            "转入维修"
+          ],
+          "states": [
+            "资金不足",
+            "待修旧船",
+            "仅供预览"
+          ],
+          "defaultStateAliases": [
+            "有船可售"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inventory",
+      "name": "物品与人物",
+      "screens": [
+        {
+          "id": "inventory",
+          "title": "随身行囊",
+          "systemId": "inventory",
+          "kind": "inventory",
+          "description": "装备、工具、文书与纪念物按用途筛选；保留红线袋、旧木筹和工具带的物件感，突出关键物保护。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a1_s6",
+            "zheng_a2_s3",
+            "zheng_a2_s5",
+            "zheng_a3_s9",
+            "zheng_a5_s2",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "筛选物品",
+            "查看物件",
+            "整理行囊",
+            "打开装备"
+          ],
+          "states": [
+            "任务文书",
+            "家族纪念",
+            "不可出售"
+          ],
+          "defaultStateAliases": [
+            "常用品"
+          ]
+        },
+        {
+          "id": "item-detail",
+          "title": "物件与来处",
+          "systemId": "inventory",
+          "kind": "artifact",
+          "description": "大幅单物件配流转时间线、持有人、用途和相关场次；船图注明母画船身、子添帆及往返信路。",
+          "storyRefs": [
+            "zheng_a1_s6",
+            "zheng_a2_s5",
+            "zheng_a3_s9",
+            "zheng_a5_s2",
+            "zheng_a6_s3",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "查看出现记录",
+            "阅读关联家书",
+            "定位相关任务",
+            "返回行囊"
+          ],
+          "states": [
+            "已失效凭据",
+            "封存保管",
+            "纪念物"
+          ],
+          "defaultStateAliases": [
+            "可使用"
+          ]
+        },
+        {
+          "id": "equipment",
+          "title": "装备与工具",
+          "systemId": "inventory",
+          "kind": "loadout",
+          "description": "人物轮廓与有限装备位呈现刀、护具、工具、凭据；更换前显示用途和是否适用本次行动。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a2_s3",
+            "zheng_a2_s7",
+            "zheng_a4_s1",
+            "zheng_a4_s4"
+          ],
+          "primaryActions": [
+            "装备物品",
+            "比较用途",
+            "卸下装备",
+            "恢复推荐"
+          ],
+          "states": [
+            "场景锁定",
+            "已交械",
+            "文书失效"
+          ],
+          "defaultStateAliases": [
+            "可装备"
+          ]
+        },
+        {
+          "id": "character-profile",
+          "title": "一官 · 人物经历",
+          "systemId": "character",
+          "kind": "character",
+          "description": "人物肖像与身份变化、主要本领、最近经历、人物关系并列，避免把成长只写成战斗属性。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s5",
+            "zheng_a3_s1",
+            "zheng_a4_s4",
+            "zheng_a5_s4",
+            "zheng_a6_s2"
+          ],
+          "primaryActions": [
+            "查看经历",
+            "查看能力",
+            "查看名号变化",
+            "查看关系"
+          ],
+          "states": [
+            "随船伙计",
+            "受抚游击",
+            "家族主事"
+          ],
+          "defaultStateAliases": [
+            "独立船主"
+          ]
+        },
+        {
+          "id": "character-growth",
+          "title": "本领与阅历",
+          "systemId": "character",
+          "kind": "progression",
+          "description": "通译、航海、经营、炮术和统筹五条经验轨迹；每条说明具体解锁条件与近期运用。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s1",
+            "zheng_a2_s8",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s10",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "选择成长方向",
+            "阅读本领说明",
+            "查看历练证据",
+            "确认专长"
+          ],
+          "states": [
+            "尚待历练",
+            "已习得",
+            "未来玩法预览"
+          ],
+          "defaultStateAliases": [
+            "条件已足"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crew",
+      "name": "船员与生计",
+      "screens": [
+        {
+          "id": "crew-roster",
+          "title": "船员名册",
+          "systemId": "crew",
+          "kind": "roster",
+          "description": "按船与岗位分组的人物名册，伤员、临时同行和已离队可筛选；一眼看见缺岗与当前人员总数。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a3_s2",
+            "zheng_a3_s7",
+            "zheng_a3_s3",
+            "zheng_a3_s5",
+            "zheng_a4_s2",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "筛选所属船",
+            "查看船员",
+            "打开岗位",
+            "查看伤员"
+          ],
+          "states": [
+            "在船",
+            "养伤",
+            "临时同行",
+            "自主离队"
+          ]
+        },
+        {
+          "id": "crew-detail",
+          "title": "船员与约定",
+          "systemId": "crew",
+          "kind": "character",
+          "description": "阿旺等角色的画像、手艺、近况、家庭诉求和未清事项组成个人页；过去重要命令有场次记录。",
+          "storyRefs": [
+            "zheng_a1_s4",
+            "zheng_a1_s5",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a3_s9",
+            "zheng_a5_s3",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "查看雇用约定",
+            "安排照料",
+            "查看事件记录",
+            "查看个人诉求"
+          ],
+          "states": [
+            "受伤",
+            "雇期将满",
+            "拒绝续航"
+          ],
+          "defaultStateAliases": [
+            "可任职"
+          ]
+        },
+        {
+          "id": "crew-recruit",
+          "title": "招募与雇期",
+          "systemId": "recruitment",
+          "kind": "recruitment",
+          "description": "港口候选板显示专长和所求；签约面板写清工资、分成、岗位、雇期和可退出条件。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a3_s2",
+            "zheng_a3_s7",
+            "zheng_a3_s9",
+            "zheng_a4_s2",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "比较候选",
+            "商量条件",
+            "分派所属船",
+            "确认雇用"
+          ],
+          "states": [
+            "条件待谈",
+            "暂时同行",
+            "名额不足"
+          ],
+          "defaultStateAliases": [
+            "愿意受雇"
+          ]
+        },
+        {
+          "id": "crew-assign",
+          "title": "岗位与值守",
+          "systemId": "stations",
+          "kind": "assignment",
+          "description": "船体岗位图与人员列表联动；掌舵、瞭望、装填、修船、救援标出当前覆盖及调动代价。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a2_s8",
+            "zheng_a3_s1",
+            "zheng_a4_s7",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "按专长分派",
+            "调整值守",
+            "派出救援",
+            "确认岗位"
+          ],
+          "states": [
+            "岗位齐备",
+            "缺少炮手",
+            "救援抽调",
+            "伤员不可派岗"
+          ]
+        },
+        {
+          "id": "crew-morale",
+          "title": "士气与薪酬",
+          "systemId": "morale-pay",
+          "kind": "ledger",
+          "description": "士气原因列表与应付账并列；工钱、分成、伤药和赔付分别展示，优先处理眼前生计。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a3_s2",
+            "zheng_a3_s7",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a4_s2",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "结清工钱",
+            "支付伤药",
+            "查看欠款",
+            "预览下航支出"
+          ],
+          "states": [
+            "欠薪不满",
+            "等待赔付",
+            "已付仍有旧怨"
+          ],
+          "defaultStateAliases": [
+            "士气稳定"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "海战与救援",
+      "screens": [
+        {
+          "id": "battle-hud",
+          "title": "海战态势",
+          "systemId": "gunnery",
+          "kind": "battle",
+          "description": "海面是主区；敌我船影、当前目标、左右舷火炮、距离射界和战况目标沿边排列，保持战场空间可读。",
+          "storyRefs": [
+            "zheng_a2_s8",
+            "zheng_a2_s7",
+            "zheng_a3_s3",
+            "zheng_a4_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "选择目标",
+            "侧舷开火",
+            "发布号令",
+            "战术暂停"
+          ],
+          "states": [
+            "接敌",
+            "正在装填",
+            "准备撤离"
+          ],
+          "defaultStateAliases": [
+            "射界内"
+          ]
+        },
+        {
+          "id": "battle-orders",
+          "title": "令旗与舰队指挥",
+          "systemId": "gunnery",
+          "kind": "tactical",
+          "description": "海战俯视态势图上直接分配封口、牵制、护货、回援与火攻；已答应接应的船有清楚标记。",
+          "storyRefs": [
+            "zheng_a3_s3",
+            "zheng_a4_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "分配战术任务",
+            "指定回援",
+            "预留接应艇",
+            "确认令旗"
+          ],
+          "states": [
+            "友船执行中",
+            "接应受阻",
+            "改变原约"
+          ],
+          "defaultStateAliases": [
+            "号令待发"
+          ]
+        },
+        {
+          "id": "ammo-loading",
+          "title": "弹药与装填",
+          "systemId": "gunnery",
+          "kind": "gunnery",
+          "description": "两舷炮组按装填进度排列，弹种说明、库存、受潮、炮架与人手状态直接对照。",
+          "storyRefs": [
+            "zheng_a2_s8",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "选择弹药",
+            "安排装填",
+            "查看故障",
+            "统一炮组"
+          ],
+          "states": [
+            "装填中",
+            "火绳受潮",
+            "弹药不足"
+          ],
+          "defaultStateAliases": [
+            "可开火"
+          ]
+        },
+        {
+          "id": "boarding",
+          "title": "接舷争夺",
+          "systemId": "boarding",
+          "kind": "boarding",
+          "description": "两条船、钩索与过板构成清楚的俯视战区；甲板和舱门目标分开显示，救人后有撤回路线。",
+          "storyRefs": [
+            "zheng_a2_s7",
+            "zheng_a3_s6",
+            "zheng_a4_s7",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "守住过板",
+            "切断钩索",
+            "压制甲板",
+            "开启舱门救人"
+          ],
+          "states": [
+            "过板争夺",
+            "发现被掳者",
+            "撤回己船"
+          ],
+          "defaultStateAliases": [
+            "准备靠舷"
+          ]
+        },
+        {
+          "id": "battle-damage",
+          "title": "战损与救援",
+          "systemId": "damage-rescue",
+          "kind": "damage",
+          "description": "船体剖面标出进水、火、断桅和被困者；救援队、人手与小艇容量共同决定能做的事。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a3_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7",
+            "zheng_a5_s5"
+          ],
+          "primaryActions": [
+            "堵漏灭火",
+            "转派人手",
+            "抛货或砍桅",
+            "组织接人撤离"
+          ],
+          "states": [
+            "火势扩大",
+            "断桅压船",
+            "伤员待接"
+          ],
+          "defaultStateAliases": [
+            "漏水"
+          ]
+        },
+        {
+          "id": "battle-result",
+          "title": "海战结果",
+          "systemId": "settlement",
+          "kind": "result",
+          "description": "先显示胜负目标、人船安危、失踪和代价，再列货物、声望与关系变化；重要损失不被胜利标题遮住。",
+          "storyRefs": [
+            "zheng_a2_s7",
+            "zheng_a3_s3",
+            "zheng_a4_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s5"
+          ],
+          "primaryActions": [
+            "清点人船",
+            "查看战损",
+            "处理战利",
+            "返回港口"
+          ],
+          "states": [
+            "付出损船",
+            "失踪待寻",
+            "撤离保全"
+          ],
+          "defaultStateAliases": [
+            "目标完成"
+          ]
+        },
+        {
+          "id": "prize-distribution",
+          "title": "战利与分利",
+          "systemId": "settlement",
+          "kind": "distribution",
+          "description": "船壳、武器、可分货和争议民货分列；水手份、盟友份、修船预留和原主待辨账可逐项确认。",
+          "storyRefs": [
+            "zheng_a2_s7",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s4",
+            "zheng_a4_s6",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "辨认货主",
+            "预留船用",
+            "分配所得",
+            "记录未清事项"
+          ],
+          "states": [
+            "民货待辨",
+            "赔付优先",
+            "分配已确认"
+          ],
+          "defaultStateAliases": [
+            "可分配"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "port-trade",
+      "name": "港口与贸易",
+      "screens": [
+        {
+          "id": "port-hub",
+          "title": "港口街巷",
+          "systemId": "port",
+          "kind": "port",
+          "description": "港口场景上的货栈、市场、船坞、招募、官署和家宅为热点；靠泊船只与待办在侧边显示。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s1",
+            "zheng_a3_s7",
+            "zheng_a4_s4",
+            "zheng_a5_s2",
+            "zheng_a5_s3"
+          ],
+          "primaryActions": [
+            "进入市场",
+            "拜访人物",
+            "前往船坞",
+            "准备出航"
+          ],
+          "states": [
+            "澳门货栈",
+            "隐蔽锚地",
+            "港火之后"
+          ],
+          "defaultStateAliases": [
+            "平户邻里"
+          ]
+        },
+        {
+          "id": "market",
+          "title": "港口市场",
+          "systemId": "trade",
+          "kind": "market",
+          "description": "商品表与行情趋势、当前货舱和契约需求联动；粮、木、药、布、瓷、香料等用途清楚。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s1",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s7",
+            "zheng_a3_s10"
+          ],
+          "primaryActions": [
+            "选择商品",
+            "比较买卖价",
+            "加入交易单",
+            "查看货舱"
+          ],
+          "states": [
+            "库存不足",
+            "急需补给",
+            "货舱将满"
+          ],
+          "defaultStateAliases": [
+            "正常行情"
+          ]
+        },
+        {
+          "id": "trade-order",
+          "title": "成交清单",
+          "systemId": "trade",
+          "kind": "checkout",
+          "description": "购买与出售分别列行；数量步进、价银、费用、容量变化和最终余额即时反馈，确认前可回看。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a2_s8",
+            "zheng_a2_s5",
+            "zheng_a3_s7",
+            "zheng_a3_s10"
+          ],
+          "primaryActions": [
+            "调整数量",
+            "移除货项",
+            "确认成交",
+            "返回市场"
+          ],
+          "states": [
+            "银两不足",
+            "容量不足",
+            "成交完成"
+          ],
+          "defaultStateAliases": [
+            "余额充足"
+          ]
+        },
+        {
+          "id": "contract-board",
+          "title": "货栈委托",
+          "systemId": "contracts",
+          "kind": "board",
+          "description": "托运、护航、合货、修补与偿损差事按地点和条件排列；近期到期与责任范围先于报酬。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s5",
+            "zheng_a2_s3",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s2",
+            "zheng_a4_s2",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "筛选差事",
+            "查看契约",
+            "查看已接委托",
+            "定位交付港"
+          ],
+          "states": [
+            "进行中",
+            "待交割",
+            "有争议"
+          ],
+          "defaultStateAliases": [
+            "可接"
+          ]
+        },
+        {
+          "id": "contract-detail",
+          "title": "约定与交割",
+          "systemId": "contracts",
+          "kind": "contract",
+          "description": "契纸式条件清单旁列货物、路线、期限、担损方和分成；口头追加承诺单独显示。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a1_s5",
+            "zheng_a2_s5",
+            "zheng_a3_s2",
+            "zheng_a3_s3",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "检查履约条件",
+            "签下约定",
+            "提交交割",
+            "查看违约事项"
+          ],
+          "states": [
+            "条件不足",
+            "履约待验",
+            "欠损未清"
+          ],
+          "defaultStateAliases": [
+            "待签"
+          ]
+        },
+        {
+          "id": "black-market",
+          "title": "隐蔽锚地与销货",
+          "systemId": "trade",
+          "kind": "market",
+          "description": "夜锚场景结合换粮药、销货和消息摊位；争议货保留原主线索、折价和被追索的风险。",
+          "storyRefs": [
+            "zheng_a2_s7",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s8",
+            "zheng_a4_s6"
+          ],
+          "primaryActions": [
+            "议价销货",
+            "换取粮药",
+            "打听原主",
+            "暂存争议货"
+          ],
+          "states": [
+            "来路待辨",
+            "有人追索",
+            "买主拒收"
+          ],
+          "defaultStateAliases": [
+            "普通换货"
+          ]
+        },
+        {
+          "id": "supplies",
+          "title": "出航补给",
+          "systemId": "dock-services",
+          "kind": "provisioning",
+          "description": "按计划航段给出粮水、药材、木料、帆索和弹药建议；现有量、建议量、费用和占舱并排。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a2_s5",
+            "zheng_a3_s2",
+            "zheng_a3_s10",
+            "zheng_a4_s2",
+            "zheng_a5_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "按航路补齐",
+            "手动调整",
+            "预留救援物资",
+            "确认采购"
+          ],
+          "states": [
+            "水量不足",
+            "超出预算",
+            "容量冲突"
+          ],
+          "defaultStateAliases": [
+            "准备充足"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "journal",
+      "name": "日志与见闻",
+      "screens": [
+        {
+          "id": "quest-journal",
+          "title": "航海日志",
+          "systemId": "journal",
+          "kind": "journal",
+          "description": "主线、支线、委托和承诺为筛选页签；当前目标、下一地点和实际完成记录比任务等级更突出。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a1_s5",
+            "zheng_a1_s6",
+            "zheng_a2_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a2_s8",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s2",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s10",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a4_s1",
+            "zheng_a4_s2",
+            "zheng_a4_s6",
+            "zheng_a4_s3",
+            "zheng_a4_s4",
+            "zheng_a4_s5",
+            "zheng_a4_s7",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s6",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7",
+            "zheng_a5_s5",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3",
+            "zheng_a6_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "追踪目标",
+            "筛选事项",
+            "查看详情",
+            "定位海图"
+          ],
+          "states": [
+            "当前主线",
+            "待交割",
+            "承诺未清",
+            "已完成"
+          ]
+        },
+        {
+          "id": "quest-detail",
+          "title": "任务与后果",
+          "systemId": "journal",
+          "kind": "quest",
+          "description": "以目标步骤、人物、地点、证据和已经发生的后果构成详情；固定损失与可补办事项分开说明。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a4_s7",
+            "zheng_a5_s4",
+            "zheng_a5_s5",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "追踪当前步骤",
+            "查看相关人物",
+            "定位地点",
+            "阅读后续事项"
+          ],
+          "states": [
+            "目标进行中",
+            "完成有代价",
+            "固定结果"
+          ],
+          "defaultStateAliases": [
+            "准备执行"
+          ]
+        },
+        {
+          "id": "chronicle",
+          "title": "海上编年",
+          "systemId": "history",
+          "kind": "timeline",
+          "description": "1621—1646纵向编年带与六幕展开，重要史实节点、角色称呼变化和原创航次有不同标识。",
+          "storyRefs": [
+            "zheng_a1_s1",
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a1_s5",
+            "zheng_a1_s6",
+            "zheng_a2_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a2_s8",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s1",
+            "zheng_a3_s9",
+            "zheng_a3_s2",
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s10",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a4_s1",
+            "zheng_a4_s2",
+            "zheng_a4_s6",
+            "zheng_a4_s3",
+            "zheng_a4_s4",
+            "zheng_a4_s5",
+            "zheng_a4_s7",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s6",
+            "zheng_a5_s3",
+            "zheng_a5_s4",
+            "zheng_a5_s7",
+            "zheng_a5_s5",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3",
+            "zheng_a6_s4",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "跳转年份",
+            "展开相关场次",
+            "切换人物线",
+            "查看史料注"
+          ],
+          "states": [
+            "历史节点",
+            "跨年概括",
+            "原创航次",
+            "当前年份"
+          ]
+        },
+        {
+          "id": "intelligence",
+          "title": "情报与航路见闻",
+          "systemId": "journal",
+          "kind": "dossier",
+          "description": "按来源、日期、人物和海域排列消息；水程笺、旗号、线人说法与已核实事实有不同可信状态。",
+          "storyRefs": [
+            "zheng_a1_s6",
+            "zheng_a2_s6",
+            "zheng_a2_s7",
+            "zheng_a3_s9",
+            "zheng_a3_s8",
+            "zheng_a4_s6",
+            "zheng_a5_s6",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "按海域筛选",
+            "核对来源",
+            "关联海图",
+            "标记待查"
+          ],
+          "states": [
+            "未经核实",
+            "相互印证",
+            "已证伪",
+            "已过时"
+          ]
+        },
+        {
+          "id": "relationships",
+          "title": "人情与旧约",
+          "systemId": "relationships",
+          "kind": "relations",
+          "description": "人物关系图配承诺账；点开阿旺、杜七或田川氏，能看到支持、伤害、索求和自主选择的来因。",
+          "storyRefs": [
+            "zheng_a1_s4",
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a3_s4",
+            "zheng_a3_s5",
+            "zheng_a4_s5",
+            "zheng_a5_s4",
+            "zheng_a6_s3",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "查看人物诉求",
+            "查看承诺记录",
+            "回顾关键事件",
+            "筛选亲友盟伴"
+          ],
+          "states": [
+            "旧恩未偿",
+            "关系破裂",
+            "有限缓和"
+          ],
+          "defaultStateAliases": [
+            "互利同行"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "factions",
+      "name": "势力与海令",
+      "screens": [
+        {
+          "id": "factions",
+          "title": "海上诸势力",
+          "systemId": "factions",
+          "kind": "faction-map",
+          "description": "具体组织的旗号、控制海路、交易关系与近期行动组成势力图；同国籍角色可分属不同立场。",
+          "storyRefs": [
+            "zheng_a1_s6",
+            "zheng_a2_s6",
+            "zheng_a3_s9",
+            "zheng_a3_s2",
+            "zheng_a4_s3",
+            "zheng_a4_s4",
+            "zheng_a5_s6",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "筛选海域",
+            "查看势力",
+            "查看关系",
+            "打开外交"
+          ],
+          "states": [
+            "临时结盟",
+            "通路受制",
+            "交战"
+          ],
+          "defaultStateAliases": [
+            "可交易"
+          ]
+        },
+        {
+          "id": "faction-detail",
+          "title": "势力与来往",
+          "systemId": "factions",
+          "kind": "dossier",
+          "description": "组织来历、关键人物、掌握资源、已知要求和往来事件分栏；不以笼统国家善恶值替代当事者。",
+          "storyRefs": [
+            "zheng_a2_s6",
+            "zheng_a2_s8",
+            "zheng_a3_s9",
+            "zheng_a4_s1",
+            "zheng_a4_s4",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "查看关键人物",
+            "阅读往来记录",
+            "查看通行条件",
+            "提出交涉"
+          ],
+          "states": [
+            "情报不足",
+            "谈判中",
+            "关系紧张"
+          ],
+          "defaultStateAliases": [
+            "已知条件"
+          ]
+        },
+        {
+          "id": "diplomacy",
+          "title": "交涉与盟约",
+          "systemId": "factions",
+          "kind": "negotiation",
+          "description": "双方可付出的船、银、货、人手与通路摆在谈判桌两边；合伙、受抚与独立地位条款各有含义。",
+          "storyRefs": [
+            "zheng_a2_s8",
+            "zheng_a3_s2",
+            "zheng_a3_s8",
+            "zheng_a4_s1",
+            "zheng_a4_s2",
+            "zheng_a4_s4",
+            "zheng_a4_s5",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "提出条件",
+            "核对权责",
+            "接受约定",
+            "结束会谈"
+          ],
+          "states": [
+            "条件未落实",
+            "身份改变",
+            "对方拒绝"
+          ],
+          "defaultStateAliases": [
+            "互利可谈"
+          ]
+        },
+        {
+          "id": "sea-permits",
+          "title": "令旗与通行凭据",
+          "systemId": "factions",
+          "kind": "documents",
+          "description": "木筹、委托纸、保护旗和官身文书以实物卡呈现；逐份标出颁发者、有效海域、适用对象和已知漏洞。",
+          "storyRefs": [
+            "zheng_a1_s6",
+            "zheng_a3_s9",
+            "zheng_a4_s1",
+            "zheng_a4_s4",
+            "zheng_a5_s6"
+          ],
+          "primaryActions": [
+            "查验凭据",
+            "查看适用水域",
+            "关联航路",
+            "查看失效缘由"
+          ],
+          "states": [
+            "不被对方承认",
+            "旗号冒用",
+            "凭据已毁"
+          ],
+          "defaultStateAliases": [
+            "限段有效"
+          ]
+        },
+        {
+          "id": "bounty-board",
+          "title": "追索与悬赏",
+          "systemId": "factions",
+          "kind": "board",
+          "description": "民间追索、雇人报信与官府文告分栏；显示发布者、所求、可靠性和牵连，私人酬赏不套官府印。",
+          "storyRefs": [
+            "zheng_a3_s6",
+            "zheng_a3_s7",
+            "zheng_a3_s8",
+            "zheng_a4_s6"
+          ],
+          "primaryActions": [
+            "查看发布者",
+            "核对追索缘由",
+            "查看相关人",
+            "记录风险"
+          ],
+          "states": [
+            "来源存疑",
+            "本人被追索",
+            "后果已发生"
+          ],
+          "defaultStateAliases": [
+            "民间酬赏"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "name": "家园与家书",
+      "screens": [
+        {
+          "id": "home",
+          "title": "两岸家园",
+          "systemId": "household",
+          "kind": "home",
+          "description": "平户小屋与福建居所按年代切换，家人所在、来往船信、家用和未办家事直接落在住所场景。",
+          "storyRefs": [
+            "zheng_a2_s1",
+            "zheng_a2_s2",
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "探望家人",
+            "查看家书",
+            "处理家用",
+            "查看家庭近况"
+          ],
+          "states": [
+            "隔海两地",
+            "短暂重聚",
+            "分途之前"
+          ],
+          "defaultStateAliases": [
+            "初立屋檐"
+          ]
+        },
+        {
+          "id": "family",
+          "title": "家人与彼此的路",
+          "systemId": "household",
+          "kind": "family",
+          "description": "田川氏、福松和亲属以关系树与个人近况展示；愿望、责任、所在和待答复家事各自独立。",
+          "storyRefs": [
+            "zheng_a2_s2",
+            "zheng_a2_s3",
+            "zheng_a2_s4",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s7",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "查看家人近况",
+            "查看未复事项",
+            "回顾共同经历",
+            "查看人物责任"
+          ],
+          "states": [
+            "成家",
+            "迎子赴明",
+            "各有决定"
+          ],
+          "defaultStateAliases": [
+            "隔海抚育"
+          ]
+        },
+        {
+          "id": "child-growth",
+          "title": "福松、森与成功",
+          "systemId": "household",
+          "kind": "growth",
+          "description": "以出生、赴明、读书、求学、赐姓名和军务构成成长时间轴；称呼、年龄阶段和责任变化相互连接。",
+          "storyRefs": [
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a5_s7",
+            "zheng_a6_s1",
+            "zheng_a6_s2",
+            "zheng_a6_s3"
+          ],
+          "primaryActions": [
+            "查看成长节点",
+            "阅读相关家书",
+            "回顾父子经历",
+            "查看当前责任"
+          ],
+          "states": [
+            "幼年平户",
+            "求学成长",
+            "领受职分"
+          ],
+          "defaultStateAliases": [
+            "赴明蒙学"
+          ]
+        },
+        {
+          "id": "letters",
+          "title": "家书匣",
+          "systemId": "household",
+          "kind": "mailbox",
+          "description": "收信、寄信和在途信按人物与年份排列；船图、童谣和汇款附记可见，未知送达不会自动标成功。",
+          "storyRefs": [
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s7",
+            "zheng_a4_s5",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a6_s1",
+            "zheng_a6_s5"
+          ],
+          "primaryActions": [
+            "打开家书",
+            "筛选寄信人",
+            "查看在途信",
+            "写信寄银"
+          ],
+          "states": [
+            "已写未托",
+            "随船在途",
+            "送达不明"
+          ],
+          "defaultStateAliases": [
+            "已收到"
+          ]
+        },
+        {
+          "id": "letter-detail",
+          "title": "一封家书",
+          "systemId": "household",
+          "kind": "reader",
+          "description": "纸面正文是主区；寄收人、年月范围、托话人、附物和相关事件在页边，保留暖意与隐去的事实。",
+          "storyRefs": [
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s7",
+            "zheng_a4_s5",
+            "zheng_a5_s1",
+            "zheng_a5_s2",
+            "zheng_a6_s1"
+          ],
+          "primaryActions": [
+            "阅读全文",
+            "查看附物",
+            "回看信路",
+            "写回信"
+          ],
+          "states": [
+            "附船图童谣",
+            "寄款附记",
+            "回信待写"
+          ],
+          "defaultStateAliases": [
+            "家书原文展示"
+          ]
+        },
+        {
+          "id": "send-letter-remittance",
+          "title": "寄信与家用",
+          "systemId": "household",
+          "kind": "composer",
+          "description": "信中要答复的事项、计划说明和汇银数额分别填写；可选托寄船与联系人，底部预览对账。",
+          "storyRefs": [
+            "zheng_a2_s4",
+            "zheng_a2_s5",
+            "zheng_a3_s7",
+            "zheng_a4_s5",
+            "zheng_a6_s1"
+          ],
+          "primaryActions": [
+            "选择答复事项",
+            "填写寄银",
+            "选择托寄航路",
+            "封信托寄"
+          ],
+          "states": [
+            "待写",
+            "银两待筹",
+            "已经托寄"
+          ],
+          "defaultStateAliases": [
+            "找到托寄人"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "name": "结算与辅助",
+      "screens": [
+        {
+          "id": "voyage-result",
+          "title": "一航之后",
+          "systemId": "settlement",
+          "kind": "result",
+          "description": "沿航程回顾交割、遭遇、人船损失、收益与关系后果；最后给出下一件应办事项，而非只给总分。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a1_s4",
+            "zheng_a2_s7",
+            "zheng_a3_s1",
+            "zheng_a3_s3",
+            "zheng_a3_s10",
+            "zheng_a4_s7",
+            "zheng_a5_s4",
+            "zheng_a5_s7"
+          ],
+          "primaryActions": [
+            "查看净余",
+            "核对未清事项",
+            "安排下一航",
+            "保存生涯"
+          ],
+          "states": [
+            "顺利交割",
+            "获利但失援",
+            "货损待偿",
+            "人船保全"
+          ]
+        },
+        {
+          "id": "accounts",
+          "title": "船上账房",
+          "systemId": "settlement",
+          "kind": "ledger",
+          "description": "本航与累计收支分栏；自有银、托管款、家用、工钱、船损赔付和争议货形成可追查账目。",
+          "storyRefs": [
+            "zheng_a1_s5",
+            "zheng_a2_s5",
+            "zheng_a3_s2",
+            "zheng_a3_s7",
+            "zheng_a3_s8",
+            "zheng_a3_s4",
+            "zheng_a4_s2",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "按用途筛账",
+            "查看凭据",
+            "安排支付",
+            "核对余额"
+          ],
+          "states": [
+            "欠款未清",
+            "家用被挪"
+          ],
+          "defaultStateAliases": [
+            "周转充足",
+            "账目已核"
+          ]
+        },
+        {
+          "id": "tutorial",
+          "title": "掌船手册",
+          "systemId": "session-guidance",
+          "kind": "tutorial",
+          "description": "操作图示配短演练顺序；操船、风向、海图、交易、炮击、接舷和救援各自有一页可展开步骤。",
+          "storyRefs": [
+            "zheng_a1_s2",
+            "zheng_a1_s3",
+            "zheng_a2_s7",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "选择教程",
+            "开始步骤演示",
+            "重看提示",
+            "返回当前航次"
+          ],
+          "states": [
+            "可跳过",
+            "已学会",
+            "随时重看"
+          ],
+          "defaultStateAliases": [
+            "初次引导"
+          ]
+        },
+        {
+          "id": "defeat",
+          "title": "航次受挫",
+          "systemId": "session-guidance",
+          "kind": "failure",
+          "description": "用最后有效目标、直接原因、损失和可恢复位置说明受挫；剧情既定的沉船和失亲显示在结算而非重试惩罚。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a2_s7",
+            "zheng_a3_s3",
+            "zheng_a4_s7",
+            "zheng_a5_s4"
+          ],
+          "primaryActions": [
+            "从检查点重来",
+            "载入存档",
+            "查看原因与提示",
+            "返回主菜单"
+          ],
+          "states": [
+            "玩家操作失败",
+            "可恢复检查点",
+            "剧情损失另记"
+          ],
+          "defaultStateAliases": [
+            "没有可用存档"
+          ]
+        },
+        {
+          "id": "notification-log",
+          "title": "船上消息",
+          "systemId": "journal",
+          "kind": "activity",
+          "description": "按时间保留目标变更、物资不足、船员状态、凭据、信件和结算提示；可按紧急程度筛选并跳回相关页面。",
+          "storyRefs": [
+            "zheng_a1_s3",
+            "zheng_a2_s4",
+            "zheng_a3_s8",
+            "zheng_a3_s3",
+            "zheng_a4_s4",
+            "zheng_a5_s3",
+            "zheng_a6_s4"
+          ],
+          "primaryActions": [
+            "筛选消息",
+            "查看相关事项",
+            "标记已读",
+            "定位当前目标"
+          ],
+          "states": [
+            "紧急待办",
+            "普通见闻",
+            "已读",
+            "相关事项已结束"
+          ]
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "first-voyage",
+      "title": "澳门首航：接差、配载、抢潮与货损",
+      "screenIds": [
+        "main-menu",
+        "new-career",
+        "chapter-select",
+        "scene-briefing",
+        "dialogue",
+        "contract-detail",
+        "cargo-hold",
+        "crew-assign",
+        "route-plan",
+        "weather-wind",
+        "sailing-hud",
+        "battle-damage",
+        "voyage-result",
+        "quest-detail",
+        "save-game"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a1_s4",
+        "zheng_a1_s5"
+      ]
+    },
+    {
+      "id": "port-trade-loop",
+      "title": "到港经营：交割、交易、补给与再出航",
+      "screenIds": [
+        "port-hub",
+        "contract-board",
+        "contract-detail",
+        "market",
+        "trade-order",
+        "cargo-hold",
+        "supplies",
+        "ship-repair",
+        "route-plan",
+        "sailing-hud",
+        "voyage-result",
+        "accounts"
+      ],
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a2_s1",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s7",
+        "zheng_a3_s10"
+      ]
+    },
+    {
+      "id": "first-prize",
+      "title": "借他的旗：索路、反制、夺船与争议货",
+      "screenIds": [
+        "sea-encounter",
+        "dialogue",
+        "decision",
+        "equipment",
+        "battle-hud",
+        "boarding",
+        "battle-result",
+        "prize-distribution",
+        "ship-overview",
+        "inventory",
+        "item-detail"
+      ],
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7"
+      ]
+    },
+    {
+      "id": "crew-livelihood",
+      "title": "聚众与生计：雇用、岗位、分利与自主离队",
+      "screenIds": [
+        "crew-recruit",
+        "crew-detail",
+        "crew-roster",
+        "crew-assign",
+        "crew-morale",
+        "accounts",
+        "relationships",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s9",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s2",
+        "zheng_a6_s4"
+      ]
+    },
+    {
+      "id": "lost-support",
+      "title": "护粮失援：船队调度、损船与未清赔付",
+      "screenIds": [
+        "fleet",
+        "contract-detail",
+        "battle-orders",
+        "battle-hud",
+        "battle-damage",
+        "battle-result",
+        "voyage-result",
+        "crew-detail",
+        "accounts",
+        "relationships"
+      ],
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a3_s4",
+        "zheng_a4_s3"
+      ]
+    },
+    {
+      "id": "cross-cultural-passage",
+      "title": "跨文化航路：来船、凭据与互利脱险",
+      "screenIds": [
+        "sea-chart",
+        "destination-detail",
+        "intelligence",
+        "sea-encounter",
+        "dialogue",
+        "diplomacy",
+        "sea-permits",
+        "crew-morale",
+        "ship-repair",
+        "accounts"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a3_s9",
+        "zheng_a3_s10"
+      ]
+    },
+    {
+      "id": "official-flag",
+      "title": "两次受抚与同旗纠纷",
+      "screenIds": [
+        "factions",
+        "faction-detail",
+        "diplomacy",
+        "dialogue",
+        "sea-permits",
+        "bounty-board",
+        "sea-encounter",
+        "boarding",
+        "battle-result",
+        "relationships",
+        "chronicle"
+      ],
+      "storyRefs": [
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s4",
+        "zheng_a4_s5",
+        "zheng_a5_s6"
+      ]
+    },
+    {
+      "id": "bay-rescue",
+      "title": "湾口救援：截击、停火、接舷与接回人质",
+      "screenIds": [
+        "history-notes",
+        "scene-briefing",
+        "sea-chart",
+        "fleet",
+        "battle-hud",
+        "battle-orders",
+        "ammo-loading",
+        "boarding",
+        "battle-damage",
+        "battle-result",
+        "ship-repair",
+        "accounts"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7"
+      ]
+    },
+    {
+      "id": "liaoluo-fire-attack",
+      "title": "料罗湾：集结、候风、火攻与兑现接应",
+      "screenIds": [
+        "scene-briefing",
+        "intelligence",
+        "fleet",
+        "ship-refit",
+        "supplies",
+        "weather-wind",
+        "battle-orders",
+        "battle-hud",
+        "ammo-loading",
+        "battle-damage",
+        "battle-result",
+        "relationships",
+        "chronicle"
+      ],
+      "storyRefs": [
+        "zheng_a5_s3",
+        "zheng_a5_s4"
+      ]
+    },
+    {
+      "id": "family-across-sea",
+      "title": "两岸有家：通信、家用与下一代成长",
+      "screenIds": [
+        "home",
+        "family",
+        "letters",
+        "letter-detail",
+        "item-detail",
+        "send-letter-remittance",
+        "accounts",
+        "child-growth",
+        "dialogue",
+        "chronicle"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s7",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a6_s1",
+        "zheng_a6_s2"
+      ]
+    },
+    {
+      "id": "fixed-final-act",
+      "title": "1646分途：各人的决定与未回的船",
+      "screenIds": [
+        "chapter-select",
+        "scene-briefing",
+        "family",
+        "dialogue",
+        "relationships",
+        "fleet",
+        "crew-detail",
+        "accounts",
+        "ending",
+        "history-notes"
+      ],
+      "storyRefs": [
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ]
+    },
+    {
+      "id": "accessible-recovery",
+      "title": "学习、暂停与恢复生涯",
+      "screenIds": [
+        "settings",
+        "accessibility",
+        "tutorial",
+        "sailing-hud",
+        "pause-menu",
+        "save-game",
+        "defeat",
+        "load-game",
+        "notification-log"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a2_s7",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ]
+    },
+    {
+      "id": "research-preview",
+      "title": "实验室：可见对照与证据边界",
+      "screenIds": [
+        "main-menu",
+        "laboratory",
+        "experiment-detail",
+        "settings"
+      ],
+      "storyRefs": []
+    }
+  ],
+  "underlyingSystems": [
+    {
+      "id": "foundation-input-camera",
+      "name": "输入、操船辅助与镜头",
+      "priority": "P0",
+      "purpose": "将玩家意图稳定地传给游戏权威，并提供舒适、可访问的操船和观察。",
+      "owners": [
+        "场景输入适配器",
+        "SailingSimulation",
+        "ShipCameraController"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有基础",
+        "summary": "正式航行设计说明沿用mouse_course、casual/manual assist和camera controller；当前所有权文档记录鼠标航向／键盘意图进入Encounter，暂停清输入。镜头与UI仅消费确认状态，不反写船体物理。"
+      },
+      "designTargets": [
+        "72页原型统一点击、返回、焦点和快捷键约定",
+        "原生接入继续复用鼠标目标航向、可选手动微调、环绕与缩放",
+        "补足失焦、弹窗、输入框、暂停、按键重映射和减少晃动的回归",
+        "镜头跟随不改变碰撞、吃水和伤害结果"
+      ],
+      "mappedPages": [
+        "sailing-hud",
+        "sea-chart",
+        "battle-hud",
+        "battle-orders",
+        "settings",
+        "accessibility",
+        "pause-menu",
+        "tutorial"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-14-playable-voyage-design.md",
+          "use": "记录现有操船与镜头复用路径及正式入口验证要求"
+        }
+      ],
+      "verificationBoundary": "本轮只查阅文档、设计网页交互；未重新运行原生输入、操船或镜头验收。"
+    },
+    {
+      "id": "foundation-navigation-physics",
+      "name": "航行运动、海水采样与碰撞",
+      "priority": "P0",
+      "purpose": "保持船体运动、浅水、弹道与业务伤害的统一数值权威。",
+      "owners": [
+        "MingqiRuntime／NavalPracticeRuntime",
+        "Encounter",
+        "ShipDynamics",
+        "OceanAdapter",
+        "Jolt视觉撞击适配器"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有实现与有限验收",
+        "summary": "架构验收记录统一OceanAdapter、height-only标量采样、内部step_in_place和公开detached快照；60Hz固定tick由唯一frame owner预算。Jolt人物撞击负责表现，不决定业务伤害。"
+      },
+      "designTargets": [
+        "郑芝龙新战役接入既有接受时间与纯数值合同，不新建第二套航行时钟",
+        "近岸可达、搁浅、船体相撞、装载影响和拖带结果在UI中有可读状态",
+        "暂停、重入、倍率、frame预算耗尽和同刻查询继续保持既有语义",
+        "新玩法涉及真实求解器变化时先立课题并保存反例"
+      ],
+      "mappedPages": [
+        "sailing-hud",
+        "route-plan",
+        "weather-wind",
+        "ship-overview",
+        "cargo-hold",
+        "battle-hud",
+        "battle-damage",
+        "ship-repair"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/architecture/convergence-acceptance-2026-10-21.md",
+          "use": "记录物理采样与固定tick的历史验收范围，不能代替本轮新战役实测"
+        }
+      ],
+      "verificationBoundary": "已有物理合同不等于43场战役可玩；本轮未改变求解器，也未复测碰撞或整场帧率。"
+    },
+    {
+      "id": "foundation-render-world",
+      "name": "海面、天气、地形与世界渲染",
+      "priority": "P0",
+      "purpose": "使海水、天空、岸浪、岛屿、船体和光照消费同一份已接受世界状态。",
+      "owners": [
+        "WorldView",
+        "NaturalWorld／NaturalShoreSurf",
+        "Atmosphere／WorldCloudLifecycle",
+        "WeatherState",
+        "ShipView"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有实现，验收范围有限",
+        "summary": "所有权文档记录天气RNG、主／反射视图、海面地形、自然岸浪和移动云的独立所有者；源时间、可见性、材质提交和释放各有合同。验收记录保留未达全场性能目标的事实。"
+      },
+      "designTargets": [
+        "网页以画面、风向、云雾和场景图表达设计，不冒充动态Godot效果",
+        "新战役的海域、港口与天气变化通过既有世界状态及资源接口接入",
+        "保持海面与物理同一波高／水位合同，禁止shader隐式墙钟推进",
+        "岸浪、云与反射的裁剪和恢复须有同刻、重入、质量切换和连续原帧证据"
+      ],
+      "mappedPages": [
+        "main-menu",
+        "sailing-hud",
+        "weather-wind",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "laboratory",
+        "experiment-detail"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/architecture/convergence-2026-10-21.md",
+          "use": "说明environment／scene／presentation的分层和拒绝全量推倒重写"
+        },
+        {
+          "path": "docs/architecture/convergence-acceptance-2026-10-21.md",
+          "use": "记录具体GPU验证范围和仍开放的整场性能门槛"
+        }
+      ],
+      "verificationBoundary": "本轮未运行GPU实验。静态图与网页过渡动画不证明海面、天气或反射已达到原生视觉与性能验收。"
+    },
+    {
+      "id": "foundation-fx-pools",
+      "name": "粒子、尾迹与短生命效果资源",
+      "priority": "P0",
+      "purpose": "统一效果事件、容量、回收和失效约定，同时保留粒子与水表现的独立资源所有者。",
+      "owners": [
+        "CombatEffects",
+        "SourceEffect／ParticleRuntime",
+        "SourceWakeRenderer",
+        "InteractiveWakeSystem",
+        "WaterSplashes"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有独立池与批处理",
+        "summary": "当前合同记录炮火原资源池与系统batch、每船尾迹／接触水沫和最多3船的局部交互水GPU场；水花、短生命破坏叠层、事件去重各有容量及回收。覆盖隐藏时仍推进源尾迹历史，同刻失覆盖须恢复。"
+      },
+      "designTargets": [
+        "统一事件ID、接受时间、明确种子、容量诊断和销毁回执，不把所有效果塞进单一万能池",
+        "炮口火、烟、命中、落水、焚船和沉没由业务事件驱动，不能反写伤害",
+        "大舰队时逐项处理GPU覆盖容量和原尾迹fallback，不能由局部3船能力推定无限船数",
+        "验证连续炮火、暂停、覆盖切换、场景退出和池满后的恢复"
+      ],
+      "mappedPages": [
+        "battle-hud",
+        "ammo-loading",
+        "battle-damage",
+        "battle-result",
+        "sailing-hud",
+        "fleet",
+        "laboratory",
+        "experiment-detail"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/architecture/convergence-acceptance-2026-10-21.md",
+          "use": "记录尾迹同刻恢复、GPU资源复用，以及大舰队／长时炮火压力尚待验证"
+        }
+      ],
+      "verificationBoundary": "“统一”指共享合同与可观测性；现有尾迹和炮火并非同一个池。本轮不新建效果池，不宣称大规模吞吐已通过。"
+    },
+    {
+      "id": "foundation-ai-fleet",
+      "name": "船只AI、导航与舰队调度",
+      "priority": "P0",
+      "purpose": "使敌我船只理解明确任务、共享海上时空，并在失援、护送与火攻中交出可追踪结果。",
+      "owners": [
+        "Encounter",
+        "SailingSimulation",
+        "MingqiRuntime",
+        "Campaign命令层"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有海战基础，新战役调度为目标",
+        "summary": "架构记录Encounter拥有操船／AI／炮战、控制订单和有序事件，runtime负责固定tick、暂停和近远场协调。现有设计不是43场剧情调度已经接入的证据。"
+      },
+      "designTargets": [
+        "在原生订单上表达护送、牵制、封口、回援、撤离与接人，UI显示执行者和已确认状态",
+        "区分玩家自有船、独立盟船和临时同行，拒绝响应需保留人物与契约理由",
+        "火攻与复杂救援使用明确阶段、失败和撤退条件，不靠瞬移或脚本假结算",
+        "寻路受阻、浅水、目标失效、船沉与epoch变化后有可观察恢复路径"
+      ],
+      "mappedPages": [
+        "fleet",
+        "crew-assign",
+        "battle-orders",
+        "battle-hud",
+        "sea-encounter",
+        "route-plan",
+        "battle-damage"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-11-godot-migration-design.md",
+          "use": "记录导航、AI、近远场与命令receipt的迁移设计要求；其中目标不自动视为现有完成项"
+        }
+      ],
+      "verificationBoundary": "本轮未审计AI具体代码和所有战术覆盖；只依据架构文档确认已有基础，新增战役行为全部列设计目标。"
+    },
+    {
+      "id": "foundation-story-events",
+      "name": "任务、对话、事件与战役数据",
+      "priority": "P0",
+      "purpose": "把唯一剧本转为可版本化、可追踪、可验证的战役内容与事件合同。",
+      "owners": [
+        "Campaign纯数据",
+        "独立郑芝龙profile（设计目标）",
+        "章场／任务／对话数据装配器（设计目标）"
+      ],
+      "existingImplementation": {
+        "status": "已有剧本数据与旧战役基础，新战役接入待实施",
+        "summary": "唯一剧本含六幕43场及任务、正文、人物对白、戏剧决定和史料注；当前全部choices为空。既有说明明确1650剧情不是通用脚本引擎，不能改标签后把郑氏生涯塞进严格v2存档。"
+      },
+      "designTargets": [
+        "本轮网页从唯一JSON生成章场、搜索、人物、史料和页面关联",
+        "未来原生郑氏战役使用独立profile、海域、任务状态与真实操作凭证",
+        "任务完成依赖交易、航行、战斗、救援等确认事件；UI不能直接改写结算",
+        "局部选择与固定历史事实分层；事件幂等、顺序、未达条件和恢复须验证"
+      ],
+      "mappedPages": [
+        "chapter-select",
+        "scene-briefing",
+        "dialogue",
+        "decision",
+        "quest-journal",
+        "quest-detail",
+        "chronicle",
+        "history-notes",
+        "ending",
+        "notification-log"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/narrative/zheng-zhilong-story.json",
+          "use": "本轮唯一43场内容源及真实scene ID"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-21-zheng-illustrated-screenplay-design.md",
+          "use": "记录旧战役身份、独立profile和剧本阅读不等于可玩战役的边界"
+        },
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        }
+      ],
+      "verificationBoundary": "43场可阅读、可导航与原生战役可玩是不同结论；本轮只交付UI原型与数据映射。"
+    },
+    {
+      "id": "foundation-save-recovery",
+      "name": "存档版本、原子保存与恢复",
+      "priority": "P0",
+      "purpose": "使生涯、账目、人船状态和来源身份可安全保存与恢复。",
+      "owners": [
+        "App／Main",
+        "GameRouter",
+        "SaveCoordinator",
+        "SaveCodec"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有事务与Codec修正，新profile待设计",
+        "summary": "架构把设置／存档事务放在App入口，场景候选成功后交换；正常存档往返记录说明Codec已做精度与整数边界修正。旧1650与1661身份及未知版本拒绝合同须保留。"
+      },
+      "designTargets": [
+        "网页演示状态使用独立键与版本，不触碰Godot user://个人存档",
+        "郑氏原生战役需新profile／schema与明确迁移表，不复用旧v2假身份",
+        "保存写入失败保留上一个验证检查点，载入先校验再提交",
+        "测试反复导入不重复奖励、存档中断、非法数据、版本拒绝及正常Continue"
+      ],
+      "mappedPages": [
+        "new-career",
+        "load-game",
+        "pause-menu",
+        "save-game",
+        "defeat",
+        "voyage-result",
+        "accounts"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/superpowers/plans/opening-story-work/task-canonical-save-roundtrip.md",
+          "use": "记录正常磁盘Save／Continue精确往返问题、有限Codec修正及既有验证范围"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-11-godot-migration-design.md",
+          "use": "提供原生独立格式、未知版本拒绝和写入失败恢复的设计要求"
+        }
+      ],
+      "verificationBoundary": "本轮未运行SaveCodec或磁盘恢复测试，也不将网页localStorage演示称作原生存档接入。"
+    },
+    {
+      "id": "foundation-audio",
+      "name": "音乐、环境声、对白与战斗声音",
+      "priority": "P1",
+      "purpose": "通过分层音频解释港市、风浪、危险、装填、炮击和人物亲密，不抢占阅读。",
+      "owners": [
+        "场景声音适配器",
+        "音频资源与混音总线（设计目标）"
+      ],
+      "existingImplementation": {
+        "status": "文档记录声音适配职责，完整音频覆盖未核验",
+        "summary": "当前架构将镜头／UI／声音归为消费确认状态的场景适配器；迁移设计列明保留音乐和声音资产。未从这些说明推断43场配音或完整混音已存在。"
+      },
+      "designTargets": [
+        "音乐、环境、对白、炮击和UI提示可分别调音与静音",
+        "关键危险同时提供文字／图形反馈，音效不作为唯一信息通路",
+        "同一战斗事件避免重复播放；密集炮击采用并发和优先级预算",
+        "切场、暂停、回读、字幕与减少强刺激设置有明确声音行为"
+      ],
+      "mappedPages": [
+        "settings",
+        "accessibility",
+        "dialogue",
+        "sailing-hud",
+        "battle-hud",
+        "ammo-loading",
+        "battle-damage",
+        "home",
+        "ending"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-11-godot-migration-design.md",
+          "use": "说明声音表现适配与音乐资产保留属于迁移范围"
+        }
+      ],
+      "verificationBoundary": "未核验本机音频资源许可、配音覆盖、播放或混音质量。网页可静音演示，不能用无声界面声称音频系统完成。"
+    },
+    {
+      "id": "foundation-ui-localization",
+      "name": "UI路由、文案、本地化与无障碍",
+      "priority": "P0",
+      "purpose": "让72页组成统一可返回、可定位、可读且可扩展语言的界面系统。",
+      "owners": [
+        "网页原型路由与演示状态（本轮）",
+        "GameRouter／原生Control适配（已有基础）",
+        "文案键与语言资源（设计目标）"
+      ],
+      "existingImplementation": {
+        "status": "原生路由与设置已有文档，72页整合和本地化为目标",
+        "summary": "文档记录Main＋GameRouter的generation／nonce候选交换、UserSettings确认快照及UI不作第二业务权威。完整本地化、键盘覆盖和72页共用路由未在本轮文档审计中证实。"
+      },
+      "designTargets": [
+        "每页固定ID、标题、系统归属、入口、返回路径与可链接预览",
+        "页内操作只通过统一演示命令更新本地状态；危险动作有具体确认与结果反馈",
+        "中文产品文案与数据ID分离，未来用语言资源支持文本长度变化和缺译回退",
+        "键盘焦点、字号、字幕、形状标识、减少动态和窄屏布局必须实际验证"
+      ],
+      "mappedPages": [
+        "main-menu",
+        "settings",
+        "accessibility",
+        "chapter-select",
+        "dialogue",
+        "sea-chart",
+        "inventory",
+        "crew-roster",
+        "battle-hud",
+        "port-hub",
+        "letters",
+        "pause-menu"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/design/game-ui/systems.md",
+          "use": "定义30玩法系统、72页、布局职责、交互状态和原型边界"
+        },
+        {
+          "path": "docs/design/game-ui/systems.json",
+          "use": "机器可读页面与流程ID，供路由和预览目录使用"
+        }
+      ],
+      "verificationBoundary": "本轮目标是网页原型；该记录本身不证明72页交互、所有语言或无障碍已验收，须由实际网页测试提供证据。"
+    },
+    {
+      "id": "foundation-streaming-performance",
+      "name": "资源加载、LOD、生命周期与性能预算",
+      "priority": "P0",
+      "purpose": "在资源可追溯、实例独立、可回收的前提下控制世界与舰队成本。",
+      "owners": [
+        "AssetLibrary",
+        "WorldView／NaturalWorld",
+        "ShipView／CrewView",
+        "各场景资源所有者"
+      ],
+      "existingImplementation": {
+        "status": "文档记录已有缓存、LOD与裁剪，整场性能仍未达标",
+        "summary": "当前文档记录PackedScene缓存、每实例独立Skeleton、camera_chunks地形生命周期和Crew近中远分配；验收记录说明imported-first因27模型差异未采用。历史整场平均72.653ms不满足16.67ms预算。"
+      },
+      "designTargets": [
+        "新战役资源通过清单、来源、许可、散列与导出可达性管理",
+        "新增流式预载先给真实卡顿或内存基线，不预设全项目异步重写",
+        "按船数、人物数、粒子和视图维持容量预算，LOD不能删除已接受的3D人物",
+        "固定硬件、质量、分辨率、种子和输入测首帧、稳态、p50／p95与峰值资源；释放以正确回执确认"
+      ],
+      "mappedPages": [
+        "settings",
+        "ship-overview",
+        "fleet",
+        "sailing-hud",
+        "battle-hud",
+        "port-hub",
+        "laboratory",
+        "experiment-detail"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        },
+        {
+          "path": "docs/architecture/convergence-acceptance-2026-10-21.md",
+          "use": "记录实际历史硬件负载、性能数据、未采用资产路径和仍开放的压力／导出门槛"
+        },
+        {
+          "path": "docs/research/README.md",
+          "use": "规定性能测量范围、固定输入、原始样本与不可混用的证据类型"
+        }
+      ],
+      "verificationBoundary": "72.653ms是2026-10-21文档中的特定场景历史记录，本轮未复测；不能外推新战役、大舰队、所有硬件或网页性能。"
+    },
+    {
+      "id": "foundation-laboratory-evidence",
+      "name": "实验室、研究登记与证据管理",
+      "priority": "P0",
+      "purpose": "使新增表现、玩法算法与性能方案先有可复现实验，再经明确接口接入。",
+      "owners": [
+        "Laboratory host",
+        "课题catalog",
+        "每个独立Demo及其资源所有者",
+        "证据manifest与原帧"
+      ],
+      "existingImplementation": {
+        "status": "已有研究宿主与登记合同，单项状态按证据区分",
+        "summary": "研究流程定义独立SubViewport／World3D、宿主唯一推进、configure／advance／reset／pause／inspection／dispose与生产存档隔离；catalog和报告记录课题各自状态。登记不自动等于有Demo或已验证。"
+      },
+      "designTargets": [
+        "网页保留统一实验室入口及课题、参数、对照、报告和限制的可见结构",
+        "新算法复用已有课题或建立唯一ID，先保存问题、基线、假设、标准与反例",
+        "CPU合同、真实GPU、性能、正式集成分别记回执，不用截图或微基准代替其余证据",
+        "暂停、同刻重置、换相机、切课题与退出须保持生产状态、RNG和资源边界"
+      ],
+      "mappedPages": [
+        "main-menu",
+        "laboratory",
+        "experiment-detail",
+        "settings",
+        "pause-menu"
+      ],
+      "evidenceDocs": [
+        {
+          "path": "docs/research/README.md",
+          "use": "研究、实验、证据、性能与集成的执行流程"
+        },
+        {
+          "path": "docs/research/TOPIC_TEMPLATE.md",
+          "use": "课题必填的问题、假设、实验、局限与复现要求"
+        },
+        {
+          "path": "assets/research/catalog.json",
+          "use": "实际登记入口及单项课题状态；不能由存在条目推断完成"
+        },
+        {
+          "path": "docs/architecture/runtime-ownership.md",
+          "use": "记录唯一状态与资源所有者、输入输出、接受时间及容量合同"
+        }
+      ],
+      "verificationBoundary": "本轮只映射实验室UI和现有研究合同，未新建或运行原生算法课题；不修改历史证据。"
+    }
+  ]
+}

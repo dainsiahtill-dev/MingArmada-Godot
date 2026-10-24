@@ -1,0 +1,1712 @@
+{
+  "title": "一官入海",
+  "subtitle": "五幕重写本 · 文学剧本第四稿 · 1621—1646",
+  "logline": "一个不愿再被别人当作筹码的海上青年，靠替人担保、冒险与结盟取得自己的船。他一度能替众船挡住刀与炮，后来也学会把伙伴和妻儿放进自己的安排。等他试图为全家买下一条活路，最亲的人却不肯再由他答应。",
+  "version": "v5-five-act-rewrite-2026-10-22",
+  "narrativeContract": {
+    "revision": 5,
+    "acts": 5,
+    "scenesPerAct": 4,
+    "canonicalPrefix": "yiguan"
+  },
+  "legacySceneAliases": {
+    "zheng_a1_s1": "yiguan_a1_s1",
+    "zheng_a1_s2": "yiguan_a1_s1",
+    "zheng_a1_s3": "yiguan_a1_s2",
+    "zheng_a1_s4": "yiguan_a1_s3",
+    "zheng_a1_s5": "yiguan_a1_s3",
+    "zheng_a1_s6": "yiguan_a1_s4",
+    "zheng_a2_s1": "yiguan_a2_s1",
+    "zheng_a2_s2": "yiguan_a2_s1",
+    "zheng_a2_s3": "yiguan_a2_s2",
+    "zheng_a2_s4": "yiguan_a2_s4",
+    "zheng_a2_s5": "yiguan_a2_s4",
+    "zheng_a2_s6": "yiguan_a2_s2",
+    "zheng_a2_s7": "yiguan_a2_s3",
+    "zheng_a2_s8": "yiguan_a3_s2",
+    "zheng_a3_s1": "yiguan_a3_s1",
+    "zheng_a3_s2": "yiguan_a3_s1",
+    "zheng_a3_s3": "yiguan_a3_s3",
+    "zheng_a3_s4": "yiguan_a3_s4",
+    "zheng_a3_s5": "yiguan_a4_s1",
+    "zheng_a3_s6": "yiguan_a3_s1",
+    "zheng_a3_s7": "yiguan_a3_s1",
+    "zheng_a3_s8": "yiguan_a3_s2",
+    "zheng_a3_s9": "yiguan_a3_s2",
+    "zheng_a3_s10": "yiguan_a3_s2",
+    "zheng_a4_s1": "yiguan_a4_s1",
+    "zheng_a4_s2": "yiguan_a4_s1",
+    "zheng_a4_s3": "yiguan_a4_s2",
+    "zheng_a4_s4": "yiguan_a4_s2",
+    "zheng_a4_s5": "yiguan_a5_s1",
+    "zheng_a4_s6": "yiguan_a4_s1",
+    "zheng_a4_s7": "yiguan_a4_s3",
+    "zheng_a5_s1": "yiguan_a4_s3",
+    "zheng_a5_s2": "yiguan_a4_s3",
+    "zheng_a5_s3": "yiguan_a4_s3",
+    "zheng_a5_s4": "yiguan_a4_s3",
+    "zheng_a5_s5": "yiguan_a4_s4",
+    "zheng_a5_s6": "yiguan_a5_s1",
+    "zheng_a5_s7": "yiguan_a5_s1",
+    "zheng_a6_s1": "yiguan_a5_s2",
+    "zheng_a6_s2": "yiguan_a5_s3",
+    "zheng_a6_s3": "yiguan_a5_s4",
+    "zheng_a6_s4": "yiguan_a5_s4",
+    "zheng_a6_s5": "yiguan_a5_s4"
+  },
+  "illustrationStatus": "ready",
+  "illustrationStatusNote": "本轮完成正文重写。沿用经来源归档的旧稿图片作情境参考，非新稿逐场新绘；不符的三场主图和一幅结尾舟影暂缓，不让旧画改变新剧情。",
+  "characters": [
+    {
+      "name": "郑芝龙／一官",
+      "role": "历史人物，主角；不锁定有争议的生年与早年确切年龄",
+      "desire": "不再靠别人给一处船位活命，让自己与身边的人不被随意舍弃。",
+      "arc": "机敏、爱体面，也有救人的勇气；习惯先替别人应下，再靠把事做成来补解释。真实本领使这一招屡次奏效，损失则使他愈发要控制所有人的退路。降清不是忽然变蠢，是旧方法在新权力面前失败；个人缺陷不替代全部史因。"
+    },
+    {
+      "name": "田川氏／松",
+      "role": "历史人物；具体早年家庭、私生活及对白为创作",
+      "desire": "经营可一起生活的家，同时保有自己的知情与决定。",
+      "arc": "主动与一官成家、出钱租屋、同样向往好日子；她不预知丈夫全部败局，也不能用忍耐让他改变。送子与渡海都是真决定，最后留箱仍有爱，不以预言或训诫赢得道德胜利。"
+    },
+    {
+      "name": "福松／郑森／郑成功",
+      "role": "历史人物；1624出生、1630赴明、1638县学、1644太学、1645赐姓改名",
+      "desire": "幼时认父，成年后承担自己领受的名分与责任，不只做被接走的人。",
+      "arc": "父亲的庇护、财力与教育都真实有益；他也从这些书、账和承诺中学会问父亲不愿回答的问题。1646拒随有长期积累，不用重复未亲历的澳门台词来完成精神独立。"
+    },
+    {
+      "name": "杜七",
+      "role": "原创海上盟友，与真实人物无一一对应；顺生为船名",
+      "desire": "自己领船、兑现伙伴之间的平等与回援，也争自己的利。",
+      "arc": "会分赃、抢货，也交出真本钱救一官。误信让恩情加深，揭密使亲密不能恢复；1628失左手，后来仍可能劫错人，最终失船存活，不靠壮烈一死被洗白。"
+    },
+    {
+      "name": "林阿旺",
+      "role": "原创船匠与舵工，阿禾叔父",
+      "desire": "凭手艺养人，知道自己掌的船会把谁带到哪里；晚年回女儿身边住下。",
+      "arc": "被救后肯共患难，却非无限保人。他既会在压力中沉默，也渐渐坚持掌舵者的判断。1646提箱回家，终止了总被下一航推迟的承诺。"
+    },
+    {
+      "name": "林阿禾",
+      "role": "原创水手；1621约13，1626约18，1628约20",
+      "desire": "从被准许上船的孩子成为能对人负责、也能拒绝调遣的船工。",
+      "arc": "见证撤援，受伤后依赖叔父、药钱与同伙，不敢说出真相；隐瞒的责任首先属于作决定和施压的成年人。重见援旗使沉默破裂，随后搜救和留海是自己承担，不等于原谅。"
+    },
+    {
+      "name": "陈添",
+      "role": "原创伙计、书记与传话者",
+      "desire": "不失差事、不当败局的替罪者，也不愿眼看旧事重演。",
+      "arc": "从解缆到假传、改写航记，逐步参与谎言；不是口误造成偶然惨祸。后来坚持损船与死伤都报、未到的人不算齐，没有一场忏悔便抵销旧债。"
+    },
+    {
+      "name": "郑芝虎",
+      "role": "历史人物；具体手足互动与搜索场面为创作",
+      "desire": "在兄长的事业中有所作为，也按自己的急与勇行事。",
+      "arc": "先有拌嘴、护衣、吃饭和战场配合，1635未归才有具体失落。死亡方式不拍定；其损失推动芝龙控制亲人，但不把创伤写成免罪理由。"
+    },
+    {
+      "name": "阮老六",
+      "role": "原创海盗头目",
+      "desire": "靠地利、武力与别人急着赶路谋利。",
+      "arc": "看穿旧筹与假旗，败后活逃，知道一官候抚缺粮便设空米船局；不是每章重置的愚蠢敌人。"
+    },
+    {
+      "name": "黄程",
+      "role": "有来源的澳门亲族接引者；本剧交易、对白为F",
+      "desire": "给亲族机会，但不无限替错误承担损失。",
+      "arc": "不因救人便抹去先前越权，也不将青年永远逐出门；明确契约使一官第一次拿自己的未来而非别人手艺作押。"
+    },
+    {
+      "name": "李旦、颜思齐；蔡善继、熊文灿；许心素、刘香；荷方公司及华商代理",
+      "role": "历史网络、官员、对手和机构背景；代理等为合成人物",
+      "desire": "各有商路、部众、职务与政治利益，不以国籍或官盗名号给出统一性格。",
+      "arc": "不扩成一次性奇遇主角。具体私人暗谋、索酬、劫货与家中场景不据机构史自动成立；史实与F见逐场注。"
+    }
+  ],
+  "acts": [
+    {
+      "id": "act-1",
+      "title": "借来的舌头",
+      "years": "1621—约1623",
+      "synopsis": "一官用抢答争来船位，代价却先落在掌船人与藏船孩子身上。他救回人，也试图藏起自己的责任；等他终于肯认，赴日的位置已经没有了。为了登上下一条船，他将尚未挣到的分成押出去。",
+      "scenes": [
+        {
+          "id": "yiguan_a1_s1",
+          "title": "一筐橘子与一潮黑水",
+          "year": "1621",
+          "location": "澳门外港货栈—近岸接驳水面",
+          "summary": "一次误译使一官尝到被人等待开口的滋味。他用补救掩盖错误，又把这种侥幸带上夜航的小驳船。",
+          "paragraphs": [
+            "黄昏，澳门外港的石阶还烫着。林阿旺蹲在一只樟木箱旁，替货主试新换的铜扣。三个脚夫等着结钱，一官没有搬货，耳朵一直朝那名葡萄牙商人偏着。",
+            "商人指指箱子的另一头，说了一句话。阿旺听不懂，便望向一官。旁边的人也跟着望。来澳门这些日子，一官头一次不必追着别人的背影跑；大家在等他。",
+            "“嫌扣子修得糙，要减一半。”他只听清两个词，余下的已经从嘴里出来。",
+            "阿旺把铁凿探进刚合好的箱缝。商人忙去拦，脚夫往前挤，一筐橘子翻倒，沿湿阶跳下。一官追出去，草鞋一滑，半边身子探到水上。阿旺用伤脚踩住竹篓，商人也弯下腰，接住滚到靴边的果子。",
+            "三个人都蹲下来，倒没人还能发火。一官看见箱侧另有一道旧裂，试着用刚学的洋话问要不要一起补。商人连点两下，又放下一枚银钱。他这才听明白：先前问的正是另一边能不能加固。",
+            "一官直起身，拍拍膝上的灰：“旺叔，替你说好了。再补两颗钉，多这些。”阿旺将信将疑，还是把凿子放下。后来钱果然多了，他还分给一官一点，算跑舌头的辛苦。",
+            "进栈时，一官把钱拍到黄程案上。舅父的算盘没停：“第一句，懂了没有？”",
+            "“后来懂了。”",
+            "算盘停住。外头货车碾过门槛，一官等那声音过去，才补一句：“先前没懂。”黄程把他多抽的两文挑出来，叫阿旺进屋。没有打骂，反比挨打更让一官下不来台。",
+            "阿旺接回钱，手上尽是木屑。“修坏了，我拆了重修。你听错了，告诉我就是。别替我的手艺答价。”一官应了一声，眼睛却落在案边的催货单上。外泊赴日大船要提前起锚，少一个随货的人。",
+            "老伙计说借来的驳船才补过缝，又起横风，宁可误这一航。货主管事把单子抽走：“那我找别栈。”一官伸手按住纸角：“今夜能送。旺叔认得近岸水，多一份接脚钱，亥时前准靠。”",
+            "阿旺刚到门口，听见自己的名字又被放进别人嘴里：“谁答应的？”一官把加钱的数目报得很响。脚夫们都抬起头；一航不走，他们今晚的饭钱也少一截。“我应了。只到外头，卸完就回。”",
+            "阿旺低头看一眼阿禾留下的半双草鞋，咬着后槽牙去了船边。他逐处摸补缝，叫把两只重箱压低。一官忙着分派脚夫，没有听完掌船的人说哪边风硬。陈添先解了岸缆，潮已托着船离开石阶。",
+            "货堆后钻出十三岁的阿禾，怀里抱着一碗冷饭。“我自带口粮，不吃你们的。”阿旺立刻叫掉头。一官望见外泊船的桅灯，一把将少年按进两箱之间：“回去又误半个时辰。坐稳，哥管你。”阿禾笑起来，仿佛二人刚合伙瞒过了一件小事。",
+            "阿旺没再争。他把木舵扳向迎浪的一侧，背上旧衣绷出一道汗痕。岸上的暖灯被货箱挡住，阿禾换个姿势，才发现脚下凉了。补缝里漫出的黑水没到草鞋底，第一道横浪已经越过船舷。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "黄程",
+              "text": "第一句，懂了没有？"
+            },
+            {
+              "speaker": "一官",
+              "text": "后来懂了。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "别替我的手艺答价。"
+            },
+            {
+              "speaker": "一官",
+              "text": "坐稳，哥管你。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "用补救遮住错译，借众人期待替阿旺接下抢潮差事，并留下藏船的阿禾。",
+          "dramaticBeat": {
+            "want": "从搬货晚辈变成有资格随船的人。",
+            "obstacle": "外语半懂、经验不足，可靠的掌船者反对夜航。",
+            "decision": "用补救遮住错译，借众人期待替阿旺接下抢潮差事，并留下藏船的阿禾。",
+            "result": "赢得短暂体面，船却带足重货驶入横浪；舵工和少年承担了他未征询的风险。",
+            "next": "漏水与移货使救人、保货不能同时办到。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "赢得短暂体面，船却带足重货驶入横浪；舵工和少年承担了他未征询的风险。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v3/zheng_a1_s1.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "澳门栈房的低石阶，一官与阿旺蹲着拦住滚散橘子，年轻人抬眼看栈门后的黄程；明亮午前，三个人物，趣味里有被观察的紧张。",
+          "imageCaption": "误译之后，滚散的橘子让争执暂时停住。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a1_s2",
+          "title": "工具箱不能扣",
+          "year": "1621",
+          "location": "澳门外泊水面—黄程货栈",
+          "summary": "一官抛货救回阿旺，却在归栈后把责任推给海浪；货主要扣阿旺的工具抵损，他才说出夜航是谁决定的。",
+          "paragraphs": [
+            "又一股水从货箱下涌过。阿旺叫陈添拿瓢舀，一官想先把横在舷边的重箱挪回中间。两人错着使劲，箱子滑向另一侧，驳船跟着歪了一下。阿禾那碗饭翻在水里，白米很快看不见。",
+            "“别搬了，割外面两箱。”阿旺说。一官伸手摸到箱上封印，又缩回来。这是替外商送的货，一箱便抵他们不知多少月工钱。远处大船的灯正在晃，仿佛只差再撑一段。",
+            "阿旺丢开半截舵绳，扑去压住阿禾。第二阵横浪从他背后卷入，老人撞上松动的箱角，翻到舷外。水里一只手还抓着船帮，木舵却被流拖斜了。",
+            "一官伸臂去拉，自己的脚也站不稳。阿旺喊：“松手，先把孩子……”话没说完，水盖住他的脸。一官抽出割绳的小刀，刀尖在箱绳上划了两次，才真正割开。第一只箱下水，船回正一点；第二只落下时，货封从他指间蹭破。他抓住阿旺衣领，陈添从后面抱住他的腰。",
+            "回到岸上，阿旺趴在石阶上呕水，吐出的水里有一条血丝。阿禾抱着老人丢失一只鞋的脚，想哭又不敢。一官坐在旁边，手里还攥着断绳。赴日大船的桅灯已经移开泊位。",
+            "货主清点缺箱，一官说遇上横浪，船缝又漏。他没有编造那阵浪，也没有提催货人要走时，是谁按住了单子。黄程听完，让陈添再讲。伙计看一官一眼，只说后来大家一齐救了人。",
+            "次晨，货主管事带两个人来取阿旺的工具箱。老人正在晾铁锯，听见要作抵押，先把手里的锉往箱里放，动作很慢。他说船是借的，自己只是掌舵；管事拿出写了他名字的单据，指给黄程看。",
+            "“这上头写的是你认水路。”",
+            "阿旺想把凿子留下，好去别处找活。管事说都扣着，清账再还。没有这些东西，他连下一顿也挣不出。一官在门边听着，手指绕住那根救人时割下的断绳，越绕越紧。",
+            "“夜航是我应的。”他终于说。",
+            "管事没有听清。一官走到案前：“旺叔说等风，我没等。孩子是我留下的。两只箱也是我割的。”阿旺抬头看他，没有替他补一句救命的情分。黄程取过单据，将阿旺的名字划掉，让一官自己写上。",
+            "管事不肯空手回去。黄程先垫一部分损钱，余下记在一官名下，又将赴日货单上早留给他的那一格涂掉。一官忙问随船搬货可不可以，舅父只把新账推来：“那边的掌柜要的是能托货的人。救人这件事，你做对了。前头那件，还没算。”",
+            "黄程没有将他赶出门。中午依然留了一碗饭，放在账桌另一端。一官坐下，筷子碰到碗沿，两次都没夹住菜。窗外脚夫说起昨夜，已经把他讲成割货救人的好汉。他听着，没出去纠正，也没再抬头。",
+            "傍晚，阿旺拿回工具，给他掌心割破处抹一点药。老人没说原谅，只问下回风转时，能不能让掌舵的人把话说完。一官点头。远泊大船鸣了出港的号，老人替他裹好伤口，二人都没去看。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "阿旺",
+              "text": "松手，先把孩子……"
+            },
+            {
+              "speaker": "一官",
+              "text": "夜航是我应的。"
+            },
+            {
+              "speaker": "黄程",
+              "text": "救人这件事，你做对了。前头那件，还没算。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "在工具将被扣走时供出越权夜航与割货，签下损账。",
+          "dramaticBeat": {
+            "want": "保住救人后的体面与赴日机会。",
+            "obstacle": "抛货损失被记到阿旺头上，认责会坐实自己不可靠。",
+            "decision": "在工具将被扣走时供出越权夜航与割货，签下损账。",
+            "result": "阿旺保住生计；一官失掉原船位并负债，救命不能抵销前置责任。",
+            "next": "他只能拿未来劳动换另一航的位置。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "阿旺保住生计；一官失掉原船位并负债，救命不能抵销前置责任。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v3/zheng_a1_s3.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "横浪中的小驳船，一官用肩把重箱推过舷，阿旺伤腿仍卡在低处，海面吞去一截系货索；单一危险动作，湿冷夜光。",
+          "imageCaption": "驳船遇险，保货与救人已不能两全。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a1_s3",
+          "title": "把明年的钱押上",
+          "year": "约1622—1623",
+          "location": "澳门货栈—赴日商船",
+          "summary": "没有船位的一官将未来三年的个人分成押给黄程。他终于登船，却发现自己要先替所有能拿现钱的人出力。",
+          "paragraphs": [
+            "下一航开装时，一官每天都到码头，干得比旁人早，却再没人让他碰货单。他能认出箱上收货的姓，能替脚夫向外商问清半句价；别人说谢，转头仍把单子交给熟手。",
+            "阿旺有了别船的补修活，阿禾跟着递钉，晚上来货栈帮一官数绳。少年问到日本是不是能见到雪，一官说沿海也未必见得到。说完觉得自己像真去过，便闭嘴，低头继续搓开结死的绳。",
+            "一日散工，黄程留下他。“想去，就别只盯那张随货单。”舅父有一小份合货，要有人替着跑腿看货；不出本钱的人，只能出别人不肯出的工。一官答应。黄程又说，旧损账并未消，工食和随货的风险也有价。",
+            "账案上列着三年的个人分成。不是拿三年人身作契，是他自己挣到的那一份，须先还损钱，再抵舅父垫的本。一官将指头停在最后一行：“若第一年便挣够呢？”黄程把空白推到他面前：“你来写怎样算清。”",
+            "他写了数，又擦去，算到窗纸暗下来。写清以后，最早的回款几乎都不归自己。舅父没有乘机加一成，也没因为亲眷减一成。一官按了手印，抬头问能否随船做通译。黄程说船上有正经的通译，先给人洗桨、守夜。",
+            "开船前，阿旺把一只补过的衣袋给他。一官摸出里面几枚碎钱，忙推回去。老人说并非给他的，是阿禾那份工食；孩子要学海上的活，他答应带着。再没有藏船的笑话，名字先写在了上船簿里。",
+            "“我的损账，不该拖你。”一官说。阿旺将袋口扎紧：“我上哪条船，不由你的账定。”一官愣了愣，才替老人提起工具箱。箱底沉，勒得掌心新痂发疼。",
+            "远航商船的主舱被有本钱的客人占满。他在舷侧窄缝里铺席，夜里有人用脚碰醒他，叫去拉一根收不回的湿缆。陈添也在船上，蹲在较干的铺位抄单，一官伸手帮他护纸，纸上写着的货款比自己欠的数大许多。",
+            "外海浪长，船一次抬起，人的肚子便跟着悬空。他吐到只剩酸水，还得替厨下抬桶。天亮，通译叫他去听一句话，一官听不明白，请对方再讲，惹得那人笑起来。他耐着脸热，把听清的几个词一个一个记住。",
+            "几日后，船上有人嫌他占着亲族门路，却不懂规矩。先叫他到最难站稳的舷边接绳，又把一盆脏水泼到他铺席旁。阿禾要争，一官按住少年，把席卷起来，换到更窄处。晚上，他从湿衣里摸出合货契纸，借桅灯再读一遍。",
+            "阿旺见他还醒着，递来半块姜。“不舒服就说，轮值能换。”一官接过，问倘若以后有自己的船，坐船的人是不是便不必看这些脸色。老人将湿锯挂高些：“你得先知道他们为什么坐你的船。”",
+            "一官没接话。白天骂他的船工在另一边疼得缩腿，他看了一会儿，还是起身替那人挪开压在脚下的水桶。对方含糊道了谢。他第一次觉出，做成一件事，同让别人记住是谁做成的，是两种不同的工夫。",
+            "第二日，前方水道出现几条不在商队里的快船。船主叫人卷下贵重货物的标记，通译把议价钱袋递给他，让他站到船头去。一官以为终于轮到自己说话，摸平短衣，一抬眼，看见对面船上先举起了刀。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "若第一年便挣够呢？"
+            },
+            {
+              "speaker": "黄程",
+              "text": "你来写怎样算清。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "我上哪条船，不由你的账定。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "签清偿条件，以守夜跑腿身份登船，受辱时先学本领。",
+          "dramaticBeat": {
+            "want": "以未来分成换航路和自立的机会。",
+            "obstacle": "信用已伤、没有本钱，船上地位由出资与经验决定。",
+            "decision": "签清偿条件，以守夜跑腿身份登船，受辱时先学本领。",
+            "result": "拿到出海位置，却要先付出尚不存在的收入；开始渴望决定船位而非请求船位。",
+            "next": "第一次遇盗使他看见另一种决定别人去留的权力。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "拿到出海位置，却要先付出尚不存在的收入；开始渴望决定船位而非请求船位。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a1_s5.png",
+          "imageWidth": 1935,
+          "imageHeight": 812,
+          "imagePrompt": "Use case: historical-scene. Single original illustration, 2.39:1 anamorphic historical cinema still for 一官入海 scene zheng_a1_s5 先把自己押上. Macau outward-bound wooden Chinese sea junk c1622, after Yiguan has pledged his future shares to repay lost cargo and can sail only as a laboring crewman. Main action two Chinese sailors together hauling ONE heavy mooring line inboard as the port shoreline slowly recedes. Yiguan is a young slim southern Chinese man, long face straight eyebrows tanned skin, Ming topknot, plain indigo short work jacket, ochre waist sash. He leans into the weight, one knee braced, no smile of triumph. Beside him older carpenter Awang, grey stubble brown coarse clothes topknot, knee partly wrapped in cloth, deliberately working at the same heavy line rather than posing. A small tied cloth travel bundle by Yiguan's foot. Sparse low deck and a large weathered battened sail above, sea and receding misted pale Macau shore in broad negative space. Clear pearly morning light, sea faded blue, natural warm wood, low saturation but retain color. 35mm film photochemical texture, softened edges, atmospheric veiling, deep natural shadow, subtle halation, patient candid camera. No decorative rope coils, no box stacks, no maps, no documents or lettering, no flags with invented marks, no Qing queue or shaved forehead, no modern objects, no heroic poster pose, no subtitles, no watermark, no black bars. Wide enough that the labor and shore's distance both read clearly.",
+          "imageCaption": "一官以未来的分成换取随船位置。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a1_s4",
+          "title": "缺一角的木筹",
+          "year": "约1623",
+          "location": "赴日海道近岸水口",
+          "summary": "阮老六索取路钱，收钱后还要借走阿旺。青年第一次看懂，被保障与被扣住往往只隔一只收不回的手。",
+          "paragraphs": [
+            "三条快船横在水口外，没有急着放炮。阮老六站在最前一条的舵楼下，袖口卷着，先问商船主还认不认得去年那块木筹。有人从柜里翻出来，边缘缺一角，湿了之后，旧墨已经漫成一团。",
+            "阮拿来新的，两块叠着试缺口，试不上。“这条水换人看了。”他把旧筹扔回。商船主骂他去年也是这句话，对面的人便把一只挠钩慢慢放到舷外。满船货还没动，几名客商已经往箱后躲。",
+            "一官站在船主后边，看见阮的炮口朝着船头，另两条船却没有逼近。那边几个人忙着堵漏，一只水桶传上来又传下去。他以为有了可讲的地方，小声提醒船主。船主让他去讲，自己没有上前。",
+            "“你后船要修。旺叔能补。”一官开口，声音比预备的高一点，“叫我们过去，到了前面给你放修船钱。”",
+            "阮看着他，笑了。“人留下修，你们先走。”一官回头，阿旺正将阿禾往后推，脸上没有一点愿意。那句话还没落稳，阮已叫手下放板，商船主也催他别耽误。",
+            "一官急忙改口，说工具不齐，老人又认着本船的舵。阮的笑淡下来，转去问阿旺有几把凿。无人再听年轻人补充的条件。一官想要救下的路钱，忽然变成要把老人留下多久。",
+            "商船主最终取出银钱，数目比一官开口前还多。阮拿了，却仍扣着过板不放，叫船主在木筹背面留下航向，说到下一口不必再问。一官看见船主用拇指按过墨，又看见那只拇指在衣上擦不干净。",
+            "过板撤回时，一官伸手去捞那块被丢回的旧筹。阮看见了，说留着也好，改日别装不认得。“这片水，你问谁肯让你过去。不是你想过去就过去。”",
+            "商船走出水口，船主劈头骂了他一通：会几个外来字就想还价，差点连舵工也送了。阿禾等人散去，问他先前是不是真要把叔父留下。一官说只是想换个谈法，没想成那样。少年低头解自己的鞋带，没再问。",
+            "傍晚，商船主将新筹穿绳挂在舱门，路过的人都要摸一摸，仿佛摸了便能平安。一官把旧筹放在掌心里，指肚沿着缺角摩挲。它既不像刀，也不像钱，却让满船人改口、掏银、等候。",
+            "阿旺坐在旁边磨凿。一官说等有了自己的船，决不交这钱。老人问：“货主若催得急，船工等着领食，又拿什么去顶？”青年想了半天：“总得有一样，是他也舍不得丢的。”",
+            "远处传来日本近岸商船的号声，阿禾跑去看。一官将缺筹收入衣袋，随他走到船头。雨停以后，云下露出几道深山，港口仍远，船上人已开始收拾上岸的衣裳。他也把借来的短衣拧干，想起舅父那张三年的账。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "阮老六",
+              "text": "人留下修，你们先走。"
+            },
+            {
+              "speaker": "一官",
+              "text": "总得有一样，是他也舍不得丢的。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "货主若催得急，船工等着领食，又拿什么去顶？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "擅用阿旺手艺议价，发现人会被扣后撤回，旁观船主付钱。",
+          "dramaticBeat": {
+            "want": "靠机敏省下路钱，证明自己可用。",
+            "obstacle": "阮有武装与地利，交易可以把一名同伴变成担保。",
+            "decision": "擅用阿旺手艺议价，发现人会被扣后撤回，旁观船主付钱。",
+            "result": "未救回路钱，也险将阿旺押出；留下旧木筹，开始研究保障如何变成控制。",
+            "next": "抵达平户后，他想要一个无需请求即可留下的位置。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "未救回路钱，也险将阿旺押出；留下旧木筹，开始研究保障如何变成控制。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a1_s6.png",
+          "imageWidth": 1930,
+          "imageHeight": 815,
+          "imagePrompt": "Use case: historical-scene. Single complete widescreen 2.39:1 historical cinema still, 一官入海 zheng_a1_s6 一面旗的过路钱, fictional late Ming pirate toll-taking c1622 on a voyage to Japan. Make the maritime threat imposing and cinematic through low camera angle, huge timber hull rising beside a tiny toll boat, diagonally towering weathered battened sail and a deep expanse of cold sea and sky. Do not invent a vast fleet: this is one merchant junk and a small toll boat with the pirate chief's vessel only a distant sail shadow. Main action at the merchant ship's lower rail: a Chinese pirate toll collector in plain rough dark clothes takes a small silver money pouch handed down from the merchant vessel, while his other hand draws a small stolen cloth bundle into his boat. An unsmiling young Yiguan leans over the merchant rail above watching the theft and the escape route, slim southern Chinese long face straight brows tan skin, Ming topknot, indigo short work jacket ochre waist sash. One taut working tow line joins the vessels, a tiny white cloth knot at merchant stern. The pirate chief remains only a distant standing silhouette aboard the far vessel, never on merchant deck. Dominant action is the silver passing between ships; two foreground focal people, distant sailors tiny. Wind presses sails, rolling sea, massive scale contrast, looming pressure without a large battle. Overcast cold afternoon, slate-blue water and brown timber retain muted color, misty depth, soft 35mm film halation and deep natural shadows. No skull flags, no European pirate hats/costume, no Qing queue or shaved forehead, no fantasy armor, no decorative stacks of ropes or crates, no lettering, no watermark or bars. Historically grounded wooden Chinese junks, spare but grand and tense.",
+          "imageCaption": "第一次过路交钱，木筹背后的武力才是真正凭据。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        }
+      ],
+      "cover": "images/film-v3/act-1.png",
+      "coverWidth": 1916,
+      "coverHeight": 821,
+      "illustrationStatus": "ready",
+      "illustrationScope": "v4-atmosphere-reference"
+    },
+    {
+      "id": "act-2",
+      "title": "带血的平安",
+      "years": "约1623—1624",
+      "synopsis": "一官与田川氏相爱，共同租下平户窄屋。为了尽快还债、攒出家用，他隐去大员差事的武装性质，以自己的名担保别人的平安；反抗索取者以后，最先被他挪走的却是寄给家里的银子。",
+      "scenes": [
+        {
+          "id": "yiguan_a2_s1",
+          "title": "没有帆的船",
+          "year": "约1623—1624",
+          "location": "日本平户，河内浦一带",
+          "summary": "一官与田川氏靠各自的手艺撑起一个窄家。他接受武装通译差事，却只把能多挣钱的那半句带回屋里。",
+          "paragraphs": [
+            "平户下雨的日子，货栈廊下总有人等修屋漏。一官替日本船主搬过水，又跟着阿旺学了几手补缝，便自荐去修一处屋檐。钉子敲进去，水没落在原地方，反从田川氏晾衣的竹竿上滴下来。",
+            "她端着水盆来，让他先下梯子。他解释是旧木吃不住钉，她把湿了一半的衣裳揭给他看，指着新漏处。他终于不再比划，爬上去拆回刚盖好的木片。第二回，水从槽里流到了院外。她将盆放下，这才给他端来一碗热茶。",
+            "后来他替她跑过一笔货账，她帮他认过几行日文。她看见他的字比自己想的好，问为何总装作只会比划。他说会写是一回事，能让掌柜认上头的字，是另一回事。她笑了，不是讥讽：“那你先把我的名字认对。”",
+            "他第一次写错，她划去一笔，让他重写，没有替他写完。纸上最后多出来一个小小的墨团，他想拿回去丢了，她却折好，收进衣襟。",
+            "两个人成家时，一官没有足够的钱置办大屋。田川氏取出自己攒的一小串钱，说先租靠海的窄屋，后间放活计，窗下能坐人。他本想拒绝，怕显得自己养不起家。她已经向屋主问过租价，等的是他肯不肯一同去看。",
+            "搬进去的第一晚，门闩比他预计的短。二人拿一条长凳抵住门，躺下后听见凳脚吱响，又一齐坐起来。他去挪凳，她在背后扶着，憋不住笑。海风从纸窗吹进来，屋子里尚无像样的东西，只有他带来的旧木筹和阿旺借的一把锯。",
+            "田川氏问木筹做什么。一官说过水口要交钱，交过便给这东西。她将筹翻过来：“缺了。”他说这块不管用了，留着记路。她没有再问，抽出一张废纸，画了一条底宽的船，放到桌上。船身歪，既无桅，也无帆。",
+            "“哪有这样的船？”一官笑。她把纸往门里挪一点：“先有地方装我们。帆你回来添。”",
+            "翌春，她有了身孕。一官将未结清的分成契纸拿出来，算到深夜。平户这些小活能维持两人吃饭，要还债、雇船寄家用却慢。他在李旦相关商路里结识的人，给他一份赴大员的通译差事，酬钱比寻常押货高，价高的缘故没有写在纸面上。",
+            "在外栈，他听清了要随武装船查验唐船，也听见争货时通译不能自行退场。他问做几航能结钱，对方说按航结，头一笔须等办完。纸递来时，他把已经问过的风险又问一遍，最后仍伸手接了。",
+            "回家后，田川氏正在量孩子的衣料。他说大员货忙，懂两边话的人少，去一趟便能把旧账还薄些。她问那边是否在打仗。他解开腰带，说不拿刀，只替人翻话。她没有立刻点头，等他将钱与归期说完，才去拿放在柜里的送行衣。",
+            "临行那晚，她自己加了一段粗线，补在他的袖口。“风若不对，多等一航。”他坐在旁边，想说雇主未必肯等，话到嘴边却换成了“我知道”。田川氏摸着袖上结头：“别给我报一个你要去逼别人才能守住的日子。”",
+            "第二日，他把歪船图折在衣袋里。她站在门边，先让他照顾自己，又叫他把阿旺那把锯还了。他竟忘了这件小事，赶忙转身去取。等跑回码头，大船已在催人。他向岸上挥手，田川氏的手扶着门框，没有听见他隔水又许了什么。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "田川氏",
+              "text": "那你先把我的名字认对。"
+            },
+            {
+              "speaker": "田川氏",
+              "text": "先有地方装我们。帆你回来添。"
+            },
+            {
+              "speaker": "一官",
+              "text": "不拿刀，只替人翻话。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "接受差事，对妻子省去武装查验的性质，以不拿刀自我宽解。",
+          "dramaticBeat": {
+            "want": "与田川氏拥有无需求人留宿的家，并尽快偿债。",
+            "obstacle": "普通工钱慢，武装通译酬高却有未必能退出的风险。",
+            "decision": "接受差事，对妻子省去武装查验的性质，以不拿刀自我宽解。",
+            "result": "二人共同经营的家已成立，离家却建立在不完整的知情上。",
+            "next": "到了大员，雇主要求他以个人信用为截货作担保。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "二人共同经营的家已成立，离家却建立在不完整的知情上。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v3/zheng_a2_s2.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "平户窄屋檐下，一官侧身挡雨，田川氏托住被两人补皱的纸灯；灯还没点稳，两人都在笑，房门内能见拆过脚的柜子。",
+          "imageCaption": "平户窄屋，两个人共同修补日常。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a2_s2",
+          "title": "收帆以后",
+          "year": "1624",
+          "location": "大员外海武装贸易水面",
+          "summary": "译费被扣，一官又被要求劝停唐船。他以为自己的担保能限制强者，却发现开口以后连原话也不归自己处置。",
+          "paragraphs": [
+            "大员的工钱不是上岸便结。每一笔都要华商代理先认船货，再由公司职员对册。陈添抄完中文的那页，另一页仍压在桌里。管货者叫一官等下一航，理由是有一条唐船还没照他们的条件停下。",
+            "一官说自己已经做完本航。管货者点头，说若只是怕辛苦，可以从这里回平户。桌上没有归船，也没有给他结钱。华商代理听懂了两边的话，却只替他说一句：年轻人要晓得轻重。",
+            "他在港口守了两日，给家里的信摊开又收起，纸上能写的仍是“事尚未毕”。第三日，陈添把剩下的食钱数给他看。他将信折得更小，跟着登上那条有炮的船。",
+            "唐船停在水口外。老船主姓周，货里有大宗生丝，也有几户小商人托带的零货。他怕误归期，先遣艇过来问，若准下锚验货，能不能不扣人。艇上的年轻人姓杜，腰上佩刀，先上来试过板承不承脚。",
+            "一官向华商代理问条件。代理说停船配合便好。他要求将不扣人、不夺货都写下，代理没写，只让他去向管货者再问。公司职员说查验之后按结果处置。他知道这不是周船主要的回答。",
+            "杜七站在艇上，见他迟疑，问：“你那边到底肯不肯？”一官看着隔水举炮的船，想到自己等不到的结钱，抬声喊：“先收帆！人过来验，我在这里，不伤你们。”",
+            "周船主还在犹豫。他指着自己的胸口，又把话说了一遍。杜七盯他片刻，转身回艇，领人收起大帆。绳在桅上滑过，水面安静下来。一官以为争到了一个不用开炮的办法。",
+            "第一批上船的人径直去了货舱。没有人先拿出查验的册子。周船主拉住一只正在被搬走的包货，被枪托撞到舷边。一官追上去喊错了，又追着代理，指自己刚说过的话。",
+            "代理把他拉到一旁：“你说的是不伤人，没说货归谁。别挡在这儿。”一官甩开那只手，转向管货者，换了还不流利的洋话复述条件。对方要他让开，手已经搭在刀柄上。他身后几名雇来的船工也在等本航工钱，没有人帮他说第二遍。",
+            "周船主伏在舷边吐了一口血。杜七去扶，被两个人按住肩。周抬头认出一官，先问了一句方才不是你在说吗，后来不再问，只将攥着货绳的手松开。绳从掌中抽走，留下几道白印，慢慢红起来。",
+            "一官取自己的布去给他擦血，老船主避开了。他想说不是这个意思，一开口却知道，方才正是靠他这句话，船上的帆才落下。杜七看着他，说：“你下来。别站在他们后头讲。”",
+            "晚上，译费总算拨下来，比原说的少。一官在袋口摸到一枚有凹痕的碎银，正是早上周船主点货时夹在账本里的那一枚。那笔钱是否同一笔，没人肯替他查；他将银钱倒在席上，一宿没收。",
+            "陈添问要不要退。一官说退了，货也回不来。说完他给阿旺留出伤药钱，又从剩下的数里挑出小小一份家用。手伸到周船主的那封欠货回执前，停了片刻，还是把两份钱分别扎起来。",
+            "港口外，杜七的人在找能替他们送索赔书的通译。一官主动走去。杜七没有接他递来的银：“先把白天说过的话，照原样写在上头。你自己的名字，也写。”他蹲下来，把纸铺在膝上。这一回没有略去自己那句保证。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "先收帆！人过来验，我在这里，不伤你们。"
+            },
+            {
+              "speaker": "周船主",
+              "text": "方才不是你在说吗？"
+            },
+            {
+              "speaker": "杜七",
+              "text": "你下来。别站在他们后头讲。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "用自己的名义担保收帆平安，扣货后争辩失败，仍领取报酬。",
+          "dramaticBeat": {
+            "want": "结到译费，不让查验变成杀伤与劫货。",
+            "obstacle": "雇主掌握船、食钱与解释权，代理故意不给完整保证。",
+            "decision": "用自己的名义担保收帆平安，扣货后争辩失败，仍领取报酬。",
+            "result": "唐船因他担保停船受损；他既未能控制强者，也已从交易中获利。杜七要求他署名作证。",
+            "next": "索赔无门与阮老六再索路钱，把自保、取货和夺船结成一局。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "唐船因他担保停船受损；他既未能控制强者，也已从交易中获利。杜七要求他署名作证。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a2_s6.png",
+          "imageWidth": 1919,
+          "imageHeight": 820,
+          "imagePrompt": "Use case: historical-scene. One standalone 2.39:1 wide anamorphic historical cinema still for 一官入海 scene zheng_a2_s6 替谁说停船, c1624 Taiwan waters. Show the actual coercive ship interception in the story, not a seated negotiation. Camera low beside the working deck of a seized Chinese merchant junk, looking across a narrow gangplank toward the immense dark side of an armed Dutch company vessel. One small bronze cannon aimed over its gunwale controls the narrow sea gap. Main action Yiguan, a slim young southern Chinese man in indigo short jacket, ochre sash and full-hair Ming topknot, has one palm held out telling the merchant crew to stand aside while looking pained toward an elderly Chinese merchant captain in muted grey who grips his sleeve demanding the promised safety. These two foreground focal faces are candid and tense. Behind them, no more than three small indistinct armed boarding sailors in plain seventeenth-century northern European workclothes carry TWO cloth cargo bales away over the gangplank, nothing theatrical. The merchant's battened sail is visibly being lowered above them. Atmosphere imposing and historically epic through looming hulls, diagonal sail spars, wind, sea and distant horizon depth, not dozens of ships; cannon remains unfired. Grey smoke-like marine haze rather than explosions, strong silver overcast day with cold blue-grey water, real indigo and muted ochre color, natural timber deep shadows, photochemical 35mm softness and atmospheric veiling. Yiguan is simultaneously pressured and participating in taking cargo, no triumphant rescue or heroic sword pose. No huge crowd, no scattered papers, no box or rope piles, no flags or logos, no skull pirates, no Qing queue/shaved forehead, no modern gun or uniform, no text, watermark or black bars.",
+          "imageCaption": "炮船下的保证，不能由说保证的人独自兑现。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a2_s3",
+          "title": "借来的旗，抢来的船",
+          "year": "1624",
+          "location": "闽台海道，一处礁口",
+          "summary": "一官与杜七以共同出资、约定分船联手反抗阮老六。旧筹和借旗没能蒙混，胜局靠临时配合与流血挽回；第一条快船到手，人命和分利也从此算在他们名下。",
+          "paragraphs": [
+            "周船主的索赔书被转回来了，签名还在，纸角添了一道不知谁画的墨。华商代理说下次别妨碍做生意。杜七要直接夺回被扣的货，一官拦住：没有能走的船，抢到货也出不去。",
+            "他们手上各有一点钱，凑不够一条快船。阮老六偏在这个时候再收路钱。他认得周船那面旧帆，说知道他们吃过亏，愿少收，条件是以后替他指认几条装得足的船。",
+            "杜七捏着送来的新筹，一拳砸进舷木。一官捡起木筹，将它与自己留的旧筹放到一起。缺口相似，底下新刻的纹却不同。阮没有忘记以前见过谁，他们也不能再拿那次过口的办法去赌。",
+            "“他先来认船，不会把三条一齐送近。”一官说，“用一条空小艇，叫他以为我们拿钱来换路。”杜七问他钱从哪里出。他解开家用袋，把刚挑好的碎银倒在板上。杜七也取出自己的钱，逐枚往另一边排。",
+            "商量到分船时，两人第一次真争起来。杜七带人，一官带诱艇，真赢了，谁拿快船？一官提出先还公欠，再按人手分。杜七把自己的钱重新收拢：“别拿以后挡今天。”最后他们各认出资，约定缴来快船由一官领，杜七留自己的顺生号；公事得两人都点头，不能一船替另一船答应。",
+            "阿旺听完计议，检查诱艇的篙钩。一官想请他留岸，老人指着浅礁说，没有人会撑，这条艇还没见阮便先横在口上。阿禾被留在更远的接应艇里，抱着一截备用缆，头一次知道不上前也算有一份活。",
+            "诱艇进去时，一官身后挂了借来的商旗。他先亮旧筹，阮远远看了一眼，叫把新钱举高。帆后那名认过他的水手立刻喊破。阮的人不再试探，挠钩直接咬上艇舷，过板压了下来。",
+            "一官预备好的话说不成。他看见杜七的顺生还被侧流推在外面，便将银袋往艇尾扔，银钱真散出来。上艇的人追着伸手，阿旺趁隙用长篙把过板撑斜。阮喝止得很快，一刀砍断篙头，阿旺虎口开了，没能把板完全顶开。",
+            "一名年轻船工照计划去拖篙，刀从肩侧擦入。他倒下时，一官甚至没记得他的姓。阿旺喊他松手，一官这才看见自己还攥着不剩几个钱的空袋。银救不了眼前的人，顺生也尚未到位。",
+            "他踹开碍脚的空箱，让箱体卡住挠钩，跳到倾斜的板上去割联索。刀口离手背不到一寸，杜七的船终于压进侧流，从阮船后方切过。杜七先没有上船搏杀，而是折断对方能退出礁口的舵索。阮见余下两艇受阻，松手跳回小艇，带人从另一道浅口跑了。",
+            "没有人追。新夺来的快船底下也在漏，前舱还有被阮扣住、尚不知该信谁的人。阿旺蹲下去补，一官守住舱口，让人先上甲板，报自己姓什么、货在哪儿。杜七想把舱里都算战利，一官指着其中一位的旧伤，说那是刚才被捆着的。两人隔着一只破箱又争起来，最终先把有主的零货放回。",
+            "傍晚，死去的年轻船工被抬到岸上。一官问出他叫阿金，在一块薄木上写好姓名。分账时，少掉的银不够补这条命。他将自己那份先拨给阿金同船的哥哥，对方收了，没有道谢。杜七在旁边等着，等葬具的钱也点完，才把快船的舵绳交给他。",
+            "一官摸着那截还带盐水的绳，没有笑。他终于有一条听自己号令的船，舱里没货，船边缺一块木板。杜七提着刀走回顺生，隔水问他明日走不走。他点头，第一声令不是开船，是叫陈添把阿金那块姓名木再写清一点。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "杜七",
+              "text": "别拿以后挡今天。"
+            },
+            {
+              "speaker": "一官",
+              "text": "公事得两人都点头。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "明日走不走？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "与杜七先订共事边界，真出银作诱，计破后靠阿旺与顺生配合夺船。",
+          "dramaticBeat": {
+            "want": "不再靠给武装者指认别船换路，夺得可自保的快船。",
+            "obstacle": "钱少、诱计被认破，伙伴对分利仍互不放心。",
+            "decision": "与杜七先订共事边界，真出银作诱，计破后靠阿旺与顺生配合夺船。",
+            "result": "夺得快船并放还部分被扣货，一名船工死亡，阮活逃且知道他们的招数。",
+            "next": "自己的船需要养人和合货；给妻儿的银袋已被拿去押进第一次共同武装行动。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "夺得快船并放还部分被扣货，一名船工死亡，阮活逃且知道他们的招数。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a2_s7.png",
+          "imageWidth": 1940,
+          "imageHeight": 811,
+          "imagePrompt": "Use case: historical-scene. One standalone 2.39:1 anamorphic historical epic film still for 一官入海 zheng_a2_s7 借他的旗, c1624 Fujian outer coastal channel. The decisive seizure of a pirate toll fast boat after a costly fight. Camera at wet plank level aboard the CAPTURED small Chinese wooden fast boat; its low bow foreground cuts a strong diagonal through rolling water. Young slim southern Chinese Yiguan, long face straight brows tanned skin, indigo short work jacket and ochre sash, full hair in Ming topknot, has a fresh white cloth binding on one forearm with a small restrained blood stain. He is moving quickly to grasp the seized boat's wooden tiller, low and braced, teeth clenched with pain, no victory pose. Above and behind him, the great dark curved bow and towering diagonally wind-loaded battened sail of Du Qi's junk Shunsheng crosses between the captured toll boat and the retreating pirate mother ship visible in mist farther right. On Shunsheng, Du Qi in muted dark rough clothes is a small stern figure lowering a plain long spear; not a hero portrait. Two surrendered pirate crew figures remain indistinct at the far end of the toll boat with weapons lowered. A pair of cloth cargo bales remain aboard, showing the captured boat also carries other people's goods, no loot treasure display. Wind, broad deep sea-and-sky, hard low evening silver light through clouds, subdued warm edge on indigo and weathered brown wood, atmospheric veiling, 35mm cinema softness and deep shadows. This small three-vessel encounter should feel imposing through low angle giant hull, slanting sail and dangerous water, not inflate to a fleet. Ruan the pirate chief escapes alive on the distant mother ship, no corpse or sinking ship. No skull flags, European pirate hats, armor spectacle, excessive rigging or crates, no Qing queue or shaved forehead, no modern items, no text, watermark or baked black bars.",
+          "imageCaption": "诱计被识破以后，夺船必须靠同伴配合。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready",
+          "illustrations": [
+            {
+              "id": "yiguan_a2_s3_process1",
+              "image": "images/film-v4/zheng_a2_s7_process1.png",
+              "caption": "旧筹拖延被识破，阮的人先把住过板；一官等待的顺生还在远处。（旧稿战斗情境参考）",
+              "afterParagraph": 8,
+              "width": 1942,
+              "height": 809,
+              "imagePrompt": "Use case: historical-scene. One independent 2.39:1 anamorphic historical film still for 一官入海 zheng_a2_s7_process1, c1624 Fujian sea channel, the EARLY DANGER stage before any silver is thrown and before the fast boat is seized. Readable spatial trap from a HIGH camera near the merchant junk's mast looking diagonally down across a narrow gangplank and small toll boat. Foreground left young Chinese Yiguan, slim long tanned southern face, indigo work jacket ochre sash full hair Ming topknot, stands at the merchant rail holding an old notched wooden toll token in his lowered hand, suddenly halted. Across from him a rough-clothed Chinese pirate swordsman has one foot firm on the gangplank and a plain short dao angled across the route, controlling the bridge before Yiguan can lure the boat close. These are the two clear focal people. Below the armed man, two tiny toll-boat crew figures control its line and wait to collect silver. Far across water the pirate mother junk remains outside, its chief only a dark standing speck; beyond that, Du Qi's Shunsheng approaches as a separate hazy batten-sail silhouette, which the pirates have already noticed. A white cloth knot hangs at merchant stern. No one has won; Yiguan's old-mark plan has just been detected. Broad cold green-blue sea, diagonal wake lines, giant wooden merchant hull beside the little boat, towering weathered sail partly in foreground, imposing cinematic scale and wind tension despite few ships. Heavy bright overcast with a break of silver light on the blade and wet gangplank, not golden sunset. Low saturation retain true indigo, blue-green water and brown wood. Restrained 35mm grain, soft atmospheric distance, deep natural shade, patient historical cinema. No gunfire or explosions, no large fleet, no floating silver yet, no captured helm yet, no skull flag or European pirate dress, no Qing queue/shaved forehead, no extra crates/rope heaps, no text, captions, watermark or bars.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            },
+            {
+              "id": "yiguan_a2_s3_process2",
+              "image": "images/film-v4/zheng_a2_s7_process2.png",
+              "caption": "真银散向艇尾，一官踹空箱封过板，阿旺用长钩撑住；顺生横切，阮的退路被隔开。（旧稿战斗情境参考）",
+              "afterParagraph": 11,
+              "width": 1916,
+              "height": 821,
+              "imagePrompt": "Use case: historical-scene. One original standalone anamorphic 2.39:1 historical maritime action still for 一官入海 zheng_a2_s7_process2, c1624 Fujian sea. Non-graphic defensive maneuver during the small toll-boat encounter, no injury or blood depicted. Main action: slim young Chinese sailor Yiguan, full hair Ming topknot, long tanned face straight brows, indigo short work jacket ochre sash, firmly braced on the merchant deck, pushes ONE empty light wooden box onto the narrow gangplank with his foot, blocking the passage while he stays safely on his own deck. Low oblique camera gives powerful diagonal of the plank and wet hull. The far end of plank is occupied by a pirate boatman stepping back to keep balance, his hands visible but no weapon contact or injury. Behind Yiguan, old grey-bearded carpenter Awang in brown coarse clothing is mostly a shadowed silhouette holding a long working boat hook firmly against the plank to steady it. Two tiny toll-boat crew below are distracted by a spilled money pouch at the far stern, a few strings of coins slide toward the sea. Large timber hull and towering battened sail of Du Qi's junk Shunsheng move laterally through the BACKGROUND gap, separating the small toll boat from a distant mother ship sail. Broad slate-green open water and white spray, dynamic slanting sails, looming hull and horizon depth make the early small encounter grand and suspenseful without exaggerating ship numbers. Cool silver overcast afternoon, indigo and ochre retain muted true color, photochemical 35mm softness, subtle halation, natural deep shadows, veiled maritime air. Historically grounded late Ming Chinese timber junks, no skull flags, no European pirate costumes, no Qing shaved forehead or queue, no extra clutter, no captions, lettering, watermark, black bars. Focus on blocking the bridge and separating ships; no wounds, no blood, no person being struck.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            }
+          ]
+        },
+        {
+          "id": "yiguan_a2_s4",
+          "title": "寄不出去的银袋",
+          "year": "1624年后段",
+          "location": "大员近岸泊地—平户窄屋",
+          "summary": "福松出生的消息到了，一官已有归船。他因接下两船合货而留下，又在信里将挪用家用写作未能结清。田川氏第一次从别人口中知道，他已经不只是通译。",
+          "paragraphs": [
+            "报生的信从平户转过几次船，送到时纸角起了盐斑。田川氏写孩子健壮，取乳名福松，夜里吵得邻屋也睡不好。信末有一小点淡墨，像想补画什么，又收了笔。",
+            "一官将信读给阿旺听，读到孩子会攥住衣襟时笑了，问老人这时候该寄怎样的衣料。阿旺说先认得自己的爹，比衣料要紧。港口确有返日的船，陈添已替他问过，自己只带小包上去，不碍货。",
+            "一官把歪船图摊开，想添桅。画到船中间又停住，他不知道田川氏究竟想把帆画在哪里，便只把报生的信叠在纸里。晚上，他去看那条归船，船主说过两日等风便走。他亲口答会来，没有让陈添替他答。",
+            "回泊处，杜七正在同合货船主争本钱。两条船若散开，各自只能接零活，留在一起便能吃下回程货。对方肯出一份，却要一官也拿现银，不能只报快船和劳力。杜七的钱刚用在伤亡与修船上，屋里沉了一阵。",
+            "一官说自己有一点。他出门到船头，解开已经重新攒好的家用袋，里面钱正够答应的数。银上沾着药粉，是阿旺前两日才还来，说伤处已不必再买那么多药。他将袋子重新系住，坐了许久，又提着进去。",
+            "杜七问这不是寄家的钱吗。一官说只挪这一航，货一到手便寄，能寄双份。合货船主当场验了钱，将他的名字添上。落笔那一刻，他想到返日的船还要等风，自己应当来得及；等人抬头问谁去看装货，他又先答了自己去。",
+            "阿旺听说改期，没骂他。他收好一官先前托带的半包衣料：“那我不替你说哪日回。”一官有些恼，回一句自己知道写信。说完见老人手指正笨拙地替福松包一块磨平的木玩意，气又没处放。",
+            "第二日合货还没装齐，返日船主遣人来催。一官正在处理两名船工为工食争执，叫对方再等一顿饭。消息传回，船主让他带着行李即刻来。一官起身走到跳板口，背后又有人喊漏进舱的水没人看。他停了脚。",
+            "归船走时，他站在新领的快船上，抱着那一小包没送出去的衣料。杜七在另一边照看装货，隔船说赶下一航也是一样。一官点头，仿佛这句话本就是自己说的，别人如今说回来，总不会错。",
+            "信一直拖到夜里才写。他先写钱已另有用，划了；又写等合货款回来，仍划了。最后纸上留下的是“此间款未结，家用随后补寄”。字句并非完全虚假，那笔钱确实尚未挣回来，却避开了是谁决定拿走。",
+            "他将包过银袋的歪船图铺平，银在纸上蹭出了一道暗印。他想另取干净纸抄一张，船底却总画不成她那样，最后还是将原图夹进信里，用红线束住。陈添来收信，掂见纸轻，问银是否另寄。一官应一声。陈添没有再问。",
+            "【平户，数月后】田川氏在檐下抱着福松，来送信的同乡先恭喜，说一官有了快船，如今两条船合着走，不再做受气的翻话人。她看了一遍信，问他还说了什么。送信人说再没旁的，怕孩子哭，自己先告辞。",
+            "夜里她点起灯，给孩子量袖长，先剪大了一寸，又剪回半寸。写回信时，她没有替一官找船期，也没骂他不该出海，只添一句：“有船的事，是别人告诉我的。下回你自己说。”",
+            "她将回信寄出，把原图收在孩子的衣匣里。信还在过海，一官的合货船已经改了下一处停泊。他向陈添讲怎样排两船的次序，讲到一半，听见有人叫他郑头领。那人又叫一遍，他才应。桌上那只曾装家用的银袋被压在海图下面，空得看不出本来要送往哪里。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "阿旺",
+              "text": "那我不替你说哪日回。"
+            },
+            {
+              "speaker": "田川氏",
+              "text": "有船的事，是别人告诉我的。下回你自己说。"
+            },
+            {
+              "speaker": "一官",
+              "text": "只挪这一航。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "挪用家用入合货、错过已应下的归船，在信中省去钱的去向和自己夺船的事实。",
+          "dramaticBeat": {
+            "want": "见到初生的儿子，也不失掉两船合货形成的立足机会。",
+            "obstacle": "家用与合货需要同一份现银，返乡与留船管理不能同时完成。",
+            "decision": "挪用家用入合货、错过已应下的归船，在信中省去钱的去向和自己夺船的事实。",
+            "result": "两船事业有了本钱，妻子却从旁人口中得知丈夫的身份变化；归期与信任同时被透支。",
+            "next": "合货欠款与被压的旧酬，给越界扣货提供了自以为正当的理由。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "两船事业有了本钱，妻子却从旁人口中得知丈夫的身份变化；归期与信任同时被透支。",
+          "history": {
+            "level": "adaptation",
+            "note": "澳门、平户、大员的历史脉络依据随文来源；本场具体事件、交易、私人对白与心理、原创同行均为文学虚构，不是郑芝龙已证亲历。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a2_s5.png",
+          "imageWidth": 1933,
+          "imageHeight": 813,
+          "imagePrompt": "Use case: historical-scene. A single 2.39:1 anamorphic historical cinema still for 一官入海 zheng_a2_s5 暂且不寄的家用, c1624 late Ming Chinese junk cabin at night. Main action the young Yiguan in plain indigo short work jacket, ochre waist sash and Ming topknot, slim long southern Chinese face, is handing one small heavy cloth money pouch from his homebound travel bundle to Japanese shipmaster Kippei at the dark cabin doorway. Kippei is an ordinary practical seventeenth-century Japanese merchant sailor in muted charcoal kosode, natural tied hair, no armor, no samurai spectacle. Yiguan's other hand holds a small folded family letter and a red-thread drawstring cloth sleeve, protecting it beside his chest. The mother's small simple ink drawing of a broad boat hull with NO sail lies mostly folded inside the red-thread sleeve, just a glimpse, no legible writing. His expression is resolved and troubled, eyes follow the silver bag, no handshake celebration. Only two figures, one oil lamp low on a bare plank shelf, quiet dark sea through a narrow open hatch. Strong negative space of unlit timber between their arms, restrained warm lamplight versus deep indigo night, muted color retained, veiled texture and photochemical 35mm softness, natural hands with clear separate grips. This depicts using family money to fund repairs and joint cargo without asking his wife first, not a mother-and-baby portrait. No paperwork piles, no maps, no extra bags or crates, no crowd, no glossy portrait, no Qing queue/shaved forehead, no modern objects, no text, no watermark, no baked black bars.\nRevision: Use case: precise-object-edit. Edit the reference historical cinema image only to correct two anachronistic/continuity details, preserve exactly the two men's faces, clothing, handoff of money pouch, dark wooden cabin, composition, color and 2.39:1 wide format. Replace the modern glass-chimney kerosene lamp on the left with a small shallow seventeenth-century clay oil dish and one exposed wick flame, NO glass, NO chimney, NO metal burner. The dish casts the same small warm glow. At Yiguan's chest, keep the red-thread cloth sleeve, but tuck the family paper fully INSIDE it so absolutely no drawing or writing remains visible, only the sleeve's soft fabric top. Keep indigo work jacket, ochre sash, full-hair Ming topknots and natural hands intact. Quiet low-saturation historical 35mm cinema, real shadows, no text, no watermark, no bars. Only these two corrections; no new objects or people.",
+          "imageCaption": "本要寄回的银袋，被留在合货桌上。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        }
+      ],
+      "cover": "images/film-v3/act-2.png",
+      "coverWidth": 1916,
+      "coverHeight": 821,
+      "illustrationStatus": "ready",
+      "illustrationScope": "v4-atmosphere-reference"
+    },
+    {
+      "id": "act-3",
+      "title": "雾里的求援旗",
+      "years": "1625—1626",
+      "synopsis": "一官不肯再让有炮的人替自己定价。他与杜七夺回被扣的船货，却把别人的损失一并扣在手里。杜七拿全部私货救他，他许下见旗必回；三天后，他在海雾中看见援旗，决定先保货。他用钱补船，用另一张嘴遮住命令，留下一个不敢开口的见证人。",
+      "scenes": [
+        {
+          "id": "yiguan_a3_s1",
+          "title": "红封舱",
+          "year": "1625（具体航次虚构）",
+          "location": "闽台海道，一条华商代理的合货船上",
+          "summary": "被欠的译费、扣走的货与新船的债都压在一官手里。他截住替武装贸易集团运货的红封船，强取抵偿；当舱中出现普通散户的货签，他仍让人继续搬。",
+          "paragraphs": [
+            "天刚亮，陈添便认出了那条船。不是认帆，是认舱口那一圈红漆。大员港里，管货人把一官应得的银钱划去一半时，用的也是这样的封舱签。签上没有公司的字，只有一名华商代理的私记；荷方的炮船走后，这人仍在替双方收货、扣账。",
+            "杜七把顺生号靠在外侧，遮住合货船往大水面去的路。一官的快船贴住船艉。对面没有先放炮，掌柜举着账簿站在跳板另一头，认出一官，脸上的惊色慢慢退了，伸手说有旧账便上岸讲，不必惊动其他货主。",
+            "一官把自己的欠单展开，纸角已经磨软。“译费、脚钱，被你扣的两包生丝。只拿这些。”掌柜隔着两船的水缝看单子，指出其中一项已由大员管货人销掉。一官问：“银子销到谁手上了？”掌柜说：“不是我手上。”杜七在后头笑了一声。",
+            "掌柜不接单，也不准开舱。几名船工围过来，有人手里拿着篙，却没举。一官看见这些人的脚——有一个脚背肿得穿不进鞋，有一个绑腿上还沾着岸边的黄泥。他们未必领过那笔钱，可舱门就在他们身后。",
+            "“开。”一官说。阿旺没有动。杜七的人先把撬杠插进锁扣，掌柜伸手来挡，挨了刀背一下，账簿落在水缝边。阿禾扑过去按住书，胸口撞得生疼。一官立即喝止第二下，却没叫人把撬杠拔出来。锁扣带着一片木头崩落，舱里露出捆得齐整的布包。",
+            "先搬的几包确是代理人的货，内签和欠单对得上。随后，陈添从一只小箱底下抽出半张托单：七家合寄，布、针、药材，送往对岸换米。有一家只押了几钱银，签后写着欠脚费，货到再补。阿禾把箱子放回原处，等一官看完。",
+            "外侧的杜七催船。海口已有白浪，隔远看，来船究竟是同行还是代理人的接应，谁也说不准。掌柜这时反而放低声音：“你要找的货在底下。上头这些，赔不起的是他们。”他指着船工，指尖还在发抖，既是劝，也是拿这一船人拦在自己前面。",
+            "一官蹲下看箱底。药包被布紧紧勒住，像要挤出几寸空地方来省脚钱。他问掌柜：“现在一包一包辨，要辨多久？”掌柜没有答。他再问有没有另一份总单，对方说留在岸上。他便把托单交给陈添：“记清。到岸对过，多的还。”",
+            "阿旺抓住箱侧的提耳。“那就留在这里，去岸上对。”一官没有提高声音，只抬头看他：“我们空着手到岸，他还会认我这张单？”阿旺的手没松。一官把自己的手压在那只手上，一根指头一根指头地拨开，叫阿禾帮着抬。阿禾先看叔父，最后弯下腰。",
+            "合货船上一个女人从舱后挤出来，朝搬走的小箱追了两步。她不是船主，搭船送的是婆家欠下的几包布。杜七的刀手横住她，刀没出鞘，她却立刻停了。她向一官说了自家的姓、村名，怕他记不住，又说了一遍。一官让陈添都记下。陈添蘸墨时，笔尖碰倒了砚边的水。",
+            "货搬到一半，杜七叫停，说够本了，再多便压快船。一官看了看欠单，又看下面空出来的舱位，让最后两箱也上船。他没有把这两箱计在自己的欠账里，写作公用：修帆、备药、养新来的船工。杜七看过，没有反对，只把一包好布从公用那一堆拖到自己脚边，算补昨日的火药。",
+            "离船之前，一官让人把被打伤掌柜的药钱留下。掌柜没有接，银子便放在舱沿。他喊住一官，问货到哪里领。一官报了锚地，让他带齐总单。掌柜说：“他们的货，你也叫他们等你？”一官已经踏过跳板，回头时，跳板正被杜七的人抽走。",
+            "入夜，两船靠在一处。布换了米，药分给旧伤未愈的人，锅里第一次有了干饭。新来的船工围着一官，问下一航何时走。有人把孩子抱到他跟前，叫他摸摸孩子的头，好让孩子认得是谁给的粮。他手里还拿着那半张托单，腾不出手，便让陈添先收好。",
+            "陈添问账上写什么。一官说：“旧欠收回。”陈添写了四字，又把散户那一页夹到后头。杜七坐在灯外缝破靴，针怎么也穿不过厚底，一官替他拿来锥子。两人并肩干了一阵，谁都没提舱口那个女人。船外，一条来讨货的小艇不敢靠近他们的灯，停在黑水里。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "译费、脚钱，被你扣的两包生丝。只拿这些。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "那就留在这里，去岸上对。"
+            },
+            {
+              "speaker": "一官",
+              "text": "我们空着手到岸，他还会认我这张单？"
+            },
+            {
+              "speaker": "掌柜",
+              "text": "他们的货，你也叫他们等你？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "夺回应收欠款，在混载货与抢潮压力下作出确定的扣货决定；散户追索进入后续因果。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1625年李旦、颜思齐先后去世及郑氏网络发展属于历史背景；本场扣货、无风、被擒、赎人、顺生沉没、援旗及隐瞒全部为原创F，不冒充史实中的特定事件。李、颜关系与早年年表存在材料层次差异。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "索回应得转为强制抵偿",
+          "currentCanon": "一官明知船舱混有散户货仍下令搬走；制止打人、留药钱不撤销其扣货责任。托单被保留，后续代理追索和船工不信任均由此发生。",
+          "dramaticBeat": {
+            "want": "追回被扣收益，维持新船与船工的生计。",
+            "obstacle": "代理否认旧账，混载货难以辨清，潮口和可能到来的接应压缩交涉时间。",
+            "decision": "撬舱取货，把普通托货也作为尚待核清的抵偿扣下。",
+            "result": "船队有粮药并吸引新人，散户失货，一官开始用公用开销解释越界所得。",
+            "next": "被截代理和散户分别追索；一官需要在尚未建立可靠信用时找水、兑货。"
+          },
+          "image": "images/film-v4/zheng_a3_s6.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural selective light and real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails, Chinese topknots and plain lived-in fabrics, no Qing queues, no skull flags or European pirate costumes. Monumental scale through wind, waves, huge sails and smoke depth, not excessive clutter or endless explosions. 1625-26 forced seizure of cargo from a known armed trade network's supply junk off Fujian-Guangdong. Single low-angle medium-wide moment AT the opened cargo hatch on the deck of a Chinese wooden junk, two huge battened sails and the adjoining hull loom against a flat pale sky, a narrow boarding plank connects them in background. Young Zheng Yiguan, slim long southern Chinese face with straight brows, brown skin, Ming topknot, indigo short tunic and ochre sash, has himself torn a RED waxed-paper cargo seal and pulled open the hatch cover; one cloth bale inside reveals several small separate tied paper seals with illegible marks, evidence of mixed shippers. A Chinese shipmaster in dull gray clothes reaches across to stop the bale being taken, his hand held firmly aside by Zheng, morally uneasy coercion rather than consensual trade. One subordinate armed sailor is a dark background shape at the plank; a hurt ordinary sailor sits low at the far rail in soft focus, no graphic blood. Only two sharp faces. Strong monumental diagonal of sail and hatch cover, heavy gray-green sea visible in a narrow gap, cold midday saltlight. Not a heroic triumph, not peaceful bookkeeping, no document table, no Euro pirate costume, no excessive sacks or ropes. Threat and loss are simultaneous with recovering old debts.",
+          "imageCaption": "红封被撬开，索赔越过了散户货物的边界。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a3_s2",
+          "title": "一舱货，一双手",
+          "year": "1625末—1626初（具体航次虚构）",
+          "location": "无风海面、沿岸货埠与顺生号",
+          "summary": "无风与缺水迫使一官亲自上岸兑货。他被追索者扣住，杜七交出原本独得的一舱私货将他换回。一官按着杜七磨烂的手，许下见旗必回的承诺。",
+          "paragraphs": [
+            "第四天没有风。帆垂在桁上，补过的针脚一行行看得清楚。陈添用湿布擦舌头，阿禾把剩水量给叔父看：船上还留着三天的饭，水却只够到明日午前。一官从前能算出风起以后多久到埠，此刻每个数都要先问一句，风若不起呢。",
+            "少的几桶水，是他上一次把船留给货才没装的。阿旺当时让他卸两箱，他说前面不过一日水程，拿货换水也来得及。现在杜七不肯再匀，顺生号自己也有四十张嘴。两船隔着一根软软的缆，谁说话，另一头都能听见。",
+            "一官让人把那两箱抬上来。先前扣下的散户小箱也在里头。阿禾问拿哪一箱换，一官把有药的那只推开，选了布。陈添劝他不必自己上岸，昨日新来的伙计认得一个能现兑银的掌柜，便宜一些，半个时辰就成。一官问了两遍埠头有几条武装船，终于卷好欠单，把印泥也带了去。",
+            "上岸后，掌柜先说没有现银，叫他进后屋喝茶。茶碗刚落桌，门就关了。那名新伙计不敢看他，只伸手拿走他的刀。代理人的旧掌柜从帘后出来，手指上裹着布，把红封舱的总单摊开：自己的货一列，散户的货一列，连被打坏的锁扣也算了进去。",
+            "一官先争那笔译费，争到后来，嗓子干得发不出原来的声音。他提出把货归还，先准两船装水。对方拿一根蘸盐的细绳，慢慢绞紧他的手腕，说话也慢：“你在船上问我认不认单子。如今认么？”新伙计缩在门后，那笔卖人的赏钱还没拿到，先来问管事是不是说好不伤人。",
+            "杜七在日落前到了。他没带刀手上岸，只让顺生横停埠外，自己的小艇装满布包。掌柜要的是两船货，杜七告诉他一官快船上的货换了粮，真逼急了，众人会连那条船也放火烧给他看。桌上讨了几轮价，他始终没说兄弟二字，只报自己能交出什么。",
+            "最后，他押下顺生号这一航全舱私货。阿旺在艇上拦了一次，说这些是杜七与老船员自掏本钱的，不是公货。杜七让他挪开，叫一官自己走到埠边来。隔着水，一官看见那几包布上的针脚，正是前一夜两人拿锥子一起缝过的绳扣。",
+            "交换的人怕一官上船便跑，不肯在岸上解掉绑腕的绳，只将绳尾丢过来。两船之间空着一道窄水，阿旺递来跳板，被埠上的人踢开。杜七骂了一句，索性抓住绳尾，将一官从湿阶上拖入艇里。绳受了盐水，粗得发硬，从他的掌心抽过去，皮肉翻起，他仍没松手。",
+            "回到顺生号，水已经装足。一官先喝了一口便吐出来，咳了许久。杜七坐在对面，等那群押货的人走远，才把手浸进木盆。水面浮起一丝红，盆底还有阿禾洗碗没涮干净的饭粒。他用指头拨开，忽然笑自己这回亏得连一碗干净洗手水也没有。",
+            "一官把腰里银子全掏出来，不够半包货钱。杜七连看都没看，只问他：“下回是我掉在这里，你来不来？”一官点头。杜七把盆端走：“点头谁不会。人到了，船也得能到。”他抬起那只烂手，让阿禾照原先商议的样子升一次赭黄援旗。旗离甲板很低，一官仰头就看得见。",
+            "“三起，求接人。不是叫你替我争货。”杜七说，“从哪边起，接应就往哪边走。听不见炮，看旗。”阿禾照做，起三次便收。他问若旗绳断了怎么办，阿旺在一旁说去艉楼用手举，不准站主桅最高处。几个人认真说了一阵，仿佛把这些位置定好，人就不会再落进水里。",
+            "一官握住杜七未裹完的手，按得杜七吸了一口冷气。他赶紧松开，又握住手腕：“我记住了。往后你起这面旗，我回来接。”杜七说不必当着满船喊，自己耳朵没聋。一官却转过身，把话向陈添、阿旺、阿禾又说了一遍。船上有人应好，有人端了热饭出来。",
+            "夜里，一官到杜七铺边，把能抵出去的两份船货单留下，杜七醒着，没有叫住他。次晨分钱，顺生的老水手来讨原定的分成，杜七让再缓一航。水手指着一官的快船问，为什么他们去挣下一航，这一船得等。杜七拿受伤的手将人推开，推得不重，也没解释。",
+            "一官站在舷后，全听见了。他知道还有一船要运的货：自家的本钱、借来的粮，连平户未寄的家用都在里面。过了下一道水口，便有买主肯现付。杜七叫他过来定接应位置，他立刻答应，指给对方看那条由阿旺掌舵的小快船，说它吃水浅，必定留在顺生外侧。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "杜七",
+              "text": "下回是我掉在这里，你来不来？"
+            },
+            {
+              "speaker": "杜七",
+              "text": "三起，求接人。不是叫你替我争货。"
+            },
+            {
+              "speaker": "一官",
+              "text": "我记住了。往后你起这面旗，我回来接。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "这些是他和老船员自己的本钱，不是公货。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "经历无风水粮危机与私人扣押，靠伙伴牺牲脱身，明确建立赭黄援旗及接人承诺。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1625年李旦、颜思齐先后去世及郑氏网络发展属于历史背景；本场扣货、无风、被擒、赎人、顺生沉没、援旗及隐瞒全部为原创F，不冒充史实中的特定事件。李、颜关系与早年年表存在材料层次差异。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "以财物赎身，以承诺结债",
+          "currentCanon": "杜七交出私人合货而非无偿获得财源；旗语经全船明示，阿禾亲自操旗。一官所作回援保证没有保货优先的隐藏条款。",
+          "dramaticBeat": {
+            "want": "兑货补水、消解代理追索而不丢掉新得的船。",
+            "obstacle": "无风缺水，货债未清，代理以人质逼讨。",
+            "decision": "接受杜七交出全舱私货救自己，并公开许下见旗必回。",
+            "result": "他活着回来，杜七与老船员的本钱消失，接应成为必须兑现的私人债。",
+            "next": "下一航既需替伙伴挣回本钱，也要保住一官挪来的关键货，两者在同一道水口相撞。"
+          },
+          "image": "images/film-v4/zheng_a3_s8.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural selective light and real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails, Chinese topknots and plain lived-in fabrics, no Qing queues, no skull flags or European pirate costumes. Monumental scale through wind, waves, huge sails and smoke depth, not excessive clutter or endless explosions. Fictional 1625-26 maritime ransom exchange, NOT battle. A severe wide frame at water level between TWO towering Chinese wooden hulls at the end of blue twilight, almost all deep shadow. On right an armed trade-agent junk's rail, young slim long-faced southern Chinese Zheng Yiguan in indigo short shirt and ochre sash, Ming topknot, is bound at the wrists with a short rope, forced low against the rail, exhausted but recognisable; a guard remains a dim silhouette behind. On left a small boat from Du Qi, a rough-bearded Chinese captain in charcoal plain jacket; Du Qi reaches one rough palm to pull Zheng aboard while keeping his OTHER arm against the final ONE cloth bundle on the boat's bow, refusing to release it before the man. One earlier bundle is visibly halfway between the hulls on a rope sling, its recipient only a partial hand. One transfer stage, clearly readable physical distances; don't show a handshake or relaxed meeting. TWO main faces and hands only, sail masses mostly above darkness, quiet deep water catches a thin silver reflection, ONE hooded oil lamp lights the rope and torn sleeve. No giant navy, no firing, no fantasy dock, no sunset orange grade, no text, no prop piles. Composition gives ships and danger weight through low viewpoint and tall black sides.",
+          "imageCaption": "以货赎人的旧稿船间交接参考；新稿改在岸埠交换。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a3_s3",
+          "title": "雾太大",
+          "year": "1626（具体护航与战斗虚构）",
+          "location": "闽海暗礁水道，货船与顺生号之间",
+          "summary": "杜七替货队咬住左翼来敌，一官同时面对潮窗、关键货与求援。他清楚看见援旗，仍命陈添传出左翼无碍的假话，抽走接应。顺生号沉没，阿禾折返救人时伤腿。",
+          "paragraphs": [
+            "三天后，雾从两船之间涌过来。先没了船身，再没了半截桅，只剩顺生号的旗尖。阿旺的小快船守在两船之间，吃水浅，帆收了半幅，专等左翼三次援旗。阿禾在艇首盘好缆，绳末打着活套；他每打一个结，都要抬头找一次那一点赭黄。",
+            "一官留在运货的大船上。快船装不下这一航的重货，只能借船载，他自己的部众与债却都压在舱底。陈添把潮时写在掌心，墨被汗晕开，剩一个还能认的时辰。他们必须在水退之前过去；错过水口，后面追来的轻船不用炮，只消等大船的底板坐上礁。",
+            "顺生号先响了两炮，把一条掠船挤往外侧。另一条却从雾下钻出，直奔货船艉后。阿旺听见炮，举篙来问该往哪边守。一官让他原地等，没有立刻改令。他在舷上向左移了几步，隔着一条斜挂的帆缝，突然看见顺生的主桅歪了下去。",
+            "赭黄三角旗升起来。一次。落下。再升。布被烟浸暗，旗角还是那块阿禾亲手补过的方布。第三次起到一半，顺生横着转了些，船首朝向不该去的浅水。杜七在艉楼举刀招手，看不清嘴，却看得出不是催他过口。",
+            "“起旗了？”阿旺隔水喊。他的位置低，正被货船的宽帆挡住左翼。陈添走过来，顺着一官的目光也看见旗，手立即按上了传令用的小锣。阿禾正从快船踏到货船侧边，来取一卷更长的缆；脚还在跳板上，身子停住了。",
+            "货船艉后传来一声爆响。一根散绳甩过陈添头顶，打在舱盖上。后面的船越逼越近，船工朝一官喊，用快船去拦才能脱身。再往前，水口两边的白沫已经分开，一块黑礁露出尖。掌舵的船工不敢再等，手压在舵柄上，问他究竟过不过。",
+            "一官把左手腕藏进袖里，三日前的绳伤碰到衣料，又湿了一点。他先看顺生，再看脚下舱门。门缝里露出一截红绳，是他系家用袋剩下的线头。陈添已经把小锣举起来，等他说那个字。他伸手按住锣边：“雾太大。看不清左翼。”",
+            "陈添没有动。“可杜头领……”一官转过来，看着他的眼睛：“顺生还能守。叫阿旺先护货过口。”远处的旗又抬了一次。他没有回头，手仍压在锣上。陈添张嘴，一口气没有出来，一官才松手，让他去船侧。",
+            "“旺叔，左翼无碍！”陈添喊得太急，头几个字破了音，“郑头领叫你掉头，先护货船！”阿旺抬起脸，隔雾再问一句是不是看清了。一官自己走到舷边：“照传令做。”他这句话没有被炮声盖住。阿禾抱着那卷缆，站在两人背后，绳慢慢滑到脚上。",
+            "阿旺的艇转了帆，斜插到货船艉后。先追来的小船被篙钩顶开，货船猛地一轻，船首终于咬住水口的潮流。一官扶着舷，等船底擦过那块黑礁。木头在礁面上拖了很长一声，过去了。船工还没来得及喊，左翼便传来比它更沉的一声断裂。",
+            "顺生号的桅倒了。旗被横木带进水，像还要再升一次，随即没了。阿禾将缆绳系住腰，跃回经过船侧的快艇。他指着左翼，一句话也说不整。阿旺抬头看见雾里散开的木板，猛推舵柄，要回去；货船已经进了狭口，他的艇被船艉涌起的水压偏，险些碰翻。",
+            "一官让后舱两人放下长索，叫阿旺别横着回，先顺潮绕出。他喊得很快，每句都能用。快艇终于绕过船尾，阿禾先把一个抓住碎木的人拖上来，第二个人一直沉着，他伸篙去够，一根断梁被浪推来，夹在艇舷与他腿之间。篙掉进水，他张了张嘴，没有声音。",
+            "阿旺扑过去，摸到小腿折出的角，脸上顿时没了血色。阿禾却推他的手，指向另一边——杜七抱着断舵，在雾里起落。艇上已经挤满人，阿旺把自己的工具箱扔下去，腾出能放半个人的地方，再次伸出篙。杜七上艇时，受伤的手掌又全裂开了。",
+            "出水口以后，货船在背风处等。他们把伤者吊上甲板，米袋让出位置，衣料撕成布条。一官蹲在阿禾旁边，要替他解被血粘住的绑腿。阿禾死死抓住叔父的衣袖，身子往后挪了一点。一官的手停住，随即让人先烧水。陈添把小锣搁回舱口，边缘留下了四个湿指印。",
+            "天黑，货主来交银。够买一条补过的大船，也够药钱，够这船人吃三个月。一官把银分好，第一袋先放到杜七枕边。杜七昏睡着，没有看见。陈添提灯问今日的损失怎么报，一官望着灯芯，等它爆出一点黑花，才说：“援旗被雾挡住，接得迟了。”陈添低头，将这句话写进了航记。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "雾太大。看不清左翼。"
+            },
+            {
+              "speaker": "一官",
+              "text": "顺生还能守。叫阿旺先护货过口。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "是不是看清了？"
+            },
+            {
+              "speaker": "一官",
+              "text": "照传令做。"
+            },
+            {
+              "speaker": "一官",
+              "text": "援旗被雾挡住，接得迟了。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "在明确可见的援旗、货船险境与有限接应艇之间执行一官既定的保货命令，呈现沉船和伤腿后果。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1625年李旦、颜思齐先后去世及郑氏网络发展属于历史背景；本场扣货、无风、被擒、赎人、顺生沉没、援旗及隐瞒全部为原创F，不冒充史实中的特定事件。李、颜关系与早年年表存在材料层次差异。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "观众知情的道德背叛",
+          "currentCanon": "一官与陈添、阿禾知道当时能看见旗；阿旺和杜七尚不知。货被保住不能抵消撤援；事后组织救援也不能改写先前的决定。",
+          "dramaticBeat": {
+            "want": "保住关键货、渡过潮口而不丢掉对全船的指挥。",
+            "obstacle": "左翼求援与艉后追兵同时出现，接应只有一条快艇，退潮将使重船搁浅。",
+            "decision": "明见旗而命陈添称左翼无碍，令阿旺先护货，事后把记录改作雾遮援旗。",
+            "result": "货船脱险，顺生沉没、人员伤亡、阿禾伤腿，陈添成为同谋，阿禾成为受压的目击者。",
+            "next": "他必须面对杜七追问，同时维持谎言、抚恤和下一航的依附关系。"
+          },
+          "image": "images/film-v4/zheng_a3_s3.png",
+          "imageWidth": 1938,
+          "imageHeight": 812,
+          "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural light with real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails and topknotted Chinese sailors, no Qing queues, no skull flags or European pirate costumes. Epic grandeur in real ship scale, wind, weighted waves and layered gun smoke; 1-3 clear focal vessels/people, other vessels become distant silhouettes; no clutter of crates or ropes, no endless explosions. Fictional 1625-26 fight in a dark Fujian coastal channel, tactical betrayal while guarding cargo. Elevated ultra-wide from the aft quarter of Zheng Yiguan's cargo junk: one small indigo-clad topknotted commander with ochre sash in foreground orders the escort to turn away. Below, a small Chinese fast escort junk heels sharply into a white wake toward the heavily laden cargo junk and safer narrow water at right. At left-middle distance Du Qi's imposing Shunsheng junk, a large looming battened sail and plain distress pennant, fights TWO attacking wooden junks near black reefs; a low cannon flash and sheets of gray gun smoke rise between the three hulls. One grain junk is already safely receding through the channel, only as a distant silhouette. Only the narrative's few vessels; not an enormous navy. Monumental scale from steep coastal cliffs, heavy cross-waves, towering sails, smoke depth and converging courses. Blue-black early night with remaining silver cloudlight, a few tiny amber gun flashes, NO sunset orange wash. The central decision to abandon a distressed ally and guard cargo must read clearly. No wounded closeups.",
+          "imageCaption": "旧图未表现本稿海雾与赭黄援旗，暂停显示。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "needs-redraw"
+        },
+        {
+          "id": "yiguan_a3_s4",
+          "title": "好鱼留给谁",
+          "year": "1626，顺生号沉没后三日（虚构）",
+          "location": "岸上养伤矮屋",
+          "summary": "杜七来问接应为什么掉头。陈添按一官的命令替他作证，一官用私人分成赔船抚恤，使杜七误以为自己错怪伙伴；阿禾知道真相，却处在伤药、叔父生计与对方控制之中。",
+          "paragraphs": [
+            "鱼在铁锅里粘了皮。一官用竹片铲，铲破一边，便把好的一边转向里屋。阿禾的腿架在木板上，药味盖不住汗味，夜里疼得睡不着，白日反而不大说话。阿旺在门口修一只借来的旧箱，旧工具沉了，新的锉刀和凿还用不顺手。",
+            "杜七来时，脚上没有穿鞋。他将顺生的一块碎舵叶放到桌上，没砸，放下以后仍压着，像怕旁人当废木拿走。他问阿旺是不是这条艇把自己接回来的，阿旺点头。他再问接人以前为什么向后掉头。阿旺的手停在锉上，抬眼看一官。",
+            "陈添端水进门，险些撞着杜七的肩。杜七让他把水放下，问当时是谁报左翼无碍。陈添说是自己。杜七不骂他，只让他从起炮那刻重新讲。小屋里的人全听着，他先讲追船，再讲水口，讲到那面旗，嘴唇上裂开一道白皮。",
+            "“我往左看过。雾里只见桅顶。”陈添说。一官没有抬头，继续铲鱼。杜七问：“你一个人看？”陈添看了一眼灶前的背影，又低下头：“一官哥也看。旗没有起来，是后来才露的。”阿禾在里间猛地撑起身，木板压到伤处，疼得眼前一黑。",
+            "阿旺听见床响，过去扶住侄子。阿禾望着叔父嘴边的白须，想起那只被抛进水里的工具箱。床脚放着新药，一包包都写在一官账上；阿旺已两晚没上船，锉刀是借来的，出门求人做活还得托一官的管事。他抓紧叔父的袖子，嘴张开，先问出来的却是杜头领的伤手好些没有。",
+            "杜七听见，走到床前，举那只裹着布的手给他看，说还能揍人。阿禾勉强笑了。杜七问他当时坐哪儿，阿禾说取缆，声音很小。屋门外有人喊医者来换药，阿旺连忙出去接。阿禾看见一官转过身，手里端着刚盛好的鱼。两个人隔着床尾看了一会儿。",
+            "一官把好鱼放下，没问他为什么坐起来，也没叫他闭嘴。“你叔的箱子，我叫人重新打。料别省。”阿禾的手慢慢松开床沿。一官又把一张写好的银单搁在桌上，让杜七按指印收，不从公账走，先从自己这一航的分成扣，不够的以后再补。",
+            "杜七看着那张单，脸色一点点变了。他原来以为这趟货挣得多，一官才肯大方；单上却把给顺生老水手的药粮、沉失工具、各户抚恤一条条列着，连一官原定要寄往平户的银也勾了出去。写这些的时候，一官就在灯下坐到天亮——他确实付了钱，也确实知道杜七会怎样看它。",
+            "“我不是来抢你家用。”杜七说。他把指印按下，又将银单往回推一点，只取眼前要发的份。“我的人活着上了你船，吃药吃饭，先从这里出。船慢慢补。”一官说这些本来就该自己出。杜七搓了搓手上的红印，有些难堪地解释，问话不是不信他。",
+            "陈添去门外洗砚，水倒进沟里，红黑混在一起。阿旺追出来，低声又问一次：“你们真没见旗？”陈添的手抖了一下，洗砚水泼到裤腿。他说若见了还能不报么，话出口后自己也停住。阿旺没再问，把医者带来的拐杖接过去，试了试握处会不会磨手。",
+            "里屋换药时，一官留在床边。阿禾疼得咬住布头，额上汗直往下淌。一官扶着他肩，不让医者碰歪断骨。阿禾无处可躲，身体绷到最后，忽然把脸埋向叔父那一边。医者说骨能接，往后未必跑得快；一官立即说主船有看罗盘的位置，不必再跑缆。",
+            "阿禾咬着布，摇头。一官以为他怕识字难，说可以叫陈添教。杜七从门口接话：“愿不愿意，等腿好了问他。”话不重，仍像从前替年轻人争一口气。一官笑着说当然。这一笑让杜七放了心，却让阿禾把布头咬得更深。",
+            "众人走后，陈添回来取航记。那一页摊着，雾遮援旗四字墨色比前后都重。他问一官要不要重誊，一官说不必，别再添。他又说杜头领其实已经不疑了。一官背着手站在灶边，隔了一阵才问：“水手的份发足没有？”陈添说足了，两人便都不再说那面旗。",
+            "傍晚，杜七拿一小串干鱼回来，挂在阿禾床头，说这次别让厨子煎糊。阿禾眼睛突然红了，杜七只当他疼，拖一张凳子坐下，替他削拐杖的毛刺。灶台上那半边好鱼已经冷了。一官经过门口，看到两个人的影子落在一块，手抬起又放下，没有进去。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "杜七",
+              "text": "接人以前，为什么向后掉头？"
+            },
+            {
+              "speaker": "陈添",
+              "text": "一官哥也看。旗没有起来，是后来才露的。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "我不是来抢你家用。"
+            },
+            {
+              "speaker": "一官",
+              "text": "主船有看罗盘的位置，不必再跑缆。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "愿不愿意，等腿好了问他。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "维持既定假航记与抚恤，使杜七在错误信息下继续合作；保留阿禾的沉默与未来揭露压力。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1625年李旦、颜思齐先后去世及郑氏网络发展属于历史背景；本场扣货、无风、被擒、赎人、顺生沉没、援旗及隐瞒全部为原创F，不冒充史实中的特定事件。李、颜关系与早年年表存在材料层次差异。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "赔偿与欺瞒同时成立的戏剧反讽",
+          "currentCanon": "杜七因一官实际抚恤而消除怀疑，继续合作；阿禾拒绝主船轻职但暂未改投杜七。一官、陈添不自白，谎言将延迟到1628厦门战被阿禾戳破。",
+          "dramaticBeat": {
+            "want": "留住杜七与部众，让沉船被解释为可以赔补的意外。",
+            "obstacle": "杜七追问撤援，阿禾掌握真相，死伤与药粮无法回避。",
+            "decision": "让陈添以目击者身份背书假话，并用自己的分成确实承担抚恤。",
+            "result": "杜七误信且更感亏欠，阿禾被伤势与叔父生计压住，关系表面恢复而真相继续积压。",
+            "next": "招抚给一官新的秩序诱惑；杜七将在再次守侧翼时发现旧承诺一直建立在谎上。"
+          },
+          "image": "images/film-v4/zheng_a3_s4.png",
+          "imageWidth": 1932,
+          "imageHeight": 814,
+          "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural selective light and real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails, Chinese topknots and plain lived-in fabrics, no Qing queues, no skull flags or European pirate costumes. Monumental scale through wind, waves, huge sails and smoke depth, not excessive clutter or endless explosions. 1625-26 third day after returning to a small Fujian harbor, painful confrontation in a narrow dockside cargo shed. Medium-wide frame seen through a half-open timber doorway, softened overcast daylight. In foreground center a wet jagged fragment of a wooden ship's RUDDER lies across only two newly unloaded cloth bales, not a desk. Du Qi, rough short-bearded Chinese partner in charcoal clothes, stands rather than sits, pointing down at this fragment while demanding why the escort never returned. Facing him is young slim long-faced Zheng Yiguan in indigo short shirt and ochre sash, Chinese Ming topknot, tense and unsmiling, one hand arrested above the surviving cargo. Two clear focal people only. At far right in a dim adjoining room an out-of-focus older gray-bearded Lin Awang lifts a small cloth bundle near the foot of the unseen injured youth's bedding; no cave, no embrace, no rescue tableau. The harbor and ONE damaged junk are a muted strip beyond the shed. Pale gray plaster, damp dark wood, desaturated indigo and worn brown, deep shaded interior. Clear visual split between profitable cargo and a partner's broken vessel. No reconciliation gesture, no ledger, no busy crowd, no text.",
+          "imageCaption": "杜七追问沉船缘由，陈添把谎言续了下去。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        }
+      ],
+      "cover": "images/film-v4/act-3.png",
+      "coverWidth": 1916,
+      "coverHeight": 821,
+      "illustrationStatus": "ready",
+      "illustrationScope": "v4-atmosphere-reference"
+    },
+    {
+      "id": "act-4",
+      "title": "令旗的价码",
+      "years": "1626—1635",
+      "synopsis": "招抚失信，饥饿仍把两条船拴在一起。厦门口的第二面援旗使两年前的谎言爆开，杜七失去手与伙伴身份，一官得到官旗。料罗湾，他终于留下接人的船；田尾洋，他却再也接不回弟弟。能指挥的船越来越多，他愈发不能容忍家人离开自己安排的水路。",
+      "scenes": [
+        {
+          "id": "yiguan_a4_s1",
+          "title": "刀先交出去",
+          "year": "1626—1627（具体招抚交涉与劫粮虚构）",
+          "location": "闽海泊地、候抚湾口与空米船旁",
+          "summary": "一官把尚未确定的招抚说成已有着落，叫众人先交刀。官船没来，船粮却耗尽。阮老六用空米船设伏，一官脱险后选择更深的武装行动，把众人从一次不兑现的安全送入下一次大局。",
+          "paragraphs": [
+            "使者来的那天，一官把碎舵叶从桌上移开，换上一块新布。杜七的伤手才勉强能握刀，便又得把刀放下。他问交到谁手里，一官说先封在自己船上，官船到后再验，免得交涉的人看见他们仍备着厮杀。阿旺问拿什么凭证，使者从袖里取出一封来信，没有官印。",
+            "“蔡公愿意周旋，已经有着落。”一官说。使者咳了一声，想补哪一级官员尚未点头，一官先把酒递给他，请他回去代谢。桌边的人听见有着落三个字，纷纷问往后能否上岸，家里欠税会不会追。杜七看着那封信，最后解下自己的刀，平放在布上。",
+            "阿禾的腿能走了，阴雨天仍痛。他不再追着一官问下一航，常在杜七船上替人辨旗。杜七手指不便，他便替绑绳，把绳尾剪齐。一官叫过他一次，说罗盘位一直空着；他摇头，借口先前许了帮杜头领。一官没有拦，在名册上把他移到顺生旧部一栏。",
+            "候抚泊地等了十几日。第一批米煮完，第二批开始掺杂粮，官船只来过一条传话小艇。来人说地方上尚有异议，要他们再表诚意，换泊位、报人名、等下次回信。杜七听完把碗摔在舱板上，碗没碎，米汤溅在陈添新写的名单上。",
+            "一官让陈添把名单收好，不准照抄出去。他划艇去追使者，直到对方的水手拔刀护住船尾才停。回来时，封刀的布包已经被人割开。杜七在磨自己的刀，没看他；别的船员也各拿回了兵器。阿旺问何时开船，一官说今夜。他等有人问官船怎么办，没人问。",
+            "新粮迟迟未买到。一条载米的旧船沿岸经过，吃水却浅，船上的人说米在底舱。杜七认出艉上一个熟面孔：跟阮老六分过路钱的人。一官让货队别追，自己乘快船去探。阮老六那根带缺口的木筹还在他身上，旧时买的是一次退路，此时递过去，换来对方一阵笑。",
+            "空米船突然横过来，两条藏在岸影下的小艇扯起绳，要将快船拖向浅滩。阮老六在船头叫一官的名字，说知道他正等官旗，不敢真动手。一官没有回骂，先叫阿禾看拖绳系在哪儿。阿禾腿脚慢，没抢到最前，反而从舷低处看见绳结，只抬手指了一次。",
+            "杜七没有等命令。他让自己船上的人将大布帆放松，借风压向空米船，逼阮老六的人先割拖索。阿旺撑住快船的头，一官把一只空箱掀入水里挡钩，两船贴身擦过，木板碎屑撒了一背。阮老六后退时还想拽走阿禾，杜七用伤手挥刀，将他的袖子连绳一起砍断。",
+            "逃开以后，众人反而更饿了。阮的船没有米，杜七肩上挨了一刀，换来的只有一张真运粮船的水程单。单上押运的人有官府关节，也替几家大商行送货。一官对着它坐到天黑。阿旺把最后一碗杂粥端来，他没有喝，先叫来杜七，说这批粮过口以后便追不上。",
+            "杜七问这一次还等不等官船。一官把那封无印来信放到灯上，烧到一半又拿下来，留住使者与接洽人的名字。“不等了。”他说。杜七拿刀尖点点水程单，问抢完怎么算。一官答先分米，不碰船上人。杜七又问对方不开舱呢，一官便将水程单卷紧，没有再保证。",
+            "次晨，他们追上粮船，先斩断拖在水里的小艇绳，逼对方靠向浅处。船工没有硬拼，米到手，人也放下了船。岸边等粮的人拥来时，一官让每家领一袋，不许重复；杜七先让自己的船员搬，阿旺把抬漏的米扫在布上，留给不敢挤上前的老者。秩序是几个人吵着立下来的，不像一面旗那样齐。",
+            "陈添拿着损失册来，问船主的押运银和被劈坏的舵记哪边。一官看了看领粮的人，又看杜七让人将米装回自己的舱，说都先记公账。他头一次在册上写下往后要收的路钱：来货能过，须有人护；要有人护，先得养得起船。阿旺站在旁边，眼睛停在那个数上。",
+            "潮起时，一官把剩半封招抚信收进箱。杜七问留着做什么，他说人名还用得上。箱盖压住信角，他用刀背把纸推进去，再合好。海面上没有来接他们的官船，快船却已添了几条；出湾时，他站在船头，开始给每一条排位置。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "蔡公愿意周旋，已经有着落。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "这一次，还等不等官船？"
+            },
+            {
+              "speaker": "一官",
+              "text": "不等了。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "对方不开舱呢？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "招抚落空后重建船粮与行动能力；识破空船伏击，追取真粮，呈现强制与赈济并存。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1626早期招抚接触与1628正式受抚分开。本场交刀、使者用语、空米船、阮老六设伏与抢粮、分粮全属F，不把劫掠写成可确证的劫富济贫原案。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "安全许诺落空，生计逼出再武装",
+          "currentCanon": "一官明知招抚未获最终允准，却先称有着落；失信后以真实筹粮恢复指挥。阿禾在这一阶段自愿转到杜七船上做信号工作，没有将1626秘密告诉杜七。阮老六未写死。",
+          "dramaticBeat": {
+            "want": "以招抚换取不再受追索的岸上身份。",
+            "obstacle": "交涉未获落实，部众已先交刀等候，粮尽且旧敌利用其不敢动武的顾忌。",
+            "decision": "中止等待，重开兵器、破空船伏击并夺取真粮，开始筹划自己的保护收费。",
+            "result": "船队有粮，第一次交刀许诺破产，他发现只有握住更多船才有资格再谈。",
+            "next": "争夺厦门水路成为拿到真正官旗的筹码；杜七仍带着未揭破的旧恩守在侧翼。"
+          },
+          "image": "images/film-v4/zheng_a4_s1.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "采用旧图；正文及构图依据：目视通过。一官将入鞘刀横置交验桌、阿旺疑虑地按住另一端，两人的紧张视线与远处泊船契合正文解刀交验及今晚住处的质问；没有拥戴或正式授官的误示。",
+          "imageCaption": "没有官印的承诺，先换走了众人的刀。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a4_s2",
+          "title": "晴天里的那面旗",
+          "year": "1628，厦门战与随后数月受抚（私人战斗虚构）",
+          "location": "厦门外狭口、战后泊区与受抚验船处",
+          "summary": "厦门口，一官再次让杜七守侧翼。晴天中同样的援旗无人回接，阿禾终于说出1626真相。杜七失手伤残，与一官决裂；一官赢得战局并受抚，旧伙伴的船却开始由新秩序查验。",
+          "paragraphs": [
+            "这天没有雾。厦门外口两排船相向挤来，远处炮台的烟每起一团，水面便有一道白痕掠过。杜七那条修过的旧船守在最外侧，替主队挡住绕口的来船。阿禾站艉楼，腿边绑着一根短杖，旗绳缠在完好的手腕上。顺生的碎舵叶留在岸上，赭黄三角旗按旧样重新缝了一面。",
+            "战前，一官当着众船划过位置：杜七顶住外侧，两条快艇在内侧接应；口一封，先接外侧的人，再烧碍路的船。芝虎不肯在后头等，嚷着让他去挤第一道口。一官给弟弟披上湿了一半的护衣，推他后脑一把，说到了听锣，不许自己抢。芝虎嘴里应着，已经去试刀。",
+            "开战后，第一条碍口船早沉了半截，第二条却被潮顶偏。若按原计接回杜七，得先把两条快艇从狭口抽出；对方就能沿空隙冲开封锁。一官看见船尾系着的长索已经绷直，伸手让鼓手慢下来，改令快艇守口，等杜七自行收帆退入。",
+            "杜七退不了。他的艉舵被一炮打裂，船身只能顺着来敌往岸边压。阿禾起旗，三次，照两年前那样。他看见接应艇上有人抬头，也看见一官主船上落下一面让快艇原位守口的旗。风很直，旗全展开，连边上那一条补缝都清清楚楚。",
+            "杜七让他再起，自己往舵旁爬，想用篙把船撑离挤来的敌舷。阿禾拉第二遍，手却不听使唤。旧伤处在晃动的甲板上突然疼起来，他听见杜七骂接应艇瞎了，猛地回头：“不是瞎了。”炮声盖住前半句，他抓住杜七的领口，几乎贴着耳朵喊。",
+            "“顺生那回，他也看见了。我就在他背后。”杜七没听懂，盯住他。阿禾喘着气，把自己憋了两年的几句话挤出来：“陈添要报。他按住锣，叫说左翼无碍。旺叔被叫走，不是没见旗。”杜七的手从舵柄上滑下来，先看阿禾，再看远处那面不许快艇离位的旗。",
+            "阿禾以为他要打自己，立刻说叔父还不知道，伤药和工具——话没说完，杜七把他推到船板后面，一支飞来的短矛扎在方才的位置。他没有问为什么现在才说，只指向还在原地的接应艇，让阿禾别再升旗。嘴张了几次，最后只吐出一个字：“走。”",
+            "他们割断拖住船尾的缆，把一只小艇推到背水面。杜七留下断后，刀砍进绷紧的挠钩索，拔不出来；敌船一炮打碎舷沿，他整个人被掀倒，左腕压在断板下。阿禾爬过去时，血已涌过板缝。杜七不让他看，叫他用腰带勒住，紧到几乎失去知觉才将人推回艇上。",
+            "小艇离船，封口的大船也在同一刻合了位置。芝虎带人夺住一侧，主队顺潮压进，敌船再无地方回转。海上几百面帆与烟挤作一片，传令锣一声接一声。一官听说外侧弃船，立即令后队放出接艇。阿旺赶到时，先接到的是装着断手的湿布包，随后才是杜七。",
+            "战后，杜七在岸边醒来，一官带医者站在门外。陈添跟着，脸色比伤者还白。阿禾靠墙坐着，见他进来便站起，没有避开。一官一眼就看懂了，原先准备好的药单仍握在手里。杜七不叫他赔船，先问：“顺生的旗，你看见没有？”",
+            "陈添下意识想往前，被一官抬手拦住。屋里安静了很久。杜七把剩下的右手放在枕边，手心张开，像那一夜洗手水里的样子。“别再叫他替你说。”一官低头看药单，纸角被他折断，才说看见了。阿旺站在门口，缓缓将一官搁在凳上的药袋拿起来，放到别处。",
+            "一官讲当时的货，讲水口，讲今日封口若失会多死多少人。杜七始终没插话。等他说完，杜七问：“那你就直说，叫我去替你的货守着。为什么回来还让人说我看错？”一官张口说不想失了这伙人，话到一半停住。杜七用右手拉过衣袖，遮住左边空掉的一截：“我不要你往后那份。把我的人还我。”",
+            "数月后，一官受抚，验船的桌移到新搭的岸棚。官府给的职名与腰牌仍新，他坐在旁边，听船户逐一报名。杜七的两条余船也来了，册上仍列着一官早年担的合货债和军需钱；过去彼此可商量的账，如今要有来历、保结与出海凭据。杜七的右手按不平那一叠单。",
+            "一官提出作保，让他领一面旗先走。杜七拒绝，叫查账的人照原契算，不肯把自己的船再挂进一官名下。验船的人看向一官；他手指停在桌沿，最后准其停船核账，船员可先上岸，不许强绑。他没有造一条罪，却也没有用新得的权力将旧伙伴放出去。",
+            "杜七离开岸棚，见阿禾还站在自己的船旁，问他要跟哪条路。阿禾说先把旧部的伤者安顿完。杜七点头，用右手去解缆，连着试了两次没解开。阿禾过去帮他，两人都没再看棚里的官旗。一官隔着新挂的帘子望见，忽然认不出那条船原先应当排在自己哪一侧。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "阿禾",
+              "text": "顺生那回，他也看见了。我就在他背后。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "别再叫他替你说。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "那你就直说，叫我去替你的货守着。为什么回来还让人说我看错？"
+            },
+            {
+              "speaker": "杜七",
+              "text": "我不要你往后那份。把我的人还我。"
+            },
+            {
+              "speaker": "一官",
+              "text": "看见了。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "封住厦门口并承担再撤接应的后果；揭露1626真相，结束平等盟约，将受抚后的验船与身份规则落在人身上。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1628郑芝龙与明军、许心素所处冲突及受抚后授游击为历史骨架。杜七、阿禾、陈添、援旗揭密、战术配置、断手与停船核账均为F；不用私人决斗代替史实，也不宣称找到当日战术原图。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "熟悉援旗引爆延迟两年的真相",
+          "currentCanon": "阿禾1628约二十岁，主动揭露；杜七断左腕但存活，不用死亡完成和解。阿旺此刻才得知1626撤援真相。一官首次向杜七承认亲见旗，在制度新权力中仍以待验扣住其余船。",
+          "dramaticBeat": {
+            "want": "封住狭口获胜，以海上实力换受抚身份。",
+            "obstacle": "杜七舵毁求接，抽艇将打开封锁；两年前的同一承诺再次摆在眼前。",
+            "decision": "先守封口，后救弃船；被问及时承认旧旗可见，受抚后批准杜船停验。",
+            "result": "战局胜、杜七伤残、旧谎被揭、阿旺失信，平等盟约转成需要一官作保的身份关系。",
+            "next": "一官得到官旗后仍面对外来武装与部众选择；必须在实际大战中证明接人不是只写在约上的话。"
+          },
+          "image": "images/film-v4/zheng_a4_s3.png",
+          "imageWidth": 1935,
+          "imageHeight": 812,
+          "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural light with real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails and topknotted Chinese sailors, no Qing queues, no skull flags or European pirate costumes. Epic grandeur in real ship scale, wind, weighted waves and layered gun smoke; 1-3 clear focal vessels/people, other vessels become distant silhouettes; no clutter of crates or ropes, no endless explosions. 1628 Xiamen sea battle at first cold daylight. An imposing aerial-wide view just above mast height across the narrow tidal entrance: Zheng Yiguan's large dark wooden junk in the foreground turns broadside to block a strategically crucial enemy junk crossing the bottleneck. A real cannon volley billows white-gray smoke from its hull, surf churns under the bows. Three clear main junks make a diagonal across frame, beyond them two opposing rows of allied and Xu Xinsu's Chinese sailing warships recede through smoke across the inlet, believable major fleet action, hills of Xiamen faint in distance. At far left, a damaged ally with a small plain cloth distress pennant is being pressed against the shoals, a secondary visual cost. The tiny indigo-clad topknotted commander with ochre sash points toward the bottleneck; faces not close. Huge austere sails, low gray cloud, blue-gray steel sea, clear directional conflict and momentum. This must show actual battle, NOT a rescue rowboat, NOT peaceful ships at sunset. Non-graphic violence.",
+          "imageCaption": "厦门狭口再起援旗，未说出的两年在炮火中破裂。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready",
+          "illustrations": [
+            {
+              "id": "yiguan_a4_s2_process1",
+              "image": "images/film-v4/zheng_a4_s3_process1.png",
+              "caption": "厦门口接战，炮手压住后坐的炮身，敌船巨帆已经横过眼前。（旧稿战斗情境参考）",
+              "afterParagraph": 4,
+              "width": 1916,
+              "height": 821,
+              "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural selective light and real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails, Chinese topknots and plain lived-in fabrics, no Qing queues, no skull flags or European pirate costumes. Monumental scale through wind, waves, huge sails and smoke depth, not excessive clutter or endless explosions. 1628 Battle at Xiamen mouth, first engagement, an entirely NEW process frame rather than an aerial establishing shot. Camera VERY LOW on the wet main gun deck of a late-Ming Chinese war junk, looking outward along one heavy black iron cannon on a low timber carriage through a gap in the rail. In extreme near left the cannon has just fired, short heavy white muzzle blast and smoke racing outward, two Chinese topknotted gunners recoil with physical effort and a linstock, only one face sharp. An enemy Chinese junk's colossal bow and tan bamboo-battened sail surge across the middle-right at close but safe nautical distance, white water slamming between hulls, splinters at a struck rail but no graphic injury. Beyond the gap, layered across the Xiamen channel, a broad allied battle line of many distant Chinese battened sails and scattered white smoke recedes toward gray-green island hills; three clear major vessels only, others silhouettes. Zheng Yiguan in indigo short robe and ochre sash is a small dark command figure high in the aft background, no poster pose. Massive sail shadows and cross-swell give magnificent force and actual fleet scale, pale morning sun hidden by gun smoke, natural slate-white-gray palette with quiet deep brown wood. Do NOT show a rowboat rescue or peaceful sailing; do not pile cannon all along every inch, no giant explosions or flaming fantasy ships. No text, no modern or Qing items.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            },
+            {
+              "id": "yiguan_a4_s2_process2",
+              "image": "images/film-v4/zheng_a4_s3_process2.png",
+              "caption": "狭口封住以后，杜七的破船已经半侧在水里。（旧稿战斗情境参考）",
+              "afterParagraph": 9,
+              "width": 1932,
+              "height": 814,
+              "imagePrompt": "Use case: historical-scene. A single historical cinema frame for 一官入海, late Ming maritime epic. Widescreen anamorphic 2.39:1, no black bars, no text or lettering, no watermark. Restrained photochemical 35mm realism, soft optical roll-off, fine organic grain, subtle atmospheric veiling, natural selective light and real deep shadows, no HDR or glossy fantasy finish. Late Ming Chinese wooden junks with bamboo-battened sails, Chinese topknots and plain lived-in fabrics, no Qing queues, no skull flags or European pirate costumes. Monumental scale through wind, waves, huge sails and smoke depth, not excessive clutter or endless explosions. 1628 Xiamen battle, late phase after the decisive channel blockade, an entirely NEW process frame focused on the cost of delayed reinforcement. Widescreen panoramic view from low on the severely damaged SMALLER Chinese junk commanded by Du Qi, leaning half-submerged in the foreground at the edge of a shoal. A broken mast lies diagonally into the sea, battened sail drags heavily in foam, deck cants steeply. Du Qi, a weathered short-bearded Chinese man in charcoal plain clothes, stands braced at the half-flooded rail, ONE injured hand wrapped in wet off-white cloth, stares in bitter silence across the channel toward Zheng's victorious line. Behind him young adult Chinese Ahe with Ming topknot in coarse brown clothes bends to help a subordinate sailor over the low rail into an adjoining small practical boat; Ahe and Du Qi are the clear focal people, rescued sailor face not visible, no blood closeups. Across the broad middle and far distance, many towering Chinese fleet sails now reform at the won narrow passage through enormous layered gray smoke, a few enemy hulls retreating and tiny cheering silhouettes at the shore, epic scale without battle confusion. Zheng's returning vessel approaches late at far right as a secondary silhouette, NO reconciliation handshake. Gray daylight after smoke, salt-white surf and muted dark teal sea, restrained film realism, no golden sunset. The contrast of victory and a ruined ally must read in one physical landscape, not anonymous rescue in empty water.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            }
+          ]
+        },
+        {
+          "id": "yiguan_a4_s3",
+          "title": "留四条船",
+          "year": "1630、1633（有明确转时空）",
+          "location": "安平码头、厦门火场、料罗湾",
+          "summary": "初来明的福松用歪船图认识父亲。三年后，荷方突袭烧掉郑氏船舰，令旗未能护住港口。一官重整火攻时，阿禾先问谁回来接；这次他留下真实接应，赢得大战，却没有因此抹平旧债。",
+          "paragraphs": [
+            "【1630，安平码头。】福松被人扶下船，脚刚踩稳便去抱那只比自己胸口还高的木箱。箱子沉，他推了几下，只推歪一角。一官让人来搬，他却按着箱盖不准，怕父亲先走。一官蹲下来，问里面装了什么，孩子才从衣内掏出一张起毛的纸。",
+            "船身歪着，帆也歪着，帆是后来添的。福松指着那一笔说娘画船，自己画帆，问爹认不认得。一官原想叫他先拜长辈，手却先伸到纸下，托住薄薄的折痕。“认得。”他让人把重箱放下，坐在旁边听孩子讲，码头上的伙计便一声也不敢催。",
+            "孩子在家安顿，一官开始给他找先生，试着让他写一个森字，三个木，并在一张纸上。他说将来读书，别再像自己这般在船边求人。福松问娘什么时候来，一官说手续一办好便接。阿旺站在门外，听完这一句，把送来的小凳靠墙放稳，没进屋。",
+            "【1633，厦门。】起先人人看见的是港口上方的烟，以为哪条船修灰缝走了火。紧跟着，外泊大船的炮从海上打来，帆还来不及解，船身便在泊位里相互撞。新造的舰船横躺在窄水面，令旗烧到只剩旗杆，挂旗的小船也同别的船一道着火。",
+            "一官赶到时，船工先来报新舰已救不出。他不信，叫拉索。拉到一半，阿旺从烟里拖出两个被压的人，咳得跪在他脚边；后头还困着人，火已沿索烧来。一官解开腰间佩刀，割掉自己方才让人护的索，叫把水路让出来。断索落水，新船顺着浪撞进另一片火。",
+            "那夜陈添报损，不敢从最重的一项念起。一官问到第三回，他才把毁舰与死伤的册同时递来，手仍按着死伤那本。一官抽了几次没有抽出，抬头看他。陈添终于松手：“两本都要看。少哪本都不对。”一官看了一夜，第二日开始分派集船、借粮和修补泊地。",
+            "【同年秋，料罗湾战前。】海面排开重新聚起的船，近处能听见斧锛，远处只能看见一层层帆。阿禾带来四条轻船，腿不便，爬舷时先伸好的一侧。一官让他管火船接应，他没有即刻接令，先问这些船若被临时调走，谁留下传令。",
+            "一官把四枚小木牌摆在海图边，说不调。阿禾没有看他，问陈添能不能把这句写进派船簿，四条各写船主与掌篙的人。陈添照写，又逐一读给在场水手听。一官坐着听完，在自己名下画押。他没有再说往后会补，只让四条船先装水、药与干布，不再装货。",
+            "芝虎在外头扣护衣的铜扣，扣歪了，怎么按都合不上。一官叫住他，替他把下头折进去的布角拉平。芝虎低头忍他弄，忽然问大哥这回还让不让冲。一官将扣按紧，说等火船到了，别先把路堵上。芝虎嘟囔一句，总叫自己等，还是接过他递来的半碗热饭，一口吃掉大半。",
+            "开战时，重炮声从远海一层层压来，前排的木船接连起伏，炮弹撞水的白柱遮住整片船影。郑军驶近的火船仍有完整的帆和能走的船身，船工留到更近才把火引开。烟向敌舰卷去，桅索起火，一条大船想转身，艉后却已是另一条不能让开的船。",
+            "火船上的人往水里跳。阿禾第一条艇刚接满，旁边有人喊芝虎的船可以再抢上风口，要借他的空艇拖绳。他没有去，叫掌篙的人看派船簿。一官的传令艇经过，也没改令，只让接人再绕一次。阿旺站在第二条艇上，用钩拖来一个扒住焦木的人，分不清是哪边的水手，先把头托出水。",
+            "接应不是在白水里轻巧滑行。热灰落到脸上，艇舷烫得人碰不住，一条艇的篙断了，另三条挤过去才把它带出。有个火船船工没等到自己的名字被喊完便沉下去，留下的衣袖被抓断。阿禾把断袖放进药箱，继续数人；第四条船回来时，数目仍少两个。",
+            "大舰的一面帆终于落下，炮声渐稀。胜讯沿船队传开，有人举刀，有人抱在一处。陈添来报俘船与缴获，一官先问四条轻船都回来没有。陈添报回四条，又报少的人。一官的手放在海图上，没有去挪那几枚木牌，只让把姓名另写清，送到各家去。",
+            "阿禾上旗舰交簿，页上沾着血与油烟，四条船的名字一个不少。一官想说这回都照约做了，望见药箱上半截袖子，将话咽回去。阿禾也没有谢他，把簿交给陈添便走。天色将晚，海上有敌我船工一起放下的小艇；人先回岸，尚可拖走的大船留到明日，没人再把回援当一笔奖赏。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "福松",
+              "text": "娘画船，我画帆。爹认不认得？"
+            },
+            {
+              "speaker": "陈添",
+              "text": "两本都要看。少哪本都不对。"
+            },
+            {
+              "speaker": "阿禾",
+              "text": "船若被临时调走，谁留下传令？"
+            },
+            {
+              "speaker": "一官",
+              "text": "不调。"
+            },
+            {
+              "speaker": "一官",
+              "text": "四条轻船，都回来没有？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "以跨年场内转场建立父子初识、1633突袭损失与料罗湾反击；在明确船位和接应合同下完成火攻与救人。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1630郑成功由日本赴明、1633荷方袭击厦门及料罗湾战役为史实骨架；父子初见、木箱、画船、四条接应艇及战中对白全F。火攻有史料基础，不固化争议中的舰数、火船数与单舰归属。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "父子初识、秩序破产与有限守约的三段递进",
+          "currentCanon": "福松1630来明，船图由母亲画船、孩子添帆。一官1633先遭港口重创，再组织反击；四艇有实名登记且未挪走，救援存在伤亡。芝虎在战前与兄长亲近但有急勇意见，未写成完全不需协商的工具。",
+          "dramaticBeat": {
+            "want": "给儿子可依靠的父亲与秩序，同时证明官旗能够保港、保人。",
+            "obstacle": "外来舰队突袭摧毁船只和威信；反击需要冒火逼近的船，也需要不再相信口头回援的水手。",
+            "decision": "割断护新舰的索先开救人路，重整后给接应实船、实名和不可挪用的派船令。",
+            "result": "料罗湾获胜且兑现接应，但人员仍死，旧创伤没有被功劳注销，父亲给过的安全话继续悬着。",
+            "next": "更大规模的胜利使一官相信调度可以补上缺陷，1635却遇到任何派船令也换不回的亲弟。"
+          },
+          "image": "images/film-v4/zheng_a5_s4.png",
+          "imageWidth": 1919,
+          "imageHeight": 820,
+          "imagePrompt": "Use case: historical-scene.\nCreate ONE standalone raster cinematic frame for scene zheng_a5_s4, \"After the wind turns\", for original historical epic 一官入海. This must be a MAJESTIC, IMMENSE naval battle on the sea in 1633 at Liaoluo Bay, Fujian. Landscape anamorphic 2.39:1 frame, no black bars.\n\nCurrent story action: Zheng Zhilong has waited for favorable wind. His wooden Chinese junks now make a coordinated attack with real usable fire ships sailing toward heavy Dutch wooden warships. Cannon fire forces the small rescue craft to change position, so his reserve light boats are advancing to pick up the Chinese fire-ship crews. The central subject is the entire battle and coordinated fleets, not a small portrait or a quiet boat.\n\nComposition: a low but elevated viewpoint just above a Chinese junk's dark wet rail at far left; only one tiny partial commander silhouette there, no large foreground portrait. Three clearly composed principal ships across the rolling middle sea: a heavy dark Chinese junk under full battened sails driving diagonally from left foreground into the bay; at center a low fire ship makes contact with the side of a large Dutch wooden square-rigged vessel, a coherent sheet of real low orange flame at the contact and dense windblown pale cannon smoke; a second heavy Dutch ship behind turns its hull and fires a broadside. Farther away, MANY receding silhouettes of Chinese junks and enemy masts give the bay breadth and historical scale, grouped into two readable fleet masses separated by sea, smoke and atmospheric distance. A single very small rescue boat passes downwind with human figures tiny. Natural wave slopes and wakes emphasize the displacement and weight of real ships. Strong shared wind direction in sail bellies, smoke and water. Huge sea-sky depth with a storm-grey cloud ceiling, layered Fujian island silhouettes.\n\nStyle: expensive restrained historical cinema still, photochemical 35mm, subtle fine grain, soft optical rolloff, smoke veiling, deep black-brown hulls against bright ash-grey smoke and selective warm burning light; color not monochrome sepia, no teal-orange HDR. Visually grand, formidable and full of battle forces, yet only one dominant diagonal and one major point of flame; clean hierarchy, no clutter.\nPeriod: late Ming Chinese wooden junks with bamboo-battened tan sails; Dutch vessels are 17th-century timber hulls with square cloth sails, no later ironclads. Chinese crew have tied topknots and plain indigo/brown clothing, no Qing queues or shaved foreheads. Avoid pirate skull flags, giant fantasy ships, medieval castles, modern national flags, modern engines, modern explosions, heroic poster poses, excessive ropes at frame edge. NO TEXT, lettering, subtitles, calligraphy, logos, watermarks. Do not make a collage.",
+          "imageCaption": "料罗湾，重新集结的船与火船推进。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready",
+          "illustrations": [
+            {
+              "id": "yiguan_a4_s3_process1",
+              "image": "images/film-v4/zheng_a5_s4_process1.png",
+              "caption": "重炮吐火，真正能走的整船仍顺风逼近。（旧稿战斗情境参考）",
+              "afterParagraph": 10,
+              "width": 1919,
+              "height": 820,
+              "imagePrompt": "Use case: historical-scene.\nONE standalone cinematic historical narrative image, NOT collage, for 一官入海 scene zheng_a5_s4_process1. Liaoluo Bay 1633. This is the EARLY APPROACH phase before fire ships contact the enemy, clearly distinct from a panorama of ships already burning. Extreme widescreen 2.39:1 without black bars. Make naval scale MAJESTIC and formidable.\n\nCamera: low at waterline just off the bow-side of an enormous dark Dutch 17th-century wooden square-rigged warship. Its curved towering timber hull rises along the far LEFT quarter, heavy cannon ports receding diagonally into distance; upper cloth sails are partly clipped above the frame. No deck portrait. One cannon farther down its side has just fired, a pale muzzle flash within rolling white powder smoke, and a shot has thrown a great natural splash in the middle water.\n\nPrimary action: a real usable large Chinese wooden fire ship is still UNDER SAIL, rushing from the RIGHT-middle foreground toward this enemy's flank but not yet making contact. Show its bow cutting a white wake, weathered bamboo-battened tan sails belly in the favorable shared wind, real hull weight and speed. This is a full working timber junk offered up for attack, not an improvised barrel raft. On its low deck two very small Chinese crew silhouettes are finishing the fire preparation: a small first tongue of low flame and a thin trail of smoke begins among fuel just aft, while one sailor turns toward the waiting rescue boat. Do not already engulf the entire ship. A small rescue boat follows in its leeward wake, positioned plausibly to take the crew after ignition. Human figures are tiny; the subject is ships and motion.\n\nAcross the open center and far RIGHT, successive waves of many Chinese junks extend deep into the bay, one clear attacking line under full sails, some turning into the wind. More Dutch masts recede on left behind the foreground enemy. Low headlands and a vast cloudy sea-sky distance establish enormous campaign scale. Masses of sails, patches of open grey water and drifting cannon smoke are composed cleanly. Main hulls dark, pale silver smoke and horizon luminous; controlled natural light, no overbusy explosions.\n\nExpensive restrained 35mm historical-cinema still, fine organic grain, soft optical rolloff, delicate atmospheric veiling, not an illustration poster. Cold grey afternoon sea, muted ochre sail cloth, very small warm flame; no orange sunset or teal-orange grade, no glossy HDR. Chinese crew use late-Ming tied topknots, plain indigo/brown fabrics. Realistic 1630s wooden ships, bamboo-battened Chinese sail construction versus Dutch square sails. No Qing queues, shaved foreheads, skull pirate flags, modern flags, engines, metal warships, fantasy megaships or dramatic character posing. No text, lettering, subtitles, logos or watermarks.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            },
+            {
+              "id": "yiguan_a4_s3_process2",
+              "image": "images/film-v4/zheng_a5_s4_process2.png",
+              "caption": "备用轻船绕回烟里，把落水的人接回来。（旧稿战斗情境参考）",
+              "afterParagraph": 12,
+              "width": 1935,
+              "height": 812,
+              "imagePrompt": "Use case: historical-scene.\nCreate ONE standalone majestic but humane historical cinema image for 一官入海 scene zheng_a5_s4_process2, Liaoluo Bay 1633. Wide anamorphic 2.39:1, no black bars or collage. This is the LATE RESCUE phase of the same battle: fire ships have already made contact, victory is coming into view, but the people must be brought back. It must differ from the broad battle-contact main image and the early-approach image.\n\nCurrent story action: hostile cannon fire had forced the intended rescue boats away; Zheng has now sent his reserve light boats back into the smoke. A Wang steadies and works a reserve boat while a wet fire-ship crewman with the faint last ember in his sleeve grips its side. Young adult A He turns from helping to give the main ship a clear return signal. The rescue is the tangible fulfillment of the promised return; do not imply a deliberate new abandonment.\n\nCamera from a second moving rescue boat near water level, a modest distance back so the WHOLE reserve boat is visible in the lower right-middle, never a cropped hand close-up. The one central human action: grey-stubbled old A Wang in rough brown cloth crouches safely low and pulls a drenched young Chinese sailor up by his forearm as the man clings to the low timber gunwale. Two readable human focal subjects only, plausible hands and balance; no gore, no corpses. In the boat's stern A He is one small indigo-clad figure raising a plain cloth signal toward the main fleet, not a big heroic pose.\n\nIMMENSE naval battlefield context: a huge scorched Dutch timber warship looms in the LEFT middle ground, its dark vertical wooden flank and torn square cloth sails seen in perspective, with residual embers near the opposite rail but no modern explosions. Its scale dwarfs the whole little rescue boat. A burnt Chinese fire ship lies low and spent beside it. Beyond, groups of many surviving Chinese bamboo-sailed junks and damaged Dutch square-rigged vessels recede across the sea, partially lost in successive curtains of white and charcoal smoke. A returning light boat is small in far center. A broad grey channel through the ship masses draws the eye from the two living men toward the sea and the distant commanded fleet. Fujian island forms dissolve through smoke at horizon. Strong but plausible waves and wakes, real timber weight, strong shared direction of smoke and sails.\n\nLight and mood: quiet authority after deafening action; cool overcast late-afternoon silver light through powder smoke, huge dark ship forms against luminous smoke, wet brown and indigo clothing, tiny warm coal points. Photochemical 35mm historical epic, subtle film grain, soft optical edges, real deep shadow, selective highlights and atmospheric layers. Grand, solemn and cinematic, never sparse postcard boats, never an overbusy HDR fantasy armada. Chinese men have Ming tied topknots, plain lived-in fabrics, no Qing queues or shaved foreheads. No modern ships, weapons, engines, national flags, skull pirates, superhero poses or ornamental costume. NO text, subtitles, lettering, calligraphy, logos or watermark.",
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            }
+          ]
+        },
+        {
+          "id": "yiguan_a4_s4",
+          "title": "海面没有回答",
+          "year": "1635，田尾洋战后（搜索场面虚构）",
+          "location": "广东田尾洋外海、郑氏旗舰",
+          "summary": "刘香败，一官的船队等待胜利号令，芝虎却未归。他反复追问、亲乘小艇搜索，最后不得不为艇上的活人返航。回到旗舰，他开始给家里每个人排定不可擅改的去路。",
+          "paragraphs": [
+            "最后一阵炮声停下时，日头尚未落尽。海面漂满木板，有些仍在烧，远处几条残船被拖住，桅上旗垂进烟里。传令的人等在一官身后，已经准备好报捷。他伸手要过各船回信的小牌，数到外侧那一条，问怎么没有芝虎的。",
+            "有人说二爷追着敌船过去，有人说已见他上了接舷板，还有人只记得他叫兄长看那边的火。几种说法对不上，一官让每个亲眼见的人分别站开，再问。他不许旁人替前一人补话，问得比派战时还细；问到第三遍，海面已暗，任何指向都只剩一片黑水。",
+            "他先派两艇，后来又派两艇，最后自己下到船侧。阿旺递上披衣，他没接，只拿了长篙。阿禾先登艇，把位置空给他；旧腿在湿板上滑了一下，被一官扶住，两个人都没说话。艇划出大船遮住的水面，立刻被浪推得侧向火光。",
+            "一官把篙探进一件漂来的护衣。衣里没有人，铜扣烧黑了，下头的布角却被人好好掖平。他提到一半又放回水，怕认错，叫人仔细照。阿禾将灯举低，连一张脸都照不出来，只有泡得发白的木屑。他只得说还不能认。",
+            "两旁的大船都停了，没人敢擅自返岸。桅灯接连点起来，越过几里水，照不到艇下。一官叫把左翼最后见到芝虎的人再送来。阿禾说已问过，旧船沉的位置也查过。一官突然冲他喊再问一遍，嗓子裂了，后面的字只剩气。阿禾把灯放稳，让邻艇去传。",
+            "不久，邻艇拖来两个人，一个还能说话，一个只会抖。能说话的认出一官，伸手抱住艇舷，说自己船里还有人。他指了一个方向，立刻又改，说沉船以后就转迷了。一官抓住他的手腕，先问二爷，伤兵愣住，不知道这个称呼是谁。",
+            "阿旺把伤兵的手从一官掌中松开，叫人抬进艇中。艇底浸水，伤口上的布早烂了，阿旺脱下自己的衣裹住他，蹲下用身子挡风。另一名伤兵抖得更厉害，手碰到舷，碰一下缩一下。一官让再往前划，说方才那边像有人喊。没人立刻动橹。",
+            "“往前。”他又说。阿旺抬起头，声音不高：“这一艇得回。”一官没有看他，指着一片浪影。阿旺伸手按住橹：“这里两个活人，再冻就接不回去了。”艇上安静下来，只听见浸水衣服滴答，和伤兵牙齿碰在一起的细声。",
+            "一官仍站着，小艇晃了一下，他差点落水，阿禾抓住他的腰带。腰间原来挂着号令众船的旗牌，沾水的丝穗缠在阿禾指头上。他低头看了一眼，慢慢坐回去，把长篙放到一边。隔了很久，他说这艇回去，另四只继续，换好灯油，别都挤在同一条线上。",
+            "回到旗舰，报捷的人还在等，站得腿都直了。一官经过他身边，忽然停下，要看伤亡册。陈添没有先递俘获单，将死者与失踪者两页一并放到他手里。芝虎的名字还空着，他命留空，等四艇回来。说完才发现纸湿了，自己的手还在往上滴水。",
+            "夜半，他走到弟弟铺位前。半只饭碗扣在箱上，碗底压着修护衣时换下的旧扣。芝虎嫌新扣勒脖子，把旧的带来备用；原来并没照他的意思扔掉。一官捏起铜扣，掌心收拢，坐到那张窄铺上。隔壁船有人哭，他听了片刻，起身去关舷窗，窗扣总也对不准。",
+            "天明前四艇都回了，带回几个人，没有芝虎。阿禾进舱，照实报每一处搜过的水面，不再说也许下一趟能见。一官问那片流木下面呢，阿禾说探过。问得越来越细，答得越来越短，最后两人都看着桌上的空牌，不再添一个地名。",
+            "午后，一封家信送来，夹着孩子新写的字。森的三木已不再挤作一团，落款仍有一笔拖长，像旧船图上歪出去的帆。一官展开看，原先几道水渍在纸上结成圈。他叫陈添来，问儿子近来哪几日出门、随哪个先生、哪条船载家人过江，陈添一时答不全。",
+            "他便另外铺一张纸，自己写。从读书时辰写到接送的人，陆路能到的地方不走海路，接家眷的船一律先给他看。他写到妻子一栏，停了一下，添上以后归来再议。陈添问这些是报一次还是每次报，他蘸好墨，在每次两字下点了一点。",
+            "舱外，修船的人开始锛削裂木，斧声一下又一下。报捷文书终于写好送上来，一官盖了印，手仍压在纸边。陈添伸手等，他半晌才放开；印迹已经清楚，却像总有一处没压实。他重新看那张家人出入单，将最末一行留白的位置也划了线，不许旁人再添。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "一官",
+              "text": "再问一遍。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "这一艇得回。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "这里两个活人，再冻就接不回去了。"
+            },
+            {
+              "speaker": "一官",
+              "text": "这艇回去。另四只继续，换好灯油。"
+            },
+            {
+              "speaker": "陈添",
+              "text": "这些是报一次，还是每次报？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "task": "在战胜后面对亲弟未归，终止载有重伤者的盲搜并留艇续寻；以家人出入单显现控制欲异化。",
+          "choices": [],
+          "history": {
+            "level": "adaptation",
+            "note": "1635击败刘香及郑芝虎在相关战事中死亡采用通行编年；各版本战况、尸体与死法叙述不同。本场寻弟、护衣、存活伤者与创伤控制心理均F，不拍定一种死法。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "dramaticMode": "大胜的号令止于无法回答的海面",
+          "currentCanon": "芝虎未归，死亡不以具体战场死法呈现。一官仍救活人且留艇续寻，丧弟没有把他写成无情机器；转折由随后逐项掌控家人出路的具体行为完成，未宣告旁白式铁律。",
+          "dramaticBeat": {
+            "want": "在赢得海战后把弟弟接回来，确认自己仍能为亲人安排安全。",
+            "obstacle": "目击互异、黑夜与伤兵限制搜索，号令不能使海面交出失踪者。",
+            "decision": "让载伤者小艇返航，保留轻艇续寻；回船后亲自接管家人每次出入的路线和人员。",
+            "result": "活人得救，芝虎仍未归，一官把无法承受的失控转化为对尚存家人的加倍控制。",
+            "next": "1635后的十年，令旗与家人出入单将共同扩张，最后被1646妻儿的拒绝击穿。"
+          },
+          "image": "images/film-v4/zheng_a5_s5.png",
+          "imageWidth": 1932,
+          "imageHeight": 814,
+          "imagePrompt": "Historical cinema concept frame for 一官入海, an original late-Ming maritime epic. Widescreen anamorphic 2.39:1, an unposed moment caught by a patient camera, restrained photochemical 35mm feeling, soft optical roll-off, fine unobtrusive organic grain, subtle halation, gentle atmospheric veiling. Natural human anatomy and lived-in plain fabrics. Composition is SPARSE and authoritative: one primary action, maximum two focal people, large quiet areas, background forms reduced by darkness or mist. Light falls selectively; keep real deep shadow, softened edges and restrained highlights. No glossy AI concept-art finish, no HDR, no edge-to-edge sharp detail, no teal-orange blockbuster grade, no decorative prop piles, no crowds encircling a document, no excessive ropes or crates, no fantasy skyline, no heroic poster pose. Late Ming Chinese topknots and wooden junks with battened sails; no shaved forehead/queue, no modern objects. No lettering, subtitles, calligraphy, watermark or baked-in black bars. Historical fictional scene, not an archival photograph. Specific scene 海面没有回答: Guangdong coastal waters 1635, after victory but Zheng's brother Zheng Zhihu has not returned. Very wide side view: Zheng Zhilong stands alone at the bow of one small rescue boat, a single oarsman only a tiny blurred shape at the far stern. He gazes across an enormous empty dark sea; a plain small floating plank gives no answer. No corpse, no disputed death scene, no triumphant flags. Sea and twilight sky occupy 80%, violet-gray dusk with a faint last strip of cold amber horizon. 100mm distant patient camera compresses boat and horizon, haze removes detail. Victory has gone quiet, the figure is dignified but emotionally unguarded. No props or ledger.",
+          "imageCaption": "胜战之后，搜救艇还在寻找未归的弟弟。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        }
+      ],
+      "cover": "images/film-v4/act-5.png",
+      "coverWidth": 1935,
+      "coverHeight": 812,
+      "illustrationStatus": "ready",
+      "illustrationScope": "v4-atmosphere-reference"
+    },
+    {
+      "id": "act-5",
+      "title": "箱子放下来",
+      "years": "1636—1646",
+      "synopsis": "芝虎未归以后，一官把亲人的每条路纳入自己安排。郑森从父亲给的书里认真学到了名分，又在父亲的船账里看见另一种秩序。母子终于重聚，战乱却使家主再一次替众人答应；这一次，箱子没有被抬出门。",
+      "scenes": [
+        {
+          "id": "yiguan_a5_s1",
+          "title": "买过旗的人",
+          "year": "1636—1639",
+          "location": "安平，郑氏船行与家宅",
+          "summary": "平定海上之后，令旗使许多船免受劫掠，也把原来的伙伴纳入一官的规矩。少年郑森第一次参与父亲的船账，发现规矩能保护人，也能让人无处申说。",
+          "paragraphs": [
+            "【1636年，安平】芝虎的旧衣收进柜里，袖口缝过的线没有拆。芝龙在家中设饭，席上给弟弟留的位置终于撤掉了。阿旺送来一张沿岸修船名单，照旧将最险的外岛写在自己名下；芝龙提笔划去，换到港内。",
+            "“那里认得我的手艺。”老人说。芝龙将笔搁下：“这里也是活。住得近，夜里病了有人知道。”阿旺拿回单子，没再争。出门时，他在石阶上坐了一会儿，才折好放进工具箱。",
+            "令旗在同一间屋里发出去。几条小船结伴来领，船主先查一查往后走哪处水口，回去时把封套压在衣里。一个老妇带着丈夫旧领的旗来，说船已卖了，能不能换回未走的那半年的钱。管事照成例不退，芝龙听见，让补给她几日口粮。她谢过之后，又问钱。管事便把她领出了门。",
+            "十二岁的郑森站在屏后，看见那面旗用得很旧，边上补了别色布。他问父亲旗为什么按期交钱，不能按走几航算。芝龙让他来看账：守港的人要领饷，修船不等有货才修，替船挡住的麻烦不能只按顺风那一日计。",
+            "账上列着巡护、炮药、修艚与伤亡。森一项项看完，才知道自己吃饭用的屋子也在这些钱里。芝龙拍了拍儿子的肩，叫他先把数字算对，不必急着替每个人说话。森算到夜里，数字都对，老妇那半年的水却总算不出来。",
+            "【1637年】杜七带着购旗的旧封来到船行。左手已经没有了，封口被右手捏得起了毛。见森替父亲翻账，他先认出是从平户接来的孩子，问母亲还在不在那边。森点头，杜七只说了一声海远，便看向门内。",
+            "他的快船被扣了。他承认截过一条载货小船，说对方同当年压过周船货的人有来往，拿的正是欠自己那一份。押来的货主却是替别人带货，连当年的人长什么模样也不知道。一名船工在夺货时伤了，从船上抬下便不能站。",
+            "芝龙没有在厅里提厦门的断手，也没有提顺生。他叫人拿出新条目：持同一令旗，不许私截；争账到岸申。杜七说申了两回，纸从这屋送到那屋，没有一次送回自己手上。芝龙看向管事，管事低头去找。",
+            "“先把船交我，我去还货。”杜七说。芝龙摇头：“拿什么保你不再去？”杜七从衣里抽出那面买来的旗，放在桌上。芝龙没有接，森也没动。杜七盯着那面旗，慢慢将封套撕开，里面夹着他缴过钱的单据。",
+            "芝龙叫人先给受伤船工结药钱，再将杜七的船充作赔补，余数按册结清。杜七猛地将旗扫落：“我的船，你替我结得倒快。”芝龙说扣的是截货的船，若换旁人也一样。屋里人人听出这句话足够公道，只有没人问过，管事压住的那两张申诉究竟去了哪里。",
+            "杜七离开时，森追到门外，要把落在地上的单据还他。杜七没接，问：“你父亲叫你送的？”森说不是。杜七看了他好一会儿，终于用右手拿过去，折了两折，塞进空了的封套。没有教孩子恨父亲，也没有托他去求情。",
+            "阿禾是从扣船处来的。他替受伤船工找了担架，把杜七旧部能各自带走的衣物分清。芝龙问他还跟不跟杜七走，他说从厦门以后做的就不是同一桩事。他愿继续领搜救艇的差，但往后调艇之前须由自己认人、认水，不能让管事替着报已经能走。",
+            "芝龙过了很久才点头，另给他一份较高的饷。阿禾将多出来的一档划回去。森在旁边看着，第一次知道拒绝父亲的人，未必一定要拿刀上船。",
+            "【1638年】森入县学前，芝龙为他备书，把与船行有关的差都收回。他说儿子不必再学父亲那套讨船位的本事。森将看过的申诉副纸夹在书里，被发现后，芝龙让他交出来，说欠账不该带到学里。",
+            "少年迟疑一下，还是给了。父亲替他抹平书页，拂去封面一粒墨灰，动作很轻。当天船行的巡护照常出海，几个小船主因领了旗安然回来；杜七的那条快船拆了旧舵，换上新船名。没人再到门前提它。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "郑森",
+              "text": "不能按走几航算？"
+            },
+            {
+              "speaker": "杜七",
+              "text": "我的船，你替我结得倒快。"
+            },
+            {
+              "speaker": "杜七",
+              "text": "你父亲叫你送的？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "将亲人的航路改到近处，依法惩杜七截货并收船，却让自己体系拖延申诉的责任留在暗处；把儿子从船账送进县学。",
+          "dramaticBeat": {
+            "want": "不再失去亲人，并使海路、家人都处在可计算的秩序内。",
+            "obstacle": "同一套令旗同时承担真实保护、收费、垄断与申诉受阻，旧盟友并不愿成为被安排的人。",
+            "decision": "将亲人的航路改到近处，依法惩杜七截货并收船，却让自己体系拖延申诉的责任留在暗处；把儿子从船账送进县学。",
+            "result": "海路获得部分安稳，杜七失去自立的船；儿子开始看见账平之外的缺口，阿禾争取有限自主搜救权。",
+            "next": "父亲希望读书替儿子隔开乱局，儿子却把书中的责任带回现实。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "海路获得部分安稳，杜七失去自立的船；儿子开始看见账平之外的缺口，阿禾争取有限自主搜救权。",
+          "history": {
+            "level": "adaptation",
+            "note": "1630赴明、1638入县学及郑氏海商秩序为背景；1636—1639杜七案、旗费退还、申诉受阻、父子看账、家庭控制均F。令旗收费不写全国一律固定三千两，也不将17世纪保护与垄断合理化为现代制度。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a5_s6.png",
+          "imageWidth": 1916,
+          "imageHeight": 821,
+          "imagePrompt": "Use case: historical-scene.\nONE cinematic historical illustration for 一官入海 scene zheng_a5_s6, \"The same command flag\", a fictional late-Ming coastal conflict in 1631-1632. Wide anamorphic 2.39:1 composition, no black bars, no collage.\n\nStory: Du Qi, once Zheng Zhilong's equal partner, has used the same purchased protection flag to seize merchant cargo. Zheng comes into a sheltered Fujian anchorage to recover the cargo, with his outer ships blocking the narrow exit. Du Qi orders his smaller group to cast off, an ambushed short matchlock fires, and everyone realizes further fighting would burn their own bay. This is a tense dangerous armed standoff between former allies under the same banner, not an all-out fleet inferno.\n\nFrame the moment of the first musket shot on a GRAND MARITIME SCALE: near waterline viewpoint between two massive weathered wooden junks, their high dark hulls and bamboo-battened sails towering out of frame. Du Qi's timber junk at middle left pulls out of shadow with a small puff of white matchlock smoke low over its rail. On the right foreground deck the young adult Chinese sailor A He urgently pushes one unarmed merchant down below the gunwale; only these two people are clear human focal subjects. Old grey-stubbled sailor A Wang is a tiny crouched silhouette at the bow cutting a floating hooked line. In the middle distance three large Zheng junks spread across the narrow mouth of the bay to close the escape, their sails filling a shared wind, overlapping grey rocky islands beyond. Show the few vessels with formidable scale and real wood weight, not tiny sparse toy boats, not a hundred-ship battle. A small handful of ordinary wrapped cargo bales only near Du Qi's rail, not decorative clutter.\n\nCRUCIAL narrative clue: the two opposing nearest junks carry the SAME muted ochre command pennant with the same indistinct dark patch, no legible text, no national flags. Their identical flags pull in the same wind although their hulls confront each other. Wet grey water surges in the tight channel; hanging powder smoke catches overcast daylight while deep brown hulls remain dark. Coherent dramatic composition, one shot with implied violence, no visible wounds or fantasy explosions.\n\nStyle: expensive restrained historical film still, late Ming plain indigo and brown garments and tied topknots, 35mm film texture, very fine grain, selective natural light, real deep shadow, soft atmospheric distance, smoke-grey light and muted ochre sails. Calm authoritative camera, formidable naval setting, no heroic portrait. No HDR, no glossy concept art, no excessive rigging mess, no Qing shaved foreheads or queues, no modern weapons or ships, no skull pirate emblems, no European pirate costumes. NO writing, captions, logos or watermarks.",
+          "imageCaption": "令旗与旧友的权力关系：旧稿参考，须按断手与新场关系重画。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "needs-redraw"
+        },
+        {
+          "id": "yiguan_a5_s2",
+          "title": "书页里面的事",
+          "year": "1641—1644",
+          "location": "安平家宅—南京太学寓舍",
+          "summary": "父亲用财力替儿子铺出一条不必冒海险的道路。森在这条路上真正相信了书中的责任，却发现父亲愿意付读书的钱，不愿接受读书带来的决定。",
+          "paragraphs": [
+            "【1641年】郑森成家前，芝龙遣人将屋子修妥，随手便把小两口往后的用度排好。森从县学回来，见家里多了几只新箱，原来那只从平户带来的旧木箱被挪到过道。他将旧箱拖回屋，芝龙路过，问放旧衣的东西留它做什么。",
+            "箱盖内侧有一道小刀刻的歪帆。森说是自己小时候刻的。芝龙伸指摸了摸，忽然记起1630年第一次见面，孩子不肯牵自己手，只肯两人一齐推箱子。他笑了一下，转身叫人不要再挪。",
+            "父子难得一同坐下。芝龙问婚后想添什么，森说想让母亲过来看看。屋里安静了一瞬。父亲说日本那边有家、有规矩，来明不是说来就来，自己已有安排。他答得比平常缓，森便没有追问。",
+            "那晚森写家书，请母亲告诉他幼年究竟唱过什么歌。有些字写到一半，他才觉出自己已经记不起母亲念这些字的声音。信封好后，父亲叫人随商船带走，另嘱要挑最稳的航次。一连几回，信都因不同的稳妥留在岸上。",
+            "陈添来问是否换船。芝龙让再等，说前番一条船失了消息，不能让家书同去。陈添站着没走，最后将实情说出来：不是失了消息，是三个月前搁浅，死人已经抬回，管事怕担责，报得含混。屋里的人都看他。",
+            "芝龙问为什么早不说。陈添喉头动了动：“下面说报过，报到您这儿的不是那几个字。”他说完，自己也听出这话落在何处。芝龙没有发作，拿起那叠压着的家书，让另找一条船。陈添看着他，没有替命令添上“保准”。",
+            "【1644年，南京】太学寓舍窗下潮气重，森将书搁在高处。同行人替他搬来父亲备下的物品，一箱比一箱齐全，连平常用惯的药也带了。信中没有说不许结交什么人，只附一张见客的名单，哪些可亲近、哪些宜远，自有记号。",
+            "他按名单去见过几位前辈，回来将其中两个人的名字划掉，又添上一位家境寒薄的同学。随从不敢将改过的单寄回。森自己封信，说遇到的人有了变化，总不能仍照出门前那一页认。",
+            "信未到，又一批从北边辗转逃来的人先到了。京师陷落已不是初闻，关于谁死、谁降、哪条归路仍通的说法，却一日一变。有人急着收拾行李，有人在廊下哭，第二日照样得去借米。森同人抄传新讯，发现同一纸上的字可以被读成完全相反的意思，便想起父亲小时候叫他先算对数字。",
+            "他给父亲写信，请问沿海船粮能拨出多少，若局势继续坏，学生能做什么。回信只答他先保身体，不必沾无用的议论，差人和钱已在路上。父亲的字仍稳，他逐行读完，将信放到已不稳的桌脚下垫了一下，又立即抽出，擦去纸角灰尘。",
+            "返闽后，芝龙让他看船行尚在运转，粮能买，饷能发，外海商船也没因京师陷落便全停。一连串可见的事摆在眼前，森不能说它们没有救人。他只问，倘若给别人运的粮、收的税都照旧，朝廷死了谁是不是都一样。",
+            "芝龙将账本合上，叫他坐下吃饭。“先能让人活，再讲谁该做什么。你在南京吃穿不用求人，是谁替你担着？”森望着父亲疲惫的眼角，把要出口的争话收了一半：“是您。所以我回来问您。”",
+            "这句话使父亲脸色松了一点。森接着说自己不想只在乱局后等人接走。芝龙立刻又把筷子放下，列出一件件军务的难处。森听完，没有声称自己比父亲懂海，只问能否先从不懂的地方做起。父亲说再看，起身去叫人换汤，谈话便到这里。",
+            "夜里，阿旺替书箱钉脱落的底板。森蹲在旁边问，船上若上头下错令，掌舵的人该怎么办。老人先让他把钉递稳：“你若问我怎样才不伤人，我没这个本事。要走哪条水，掌舵的人得知道前头要把谁丢下。”",
+            "森扶着箱板，等钉钉进去才松手。桌上父亲送他的书并未因此变得虚假，那些供过他读书的钱也不是假的。他把第二日要用的旧衣拿出来，没有叫人撤走父亲备的新衣。两件一同叠着，竟比只留其中一件更难安放。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "陈添",
+              "text": "报到您这儿的不是那几个字。"
+            },
+            {
+              "speaker": "郑森",
+              "text": "是您。所以我回来问您。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "掌舵的人得知道前头要把谁丢下。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "改父亲给的交游名单，追问军粮与责任，回闽后请求参与而非只被护送。",
+          "dramaticBeat": {
+            "want": "在父亲创造的安全中读书成人，并把所学用于正遭遇的乱局。",
+            "obstacle": "父亲将供养理解为决定权，家书与交游都被预先筛选；时局又超出任何家庭能包办的范围。",
+            "decision": "改父亲给的交游名单，追问军粮与责任，回闽后请求参与而非只被护送。",
+            "result": "父子仍相爱、互有依赖，却开始对“供养能否换取服从”作出不同回答；陈添也第一次坚持报告难听的原话。",
+            "next": "1645赐姓与母亲来闽，将书里的责任和家里的相认一同带到父亲面前。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "父子仍相爱、互有依赖，却开始对“供养能否换取服从”作出不同回答；陈添也第一次坚持报告难听的原话。",
+          "history": {
+            "level": "adaptation",
+            "note": "1641成家、1644南京太学采用地方人物志与纪念馆等编年；不把1641错写入太学年。本场家书被滞留、名单、父子辩论、陈添纠报、书箱等全F；所有所读内容为创作中的人物实践，不冒作史书原话。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a6_s1.png",
+          "imageWidth": 1935,
+          "imageHeight": 812,
+          "imagePrompt": "Historical cinema concept frame for 一官入海, an original late-Ming maritime epic. Widescreen anamorphic 2.39:1, an unposed moment caught by a patient camera, restrained photochemical 35mm feeling, soft optical roll-off, fine unobtrusive organic grain, subtle halation, gentle atmospheric veiling. Natural human anatomy and lived-in plain fabrics. Composition is SPARSE and authoritative: one primary action, maximum two focal people, large quiet areas, background forms reduced by darkness or mist. Light falls selectively; keep real deep shadow, softened edges and restrained highlights. No glossy AI concept-art finish, no HDR, no edge-to-edge sharp detail, no teal-orange blockbuster grade, no decorative prop piles, no crowds encircling a document, no excessive ropes or crates, no fantasy skyline, no heroic poster pose. Late Ming Chinese topknots and wooden junks with battened sails; no shaved forehead/queue, no modern objects. No lettering, subtitles, calligraphy, watermark or baked-in black bars. Historical fictional scene, not an archival photograph. Specific scene 一条还在走的路: Hirado some years after 1635. Tagawa, now older, and her younger son walk away from camera along an almost empty stone seawall to inquire about a possible crossing; they are small figures in the lower-right. She carries one plain cloth bundle, the boy in simple clothing stays near her, not mistaken for the elder son who already lives in China. One dim merchant-boat lantern far ahead gives direction; sea mist dissolves the boat itself. Broad soft blue-gray sky and water, plain stones, no busy Japanese tourist harbor. Cool dusk, tiny warm lantern, weary determination, a road still being actively sought. 40mm wide long take, 70% negative space.",
+          "imageCaption": "父子读书与交游控制：旧稿图片不对应本场，正文优先。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "needs-redraw"
+        },
+        {
+          "id": "yiguan_a5_s3",
+          "title": "认得儿子的人",
+          "year": "1645",
+          "location": "安平码头—郑氏家宅",
+          "summary": "田川氏渡海来闽，等到的儿子已叫郑成功。团聚没有抹去失去的十五年，丈夫想拿备齐的一切弥补，她却要他承认有些事情并没有先问过。",
+          "paragraphs": [
+            "田川氏抵岸时，没有穿一官准备的那件外衣。海上已热过一程，她把衣裳叠在行囊里，只想先下船站稳。码头上的人跪迎家主夫人，她停在板口，回头向同船妇人讨回自己落下的布包。",
+            "芝龙已经等在下面。他先向她伸手，她将布包递给他，再抓他的手下船。旧时总比她快一点的人，如今须等她一只脚落稳才往前。二人面对面站了一会儿，他说路上辛苦。她说船上有人照看。旁边备了一整行话的人，竟没人接得下去。",
+            "“福松呢？”她问。芝龙指向身后，青年才走上前来，低头叫母亲。他已比两人初识时的一官高大些，衣袖带着不熟悉的军礼。她伸手去摸他的脸，指尖碰到一点胡茬，顿住，又从额角摸下去。",
+            "她用幼时的乳名称呼他，成功连忙应；她又说了一句当年屋里的日常话，他听懂得慢了些，先望一眼父亲。田川氏看见那一下，手慢慢垂回袖里，没有责备。芝龙急着解释儿子学的事多，平户的话用得少，她点点头，将另一个儿子的近况说给他听。",
+            "回到家，屋中器物都是最好的，连窗向也早有人问过她喜欢哪边。她在柜里发现替自己备齐的针线，坐下拆开，却找不到自己用惯的那种细针。芝龙说立刻叫人再买。她将针线合上：“等我出去认认路。”",
+            "吃饭时，芝龙把能办的事一件件讲：家中住处、亲族、儿子的前程。讲到隆武帝赐姓与“成功”之名，青年在旁边抬起头，母亲便知道这不是像小时候那样随家里改一个叫法。她问往后在家怎么叫，儿子说叫福松便好。",
+            "芝龙笑道，哪里都一样是她儿子。青年没有附和，也没在饭桌上同父亲分辨。田川氏给他添一口菜，看见他等长辈动筷的样子，很像一官初来平户做客，却不再吃她记得那种太咸的腌物。她把碟子挪远一点，先让他吃惯的。",
+            "数日后，她在旧柜里找到歪船图，原纸接过一小块，船上多了小孩子添的帆，帆斜得不像能走海路。芝龙解释是森小时候补的，他一直留着。她将纸摊平，摸到一道暗褐的银渍，问怎么弄的。",
+            "芝龙说年轻时裹过钱。她笑了一下：“寄来那回，没见过。”他说想一并多挣些再寄，后来航次拖了。田川氏没有说自己早已猜到，只把那张船往他手边推了半寸：“那时候我以为，是信没到。”",
+            "他想说如今什么都有了，转头见她提着布包走到窗下，从里面取出几件并不值钱的旧衣。一件是儿子幼年穿过的，袖口补过三次。她没要他认亏欠，只说当年衣料裁大了，孩子也没能多穿几个月，长得太快。",
+            "芝龙伸手摸袖口。那几年自己正在哪条海路，他能记清货数，却对不上孩子衣长。他这次没有保证拿什么补回来。傍晚，二人一同坐到院里，她教他用从平户带来的小刀削水果，他削得断断续续，她也没接过去替他做完。",
+            "【同年稍后】成功在外领命，回家取换洗衣。芝龙叫他先来见自己，将拟好的侍从名单给他看，连走哪条路也已写妥。青年提出改两个人，要留其中一个在港口，照看自己已经答应接应的船。",
+            "芝龙说这些人调谁都一样，他点过便不会出错。成功没有接纸，解释对方认得的是自己，临时换人得先去说。父亲的脸渐渐沉下去，问做儿子的还信不过家里。青年将纸放回案上：“我信家里。人家信的是我说的那一句。”",
+            "田川氏在门外听见，没有进去劝任何一方。她将本来要替儿子收妥的衣包放在门边，让他自己回来拿。父子相隔一张桌，谁也没有摔东西。院外有人催下一桩军务，两人最后仍一起出门，走到石阶却分向不同的路。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "田川氏",
+              "text": "那时候我以为，是信没到。"
+            },
+            {
+              "speaker": "郑成功",
+              "text": "人家信的是我说的那一句。"
+            },
+            {
+              "speaker": "田川氏",
+              "text": "福松呢？"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "安排一切迎妻归家，仍试图替成年儿子排人排路；面对歪船图与旧衣，短暂放下解释。",
+          "dramaticBeat": {
+            "want": "让妻儿在自己创造的家中重聚，用完备供养弥补多年分离。",
+            "obstacle": "缺席的岁月不能补办，儿子所领的名分与责任也不只是家主的资产。",
+            "decision": "安排一切迎妻归家，仍试图替成年儿子排人排路；面对歪船图与旧衣，短暂放下解释。",
+            "result": "团聚有真实温情，却未恢复共同决定；成功首次明确坚持自己对外作出的承诺。",
+            "next": "清军入闽时，父亲将再用包办的活路处理家人不同的选择。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "团聚有真实温情，却未恢复共同决定；成功首次明确坚持自己对外作出的承诺。",
+          "history": {
+            "level": "adaptation",
+            "note": "1645隆武帝赐姓朱、改名成功及田川氏赴明为史实骨架；月日先后不锁定。码头相认、私宅饭食、歪船图与派人争执全F。田川氏家世、姓名通称和生活细节保留来源边界，不把她写成全知的道德裁判。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a6_s2.png",
+          "imageWidth": 1933,
+          "imageHeight": 813,
+          "imagePrompt": "Historical cinema concept frame for 一官入海, an original late-Ming maritime epic. Widescreen anamorphic 2.39:1, an unposed moment caught by a patient camera, restrained photochemical 35mm feeling, soft optical roll-off, fine unobtrusive organic grain, subtle halation, gentle atmospheric veiling. Natural human anatomy and lived-in plain fabrics. Composition is SPARSE and authoritative: one primary action, maximum two focal people, large quiet areas, background forms reduced by darkness or mist. Light falls selectively; keep real deep shadow, softened edges and restrained highlights. No glossy AI concept-art finish, no HDR, no edge-to-edge sharp detail, no teal-orange blockbuster grade, no decorative prop piles, no crowds encircling a document, no excessive ropes or crates, no fantasy skyline, no heroic poster pose. Late Ming Chinese topknots and wooden junks with battened sails; no shaved forehead/queue, no modern objects. No lettering, subtitles, calligraphy, watermark or baked-in black bars. Historical fictional scene, not an archival photograph. Scene 这一次是我来, Fujian 1645: after many years apart, a Japanese mother sees her now adult son. Two focal people only. View quietly through a partly open plain wooden doorway, doorframe and much of left half in soft deep shadow. The mother Tagawa in a faded blue-gray kosode is seen mostly in three-quarter back view, naturally tied hair with a few gray strands. Her adult twenty-one-year-old son Zheng Chenggong in a simple dark gray Ming robe has bowed slightly so she can touch the collar at his neck. Her raised hand hesitates; he looks down, neither smiling for the camera nor weeping theatrically. Simple wall, a low chest half hidden in dark, no table of papers, no harbor panorama. Pale window light gently catches only her hand, his cheek and worn cloth; one tiny old oil dish far back provides a dim muted amber accent, no glass lamp. Palette smoke-brown shadows, faded slate, warm skin in narrow light, warm but desaturated, low contrast atmospheric midtones. Camera 65mm, shallow but natural depth, an emotionally charged suspended second, nostalgic and dignified. This is a lived family reunion, not a staged portrait.",
+          "imageCaption": "重聚的母子，已不能补回的年月。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready"
+        },
+        {
+          "id": "yiguan_a5_s4",
+          "title": "箱子放下来",
+          "year": "1646",
+          "location": "安平家宅—福州清营—北上途中",
+          "summary": "芝龙把归降视为能保一家与海路的交涉，先装好家人的箱子。妻儿不肯随行，阿旺也决定回自己的家；他终于面对一件不能靠下一航补回的事。",
+          "paragraphs": [
+            "【1646年，安平】家丁搬箱子时，田川氏正在换一盏不大亮的灯。门外石阶湿着，一只箱底碰到门框，里面碗碟响了两声。她回头，见自己尚未收好的旧衣也被卷进包里，伸手按住了箱盖。",
+            "芝龙从前堂来，告诉她几日后先往福州。清军那边有人递话，只要议妥，沿海船与家眷可保，往后还有官职可谈。他把听来的话说得比原话更稳，像从前对货主报潮时，先把未定的风向从句子里抹掉。",
+            "田川氏问带几日衣。他说先备足些，省得临时再搬。她又问自己何时答应同行。芝龙将手里船单翻到后页，准备说明人已经点齐、路已打通；看见她的手仍压在箱上，才没有立刻往下说。",
+            "成功进门时，正撞见家丁等着抬箱。他没有上前扶母亲，也没先向父亲行军中礼，只问外头的说法是否是真的。芝龙让他坐下，指着桌上尚热的汤：“先吃一点，再说。”青年没坐。",
+            "父亲说朝廷已难支撑，战船不可能替每个死去的皇帝再烧一遍；家里若散了，剩下的人拿什么活。他没有说自己只为别人，也说这许多年才攒下船、人和商路，不能全推入一场看不到尽头的仗。",
+            "“儿子知道这些不是白来的。”成功说，“我也知道您不是去送命。可您替我把名写进去，问过我没有？”芝龙反问，天下的事都要等问过再办，谁还走得动。话出口时，他看了一眼那只被按住的箱子。",
+            "成功说自己受过赐姓与军命，不肯跟着降。芝龙叫了一声森，青年抬头；又叫福松，他仍应。父亲伸手抓住他肩头，问难道宁肯看全家死，也要守这几个字。青年脸上的怒色退了一点，声音却更低：“您教我读的，不只那几个字。”",
+            "芝龙收紧手指：“我供你读书，不是让你拿书来逼家里走绝路。”成功没有拨开，只说自己会带肯走的人留海，不敢保必胜，也不会替不肯走的人作答。父亲问他手里有几条船，话很快，像要用一个算得出的数，堵住那个算不出的决定。",
+            "青年报了自己真正能调的人数与缺的东西，比家里可用的少得难堪。芝龙听到最后，气反而平了些，立刻要从家中补人。成功这次退开：“若给，是您给。不能算作我答应跟您走。”父亲的手停在半空。",
+            "田川氏将箱上的绳慢慢解开。芝龙转向她，想让她劝儿子。她没有接那句话，从包里取出自己的旧衣、针袋，又把给丈夫备的衣物单独留下。他说福州未必待得久，她说若只是待几日，他带自己的就够。",
+            "家丁仍站着，不知听谁的。她让他们把那只箱放回屋，亲手托住一角。芝龙看她吃力，下意识也去托；两个人一同把箱子移过门槛，动作竟同年轻时在窄屋挪那条长凳相似。箱脚落地，她松手，他没有立即松。",
+            "她低声说：“我渡海，是来跟你过日子。不是让你不用问我。”他看着她手背上的细纹，终于将箱角放下。没有碗被摔破，也没有谁说以后再不相认。案上那碗汤一点点凉了，儿子已去取放在门边的衣包。",
+            "院外，阿旺提着工具箱来辞行。芝龙问是否要钱，老人摇头，说女儿家添了人，先前报过自己会去，这回不往后推。芝龙说等他从福州回来，家里的船还要修。老人将箱换到另一只手：“该修的，阿禾会修。我这回去住下。”",
+            "阿禾留在码头，查看肯跟成功走的船。二人没有因为留下就把一官的旧恩一笔抹掉，也没有替他洗清顺生。陈添来送最后一份名单，不把未到的人凑成齐数。芝龙问怎么少了这些，他说不愿随行的没写。屋里等了一阵，再没人叫他补齐。",
+            "【福州，随后】营里先撤去芝龙带来的几名随从，再说去处另有安排。他问沿海的船如何交接，对方没有回到那一页上谈。一个管事将他带来的通行文书翻过，交给身后的人。他从安平带来的条件，没能换成一张可以拿回家兑现的纸。",
+            "奉命北行时，他才知道这段路不再由自己排。他没有在码头重领舰队，也没等到妻儿改口。车马过水，短渡舟靠岸，押送的人催他下去。他低头整理衣袋，摸到那张歪船图。田川氏画的船身与福松添的斜帆已挨在一起，折痕一摊，仍是一条不能真下水的船。",
+            "他把纸翻来覆去，想找一处可以再补的地方。纸边起毛，指腹稍重一点便散开。他停了手，将它按原来的折痕收回，跟着前面的人上岸。这次身后没有人等他报出归期。",
+            "【史后记】1646年，田川氏罹难，死亡的具体情形在不同记述中存在差异；本剧不重演一种未经坐实的死法。郑芝龙降清后被挟北上，后来被拘，1661年遇害。郑成功没有随父归降，继续其海上军事道路。三人的结局并非这场私下争执所能概括，争执本身亦为文学虚构。",
+            "【尾声】阿旺回到女儿家，在檐下打开工具箱。外孙不认得里头的器物，拿起一块磨小了的旧木，问是做什么的。老人接回来，试试还平不平，叫孩子扶住门。刨刀推过去，第一缕木屑卷到台边。他把走风的门缝补好，没有留下要下一回再来的话。"
+          ],
+          "dialogue": [
+            {
+              "speaker": "郑成功",
+              "text": "您教我读的，不只那几个字。"
+            },
+            {
+              "speaker": "田川氏",
+              "text": "我渡海，是来跟你过日子。不是让你不用问我。"
+            },
+            {
+              "speaker": "阿旺",
+              "text": "我这回去住下。"
+            },
+            {
+              "speaker": "陈添",
+              "text": "不愿随行的没写。"
+            }
+          ],
+          "dialogueInParagraphs": true,
+          "choices": [],
+          "task": "先替家人装箱、报名；争执后仍独自赴福州，继而失去决定北上路线的权力。",
+          "dramaticBeat": {
+            "want": "通过归降交涉保住自身事业、亲族与家眷。",
+            "obstacle": "妻儿拥有自己的归属与政治责任，对方政权也不接受他预设的对等买卖。",
+            "decision": "先替家人装箱、报名；争执后仍独自赴福州，继而失去决定北上路线的权力。",
+            "result": "妻儿拒随、阿旺返家、阿禾留海；芝龙被挟北上，不能再用承诺换取共同归路，史后记交代真实死亡边界。",
+            "next": "全剧闭合：从替别人答应到无人再等他答复；后续历史不包装成主角向儿子的顺利传位。"
+          },
+          "dramaticMode": "行动、隐瞒与关系变位",
+          "currentCanon": "妻儿拒随、阿旺返家、阿禾留海；芝龙被挟北上，不能再用承诺换取共同归路，史后记交代真实死亡边界。",
+          "history": {
+            "level": "adaptation",
+            "note": "1646降清、赴福州、随后被挟北上，郑成功不从及田川氏罹难为史实骨架，郑芝龙1661遇害。许官说法见后出编纂，未核原信，故用传话而非亲核承诺。家中拒行、箱子、对话、原画、原创建造者结局与北上短渡细节为F；不据本剧私场解释全部政治史。",
+            "sources": [
+              {
+                "title": "五幕新稿史实护栏、编年与来源",
+                "url": "../research/yiguan-v5-historical-guardrails-2026-10-22.md"
+              }
+            ]
+          },
+          "image": "images/film-v4/zheng_a6_s3.png",
+          "imageWidth": 1935,
+          "imageHeight": 812,
+          "imagePrompt": "Historical cinema concept frame for 一官入海, an original late-Ming maritime epic. Widescreen anamorphic 2.39:1, an unposed moment caught by a patient camera, restrained photochemical 35mm feeling, soft optical roll-off, fine unobtrusive organic grain, subtle halation, gentle atmospheric veiling. Natural human anatomy and lived-in plain fabrics. Composition is SPARSE and authoritative: one primary action, maximum two focal people, large quiet areas, background forms reduced by darkness or mist. Light falls selectively; keep real deep shadow, softened edges and restrained highlights. No glossy AI concept-art finish, no HDR, no edge-to-edge sharp detail, no teal-orange blockbuster grade, no decorative prop piles, no crowds encircling a document, no excessive ropes or crates, no fantasy skyline, no heroic poster pose. Late Ming Chinese topknots and wooden junks with battened sails; no shaved forehead/queue, no modern objects. No lettering, subtitles, calligraphy, watermark or baked-in black bars. Historical fictional scene, not an archival photograph. Specific scene 箱子放下来: Fujian 1646. An emotionally tense full-to-medium shot inside a plain room open toward two routes to the harbor. Tagawa in faded blue-gray clothing lifts her own single travel chest down from the threshold, stopping someone else from deciding her departure. Her older husband Zheng Zhilong in dark teal stands in focused side profile, hand half raised then stopped. Their adult son Zheng Chenggong appears only as an out-of-focus back silhouette in the brighter doorway, clearly a third participant but not a third focal portrait. Only one chest and one plain stool. White overcast light makes a diagonal across gray wall; the father is half in shadow, the mother is quietly resolute, no one poses or points accusingly. Slate, soot brown, faded blue. 50mm anamorphic, suspended gesture and painful space between bodies.",
+          "imageCaption": "行李已备好，愿不愿走却尚未问过。（旧稿情境参考）",
+          "illustrationScope": "v4-atmosphere-reference",
+          "illustrationStatus": "ready",
+          "illustrations": [
+            {
+              "id": "yiguan_a5_s4_after1",
+              "image": "images/film-v4/zheng_a6_s4.png",
+              "caption": "不随行者各有去路：旧稿情境参考。",
+              "afterParagraph": 15,
+              "width": 1916,
+              "height": 821,
+              "illustrationStatus": "ready",
+              "illustrationScope": "v4-atmosphere-reference"
+            },
+            {
+              "id": "yiguan_a5_s4_after2",
+              "image": "images/film-v4/zheng_a6_s5.png",
+              "caption": "北上途中的孤独舟影：旧稿氛围参考，不将赴福州与北上写成一次自愿海航。",
+              "afterParagraph": 18,
+              "width": 1935,
+              "height": 812,
+              "illustrationStatus": "needs-redraw",
+              "illustrationScope": "v4-atmosphere-reference"
+            }
+          ]
+        }
+      ],
+      "cover": "images/film-v4/act-6.png",
+      "coverWidth": 1916,
+      "coverHeight": 821,
+      "illustrationStatus": "ready",
+      "illustrationScope": "v4-atmosphere-reference"
+    }
+  ],
+  "plotThreads": [
+    {
+      "name": "话与舌头",
+      "plant": "1.1误译后补救，不肯完整认错；2.2以个人名义保证收帆平安。",
+      "payoff": "3.3假传、3.4用陈添背书；4.2承认延迟到伤害再次发生；5.2陈添改报实话，5.4不把不愿随行者凑齐。最终芝龙自己的承诺无人接回。"
+    },
+    {
+      "name": "缺口木筹、援旗与令旗",
+      "plant": "1.4交钱换一次退路；2.3争共同决定；3.2定三起援旗。",
+      "payoff": "3.3眼见不救，4.2晴天重缝援旗揭密；4.3以写明不调走的四艇兑现一次约定，仍有人死；5.1买旗者仍可失船，5.4对清营的通行纸失去效力。"
+    },
+    {
+      "name": "歪船图：传递必须可追踪",
+      "plant": "2.1田川氏画无帆船身；2.4包过挪用的家用后，图随无银的信寄回平户。",
+      "payoff": "4.3福松添帆带来安平，父亲保留；5.3田川氏重见图纸与银渍；5.4芝龙收在衣袋北行。图在纸上合拢，人的选择不能被折进去。"
+    },
+    {
+      "name": "箱子：货、工具与家的边界",
+      "plant": "1.1重箱致险，1.2抛货救人后险扣阿旺工具；3.3阿旺弃工具箱腾救人位置。",
+      "payoff": "4.3父子推重箱相认，5.2保留旧箱并以书填满；5.4妻子拆回自己行李，阿旺工具箱到女儿家。箱子可以搬，不等于人已答应。"
+    },
+    {
+      "name": "教育不是服从的抵押",
+      "plant": "4.3父亲教森字，希望儿子不再讨船位。",
+      "payoff": "5.1学会看账，5.2县学到太学后追问责任，5.3对自己派人的承诺负责，5.4承认父亲供养却拒随。儿子的政治道路不写成父亲授予的终极奖励。"
+    }
+  ],
+  "ending": {
+    "fixed": "1646郑芝龙降清后被挟北上，郑成功不从，田川氏罹难；郑芝龙1661遇害。家中对话、拒行和道具均F，不能替代复杂政治史或证明具体死法。",
+    "personal": "杜七失船而活，阿禾留海但不恢复旧信任，陈添按实报名；阿旺回女儿家住下。谁的选择都不替主角完成一种体面的赎罪。",
+    "lastImage": "起毛的歪船图随芝龙北行；另一处屋檐下，阿旺把漏风的门修好，没有再许下一航。"
+  },
+  "sourceNotes": [
+    "本稿采用用户指定的唯一主脑、缺陷在压力下显露、伏笔信息差、不可逆代价与终局回扣作为写作约束；它们不是文学评分公式。单一英雄旅程不是所有经典的唯一结构，多巴胺/内啡肽二分也不作为本项目已证实的审美神经科学结论。",
+    "顺生真相在1626隐瞒，1628厦门战才揭露；修正用户示范中“三天后自白”与延迟引爆的冲突，以及两年误作三年的笔误。",
+    "海上谋生与受压是本剧选择的从盗因果，不宣称为郑芝龙可唯一证实的心理。船、人、粮、潮、信用各有限制；首次夺船与各原创战事均F。",
+    "本轮只重写文学主线与独立网页，不把章节阅读器当成Godot游戏已接入的新任务线。旧43场ID保留重定向，原资源与UI演示的旧需求不等于新20场仍有这些情节。",
+    "本轮没有新生成图片。合宜旧图标为情境参考；雾中撤援、1636后令旗案与太学三场旧图不符，暂停显示；结尾旧孤舟图也暂停，避免把赴福州和被挟北上混成自愿航程。"
+  ]
+}

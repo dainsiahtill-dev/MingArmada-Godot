@@ -1,0 +1,117 @@
+{
+  "id": "npc-market-trader",
+  "name": "货主与锚地行商",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "货损索赔者、换米卖针线伤药者、普通委托货主；男女经营者均为职业变体。",
+  "visualBrief": "成年/中年，素色交领外衣，有限腰袋/货单；女性商人束髻而非珠宝堆叠。摊布、称量、收银、护货姿态。",
+  "storyRefs": [
+    "zheng_a1_s4",
+    "zheng_a3_s7",
+    "zheng_a3_s8"
+  ],
+  "uiPages": [
+    "market",
+    "trade-order",
+    "dialogue"
+  ],
+  "variants": [
+    "货主",
+    "换米行商",
+    "针线/药材摊主",
+    "女性掌柜"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "assets/art/characters/merchant-woman-v1.png",
+      "role": "style-reference",
+      "note": "已存在通用行商女立绘，可作职业外衣/手势参考；不是田川氏或阿旺女儿。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "body-adult-female",
+    "head-eastasia-male"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-market-trader",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-market-trader/reference/merchant-woman-v1-0a02061e.png",
+      "role": "style-reference",
+      "note": "已存在通用行商女立绘，可作职业外衣/手势参考；不是田川氏或阿旺女儿。",
+      "sourcePath": "assets/art/characters/merchant-woman-v1.png",
+      "sha256": "0a02061e4bbc5f3b980bf45a92b7b09cea968f864e9e6b1b1f2e7b218b7447a3",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-market-trader/reference/zheng_a3_s7-ad735196.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-market-trader/reference/merchant-woman-v1-0a02061e.png",
+    "role": "style-reference",
+    "note": "已存在通用行商女立绘，可作职业外衣/手势参考；不是田川氏或阿旺女儿。",
+    "sourcePath": "assets/art/characters/merchant-woman-v1.png",
+    "sha256": "0a02061e4bbc5f3b980bf45a92b7b09cea968f864e9e6b1b1f2e7b218b7447a3",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

@@ -1,0 +1,2438 @@
+{
+  "schemaVersion": 1,
+  "part": "equipment",
+  "title": "一官入海：火炮、个人武器、弹药与道具资源库",
+  "scope": "1621—1646六幕43场及72页既有系统；本分册定义资源需求，不宣称已完成3D生产。",
+  "basis": {
+    "story": "docs/narrative/zheng-zhilong/zheng-zhilong-story.json",
+    "systems": "docs/design/game-ui/systems.json",
+    "legacyBudget": "docs/design/game-ui/production-assets.json",
+    "checkedAt": "2026-10-22"
+  },
+  "countingRules": [
+    "items为可检索需求记录，不等于新增基模数量；纸面文种、商品和小袋用途可共享基模。",
+    "炮身、轮式炮架、叉式旋架、佛朗机子铳、炮弹分别记录；不将火炮混作个人火器。",
+    "gun-folangji及其旋架、子铳为P1同代可选形制；不因列入图库强制增加主线炮种玩法。",
+    "variants是材质、同拓扑形变或节点配置，只有明确新轮廓／新拓扑才增基模。",
+    "story-context仅证明有可关联的本地场景图，未逐件视觉确认，不算独立物品图或历史证据；needs-concept条目仍需结构图。",
+    "assets/art/icons当前不存在；UI内联通用SVG与截图不是独立道具美术。现有goods六PNG与ammo三PNG已核路径，尚未完成本轮像素／许可链复验。",
+    "原版逆向提取图和GLB仅reference-only；未放入可商用现成模型集合，禁止作为生产原图。",
+    "文书、旗纹、银钱形态与具体武器型号都须时代审查；本文不含制造、装药、配方或性能参数。"
+  ],
+  "referenceOnlyAssets": [
+    {
+      "path": "assets/textures/reference_atmosphere/fpk/Pak7/cannon_001.dds.png",
+      "role": "reference-only",
+      "note": "原版游戏提取炮贴图，仅研究轮廓／材质；不是独立概念图，不证明时代正确或可商用。"
+    },
+    {
+      "path": "assets/models/fidelity_naval/frigate_cannon_001.png",
+      "role": "reference-only",
+      "note": "旧游戏提取船炮贴图，许可证未解决，不当正式美术来源。"
+    },
+    {
+      "path": "assets/models/fidelity_naval/frigate.glb",
+      "role": "reference-only",
+      "note": "原版参照舰船GLB，不能计作本分册已交独立炮模型。"
+    }
+  ],
+  "conceptPriorities": [
+    "gun-folangji",
+    "gun-hongyipao",
+    "firearm-matchlock",
+    "weapon-sabre",
+    "weapon-longblade"
+  ],
+  "sharedGeometry": [
+    {
+      "owner": "prop-letter",
+      "references": [
+        "prop-chart",
+        "prop-receipt",
+        "prop-contract-document",
+        "prop-official-document"
+      ],
+      "rule": "文种／正文增加需求记录，不增加纸张基模；薄册必要节点单列审查。"
+    },
+    {
+      "owner": "prop-red-thread-pouch",
+      "references": [
+        "prop-money-pouch",
+        "ammo-firearm-shot",
+        "prop-medicine"
+      ],
+      "rule": "共享通用软袋拓扑，各自的叙事状态、内容与物品保护分开；药包的纸／布条另复用平面。"
+    },
+    {
+      "owner": "prop-grain-sack",
+      "references": [
+        "prop-spices"
+      ],
+      "rule": "同型容器复用，内容与标记是商品变体。"
+    },
+    {
+      "owner": "prop-rope-coil",
+      "references": [
+        "prop-grapnel",
+        "prop-matchcord",
+        "prop-cargo-net"
+      ],
+      "rule": "共享纤维材质／绳段生成语汇；盘卷、钩头、货网仍是不同形体需求，不能把所有东西算一个无差别模型。"
+    }
+  ],
+  "historicalSources": [
+    {
+      "id": "HS-01",
+      "title": "Mary Rose Museum — Mounted guns, gun shields and handguns",
+      "url": "https://maryrose.org/discover/collections/the-weaponry-of-the-mary-rose/ship-supported-guns-and-handguns/",
+      "kind": "holding-museum / archaeological objects",
+      "checkedAt": "2026-10-22",
+      "claim": "馆方介绍其16世纪船载旋回炮为细长铁管、叉架、尾柄并有独立后部药室；只支持形体拆分及同代欧洲类比，不证明郑氏具体装备。",
+      "imageRights": "馆藏网页图仅供研究浏览；本轮未下载或作为生产贴图。"
+    },
+    {
+      "id": "HS-02",
+      "title": "文化部典藏网／臺南市政府文化局 — 明代銅質紅夷砲 20100700176",
+      "url": "https://collections.culture.tw/Object?RNO=MjAxMDA3MDAxNzY%3D&SYSUID=110",
+      "kind": "holding-institution collection record",
+      "checkedAt": "2026-10-22",
+      "claim": "藏品断为明代，记录长形、前窄后厚、炮耳与节箍；可支持红夷式炮身的视觉词汇，不能证明料罗湾单炮型号。",
+      "imageRights": "页面明确仅限公开浏览；禁止当可商用原图。"
+    },
+    {
+      "id": "HS-03",
+      "title": "國家文化資產網／國家圖書館 — 神器譜（明刊本）05737",
+      "url": "https://tcmb.culture.tw/zh-tw/detail?id=20130813000030&indexCode=BOCH_CountryCulture_61",
+      "kind": "primary-source book catalogue",
+      "checkedAt": "2026-10-22",
+      "claim": "明万历时期刊本、赵士桢撰，目录说明其火绳枪图说；仅用作明末存在相关火器文献的时代依据，本轮未完成逐版图像核读。",
+      "imageRights": "数字图像仅限浏览；描述元数据另标OGDL，不能混同图像许可。"
+    },
+    {
+      "id": "HS-04",
+      "title": "The Metropolitan Museum of Art — Matchlock Gun of Horio Yoshiharu 14.100.101",
+      "url": "https://www.metmuseum.org/art/collection/search/22492",
+      "kind": "holding-museum collection record",
+      "checkedAt": "2026-10-22",
+      "claim": "馆藏标为日本、晚16至早17世纪、钢制火绳枪；可作同代长火器轮廓对照，不能将其当明军或郑氏确证型号。",
+      "imageRights": "馆方标Public Domain；本轮只引链接，未下载，若采用须另记录物件号与实际文件来源。"
+    },
+    {
+      "id": "HS-05",
+      "title": "Penn Museum — Matchlock Gun / Pistol 97-28-11.2",
+      "url": "https://www.museum.upenn.edu/collections/object/318742",
+      "kind": "holding-museum collection record / search-index verified",
+      "checkedAt": "2026-10-22",
+      "claim": "馆藏检索记录为日本木与金属短火绳枪，断代16—17世纪；日期范围宽且带德川纹，不能据此确定1631福建短铳外形。",
+      "verificationLimit": "搜索结果可读馆藏条目，直接打开返回502；只作待复核线索，不作为短铳结构定稿依据。",
+      "imageRights": "未核图像许可、未下载。"
+    },
+    {
+      "id": "HS-06",
+      "title": "Saint Louis Art Museum — Matchlock Musket 302:1951",
+      "url": "https://www.slam.org/collection/objects/366/",
+      "kind": "holding-museum collection record",
+      "checkedAt": "2026-10-22",
+      "claim": "馆藏约1585年、可能荷兰或德国、钢铁与木材等材质；证明同代欧洲火绳枪存在，不能用19世纪海盗枪替代全部欧洲个人火器。",
+      "imageRights": "馆方标Public Domain；本轮未下载。"
+    }
+  ],
+  "items": [
+    {
+      "id": "gun-light-muzzle",
+      "name": "船载轻型前装炮炮身",
+      "category": "cannon",
+      "phase": "P0",
+      "description": "第二幕购得坏炮架的轻炮与早期炮击所需；剧本只明确轻炮、轮轴和火绳，没有确定欧洲细分型号。",
+      "visualBrief": "以成年炮手为比例，紧凑长管、前细后厚、简节箍、两侧炮耳和尾部轮廓；铁或铜材质作变体。炮耳为炮架挂点，炮身与架分交；不绘内部制造结构。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a2_s7",
+        "zheng_a3_s3"
+      ],
+      "uiPages": [
+        "ship-refit",
+        "ship-overview",
+        "battle-hud",
+        "ammo-loading",
+        "battle-damage"
+      ],
+      "variants": [
+        "铁色／铜色材质",
+        "海水旧化",
+        "炮衣显隐"
+      ],
+      "modelStrategy": "旧福船GLB的cannon_port_*/cannon_starboard_*节点只供提取评估；先重审轮廓。与红夷式重炮分基模，不能仅缩放重炮充当轻炮；一船多炮复用实例。",
+      "historicalStatus": "needs-concept；主线形制方案，非确证郑氏藏品。HS-01提供同代欧洲船载火器对照，具体澳门轻炮形制待美术史审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/ships/fuchuan-lod0.glb"
+      ],
+      "legacyModelIds": [
+        "gun-light"
+      ]
+    },
+    {
+      "id": "gun-folangji",
+      "name": "佛朗机炮身",
+      "category": "cannon",
+      "phase": "P1",
+      "description": "为轻炮槽提供有明确形体差别的同代可选方案，供区域船队与图鉴使用；不是新增必做战斗机制，也不把a2_s8轻炮直接改名佛朗机。",
+      "visualBrief": "细长金属管、开放的后部框状轮廓、两侧炮耳与尾柄，母铳形体明确；尾柄为操控挂点，炮耳对旋架。子铳单列，禁止现代后膛闭锁、枪托或清代龙纹铭款。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "ship-refit",
+        "equipment",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "铁／铜材质",
+        "旧化"
+      ],
+      "modelStrategy": "独立炮身拓扑；与gun-folangji-chamber及gun-swivel-mount装配。P1形制替代候选，可先只完成轮式轻炮；不要求为每种材质再建基模。",
+      "historicalStatus": "needs-concept；period-plausible。HS-01证明同代舰载旋回炮的细长管、叉架、尾柄与独立药室轮廓；中国型号、尺度及铭款需另审，不能称文物复原。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "gun-hongyipao",
+      "name": "红夷式重炮炮身",
+      "category": "cannon",
+      "phase": "P1",
+      "description": "1633强敌重炮与后期重炮槽的具体美术方案；剧本称重炮，没有逐门型号记录。",
+      "visualBrief": "比轻炮显著粗重而修长，前部收窄、后段厚重，节箍、炮耳、尾钮可读；炮耳和尾部索具为挂点，单独交炮身。禁止19世纪调高螺杆、后装闭锁和清代制式装饰。",
+      "storyRefs": [
+        "zheng_a5_s3",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ship-refit",
+        "ship-overview",
+        "battle-hud",
+        "ammo-loading",
+        "battle-damage"
+      ],
+      "variants": [
+        "铁色／铜色",
+        "锈蚀与烟熏"
+      ],
+      "modelStrategy": "映射旧gun-heavy；旧船炮节点仅为比例参照，正式炮管需独立重审。引用gun-deck-carriage，不把炮架烘进船壳再重复建。",
+      "historicalStatus": "needs-concept；period-plausible。HS-02为馆藏明代长管炮形制；将剧本重炮采用该视觉是创作选择，不证明料罗湾每门炮的名称或材质。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/ships/fuchuan-lod0.glb"
+      ],
+      "legacyModelIds": [
+        "gun-heavy"
+      ]
+    },
+    {
+      "id": "gun-deck-carriage",
+      "name": "轮式木炮架",
+      "category": "cannon",
+      "phase": "P0",
+      "description": "独立承接轻／重炮；第二门炮坏轮轴与维修有明确剧情用途。",
+      "visualBrief": "低矮厚木侧板、横梁和木轮，铁件朴素；炮耳座、轮轴、甲板系索点分明；完整与断轴节点可切换。先按炮手和甲板比例审查，不输出工程尺寸。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ship-refit",
+        "ship-repair",
+        "battle-hud",
+        "battle-damage",
+        "item-detail"
+      ],
+      "variants": [
+        "完好／断轴节点",
+        "木材旧化",
+        "轻／重炮同拓扑适配范围"
+      ],
+      "modelStrategy": "独立炮架基模；轻重炮可在核准范围内形变，不适配时再增基模。旧福船GLB内cannon节点是组合件，只供提取评估；坏轴不能只变色。",
+      "historicalStatus": "needs-concept；剧本轮轴明确，轮式架形式可用；并非所有中国炮或佛朗机均放这种架。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/ships/fuchuan-lod0.glb"
+      ],
+      "legacyModelIds": [
+        "gun-carriage"
+      ]
+    },
+    {
+      "id": "gun-swivel-mount",
+      "name": "佛朗机叉式旋架与甲板座",
+      "category": "cannon",
+      "phase": "P1",
+      "description": "仅随佛朗机候选制作，补足其与轮式炮架不同的船舷安装轮廓。",
+      "visualBrief": "金属U形叉架承接两侧炮耳，下部有竖直支轴，木质船舷插座作小型独立节点；叉架、支轴和船舷连接处可读，避免现代云台造型。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "ship-refit",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "木座旧化",
+        "完好／松脱状态"
+      ],
+      "modelStrategy": "与gun-folangji装配；叉架与座组成一个安装模块，不为每艘船复制新件。仅当P1采用佛朗机时生产。",
+      "historicalStatus": "needs-concept；HS-01直接记录同代旋回炮叉架与船舷孔位；福建特定安装形式未确证。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "gun-folangji-chamber",
+      "name": "佛朗机子铳",
+      "category": "cannon",
+      "phase": "P1",
+      "description": "佛朗机候选的独立可见部件；不是炮弹、现代弹壳或个人火器。",
+      "visualBrief": "短粗金属杯筒与把手轮廓，后端厚实；作为手持部件提供抓握点和母铳后框对位点，仅交外观。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "equipment",
+        "ammo-loading",
+        "item-detail",
+        "history-notes"
+      ],
+      "variants": [
+        "同型旧化",
+        "空置显示状态"
+      ],
+      "modelStrategy": "独立小件基模，多子铳重复实例化；不与弹丸合模，不提供内腔、装药或操作教学。仅随佛朗机方案生产。",
+      "historicalStatus": "needs-concept；HS-01为独立药室的实物类比。这里采用中国术语子铳；非特定中国出土器复原。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "firearm-matchlock",
+      "name": "鸟铳与长火绳枪",
+      "category": "firearm",
+      "phase": "P1",
+      "description": "补足炮与个人火器的区分；吕宋脱险、米船伏击等枪声所需的持用形体。剧本未逐支标明枪种。",
+      "visualBrief": "长细钢铁管搭配木托，侧面火绳夹轮廓清楚，肩托形式按同代区域样本审查；双手、背带和腰侧火绳为角色挂点。禁止燧发机构、雷管、现代导轨及后世清代豪华御用样式。",
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a4_s6",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "boarding",
+        "equipment",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "区域木托／朴素金属材质",
+        "携行／持用姿态"
+      ],
+      "modelStrategy": "一个长火绳枪主体先覆盖区域普通兵员；日本／欧洲差异先由木托配件审查，若轮廓和手位不同才加新主体。不能复用炮身或把长枪缩为手枪。",
+      "historicalStatus": "needs-concept；HS-03明刊本支持明末火绳枪的时代背景；HS-04提供晚16至早17世纪日本藏品对照。将具体枪声画成鸟铳仍是设计推断，非已证型号。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "firearm-short-matchlock",
+      "name": "短铳（暂定短火绳枪形制）",
+      "category": "firearm",
+      "phase": "P1",
+      "description": "1631—1632同一面令旗明确出现埋伏的短铳；独立于长鸟铳和舰炮。",
+      "visualBrief": "较短金属管与近直短木柄、侧面火绳夹为暂定外轮廓；单／双手抓点须以角色动作核查。装饰克制，不使用19世纪左轮、燧发海盗手枪或江户中晚期华饰短筒。",
+      "storyRefs": [
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "朴素旧化",
+        "收存／持用"
+      ],
+      "modelStrategy": "独立短铳主体，禁止简单压短长铳。形制审查前只做示意占位；不额外建立现代手枪装备系统。",
+      "historicalStatus": "needs-concept；shape-unresolved。剧本只证明有短铳。HS-05馆藏断代16—17世纪但范围宽，属日本类比，不能证明福建1631具体样式；需专项复核再定稿。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "weapon-sabre",
+      "name": "随身短刀与刀鞘",
+      "category": "melee-weapon",
+      "phase": "P0",
+      "description": "主角防身、接舷、缴刀及刀落桌上的跨幕物件；鞘与刀须可分。",
+      "visualBrief": "单刃短刀、窄护手、朴素双片或缠柄、木鞘；刃长与成人前臂形成紧凑关系。左右腰带挂点、拔刀手位和收鞘点明确，不用清代制式大刀或现代军刀。",
+      "storyRefs": [
+        "zheng_a2_s3",
+        "zheng_a2_s7",
+        "zheng_a4_s1"
+      ],
+      "uiPages": [
+        "equipment",
+        "inventory",
+        "item-detail",
+        "boarding",
+        "dialogue"
+      ],
+      "variants": [
+        "鞘色与缠柄",
+        "入鞘／出鞘节点",
+        "磨损"
+      ],
+      "modelStrategy": "映射weapon-sabre；刀身与鞘在一个交付包中保留独立节点，角色、桌上剧情和物品检视共用。",
+      "historicalStatus": "needs-concept；剧本物件明确，具体明末沿海刀型为艺术方案，尚无一官佩刀实物依据。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "weapon-sabre"
+      ]
+    },
+    {
+      "id": "weapon-spear",
+      "name": "守船长枪",
+      "category": "melee-weapon",
+      "phase": "P1",
+      "description": "1629湾口接舷守船者明确以长枪逼住对方长刀。",
+      "visualBrief": "长直木杆、窄金属枪头、简短套箍；两手抓点与甲板通道净空需可读；穗可省，避免奇幻巨刃和夸张红缨。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "杆材旧化",
+        "持用／倚放"
+      ],
+      "modelStrategy": "独立枪杆与枪头组成一个模块，守卫重复实例化；不与船篙混用，也不为阵营颜色再建基模。",
+      "historicalStatus": "needs-concept；剧本武器明确，具体枪头形制仍需史料／美术审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "weapon-longblade",
+      "name": "雇佣刀手长刀",
+      "category": "melee-weapon",
+      "phase": "P1",
+      "description": "1629原创湾口战中的长刀手，承担与守船长枪不同的近战轮廓。",
+      "visualBrief": "长单刃略弧刀身、可双手握持的长柄、简护手与木鞘；刃与柄的长度差别明确，双手抓点和鞘挂点可见；避免奇幻超宽刀。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "刀鞘材质",
+        "入鞘／出鞘"
+      ],
+      "modelStrategy": "独立长刀主体与鞘；不能把短刀等比拉长。只给剧情已需的刀手，不按国籍自动批量配同一武器。",
+      "historicalStatus": "needs-concept；剧情明确有长刀，事件和人物为原创。刀型及持有者出身不由口音自动判定，禁止把所有长刀手统称日本人。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "ammo-solid",
+      "name": "实心炮弹",
+      "category": "ammunition",
+      "phase": "P0",
+      "description": "三种现有海战弹药中的实心弹，兼作甲板弹架与UI物品。",
+      "visualBrief": "单枚深色金属球、局部旧化；可成小堆与木托组合，按炮与手掌比例核查。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ammo-loading",
+        "battle-hud",
+        "inventory",
+        "supplies"
+      ],
+      "variants": [
+        "旧化",
+        "储存摆放"
+      ],
+      "modelStrategy": "单件模块重复实例化；UI由合格模型正交渲染或复验现有PNG。弹药与炮身、炮架分别交付。",
+      "historicalStatus": "既有游戏设计；实心弹为时代通用形体，链弹／葡萄弹未核得本剧每场具体使用记录，history-notes不得写成确证史实。",
+      "existingImages": [
+        {
+          "path": "assets/art/ammo/solid-shot-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "ammo-solid"
+      ]
+    },
+    {
+      "id": "ammo-chain",
+      "name": "链弹",
+      "category": "ammunition",
+      "phase": "P0",
+      "description": "保留现有游戏弹种；以牵制帆索的UI用途与战斗反馈出现。",
+      "visualBrief": "成对端部由松弛铁链相连，收拢与展开配置保持同一连接关系；不与普通圆弹混淆。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ammo-loading",
+        "battle-hud",
+        "inventory",
+        "supplies"
+      ],
+      "variants": [
+        "旧化",
+        "储存摆放"
+      ],
+      "modelStrategy": "单件模块重复实例化；UI由合格模型正交渲染或复验现有PNG。弹药与炮身、炮架分别交付。",
+      "historicalStatus": "既有游戏设计；实心弹为时代通用形体，链弹／葡萄弹未核得本剧每场具体使用记录，history-notes不得写成确证史实。",
+      "existingImages": [
+        {
+          "path": "assets/art/ammo/chain-shot-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "ammo-chain"
+      ]
+    },
+    {
+      "id": "ammo-grape",
+      "name": "葡萄弹包",
+      "category": "ammunition",
+      "phase": "P0",
+      "description": "保留现有游戏弹种；呈现散射用弹包的UI轮廓。",
+      "visualBrief": "多枚小金属球被布／绳束成紧凑包，封装外观为主；不绘配方、内部装填或数量参数。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ammo-loading",
+        "battle-hud",
+        "inventory",
+        "supplies"
+      ],
+      "variants": [
+        "旧化",
+        "储存摆放"
+      ],
+      "modelStrategy": "单件模块重复实例化；UI由合格模型正交渲染或复验现有PNG。弹药与炮身、炮架分别交付。",
+      "historicalStatus": "既有游戏设计；实心弹为时代通用形体，链弹／葡萄弹未核得本剧每场具体使用记录，history-notes不得写成确证史实。",
+      "existingImages": [
+        {
+          "path": "assets/art/ammo/grape-shot-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "ammo-grape"
+      ]
+    },
+    {
+      "id": "ammo-firearm-shot",
+      "name": "个人火器弹丸袋",
+      "category": "ammunition",
+      "phase": "P1",
+      "description": "长短个人火器场景需要的携带物，防止视觉上把小铳弹丸画成舰炮弹。",
+      "visualBrief": "小型朴素布袋与少量可见圆丸，袋口、腰带系点和手持抓点可读；不画现代金属定装弹。",
+      "storyRefs": [
+        "zheng_a4_s6",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "equipment",
+        "inventory",
+        "boarding",
+        "supplies"
+      ],
+      "variants": [
+        "袋色",
+        "扎口／打开配置"
+      ],
+      "modelStrategy": "袋体复用prop-red-thread-pouch的通用小袋拓扑；小圆丸可复用球体几何，按角色画面比例设置，不增加一套现代弹药系统。",
+      "historicalStatus": "needs-concept；时代一般性表现，具体弹丸材质、尺度及携带方式未锁定；不得据此推断武器性能。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-crate",
+      "name": "木货箱",
+      "category": "prop",
+      "phase": "P0",
+      "description": "托运、红封货、受损抛货与市场共用的硬容器。",
+      "visualBrief": "人可双手搬动的方木箱，拼板与木扣克制，留绑索与封条位置；盖板与箱体分节点，箱角能体现撞裂。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s6"
+      ],
+      "uiPages": [
+        "cargo-hold",
+        "market",
+        "trade-order",
+        "black-market",
+        "item-detail",
+        "battle-damage"
+      ],
+      "variants": [
+        "普通／红封贴图",
+        "开盖／合盖",
+        "裂木节点"
+      ],
+      "modelStrategy": "复验coastal_detail_library的crate程序网格，必要时适配独立模型；内容物复用已列货物，不把每个箱号算新模。",
+      "historicalStatus": "needs-concept；剧本明确，封记属原创剧情，不照抄真实商号。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-crate"
+      ]
+    },
+    {
+      "id": "prop-barrel",
+      "name": "淡水大桶",
+      "category": "prop",
+      "phase": "P0",
+      "description": "平户供水、无风缺水、货舱补给反复使用。",
+      "visualBrief": "腰鼓形木板桶、木／金属箍、桶塞与搬抬抓位；完整、裂缝和补缝可辨，体量显著大于提水小桶。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a3_s10"
+      ],
+      "uiPages": [
+        "cargo-hold",
+        "supplies",
+        "market",
+        "dialogue",
+        "battle-damage"
+      ],
+      "variants": [
+        "裂缝／修补节点",
+        "干湿材质"
+      ],
+      "modelStrategy": "复验barrel程序网格；补缝与裂缝用局部节点，不按水量、桶号再建基模。",
+      "historicalStatus": "needs-concept；剧情明确的木桶，箍材与细节仍为时代合理化设计。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-barrel"
+      ]
+    },
+    {
+      "id": "prop-cloth-bale",
+      "name": "布匹货包与布卷",
+      "category": "prop",
+      "phase": "P0",
+      "description": "六货种中的布／丝绸，兼家用布、争议封包与市场展示。",
+      "visualBrief": "柔软长方布包或卷布、外层包布、绳扎与小封记；货包体量以双手抬抱为准，留可拆封处。",
+      "storyRefs": [
+        "zheng_a2_s3",
+        "zheng_a3_s6",
+        "zheng_a3_s7"
+      ],
+      "uiPages": [
+        "market",
+        "cargo-hold",
+        "trade-order",
+        "black-market",
+        "home"
+      ],
+      "variants": [
+        "布色与丝绸材质",
+        "普通／红封",
+        "家用小卷配置"
+      ],
+      "modelStrategy": "一个布包主体加可替换布卷节点；折叠旧衣可复用软布布局或角色服装，不额外制造每种花纹基模。",
+      "historicalStatus": "既有货物图可作产品外观起点；丝绸纹样、包法为创作方案，待时代审查。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/silk-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-cloth-bale"
+      ]
+    },
+    {
+      "id": "prop-grain-sack",
+      "name": "米粮袋",
+      "category": "prop",
+      "phase": "P0",
+      "description": "米粮、船员口粮与劫粮剧情共用的软货容器。",
+      "visualBrief": "粗布鼓袋、扎口与底部压褶，袋身重心低；少量米粒可作可见节点，载货与手持有清楚抓点。",
+      "storyRefs": [
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a4_s6"
+      ],
+      "uiPages": [
+        "market",
+        "cargo-hold",
+        "supplies",
+        "trade-order",
+        "black-market"
+      ],
+      "variants": [
+        "粮种标记",
+        "扎口／开口",
+        "满／半空同拓扑形变"
+      ],
+      "modelStrategy": "独立粮袋基模；同型香料袋复用本主体和标记，不按粮种与库存量建新模。",
+      "historicalStatus": "已有原创粮食PNG；容器细节待时代审查，不以货量节点声称真实储运标准。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/grain-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-grain-sack"
+      ]
+    },
+    {
+      "id": "prop-porcelain-jar",
+      "name": "瓷货罐",
+      "category": "prop",
+      "phase": "P0",
+      "description": "六种商品中的瓷货，市场、货舱与家居可共用。",
+      "visualBrief": "短颈圆腹瓷罐、平稳底足、简盖或包口；釉色低饱和，货运可外加草绳／衬垫节点，手持点在罐腹。",
+      "storyRefs": [
+        "zheng_a3_s1",
+        "zheng_a3_s7"
+      ],
+      "uiPages": [
+        "market",
+        "trade-order",
+        "cargo-hold",
+        "home"
+      ],
+      "variants": [
+        "釉色",
+        "带盖／开口",
+        "货运外包配置"
+      ],
+      "modelStrategy": "一个瓷罐基模，货摊多件实例；不以青花／白釉每种配色增模。",
+      "historicalStatus": "已有原创商品图；具体窑口、纹样与年代未确证，不能标为特定官窑文物复原。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/porcelain-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-porcelain-jar"
+      ]
+    },
+    {
+      "id": "prop-basket",
+      "name": "货物竹篮",
+      "category": "prop",
+      "phase": "P0",
+      "description": "货栈果筐、市场零货与生活容器共享。",
+      "visualBrief": "竹编开口筐，弧形提手为可选节点，粗编纹理与底圈清楚；空篮可叠放，盛果只组合现有内容。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s7"
+      ],
+      "uiPages": [
+        "market",
+        "port-hub",
+        "dialogue",
+        "inventory"
+      ],
+      "variants": [
+        "空篮／装货",
+        "提手显隐"
+      ],
+      "modelStrategy": "复验basket程序网格；水果属于场景少量填充件，不为每筐建立新基模。",
+      "historicalStatus": "needs-concept；生活器物艺术方案，剧本果筐明确，编法细节未复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-basket"
+      ]
+    },
+    {
+      "id": "prop-rope-coil",
+      "name": "盘索与备用缆绳",
+      "category": "prop",
+      "phase": "P0",
+      "description": "起解缆、装货、修帆、拖带与救援使用同一绳索视觉语言。",
+      "visualBrief": "粗麻绳绞股、自然盘卷；自由端、环扣与连接点明确，卷径依人手和甲板尺度核查。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a2_s7",
+        "zheng_a4_s7",
+        "zheng_a5_s7",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "ship-repair",
+        "cargo-hold",
+        "supplies",
+        "boarding",
+        "battle-damage"
+      ],
+      "variants": [
+        "干湿与焦黑",
+        "盘卷／拉直曲线配置"
+      ],
+      "modelStrategy": "复验rope_coil网格；直索采用同材质曲线／程序绳段，数量与长度不增加基模；断索为端头状态。",
+      "historicalStatus": "needs-concept；剧本与系统明确，绳结保持视觉合理，不编成操作教程。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-rope-coil"
+      ]
+    },
+    {
+      "id": "prop-cargo-net",
+      "name": "货网与吊货网",
+      "category": "prop",
+      "phase": "P0",
+      "description": "货物装卸与舱内固定；可挂到既有货箱、粮袋和布包。",
+      "visualBrief": "粗绳大网眼，结点可读，边绳与四角吊点清楚；松网与包覆网保持同一网格关系。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s7"
+      ],
+      "uiPages": [
+        "cargo-hold",
+        "port-hub",
+        "market"
+      ],
+      "variants": [
+        "空网／捆货配置",
+        "磨损"
+      ],
+      "modelStrategy": "复验cargo_net程序网格，按货件变形或装配；不把裹住不同货物算新网模。",
+      "historicalStatus": "needs-concept；83预算保留的装卸道具，具体场景摆放为设计推断。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-cargo-net"
+      ]
+    },
+    {
+      "id": "prop-bollard",
+      "name": "缆桩",
+      "category": "prop",
+      "phase": "P0",
+      "description": "码头解缆和船上系索挂点；归道具库，港口装配引用本条。",
+      "visualBrief": "低矮粗木柱／双柱轮廓，柱根与绳绕凹位清楚；固定在甲板／码头的底部挂点可读，避免现代铸钢港机造型。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "port-hub",
+        "ship-overview",
+        "dialogue"
+      ],
+      "variants": [
+        "木色与磨损",
+        "单／双柱配置"
+      ],
+      "modelStrategy": "复验bollard程序网格；环境与船舶共用，若单／双柱需不同拓扑再审，不按泊位重复计。",
+      "historicalStatus": "needs-concept；具体样式待时代审查，剧情只明确缆绳与解缆。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-bollard"
+      ]
+    },
+    {
+      "id": "prop-lantern",
+      "name": "船灯与提灯",
+      "category": "prop",
+      "phase": "P0",
+      "description": "夜航、货栈及船舱照明；和手工纸灯分开。",
+      "visualBrief": "小型木／竹或金属框灯，护罩、提环和悬挂点明确；暖色内光，灭灯仍有完整轮廓。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s1",
+        "zheng_a4_s6"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "cargo-hold",
+        "dialogue",
+        "battle-damage"
+      ],
+      "variants": [
+        "点亮／熄灭",
+        "提携／吊挂",
+        "护罩旧化"
+      ],
+      "modelStrategy": "复验lantern程序网格，灯火为灯光／效果，不另建亮灯基模；纸灯另见prop-paper-lantern。",
+      "historicalStatus": "needs-concept；灯油在剧本明确，护罩与灯框材料仍需年代审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-lantern"
+      ]
+    },
+    {
+      "id": "prop-bench",
+      "name": "坐凳与长凳",
+      "category": "prop",
+      "phase": "P0",
+      "description": "货栈谈判、伤后照料与家居落座；刀鞘落凳有剧情用途。",
+      "visualBrief": "朴素窄木面、低横撑与榫接感，座面可容成人坐姿；坐点和双手撑点明确。",
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a3_s4",
+        "zheng_a4_s1"
+      ],
+      "uiPages": [
+        "dialogue",
+        "home",
+        "crew-detail"
+      ],
+      "variants": [
+        "木色旧化",
+        "短／长同结构适配"
+      ],
+      "modelStrategy": "独立凳基模；长度同拓扑适配，环境装配只引用此件，桌凳不是一整套隐藏复模。",
+      "historicalStatus": "needs-concept；朴素生活器物设计，未经家具断代鉴定。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-bench"
+      ]
+    },
+    {
+      "id": "prop-table",
+      "name": "木桌",
+      "category": "prop",
+      "phase": "P0",
+      "description": "货栈账务、招抚谈判、家庭饭桌共享。",
+      "visualBrief": "简木桌面、四腿与横撑，边缘磨损；纸、碗、刀等放置面清楚，避免明清宫廷家具装饰。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a4_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "dialogue",
+        "home",
+        "accounts",
+        "diplomacy"
+      ],
+      "variants": [
+        "栈房／家居摆放",
+        "木色与污痕"
+      ],
+      "modelStrategy": "一个桌基模，多场装配变化；不把桌上道具烘成不可分大模型。",
+      "historicalStatus": "needs-concept；生活艺术方案，不称某地区特定家具复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-table"
+      ]
+    },
+    {
+      "id": "prop-bedding",
+      "name": "床铺与被褥",
+      "category": "prop",
+      "phase": "P1",
+      "description": "平户初家与送子场景中的有限室内生活陈设。",
+      "visualBrief": "低矮铺位与折叠／铺展被褥，织物压褶和贴地关系自然；坐卧接触区、枕位与角色尺度一致。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "dialogue"
+      ],
+      "variants": [
+        "布色",
+        "铺展／折叠配置"
+      ],
+      "modelStrategy": "床架和软被作为可拆节点交一个生活模块；日本／福建摆放先用配置，不扩建室内模拟。",
+      "historicalStatus": "needs-concept；需分场审查两岸寝具差异，不把同一日式榻榻米铺满全游戏。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-bedding"
+      ]
+    },
+    {
+      "id": "prop-chest",
+      "name": "衣物行李箱",
+      "category": "prop",
+      "phase": "P0",
+      "description": "两人成家、母亲送子与1646取回箱子的关键容器。",
+      "visualBrief": "朴素木箱或漆木衣箱、平盖、侧把手和扣件，体量允许两人搬抬；箱盖铰点、抓位与落地边清楚。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "dialogue",
+        "inventory",
+        "item-detail"
+      ],
+      "variants": [
+        "旧木／朴素漆面",
+        "开盖／合盖",
+        "衣物装载配置"
+      ],
+      "modelStrategy": "独立行李箱，chest-open节点动作；与无铰盖货箱区分，不把母亲箱子当可售战利品。",
+      "historicalStatus": "needs-concept；剧情明确，不能把场景插画当箱具结构图。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-chest"
+      ]
+    },
+    {
+      "id": "prop-bucket",
+      "name": "提水小桶",
+      "category": "prop",
+      "phase": "P0",
+      "description": "堵漏、救火和生活提水；体量与淡水储桶不同。",
+      "visualBrief": "直壁或稍收底木桶、弧形提梁、桶口可见；单手握点与倒水转轴清楚，不用现代塑料或镀锌铁桶。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s3"
+      ],
+      "uiPages": [
+        "battle-damage",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "干湿",
+        "装水／空桶节点"
+      ],
+      "modelStrategy": "独立小桶基模；水面为共享平面／效果，不为每个水量增加模型。",
+      "historicalStatus": "needs-concept；救火补漏系统需要，具体提梁形式为设计方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-bucket"
+      ]
+    },
+    {
+      "id": "prop-pot",
+      "name": "锅具",
+      "category": "prop",
+      "phase": "P1",
+      "description": "船岸热饭与家庭生活；保持有限场景陈设。",
+      "visualBrief": "朴素圆腹铁锅／陶锅、双耳或提梁、锅沿与烟熏底；放置与手提挂点清楚。",
+      "storyRefs": [
+        "zheng_a3_s5",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "home",
+        "dialogue",
+        "supplies"
+      ],
+      "variants": [
+        "烟熏与旧化",
+        "带盖／开口"
+      ],
+      "modelStrategy": "一个锅具主体，可选盖节点；避免为了饭菜种类复制锅模。",
+      "historicalStatus": "needs-concept；83预算生活道具，剧本热饭不等于特定锅型实证。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-pot"
+      ]
+    },
+    {
+      "id": "prop-bowl",
+      "name": "饭碗与小碗",
+      "category": "prop",
+      "phase": "P1",
+      "description": "阿禾冷饭、幼子留碗、母子饭桌与1646翻碗跨幕复用。",
+      "visualBrief": "朴素陶瓷碗、外撇口与低足，单手可握；饭粒装载节点独立，成人／儿童共用小幅比例变体。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s5",
+        "zheng_a5_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "child-growth",
+        "dialogue"
+      ],
+      "variants": [
+        "陶色与朴素釉色",
+        "空／盛饭"
+      ],
+      "modelStrategy": "一个碗基模，生活桌面与剧情手持复用；不是每位角色一只新模。",
+      "historicalStatus": "needs-concept；明确剧情物件，纹样与窑口不做未经证实的历史命名。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-bowl"
+      ]
+    },
+    {
+      "id": "prop-letter",
+      "name": "家书纸张",
+      "category": "prop",
+      "phase": "P1",
+      "description": "跨海家书、托寄与收到状态；信件正文和凭据内容由UI呈现。",
+      "visualBrief": "旧纸单张／折叠纸，薄、轻、边角软化；手指捏纸点、桌上展开边和折痕明确，禁现代信封邮票。",
+      "storyRefs": [
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "letters",
+        "letter-detail",
+        "send-letter-remittance",
+        "home",
+        "inventory",
+        "item-detail"
+      ],
+      "variants": [
+        "展开／折叠配置",
+        "信纸内容贴图",
+        "潮痕"
+      ],
+      "modelStrategy": "一套薄纸面与折纸状态复用于家书、回单、契约和官文；不同正文不增加基模，UI字排独立可读。",
+      "historicalStatus": "needs-concept；私人家书正文为剧本创作，不能生成仿古真迹后标为史料。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-letter"
+      ]
+    },
+    {
+      "id": "prop-chart",
+      "name": "船图、针路簿与水程笺",
+      "category": "prop",
+      "phase": "P1",
+      "description": "幼儿歪船图、伏击所得水程笺与导航文书共享纸面家族；亲情纪念和航海资料内容分开。",
+      "visualBrief": "旧纸张／薄册、朴素墨线、折痕与软毛边；歪船图保留母画船身、幼儿后添帆的叙事，不画现代等高线海图。",
+      "storyRefs": [
+        "zheng_a2_s5",
+        "zheng_a4_s6",
+        "zheng_a5_s2",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "sea-chart",
+        "route-plan",
+        "home",
+        "child-growth"
+      ],
+      "variants": [
+        "歪船图",
+        "水程笺",
+        "针路簿封面／内页"
+      ],
+      "modelStrategy": "复用prop-letter纸张模块，薄册装订节点作配置；本条映射旧prop-chart但不重复造另一套纸。大地图仅共享视觉语汇，不把UI地图当手持器物尺寸。",
+      "historicalStatus": "原创叙事图与航海UI已有参考；真实针路、港位与文字另需史料校核，禁止把概念海图当史料。",
+      "existingImages": [
+        {
+          "path": "assets/art/maps/ming-nautical-chart-v2.png",
+          "role": "ui-background-reference",
+          "note": "既有原创航行UI底图，只作线色与纸感参考，不作为真实针路或本条结构图。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-chart"
+      ]
+    },
+    {
+      "id": "prop-tally",
+      "name": "缺口木筹",
+      "category": "prop",
+      "phase": "P0",
+      "description": "第一次索路与后来假旗／验筹中的可辨凭据，不等于永久通行证。",
+      "visualBrief": "掌心大小木片，唯一明显缺口、旧刻痕、磨圆边；可捏持边、挂绳孔如采用须审查，避免现代令牌徽章样式。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "sea-encounter",
+        "sea-permits"
+      ],
+      "variants": [
+        "旧化",
+        "识别刻记贴图"
+      ],
+      "modelStrategy": "独立小木筹基模；缺口为几何，不只画色块。相同凭据出现多次复用同一资产状态。",
+      "historicalStatus": "needs-concept；原创物件，旧缺口与验认规则来自剧本，不能标成明代通行制度实物。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-tally"
+      ]
+    },
+    {
+      "id": "prop-toolbox",
+      "name": "阿旺工具箱",
+      "category": "prop",
+      "phase": "P0",
+      "description": "最初被扣工具、末年收拾、最终回家关键物件；工具箱属于阿旺。",
+      "visualBrief": "紧凑旧木箱、提把、扣带和磨损棱角，内部简单分隔；单／双手抓点、箱盖铰点与地面放置面清楚。",
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a1_s5",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "ship-repair",
+        "dialogue"
+      ],
+      "variants": [
+        "开／合",
+        "空／基本工具装载",
+        "旧木"
+      ],
+      "modelStrategy": "独立工具箱，工具从已列斧、绳与工具带的小件共享；不暗含无限未计工具。与衣箱、货箱区分功能和比例。",
+      "historicalStatus": "needs-concept；原创人物道具，工具组形制尚需审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-toolbox"
+      ]
+    },
+    {
+      "id": "prop-drying-rack",
+      "name": "渔网晾晒架",
+      "category": "prop",
+      "phase": "P2",
+      "description": "有限渔寮环境陈设，用于湾口救援前后识别生活空间。",
+      "visualBrief": "粗木双架、横杆与挂网点，结构轻、海风旧化；挂网引用prop-cargo-net的独立绳网变体，避免现代金属晾衣架。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "port-hub",
+        "dialogue"
+      ],
+      "variants": [
+        "空架／有网",
+        "旧化"
+      ],
+      "modelStrategy": "复验drying_rack程序网格；环境分册引用本条。P2可省，不影响六幕主线交付。",
+      "historicalStatus": "needs-concept；83预算可选道具，剧本渔寮环境关联，非特定渔具复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "legacyModelIds": [
+        "prop-drying-rack"
+      ]
+    },
+    {
+      "id": "prop-wreck-timber",
+      "name": "破船木段",
+      "category": "prop",
+      "phase": "P0",
+      "description": "风浪抛货、沉船、港火和搜索漂浮物共用；不替失踪人物虚构遗物。",
+      "visualBrief": "断裂厚木板与短梁组合，毛边、湿木、焦黑可读；漂浮重心、救援抓点与碰撞边保留简洁。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a3_s3",
+        "zheng_a5_s3",
+        "zheng_a5_s5"
+      ],
+      "uiPages": [
+        "battle-damage",
+        "battle-result",
+        "sailing-hud",
+        "dialogue"
+      ],
+      "variants": [
+        "湿木／焦黑材质",
+        "少量断口节点配置"
+      ],
+      "modelStrategy": "一个破木模块与有限断口节点反复实例化；船体碎片可以从正式船体生成，不重复制作每次战损的全船。",
+      "historicalStatus": "needs-concept；场景需求明确；1635不得用本条暗示已经找到郑芝虎遗体。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "prop-wreck-timber"
+      ]
+    },
+    {
+      "id": "prop-toolbelt",
+      "name": "旧工具带",
+      "category": "prop",
+      "phase": "P0",
+      "description": "阿旺女儿缝的工具带与装备页的船务工具；人物去留和所有权明确。",
+      "visualBrief": "粗布带、补丁与挂环，少量木柄手工具挂位；腰部绑点、拆下放置轮廓和女儿补缝区别明确。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "equipment",
+        "inventory",
+        "item-detail",
+        "crew-detail"
+      ],
+      "variants": [
+        "新旧磨损",
+        "挂工具显隐"
+      ],
+      "modelStrategy": "独立软带模块挂成人骨架；基础工具小件可与toolbox共享，颜色不增加基模，不能用工具带资产代替阿旺人物模型。",
+      "historicalStatus": "needs-concept；原创纪念物，具体工具明细未定，只制已经需要的少量外观件。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-shipwright-axe",
+      "name": "船匠断索斧",
+      "category": "prop",
+      "phase": "P0",
+      "description": "吕宋斩拖缆、湾口断接舷索与1634砍断危桅明确需要。",
+      "visualBrief": "朴素铁斧头、直木柄、握持磨损；双手抓点与甲板放置面清楚，比例可用于船务劳作，不用巨型战斧。",
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a4_s7",
+        "zheng_a5_s7"
+      ],
+      "uiPages": [
+        "ship-repair",
+        "battle-damage",
+        "boarding",
+        "equipment"
+      ],
+      "variants": [
+        "木柄旧化",
+        "收存／持用"
+      ],
+      "modelStrategy": "一个工具斧主体，船匠与救援人员共用；工具箱装载引用同件，不再为三次断索建三把斧。",
+      "historicalStatus": "needs-concept；剧情明确船务工具，具体斧头刃型为美术方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "tool-axe"
+      ]
+    },
+    {
+      "id": "prop-polehook",
+      "name": "长钩与篙钩",
+      "category": "prop",
+      "phase": "P0",
+      "description": "阿旺顶过板、守船挡长刀和勾取绳物的长杆工具。",
+      "visualBrief": "长木杆与窄铁钩头，钩尖克制、轮廓显著区别枪头；双手抓点、钩索接触点和甲板倚靠处明确。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-damage",
+        "equipment"
+      ],
+      "variants": [
+        "杆材旧化",
+        "钩头同拓扑微调"
+      ],
+      "modelStrategy": "一个长钩主体，不与weapon-spear混名；杆可共享材质，钩头仍有独立可识别几何。",
+      "historicalStatus": "needs-concept；剧情明确，具体钩形尚未文物复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "tool-hook"
+      ]
+    },
+    {
+      "id": "prop-grapnel",
+      "name": "接舷挠钩与钩索",
+      "category": "prop",
+      "phase": "P0",
+      "description": "接舷系统与1631—1632冲突漂来钩索明确需要。",
+      "visualBrief": "小型多爪铁钩、中央绳环和短索；绳接点、投放抓点与船舷接触处可读，不画现代登山锁扣。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "battle-damage"
+      ],
+      "variants": [
+        "干湿旧化",
+        "放置／挂舷配置"
+      ],
+      "modelStrategy": "钩头独立小件，绳体引用prop-rope-coil同材质曲线；不与长柄篙钩合并。",
+      "historicalStatus": "needs-concept；挠钩／钩索为剧本明确道具，爪数和细节为待审方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-boarding-plank",
+      "name": "接舷过板与跳板",
+      "category": "prop",
+      "phase": "P0",
+      "description": "接舷夺船、救被掳者和码头登离船的共同连接件。",
+      "visualBrief": "窄厚长木板、少量横条或边索，端部搭接区明确；按成人通行宽和两船高差审查，不画现代扶手舷梯。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a4_s7",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "boarding",
+        "port-hub",
+        "dialogue"
+      ],
+      "variants": [
+        "海水旧化",
+        "少量横条显隐"
+      ],
+      "modelStrategy": "单板模块可同拓扑调长，搭接角按场景配置；码头与战斗共用，不把整船连接关系烘死。",
+      "historicalStatus": "needs-concept；剧本明确过板／跳板，限于可读场景设计，不输出搭建教程。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-oar",
+      "name": "长橹与应急长桨",
+      "category": "prop",
+      "phase": "P0",
+      "description": "吕宋浅水脱险、无风共同划行及战后递桨使用。",
+      "visualBrief": "细长木柄与宽窄适中的桨叶，握位和支承处因长橹／手桨区分；与船、人比例可读，不以同杆贴图充当不同叶形。",
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a4_s3"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "boarding",
+        "battle-damage",
+        "dialogue"
+      ],
+      "variants": [
+        "应急粗削旧化",
+        "长橹／手桨叶片替换节点"
+      ],
+      "modelStrategy": "共享杆材与部分握位，长橹／手桨若动作和叶形差异大则拆交；只做本剧两种需求，不扩成船具全集。",
+      "historicalStatus": "needs-concept；剧情明确橹／桨，具体摇橹支点与地方形制需审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "tool-oar"
+      ]
+    },
+    {
+      "id": "prop-punt-pole",
+      "name": "撑船篙",
+      "category": "prop",
+      "phase": "P0",
+      "description": "湾口救援、寻人及阿旺离岸撑船；与枪、长钩、桨不同。",
+      "visualBrief": "长直竹／木杆、自然节理、末端磨损，纤细可折；双手持位与水面接触点明确，无枪刃和桨叶。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s5",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "battle-damage",
+        "dialogue"
+      ],
+      "variants": [
+        "完好／折断端",
+        "干湿"
+      ],
+      "modelStrategy": "一个篙杆基模；竹节、木杆作材质与同拓扑变体。破断端节点复用wreck木材风格，不另建每段篙。",
+      "historicalStatus": "needs-concept；明确剧情工具，材料为待审视觉方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "tool-oar"
+      ]
+    },
+    {
+      "id": "prop-compass",
+      "name": "铜制罗盘",
+      "category": "prop",
+      "phase": "P0",
+      "description": "现有背包详情与导航说明已经使用，83模型预算遗漏。",
+      "visualBrief": "掌上圆盘或小方座、朴素金属边、纸／木刻盘面，磁针与玻璃罩是否采用需史料审查；手持抓边与桌面放置面明确。",
+      "storyRefs": [
+        "zheng_a3_s1"
+      ],
+      "uiPages": [
+        "equipment",
+        "inventory",
+        "item-detail",
+        "sailing-hud",
+        "weather-wind"
+      ],
+      "variants": [
+        "旧化",
+        "盘面纹理"
+      ],
+      "modelStrategy": "独立小器具，UI罗盘符号不当结构图；不得将现代黄铜怀表式航海罗盘未经审查直接作为明末中国实物。",
+      "historicalStatus": "needs-concept；UI既有铜制罗盘为产品设定，精确器形未证；storyRefs为导航场景关联，非正文明确提及实物。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-medicine",
+      "name": "随船药囊与裹伤布",
+      "category": "prop",
+      "phase": "P0",
+      "description": "UI已有药囊，旧伤、船员救治、粮药交换与补给系统必需。",
+      "visualBrief": "小布／油纸药包、朴素扎带及独立干净布条，袋口与递物抓点清楚；不使用现代十字急救包、玻璃注射器或现代药盒。",
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a3_s7",
+        "zheng_a3_s4",
+        "zheng_a5_s7"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "supplies",
+        "black-market",
+        "crew-detail",
+        "battle-damage"
+      ],
+      "variants": [
+        "闭合／少量展开节点",
+        "余量呈UI文字",
+        "沾污状态"
+      ],
+      "modelStrategy": "袋体共享小袋拓扑，纸包共享paper模块，布条是可变形平面；不同治疗用途不新增独立药品3D全集。",
+      "historicalStatus": "needs-concept；医护为剧情／系统需求，内容与器形待审；不在本库提供药方或疗效承诺。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-receipt",
+      "name": "损货回单",
+      "category": "prop",
+      "phase": "P0",
+      "description": "现有物品页已有；承担货损与赔付可追溯记录。",
+      "visualBrief": "折纸一张、旧折痕与货栈识别记号；主体内容在UI保持清楚排字，手持和桌面形态共享。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s4"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "accounts",
+        "contract-detail",
+        "voyage-result"
+      ],
+      "variants": [
+        "赔付状态文字贴图",
+        "折叠／展开"
+      ],
+      "modelStrategy": "完全引用prop-letter纸张网格，仅新增文书内容与UI卡面；不新增纸张基模。",
+      "historicalStatus": "needs-concept；系统文书为原创重建，剧本货损责任明确但没有存世回单；不得拟作真实历史文书。",
+      "existingImages": [],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-contract-document",
+      "name": "托运、合货与委托纸",
+      "category": "prop",
+      "phase": "P0",
+      "description": "雇用、偿损、货运契约及吕宋脱险抛弃的委托凭据共用纸面。",
+      "visualBrief": "朴素纸笺或薄册页，商人识记、折痕与封记留位；不套现代证书边框或伪造真实商号章。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a2_s3",
+        "zheng_a2_s5",
+        "zheng_a3_s9"
+      ],
+      "uiPages": [
+        "contract-board",
+        "contract-detail",
+        "sea-permits",
+        "sea-encounter",
+        "inventory",
+        "item-detail"
+      ],
+      "variants": [
+        "托运／合货／雇用内容",
+        "折叠／展开",
+        "封记"
+      ],
+      "modelStrategy": "共享prop-letter纸张网格和纸面材质，文种为内容变体；水里漂纸复用同件和效果。",
+      "historicalStatus": "needs-concept；剧情／系统重建，书写格式和凭据权威须审查；不当作郑氏原件。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-official-document",
+      "name": "官身与通行文书",
+      "category": "prop",
+      "phase": "P1",
+      "description": "招抚受职、官身边界与令旗凭据页需要的有限官文。",
+      "visualBrief": "素纸多页或封折，封记与身份栏可辨；不使用清代补子、龙纹制诰模板或未经核定的官印。",
+      "storyRefs": [
+        "zheng_a4_s4",
+        "zheng_a6_s2"
+      ],
+      "uiPages": [
+        "sea-permits",
+        "diplomacy",
+        "character-profile",
+        "history-notes",
+        "inventory"
+      ],
+      "variants": [
+        "任职／护航内容",
+        "收存／展开"
+      ],
+      "modelStrategy": "复用prop-letter纸网格，正文和印记单列可编辑资产；新文字不等于新基模。",
+      "historicalStatus": "needs-concept；受职为历史骨架，具体授文原貌未证；制度和印信须专项审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-red-thread-pouch",
+      "name": "红线袋",
+      "category": "prop",
+      "phase": "P1",
+      "description": "收纳田川氏歪船图并保留至1646的亲情主物件；与家书、航海文书分开。",
+      "visualBrief": "掌心软布袋，红线抽口或缝线、旧补丁与软塌边；手指抓口点、腰带系点和展开时的取图口明确。",
+      "storyRefs": [
+        "zheng_a2_s5",
+        "zheng_a5_s2",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "inventory",
+        "item-detail",
+        "home",
+        "family",
+        "dialogue"
+      ],
+      "variants": [
+        "早年／末年旧化",
+        "闭口／开口"
+      ],
+      "modelStrategy": "通用小袋基模的独立叙事材质与节点配置；银袋、弹丸袋可共享基础软袋，但本物件状态和保护不可混同。",
+      "historicalStatus": "needs-concept；原创家族物件，不作史实原件复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-money-pouch",
+      "name": "家用与交银钱袋",
+      "category": "prop",
+      "phase": "P0",
+      "description": "索路、落水散银、家用挪作合货与汇款；归属由账目显示。",
+      "visualBrief": "小布袋、扎绳与自然鼓褶，手持抛放点清楚；口袋可少量露出钱串，避免电子游戏金币满溢。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s5"
+      ],
+      "uiPages": [
+        "sea-encounter",
+        "trade-order",
+        "accounts",
+        "send-letter-remittance",
+        "dialogue"
+      ],
+      "variants": [
+        "普通布色",
+        "扎口／打开",
+        "家用识记"
+      ],
+      "modelStrategy": "复用prop-red-thread-pouch基础拓扑；不同银主、金额与用途走UI／贴图，钱袋本身不按任务建立新模。",
+      "historicalStatus": "needs-concept；剧情银袋明确，实付银钱形式待时代审查，不能用现代硬币。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-money-set",
+      "name": "钱串与小银块",
+      "category": "prop",
+      "phase": "P0",
+      "description": "工钱、索路、贸易与寄银中的手持支付表现；金额以UI账目为准。",
+      "visualBrief": "少量方孔铜钱串与朴素不规则小银块，不作统一巨大元宝；留手指捏取与袋内装载点。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s5"
+      ],
+      "uiPages": [
+        "accounts",
+        "trade-order",
+        "prize-distribution",
+        "send-letter-remittance",
+        "dialogue"
+      ],
+      "variants": [
+        "表面旧化",
+        "少量组合配置"
+      ],
+      "modelStrategy": "一套小货币件，钱串按单钱重复实例或合并低模；不依银两数堆等量3D，不把计账银两直接等同固定元宝外观。",
+      "historicalStatus": "needs-concept；银两与铜钱为剧情表达；具体币种、银形和流通区域尚未核定。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-command-flag",
+      "name": "保护旗、官旗与号令旗",
+      "category": "prop",
+      "phase": "P0",
+      "description": "索路假旗、船队号令、受抚新旗、护航凭据及1646去留反复出现。",
+      "visualBrief": "简布旗、绳套／系点与可拆旗杆，破边、补片和记号可辨；设计旗面避免现代国家旗或后世军旗，视觉须连同人物视距审查。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a3_s2",
+        "zheng_a3_s3",
+        "zheng_a4_s4",
+        "zheng_a5_s6",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "battle-orders",
+        "fleet",
+        "sea-permits",
+        "factions",
+        "diplomacy",
+        "sea-encounter"
+      ],
+      "variants": [
+        "白旗／旧盟旗／郑旗／官旗纹理",
+        "卷起／升起配置",
+        "破损"
+      ],
+      "modelStrategy": "一个可变形旗布模块与小型旗杆，船上、桌上、UI凭据共用；旧预算art-flags为2D纹理，旗布不暗含在各船再重复建。",
+      "historicalStatus": "needs-concept；旗号的权力与冒用为剧情事实，具体郑旗、官旗纹样未确定，不称郑氏实旗复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-gong",
+      "name": "停火铜锣",
+      "category": "prop",
+      "phase": "P1",
+      "description": "1629发现被掳者后压过炮声下达停火的明确剧情物件。",
+      "visualBrief": "小型圆铜锣、顶端挂绳与木槌；锣面浅鼓、提握点与敲击动作空间清楚，不装现代音响支架。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "battle-orders",
+        "boarding",
+        "dialogue"
+      ],
+      "variants": [
+        "旧化",
+        "提握／悬挂"
+      ],
+      "modelStrategy": "一个锣与槌的小道具模块，槌可共享工具木材；不新增完整乐器演奏系统。",
+      "historicalStatus": "needs-concept；剧情明确，锣尺寸和细纹仍属待审美术方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-torch",
+      "name": "火把",
+      "category": "prop",
+      "phase": "P1",
+      "description": "湾口已点火把与停火冲突所需，配合火船准备的可见手持火源。",
+      "visualBrief": "短木柄与布束头，抓点远离燃烧效果，熄灭时仍可辨；火焰与烟单独效果，不画配制或点火教学。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "battle-orders"
+      ],
+      "variants": [
+        "点亮／熄灭",
+        "焦黑"
+      ],
+      "modelStrategy": "火把实体一个小件；火烟复用效果，整艘火船由船型装配，不另造一套未计火船零件。",
+      "historicalStatus": "needs-concept；剧情明确或场景准备关联，绑扎细节为视觉方案。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-paper-lantern",
+      "name": "平户手糊纸灯",
+      "category": "prop",
+      "phase": "P1",
+      "description": "两人共同弄坏又补好的灯，表现成家选择；不同于船灯。",
+      "visualBrief": "轻竹架、薄纸罩、明显补纸一角与提拿点；轮廓克制，双手护灯点清楚，不用现代节庆塑料灯或宫灯大穗。",
+      "storyRefs": [
+        "zheng_a2_s2"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "dialogue"
+      ],
+      "variants": [
+        "补纸显隐",
+        "点亮／熄灭"
+      ],
+      "modelStrategy": "独立纸灯软罩与竹架节点；与船灯共用光色但不同形体，不能简单换材质完成。",
+      "historicalStatus": "needs-concept；原创亲情物件，平户具体灯制尚需地方史料审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-timber-stock",
+      "name": "修船木料",
+      "category": "prop",
+      "phase": "P0",
+      "description": "六货种中的木材，也是修船、备料与最后一场求粮备木的资源。",
+      "visualBrief": "成束长木板与短梁，端纹、码放接触面和捆绳点明确；干净备材与漂浮破木区别。",
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "market",
+        "cargo-hold",
+        "ship-repair",
+        "supplies",
+        "trade-order"
+      ],
+      "variants": [
+        "木色",
+        "少量码放配置"
+      ],
+      "modelStrategy": "板梁基础件复用船匠／环境木材，成束引用prop-rope-coil；与破船木段共享材料不共享断裂轮廓。",
+      "historicalStatus": "已有原创木材货物图；具体树种与规格不作已证历史标准。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/wood-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-iron-stock",
+      "name": "铁料货组",
+      "category": "prop",
+      "phase": "P0",
+      "description": "六货种中的铁料，货舱与市场必须具备与粮、瓷、布不同的轮廓。",
+      "visualBrief": "少量朴素铁块／条坯、粗锻表面、绳捆或木托，体量可搬；避免现代钢卷、螺纹钢和工业标准锭标。",
+      "storyRefs": [],
+      "uiPages": [
+        "market",
+        "cargo-hold",
+        "trade-order",
+        "supplies"
+      ],
+      "variants": [
+        "氧化材质",
+        "码放数量配置"
+      ],
+      "modelStrategy": "一套简单铁料模块，图标与货舱共用；不衍生未经系统需要的矿石／冶炼工艺链。",
+      "historicalStatus": "已有原创铁料PNG；具体明末铁料贸易形态待审，属于既有商品系统需求。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/iron-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-spices",
+      "name": "香料货包",
+      "category": "prop",
+      "phase": "P0",
+      "description": "六货种中的香料，保留现有市场商品；没有因此新增香料产地剧情。",
+      "visualBrief": "小扎口粗布货包，少量干燥香料颗粒仅作展示，封记与开袋抓点清楚；不使用现代塑封与标签。",
+      "storyRefs": [],
+      "uiPages": [
+        "market",
+        "cargo-hold",
+        "trade-order",
+        "black-market"
+      ],
+      "variants": [
+        "货标与布色",
+        "扎口／开口"
+      ],
+      "modelStrategy": "直接复用prop-grain-sack的同拓扑小比例袋，内容为少量贴片／实例；独立商品记录不增加袋体基模。",
+      "historicalStatus": "已有原创商品PNG；具体香料品种与包法未确证，不能画成统一现代胡椒包装。",
+      "existingImages": [
+        {
+          "path": "assets/art/goods/spices-v1.png",
+          "role": "item-art",
+          "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-scissors",
+      "name": "剪刀",
+      "category": "prop",
+      "phase": "P1",
+      "description": "两人修纸灯和拆开红封货的小型动作道具。",
+      "visualBrief": "朴素金属双刃与双环柄，铰点、单手抓位清楚，使用磨损克制；不画现代塑料包胶柄。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a3_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "home",
+        "item-detail"
+      ],
+      "variants": [
+        "闭合／微开节点",
+        "旧化"
+      ],
+      "modelStrategy": "一个小剪刀道具，节点开合；两场共用，不增加裁缝小游戏或完整针线套装。",
+      "historicalStatus": "needs-concept；剧情明确剪刀，明末具体环柄与铰接外观尚需器物史审查。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    },
+    {
+      "id": "prop-matchcord",
+      "name": "备用火绳",
+      "category": "prop",
+      "phase": "P0",
+      "description": "第二门炮遭遇中明确受潮与递出干燥火绳，也是现有装填故障状态。",
+      "visualBrief": "柔软粗绳束，小幅盘卷与可抓自由端，干湿状态通过材质和UI说明区别；余火为效果小点。",
+      "storyRefs": [
+        "zheng_a2_s8"
+      ],
+      "uiPages": [
+        "ammo-loading",
+        "inventory",
+        "supplies",
+        "battle-hud"
+      ],
+      "variants": [
+        "干燥／受潮材质",
+        "收存／手持配置"
+      ],
+      "modelStrategy": "共享绳索曲线和纤维材质，保留火绳专用缩略图；不输出原料、配方、制作或使用参数。",
+      "historicalStatus": "needs-concept；剧情明确，外观仍需审查；不是导火索、引爆装置或现代弹药。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "story-context",
+          "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": []
+    }
+  ],
+  "summary": {
+    "itemCount": 62,
+    "categoryCounts": {
+      "cannon": 6,
+      "firearm": 2,
+      "melee-weapon": 3,
+      "ammunition": 4,
+      "prop": 47
+    },
+    "legacyModelIdsMapped": 33,
+    "withAnyExistingImage": 56,
+    "withItemArt": 9,
+    "withoutStandaloneItemArt": 53,
+    "withNoExistingImage": 6,
+    "newRequirementRecords": 28,
+    "netRecordIncreaseOverLegacy": 29
+  }
+}

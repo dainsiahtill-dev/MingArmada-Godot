@@ -1,0 +1,49 @@
+{
+  "id": "gun-carriage",
+  "name": "通用木炮架",
+  "category": "武器与船具",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "破损节点状态"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "ship-refit",
+    "equipment",
+    "ammo-loading",
+    "boarding",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "assets/models/ships/fuchuan-lod0.glb",
+      "status": "file-present",
+      "note": "旧船GLB内有炮口、炮管与炮架节点；可提取适配但目前不是独立部件。"
+    }
+  ],
+  "productionStatus": "adapt-existing",
+  "notes": [
+    "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a2_s8"
+  ],
+  "group": "weapons",
+  "artJobs": [
+    "gun-carriage"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/weapons/gun-carriage",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
+  "originalRequirements": [
+    "gun-deck-carriage"
+  ],
+  "sketchStatus": "not-generated"
+}

@@ -1,0 +1,85 @@
+{
+  "id": "npc-medic",
+  "name": "随船医护",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "当前UI明确的医护岗位与接舷后备；剧本未另设具名医者。",
+  "visualBrief": "成年中性职业方案，素短褂、窄袖、便取的药囊；蹲下包扎、递清布、抬手拒绝重伤员继续派岗。",
+  "storyRefs": [],
+  "uiPages": [
+    "crew-assign",
+    "boarding",
+    "equipment",
+    "crew-recruit"
+  ],
+  "variants": [
+    "医护",
+    "救援后备"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+      "role": "ui-context",
+      "note": "已存在的医护岗位UI参考，尚无独立医护人物图；不得当作面貌图。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "ui-system-only",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-medic",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-medic/reference/crew-assign-44fb66fc.jpg",
+      "role": "ui-context",
+      "note": "已存在的医护岗位UI参考，尚无独立医护人物图；不得当作面貌图。",
+      "sourcePath": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+      "sha256": "44fb66fca3ef463e8ba3734139f0c4448433e9e0e3602b34cbc95efa21c9b3c9",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-medic/reference/crew-assign-44fb66fc.jpg",
+    "role": "ui-context",
+    "note": "已存在的医护岗位UI参考，尚无独立医护人物图；不得当作面貌图。",
+    "sourcePath": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+    "sha256": "44fb66fca3ef463e8ba3734139f0c4448433e9e0e3602b34cbc95efa21c9b3c9",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-assign",
+      "title": "岗位与值守"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    }
+  ]
+}

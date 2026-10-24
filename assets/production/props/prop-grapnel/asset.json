@@ -1,0 +1,109 @@
+{
+  "id": "prop-grapnel",
+  "name": "接舷挠钩与钩索",
+  "category": "prop",
+  "phase": "P0",
+  "description": "接舷系统与1631—1632冲突漂来钩索明确需要。",
+  "visualBrief": "小型多爪铁钩、中央绳环和短索；绳接点、投放抓点与船舷接触处可读，不画现代登山锁扣。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "boarding",
+    "battle-hud",
+    "battle-damage"
+  ],
+  "variants": [
+    "干湿旧化",
+    "放置／挂舷配置"
+  ],
+  "modelStrategy": "钩头独立小件，绳体引用prop-rope-coil同材质曲线；不与长柄篙钩合并。",
+  "historicalStatus": "needs-concept；挠钩／钩索为剧本明确道具，爪数和细节为待审方案。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-grapnel",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-grapnel/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-grapnel/reference/zheng_a5_s6-7efaccf5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-grapnel",
+      "path": "assets/production/props/prop-grapnel/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "1d6eb5cf7baaaa0f6b8071568e09c023b57cd7dc1d303655c0cd4b166de5a5cb",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-grapnel",
+    "path": "assets/production/props/prop-grapnel/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "1d6eb5cf7baaaa0f6b8071568e09c023b57cd7dc1d303655c0cd4b166de5a5cb",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

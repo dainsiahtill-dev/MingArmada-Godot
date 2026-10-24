@@ -1,0 +1,147 @@
+{
+  "id": "coastal-shipyard-cradle",
+  "name": "船坞修船支架",
+  "category": "coastal-building",
+  "phase": "P0",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "岸边木枕、斜撑与托船接触点，依小艇/中型帆船缩放配置，建议先出5—12米占地的工作支架概念；修补木料与工人操作区可读，不画现代干船坞。",
+  "storyRefs": [
+    "zheng_a2_s7",
+    "zheng_a4_s2",
+    "zheng_a5_s7",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "空架",
+    "托船配置"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 shipyard-cradle；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "role": "story-context",
+      "note": "泊船与修补的剧本需求，图非独立船架图；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+      "role": "story-context",
+      "note": "下一程修船备料情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "shipyard-cradle"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "沿海设施",
+  "assetDirectory": "assets/production/coastal/coastal-shipyard-cradle",
+  "images": [
+    {
+      "path": "assets/production/coastal/coastal-shipyard-cradle/reference/zheng_a4_s2-88c88d50.png",
+      "role": "story-context",
+      "note": "泊船与修补的剧本需求，图非独立船架图；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/coastal/coastal-shipyard-cradle/reference/zheng_a6_s5-4f434cf3.png",
+      "role": "story-context",
+      "note": "下一程修船备料情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "coastal-shipyard-cradle",
+      "path": "assets/production/coastal/coastal-shipyard-cradle/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "a752f4d47549ad60de7773c757ea51647f68fe10719ae3eb2e7582634f6263a8",
+      "sha256": "e69d726dc198cb8786e1691b500028bde620d4f687e9afdb7679dd33215b595f",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "coastal-shipyard-cradle",
+    "path": "assets/production/coastal/coastal-shipyard-cradle/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "a752f4d47549ad60de7773c757ea51647f68fe10719ae3eb2e7582634f6263a8",
+    "sha256": "e69d726dc198cb8786e1691b500028bde620d4f687e9afdb7679dd33215b595f",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s2",
+      "legacyTitle": "没有等来的官船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

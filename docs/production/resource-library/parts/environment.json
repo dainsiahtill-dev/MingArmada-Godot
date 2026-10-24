@@ -1,0 +1,2393 @@
+{
+  "schemaVersion": 1,
+  "scope": "环境：建筑、沿海设施、共享场景/地图、自然资源；不生成新图，不接入游戏。",
+  "basis": {
+    "date": "2026-10-22",
+    "story": "docs/narrative/zheng-zhilong/zheng-zhilong-story.json",
+    "storyVersion": "v4-maritime-illustrated-2026-10-22",
+    "storySha256": "29e7de2c9308548b37293630530a5f3f84187862ee290629dcd80eda5826e801",
+    "storyScenes": 43,
+    "uiSystems": "docs/design/game-ui/systems.json",
+    "uiPages": 72,
+    "legacyProduction": "docs/design/game-ui/production-assets.json"
+  },
+  "countingPolicy": [
+    "18项原83预算基模各映射一次；命名建筑与场景仅引用模块，不重复计数。",
+    "场景母版、地域差异包、UI海图、地形、材质和天气条件均不是独立手工3D基模。",
+    "modelRequired=true仅表示原预算18项基模仍需制作/复验，不能据此称现成模型可用；prefab装配不新增基模。",
+    "existingImages是可追溯参考，不等于独立物件原画；story-context、scene-context、process-context仅提供情境，不提供三视图。",
+    "没有独立环境GLB确认；既有程序式ArrayMesh来源放proceduralSources，不伪称模型文件。",
+    "新增可近看炮台、茅草屋、地方异形屋顶或船舱新拓扑须先修订83预算，不能隐藏在材质变体里。"
+  ],
+  "items": [
+    {
+      "id": "coastal-wood-pier",
+      "name": "木码头段",
+      "category": "coastal-building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "木桩排架、纵横梁和可拼接铺板，建议直段4米长、2米宽；旧木、湿水线、端头节点可读，1621—1646装卸与登船使用。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a2_s1",
+        "zheng_a5_s2"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "直段拼接",
+        "端头配置"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 dock-wood-pier；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "story-context",
+          "note": "夜航离岸与岸灯的空间关系；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "dock-wood-pier"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "coastal-stone-step",
+      "name": "石堤与踏步段",
+      "category": "coastal-building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "粗砌石堤、海潮侵蚀立面与下水踏步，建议2—4米拼段、保留约1米行走宽度；区分高岸平台和入水台阶，供搬桶、送别和靠泊。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s1",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "石材风化"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 dock-stone-step；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+          "role": "story-context",
+          "note": "平户石堤送行空间；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "dock-stone-step"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "building-warehouse-front",
+      "name": "货栈门面模块",
+      "category": "building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "单层木梁柱与砖石/灰泥填墙的货栈大开间门面，建议宽4—6米、高3—4米；低石基、无遮蔽货门洞、朴素檐口，1621澳门及后续福建仓储使用；独立门扇另引。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a3_s4"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "澳门货栈招牌材质",
+        "福建货棚材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-warehouse-front；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "澳门栈门与低石阶情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-warehouse-front"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "building-warehouse-wall",
+      "name": "货栈墙体模块",
+      "category": "building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议宽2—3米、高3米的可重复墙段，粗砖、石灰抹面和木柱接口；内外两面可读，货栈侧墙/背墙用；不重复内含门窗。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s4"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "砖墙材质",
+        "石灰材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-warehouse-wall；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "货栈墙体情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+          "role": "story-context",
+          "note": "归港货棚背景；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-warehouse-wall"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "building-pitched-roof",
+      "name": "货栈坡屋顶模块",
+      "category": "building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "货栈朴素双坡瓦顶、可见檐木和少量瓦口，建议跨4—6米；灰褐旧瓦、木椽，无宫殿脊兽；澳门与福建共享轮廓，材质差异另配。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s4"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "旧瓦材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-pitched-roof；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-pitched-roof"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "building-timber-wall",
+      "name": "木构住宅墙体模块",
+      "category": "building",
+      "phase": "P1",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "平户普通居所的木柱与板壁拼段，建议宽2米、高2.5—3米，窄檐下木纹、雨渍和门窗空洞；1620年代至1645家居使用，纸面闭合方式另作概念审查。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "平户木墙材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-timber-wall；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "已目视为窄檐与木壁，结构只见局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "平户送子室内情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-timber-wall"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "building-plaster-wall",
+      "name": "灰泥住宅墙体模块",
+      "category": "building",
+      "phase": "P1",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "福建居所灰泥墙与木构交接，建议宽2—3米、高3米；白灰磨损、低石基、朴素转角，1630—1646使用；不复制宫殿或现代纪念馆。",
+      "storyRefs": [
+        "zheng_a5_s2",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "福建居所材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-plaster-wall；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "已目视为灰泥墙、木门框与门槛，只有局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "story-context",
+          "note": "福建居所与父子生活情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-plaster-wall"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "building-residence-roof",
+      "name": "住宅屋顶模块",
+      "category": "building",
+      "phase": "P1",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "住宅低矮坡顶与深浅可调檐口，建议单间跨3—5米；木椽与瓦片，平户/福建外观先分概念稿审查，若需不同拓扑须后续单列增补预算。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "木色与瓦色材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-residence-roof；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "平户屋檐局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "福建居所局部，不能推出完整屋顶；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-residence-roof"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "building-door",
+      "name": "独立门扇",
+      "category": "building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议0.9—1.5米宽、1.8—2.2米高的旧木门扇；门轴、门槛接合、关开扫掠区明确；1621—1646仓储/家宅复用，需双开时作实例配置。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "旧木材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-door；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "已目视有独立门框与门槛关系；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-door"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "building-window",
+      "name": "独立窗扇格栅",
+      "category": "building",
+      "phase": "P1",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议0.6—1.2米宽木格窗扇，框格、开口与可替换闭合面分清；家居通风/采光用途；不默认明清各地共用同一种格样。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s2",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "木格材质"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 building-window；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "平户木壁与门边情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "福建室内外采光情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "building-window"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "coastal-market-stall",
+      "name": "港市摊棚",
+      "category": "coastal-building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "四柱轻型木摊与布棚，建议2—3米见方、高2—2.5米；旧粗布、木托台、可收起遮棚；1620—1630年代港市换粮药与招募使用，货物单独引用。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a3_s7"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "布棚配色",
+        "货物另配"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 market-stall；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+          "role": "story-context",
+          "note": "锚地换粮药与招人情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "market-stall"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "coastal-shipyard-cradle",
+      "name": "船坞修船支架",
+      "category": "coastal-building",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "岸边木枕、斜撑与托船接触点，依小艇/中型帆船缩放配置，建议先出5—12米占地的工作支架概念；修补木料与工人操作区可读，不画现代干船坞。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a4_s2",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "空架",
+        "托船配置"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 shipyard-cradle；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+          "role": "story-context",
+          "note": "泊船与修补的剧本需求，图非独立船架图；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "story-context",
+          "note": "下一程修船备料情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "shipyard-cradle"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "nature-broadleaf",
+      "name": "沿岸阔叶树",
+      "category": "nature",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "沿岸阔叶乔木，建议5—9米高，分叉主干、疏密两级树冠、受海风一侧略稀；海岸后层遮挡与轮廓用途，树种暂不定名。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "树叶季色",
+        "大小实例"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-broadleaf；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/vegetation/canopy_tree.png",
+          "role": "texture-reference",
+          "note": "既有植被参照贴图；非树体三视图，原参照来源和分发许可需另审。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-broadleaf"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-shore-tree",
+      "name": "风塑矮岸树",
+      "category": "nature",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "低矮偏冠岸树，建议2—5米高，主干弯曲、迎风侧稀疏，不靠大树整体缩小代替全部结构；用于沙岸与岩岸界面。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s3"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "风向姿态参数"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-shore-tree；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "湾岸植被只作远景生态/尺度参照；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-shore-tree"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-palm",
+      "name": "区域棕榈树",
+      "category": "nature",
+      "phase": "P2",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "可选区域棕榈形态，建议4—8米高，环痕干与少量叶簇，限有明确地域审查的沿岸点位；不能把无风海面一场推成热带全域。",
+      "storyRefs": [
+        "zheng_a3_s10"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "叶色"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-palm；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/vegetation_library.gd、assets/reference/vegetation-geometry.json，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/vegetation/palm_plant.png",
+          "role": "texture-reference",
+          "note": "既有棕榈参照贴图；非该航段植物考证，也非独立树体结构稿。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-palm"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/vegetation_library.gd",
+        "assets/reference/vegetation-geometry.json"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-shrub",
+      "name": "沿岸灌木",
+      "category": "nature",
+      "phase": "P1",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议0.4—1.5米高的沿岸灌丛，木质分枝与不规则叶团，簇间保留空隙；沙丘/岩缝边界用，不形成整齐园艺球。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "叶色"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-shrub；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-shrub"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-grass",
+      "name": "岸边草簇",
+      "category": "nature",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议0.15—0.8米高的岸草簇，多方向窄叶、根部聚合；沙岸干湿线以上使用，不以全地面高密草铺满港口通道。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "草色"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-grass；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/terrain/grassbeach.png",
+          "role": "material-reference",
+          "note": "旧岸草地材质，仅地表颜色与过渡参考；不是草簇结构图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-grass"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-rock",
+      "name": "岩礁石簇",
+      "category": "nature",
+      "phase": "P0",
+      "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+      "visualBrief": "建议0.3—8米多尺度岩礁簇，棱角块面与风化圆边并存，潮上干石/水线湿石分材质；近岸碰撞轮廓与航道危险可读。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a3_s3",
+        "zheng_a4_s6"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "variants": [
+        "水下湿润材质",
+        "岸上材质",
+        "参数变体"
+      ],
+      "modelStrategy": "原83基模预算内1项，沿用 nature-rock；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+      "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/terrain/rock.png",
+          "role": "material-reference",
+          "note": "旧岩面贴图，仅表面参考。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+          "role": "story-context",
+          "note": "虚构岛岸伏击情境，不能推定真实礁位；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "nature-rock"
+      ],
+      "assetKind": "base-mesh",
+      "modelRequired": true,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/assets/coastal_detail_library.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "building-macau-warehouse",
+      "name": "澳门华商货栈",
+      "category": "building",
+      "phase": "P0",
+      "description": "第一幕交涉、失位与偿损的命名建筑；需要清楚的门前工作区、存货区与短暂停留处。",
+      "visualBrief": "1621澳门，单层或局部夹层的朴素临水商用货栈；建议总开间8—15米，木梁柱、粗灰泥/石墙、大货门、低石基、旧瓦坡顶；装卸通道可见，生活道具另引。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a1_s5"
+      ],
+      "uiPages": [
+        "new-career",
+        "port-hub",
+        "market",
+        "contract-board",
+        "dialogue",
+        "accounts"
+      ],
+      "variants": [
+        "营业中",
+        "夜间闭门",
+        "货损后空位"
+      ],
+      "modelStrategy": "命名建筑prefab，由既有货栈模块装配，独立基模增量0；正侧背与剖面概念确认后才锁定接口。货物、桌凳、床铺引用道具分册。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "澳门货栈门前；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+          "role": "story-context",
+          "note": "货栈铺位与养伤处；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-warehouse-front",
+        "building-warehouse-wall",
+        "building-pitched-roof",
+        "building-door",
+        "building-window",
+        "coastal-stone-step"
+      ]
+    },
+    {
+      "id": "building-warehouse-berth",
+      "name": "货栈铺位与养伤小间",
+      "category": "building",
+      "phase": "P0",
+      "description": "澳门旧铺及阿旺养伤的有限室内；服从剧情和对话镜头，不扩成可自由漫游旅馆。",
+      "visualBrief": "1621—约1623，建议4×6米狭窄房间；木隔墙、粗灰泥、窄门、可见梁底，旧铺与工具靠近出入口；床铺被褥和工具箱由道具分册提供。",
+      "storyRefs": [
+        "zheng_a1_s4"
+      ],
+      "uiPages": [
+        "dialogue",
+        "crew-detail",
+        "quest-detail"
+      ],
+      "variants": [
+        "铺位在用",
+        "空铺",
+        "养伤陈设"
+      ],
+      "modelStrategy": "复用货栈墙、门及住宅构件装配，独立基模增量0；室内地面和顶面按共享场景面处理，床铺不重复计。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+          "role": "story-context",
+          "note": "撤去船位后回到旧铺；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-warehouse-front",
+        "building-warehouse-wall",
+        "building-pitched-roof",
+        "building-door",
+        "building-window",
+        "coastal-stone-step"
+      ]
+    },
+    {
+      "id": "building-hirado-home",
+      "name": "平户邻里小木屋",
+      "category": "building",
+      "phase": "P1",
+      "description": "成家、家书、送子与等待的共享住所，跨年通过陈设与人物阶段变化。",
+      "visualBrief": "约1623—1645平户普通单层木屋；建议6—9米宽、木柱板墙、窄檐、低门槛、小起居间，木格/纸面闭合先作概念审查；与港巷留出远望海面关系，不做寺庙城堡。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s5",
+        "zheng_a5_s1",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "child-growth",
+        "dialogue",
+        "letters"
+      ],
+      "variants": [
+        "共同搬入",
+        "母婴家居",
+        "1630送子",
+        "幼子留日",
+        "等待跨年"
+      ],
+      "modelStrategy": "命名建筑prefab，复用木墙、住宅屋顶、门窗；独立基模增量0。地区屋顶/窗型若需新拓扑，不伪装成材质变体，另提修订预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "已目视木屋窄檐、门边木壁与港巷；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "送子行李场面；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-timber-wall",
+        "building-residence-roof",
+        "building-door",
+        "building-window"
+      ]
+    },
+    {
+      "id": "building-fujian-residence",
+      "name": "福建郑氏居所",
+      "category": "building",
+      "phase": "P1",
+      "description": "1630认亲、蒙学、1645团聚及1646分途共用的家宅装配；不以现代故居取代历史建筑。",
+      "visualBrief": "1630—1646福建沿海；建议有限两三间家居围合及面海出入口，灰泥墙、木梁门窗、旧瓦、石门槛，体面但不宫殿化；家人屋室与读书区以陈设分区，完整平面属于创作。",
+      "storyRefs": [
+        "zheng_a5_s2",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "child-growth",
+        "dialogue",
+        "relationships",
+        "ending"
+      ],
+      "variants": [
+        "1630认亲与蒙学",
+        "1645团聚",
+        "1646箱子取回屋内"
+      ],
+      "modelStrategy": "命名建筑prefab，复用住宅模块与共享室内表面，独立基模增量0；家书、桌凳、书读物与箱子在道具分册，建筑不重复内含。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "story-context",
+          "note": "认父与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s2.png",
+          "role": "story-context",
+          "note": "团聚家居情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "已目视灰墙、木门框与出入口；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-plaster-wall",
+        "building-residence-roof",
+        "building-door",
+        "building-window"
+      ]
+    },
+    {
+      "id": "building-shore-sickroom",
+      "name": "闽海岸上养伤屋",
+      "category": "building",
+      "phase": "P1",
+      "description": "归港后的阿禾养伤、杜七追问与饭桌告别，作为有限剧情室内复用。",
+      "visualBrief": "1626前后闽海岸上，建议5×7米简屋与门前小灶区；灰泥/旧木隔面、漏光门口、粗石地，伤员活动通道通向码头；锅碗床桌均另配。",
+      "storyRefs": [
+        "zheng_a3_s4",
+        "zheng_a3_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "crew-detail",
+        "relationships",
+        "quest-detail"
+      ],
+      "variants": [
+        "养伤",
+        "鱼饭告别",
+        "旧人离去"
+      ],
+      "modelStrategy": "复用货栈墙、住宅墙门窗与共享室内，装配资源增量0；不再建第三套病房基模。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+          "role": "story-context",
+          "note": "归港货棚与养伤屋；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+          "role": "story-context",
+          "note": "养伤处煎鱼告别；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-plaster-wall",
+        "building-residence-roof",
+        "building-door",
+        "building-window",
+        "building-warehouse-wall"
+      ]
+    },
+    {
+      "id": "building-settlement-shelter",
+      "name": "受抚前后临时安置屋",
+      "category": "building",
+      "phase": "P1",
+      "description": "粮与职分未到的雨屋、临时居所及重组航次场面；以破损和陈设表明处境。",
+      "visualBrief": "1626—1630前福建沿海；建议单层约6×8米朴素屋，瓦顶/旧板雨漏节点、灰泥墙、门边遮雨，工作与病人位置分开；不引入未证的官方营房定制。",
+      "storyRefs": [
+        "zheng_a4_s2",
+        "zheng_a4_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "crew-morale",
+        "diplomacy",
+        "home"
+      ],
+      "variants": [
+        "雨漏与缺粮",
+        "重新出航",
+        "门口断盟"
+      ],
+      "modelStrategy": "复用货栈/住宅模块装配，独立基模增量0；雨漏用效果与节点配置，不新增完整破屋基模。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+          "role": "story-context",
+          "note": "雨落进空锅的安置屋情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s5.png",
+          "role": "story-context",
+          "note": "门口断盟与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-plaster-wall",
+        "building-residence-roof",
+        "building-door",
+        "building-window",
+        "building-warehouse-front",
+        "building-warehouse-wall",
+        "building-pitched-roof",
+        "building-door",
+        "building-window",
+        "coastal-stone-step"
+      ]
+    },
+    {
+      "id": "building-inspection-room",
+      "name": "交验与官署热点空间",
+      "category": "building",
+      "phase": "P1",
+      "description": "交械、名册交验和受抚交涉的有限岸边房间/遮棚；承接port-hub官署热点，不扩为衙门整组。",
+      "visualBrief": "1626—1628福建沿海；建议一间约6×8米的临岸交验房或檐下公用空间，灰墙木柱、宽门口、朴素石地；桌、兵器、文书另配，不补未证官署等级装饰。",
+      "storyRefs": [
+        "zheng_a4_s1",
+        "zheng_a4_s4"
+      ],
+      "uiPages": [
+        "port-hub",
+        "diplomacy",
+        "faction-detail",
+        "sea-permits",
+        "dialogue"
+      ],
+      "variants": [
+        "初次交械",
+        "1628交验受抚"
+      ],
+      "modelStrategy": "既有墙、屋顶、门的装配＋热点表现，独立基模增量0；如后续明确要衙门牌楼等新拓扑，须先补史料与预算。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+          "role": "story-context",
+          "note": "交械桌旁的岸上交验情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "story-context",
+          "note": "受抚码头情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-warehouse-front",
+        "building-warehouse-wall",
+        "building-pitched-roof",
+        "building-door",
+        "building-window",
+        "coastal-stone-step"
+      ]
+    },
+    {
+      "id": "coastal-fishing-hamlet",
+      "name": "无名湾岸渔寮组",
+      "category": "coastal-building",
+      "phase": "P1",
+      "description": "湾口救人战的岸上聚落识别物，表现渔民生计与火势威胁；不把远景屋群都变成可进入建筑。",
+      "visualBrief": "1629虚构福建湾岸；建议2—4间低矮小屋与轻棚的小组，木柱、草/木遮面及少量旧瓦、岸边简易通道；平常与受火节点可切换，渔具货具另引。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "scene-briefing",
+        "battle-hud",
+        "battle-damage",
+        "battle-result",
+        "port-hub"
+      ],
+      "variants": [
+        "未受火",
+        "局部起火",
+        "救人后焦损"
+      ],
+      "modelStrategy": "远景装配复用住宅/摊棚模块＋火烟效果，独立基模增量0；特写茅草新拓扑为待评估增补，不暗计在83内。",
+      "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "已目视湾岸远景聚落和火势；无法从远景分离屋舍三视图；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "prefab-assembly",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "coastal-market-stall",
+        "building-warehouse-wall",
+        "building-pitched-roof",
+        "building-timber-wall"
+      ]
+    },
+    {
+      "id": "coastal-luzon-battery",
+      "name": "吕宋近岸炮台剪影",
+      "category": "coastal-building",
+      "phase": "P1",
+      "description": "白旗下面一场明写前方炮台影子与退出炮台正面，只需威胁方向和远景轮廓。",
+      "visualBrief": "1625虚构接触中的未具名吕宋岸段；低矮土石防御台与炮口朝海的远景剪影，尺度只按能辨方向的背景设计；不复制特定马尼拉堡垒，不补未经考证炮位数。",
+      "storyRefs": [
+        "zheng_a3_s9"
+      ],
+      "uiPages": [
+        "sea-encounter",
+        "sailing-hud",
+        "scene-briefing",
+        "history-notes"
+      ],
+      "variants": [
+        "朦胧剪影",
+        "脱离正面后的远景"
+      ],
+      "modelStrategy": "先交2.5D远景板/地形上的简化土石体，独立基模增量0；不列为既有83基模。若改成可近看或可进入堡垒，必须新增预算与原始史料考证。",
+      "historicalStatus": "具体巡查、炮台接触和退潮路线均随本剧原创；未指定郑氏已证靠港点，不宣称还原马尼拉某真实炮台。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "story-context",
+          "note": "脱离拖带场面，只供近岸威胁方向参照；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "background-landmark",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "map-world-nautical-chart",
+      "name": "区域航海与势力底图",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "澳门、福建、大员、平户、吕宋方向的跨区域导航底层；不得据界面示意补出已证历史行程。",
+      "visualBrief": "纸面/数字矢量海图，海岸轮廓、地名层、目的港、航路、限制区和当前位置分层；16:10与窄屏可裁，地图装饰与操作标记分开，图形位置先服务导航可读性。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s1",
+        "zheng_a2_s6",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a5_s2"
+      ],
+      "uiPages": [
+        "sea-chart",
+        "route-plan",
+        "destination-detail",
+        "factions"
+      ],
+      "variants": [
+        "常规航区",
+        "凭据待核航区",
+        "吕宋未核停靠提示",
+        "候选航路/已确认航路"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。二维底图与UI图层；旧art-maps的航行底图之一，不另算手工3D。当前矢量在render-world.js内联，无独立SVG文件。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "assets/art/maps/ming-nautical-chart-v2.png",
+          "role": "map-reference",
+          "note": "现有海图PNG，仅美术底层参照，非实测/原始历史海图。"
+        },
+        {
+          "path": "assets/art/maps/ming-nautical-land-paper-v2.png",
+          "role": "material-reference",
+          "note": "现有陆地纸纹PNG；不是可导航海岸几何。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "ui-map",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "docs/design/game-ui/prototype/render-world.js"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "map-tactical-water-chart",
+      "name": "海战与接舷态势底图",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "战术封口、护货、回援、火攻和双船接舷的共享图层语法；每场载入差异配置。",
+      "visualBrief": "俯视海面/海岸简形、船影、射界、潮风、危险浅区、接应承诺和撤出线分层；接舷图保留双船、过板、甲板、舱门，文字和标记矢量化。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a3_s3",
+        "zheng_a4_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "battle-orders",
+        "boarding",
+        "fleet",
+        "battle-hud",
+        "tutorial"
+      ],
+      "variants": [
+        "封口与回援",
+        "火攻接应",
+        "双船接舷",
+        "被掳者撤回路线"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。二维战术层＋船模俯视投影；对应art-maps的战术底层。不得把每场战术截图当一个3D地图；当前接舷SVG在render-ships.js内联。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/previews/battle-orders.jpg",
+          "role": "ui-screenshot",
+          "note": "已有评审截图，供信息层级参考，不能冒充独立矢量原稿。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+          "role": "story-context",
+          "note": "料罗湾战斗空间情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "ui-map",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "docs/design/game-ui/prototype/render-ships.js"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "map-open-sea-mother",
+      "name": "可航行外海母场景",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "跨六幕共享的可操船海域、海天与遭遇空间；雾、无风、风暴、日夜、战后搜索是条件包。",
+      "visualBrief": "船尺度下连续海面，远岸按需显隐；海平线、天空、可见度、风浪和航行空间先保持一致；船和碰撞水深作为独立数据，不用剧情画面反推真实里程。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s6",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s9",
+        "zheng_a3_s2",
+        "zheng_a3_s6",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a4_s6",
+        "zheng_a4_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s6",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a5_s5",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "weather-wind",
+        "sea-encounter",
+        "battle-hud",
+        "fleet",
+        "battle-damage"
+      ],
+      "variants": [
+        "晨昏/夜航",
+        "雾航",
+        "无风四天",
+        "横浪救货",
+        "折桅风浪",
+        "战后搜索"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。共享海面/天空/天气场景＋船只/目标数据；地域战场是下列差异包，不能乘成24张独立地图。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/sailing-background.png",
+          "role": "scene-context",
+          "note": "现有航行背景整图，提供海天构图；不是动态海面或可玩地形。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+          "role": "story-context",
+          "note": "雾航情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+          "role": "story-context",
+          "note": "无风夜划情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-mother",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "nature-ocean-sky-profile"
+      ]
+    },
+    {
+      "id": "map-shipboard-mother",
+      "name": "甲板与有限船舱共享场景",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "读信、联盟交涉、货舱救援、接舷和折桅等发生于船上；场景必须引用船型而非另计一艘场景船。",
+      "visualBrief": "由选定船模挂点、甲板/舱口与有限舱内镜头组成；尺度跟随船型，舱载、人物工作位、灯和文书分层；舱内救援留可操作通路。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s6",
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a2_s7",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s2",
+        "zheng_a3_s6",
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a3_s8",
+        "zheng_a4_s7",
+        "zheng_a5_s4",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "cargo-hold",
+        "dialogue",
+        "boarding",
+        "battle-damage",
+        "crew-assign",
+        "letters",
+        "accounts"
+      ],
+      "variants": [
+        "商船读信",
+        "货舱进水",
+        "战斗接舷",
+        "旗舰交涉",
+        "折桅救援"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。引用船舶分册船壳/舱口与道具分册陈设；有限船舱若要新增拓扑，先在所属船型预算修订，不隐藏计作免费地形。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s3.png",
+          "role": "story-context",
+          "note": "积水货舱救人；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png",
+          "role": "story-context",
+          "note": "船上读家书；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+          "role": "story-context",
+          "note": "折桅救援；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-mother",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "map-macau-harbor",
+      "name": "澳门货栈与接驳泊区差异包",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "第一幕港口工作区，与货栈、旧铺和夜航出港共用，提供装货至离岸的小范围路线。",
+      "visualBrief": "1621—约1623，有限石岸/木码头、华商货栈与外泊大船方向；步行区域建议几十米级，夜间岸灯用于离岸辨向，远城只做低干扰背景。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a1_s4",
+        "zheng_a1_s5"
+      ],
+      "uiPages": [
+        "port-hub",
+        "market",
+        "scene-briefing",
+        "dialogue",
+        "new-career",
+        "shipyard"
+      ],
+      "variants": [
+        "白日交涉",
+        "夜装离岸",
+        "货损返栈"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。港口母布局装配货栈、铺位、码头与船只；不是完整澳门城。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "story-context",
+          "note": "货栈工作区；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "story-context",
+          "note": "夜航离岸；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+          "role": "story-context",
+          "note": "旧铺与伤员处；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-macau-warehouse",
+        "building-warehouse-berth",
+        "coastal-wood-pier",
+        "coastal-stone-step"
+      ]
+    },
+    {
+      "id": "map-hirado-kawachi-harbor",
+      "name": "平户川内浦港巷与石堤差异包",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "提水相识、送别和跨年候船的岸边空间；与小木屋场景连在同一有限港区。",
+      "visualBrief": "约1623—1645，窄石阶、石堤、朴素木屋檐线与商船泊向；以可搬桶走过的生活路径为尺度，城楼如无必要不纳入可玩区。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s3",
+        "zheng_a5_s1",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "home",
+        "dialogue",
+        "destination-detail"
+      ],
+      "variants": [
+        "清晨搬桶",
+        "出航告别",
+        "1630送子",
+        "1645候船成行"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。使用石堤、木码头、木屋装配＋年代陈设差异；不拿港口概念图的城楼当具体历史地标。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+          "role": "story-context",
+          "note": "提水相识情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+          "role": "story-context",
+          "note": "石堤候船情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "coastal-stone-step",
+        "coastal-wood-pier",
+        "building-hirado-home"
+      ]
+    },
+    {
+      "id": "map-taiwan-southwest-anchorage",
+      "name": "大员附近与台湾西南锚地差异包",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "1624—1625通译、两船雾航会合与临时结盟的海域背景；只做已需的锚泊/水道。",
+      "visualBrief": "宽水面、低远岸或沙岸、临时锚泊船位与近艇会合区；雾浓淡/吃水差别可读，岸线为制作布局；不默认加入热兰遮城全套城堡或市镇。",
+      "storyRefs": [
+        "zheng_a2_s6",
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a3_s1",
+        "zheng_a3_s2"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "sea-encounter",
+        "fleet",
+        "dialogue",
+        "destination-detail"
+      ],
+      "variants": [
+        "通译航次",
+        "雾中两船",
+        "临时联盟"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。复用外海母场景，加低岸地形、锚泊/遭遇配置；无新增城防建筑预算。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+          "role": "story-context",
+          "note": "大员附近雾海；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+          "role": "story-context",
+          "note": "台湾西南临时锚地；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother",
+        "nature-island-terrain"
+      ]
+    },
+    {
+      "id": "map-fujian-hidden-anchorage",
+      "name": "闽粤隐蔽锚地与夜市差异包",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "换粮药、分配招募、扣人换回和同旗纠纷的共同锚地；剧情只保证有限岸滩与船边集市。",
+      "visualBrief": "1625—1632，背风水面、可上岸坡地、小型摊棚、简陋货棚与接驳通道，照明局部；交易、接应和离港三条动线可辨。",
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a3_s7",
+        "zheng_a3_s8",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "black-market",
+        "market",
+        "crew-recruit",
+        "prize-distribution",
+        "sea-encounter",
+        "dialogue"
+      ],
+      "variants": [
+        "日间分配",
+        "夜间换粮药",
+        "扣人交割",
+        "同旗纠纷"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海母场景＋共享港口岸段/摊棚装配；同锚地跨年换陈设，不新建每场地形。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+          "role": "story-context",
+          "note": "换粮药与招募；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+          "role": "story-context",
+          "note": "扣人换回；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+          "role": "story-context",
+          "note": "背风锚地纠纷；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother",
+        "coastal-market-stall",
+        "building-warehouse-front",
+        "nature-island-terrain"
+      ]
+    },
+    {
+      "id": "map-fujian-working-harbor",
+      "name": "福建工作港与厦门泊区差异包",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "受抚、补给修船、认子、港火救人和1646分途共用工作港母布局，按地点/年代切换岸段。",
+      "visualBrief": "1626—1646，有限货栈、石堤、木泊位、修船支架、官署热点和居所入口；港内水面须容小艇救援，普通泊位/火损泊位通过状态差异读清。",
+      "storyRefs": [
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s1",
+        "zheng_a4_s2",
+        "zheng_a4_s4",
+        "zheng_a5_s2",
+        "zheng_a5_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "port-hub",
+        "shipyard",
+        "ship-repair",
+        "supplies",
+        "dialogue",
+        "battle-damage",
+        "crew-recruit"
+      ],
+      "variants": [
+        "受抚交验",
+        "日常修船",
+        "1633港火",
+        "港火后清场",
+        "1646各自登船"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。共享港口装配，厦门具体泊位属于差异布局；火损用节点显隐与效果，不把前后各算完整新港。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "story-context",
+          "note": "受抚码头；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+          "role": "story-context",
+          "note": "港火与救援；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "assets/art/ports/xiamen-harbor-v1.png",
+          "role": "style-reference",
+          "note": "既有福建港背景；同名prompt明确写约1661且地点虚构，与本故事1621—1646有时代差，限气氛、木石材料参考，不能据此复原本故事港区。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "coastal-wood-pier",
+        "coastal-stone-step",
+        "coastal-shipyard-cradle",
+        "building-inspection-room",
+        "building-fujian-residence",
+        "building-shore-sickroom"
+      ]
+    },
+    {
+      "id": "map-hirado-home-scene",
+      "name": "平户家居共享剧情空间",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "小木屋的门槛、屋檐与起居间，供成家、托信和送子镜头复用。",
+      "visualBrief": "近人尺度的檐下、门内起居角与可远望港巷的出口；灯夜、孩子用品和空位由陈设包切换，保证母子日常空间连续。",
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a2_s5",
+        "zheng_a5_s1",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "child-growth",
+        "dialogue",
+        "letter-detail"
+      ],
+      "variants": [
+        "新居灯夜",
+        "母婴来信",
+        "送子收箱",
+        "多年等待"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。引用building-hirado-home装配；此条是镜头/可行走区域与状态包，住宅本体不再计数。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+          "role": "story-context",
+          "note": "屋檐共同护灯；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "story-context",
+          "note": "送子前收行李；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-mother",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-hirado-home"
+      ]
+    },
+    {
+      "id": "map-fujian-household-scene",
+      "name": "福建居所与岸上生活共享空间",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "认父、读书、团聚、断盟与分途的有限家居/门口场景；养伤屋用同一室内构件体系的另一装配。",
+      "visualBrief": "屋内两三处人物工作位、门槛、门外登船方向构成动线；1630/1645/1646通过摆设与角色年龄变化区分；不按每次家事新增宅院。",
+      "storyRefs": [
+        "zheng_a3_s4",
+        "zheng_a3_s5",
+        "zheng_a4_s5",
+        "zheng_a5_s2",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "home",
+        "family",
+        "child-growth",
+        "dialogue",
+        "relationships"
+      ],
+      "variants": [
+        "养伤饭桌",
+        "临时居所断盟",
+        "1630蒙学",
+        "1645团聚",
+        "1646取回行李"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。分别引用命名居所/养伤屋prefab与共享道具；地图增量0，禁止把一张剧情家居图当一座完整独立建筑。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+          "role": "story-context",
+          "note": "养伤饭桌；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "story-context",
+          "note": "认父；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "story-context",
+          "note": "门内外分途；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-mother",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "building-fujian-residence",
+        "building-shore-sickroom",
+        "building-settlement-shelter"
+      ]
+    },
+    {
+      "id": "map-nearshore-channel",
+      "name": "福建暗岸、岛岸与厦门口航道差异包",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "夺快船、护货抽援、米船伏击与厦门口封锁共用近岸水道母型；每次载入自己的浅区与目标配置。",
+      "visualBrief": "可辨狭口、岩岸、浅礁与一两条绕行水路，建议航行区域数百米至数公里级并随船速测试；封口、接应和外侧退路不能被装饰挡住。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a3_s3",
+        "zheng_a4_s6",
+        "zheng_a4_s3"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "battle-hud",
+        "battle-orders",
+        "route-plan",
+        "sea-encounter"
+      ],
+      "variants": [
+        "近岸夺船",
+        "暗岸护货与抽援",
+        "岛岸空筏试伏",
+        "1628厦门口封锁"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海母场景＋参数化岛岸；四次是差异包，不能因剧情四张图计四份基模/四座岛模型。",
+      "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s3.png",
+          "role": "story-context",
+          "note": "暗岸抽援；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+          "role": "story-context",
+          "note": "岛岸伏击；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+          "role": "story-context",
+          "note": "厦门口封口；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother",
+        "nature-island-terrain",
+        "nature-rock"
+      ]
+    },
+    {
+      "id": "map-unnamed-rescue-bay",
+      "name": "无名湾口抗掠救人差异包",
+      "category": "scene-map",
+      "phase": "P0",
+      "description": "1629虚构战场：湾内掠船、湾外封口、岸上火势与接回人质的撤出空间。",
+      "visualBrief": "湾口与湾内水面层次明确，岸边渔寮在一侧，敌我航线、救援小艇与撤回航线分层；远岸不过度密集，火烟不能长期遮住唯一可走路径。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "scene-briefing",
+        "battle-hud",
+        "battle-orders",
+        "boarding",
+        "battle-damage",
+        "battle-result"
+      ],
+      "variants": [
+        "准备封口",
+        "中止火攻",
+        "接舷救人",
+        "小艇撤回"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海＋近岸地形母型＋渔寮组，船只/火烟引用其他分册；是一个可玩场景的状态，非三张地图。",
+      "historicalStatus": "全套具体湾口、1629战事与战术为本剧原创虚构；不能标作已证郑芝龙抗倭遗址或真实战场地形。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "story-context",
+          "note": "已目视整幅湾口交战空间；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process1.png",
+          "role": "process-context",
+          "note": "既有战斗过程图，只供过程/空间关系参考，不是另一幅独立地图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother",
+        "nature-island-terrain",
+        "coastal-fishing-hamlet"
+      ]
+    },
+    {
+      "id": "map-liaoluo-bay",
+      "name": "1633料罗湾火攻与接应差异包",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "既定史实骨架下的协同火攻可玩空间，重点是驶近、风变、保留接应运力与撤回。",
+      "visualBrief": "宽湾水面、远岸辨向、敌舰泊阵与外侧接应区；火船进路和小艇回线独立、能读风向；只用历史地名，不从概念画声称精确1633岸线。",
+      "storyRefs": [
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "battle-hud",
+        "battle-orders",
+        "fleet",
+        "route-plan",
+        "battle-result",
+        "history-notes"
+      ],
+      "variants": [
+        "等待时机",
+        "火船驶近",
+        "接应撤回",
+        "战后水面"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海母场景＋湾岸差异＋敌舰/火船实例；三个过程图仍是一张场景的状态参考。",
+      "historicalStatus": "料罗湾1633战胜荷方与火攻是当前剧本采用的历史骨架；具体岸线、逐舰阵位、风时、接应安排和原创人物动作未据原始战报精确复原。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+          "role": "story-context",
+          "note": "料罗湾整幅战斗情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process1.png",
+          "role": "process-context",
+          "note": "既有火攻过程图；不是独立地图。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4_process2.png",
+          "role": "process-context",
+          "note": "既有接应过程图；不是独立地图。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother",
+        "nature-island-terrain"
+      ]
+    },
+    {
+      "id": "map-tianweiyang-search",
+      "name": "田尾洋战后锚地与搜索差异包",
+      "category": "scene-map",
+      "phase": "P1",
+      "description": "1635战后海面搜寻、伤员归航与轻艇续寻，只需开放水面和有限锚地。",
+      "visualBrief": "空旷海天、零散漂浮痕迹与搜索艇距离关系，能区分伤员所在母船与续寻轻艇；暮光/阴天是情绪配置，不新增完整战场。",
+      "storyRefs": [
+        "zheng_a5_s5"
+      ],
+      "uiPages": [
+        "battle-result",
+        "battle-damage",
+        "fleet",
+        "dialogue",
+        "history-notes"
+      ],
+      "variants": [
+        "搜索中",
+        "停止伤员船等待",
+        "轻艇续寻"
+      ],
+      "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。复用外海与锚地，搜索路线/残骸/小艇为状态与实例；未承诺重建未在本场展开的整场刘香海战。",
+      "historicalStatus": "1635战事与芝虎未归沿当前剧本史源边界；死亡方式异说未拍定，具体停搜命令、搜索范围和海面布局为创作。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+          "role": "story-context",
+          "note": "战后搜索整幅情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "scene-variant-pack",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [],
+      "dependencies": [
+        "map-open-sea-mother"
+      ]
+    },
+    {
+      "id": "nature-island-terrain",
+      "name": "岛岸与浅滩地形母版",
+      "category": "nature",
+      "phase": "P0",
+      "description": "共享岛岸、沙滩、岩岸、岸路与水深碰撞需求，服务多个地域差异包。",
+      "visualBrief": "按可玩船尺度制作低远岸与近岸高差，砂/岩/草/土层过渡，岸路与码头接缝连续；实际地形大小由航速、镜头和导航测试确定，非历史测绘。",
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a3_s3",
+        "zheng_a4_s6",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "port-hub",
+        "battle-hud",
+        "sea-chart"
+      ],
+      "variants": [
+        "低沙岸",
+        "岩岸狭口",
+        "背风锚地",
+        "湾岸"
+      ],
+      "modelStrategy": "程序式地形/水深数据与场景原生资源；不是独立手工3D基模，83增量0。岩块实例引用nature-rock，不能把岛数乘算基模。",
+      "historicalStatus": "地形母版与水深皆为游戏制作概念；未对应原始17世纪海图测深或已验地形复原。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/terrain/weights_0.png",
+          "role": "data-texture-reference",
+          "note": "现有地形权重贴图；不是手工场景平面，也非真实历史水深。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+          "role": "scene-context",
+          "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "procedural-terrain",
+      "modelRequired": false,
+      "conceptStatus": "needs-concept",
+      "proceduralSources": [
+        "modules/scene_engine/world/island_details.gd"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "nature-ocean-sky-profile",
+      "name": "海天与风雾昼夜条件集",
+      "category": "nature",
+      "phase": "P0",
+      "description": "海面、天空、云雾、风雨与能见度的视觉目标；与production-assets中fx-ocean-weather同一需求，不重复新增效果数量。",
+      "visualBrief": "连续海平面与远海天线，青灰/蓝绿水色、晨昏/夜色，横浪/无风/雾/风暴轮廓可辨；水花尾迹由对应效果条目提供，参考图只锁视觉方向。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s1",
+        "zheng_a3_s10",
+        "zheng_a5_s7"
+      ],
+      "uiPages": [
+        "sailing-hud",
+        "weather-wind",
+        "battle-hud",
+        "laboratory"
+      ],
+      "variants": [
+        "晴昼",
+        "暮光夜航",
+        "浓雾",
+        "静风",
+        "强风横浪"
+      ],
+      "modelStrategy": "海面shader、天空/天气配置与效果资源，独立基模0；映射既有fx-ocean-weather，不把shader、粒子或贴图算模型。",
+      "historicalStatus": "游戏海天条件概念；剧本风暴、无风、雾航多数为虚构具体航次，未声称对应历史气象观测。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/sailing-background.png",
+          "role": "scene-context",
+          "note": "静态航行背景；不代表这些天气已全部原生验收。"
+        },
+        {
+          "path": "assets/textures/waternormals.jpg",
+          "role": "material-reference",
+          "note": "现有水面法线素材，不能当新海面方案验收。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "environment-profile",
+      "modelRequired": false,
+      "conceptStatus": "reference-needs-review",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "nature-shore-materials",
+      "name": "岸线干湿石砂材质集",
+      "category": "nature",
+      "phase": "P0",
+      "description": "石堤、沙滩、岩岸与近岸浅区的共享材料目标，避免不同港口重复生产相同基础表面。",
+      "visualBrief": "砂、湿砂、干岩、湿岩和潮水线的低频颜色/粗糙度差异；重复尺度按人/船比对，细节不抢战术可读性；纹理并非独立几何。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a2_s1",
+        "zheng_a4_s6",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "sailing-hud",
+        "battle-hud"
+      ],
+      "variants": [
+        "干砂",
+        "湿砂",
+        "干岩",
+        "湿岩"
+      ],
+      "modelStrategy": "材质/纹理原件，独立基模0；复用到coastal-stone-step与nature-rock等，不另算每港材质为模型。",
+      "historicalStatus": "自然表面艺术概念；不构成任一港口历史材料取样或考古证据。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/terrain/sand.png",
+          "role": "material-reference",
+          "note": "现有砂材质参照；需审来源与分发许可。"
+        },
+        {
+          "path": "assets/textures/fidelity_island/terrain/sandwet.png",
+          "role": "material-reference",
+          "note": "现有湿砂参照；非地形模型。"
+        },
+        {
+          "path": "assets/textures/fidelity_island/terrain/rock.png",
+          "role": "material-reference",
+          "note": "现有岩面参照；非岩礁独立原画。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "material-set",
+      "modelRequired": false,
+      "conceptStatus": "reference-needs-review",
+      "proceduralSources": [],
+      "dependencies": []
+    },
+    {
+      "id": "nature-ground-materials",
+      "name": "内岸草土地表材质集",
+      "category": "nature",
+      "phase": "P1",
+      "description": "岛岸后层、港巷边缘与宅院外部的地表过渡；与独立草簇和灌木区分。",
+      "visualBrief": "草土、林下暗土与碎石路的低密度组合，通行区域保持平整可读；避免热带密林覆盖全部福建/平户港口，具体生态待地域审查。",
+      "storyRefs": [
+        "zheng_a3_s7",
+        "zheng_a4_s7",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "home",
+        "sailing-hud"
+      ],
+      "variants": [
+        "草土",
+        "林下土",
+        "碎石路径"
+      ],
+      "modelStrategy": "地表材质/贴图与散布配置，独立基模0；草簇、灌木仍只引用原6自然基模。",
+      "historicalStatus": "地域生态与地表概念；未作植物/土壤历史调查，不把现有贴图名当考证。",
+      "existingImages": [
+        {
+          "path": "assets/textures/fidelity_island/terrain/grasspatch.png",
+          "role": "material-reference",
+          "note": "现有草土地面参考。"
+        },
+        {
+          "path": "assets/textures/fidelity_island/terrain/forest.png",
+          "role": "material-reference",
+          "note": "现有林下地面参考，不能推出地点植被史实。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "assetKind": "material-set",
+      "modelRequired": false,
+      "conceptStatus": "reference-needs-review",
+      "proceduralSources": [],
+      "dependencies": []
+    }
+  ],
+  "summary": {
+    "entryCount": 46,
+    "byCategory": {
+      "coastal-building": 6,
+      "building": 15,
+      "nature": 10,
+      "scene-map": 15
+    },
+    "byPhase": {
+      "P0": 25,
+      "P1": 20,
+      "P2": 1
+    },
+    "legacyBaseMeshesCovered": 18,
+    "legacyHarborInteriorBaseMeshes": 12,
+    "legacyNatureBaseMeshes": 6,
+    "newIndependentBaseMeshesCommitted": 0,
+    "assemblyAndNonMeshEntries": 28,
+    "entriesWithExistingImageReference": 46,
+    "uniqueExistingImagePaths": 53,
+    "independentEnvironmentModelFilesConfirmed": 0,
+    "needsConceptEntries": 43,
+    "referenceNeedsReviewEntries": 3,
+    "storySceneCoverage": 43,
+    "standaloneMapSvgFilesConfirmed": 0
+  }
+}

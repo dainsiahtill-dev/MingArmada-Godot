@@ -1,0 +1,107 @@
+{
+  "id": "npc-gunner",
+  "name": "炮手与炮组长",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "点火、装填、拖炮座与当值炮组；将组长做参数变体。",
+  "visualBrief": "成年紧束袖短褂，前臂留操作空间；蹲跪装药、双手推杆、躲开后坐行程。火绳、炮口方向和组员站位统一。",
+  "storyRefs": [
+    "zheng_a2_s8",
+    "zheng_a4_s7",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "ammo-loading",
+    "crew-assign",
+    "battle-hud"
+  ],
+  "variants": [
+    "组长",
+    "装填手",
+    "点火手"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-gunner",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-gunner/reference/zheng_a2_s8-887c5851.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-gunner/reference/zheng_a2_s8-887c5851.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+    "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s8",
+      "legacyTitle": "第二门炮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ammo-loading",
+      "title": "弹药与装填"
+    },
+    {
+      "id": "crew-assign",
+      "title": "岗位与值守"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    }
+  ]
+}

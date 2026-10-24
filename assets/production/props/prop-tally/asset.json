@@ -1,0 +1,116 @@
+{
+  "id": "prop-tally",
+  "name": "缺口木筹",
+  "category": "prop",
+  "phase": "P0",
+  "description": "第一次索路与后来假旗／验筹中的可辨凭据，不等于永久通行证。",
+  "visualBrief": "掌心大小木片，唯一明显缺口、旧刻痕、磨圆边；可捏持边、挂绳孔如采用须审查，避免现代令牌徽章样式。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7"
+  ],
+  "uiPages": [
+    "inventory",
+    "item-detail",
+    "sea-encounter",
+    "sea-permits"
+  ],
+  "variants": [
+    "旧化",
+    "识别刻记贴图"
+  ],
+  "modelStrategy": "独立小木筹基模；缺口为几何，不只画色块。相同凭据出现多次复用同一资产状态。",
+  "historicalStatus": "needs-concept；原创物件，旧缺口与验认规则来自剧本，不能标成明代通行制度实物。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-tally"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-tally",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-tally/reference/zheng_a1_s6-f08a09ba.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-tally/reference/zheng_a2_s7-2ff89d96.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-tally",
+      "path": "assets/production/props/prop-tally/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "06a0ebda21f7b6c52f761ef6376b182a9f8efe94e768f1d549f7c942c03a2a74",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-tally",
+    "path": "assets/production/props/prop-tally/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "06a0ebda21f7b6c52f761ef6376b182a9f8efe94e768f1d549f7c942c03a2a74",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "sea-permits",
+      "title": "令旗与通行凭据"
+    }
+  ]
+}

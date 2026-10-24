@@ -1,0 +1,128 @@
+{
+  "id": "prop-money-pouch",
+  "name": "家用与交银钱袋",
+  "category": "prop",
+  "phase": "P0",
+  "description": "索路、落水散银、家用挪作合货与汇款；归属由账目显示。",
+  "visualBrief": "小布袋、扎绳与自然鼓褶，手持抛放点清楚；口袋可少量露出钱串，避免电子游戏金币满溢。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7",
+    "zheng_a2_s5"
+  ],
+  "uiPages": [
+    "sea-encounter",
+    "trade-order",
+    "accounts",
+    "send-letter-remittance",
+    "dialogue"
+  ],
+  "variants": [
+    "普通布色",
+    "扎口／打开",
+    "家用识记"
+  ],
+  "modelStrategy": "复用prop-red-thread-pouch基础拓扑；不同银主、金额与用途走UI／贴图，钱袋本身不按任务建立新模。",
+  "historicalStatus": "needs-concept；剧情银袋明确，实付银钱形式待时代审查，不能用现代硬币。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-money-pouch",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-money-pouch/reference/zheng_a2_s7-2ff89d96.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-money-pouch/reference/zheng_a2_s5-ce510aab.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s5.png",
+      "sha256": "ce510aab2c8808ea77b349f218bb7577dc74637e0064ef1a6f02362fa37dc5b9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-money-pouch",
+      "path": "assets/production/props/prop-money-pouch/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "7d2351a313e897cc3ab9d33e37bc0f1b218bab4b9456973bdc59123b30e43b77",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-money-pouch",
+    "path": "assets/production/props/prop-money-pouch/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "7d2351a313e897cc3ab9d33e37bc0f1b218bab4b9456973bdc59123b30e43b77",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    },
+    {
+      "id": "send-letter-remittance",
+      "title": "寄信与家用"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

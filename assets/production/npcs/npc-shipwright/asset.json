@@ -1,0 +1,120 @@
+{
+  "id": "npc-shipwright",
+  "name": "船匠与木匠",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "修船、砍坏桅、被掳后获救木匠；阿旺独立身份另列。",
+  "visualBrief": "成年厚掌与劳动肩背，粗布短衣/围布，工具带；持斧、敲钉、扶木、俯身验缝，破衣和旧伤可切换。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s7",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "ship-repair",
+    "shipyard",
+    "crew-recruit"
+  ],
+  "variants": [
+    "船厂修理",
+    "被掳后获救",
+    "紧急砍桅"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-shipwright",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-shipwright/reference/zheng_a5_s7-04198830.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-shipwright/reference/zheng_a4_s7-986ae674.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-shipwright/reference/zheng_a5_s7-04198830.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+    "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    }
+  ]
+}

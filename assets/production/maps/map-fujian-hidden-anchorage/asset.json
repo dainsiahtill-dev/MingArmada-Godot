@@ -1,0 +1,165 @@
+{
+  "id": "map-fujian-hidden-anchorage",
+  "name": "闽粤隐蔽锚地与夜市差异包",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "换粮药、分配招募、扣人换回和同旗纠纷的共同锚地；剧情只保证有限岸滩与船边集市。",
+  "visualBrief": "1625—1632，背风水面、可上岸坡地、小型摊棚、简陋货棚与接驳通道，照明局部；交易、接应和离港三条动线可辨。",
+  "storyRefs": [
+    "zheng_a3_s2",
+    "zheng_a3_s7",
+    "zheng_a3_s8",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "black-market",
+    "market",
+    "crew-recruit",
+    "prize-distribution",
+    "sea-encounter",
+    "dialogue"
+  ],
+  "variants": [
+    "日间分配",
+    "夜间换粮药",
+    "扣人交割",
+    "同旗纠纷"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。外海母场景＋共享港口岸段/摊棚装配；同锚地跨年换陈设，不新建每场地形。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "role": "story-context",
+      "note": "换粮药与招募；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "role": "story-context",
+      "note": "扣人换回；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "role": "story-context",
+      "note": "背风锚地纠纷；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "map-open-sea-mother",
+    "coastal-market-stall",
+    "building-warehouse-front",
+    "nature-island-terrain"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-fujian-hidden-anchorage",
+  "images": [
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a3_s7-ad735196.png",
+      "role": "story-context",
+      "note": "换粮药与招募；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a3_s8-b1536ec1.png",
+      "role": "story-context",
+      "note": "扣人换回；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a5_s6-7efaccf5.png",
+      "role": "story-context",
+      "note": "背风锚地纠纷；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-fujian-hidden-anchorage",
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "eb3ded8fa522d574565af3e088b569430740d956d242233b8e95f723541133e4",
+      "sha256": "d3cbd19f7f7d0fcc9fbcedd0128dadf61412c22ecb5deff472a4bc76f0bede40",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-fujian-hidden-anchorage",
+    "path": "assets/production/maps/map-fujian-hidden-anchorage/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "eb3ded8fa522d574565af3e088b569430740d956d242233b8e95f723541133e4",
+    "sha256": "d3cbd19f7f7d0fcc9fbcedd0128dadf61412c22ecb5deff472a4bc76f0bede40",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "black-market",
+      "title": "隐蔽锚地与销货"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    },
+    {
+      "id": "prize-distribution",
+      "title": "战利与分利"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

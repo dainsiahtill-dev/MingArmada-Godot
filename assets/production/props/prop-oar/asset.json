@@ -1,0 +1,124 @@
+{
+  "id": "prop-oar",
+  "name": "长橹与应急长桨",
+  "category": "prop",
+  "phase": "P0",
+  "description": "吕宋浅水脱险、无风共同划行及战后递桨使用。",
+  "visualBrief": "细长木柄与宽窄适中的桨叶，握位和支承处因长橹／手桨区分；与船、人比例可读，不以同杆贴图充当不同叶形。",
+  "storyRefs": [
+    "zheng_a3_s9",
+    "zheng_a3_s10",
+    "zheng_a4_s3"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "boarding",
+    "battle-damage",
+    "dialogue"
+  ],
+  "variants": [
+    "应急粗削旧化",
+    "长橹／手桨叶片替换节点"
+  ],
+  "modelStrategy": "共享杆材与部分握位，长橹／手桨若动作和叶形差异大则拆交；只做本剧两种需求，不扩成船具全集。",
+  "historicalStatus": "needs-concept；剧情明确橹／桨，具体摇橹支点与地方形制需审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "tool-oar"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-oar",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-oar/reference/zheng_a3_s10-9c790155.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-oar/reference/zheng_a4_s3-90de778c.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-oar",
+      "path": "assets/production/props/prop-oar/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "b3b62ab46f84a344c362b34c933238efcbcc6bec9c5c604e07e3d74d4e952457",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-oar",
+    "path": "assets/production/props/prop-oar/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "b3b62ab46f84a344c362b34c933238efcbcc6bec9c5c604e07e3d74d4e952457",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s10",
+      "legacyTitle": "没有风的四天",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

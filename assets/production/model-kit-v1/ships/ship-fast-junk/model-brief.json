@@ -1,0 +1,64 @@
+{
+  "id": "ship-fast-junk",
+  "name": "小型武装快船",
+  "category": "船舶",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "阮部旧旗",
+    "一官自用旗",
+    "缺帆节点隐藏"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "ship-overview",
+    "fleet",
+    "ship-refit",
+    "ship-repair",
+    "boarding",
+    "battle-hud"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "assets/models/ships/patrol-lod0.glb",
+      "status": "file-present",
+      "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+    },
+    {
+      "path": "assets/models/ships/patrol-lod1.glb",
+      "status": "file-present",
+      "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+    },
+    {
+      "path": "assets/models/ships/patrol-lod2.glb",
+      "status": "file-present",
+      "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+    }
+  ],
+  "productionStatus": "adapt-existing",
+  "notes": [
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7",
+    "zheng_a3_s1",
+    "zheng_a4_s6"
+  ],
+  "group": "ships",
+  "artJobs": [
+    "ship-fast-junk"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/ships/ship-fast-junk",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
+  "originalRequirements": [
+    "ship-fast-junk"
+  ],
+  "sketchStatus": "not-generated"
+}

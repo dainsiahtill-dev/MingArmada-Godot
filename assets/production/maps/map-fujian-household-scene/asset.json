@@ -1,0 +1,176 @@
+{
+  "id": "map-fujian-household-scene",
+  "name": "福建居所与岸上生活共享空间",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "认父、读书、团聚、断盟与分途的有限家居/门口场景；养伤屋用同一室内构件体系的另一装配。",
+  "visualBrief": "屋内两三处人物工作位、门槛、门外登船方向构成动线；1630/1645/1646通过摆设与角色年龄变化区分；不按每次家事新增宅院。",
+  "storyRefs": [
+    "zheng_a3_s4",
+    "zheng_a3_s5",
+    "zheng_a4_s5",
+    "zheng_a5_s2",
+    "zheng_a6_s2",
+    "zheng_a6_s3"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "child-growth",
+    "dialogue",
+    "relationships"
+  ],
+  "variants": [
+    "养伤饭桌",
+    "临时居所断盟",
+    "1630蒙学",
+    "1645团聚",
+    "1646取回行李"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。分别引用命名居所/养伤屋prefab与共享道具；地图增量0，禁止把一张剧情家居图当一座完整独立建筑。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+      "role": "story-context",
+      "note": "养伤饭桌；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "role": "story-context",
+      "note": "认父；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "role": "story-context",
+      "note": "门内外分途；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-mother",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-fujian-residence",
+    "building-shore-sickroom",
+    "building-settlement-shelter"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-fujian-household-scene",
+  "images": [
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a3_s5-16808bd5.png",
+      "role": "story-context",
+      "note": "养伤饭桌；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+      "sha256": "16808bd516df5f9335e76d044c3b4c8ce3a4b67e11fd0f4a58171653a4c043f0",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a5_s2-a2d9d545.png",
+      "role": "story-context",
+      "note": "认父；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a6_s3-02ac3844.png",
+      "role": "story-context",
+      "note": "门内外分途；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-fujian-household-scene",
+      "path": "assets/production/maps/map-fujian-household-scene/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "f7c0b38eade11050c8d2b5b47d6f4eebe938ba79d9e5ceb1efa6163c730406c4",
+      "sha256": "50eccef158bf58ab14ed0c3151a5099ffdf0d6a554b6a8318c274af1d36c25be",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-fujian-household-scene",
+    "path": "assets/production/maps/map-fujian-household-scene/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "f7c0b38eade11050c8d2b5b47d6f4eebe938ba79d9e5ceb1efa6163c730406c4",
+    "sha256": "50eccef158bf58ab14ed0c3151a5099ffdf0d6a554b6a8318c274af1d36c25be",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s5",
+      "legacyTitle": "鱼还没吃完",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s5",
+      "legacyTitle": "门槛",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s2",
+      "legacyTitle": "福松，成功",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "id": "npc-domestic-servant",
+  "name": "家中仆役与守门人",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "守门询问来人、1646应声通知不许开船的家中仆役等背景职务。",
+  "visualBrief": "成年朴素深灰/褐衣，少饰、收袖；侧立门边、接指示后转身；不把仆役写成另一个具名家臣。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a6_s3"
+  ],
+  "uiPages": [
+    "home",
+    "dialogue",
+    "family"
+  ],
+  "variants": [
+    "守门",
+    "家中听差"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-domestic-servant",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-domestic-servant/reference/zheng_a6_s3-02ac3844.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-domestic-servant/reference/zheng_a4_s7-986ae674.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-domestic-servant/reference/zheng_a6_s3-02ac3844.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+    "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    }
+  ]
+}

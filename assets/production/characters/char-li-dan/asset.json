@@ -1,0 +1,79 @@
+{
+  "id": "char-li-dan",
+  "name": "李旦",
+  "category": "named-character",
+  "phase": "P2",
+  "description": "早期网络人物；死讯改变各船补给与关系。",
+  "visualBrief": "老年商海头领创作候选；朴素深袍、船货账册；真实面貌与精确年龄未知。",
+  "storyRefs": [
+    "zheng_a3_s2"
+  ],
+  "uiPages": [
+    "history-notes",
+    "factions"
+  ],
+  "variants": [
+    "可选信息头像"
+  ],
+  "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+  "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+      "role": "scene-context",
+      "note": "李旦的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "aliases": [
+    "李旦"
+  ],
+  "appearance": "mentioned-only",
+  "modelRequired": false,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-li-dan",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-li-dan/reference/zheng_a3_s2-4270f04c.png",
+      "role": "scene-context",
+      "note": "李旦的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+      "sha256": "4270f04c6150888755d3bfa9ba6c2d07824fa47b0964d6aec8dec2d1682593ed",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-li-dan/reference/zheng_a3_s2-4270f04c.png",
+    "role": "scene-context",
+    "note": "李旦的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+    "sha256": "4270f04c6150888755d3bfa9ba6c2d07824fa47b0964d6aec8dec2d1682593ed",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    }
+  ]
+}

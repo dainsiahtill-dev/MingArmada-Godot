@@ -1,0 +1,167 @@
+{
+  "id": "building-macau-warehouse",
+  "name": "澳门华商货栈",
+  "category": "building",
+  "phase": "P0",
+  "description": "第一幕交涉、失位与偿损的命名建筑；需要清楚的门前工作区、存货区与短暂停留处。",
+  "visualBrief": "1621澳门，单层或局部夹层的朴素临水商用货栈；建议总开间8—15米，木梁柱、粗灰泥/石墙、大货门、低石基、旧瓦坡顶；装卸通道可见，生活道具另引。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s4",
+    "zheng_a1_s5"
+  ],
+  "uiPages": [
+    "new-career",
+    "port-hub",
+    "market",
+    "contract-board",
+    "dialogue",
+    "accounts"
+  ],
+  "variants": [
+    "营业中",
+    "夜间闭门",
+    "货损后空位"
+  ],
+  "modelStrategy": "命名建筑prefab，由既有货栈模块装配，独立基模增量0；正侧背与剖面概念确认后才锁定接口。货物、桌凳、床铺引用道具分册。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "story-context",
+      "note": "澳门货栈门前；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+      "role": "story-context",
+      "note": "货栈铺位与养伤处；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "prefab-assembly",
+  "modelRequired": false,
+  "conceptStatus": "concept-candidate",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-warehouse-front",
+    "building-warehouse-wall",
+    "building-pitched-roof",
+    "building-door",
+    "building-window",
+    "coastal-stone-step"
+  ],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-macau-warehouse",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-warehouse-front/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已检查建筑主体、分视图与结构可读性；创作性空间候选，视图间比例、局部植物与模块拆分须建模前复核，非历史实址测绘。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-bf6e68d7-44ed-4b61-a6a7-f637c72ea994.png",
+      "promptId": "building-warehouse-front",
+      "sha256": "0775da934bed7b8e6ce9b63e395ed895f8fa58410eaff7e7d88d4d6025fbd775",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "story-context",
+      "note": "澳门货栈门前；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/zheng_a1_s4-ddb03cbd.png",
+      "role": "story-context",
+      "note": "货栈铺位与养伤处；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+      "sha256": "ddb03cbd3983dc2cb5bdf13f0ec3c466782008ccb4a3111729d54bc878967caa",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/port-hub-v2-edf92ad5.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-macau-warehouse",
+      "path": "assets/production/buildings/building-macau-warehouse/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "5c231537d4180182e89f298be1d7d7c205bcf0e0822df865e1289896bd976c9d",
+      "sha256": "b7dd1e21a9c75677ef3d92f9afbd89eb00f5cd1c638ef01f22f476507de579ed",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/buildings/building-warehouse-front/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已检查建筑主体、分视图与结构可读性；创作性空间候选，视图间比例、局部植物与模块拆分须建模前复核，非历史实址测绘。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-bf6e68d7-44ed-4b61-a6a7-f637c72ea994.png",
+    "promptId": "building-warehouse-front",
+    "sha256": "0775da934bed7b8e6ce9b63e395ed895f8fa58410eaff7e7d88d4d6025fbd775",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "imageCount": 5,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "new-career",
+      "title": "新生涯"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "contract-board",
+      "title": "货栈委托"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    }
+  ]
+}

@@ -1,0 +1,3517 @@
+{
+  "scope": {
+    "name": "《一官入海》六幕单人正式游戏资产生产预算",
+    "currentDelivery": "72页网页完善与可评审交互；不在本清单任务中制造或接入全部3D资产",
+    "phases": {
+      "P0": "完整核心循环所需，不等于全部六幕角色已齐",
+      "P1": "六幕单人内容补全",
+      "P2": "可选环境扩展"
+    },
+    "limits": [
+      "有限港口与剧情空间，不做整城自由漫游",
+      "没有海怪、幻想宝船、现代商城或多人专属资产",
+      "人物面容与船型是创作方案，尚需史料和美术审查"
+    ]
+  },
+  "basis": {
+    "date": "2026-10-22",
+    "story": "docs/narrative/zheng-zhilong-story.json",
+    "storyVersion": "v4-maritime-illustrated-2026-10-22",
+    "storySha256": "29e7de2c9308548b37293630530a5f3f84187862ee290629dcd80eda5826e801",
+    "scenes": 43,
+    "pages": 72,
+    "sourceReview": [
+      "assets/models/ships/ships-manifest.json",
+      "assets/models/sailors/sailors-manifest.json",
+      "assets/data/fidelity_naval/ships-manifest.json",
+      "modules/scene_engine/assets/ship_model_provider.gd",
+      "modules/scene_engine/assets/asset_library.gd",
+      "modules/scene_engine/assets/coastal_detail_library.gd",
+      "modules/scene_engine/assets/vegetation_library.gd",
+      "modules/scene_engine/world/island_details.gd",
+      "game/presentation/ships/ship_view.gd",
+      "game/presentation/crew/crew_view.gd",
+      "game/scenes/ship_book/ship_book.gd"
+    ],
+    "existingInventory": {
+      "glbFiles": 27,
+      "oldShipFamilies": 6,
+      "oldShipLodFiles": 18,
+      "sailorBaseMeshes": 1,
+      "sailorLodFiles": 3,
+      "sailorSkeletons": 1,
+      "sailorJoints": 18,
+      "sailorUniqueClips": [
+        "idle",
+        "helm",
+        "haul",
+        "load-cannon",
+        "walk",
+        "lookout"
+      ],
+      "referenceShipFamilies": 6,
+      "referenceLodPolicy": "3个LOD节点各实例化同一lowend源，不是3份不同精度几何",
+      "activeShipProvider": "fidelity_naval临时西式原版参照；分发许可未在本任务解决",
+      "proceduralAssets": "港口房屋、摊棚、小艇、桶箱、草木岩礁等通过ArrayMesh/MultiMesh生成，不能加到现存GLB文件数中",
+      "runtimeVerifiedThisTask": false
+    },
+    "counts": {
+      "baseMeshes": 83,
+      "byCategory": {
+        "船舶": 8,
+        "人物身体与头部": 16,
+        "独立服装与配件": 8,
+        "港口与室内模块": 12,
+        "自然环境陈设": 6,
+        "货物与生活道具": 23,
+        "武器与船具": 10
+      },
+      "byPhase": {
+        "P0": 47,
+        "P1": 34,
+        "P2": 2
+      },
+      "coreAndSinglePlayer": 81,
+      "variantConfigurationLabels": 117,
+      "lodDeliveryRepresentations": 227,
+      "threeLodBases": 72,
+      "oneLodBases": 11,
+      "rigFamilies": 2,
+      "uniqueBakedAnimationClips": 29,
+      "adultClips": 21,
+      "childClips": 6,
+      "rigidPropClips": 2,
+      "productionStatus": {
+        "needs-new": 51,
+        "adapt-existing": 18,
+        "reusable-after-review": 14
+      },
+      "twoDimensionalEntries": 13,
+      "twoDimensionalDeliveryUnits": 156,
+      "effects": 12
+    }
+  },
+  "models": [
+    {
+      "id": "ship-lighter",
+      "name": "敞口接驳驳船",
+      "category": "船舶",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "满载货箱配置",
+        "抛货后配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "cargo-hold",
+        "sailing-hud",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持beached_boat；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "needs-new",
+      "notes": [
+        "海岸搁浅小艇只供比例参考；接驳船须独立可航船壳、低舷与货舱。"
+      ]
+    },
+    {
+      "id": "ship-fast-junk",
+      "name": "小型武装快船",
+      "category": "船舶",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "阮部旧旗",
+        "一官自用旗",
+        "缺帆节点隐藏"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "fleet",
+        "ship-refit",
+        "ship-repair",
+        "boarding",
+        "battle-hud"
+      ],
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7",
+        "zheng_a3_s1",
+        "zheng_a4_s6"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/patrol-lod0.glb",
+          "status": "file-present",
+          "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+        },
+        {
+          "path": "assets/models/ships/patrol-lod1.glb",
+          "status": "file-present",
+          "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+        },
+        {
+          "path": "assets/models/ships/patrol-lod2.glb",
+          "status": "file-present",
+          "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": []
+    },
+    {
+      "id": "ship-merchant-junk",
+      "name": "中型海商货船",
+      "category": "船舶",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "粮运舱载",
+        "混载封包",
+        "火攻用空载配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "cargo-hold",
+        "fleet",
+        "shipyard",
+        "battle-hud"
+      ],
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a2_s6",
+        "zheng_a3_s1",
+        "zheng_a3_s6",
+        "zheng_a3_s3",
+        "zheng_a4_s6"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/merchant-lod0.glb",
+          "status": "file-present",
+          "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+        },
+        {
+          "path": "assets/models/ships/merchant-lod1.glb",
+          "status": "file-present",
+          "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+        },
+        {
+          "path": "assets/models/ships/merchant-lod2.glb",
+          "status": "file-present",
+          "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "火船复用船壳和装载，不另算一艘船型；火烧通过效果与节点状态。"
+      ]
+    },
+    {
+      "id": "ship-fuchuan",
+      "name": "福建武装福船",
+      "category": "船舶",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "商装",
+        "官旗",
+        "新桅",
+        "断桅节点状态"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "ship-refit",
+        "shipyard",
+        "fleet",
+        "battle-hud",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a4_s3",
+        "zheng_a4_s4",
+        "zheng_a4_s7",
+        "zheng_a5_s4",
+        "zheng_a5_s7"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/fuchuan-lod0.glb",
+          "status": "file-present",
+          "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+        },
+        {
+          "path": "assets/models/ships/fuchuan-lod1.glb",
+          "status": "file-present",
+          "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+        },
+        {
+          "path": "assets/models/ships/fuchuan-lod2.glb",
+          "status": "file-present",
+          "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "网页透明福船PNG是概念图，不是本条3D现货；新形制需资料审查。"
+      ]
+    },
+    {
+      "id": "ship-rescue-skiff",
+      "name": "接应与救援小艇",
+      "category": "船舶",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "接人",
+        "货物交接",
+        "轻装返乡"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "fleet",
+        "battle-damage",
+        "boarding",
+        "sailing-hud"
+      ],
+      "storyRefs": [
+        "zheng_a3_s8",
+        "zheng_a3_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a5_s5",
+        "zheng_a6_s4"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持beached_boat；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "沿用小艇轮廓须新增真实水线、桨挂点、载人位置；独立桨在船具中计数。"
+      ]
+    },
+    {
+      "id": "ship-european-merchant",
+      "name": "早期近世欧式商船",
+      "category": "船舶",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "马努埃尔商船",
+        "巡查拖带配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "shipyard",
+        "sea-encounter",
+        "battle-hud"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a3_s9"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/voc-lod0.glb",
+          "status": "file-present",
+          "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+        },
+        {
+          "path": "assets/models/ships/voc-lod1.glb",
+          "status": "file-present",
+          "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+        },
+        {
+          "path": "assets/models/ships/voc-lod2.glb",
+          "status": "file-present",
+          "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+        },
+        {
+          "path": "assets/models/fidelity_naval/ship_merman.glb",
+          "status": "reference-only",
+          "note": "原版西式低模参照；不视为生产许可已解决。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "按故事时代审查船型，不把旧voc标签当精确史实型谱；船主国籍不强制新增船壳。"
+      ]
+    },
+    {
+      "id": "ship-european-warship",
+      "name": "重炮欧式战舰",
+      "category": "船舶",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "停泊作战",
+        "受火损状态"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-overview",
+        "battle-hud",
+        "battle-orders",
+        "fleet"
+      ],
+      "storyRefs": [
+        "zheng_a4_s3",
+        "zheng_a5_s3",
+        "zheng_a5_s4"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/heavy-lod0.glb",
+          "status": "file-present",
+          "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+        },
+        {
+          "path": "assets/models/ships/heavy-lod1.glb",
+          "status": "file-present",
+          "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+        },
+        {
+          "path": "assets/models/ships/heavy-lod2.glb",
+          "status": "file-present",
+          "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+        },
+        {
+          "path": "assets/models/fidelity_naval/frigate.glb",
+          "status": "reference-only",
+          "note": "现有重炮参照来源需独立许可核查。"
+        },
+        {
+          "path": "assets/models/fidelity_naval/treasure_galleon.glb",
+          "status": "reference-only",
+          "note": "活动heavy映射采用此参照；其名不构成本项目必需宝船。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "只规划一类重炮敌舰；不把幻想宝船或所有西式舰级列为必需。"
+      ]
+    },
+    {
+      "id": "ship-regional-craft",
+      "name": "区域商路轻舟",
+      "category": "船舶",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "淡水交易载荷",
+        "夜划配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sea-encounter",
+        "ship-overview",
+        "sailing-hud"
+      ],
+      "storyRefs": [
+        "zheng_a3_s10"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "依斯迈同行所用；只做一条符合区域贸易背景的小舟，不杜撰具体民族定型船。"
+      ]
+    },
+    {
+      "id": "body-adult-male",
+      "name": "成年男性共享身体",
+      "category": "人物身体与头部",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "身高比例",
+        "体态与肤色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [
+        "idle",
+        "walk",
+        "helm",
+        "haul",
+        "load-cannon",
+        "lookout",
+        "row",
+        "carry",
+        "lift-crate",
+        "repair",
+        "bail-water",
+        "talk",
+        "point",
+        "gesture-stop",
+        "sit",
+        "stand",
+        "bow",
+        "melee-attack",
+        "melee-defend",
+        "hit-react",
+        "injured-walk"
+      ],
+      "pages": [
+        "character-profile",
+        "crew-roster",
+        "crew-detail",
+        "crew-recruit",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s2",
+        "zheng_a4_s4",
+        "zheng_a6_s4"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/sailors/sailor-lod0.glb",
+          "status": "file-present",
+          "note": "实读GLB：1个skin、18关节、6个动作。整体含人物外形；拆出身体、头和衣物仍是待做适配。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod1.glb",
+          "status": "file-present",
+          "note": "旧水手中LOD，未证明新服装与骨架兼容。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod2.glb",
+          "status": "file-present",
+          "note": "旧水手远LOD，现有CrewView实际加载此族。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "身体不含下列独立角色头和外衣；内层衣与身体作为一件基模制作。"
+      ]
+    },
+    {
+      "id": "body-adult-female",
+      "name": "成年女性共享身体",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "年龄与体态"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [
+        "idle",
+        "walk",
+        "helm",
+        "haul",
+        "load-cannon",
+        "lookout",
+        "row",
+        "carry",
+        "lift-crate",
+        "repair",
+        "bail-water",
+        "talk",
+        "point",
+        "gesture-stop",
+        "sit",
+        "stand",
+        "bow",
+        "melee-attack",
+        "melee-defend",
+        "hit-react",
+        "injured-walk"
+      ],
+      "pages": [
+        "family",
+        "home",
+        "dialogue",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a5_s1",
+        "zheng_a6_s1",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "共用成人骨骼命名和动画库，须独立蒙皮与动作适配，不能直接缩放男体交付。"
+      ]
+    },
+    {
+      "id": "body-child",
+      "name": "少年儿童共享身体",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "幼年与少年比例"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-child",
+      "animations": [
+        "idle",
+        "walk",
+        "sit",
+        "hold-hand",
+        "give-item",
+        "look-up"
+      ],
+      "pages": [
+        "dialogue",
+        "family",
+        "child-growth",
+        "crew-detail"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s3",
+        "zheng_a5_s1",
+        "zheng_a5_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "基础衣着并入身体；幼年与少年比例须同拓扑重定向可行，否则后续应新增基模重算。"
+      ]
+    },
+    {
+      "id": "head-zheng",
+      "name": "郑芝龙独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "中年皱纹材质",
+        "晚年鬓发材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a4_s4",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-tagawamatsu",
+      "name": "田川氏独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "中年材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a5_s1",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-fusong-child",
+      "name": "福松幼年独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-child",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a5_s1",
+        "zheng_a5_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-chenggong",
+      "name": "郑成功成年独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-awang",
+      "name": "阿旺独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "鬓发与年龄材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s4",
+        "zheng_a5_s7",
+        "zheng_a6_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-ahe-child",
+      "name": "阿禾少年独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-child",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s3",
+        "zheng_a3_s5"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-ahe-adult",
+      "name": "阿禾成年独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a6_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-chentian",
+      "name": "陈添独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "年龄材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s4",
+        "zheng_a6_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-duqi",
+      "name": "杜七独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "伤后材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a3_s8",
+        "zheng_a4_s5",
+        "zheng_a5_s6"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-ruan",
+      "name": "阮老六独立头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7",
+        "zheng_a4_s6"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-eastasia-male",
+      "name": "东亚普通人物共享头部",
+      "category": "人物身体与头部",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "黄程面部形变",
+        "吉平面部形变",
+        "官员面部形变",
+        "船工面部形变"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s1",
+        "zheng_a4_s1",
+        "zheng_a4_s4"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/sailors/sailor-lod0.glb",
+          "status": "file-present",
+          "note": "实读GLB：1个skin、18关节、6个动作。整体含人物外形；拆出身体、头和衣物仍是待做适配。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod1.glb",
+          "status": "file-present",
+          "note": "旧水手中LOD，未证明新服装与骨架兼容。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod2.glb",
+          "status": "file-present",
+          "note": "旧水手远LOD，现有CrewView实际加载此族。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-european-male",
+      "name": "欧籍普通航海人物共享头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "马努埃尔面部形变",
+        "阿隆索面部形变",
+        "普通水手材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a2_s6",
+        "zheng_a3_s9"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "head-regional-male",
+      "name": "区域商路普通人物共享头部",
+      "category": "人物身体与头部",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "安东面部形变",
+        "依斯迈面部形变"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "dialogue",
+        "character-profile",
+        "crew-detail",
+        "relationships",
+        "family",
+        "child-growth"
+      ],
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a3_s10"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。"
+      ]
+    },
+    {
+      "id": "garment-work-tunic",
+      "name": "船工短褂外衣",
+      "category": "独立服装与配件",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "靛青",
+        "赭黄",
+        "褐布"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s2"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/sailors/sailor-lod0.glb",
+          "status": "file-present",
+          "note": "实读GLB：1个skin、18关节、6个动作。整体含人物外形；拆出身体、头和衣物仍是待做适配。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod1.glb",
+          "status": "file-present",
+          "note": "旧水手中LOD，未证明新服装与骨架兼容。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod2.glb",
+          "status": "file-present",
+          "note": "旧水手远LOD，现有CrewView实际加载此族。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "garment-officer-robe",
+      "name": "官员长袍外衣",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "游击官身配色",
+        "文职配色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a4_s1",
+        "zheng_a4_s4",
+        "zheng_a6_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "garment-padded-armor",
+      "name": "海战护甲背心",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "普通护卫配色",
+        "主角配色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a4_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "garment-japan-robe",
+      "name": "平户生活外衣",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "日常布色",
+        "旧衣材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a5_s1",
+        "zheng_a6_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "garment-european-coat",
+      "name": "欧籍航海短外套",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "船长配色",
+        "普通船工配色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a3_s9"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "headgear-seafarer",
+      "name": "航海宽檐帽",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧皮材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a3_s9"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "headgear-headcloth",
+      "name": "船工包头布",
+      "category": "独立服装与配件",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "靛布",
+        "灰布"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s2"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/sailors/sailor-lod0.glb",
+          "status": "file-present",
+          "note": "实读GLB：1个skin、18关节、6个动作。整体含人物外形；拆出身体、头和衣物仍是待做适配。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod1.glb",
+          "status": "file-present",
+          "note": "旧水手中LOD，未证明新服装与骨架兼容。"
+        },
+        {
+          "path": "assets/models/sailors/sailor-lod2.glb",
+          "status": "file-present",
+          "note": "旧水手远LOD，现有CrewView实际加载此族。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "headgear-official",
+      "name": "官帽",
+      "category": "独立服装与配件",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "职分配饰材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": "humanoid-adult",
+      "animations": [],
+      "pages": [
+        "equipment",
+        "character-profile",
+        "crew-detail",
+        "dialogue",
+        "family"
+      ],
+      "storyRefs": [
+        "zheng_a4_s1",
+        "zheng_a4_s4",
+        "zheng_a6_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "服装与帽子独立建模计数；复用成人骨架，搭配和颜色不另计新基模。"
+      ]
+    },
+    {
+      "id": "dock-wood-pier",
+      "name": "木码头段",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "直段拼接",
+        "端头配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a2_s1",
+        "zheng_a5_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "dock-stone-step",
+      "name": "石堤与踏步段",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "石材风化"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s1",
+        "zheng_a6_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-warehouse-front",
+      "name": "货栈门面模块",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "澳门货栈招牌材质",
+        "福建货棚材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a3_s4"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持harbor_house；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-warehouse-wall",
+      "name": "货栈墙体模块",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "砖墙材质",
+        "石灰材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s4"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持harbor_house；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-pitched-roof",
+      "name": "货栈坡屋顶模块",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧瓦材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s4"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持harbor_house；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-timber-wall",
+      "name": "木构住宅墙体模块",
+      "category": "港口与室内模块",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "平户木墙材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-plaster-wall",
+      "name": "灰泥住宅墙体模块",
+      "category": "港口与室内模块",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "福建居所材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a5_s2",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持harbor_house；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-residence-roof",
+      "name": "住宅屋顶模块",
+      "category": "港口与室内模块",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "木色与瓦色材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s2",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-door",
+      "name": "独立门扇",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧木材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [
+        "door-open"
+      ],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s2",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "building-window",
+      "name": "独立窗扇格栅",
+      "category": "港口与室内模块",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "木格材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s2",
+        "zheng_a6_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "market-stall",
+      "name": "港市摊棚",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "布棚配色",
+        "货物另配"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a3_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持market_stall；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "shipyard-cradle",
+      "name": "船坞修船支架",
+      "category": "港口与室内模块",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "空架",
+        "托船配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "port-hub",
+        "market",
+        "shipyard",
+        "ship-repair",
+        "home",
+        "dialogue"
+      ],
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a4_s2",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "一个模块独立计一基模；重复拼接不加数量。门窗与屋顶另列，门面不得重复内含已列门扇。",
+        "港口仅做船边和有限剧情空间；不承诺全城无缝漫游或所有建筑可进入。"
+      ]
+    },
+    {
+      "id": "nature-broadleaf",
+      "name": "沿岸阔叶树",
+      "category": "自然环境陈设",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "树叶季色",
+        "大小实例"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a4_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持coastal_tree；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "nature-shore-tree",
+      "name": "风塑矮岸树",
+      "category": "自然环境陈设",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "风向姿态参数"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s3"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持shore_tree；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "nature-palm",
+      "name": "区域棕榈树",
+      "category": "自然环境陈设",
+      "phase": "P2",
+      "baseMeshCount": 1,
+      "variants": [
+        "叶色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a3_s10"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/vegetation_library.gd",
+          "status": "procedural-source",
+          "note": "palm从vegetation-geometry读取顶点生成；未打包为独立GLB。"
+        },
+        {
+          "path": "assets/reference/vegetation-geometry.json",
+          "status": "file-present",
+          "note": "含植被数值几何，需复核来源与目标风格。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "nature-shrub",
+      "name": "沿岸灌木",
+      "category": "自然环境陈设",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "叶色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a6_s1"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持shrub；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "nature-grass",
+      "name": "岸边草簇",
+      "category": "自然环境陈设",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "草色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a4_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持beach_grass；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "nature-rock",
+      "name": "岩礁石簇",
+      "category": "自然环境陈设",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "水下湿润材质",
+        "岸上材质",
+        "参数变体"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "sailing-hud",
+        "sea-chart",
+        "port-hub",
+        "battle-hud",
+        "home"
+      ],
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a3_s3",
+        "zheng_a4_s6"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持outcrop/pebble/reef；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。"
+      ]
+    },
+    {
+      "id": "prop-crate",
+      "name": "木货箱",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "红封材质",
+        "普通封条"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s6"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持crate；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-barrel",
+      "name": "淡水桶",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "补缝材质",
+        "裂口节点显示"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a3_s10"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持barrel；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-cloth-bale",
+      "name": "布匹货包",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "布色",
+        "封记"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s6",
+        "zheng_a3_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-grain-sack",
+      "name": "粮袋",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "谷物标记"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s2",
+        "zheng_a4_s6"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-porcelain-jar",
+      "name": "瓷货罐",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "釉色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s1",
+        "zheng_a3_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-basket",
+      "name": "货物竹篮",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "空篮",
+        "装货配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a3_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持basket；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-rope-coil",
+      "name": "盘索",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a4_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持rope_coil；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-cargo-net",
+      "name": "货网",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "空网",
+        "捆货配置"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持cargo_net；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-bollard",
+      "name": "缆桩",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a6_s4"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持bollard；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-lantern",
+      "name": "船灯与提灯",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "点亮材质",
+        "熄灭材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a1_s3",
+        "zheng_a3_s1"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持lantern；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-bench",
+      "name": "坐凳",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a3_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-table",
+      "name": "木桌",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "货栈摆放",
+        "家桌摆放"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a4_s1",
+        "zheng_a6_s2"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-bedding",
+      "name": "床铺与被褥",
+      "category": "货物与生活道具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "布色"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-chest",
+      "name": "衣物行李箱",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧木材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [
+        "chest-open"
+      ],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s2",
+        "zheng_a5_s1",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-bucket",
+      "name": "提水小桶",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a5_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-pot",
+      "name": "锅具",
+      "category": "货物与生活道具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "使用痕迹"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s5"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-bowl",
+      "name": "饭碗",
+      "category": "货物与生活道具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "陶色"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a5_s1",
+        "zheng_a6_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-letter",
+      "name": "家书纸张",
+      "category": "货物与生活道具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "展开",
+        "折叠显示配置"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s4",
+        "zheng_a2_s5",
+        "zheng_a6_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-chart",
+      "name": "船图与水程笺",
+      "category": "货物与生活道具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "船图贴图",
+        "水程笺贴图"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s5",
+        "zheng_a4_s6",
+        "zheng_a5_s2",
+        "zheng_a6_s5"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-tally",
+      "name": "缺口木筹",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "识别纹理"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-toolbox",
+      "name": "阿旺工具箱",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧木材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-drying-rack",
+      "name": "渔网晾晒架",
+      "category": "货物与生活道具",
+      "phase": "P2",
+      "baseMeshCount": 1,
+      "variants": [
+        "有网",
+        "空架"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "existing": [
+        {
+          "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+          "status": "procedural-source",
+          "note": "get_mesh支持drying_rack；现为运行时ArrayMesh，不是独立GLB交付。"
+        }
+      ],
+      "productionStatus": "reusable-after-review",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "prop-wreck-timber",
+      "name": "破船木段",
+      "category": "货物与生活道具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "焦黑材质",
+        "湿木材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "cargo-hold",
+        "inventory",
+        "item-detail",
+        "market",
+        "black-market",
+        "home",
+        "dialogue",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a3_s3",
+        "zheng_a5_s3"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。"
+      ]
+    },
+    {
+      "id": "gun-light",
+      "name": "轻炮炮身",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "铁色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a2_s7"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/fuchuan-lod0.glb",
+          "status": "file-present",
+          "note": "旧船GLB内有炮口、炮管与炮架节点；可提取适配但目前不是独立部件。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "gun-heavy",
+      "name": "重炮炮身",
+      "category": "武器与船具",
+      "phase": "P1",
+      "baseMeshCount": 1,
+      "variants": [
+        "旧铁材质"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a5_s3",
+        "zheng_a5_s4"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/fuchuan-lod0.glb",
+          "status": "file-present",
+          "note": "旧船GLB内有炮口、炮管与炮架节点；可提取适配但目前不是独立部件。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "gun-carriage",
+      "name": "通用木炮架",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "破损节点状态"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8"
+      ],
+      "existing": [
+        {
+          "path": "assets/models/ships/fuchuan-lod0.glb",
+          "status": "file-present",
+          "note": "旧船GLB内有炮口、炮管与炮架节点；可提取适配但目前不是独立部件。"
+        }
+      ],
+      "productionStatus": "adapt-existing",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "ammo-solid",
+      "name": "实心弹",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "铁锈"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a5_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "ammo-chain",
+      "name": "链弹",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "ammo-grape",
+      "name": "葡萄弹包",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "weapon-sabre",
+      "name": "短刀",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "鞘色"
+      ],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s3",
+        "zheng_a2_s7",
+        "zheng_a4_s1"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "tool-hook",
+      "name": "长篙钩",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a4_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "tool-axe",
+      "name": "砍桅断索斧",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [],
+      "lodLevels": 1,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a4_s7",
+        "zheng_a5_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    },
+    {
+      "id": "tool-oar",
+      "name": "长桨与篙",
+      "category": "武器与船具",
+      "phase": "P0",
+      "baseMeshCount": 1,
+      "variants": [
+        "木色"
+      ],
+      "lodLevels": 3,
+      "rigFamily": null,
+      "animations": [],
+      "pages": [
+        "ship-refit",
+        "equipment",
+        "ammo-loading",
+        "boarding",
+        "battle-damage"
+      ],
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a3_s10",
+        "zheng_a4_s7"
+      ],
+      "existing": [],
+      "productionStatus": "needs-new",
+      "notes": [
+        "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。"
+      ]
+    }
+  ],
+  "rigs": [
+    {
+      "id": "humanoid-adult",
+      "name": "成人共享骨架",
+      "sharedBy": [
+        "body-adult-male",
+        "body-adult-female",
+        "head-zheng",
+        "head-tagawamatsu",
+        "head-chenggong",
+        "head-awang",
+        "head-ahe-adult",
+        "head-chentian",
+        "head-duqi",
+        "head-ruan",
+        "head-eastasia-male",
+        "head-european-male",
+        "head-regional-male",
+        "garment-work-tunic",
+        "garment-officer-robe",
+        "garment-padded-armor",
+        "garment-japan-robe",
+        "garment-european-coat",
+        "headgear-seafarer",
+        "headgear-headcloth",
+        "headgear-official"
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "helm",
+        "haul",
+        "load-cannon",
+        "lookout",
+        "row",
+        "carry",
+        "lift-crate",
+        "repair",
+        "bail-water",
+        "talk",
+        "point",
+        "gesture-stop",
+        "sit",
+        "stand",
+        "bow",
+        "melee-attack",
+        "melee-defend",
+        "hit-react",
+        "injured-walk"
+      ]
+    },
+    {
+      "id": "humanoid-child",
+      "name": "儿童共享骨架",
+      "sharedBy": [
+        "body-child",
+        "head-fusong-child",
+        "head-ahe-child"
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "sit",
+        "hold-hand",
+        "give-item",
+        "look-up"
+      ]
+    }
+  ],
+  "twoDimensional": [
+    {
+      "id": "art-act",
+      "name": "六幕章首图",
+      "kind": "既有叙事插图复验",
+      "count": 6,
+      "pages": [
+        "chapter-select",
+        "chronicle"
+      ]
+    },
+    {
+      "id": "art-scene",
+      "name": "43场场景图",
+      "kind": "既有叙事插图复验",
+      "count": 43,
+      "pages": [
+        "scene-briefing",
+        "dialogue",
+        "decision",
+        "quest-detail",
+        "ending",
+        "home",
+        "child-growth"
+      ]
+    },
+    {
+      "id": "art-process",
+      "name": "战斗过程图",
+      "kind": "既有叙事插图复验",
+      "count": 8,
+      "pages": [
+        "battle-hud",
+        "battle-result",
+        "history-notes"
+      ]
+    },
+    {
+      "id": "art-portraits",
+      "name": "人物头像集",
+      "kind": "目标头像交付",
+      "count": 16,
+      "pages": [
+        "crew-detail",
+        "dialogue",
+        "relationships",
+        "family"
+      ]
+    },
+    {
+      "id": "art-goods",
+      "name": "六种货物图标",
+      "kind": "已有PNG复验",
+      "count": 6,
+      "pages": [
+        "market",
+        "cargo-hold",
+        "trade-order"
+      ]
+    },
+    {
+      "id": "art-ammo",
+      "name": "三种弹药图标",
+      "kind": "已有PNG复验",
+      "count": 3,
+      "pages": [
+        "ammo-loading"
+      ]
+    },
+    {
+      "id": "art-items",
+      "name": "装备与剧情物件图标",
+      "kind": "目标物件图标",
+      "count": 18,
+      "pages": [
+        "inventory",
+        "item-detail",
+        "equipment"
+      ]
+    },
+    {
+      "id": "art-maps",
+      "name": "航行与战术地图底层",
+      "kind": "地图绘制与底图",
+      "count": 2,
+      "pages": [
+        "sea-chart",
+        "route-plan",
+        "battle-orders",
+        "factions"
+      ]
+    },
+    {
+      "id": "art-ui-symbols",
+      "name": "通用UI符号",
+      "kind": "目标矢量图标",
+      "count": 32,
+      "pages": [
+        "main-menu",
+        "new-career",
+        "load-game",
+        "settings",
+        "accessibility",
+        "laboratory",
+        "experiment-detail",
+        "pause-menu",
+        "save-game",
+        "chapter-select",
+        "scene-briefing",
+        "dialogue",
+        "decision",
+        "history-notes",
+        "ending",
+        "sailing-hud",
+        "sea-chart",
+        "destination-detail",
+        "route-plan",
+        "weather-wind",
+        "sea-encounter",
+        "ship-overview",
+        "fleet",
+        "ship-refit",
+        "ship-repair",
+        "cargo-hold",
+        "shipyard",
+        "inventory",
+        "item-detail",
+        "equipment",
+        "character-profile",
+        "character-growth",
+        "crew-roster",
+        "crew-detail",
+        "crew-recruit",
+        "crew-assign",
+        "crew-morale",
+        "battle-hud",
+        "battle-orders",
+        "ammo-loading",
+        "boarding",
+        "battle-damage",
+        "battle-result",
+        "prize-distribution",
+        "port-hub",
+        "market",
+        "trade-order",
+        "contract-board",
+        "contract-detail",
+        "black-market",
+        "supplies",
+        "quest-journal",
+        "quest-detail",
+        "chronicle",
+        "intelligence",
+        "relationships",
+        "factions",
+        "faction-detail",
+        "diplomacy",
+        "sea-permits",
+        "bounty-board",
+        "home",
+        "family",
+        "child-growth",
+        "letters",
+        "letter-detail",
+        "send-letter-remittance",
+        "voyage-result",
+        "accounts",
+        "tutorial",
+        "defeat",
+        "notification-log"
+      ]
+    },
+    {
+      "id": "art-paper",
+      "name": "契约家书纸面框",
+      "kind": "目标界面纹理",
+      "count": 4,
+      "pages": [
+        "contract-detail",
+        "letter-detail",
+        "history-notes",
+        "accounts"
+      ]
+    },
+    {
+      "id": "art-ship-thumbs",
+      "name": "八船型检阅缩略图",
+      "kind": "由合格3D截图生成",
+      "count": 8,
+      "pages": [
+        "ship-overview",
+        "fleet",
+        "shipyard"
+      ]
+    },
+    {
+      "id": "art-flags",
+      "name": "势力与令旗图样",
+      "kind": "目标纹理",
+      "count": 8,
+      "pages": [
+        "sea-permits",
+        "factions",
+        "diplomacy",
+        "battle-orders"
+      ]
+    },
+    {
+      "id": "art-background",
+      "name": "福船概念与航行背景",
+      "kind": "本轮已有概念PNG复验",
+      "count": 2,
+      "pages": [
+        "ship-overview",
+        "sailing-hud"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "fx-ocean-weather",
+      "name": "海面、云雾与风雨表现",
+      "pages": [
+        "sailing-hud",
+        "weather-wind",
+        "battle-hud"
+      ]
+    },
+    {
+      "id": "fx-wake",
+      "name": "船尾尾迹与船首接触水沫",
+      "pages": [
+        "sailing-hud",
+        "fleet",
+        "battle-hud"
+      ]
+    },
+    {
+      "id": "fx-shore",
+      "name": "岸浪与浅滩覆盖",
+      "pages": [
+        "sailing-hud",
+        "port-hub"
+      ]
+    },
+    {
+      "id": "fx-cannon-flash",
+      "name": "炮口火与装填反馈",
+      "pages": [
+        "battle-hud",
+        "ammo-loading"
+      ]
+    },
+    {
+      "id": "fx-powder-smoke",
+      "name": "炮烟与遮挡",
+      "pages": [
+        "battle-hud",
+        "battle-orders"
+      ]
+    },
+    {
+      "id": "fx-wood-hit",
+      "name": "木屑与船体命中",
+      "pages": [
+        "battle-hud",
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "fx-water-hit",
+      "name": "弹着水花与落水",
+      "pages": [
+        "battle-hud",
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "fx-ship-fire",
+      "name": "火船火势与余烬",
+      "pages": [
+        "battle-hud",
+        "battle-damage",
+        "battle-result"
+      ]
+    },
+    {
+      "id": "fx-harbor-fire",
+      "name": "港区火与烟",
+      "pages": [
+        "port-hub",
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "fx-sinking",
+      "name": "沉船、漂浮木段与撤离",
+      "pages": [
+        "battle-result",
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "fx-character-impact",
+      "name": "船员受击与视觉碰撞",
+      "pages": [
+        "boarding",
+        "battle-damage"
+      ]
+    },
+    {
+      "id": "fx-interaction",
+      "name": "选中、目标、危险与无障碍反馈",
+      "pages": [
+        "main-menu",
+        "new-career",
+        "load-game",
+        "settings",
+        "accessibility",
+        "laboratory",
+        "experiment-detail",
+        "pause-menu",
+        "save-game",
+        "chapter-select",
+        "scene-briefing",
+        "dialogue",
+        "decision",
+        "history-notes",
+        "ending",
+        "sailing-hud",
+        "sea-chart",
+        "destination-detail",
+        "route-plan",
+        "weather-wind",
+        "sea-encounter",
+        "ship-overview",
+        "fleet",
+        "ship-refit",
+        "ship-repair",
+        "cargo-hold",
+        "shipyard",
+        "inventory",
+        "item-detail",
+        "equipment",
+        "character-profile",
+        "character-growth",
+        "crew-roster",
+        "crew-detail",
+        "crew-recruit",
+        "crew-assign",
+        "crew-morale",
+        "battle-hud",
+        "battle-orders",
+        "ammo-loading",
+        "boarding",
+        "battle-damage",
+        "battle-result",
+        "prize-distribution",
+        "port-hub",
+        "market",
+        "trade-order",
+        "contract-board",
+        "contract-detail",
+        "black-market",
+        "supplies",
+        "quest-journal",
+        "quest-detail",
+        "chronicle",
+        "intelligence",
+        "relationships",
+        "factions",
+        "faction-detail",
+        "diplomacy",
+        "sea-permits",
+        "bounty-board",
+        "home",
+        "family",
+        "child-growth",
+        "letters",
+        "letter-detail",
+        "send-letter-remittance",
+        "voyage-result",
+        "accounts",
+        "tutorial",
+        "defeat",
+        "notification-log"
+      ]
+    }
+  ],
+  "countingRules": [
+    "一条models记录等于一个独立基础资产，baseMeshCount固定为1；同一GLB内可含子mesh，不按primitive数量重复计。",
+    "身体、独立角色头部、可换外衣与帽具分别计数；下列模型不再暗含另一套未计头、外衣、门窗或炮架。",
+    "variants只枚举额外材质、同拓扑形变、装载或节点显隐配置，不乘算全部排列组合；需要新拓扑的变化须新增基模并重算。",
+    "每条lodLevels为3或1，目标交付表示数为sum(lodLevels)；这是未来文件预算，不是现成GLB数。DCC模型可交GLB，保留程序式者可交同数原生Mesh资源及生成代码。",
+    "骨架按rig family计，不按人物、LOD、实例数计。现有水手骨架只有1套，目标成人和儿童共2套。",
+    "动画片段按rigFamily+动作ID去重；无骨架道具按modelId+动作ID计。相同成人动作重定向不重复计；船帆morph、舵转、炮管后座、旗摆和物理沉没不是烘焙片段。",
+    "83基模不是83个必须新建模型，productionStatus区分全新、适配旧件与复验后复用；所有状态都不等于已完成美术验收。",
+    "PNG、人物肖像、57张剧情图、图标、字体、材质贴图、海面shader、粒子和音频均不算3D基模；单列2D与效果。",
+    "现有18船LOD文件与3水手LOD文件不按21个基础模型计；6个原版参照GLB不算许可已解决的正式生产资产。",
+    "重复船只、同船炮数、整港建筑实例、程序生成岛屿数量与阵营颜色不乘算基模。",
+    "P0+P1构成六幕单人预算；P2两个环境陈设可省。网页72页可以先用合格2D／可交互示意完成，不以全部3D制作阻塞网页目标。"
+  ]
+}

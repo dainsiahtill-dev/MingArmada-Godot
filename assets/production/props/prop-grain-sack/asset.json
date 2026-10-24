@@ -1,0 +1,130 @@
+{
+  "id": "prop-grain-sack",
+  "name": "米粮袋",
+  "category": "prop",
+  "phase": "P0",
+  "description": "米粮、船员口粮与劫粮剧情共用的软货容器。",
+  "visualBrief": "粗布鼓袋、扎口与底部压褶，袋身重心低；少量米粒可作可见节点，载货与手持有清楚抓点。",
+  "storyRefs": [
+    "zheng_a3_s6",
+    "zheng_a3_s7",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "market",
+    "cargo-hold",
+    "supplies",
+    "trade-order",
+    "black-market"
+  ],
+  "variants": [
+    "粮种标记",
+    "扎口／开口",
+    "满／半空同拓扑形变"
+  ],
+  "modelStrategy": "独立粮袋基模；同型香料袋复用本主体和标记，不按粮种与库存量建新模。",
+  "historicalStatus": "已有原创粮食PNG；容器细节待时代审查，不以货量节点声称真实储运标准。",
+  "existingImages": [
+    {
+      "path": "assets/art/goods/grain-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-grain-sack"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-grain-sack",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-grain-sack/reference/grain-v1-ca4197ca.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/goods/grain-v1.png",
+      "sha256": "ca4197ca775e730d035625c0ce414f5a170ae357c32c2f0b8dbbcc73a6c45ea3",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-grain-sack/reference/zheng_a4_s6-f59f02e8.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-grain-sack",
+      "path": "assets/production/props/prop-grain-sack/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "c665243e793d80d0d904aa5759bfcbf9ae15346bf0e170aecb361191df800b38",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/props/prop-grain-sack/reference/grain-v1-ca4197ca.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/goods/grain-v1.png",
+    "sha256": "ca4197ca775e730d035625c0ce414f5a170ae357c32c2f0b8dbbcc73a6c45ea3",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s6",
+      "legacyTitle": "红封舱里的抵偿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "black-market",
+      "title": "隐蔽锚地与销货"
+    }
+  ]
+}

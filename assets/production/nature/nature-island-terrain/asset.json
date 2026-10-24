@@ -1,0 +1,151 @@
+{
+  "id": "nature-island-terrain",
+  "name": "岛岸与浅滩地形母版",
+  "category": "nature",
+  "phase": "P0",
+  "description": "共享岛岸、沙滩、岩岸、岸路与水深碰撞需求，服务多个地域差异包。",
+  "visualBrief": "按可玩船尺度制作低远岸与近岸高差，砂/岩/草/土层过渡，岸路与码头接缝连续；实际地形大小由航速、镜头和导航测试确定，非历史测绘。",
+  "storyRefs": [
+    "zheng_a3_s2",
+    "zheng_a3_s3",
+    "zheng_a4_s6",
+    "zheng_a4_s7",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "port-hub",
+    "battle-hud",
+    "sea-chart"
+  ],
+  "variants": [
+    "低沙岸",
+    "岩岸狭口",
+    "背风锚地",
+    "湾岸"
+  ],
+  "modelStrategy": "程序式地形/水深数据与场景原生资源；不是独立手工3D基模，83增量0。岩块实例引用nature-rock，不能把岛数乘算基模。",
+  "historicalStatus": "地形母版与水深皆为游戏制作概念；未对应原始17世纪海图测深或已验地形复原。",
+  "existingImages": [
+    {
+      "path": "assets/textures/fidelity_island/terrain/weights_0.png",
+      "role": "data-texture-reference",
+      "note": "现有地形权重贴图；不是手工场景平面，也非真实历史水深。"
+    },
+    {
+      "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "procedural-terrain",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "modules/scene_engine/world/island_details.gd"
+  ],
+  "dependencies": [
+    "nature-rock",
+    "nature-shore-materials",
+    "nature-ground-materials"
+  ],
+  "categoryName": "自然与材质条件",
+  "assetDirectory": "assets/production/nature/nature-island-terrain",
+  "images": [
+    {
+      "path": "assets/production/nature/nature-island-terrain/reference/weights_0-7da036eb.png",
+      "role": "data-texture-reference",
+      "note": "现有地形权重贴图；不是手工场景平面，也非真实历史水深。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/weights_0.png",
+      "sha256": "7da036eb5e84ca181bc18fa880770234bfad01d66143ffb476bef22aafd1d38b",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "path": "assets/production/nature/nature-island-terrain/reference/port-hub-v2-edf92ad5.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "nature-island-terrain",
+      "path": "assets/production/nature/nature-island-terrain/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "0f865d333550325986a995ad42149a52d7ead9809c6c2e9322103eb537f1f6db",
+      "sha256": "bed703ad9940736013dfdcd2eec1defd29a8b854f13d708ece214cd5a8b3146e",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "nature-island-terrain",
+    "path": "assets/production/nature/nature-island-terrain/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "0f865d333550325986a995ad42149a52d7ead9809c6c2e9322103eb537f1f6db",
+    "sha256": "bed703ad9940736013dfdcd2eec1defd29a8b854f13d708ece214cd5a8b3146e",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "sea-chart",
+      "title": "东洋航海图"
+    }
+  ]
+}

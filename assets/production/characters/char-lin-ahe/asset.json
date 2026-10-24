@@ -1,0 +1,182 @@
+{
+  "id": "char-lin-ahe",
+  "name": "林阿禾",
+  "category": "named-character",
+  "phase": "P0",
+  "description": "原创少年水手，阿旺侄儿；后独立领船、离开杜七并自行参与救援。",
+  "visualBrief": "约十三岁出海，少年细瘦、略圆的脸；成年颧骨更清楚、晒痕重，灰米色旧衣、红褐发带/腰带作为可审查识别色。早期抱饭碗蹲低，成年操小艇、扶伤者，腰背绳伤只在相应阶段出现。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a3_s3",
+    "zheng_a3_s5",
+    "zheng_a4_s3",
+    "zheng_a5_s3",
+    "zheng_a5_s4",
+    "zheng_a6_s4"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "crew-assign",
+    "dialogue",
+    "relationships"
+  ],
+  "variants": [
+    "少年藏船",
+    "负伤少年",
+    "成年小艇领船"
+  ],
+  "modelStrategy": "儿童/少年身体与成人身体各适配；独立少年与成年头部，身份不加倍。",
+  "historicalStatus": "原创人物。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射ahe，上中；目视为青年脸，只适合成年/后少年参考，不冒充十三岁版本。",
+      "cropNormalized": {
+        "x": 0.3333333333333333,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-child",
+    "body-adult-male",
+    "head-ahe-child",
+    "head-ahe-adult",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "阿禾",
+    "少年阿禾"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-lin-ahe",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-lin-ahe/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射ahe，上中；目视为青年脸，只适合成年/后少年参考，不冒充十三岁版本。",
+      "cropNormalized": {
+        "x": 0.3333333333333333,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-lin-ahe/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-lin-ahe/reference/crew-portraits-723ae50b.png",
+    "role": "portrait-atlas-crop",
+    "note": "CSS映射ahe，上中；目视为青年脸，只适合成年/后少年参考，不冒充十三岁版本。",
+    "cropNormalized": {
+      "x": 0.3333333333333333,
+      "y": 0,
+      "width": 0.3333333333333333,
+      "height": 0.5
+    },
+    "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+    "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s5",
+      "legacyTitle": "鱼还没吃完",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s2",
+      "title": "来船没有回礼",
+      "legacyId": "zheng_a5_s3",
+      "legacyTitle": "港里先起的火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "crew-assign",
+      "title": "岗位与值守"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    }
+  ]
+}

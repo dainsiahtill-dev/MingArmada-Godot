@@ -1,0 +1,88 @@
+{
+  "id": "weapon-spear",
+  "name": "守船长枪",
+  "category": "melee-weapon",
+  "phase": "P1",
+  "description": "1629湾口接舷守船者明确以长枪逼住对方长刀。",
+  "visualBrief": "长直木杆、窄金属枪头、简短套箍；两手抓点与甲板通道净空需可读；穗可省，避免奇幻巨刃和夸张红缨。",
+  "storyRefs": [
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "boarding",
+    "battle-hud",
+    "history-notes"
+  ],
+  "variants": [
+    "杆材旧化",
+    "持用／倚放"
+  ],
+  "modelStrategy": "独立枪杆与枪头组成一个模块，守卫重复实例化；不与船篙混用，也不为阵营颜色再建基模。",
+  "historicalStatus": "needs-concept；剧本武器明确，具体枪头形制仍需史料／美术审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "冷兵器",
+  "assetDirectory": "assets/production/melee-weapons/weapon-spear",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/melee-weapons/weapon-spear/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "weapon-spear",
+      "path": "assets/production/melee-weapons/weapon-spear/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "c307a30a90bca0116fe659f3ad7f0cd9dd39191a924e2b0bf3f3c653c7bd2b2b",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "weapon-spear",
+    "path": "assets/production/melee-weapons/weapon-spear/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "c307a30a90bca0116fe659f3ad7f0cd9dd39191a924e2b0bf3f3c653c7bd2b2b",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

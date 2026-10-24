@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import {renderRebootExports,editorialOutputDirectory} from '../../../tools/render-zheng-reboot-exports.mjs';
+const dir=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(dir,'../../..'),reader=path.resolve(dir,'../zheng-zhilong');
+const source=fs.readFileSync(path.resolve(dir,'../zheng-zhilong-story.json')),story=JSON.parse(source),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+if(story.version!=='historical-reboot-illustrated-2026-10-24'||path.resolve(root,editorialOutputDirectory(story))!==dir)throw new Error('Expected this adopted illustrated edition');
+const manifest=JSON.parse(fs.readFileSync(path.join(reader,'illustration-manifest.json')));
+if(manifest.sourceSha256!==hash(source)||manifest.illustrations.length!==44)throw new Error('Manifest not bound to current source');
+for(const [file,content] of Object.entries(renderRebootExports(story)))fs.writeFileSync(path.join(file==='CAUSE-CHAIN.md'?dir:reader,file),content);
+const htmlFile=path.join(reader,'index.html');let html=fs.readFileSync(htmlFile,'utf8');
+html=html.replace(/((?:src|href)="(?:styles\.css|story-data\.js|app\.js))(?:\?[^" ]*)?"/g,'$1?v=20261024-illustrated"');
+html=html.replace('旧版本图像不用于证明本作场面。','本版44幅插图使用ChatGPT生成，对应各章的文学重建，不代表历史现场或人物真容。');
+fs.writeFileSync(htmlFile,html);
+const record={sourceSha256:hash(source),version:story.version,images:44,files:['novel.md','screenplay.md','game-scenes.md'].map(file=>{const b=fs.readFileSync(path.join(reader,file));return {file,bytes:b.length,sha256:hash(b)};})};
+fs.writeFileSync(path.join(dir,'export-verification.json'),JSON.stringify(record,null,2)+'\n');console.log(JSON.stringify(record));

@@ -1,0 +1,109 @@
+{
+  "id": "coastal-fishing-hamlet",
+  "name": "无名湾岸渔寮组",
+  "category": "coastal-building",
+  "phase": "P1",
+  "description": "湾口救人战的岸上聚落识别物，表现渔民生计与火势威胁；不把远景屋群都变成可进入建筑。",
+  "visualBrief": "1629虚构福建湾岸；建议2—4间低矮小屋与轻棚的小组，木柱、草/木遮面及少量旧瓦、岸边简易通道；平常与受火节点可切换，渔具货具另引。",
+  "storyRefs": [
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "scene-briefing",
+    "battle-hud",
+    "battle-damage",
+    "battle-result",
+    "port-hub"
+  ],
+  "variants": [
+    "未受火",
+    "局部起火",
+    "救人后焦损"
+  ],
+  "modelStrategy": "远景装配复用住宅/摊棚模块＋火烟效果，独立基模增量0；特写茅草新拓扑为待评估增补，不暗计在83内。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "已目视湾岸远景聚落和火势；无法从远景分离屋舍三视图；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "prefab-assembly",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "coastal-market-stall",
+    "building-warehouse-wall",
+    "building-pitched-roof",
+    "building-timber-wall"
+  ],
+  "categoryName": "沿海设施",
+  "assetDirectory": "assets/production/coastal/coastal-fishing-hamlet",
+  "images": [
+    {
+      "path": "assets/production/coastal/coastal-fishing-hamlet/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "已目视湾岸远景聚落和火势；无法从远景分离屋舍三视图；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "coastal-fishing-hamlet",
+      "path": "assets/production/coastal/coastal-fishing-hamlet/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "e8562b45646ad92f7a7e9cb13c7c42e504503a05a3f6180610f721623420c88d",
+      "sha256": "51abfc9ae64aba992c1cf683103c05e27e33effd8305b515c5b9d4bc59aac1e8",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "coastal-fishing-hamlet",
+    "path": "assets/production/coastal/coastal-fishing-hamlet/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "e8562b45646ad92f7a7e9cb13c7c42e504503a05a3f6180610f721623420c88d",
+    "sha256": "51abfc9ae64aba992c1cf683103c05e27e33effd8305b515c5b9d4bc59aac1e8",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "scene-briefing",
+      "title": "章场简报"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "battle-result",
+      "title": "海战结果"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    }
+  ]
+}

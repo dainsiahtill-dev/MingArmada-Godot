@@ -1,0 +1,91 @@
+{
+  "id": "head-eastasia-male",
+  "name": "东亚普通人物共享头部",
+  "category": "人物身体与头部",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "黄程面部形变",
+    "吉平面部形变",
+    "官员面部形变",
+    "船工面部形变"
+  ],
+  "lodLevels": 3,
+  "rigFamily": "humanoid-adult",
+  "animations": [],
+  "pages": [
+    "dialogue",
+    "character-profile",
+    "crew-detail",
+    "relationships",
+    "family",
+    "child-growth"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "assets/models/sailors/sailor-lod0.glb",
+      "status": "file-present",
+      "note": "实读GLB：1个skin、18关节、6个动作。整体含人物外形；拆出身体、头和衣物仍是待做适配。"
+    },
+    {
+      "path": "assets/models/sailors/sailor-lod1.glb",
+      "status": "file-present",
+      "note": "旧水手中LOD，未证明新服装与骨架兼容。"
+    },
+    {
+      "path": "assets/models/sailors/sailor-lod2.glb",
+      "status": "file-present",
+      "note": "旧水手远LOD，现有CrewView实际加载此族。"
+    }
+  ],
+  "productionStatus": "adapt-existing",
+  "notes": [
+    "独立头部确实计一基模；表情用同拓扑blend shape，非史实肖像复原。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a1_s1",
+    "zheng_a2_s1",
+    "zheng_a4_s1",
+    "zheng_a4_s4"
+  ],
+  "group": "characters",
+  "artJobs": [
+    "npc-eastasia"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/characters/head-eastasia-male",
+  "historyStatus": "identity-known-face-reconstructed",
+  "research": "docs/production/model-preproduction-2026-10-24/research-characters-clothing.md",
+  "originalRequirements": [
+    "char-huang-cheng",
+    "char-kippei",
+    "char-zheng-zhihu",
+    "char-cai-shanji",
+    "npc-deck-sailor",
+    "npc-helmsman-rower",
+    "npc-lookout",
+    "npc-gunner",
+    "npc-shipwright",
+    "npc-medic",
+    "npc-cargo-porter",
+    "npc-merchant-captain",
+    "npc-market-trader",
+    "npc-voyage-manager",
+    "npc-pirate-toll-collector",
+    "npc-chinese-shipping-agent",
+    "npc-recruit-informer",
+    "npc-ming-clerk-envoy",
+    "npc-ming-deck-guard",
+    "npc-japan-waterfront-worker",
+    "npc-family-escort",
+    "npc-tutor",
+    "npc-fishing-household",
+    "npc-mixed-raiding-swordsman",
+    "npc-domestic-servant",
+    "npc-courier-herald"
+  ],
+  "sketchStatus": "not-generated"
+}

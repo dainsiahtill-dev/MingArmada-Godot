@@ -1,0 +1,69 @@
+{
+  "verifiedAt": "2026-10-23T13:53:34.269Z",
+  "origin": "http://8.138.113.205:18794",
+  "frpcHost": "192.168.10.3",
+  "upstream": "192.168.10.4:8794",
+  "serverSha256": "640fb8f06394968ff3dd1804c4ad54cef2aea447a47f525c39281e10c104affb",
+  "allPassed": true,
+  "checks": [
+    {
+      "path": "/docs/narrative/zheng-zhilong/?edition=11",
+      "method": "GET",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "bytes": 6176,
+      "equalsLocalFile": true
+    },
+    {
+      "path": "/docs/narrative/zheng-zhilong/story-data.js",
+      "method": "HEAD",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/docs/narrative/zheng-zhilong/app.js",
+      "method": "HEAD",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/docs/narrative/zheng-zhilong/styles.css",
+      "method": "HEAD",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "method": "HEAD",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/.git/config",
+      "method": "HEAD",
+      "status": 403,
+      "expected": 403,
+      "passed": true
+    },
+    {
+      "path": "/tools/run-preview-8794.py",
+      "method": "HEAD",
+      "status": 403,
+      "expected": 403,
+      "passed": true
+    },
+    {
+      "path": "/docs/narrative/zheng-zhilong/images/",
+      "method": "HEAD",
+      "status": 403,
+      "expected": 403,
+      "passed": true
+    }
+  ],
+  "scope": "Actual HTTP requests through the provided public frp address from this computer; not a manual browser or independent mobile-network test."
+}

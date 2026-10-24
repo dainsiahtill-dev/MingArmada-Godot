@@ -1,0 +1,115 @@
+{
+  "id": "npc-voyage-manager",
+  "name": "随船管事与接洽人",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "黄程交代的管事、接武装航次者、管船排航者与出旗管事；不同关系人不强行合一。",
+  "visualBrief": "中年实用衣装、布帽、小账包；略收肩、看名单、伸手拦冲动上前者。经商与军务差事用腰袋/文书区分。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s3",
+    "zheng_a2_s4",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "fleet",
+    "accounts"
+  ],
+  "variants": [
+    "黄程随船管事",
+    "武装航次接洽",
+    "出旗经办"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-voyage-manager",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-voyage-manager/reference/zheng_a1_s6-f08a09ba.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-voyage-manager/reference/zheng_a1_s6-f08a09ba.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+    "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s4",
+      "legacyTitle": "他没有回去的那一航",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    }
+  ]
+}

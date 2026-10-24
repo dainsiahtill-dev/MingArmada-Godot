@@ -1,0 +1,132 @@
+{
+  "id": "prop-wreck-timber",
+  "name": "破船木段",
+  "category": "prop",
+  "phase": "P0",
+  "description": "风浪抛货、沉船、港火和搜索漂浮物共用；不替失踪人物虚构遗物。",
+  "visualBrief": "断裂厚木板与短梁组合，毛边、湿木、焦黑可读；漂浮重心、救援抓点与碰撞边保留简洁。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a3_s3",
+    "zheng_a5_s3",
+    "zheng_a5_s5"
+  ],
+  "uiPages": [
+    "battle-damage",
+    "battle-result",
+    "sailing-hud",
+    "dialogue"
+  ],
+  "variants": [
+    "湿木／焦黑材质",
+    "少量断口节点配置"
+  ],
+  "modelStrategy": "一个破木模块与有限断口节点反复实例化；船体碎片可以从正式船体生成，不重复制作每次战损的全船。",
+  "historicalStatus": "needs-concept；场景需求明确；1635不得用本条暗示已经找到郑芝虎遗体。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-wreck-timber"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-wreck-timber",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-wreck-timber/reference/zheng_a5_s3-572fe434.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-wreck-timber/reference/zheng_a5_s5-0b81d5b1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-wreck-timber",
+      "path": "assets/production/props/prop-wreck-timber/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "aab1e646453087a344b46e371754d8bc071f964cb25269d0feac73b14fb51895",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-wreck-timber",
+    "path": "assets/production/props/prop-wreck-timber/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "aab1e646453087a344b46e371754d8bc071f964cb25269d0feac73b14fb51895",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s2",
+      "title": "来船没有回礼",
+      "legacyId": "zheng_a5_s3",
+      "legacyTitle": "港里先起的火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "battle-result",
+      "title": "海战结果"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

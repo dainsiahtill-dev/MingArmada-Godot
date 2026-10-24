@@ -1,0 +1,107 @@
+{
+  "id": "npc-cargo-porter",
+  "name": "货栈伙计与码头搬运",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "搬箱、卸货、修扣与供水搬运的劳动群体；陈添单列。",
+  "visualBrief": "青年至中年，朴素蓝灰粗布、短袖或束袖、护肩垫变体；抬箱成对动作需共享载物锚点，重心低。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s2",
+    "zheng_a2_s1"
+  ],
+  "uiPages": [
+    "port-hub",
+    "cargo-hold",
+    "market"
+  ],
+  "variants": [
+    "栈房伙计",
+    "码头搬运",
+    "供水搬桶"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "scene-context",
+      "note": "澳门货栈劳动环境和抬货关系参考，无独立搬运工立绘。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-cargo-porter",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-cargo-porter/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "scene-context",
+      "note": "澳门货栈劳动环境和抬货关系参考，无独立搬运工立绘。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-cargo-porter/reference/zheng_a1_s1-eb7501a9.png",
+    "role": "scene-context",
+    "note": "澳门货栈劳动环境和抬货关系参考，无独立搬运工立绘。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+    "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    }
+  ]
+}

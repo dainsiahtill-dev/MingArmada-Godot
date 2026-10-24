@@ -1,0 +1,145 @@
+{
+  "id": "nature-shore-materials",
+  "name": "岸线干湿石砂材质集",
+  "category": "nature",
+  "phase": "P0",
+  "description": "石堤、沙滩、岩岸与近岸浅区的共享材料目标，避免不同港口重复生产相同基础表面。",
+  "visualBrief": "砂、湿砂、干岩、湿岩和潮水线的低频颜色/粗糙度差异；重复尺度按人/船比对，细节不抢战术可读性；纹理并非独立几何。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a2_s1",
+    "zheng_a4_s6",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "port-hub",
+    "sailing-hud",
+    "battle-hud"
+  ],
+  "variants": [
+    "干砂",
+    "湿砂",
+    "干岩",
+    "湿岩"
+  ],
+  "modelStrategy": "材质/纹理原件，独立基模0；复用到coastal-stone-step与nature-rock等，不另算每港材质为模型。",
+  "historicalStatus": "自然表面艺术概念；不构成任一港口历史材料取样或考古证据。",
+  "existingImages": [
+    {
+      "path": "assets/textures/fidelity_island/terrain/sand.png",
+      "role": "material-reference",
+      "note": "现有砂材质参照；需审来源与分发许可。"
+    },
+    {
+      "path": "assets/textures/fidelity_island/terrain/sandwet.png",
+      "role": "material-reference",
+      "note": "现有湿砂参照；非地形模型。"
+    },
+    {
+      "path": "assets/textures/fidelity_island/terrain/rock.png",
+      "role": "material-reference",
+      "note": "现有岩面参照；非岩礁独立原画。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "material-set",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "自然与材质条件",
+  "assetDirectory": "assets/production/nature/nature-shore-materials",
+  "images": [
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/sand-42258f3d.png",
+      "role": "material-reference",
+      "note": "现有砂材质参照；需审来源与分发许可。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/sand.png",
+      "sha256": "42258f3ddc140afb9df63c4ef52f8ef7bf88b89c8722932e34635068b793d402",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/sandwet-5c9f96a1.png",
+      "role": "material-reference",
+      "note": "现有湿砂参照；非地形模型。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/sandwet.png",
+      "sha256": "5c9f96a1b5a40198c4fa76588d15e69f0d5bd1e59eaae46fd41e2a810ef6dc82",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/rock-ff380c17.png",
+      "role": "material-reference",
+      "note": "现有岩面参照；非岩礁独立原画。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/rock.png",
+      "sha256": "ff380c179c70702e3c34e5ee7346b21303d43326c57393a9664f0e4a4283cd8d",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "id": "nature-shore-materials",
+      "path": "assets/production/nature/nature-shore-materials/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "b6653fe96ab5631dff6d4d077060fecec2a4a1ec628ad052b5236fdf377c7cce",
+      "sha256": "743a8f8cd02bb0f9a4848c82ae9e366c225a79e3acb02d41a865e20058c609d7",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "nature-shore-materials",
+    "path": "assets/production/nature/nature-shore-materials/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "b6653fe96ab5631dff6d4d077060fecec2a4a1ec628ad052b5236fdf377c7cce",
+    "sha256": "743a8f8cd02bb0f9a4848c82ae9e366c225a79e3acb02d41a865e20058c609d7",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    }
+  ]
+}

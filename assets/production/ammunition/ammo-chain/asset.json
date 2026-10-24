@@ -1,0 +1,103 @@
+{
+  "id": "ammo-chain",
+  "name": "链弹",
+  "category": "ammunition",
+  "phase": "P0",
+  "description": "保留现有游戏弹种；以牵制帆索的UI用途与战斗反馈出现。",
+  "visualBrief": "成对端部由松弛铁链相连，收拢与展开配置保持同一连接关系；不与普通圆弹混淆。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "ammo-loading",
+    "battle-hud",
+    "inventory",
+    "supplies"
+  ],
+  "variants": [
+    "旧化",
+    "储存摆放"
+  ],
+  "modelStrategy": "单件模块重复实例化；UI由合格模型正交渲染或复验现有PNG。弹药与炮身、炮架分别交付。",
+  "historicalStatus": "既有游戏设计；实心弹为时代通用形体，链弹／葡萄弹未核得本剧每场具体使用记录，history-notes不得写成确证史实。",
+  "existingImages": [
+    {
+      "path": "assets/art/ammo/chain-shot-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "ammo-chain"
+  ],
+  "categoryName": "弹药外观",
+  "assetDirectory": "assets/production/ammunition/ammo-chain",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ammunition/ammo-chain/reference/chain-shot-v1-b1bbb563.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/ammo/chain-shot-v1.png",
+      "sha256": "b1bbb5633f0f4f36bb45b3cc9a01026029803eeca6a2d53d954f419882eb2f42",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "ammo-chain",
+      "path": "assets/production/ammunition/ammo-chain/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "f7c9cf09ee55d607ac2034d1c8c34e4e8d7d11cc89b2d0191dcfcae14af8caa8",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ammunition/ammo-chain/reference/chain-shot-v1-b1bbb563.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/ammo/chain-shot-v1.png",
+    "sha256": "b1bbb5633f0f4f36bb45b3cc9a01026029803eeca6a2d53d954f419882eb2f42",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ammo-loading",
+      "title": "弹药与装填"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "prop-lantern",
+  "name": "船灯与提灯",
+  "category": "货物与生活道具",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "点亮材质",
+    "熄灭材质"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "cargo-hold",
+    "inventory",
+    "item-detail",
+    "market",
+    "black-market",
+    "home",
+    "dialogue",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+      "status": "procedural-source",
+      "note": "get_mesh支持lantern；现为运行时ArrayMesh，不是独立GLB交付。"
+    }
+  ],
+  "productionStatus": "reusable-after-review",
+  "notes": [
+    "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a1_s2",
+    "zheng_a1_s3",
+    "zheng_a3_s1"
+  ],
+  "group": "props",
+  "artJobs": [
+    "prop-lantern"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/props/prop-lantern",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "prop-lantern"
+  ],
+  "sketchStatus": "not-generated"
+}

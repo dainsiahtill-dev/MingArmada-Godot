@@ -1,0 +1,108 @@
+{
+  "id": "char-kippei",
+  "name": "吉平",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创平户日本船主，要求按期装水并合货出资；非田川亲属。",
+  "visualBrief": "成年至中年日本商船主创作方案，窄长脸、朴素靛褐短外衣、束发、无夸张武士铠甲；双手检查水桶/合货清单，重心靠泊船方向，避免与供水者同脸。",
+  "storyRefs": [
+    "zheng_a2_s1",
+    "zheng_a2_s5"
+  ],
+  "uiPages": [
+    "dialogue",
+    "trade-order",
+    "relationships"
+  ],
+  "variants": [
+    "装水候船",
+    "合货谈价"
+  ],
+  "modelStrategy": "共享东亚男性头部固定形变+平户衣装；暂无独立面孔参考。",
+  "historicalStatus": "原创人物，不是田川氏亲属的替身。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "role": "scene-context",
+      "note": "当前图聚焦一官与田川氏；吉平仅属于本场剧情上下文，未核到可裁面容。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-japan-robe"
+  ],
+  "aliases": [
+    "吉平",
+    "日本船主吉平"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-kippei",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-kippei/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-4ce39b16-b06c-4764-beea-4bb190b50058.png",
+      "promptId": "char-kippei",
+      "sha256": "d7456accc0720cf38b47abaa1f79fe78bd494813fcf60094bc3b0cd1184a0474",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-kippei/reference/zheng_a2_s1-31c72057.png",
+      "role": "scene-context",
+      "note": "当前图聚焦一官与田川氏；吉平仅属于本场剧情上下文，未核到可裁面容。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-kippei/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-4ce39b16-b06c-4764-beea-4bb190b50058.png",
+    "promptId": "char-kippei",
+    "sha256": "d7456accc0720cf38b47abaa1f79fe78bd494813fcf60094bc3b0cd1184a0474",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    }
+  ]
+}

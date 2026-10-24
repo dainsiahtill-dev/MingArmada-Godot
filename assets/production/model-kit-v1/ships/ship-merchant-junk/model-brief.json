@@ -1,0 +1,66 @@
+{
+  "id": "ship-merchant-junk",
+  "name": "中型海商货船",
+  "category": "船舶",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "粮运舱载",
+    "混载封包",
+    "火攻用空载配置"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "ship-overview",
+    "cargo-hold",
+    "fleet",
+    "shipyard",
+    "battle-hud"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "assets/models/ships/merchant-lod0.glb",
+      "status": "file-present",
+      "note": "旧自制船型LOD0文件存在；非当前活动provider，仍需形制、授权来源、材质与挂点审查。"
+    },
+    {
+      "path": "assets/models/ships/merchant-lod1.glb",
+      "status": "file-present",
+      "note": "旧LOD1存在，需验证轮廓与性能后适配。"
+    },
+    {
+      "path": "assets/models/ships/merchant-lod2.glb",
+      "status": "file-present",
+      "note": "旧LOD2存在，不能只凭文件名视为已验收。"
+    }
+  ],
+  "productionStatus": "adapt-existing",
+  "notes": [
+    "火船复用船壳和装载，不另算一艘船型；火烧通过效果与节点状态。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a1_s5",
+    "zheng_a2_s6",
+    "zheng_a3_s1",
+    "zheng_a3_s6",
+    "zheng_a3_s3",
+    "zheng_a4_s6"
+  ],
+  "group": "ships",
+  "artJobs": [
+    "ship-merchant-junk"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/ships/ship-merchant-junk",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
+  "originalRequirements": [
+    "ship-merchant-junk"
+  ],
+  "sketchStatus": "not-generated"
+}

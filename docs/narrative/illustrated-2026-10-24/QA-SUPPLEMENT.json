@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "illustration_reader_path",
+  "provider": "ChatGPT built-in image_gen",
+  "scope": "Four independently generated novel illustrations; each complete output visually inspected against its storyboard and source paragraphs, then PNG parsed and fully decoded. No claim of exact historical costume, building, vessel or portrait reconstruction.",
+  "reviews": [
+    {
+      "id": "zzl_a5_s3_01",
+      "sha256": "c5e4c6b5b95e8b8ad8e6b90a581a465d9d768efd0b6ff37146e8c1ae7c502a48",
+      "status": "accepted",
+      "observations": "成年郑森站稳窄跳板并抓住差役木棍，抱孩子的陌生妇人在旁，衣物散在脚边，等候乘客与普通客船形成征船现场。父亲没有被移到南京。已定点改掉差役的高帽、补纹和棍上金饰，最终为朴素布帽短袍和无饰木棍。年轻男子沿用成年成功脸型，场面非血腥；码头与衣着为文学概括。"
+    },
+    {
+      "id": "zzl_a5_s3_02",
+      "sha256": "920713bfb85a0e12455cea4b77aabb97d3f329aed1c55704bfc6c9c4db851892",
+      "status": "accepted",
+      "observations": "福建厅内，郑芝龙坐在中间悬笔，右侧成年鸿逵前倾按住展开的船册，左侧陈谦旁观，门口部属候命。鸿逵主动坚持而非被动受令；册上仅模糊笔迹，无可读公文。郑芝龙面貌较青年参考成熟，室内场景未保留港口；服装和房间不作精确历史复原。"
+    },
+    {
+      "id": "zzl_a6_s1_01",
+      "sha256": "6747b29bb7a8e999763727262ed91a00d0bcbeecf9773cbb4ba79b0d647cb649",
+      "status": "accepted",
+      "observations": "父亲约四十余岁，细髭与面部纹理明显；成年儿子约二十一，清瘦无须。父亲替儿子压领，旁边随从退开，远端官员候着，父子目光与动作对应第6段。第一稿残留水港远景，最终已改成围墙、灰瓦与回廊组成的内院，无船、海港或童年福松。"
+    },
+    {
+      "id": "zzl_a6_s1_02",
+      "sha256": "682a6cb28faf43dcdfe1106c5430dbe3739c4bb5d475a38c873701483384a14a",
+      "status": "accepted",
+      "observations": "左侧田川氏以口形和手势示范家乡话，中间成年成功含笑复述，右侧父亲带些窘意听着；桌上有小银包与不可读口信。母亲沿用年轻时脸型而显成熟，未画成孕妇；儿子为成年男子，留日幼子未被画进来。三人在封闭家居房内自然交流，未照搬港口或朝仪廊下；无可读文字、现代设备或清代辫发。"
+    }
+  ],
+  "rejected": [
+    {
+      "id": "zzl_a6_s1_01",
+      "attempt": 1,
+      "generatedFile": "C:/Users/dains/.codex/generated_images/01a169e8-1734-7082-ad39-0b43c7c33d63/exec-bda11668-a9f0-4445-8465-22797878ff64.png",
+      "sha256": "9c8d3ffc52cc4633856efd7132eed5b59376c204de3352f2a6faff479e006dc2",
+      "status": "rejected",
+      "observations": "父子脸和整衣动作可用，但背景仍有参考图的水港与船，违反新场景不保留原港口的约束。用内置image_gen定点替换为议事处内院，原稿保留在生成目录，未登记为选图。"
+    },
+    {
+      "id": "zzl_a5_s3_01",
+      "attempt": 1,
+      "generatedFile": "C:/Users/dains/.codex/generated_images/01a169e8-1734-7082-ad39-0b43c7c33d63/exec-3b8a9b35-b8d1-40ed-a79d-2636ce02cdab.png",
+      "sha256": "ca6fc841abb715dd900026404cd367fa80f0d5ba63199d1f16531daa0e2d7055",
+      "status": "rejected",
+      "observations": "主要拦棍和保护妇人动作正确，但差役高帽、胸前补纹与金饰棍可能暗示过高身份，不符合普通差役/木棍的克制设定。内置image_gen定点改成朴素布帽短袍和无饰木棍，原稿未作为选图。"
+    }
+  ],
+  "validation": {
+    "acceptedImages": 4,
+    "uniqueHashes": 4,
+    "format": "PNG",
+    "width": 1536,
+    "height": 1024,
+    "inspectImage": "passed for all four through record-generation",
+    "pillowVerifyAndLoad": "passed for all four",
+    "receiptHashesAndDimensions": "matched for all four",
+    "prompts": "SUPPLEMENT-PROMPTS.json"
+  }
+}

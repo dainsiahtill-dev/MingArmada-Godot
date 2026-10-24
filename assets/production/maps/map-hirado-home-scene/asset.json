@@ -1,0 +1,152 @@
+{
+  "id": "map-hirado-home-scene",
+  "name": "平户家居共享剧情空间",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "小木屋的门槛、屋檐与起居间，供成家、托信和送子镜头复用。",
+  "visualBrief": "近人尺度的檐下、门内起居角与可远望港巷的出口；灯夜、孩子用品和空位由陈设包切换，保证母子日常空间连续。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a2_s3",
+    "zheng_a2_s5",
+    "zheng_a5_s1",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "child-growth",
+    "dialogue",
+    "letter-detail"
+  ],
+  "variants": [
+    "新居灯夜",
+    "母婴来信",
+    "送子收箱",
+    "多年等待"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。引用building-hirado-home装配；此条是镜头/可行走区域与状态包，住宅本体不再计数。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "role": "story-context",
+      "note": "屋檐共同护灯；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "role": "story-context",
+      "note": "送子前收行李；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-mother",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-hirado-home"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-hirado-home-scene",
+  "images": [
+    {
+      "path": "assets/production/maps/map-hirado-home-scene/reference/zheng_a2_s2-4db31f0b.png",
+      "role": "story-context",
+      "note": "屋檐共同护灯；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-home-scene/reference/zheng_a5_s1-19aef039.png",
+      "role": "story-context",
+      "note": "送子前收行李；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-hirado-home-scene",
+      "path": "assets/production/maps/map-hirado-home-scene/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "6956fd8aa7ce61c17948a14ba91e3799b7e4705ded36d5609446014aff2dc1e1",
+      "sha256": "d48439361c405df3626b97905f5c3853f7f2c0f37a20bdc82af9953640ca8464",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-hirado-home-scene",
+    "path": "assets/production/maps/map-hirado-home-scene/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "6956fd8aa7ce61c17948a14ba91e3799b7e4705ded36d5609446014aff2dc1e1",
+    "sha256": "d48439361c405df3626b97905f5c3853f7f2c0f37a20bdc82af9953640ca8464",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "letter-detail",
+      "title": "一封家书"
+    }
+  ]
+}

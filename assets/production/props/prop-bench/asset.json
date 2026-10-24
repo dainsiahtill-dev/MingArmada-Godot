@@ -1,0 +1,106 @@
+{
+  "id": "prop-bench",
+  "name": "坐凳与长凳",
+  "category": "prop",
+  "phase": "P0",
+  "description": "货栈谈判、伤后照料与家居落座；刀鞘落凳有剧情用途。",
+  "visualBrief": "朴素窄木面、低横撑与榫接感，座面可容成人坐姿；坐点和双手撑点明确。",
+  "storyRefs": [
+    "zheng_a1_s4",
+    "zheng_a3_s4",
+    "zheng_a4_s1"
+  ],
+  "uiPages": [
+    "dialogue",
+    "home",
+    "crew-detail"
+  ],
+  "variants": [
+    "木色旧化",
+    "短／长同结构适配"
+  ],
+  "modelStrategy": "独立凳基模；长度同拓扑适配，环境装配只引用此件，桌凳不是一整套隐藏复模。",
+  "historicalStatus": "needs-concept；朴素生活器物设计，未经家具断代鉴定。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-bench"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-bench",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-bench/reference/zheng_a4_s1-6c3023ec.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-bench",
+      "path": "assets/production/props/prop-bench/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "740459253c192bfbf8d35bbe899bde2ebbbe4f040ef49b0ae024b6720a180b05",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-bench",
+    "path": "assets/production/props/prop-bench/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "740459253c192bfbf8d35bbe899bde2ebbbe4f040ef49b0ae024b6720a180b05",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s1",
+      "legacyTitle": "刀落在桌上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    }
+  ]
+}

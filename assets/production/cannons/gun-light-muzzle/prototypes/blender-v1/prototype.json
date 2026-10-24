@@ -1,0 +1,51 @@
+{
+  "status": "prototype",
+  "date": "2026-10-24",
+  "blender": "5.4.0 Alpha",
+  "source": "tools\\blender\\create_light_cannon_demo.py",
+  "assetIds": [
+    "gun-light-muzzle",
+    "gun-deck-carriage"
+  ],
+  "reference": "assets/production/cannons/gun-light-muzzle/concept/original-v1.png",
+  "lods": [
+    {
+      "lod": 0,
+      "file": "light-cannon-lod0.glb",
+      "triangles": 15044,
+      "vertices": 7684,
+      "meshObjects": 50
+    },
+    {
+      "lod": 1,
+      "file": "light-cannon-lod1.glb",
+      "triangles": 7524,
+      "vertices": 3892,
+      "meshObjects": 50
+    },
+    {
+      "lod": 2,
+      "file": "light-cannon-lod2.glb",
+      "triangles": 1196,
+      "vertices": 652,
+      "meshObjects": 20
+    }
+  ],
+  "materials": [
+    "Oak_game_PBR",
+    "Iron_game_PBR",
+    "Iron_edges",
+    "Muzzle_visual_recess"
+  ],
+  "textures": [
+    "textures/oak_albedo.png",
+    "textures/iron_albedo.png"
+  ],
+  "boundsPolicy": "Fictional game proportions; historical scale and engine socket alignment not yet approved.",
+  "limitations": [
+    "External visual model only.",
+    "No internal mechanism or manufacturing specification.",
+    "Not yet imported or accepted in Godot.",
+    "No final historical or commercial-art acceptance."
+  ]
+}

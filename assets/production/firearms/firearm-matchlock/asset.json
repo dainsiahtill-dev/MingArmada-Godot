@@ -1,0 +1,119 @@
+{
+  "id": "firearm-matchlock",
+  "name": "鸟铳与长火绳枪",
+  "category": "firearm",
+  "phase": "P1",
+  "description": "补足炮与个人火器的区分；吕宋脱险、米船伏击等枪声所需的持用形体。剧本未逐支标明枪种。",
+  "visualBrief": "长细钢铁管搭配木托，侧面火绳夹轮廓清楚，肩托形式按同代区域样本审查；双手、背带和腰侧火绳为角色挂点。禁止燧发机构、雷管、现代导轨及后世清代豪华御用样式。",
+  "storyRefs": [
+    "zheng_a3_s9",
+    "zheng_a4_s6",
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "boarding",
+    "equipment",
+    "battle-hud",
+    "history-notes"
+  ],
+  "variants": [
+    "区域木托／朴素金属材质",
+    "携行／持用姿态"
+  ],
+  "modelStrategy": "一个长火绳枪主体先覆盖区域普通兵员；日本／欧洲差异先由木托配件审查，若轮廓和手位不同才加新主体。不能复用炮身或把长枪缩为手枪。",
+  "historicalStatus": "needs-concept；HS-03明刊本支持明末火绳枪的时代背景；HS-04提供晚16至早17世纪日本藏品对照。将具体枪声画成鸟铳仍是设计推断，非已证型号。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "个人火器",
+  "assetDirectory": "assets/production/firearms/firearm-matchlock",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/firearms/firearm-matchlock/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-08b914f7-7775-4d73-b426-462cac73142b.png",
+      "promptId": "firearm-matchlock",
+      "sha256": "d4683fe5c971878015b125c4ce22d3fcdf3bea70cfb22589ab3b8e3d85be8278",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/firearms/firearm-matchlock/reference/zheng_a4_s6-f59f02e8.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "firearm-matchlock",
+      "path": "assets/production/firearms/firearm-matchlock/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "d93e7c03b12358a85c19b92e85dc2f61bd457be5cbee116f040a3da317166c97",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/firearms/firearm-matchlock/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-08b914f7-7775-4d73-b426-462cac73142b.png",
+    "promptId": "firearm-matchlock",
+    "sha256": "d4683fe5c971878015b125c4ce22d3fcdf3bea70cfb22589ab3b8e3d85be8278",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

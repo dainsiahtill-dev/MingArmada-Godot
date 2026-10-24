@@ -1,0 +1,130 @@
+{
+  "id": "prop-cloth-bale",
+  "name": "布匹货包与布卷",
+  "category": "prop",
+  "phase": "P0",
+  "description": "六货种中的布／丝绸，兼家用布、争议封包与市场展示。",
+  "visualBrief": "柔软长方布包或卷布、外层包布、绳扎与小封记；货包体量以双手抬抱为准，留可拆封处。",
+  "storyRefs": [
+    "zheng_a2_s3",
+    "zheng_a3_s6",
+    "zheng_a3_s7"
+  ],
+  "uiPages": [
+    "market",
+    "cargo-hold",
+    "trade-order",
+    "black-market",
+    "home"
+  ],
+  "variants": [
+    "布色与丝绸材质",
+    "普通／红封",
+    "家用小卷配置"
+  ],
+  "modelStrategy": "一个布包主体加可替换布卷节点；折叠旧衣可复用软布布局或角色服装，不额外制造每种花纹基模。",
+  "historicalStatus": "既有货物图可作产品外观起点；丝绸纹样、包法为创作方案，待时代审查。",
+  "existingImages": [
+    {
+      "path": "assets/art/goods/silk-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-cloth-bale"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-cloth-bale",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-cloth-bale/reference/silk-v1-1c7dd23b.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/goods/silk-v1.png",
+      "sha256": "1c7dd23b3a4be60593a059a94718abbfdc5081bbcbe886aa2e3c23198d2c588c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-cloth-bale/reference/zheng_a3_s6-8413c0a1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-cloth-bale",
+      "path": "assets/production/props/prop-cloth-bale/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "3510c1213fb7ec9df484f03109738da094b13b445d6e8274fa8bdab628b30bec",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/props/prop-cloth-bale/reference/silk-v1-1c7dd23b.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/goods/silk-v1.png",
+    "sha256": "1c7dd23b3a4be60593a059a94718abbfdc5081bbcbe886aa2e3c23198d2c588c",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s6",
+      "legacyTitle": "红封舱里的抵偿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "black-market",
+      "title": "隐蔽锚地与销货"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    }
+  ]
+}

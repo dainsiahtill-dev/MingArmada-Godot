@@ -1,0 +1,50 @@
+{
+  "id": "nature-shore-tree",
+  "name": "风塑矮岸树",
+  "category": "自然环境陈设",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "风向姿态参数"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "sailing-hud",
+    "sea-chart",
+    "port-hub",
+    "battle-hud",
+    "home"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+      "status": "procedural-source",
+      "note": "get_mesh支持shore_tree；现为运行时ArrayMesh，不是独立GLB交付。"
+    }
+  ],
+  "productionStatus": "reusable-after-review",
+  "notes": [
+    "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s3"
+  ],
+  "group": "environment",
+  "artJobs": [
+    "nature-shore-tree"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/environment/nature-shore-tree",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "nature-shore-tree"
+  ],
+  "sketchStatus": "not-generated"
+}

@@ -1,0 +1,4906 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-10-21T18:16:32.530270+00:00",
+  "status": "passed",
+  "scope": "真实CUA浏览器截图的离线文件核验与证据排版；不重新执行浏览器或Godot",
+  "capture": {
+    "method": "CUA Tab.screenshot({fullPage:true})",
+    "performedBy": "root代理的独立IAB截图会话；本文件生成者执行离线核验",
+    "baseUrl": "http://127.0.0.1:8794/docs/design/game-ui/prototype/",
+    "urlPattern": "?capture=1#<screen-id>",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "format": "JPEG",
+    "disclaimer": "真实网页UI原型截图，不是Godot正式游戏或历史图像证据。",
+    "dimensionNote": "记录JPEG实际尺寸；60张宽1440、12张长页宽1424。viewport与完整页面截图尺寸分开，不把滚动页面强写成1440×1000。"
+  },
+  "evidence": {
+    "catalog": {
+      "path": "../systems.json",
+      "sha256": "6c4cc5af97dbec7768ab729f66f2511f1e5d7d44b1878e380435078c05ee5e99"
+    },
+    "browserChecks": {
+      "path": "previews/browser-checks.json",
+      "sha256": "25fb9fc8f1e658b3d4d63a067c57bcb12527dd5703409d3f2b7b0f0200c1ee58",
+      "records": 72
+    },
+    "browserFieldsChecked": [
+      "id/page匹配",
+      "标题匹配",
+      "document.images全部loaded",
+      "scrollWidth不超过clientWidth",
+      "无NaN/undefined",
+      "记录字节数匹配文件"
+    ],
+    "notCoveredByOfflineCheck": [
+      "未独立重放浏览器、控制台或点击流程",
+      "CSS背景资源是否加载及视觉质量仍依赖真实浏览器/目视证据",
+      "无Godot、GPU或原生业务验收"
+    ]
+  },
+  "validation": {
+    "expectedPages": 72,
+    "filesVerified": 72,
+    "browserFactsPassed": 72,
+    "pagesPassed": 72,
+    "uniqueFileHashes": 72,
+    "uniqueDecodedPixelHashes": 72,
+    "byteDuplicateGroups": [],
+    "pixelDuplicateGroups": [],
+    "completelyBlankPages": [],
+    "widthCounts": {
+      "1424": 12,
+      "1440": 60
+    },
+    "heightRange": [
+      1000,
+      1466
+    ],
+    "minimumLumaStddev": 16.5666,
+    "originalScreenshotsUnchanged": true,
+    "contactSheets": 6,
+    "exceptions": [],
+    "additionalEvidenceFiles": 1
+  },
+  "pages": [
+    {
+      "order": 1,
+      "id": "main-menu",
+      "title": "一官入海 · 主菜单",
+      "filename": "previews/main-menu.jpg",
+      "bytes": 192282,
+      "sha256": "559321244565134b6c26765c99a7414fe0457413de04f8490e7ddb909d333ffc",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "a402ea7d2ce2945ce8c88b94b74b156d9164853472aead0f642ac6772e9d0b53",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          48.8204,
+          37.4298,
+          33.982
+        ],
+        "lumaStddev": 39.2641
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "main-menu",
+        "title": "一官入海 · 主菜单",
+        "badText": false,
+        "images": [],
+        "page": "main-menu",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 192282
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 2,
+      "id": "new-career",
+      "title": "新生涯",
+      "filename": "previews/new-career.jpg",
+      "bytes": 96273,
+      "sha256": "103d49cfeb7748103e1592b73bbacf407e0f8a179e1426924e3b18440ba23af5",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "3cfc28490728b68ffaba5eb8d1f3c7b827d728c5e9a8de7d5a9794b26059f345",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          39.9214,
+          35.7017,
+          35.2621
+        ],
+        "lumaStddev": 36.6575
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "new-career",
+        "title": "新生涯",
+        "badText": false,
+        "images": [],
+        "page": "new-career",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 96273
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 3,
+      "id": "load-game",
+      "title": "载入生涯",
+      "filename": "previews/load-game.jpg",
+      "bytes": 72309,
+      "sha256": "485deb87f88729a7f40324e5df3fe64fed4ed492eb3f264d57cfdcbcd50bcb02",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "f9ec216d64b10e4461ea5b49aeb8ab6120bd4db40ddc2c9cfc53a66eaa24672c",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          25.4836,
+          25.1359,
+          26.7565
+        ],
+        "lumaStddev": 24.7792
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "load-game",
+        "title": "载入生涯",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          },
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          },
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          }
+        ],
+        "page": "load-game",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 72309
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 4,
+      "id": "settings",
+      "title": "航行与声音设置",
+      "filename": "previews/settings.jpg",
+      "bytes": 65545,
+      "sha256": "facbf57ca3709f6f032f2febbb2a1b7158bbe16a23d26eb25b419ccae12ef568",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "e5c3ba543f8ef7078bd0a3d6780cf9945a6bea3a8e8b3cc6e738ad6a6750ee8d",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          20.71,
+          19.6549,
+          17.8536
+        ],
+        "lumaStddev": 19.6312
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "settings",
+        "title": "航行与声音设置",
+        "badText": false,
+        "images": [],
+        "page": "settings",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 65545
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 5,
+      "id": "accessibility",
+      "title": "无障碍与阅读",
+      "filename": "previews/accessibility.jpg",
+      "bytes": 62762,
+      "sha256": "947d50d6abf4f69eb9df35cecbd3d8920bf54ff34f57868d47a7a7f3c5db8d4b",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "149772433e69e9bd5abf45d041099877a9e58db3efcb3a4cf62269aafe1b2996",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          19.1353,
+          18.5436,
+          17.0891
+        ],
+        "lumaStddev": 18.44
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "accessibility",
+        "title": "无障碍与阅读",
+        "badText": false,
+        "images": [],
+        "page": "accessibility",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 62762
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 6,
+      "id": "laboratory",
+      "title": "航海实验室",
+      "filename": "previews/laboratory.jpg",
+      "bytes": 115647,
+      "sha256": "e6b14f024278333f3b46367f1fd2f7647d0948fc43c21070aaf522944308577b",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "099b37ba90b979a3d1f7d9bb93ff35345c2780f30240461f61714c5987d7bc87",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          38.1878,
+          32.0144,
+          30.8696
+        ],
+        "lumaStddev": 33.454
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "laboratory",
+        "title": "航海实验室",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png"
+          }
+        ],
+        "page": "laboratory",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 115647
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 7,
+      "id": "experiment-detail",
+      "title": "实验课题与对照",
+      "filename": "previews/experiment-detail.jpg",
+      "bytes": 133814,
+      "sha256": "6905915d54f10ed7e4fe2cc23eaf4193719f162d0d3bf1211d7e8c8e166135c4",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "85f97bf431ea68dbaab6a0917adeb33f8fc2eac4b03efb7541bc2a6b027bcfbf",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          38.4749,
+          42.0536,
+          52.1902
+        ],
+        "lumaStddev": 40.4343
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "experiment-detail",
+        "title": "实验课题与对照",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          }
+        ],
+        "page": "experiment-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 133814
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 8,
+      "id": "pause-menu",
+      "title": "暂停",
+      "filename": "previews/pause-menu.jpg",
+      "bytes": 99012,
+      "sha256": "edc4d04ba9e5b6bc320c0553c869d8e7311d2249de59335d67208a97fca68e94",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "015c34befd43abcb18170a57a7dc1ff442df61344eb3a3b92d830f4c9b982023",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          29.7967,
+          33.5651,
+          41.2995
+        ],
+        "lumaStddev": 32.1322
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "pause-menu",
+        "title": "暂停",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          }
+        ],
+        "page": "pause-menu",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 99012
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 9,
+      "id": "save-game",
+      "title": "保存生涯",
+      "filename": "previews/save-game.jpg",
+      "bytes": 74713,
+      "sha256": "009ff84087726c97b7ccae04e825a1e8f22267d413ab08c93aac53ae71a95a89",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "9f352af53d3f5e50ca9c10ec09c7869b3d32bc63c7d3019d0bdee879ccc5f8a3",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          25.9177,
+          25.4185,
+          26.917
+        ],
+        "lumaStddev": 25.0911
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "save-game",
+        "title": "保存生涯",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          },
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          },
+          {
+            "loaded": true,
+            "src": "assets/sailing-background.png"
+          }
+        ],
+        "page": "save-game",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 74713
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 10,
+      "id": "chapter-select",
+      "title": "六幕章场",
+      "filename": "previews/chapter-select.jpg",
+      "bytes": 138661,
+      "sha256": "4f62eb11ad4039837eaee09a8b157a5743009d02159624a4568e5cca9a78c3bf",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "b873e6a040bbc3e09c1ce712098d6501e0417cbebc82681f27c45d1b14a0a785",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          45.9713,
+          39.5099,
+          38.1163
+        ],
+        "lumaStddev": 40.9481
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "chapter-select",
+        "title": "六幕章场",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/act-1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/act-2.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/act-3.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/act-4.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/act-5.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/act-6.png"
+          }
+        ],
+        "page": "chapter-select",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 138661
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 11,
+      "id": "scene-briefing",
+      "title": "章场简报",
+      "filename": "previews/scene-briefing.jpg",
+      "bytes": 151477,
+      "sha256": "4a152d5bdd22e13eeee92962889457302645fca791ccc36ff9fbf8e39aacfac2",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "480a6678652a99492c15b5607eb40362bba2ec48b4e2b75c971e8cb89d3dcfca",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          75.1416,
+          68.1361,
+          64.4686
+        ],
+        "lumaStddev": 69.6327
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "scene-briefing",
+        "title": "章场简报",
+        "badText": false,
+        "images": [],
+        "page": "scene-briefing",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 151477
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 12,
+      "id": "dialogue",
+      "title": "人物对话",
+      "filename": "previews/dialogue.jpg",
+      "bytes": 129981,
+      "sha256": "64c3f31489f2ba1b352f760c0471c1cc84b399ac101e215fda8e94b93dc6f834",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "b88c9324fd4ff798e9733990689a3500f415b7cd306c70f04921652e51aecdd0",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          69.5335,
+          61.0525,
+          57.7904
+        ],
+        "lumaStddev": 62.8953
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "dialogue",
+        "title": "人物对话",
+        "badText": false,
+        "images": [],
+        "page": "dialogue",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 129981
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 13,
+      "id": "decision",
+      "title": "行动安排",
+      "filename": "previews/decision.jpg",
+      "bytes": 120474,
+      "sha256": "ace5e7cca74a7c03f6757ac62b65d638a3e9482f86fad047957cda5bc474059a",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "7f8fec636b84065a81a5f3d588a5deb304bd04eb90686db5b0aebad44d01d391",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          46.526,
+          38.5372,
+          36.6639
+        ],
+        "lumaStddev": 40.2745
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "decision",
+        "title": "行动安排",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png"
+          }
+        ],
+        "page": "decision",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 120474
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 14,
+      "id": "history-notes",
+      "title": "史料与创作边界",
+      "filename": "previews/history-notes.jpg",
+      "bytes": 67248,
+      "sha256": "79670a27e93900387628964a92c6bdef0115253c342152fb7af71b3aba5c42bc",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "a6f10567d9e2329eb082603f05de04baf71886603e3132b8609a139eea59fa8f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          89.1142,
+          75.5438,
+          62.6577
+        ],
+        "lumaStddev": 78.0708
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "history-notes",
+        "title": "史料与创作边界",
+        "badText": false,
+        "images": [],
+        "page": "history-notes",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 67248
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 15,
+      "id": "ending",
+      "title": "未回的船 · 终章",
+      "filename": "previews/ending.jpg",
+      "bytes": 92873,
+      "sha256": "fb16d08d8f96a5f08a922fd0e59d7d7bd7f65c3f5f8330772471c7f82976a4b5",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "a46ec5fa787cf38cff7e1bc9ead3f28e1c50dc0c9a594ccb2f1853d80c045f70",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          46.0703,
+          42.8246,
+          41.5923
+        ],
+        "lumaStddev": 43.4942
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "ending",
+        "title": "未回的船 · 终章",
+        "badText": false,
+        "images": [],
+        "page": "ending",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 92873
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 16,
+      "id": "sailing-hud",
+      "title": "海上航行",
+      "filename": "previews/sailing-hud.jpg",
+      "bytes": 257218,
+      "sha256": "77c6babdc8aad7f65f0a41d71deacf5f6bde61070f914f649a6c3361e1759e8b",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "29430a072684529212fdc380749847b5b03bad2aa3cd21064432af19a81bc523",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          60.2469,
+          47.3033,
+          57.566
+        ],
+        "lumaStddev": 48.917
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "sailing-hud",
+        "title": "海上航行",
+        "badText": false,
+        "images": [],
+        "page": "sailing-hud",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 257218
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 17,
+      "id": "sea-chart",
+      "title": "东洋航海图",
+      "filename": "previews/sea-chart.jpg",
+      "bytes": 150421,
+      "sha256": "74452eae573edf0d2ab161db6ab68e7d8f9e4298a230f6962641629afff73f6d",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1005,
+      "decodedPixelSha256": "4831f6161f9972738667e8f069e3eadb77d83492217c9434af7dd7490f615104",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          34.1017,
+          32.0234,
+          24.9423
+        ],
+        "lumaStddev": 31.5045
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "sea-chart",
+        "title": "东洋航海图",
+        "badText": false,
+        "images": [],
+        "page": "sea-chart",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 150421
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 18,
+      "id": "destination-detail",
+      "title": "目的地与靠泊",
+      "filename": "previews/destination-detail.jpg",
+      "bytes": 102340,
+      "sha256": "10685a5d1213dc6d83e1bd4e95f1b7238049d42d05a53fd82b7121d308dd8f0c",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "b3bcecaec71d19016e5da9a22461fcc06deb61056b1ec19c4aceee7381d3cc91",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          36.296,
+          27.3962,
+          25.2259
+        ],
+        "lumaStddev": 29.4408
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "destination-detail",
+        "title": "目的地与靠泊",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png"
+          }
+        ],
+        "page": "destination-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 102340
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 19,
+      "id": "route-plan",
+      "title": "航路筹划",
+      "filename": "previews/route-plan.jpg",
+      "bytes": 151314,
+      "sha256": "45add557cb4de06915a8d83bd94a589c9ca37d200beefd0167cd2080d3dc528e",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1005,
+      "decodedPixelSha256": "3b74526e43850ba59d602e02cc2c8df92f1c5331efb1ba432de03ec413d0da8f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          32.3079,
+          31.5861,
+          25.1238
+        ],
+        "lumaStddev": 30.7829
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "route-plan",
+        "title": "航路筹划",
+        "badText": false,
+        "images": [],
+        "page": "route-plan",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 151314
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 20,
+      "id": "weather-wind",
+      "title": "风信与潮候",
+      "filename": "previews/weather-wind.jpg",
+      "bytes": 61057,
+      "sha256": "27e0b659da749d24ea176a6dd1af10f09bbc7d8525311328b56bd1323d05617c",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "c73bfe33ae7cc9bc760bc1122591d43027aaffa0381640d89a3314d78540cb7f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            2,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          80.3729,
+          68.0686,
+          56.4434
+        ],
+        "lumaStddev": 70.3574
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "weather-wind",
+        "title": "风信与潮候",
+        "badText": false,
+        "images": [],
+        "page": "weather-wind",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 61057
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 21,
+      "id": "sea-encounter",
+      "title": "海上来船",
+      "filename": "previews/sea-encounter.jpg",
+      "bytes": 127541,
+      "sha256": "38e19a3899132cf6195e1646b056ba2e86489570793a50b19b87d7eb18640134",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "de1c7112f28009e31d857dd34d53f7957dd53f2ca6a3bd23930537b2ebd19348",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          52.4081,
+          45.1762,
+          44.0195
+        ],
+        "lumaStddev": 46.8031
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "sea-encounter",
+        "title": "海上来船",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png"
+          }
+        ],
+        "page": "sea-encounter",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 127541
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 22,
+      "id": "ship-overview",
+      "title": "舰船总览",
+      "filename": "previews/ship-overview.jpg",
+      "bytes": 91046,
+      "sha256": "ecfc10a201aac1e7c227c8cc08dca1ff7a915b87925ee837f58a3dede7b9ff00",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "c2cc27375f4af214fa20cfdf097abb14404f64541a09173048959f74a64123f2",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          32.0514,
+          23.6682,
+          18.8133
+        ],
+        "lumaStddev": 24.9764
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "ship-overview",
+        "title": "舰船总览",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "ship-overview",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 91046
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 23,
+      "id": "fleet",
+      "title": "船队编组",
+      "filename": "previews/fleet.jpg",
+      "bytes": 75491,
+      "sha256": "b56b6fee026e07a2a885b1dccbe63000c02f3cd635d845ef28f571c676404f31",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "ec9a31dc02743cc12f6b551116442c00c86d943229650339b221387c7aa7e41d",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          28.6878,
+          21.5015,
+          17.2275
+        ],
+        "lumaStddev": 22.6041
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "fleet",
+        "title": "船队编组",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "fleet",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 75491
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 24,
+      "id": "ship-refit",
+      "title": "舰船改装",
+      "filename": "previews/ship-refit.jpg",
+      "bytes": 77744,
+      "sha256": "e718b318410a49a3bf9b72d43d6ce58494e2f3acf386ebb82fc5590cf0b1cd16",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "d43d1918a174ae48b2b99246b1a958083bca42fbe6341f801f931c07412ce5e1",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          31.8491,
+          23.2853,
+          17.5586
+        ],
+        "lumaStddev": 24.6372
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "ship-refit",
+        "title": "舰船改装",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "ship-refit",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 77744
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 25,
+      "id": "ship-repair",
+      "title": "船坞维修",
+      "filename": "previews/ship-repair.jpg",
+      "bytes": 91080,
+      "sha256": "07cc8fd44bba74e5709339b0b25ade5a62ec28a9e0a52c1440c2749047d48d2d",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1017,
+      "decodedPixelSha256": "12ffb0063a78283805b7564e2c52f31aa80cbce2ffb44e5d91d5098b32be6680",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          90.4885,
+          74.7408,
+          56.536
+        ],
+        "lumaStddev": 77.1716
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "ship-repair",
+        "title": "船坞维修",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "ship-repair",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 91080
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 26,
+      "id": "cargo-hold",
+      "title": "货舱装载",
+      "filename": "previews/cargo-hold.jpg",
+      "bytes": 90600,
+      "sha256": "c85ffcd17ae1f0e14232f48f3a589eea6019bb3c370f87ad59f21ed1ad17b361",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1069,
+      "decodedPixelSha256": "9c8c0b174787f91eb2fb8d6a7220e4db1c00e58d4b27beb1704cfc27f4c309ba",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          22.8816,
+          21.1676,
+          19.3968
+        ],
+        "lumaStddev": 21.3251
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "cargo-hold",
+        "title": "货舱装载",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/grain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/wood-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/iron-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/silk-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/porcelain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/spices-v1.png"
+          }
+        ],
+        "page": "cargo-hold",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 90600
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 27,
+      "id": "shipyard",
+      "title": "船坞与船型",
+      "filename": "previews/shipyard.jpg",
+      "bytes": 77367,
+      "sha256": "c251096fa620b4ee866b33667f4c280d45e6f1e01e976ae38988aeeca62261c8",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "2955588840161a05e933d4e9647cd6e84b1bf7d3a85151dd3505d6c021799f76",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          33.0209,
+          24.1454,
+          17.9357
+        ],
+        "lumaStddev": 25.5371
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "shipyard",
+        "title": "船坞与船型",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "shipyard",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 77367
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 28,
+      "id": "inventory",
+      "title": "随身行囊",
+      "filename": "previews/inventory.jpg",
+      "bytes": 68740,
+      "sha256": "68ed5e7e123d3ae0f143e7edd0145ffe9ea1f75818007b062745740a35d8190c",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "72598f004096abcc25295ad4f3b3799991ca3ea622985bf66d50203ec99c37e7",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          21.0367,
+          18.6588,
+          16.0613
+        ],
+        "lumaStddev": 18.9078
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "inventory",
+        "title": "随身行囊",
+        "badText": false,
+        "images": [],
+        "page": "inventory",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 68740
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 29,
+      "id": "item-detail",
+      "title": "物件与来处",
+      "filename": "previews/item-detail.jpg",
+      "bytes": 60482,
+      "sha256": "1b537d97ccf006c03ac104a67f551d804d5a5598ffe3d2ed2a2cbd0cfdd86e63",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "17de607367c3d5b7d9da9a3e8502460c1355f9a3ddbdf6e10ca97c26ccb692a2",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          90.4524,
+          74.9993,
+          56.428
+        ],
+        "lumaStddev": 77.5082
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "item-detail",
+        "title": "物件与来处",
+        "badText": false,
+        "images": [],
+        "page": "item-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 60482
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 30,
+      "id": "equipment",
+      "title": "装备与工具",
+      "filename": "previews/equipment.jpg",
+      "bytes": 92494,
+      "sha256": "93a685ea8c6f180b8a0d6c36dbe2ec1bd119cd58a4cf7881874d0ef6f435debf",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "c2b647b298249af59a75692c641c137b5be673d2baed24a4fd42e6eab348f5d7",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          32.4807,
+          22.3851,
+          18.6358
+        ],
+        "lumaStddev": 24.1663
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "equipment",
+        "title": "装备与工具",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "equipment",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 92494
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 31,
+      "id": "character-profile",
+      "title": "一官 · 人物经历",
+      "filename": "previews/character-profile.jpg",
+      "bytes": 105226,
+      "sha256": "67a028f9e04ea0ac17074cc58d90f67416819a54c0d639b9bd04a3a911a43500",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "2344e7a0601344b2210aff087d2d7b705a2f1c3745f73f639f838fe78d5705c7",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          31.2434,
+          23.6666,
+          20.4029
+        ],
+        "lumaStddev": 24.9554
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "character-profile",
+        "title": "一官 · 人物经历",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "character-profile",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 105226
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 32,
+      "id": "character-growth",
+      "title": "本领与阅历",
+      "filename": "previews/character-growth.jpg",
+      "bytes": 66402,
+      "sha256": "e529a0f0515ea03f8e9d1886ac103a36bbf910387db6c855af89d8fb2ac8eb68",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "d1a5c2a7744a3b2de0ff7149051f37baddae02a843ec30753c617248988a6e0d",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          66.0957,
+          55.2914,
+          42.255
+        ],
+        "lumaStddev": 56.9999
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "character-growth",
+        "title": "本领与阅历",
+        "badText": false,
+        "images": [],
+        "page": "character-growth",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 66402
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 33,
+      "id": "crew-roster",
+      "title": "船员名册",
+      "filename": "previews/crew-roster.jpg",
+      "bytes": 99793,
+      "sha256": "d7965f5e9334f303edb8c18982c30502bf1b0b369b6e4222d9033b16696cefcb",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "ea1e899ef3a2e11d7dceb1e4ce4266777bd8b011a83e61d02bd30722201b150b",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          30.0048,
+          23.3382,
+          20.1852
+        ],
+        "lumaStddev": 24.4551
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "crew-roster",
+        "title": "船员名册",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "crew-roster",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 99793
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 34,
+      "id": "crew-detail",
+      "title": "船员与约定",
+      "filename": "previews/crew-detail.jpg",
+      "bytes": 100486,
+      "sha256": "d0c7dbec93e7eea9a27165d5599e56dc32880d1854af34d074876c1ef80835df",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "4a2ffa079b9f84bdf36b6b9b815c6c9fbe774b81603a3bffca2581aedb5b8f8f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          93.0422,
+          77.0052,
+          58.2958
+        ],
+        "lumaStddev": 79.4566
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "crew-detail",
+        "title": "船员与约定",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "crew-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 100486
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 35,
+      "id": "crew-recruit",
+      "title": "招募与雇期",
+      "filename": "previews/crew-recruit.jpg",
+      "bytes": 114443,
+      "sha256": "82dd0ad1698cb0f1eaa2969b61e464337672a0e04c1532edae00be8f286ca366",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1036,
+      "decodedPixelSha256": "dd0b1ab8a93732bf2a6e343a8112b7800e9658338b9cfbac03ef18467260e596",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          45.8409,
+          33.3084,
+          23.4844
+        ],
+        "lumaStddev": 35.3716
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "crew-recruit",
+        "title": "招募与雇期",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/pirate-captain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "crew-recruit",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 114443
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 36,
+      "id": "crew-assign",
+      "title": "岗位与值守",
+      "filename": "previews/crew-assign.jpg",
+      "bytes": 60815,
+      "sha256": "ba66a46af58dd861e895f9382e07371f4a5d430e8e1ff27a2417e84fa247ac24",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "f02f6fdb440f2591c073b81066ae9b1bb4fad3b7187b7eea86603072e3f7e6ff",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          20.443,
+          18.0111,
+          15.4605
+        ],
+        "lumaStddev": 18.172
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "crew-assign",
+        "title": "岗位与值守",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "crew-assign",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 60815
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 37,
+      "id": "crew-morale",
+      "title": "士气与薪酬",
+      "filename": "previews/crew-morale.jpg",
+      "bytes": 74070,
+      "sha256": "bd9d23339ef56397fe9f7bf48dc288225769c43de60a099545722cb864efe4fb",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "d9bca2d8e7f6bfd6f27816df1f06361f6cd3cdabc8a2ac96ca922f1b6b6c9e13",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          99.4476,
+          82.1726,
+          61.9154
+        ],
+        "lumaStddev": 85.03
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "crew-morale",
+        "title": "士气与薪酬",
+        "badText": false,
+        "images": [],
+        "page": "crew-morale",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 74070
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 38,
+      "id": "battle-hud",
+      "title": "海战态势",
+      "filename": "previews/battle-hud.jpg",
+      "bytes": 195246,
+      "sha256": "07a39404723a040bf6c7f036e1310705692744ec0cf31e7457757553b180a1d9",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "f7b3f02e5c30fdd93b569f705b99ae725284e2c47447a82b404810607dd6ccaa",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          56.6958,
+          44.5721,
+          38.594
+        ],
+        "lumaStddev": 47.069
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "battle-hud",
+        "title": "海战态势",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/ammo/solid-shot-v1.png"
+          }
+        ],
+        "page": "battle-hud",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 195246
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 39,
+      "id": "battle-orders",
+      "title": "令旗与舰队指挥",
+      "filename": "previews/battle-orders.jpg",
+      "bytes": 195537,
+      "sha256": "186d91bd076c9a1df3513cfe558a73dd0126f66d1bce2e8f671596bfb08a5214",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "c8cfdb30cb03a70c9be170b03ecfd462ed2b40d316d6dba185182238d515ebc4",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            4,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          34.8164,
+          31.3935,
+          24.8761
+        ],
+        "lumaStddev": 31.3363
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "battle-orders",
+        "title": "令旗与舰队指挥",
+        "badText": false,
+        "images": [],
+        "page": "battle-orders",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 195537
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 40,
+      "id": "ammo-loading",
+      "title": "弹药与装填",
+      "filename": "previews/ammo-loading.jpg",
+      "bytes": 70640,
+      "sha256": "c62564b2994a9c16f60019e9ec4ace7d4be80a0ae09be5d9f50dd1700cb4e7c4",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "1e529d4c16c39c027f04640a620e3e254102aea88578218d2a12ad1320f0988f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          20.5957,
+          18.4629,
+          16.6947
+        ],
+        "lumaStddev": 18.7014
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "ammo-loading",
+        "title": "弹药与装填",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/ammo/solid-shot-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/ammo/solid-shot-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/ammo/chain-shot-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/ammo/grape-shot-v1.png"
+          }
+        ],
+        "page": "ammo-loading",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 70640
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 41,
+      "id": "boarding",
+      "title": "接舷争夺",
+      "filename": "previews/boarding.jpg",
+      "bytes": 101953,
+      "sha256": "8d0c076012e2fe99b7dc7ecffc8f3c74f86282350a9d4af0b901caaf85fcd4b1",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "cc970bceb61ba2c48dc9b3cdd3a10be884d3a70ab8faa9e6e5bc5a6127bc4bc6",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          38.2963,
+          27.3421,
+          20.3227
+        ],
+        "lumaStddev": 29.0105
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "boarding",
+        "title": "接舷争夺",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          },
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "boarding",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 101953
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 42,
+      "id": "battle-damage",
+      "title": "战损与救援",
+      "filename": "previews/battle-damage.jpg",
+      "bytes": 81386,
+      "sha256": "8ef1f46189ef389140f35cdaffc10f7a018dc97137fb68e89e2b179f8433e5db",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "ca7f786d0aef3ff783461db653835cbdcb21e117be19b7dd7d35896417efac99",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          32.3974,
+          23.9307,
+          18.305
+        ],
+        "lumaStddev": 25.2459
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "battle-damage",
+        "title": "战损与救援",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "assets/fuchuan-inspection.png"
+          }
+        ],
+        "page": "battle-damage",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 81386
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 43,
+      "id": "battle-result",
+      "title": "海战结果",
+      "filename": "previews/battle-result.jpg",
+      "bytes": 104737,
+      "sha256": "082ab0fc533d6b463661ffcea4b69700dceec1b1bd8a6ea07b3c139dd693be57",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "ffd8e70ef93574cb9db87fcf50d82abb439aaccc5e3d837a6824e48016bc90bf",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          97.2867,
+          81.4256,
+          61.7882
+        ],
+        "lumaStddev": 83.872
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "battle-result",
+        "title": "海战结果",
+        "badText": false,
+        "images": [],
+        "page": "battle-result",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 104737
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 44,
+      "id": "prize-distribution",
+      "title": "战利与分利",
+      "filename": "previews/prize-distribution.jpg",
+      "bytes": 87365,
+      "sha256": "f7181824a8407da8c1df85efcbe6815fb1bab36b7606334d88ba825c635eeee2",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1093,
+      "decodedPixelSha256": "ec0bf51603352b7ee66f0d6ca4fe21e7c4791513b27558d94f3bb48653547b11",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          101.1964,
+          83.9002,
+          63.3942
+        ],
+        "lumaStddev": 86.7315
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "prize-distribution",
+        "title": "战利与分利",
+        "badText": false,
+        "images": [],
+        "page": "prize-distribution",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 87365
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 45,
+      "id": "port-hub",
+      "title": "港口街巷",
+      "filename": "previews/port-hub.jpg",
+      "bytes": 150150,
+      "sha256": "d41a62f7198e12865154925115589c593b8d3b7ba9ad2a155084abfa324ba710",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "8fbd1fa24dc697245d329a515a2528c6b5fd7ce159e7e7dc906ad937bc32876d",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          40.2302,
+          31.7248,
+          29.1118
+        ],
+        "lumaStddev": 33.5975
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "port-hub",
+        "title": "港口街巷",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png"
+          }
+        ],
+        "page": "port-hub",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 150150
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 46,
+      "id": "market",
+      "title": "港口市场",
+      "filename": "previews/market.jpg",
+      "bytes": 82300,
+      "sha256": "a65dfdb996a0212d0c2c8b04a17b503e2f0fa57958aefbe7a57467df0be119f4",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "dc8b194c1054ac6ffa063e43924018dd107db5c9970142e5e5d6179d6f4bddcb",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          29.4247,
+          25.0582,
+          20.2685
+        ],
+        "lumaStddev": 25.3644
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "market",
+        "title": "港口市场",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/silk-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/porcelain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/spices-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/grain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/wood-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/iron-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/silk-v1.png"
+          }
+        ],
+        "page": "market",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 82300
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 47,
+      "id": "trade-order",
+      "title": "成交清单",
+      "filename": "previews/trade-order.jpg",
+      "bytes": 66476,
+      "sha256": "8042e7f96701156cff792846ec1237e1e5b0278ccd6e4a3f01554b4787fc6870",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1052,
+      "decodedPixelSha256": "a903a14df04f2e8aee654216f88dd188d5a3ac5c2ff1c3a3ccaf80130aea55ec",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          89.934,
+          74.2929,
+          60.0062
+        ],
+        "lumaStddev": 77.123
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "trade-order",
+        "title": "成交清单",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/silk-v1.png"
+          }
+        ],
+        "page": "trade-order",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 66476
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 48,
+      "id": "contract-board",
+      "title": "货栈委托",
+      "filename": "previews/contract-board.jpg",
+      "bytes": 83346,
+      "sha256": "1823bb74ef5f0e1b190c01dcfaf0f12d4134c1787f81d6fb681c7da6449ea27c",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1011,
+      "decodedPixelSha256": "c7f8fbe11b2c2405fd99d66bb89cba2d9d0e4a70e38f61682a827738114c08a7",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            4,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          28.6237,
+          25.9124,
+          20.4651
+        ],
+        "lumaStddev": 25.6811
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "contract-board",
+        "title": "货栈委托",
+        "badText": false,
+        "images": [],
+        "page": "contract-board",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 83346
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 49,
+      "id": "contract-detail",
+      "title": "约定与交割",
+      "filename": "previews/contract-detail.jpg",
+      "bytes": 80915,
+      "sha256": "6cc2e76081bce770bafbe3e0eea88f450ca89d1b5d228120aed91c54cda3cee3",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "cd777d49fdc647d79e2e7a7c9918419eb57554b640f1480c7ceff34697a13c2f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          106.8142,
+          89.2927,
+          71.3553
+        ],
+        "lumaStddev": 92.2931
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "contract-detail",
+        "title": "约定与交割",
+        "badText": false,
+        "images": [],
+        "page": "contract-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 80915
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 50,
+      "id": "black-market",
+      "title": "隐蔽锚地与销货",
+      "filename": "previews/black-market.jpg",
+      "bytes": 114708,
+      "sha256": "97a1998ef41ca7f4808972b37658299796bdb36299a6e6f1e0fc36569217c0aa",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "09ad6b78a63a654f03aa4d6fdb8a06df0c9e004d968f2aa6249a9f2396bb13e9",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          39.9024,
+          33.6277,
+          32.1895
+        ],
+        "lumaStddev": 34.8244
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "black-market",
+        "title": "隐蔽锚地与销货",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/spices-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/grain-v1.png"
+          }
+        ],
+        "page": "black-market",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 114708
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 51,
+      "id": "supplies",
+      "title": "出航补给",
+      "filename": "previews/supplies.jpg",
+      "bytes": 75630,
+      "sha256": "585e0d0fcea0109eb5bebc175aa9d1dbfad6b883c8259af68fb3b5bfae87ff9e",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "405fb0ac0d18a706e402347359d4379927b0fb29a4b1f76a92e2950b441d997f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          21.2881,
+          19.8774,
+          18.2652
+        ],
+        "lumaStddev": 19.9341
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "supplies",
+        "title": "出航补给",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/grain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/wood-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/goods/iron-v1.png"
+          }
+        ],
+        "page": "supplies",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 75630
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 52,
+      "id": "quest-journal",
+      "title": "航海日志",
+      "filename": "previews/quest-journal.jpg",
+      "bytes": 78277,
+      "sha256": "ae0a57f8976d86758b425d0fcb2244b935e43ba282cbf55b5080ec961dbf9b69",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1126,
+      "decodedPixelSha256": "178b7e0436c849af06fe83e0ee65aa7bc04a3e14d0e36ebe657a045ab3241705",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          23.2457,
+          22.836,
+          19.0039
+        ],
+        "lumaStddev": 22.232
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "quest-journal",
+        "title": "航海日志",
+        "badText": false,
+        "images": [],
+        "page": "quest-journal",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 78277
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 53,
+      "id": "quest-detail",
+      "title": "任务与后果",
+      "filename": "previews/quest-detail.jpg",
+      "bytes": 101241,
+      "sha256": "2d72971d38e5c984bb9e294111f03ad2b1e0564d1ec57ef8d139134361026570",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "e69d2231cefe0a0cbe69ded955206a93584e2d95f5907abd6d53b4220f0d7338",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          59.6858,
+          52.7783,
+          50.0852
+        ],
+        "lumaStddev": 54.3084
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "quest-detail",
+        "title": "任务与后果",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png"
+          }
+        ],
+        "page": "quest-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 101241
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 54,
+      "id": "chronicle",
+      "title": "海上编年",
+      "filename": "previews/chronicle.jpg",
+      "bytes": 138843,
+      "sha256": "964f22d8ea922fe2b3848036d305202c5d646819629a7aa650d2a5ee2982bf5a",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1466,
+      "decodedPixelSha256": "0d91297138b6a5cf9affab667ac520cd2ea21e9c5581ce23a7553dd0b435e9ba",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          31.8264,
+          27.5417,
+          25.6904
+        ],
+        "lumaStddev": 28.3212
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "chronicle",
+        "title": "海上编年",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a6_s2.png"
+          }
+        ],
+        "page": "chronicle",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 138843
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 55,
+      "id": "intelligence",
+      "title": "情报与航路见闻",
+      "filename": "previews/intelligence.jpg",
+      "bytes": 78116,
+      "sha256": "032d4bb19f188aa5ca1c746a49b0b2ebc3b4b640ef8cecc87d676e75922e18af",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "94c2db57dd3bfebcb195cd706fbce439ed4573219c8b147efca2200edd9313b5",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          25.5276,
+          24.5996,
+          20.4711
+        ],
+        "lumaStddev": 24.0913
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "intelligence",
+        "title": "情报与航路见闻",
+        "badText": false,
+        "images": [],
+        "page": "intelligence",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 78116
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 56,
+      "id": "relationships",
+      "title": "人情与旧约",
+      "filename": "previews/relationships.jpg",
+      "bytes": 89704,
+      "sha256": "595b736ec1bbae3ab062efc6006d94c2247cc76fa75cbb21487afc90d46afa3d",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1142,
+      "decodedPixelSha256": "92684e6824015259a52ae3bcf0dc8830049701c295b3cc865a2936d808ce8626",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          21.995,
+          19.7454,
+          18.3792
+        ],
+        "lumaStddev": 19.9546
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "relationships",
+        "title": "人情与旧约",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          }
+        ],
+        "page": "relationships",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 89704
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 57,
+      "id": "factions",
+      "title": "海上诸势力",
+      "filename": "previews/factions.jpg",
+      "bytes": 70339,
+      "sha256": "0ee4d7883f11e1971f5aa0113085438b9085977a1eb920c2736bb8c27ac3477d",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "e58f0a04994df221e98a16913f15e0d9c9ad8de660adda35cda9221d2791e4af",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          22.9224,
+          21.9425,
+          18.5236
+        ],
+        "lumaStddev": 21.5515
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "factions",
+        "title": "海上诸势力",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/merchant-woman-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/zheng-captain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/voc-captain-v1.png"
+          },
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/pirate-captain-v1.png"
+          }
+        ],
+        "page": "factions",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 70339
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 58,
+      "id": "faction-detail",
+      "title": "势力与来往",
+      "filename": "previews/faction-detail.jpg",
+      "bytes": 71234,
+      "sha256": "abdbef4e5df50daf78e3594d75de4c8fcffda9874c12723e019ed9c5adb2d4b5",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "1aefcae350f0e164351acf9a692c406098d9d432399c58a4107c9cd984f7ec9f",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          24.8781,
+          21.3298,
+          18.9509
+        ],
+        "lumaStddev": 21.8458
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "faction-detail",
+        "title": "势力与来往",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../../assets/art/characters/merchant-woman-v1.png"
+          }
+        ],
+        "page": "faction-detail",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 71234
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 59,
+      "id": "diplomacy",
+      "title": "交涉与盟约",
+      "filename": "previews/diplomacy.jpg",
+      "bytes": 68505,
+      "sha256": "f9d9ea10e996cffe9a12dc801c457a633d7c1864dd403e738702f2ce871ba59a",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "0afa428e8fd61ecd897b94a1e6b62c1217db2d6b2181cbfd5a4d7b57a012364a",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          107.9529,
+          90.2668,
+          72.3808
+        ],
+        "lumaStddev": 93.3398
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "diplomacy",
+        "title": "交涉与盟约",
+        "badText": false,
+        "images": [],
+        "page": "diplomacy",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 68505
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 60,
+      "id": "sea-permits",
+      "title": "令旗与通行凭据",
+      "filename": "previews/sea-permits.jpg",
+      "bytes": 75217,
+      "sha256": "3fbd9d8035beff7fde64849fff93d9d6ad879e077ca83ffcd2a38ac6b10ed282",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "5a7e6f15b6a1e10d396c1d0183255fdc0ab9641ec62dd7b3892c1842cb0dfb22",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            1,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          97.5268,
+          81.9271,
+          65.8356
+        ],
+        "lumaStddev": 84.5857
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "sea-permits",
+        "title": "令旗与通行凭据",
+        "badText": false,
+        "images": [],
+        "page": "sea-permits",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 75217
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 61,
+      "id": "bounty-board",
+      "title": "追索与悬赏",
+      "filename": "previews/bounty-board.jpg",
+      "bytes": 75735,
+      "sha256": "e4cf25d62ced44e7005422209edf9b6e427bb6b40cfc3e82af9a3c9768bd7199",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "f0879a248d1b45f536d407c95b11ed123d9cd2e913ca5975f2363adb23c0e3af",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            3,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          104.9781,
+          88.004,
+          70.6565
+        ],
+        "lumaStddev": 90.932
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "bounty-board",
+        "title": "追索与悬赏",
+        "badText": false,
+        "images": [],
+        "page": "bounty-board",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 75735
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 62,
+      "id": "home",
+      "title": "两岸家园",
+      "filename": "previews/home.jpg",
+      "bytes": 84247,
+      "sha256": "ad4de0258522d7cd877a8bc8aa56b211a1cd605c4412778e2f736a4c9107cb68",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "3f84d15a941176b43ddd21f2992da181a59cd09c43ce2214b30ae78f77783351",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          28.5676,
+          21.2261,
+          20.3493
+        ],
+        "lumaStddev": 22.7777
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "home",
+        "title": "两岸家园",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png"
+          }
+        ],
+        "page": "home",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 84247
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 63,
+      "id": "family",
+      "title": "家人与彼此的路",
+      "filename": "previews/family.jpg",
+      "bytes": 84785,
+      "sha256": "e39796d2fa05ca13f872f0354651efc797e1af2589ad6b527b492a2b6677123f",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "3990345f94a112eb552b5605c21927cab4c7cf7514a7e17dac059430e95bba88",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          46.0315,
+          40.1916,
+          37.5141
+        ],
+        "lumaStddev": 41.4185
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "family",
+        "title": "家人与彼此的路",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png"
+          }
+        ],
+        "page": "family",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 84785
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 64,
+      "id": "child-growth",
+      "title": "福松、森与成功",
+      "filename": "previews/child-growth.jpg",
+      "bytes": 106421,
+      "sha256": "62aeb6010aa2024e0de06a3fd464ecf78249c55bc74d1ef868f9e07a038c9a56",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "9a26d715243d2db9b25a949599d9983e9d867f428c3571ff4ef9d6ae9b0b4aa2",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            4,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          65.1365,
+          59.109,
+          58.7707
+        ],
+        "lumaStddev": 60.699
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "child-growth",
+        "title": "福松、森与成功",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png"
+          }
+        ],
+        "page": "child-growth",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 106421
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 65,
+      "id": "letters",
+      "title": "家书匣",
+      "filename": "previews/letters.jpg",
+      "bytes": 63464,
+      "sha256": "f9f673ea5a123d5480f136717841e17f05d140a5445b6435563eecc36f2cf9d3",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "7b9ffd1d10bb818f870a7cd409590e2df8349f594ffac5884e0663410197d561",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          21.4276,
+          21.3735,
+          17.3652
+        ],
+        "lumaStddev": 20.6675
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "letters",
+        "title": "家书匣",
+        "badText": false,
+        "images": [],
+        "page": "letters",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 63464
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 66,
+      "id": "letter-detail",
+      "title": "一封家书",
+      "filename": "previews/letter-detail.jpg",
+      "bytes": 71826,
+      "sha256": "35b958f9ef17de2c3f782ba9fcd847a2cd2fc2d0618802dcfe66eb385db7d5f3",
+      "format": "JPEG",
+      "width": 1424,
+      "height": 1045,
+      "decodedPixelSha256": "d4e028ff4d8785efbd33d5f2ec5205d3e6cbc3ede6e8d58bdd56b63d019188e3",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          106.6083,
+          89.516,
+          72.2695
+        ],
+        "lumaStddev": 92.4628
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "letter-detail",
+        "title": "一封家书",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png"
+          }
+        ],
+        "page": "letter-detail",
+        "scrollWidth": 1425,
+        "width": 1425,
+        "bytes": 71826
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 67,
+      "id": "send-letter-remittance",
+      "title": "寄信与家用",
+      "filename": "previews/send-letter-remittance.jpg",
+      "bytes": 76071,
+      "sha256": "7fd09c0ca21cf20338e7cefc0ea8a595ed133215e1c67c72679e9a7e08c3c49d",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "976f06acea348a8e93ee927ae2b2c548560eae91dc285581cc5a5b6b33b97423",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          111.0852,
+          93.8809,
+          76.7461
+        ],
+        "lumaStddev": 96.9441
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "send-letter-remittance",
+        "title": "寄信与家用",
+        "badText": false,
+        "images": [],
+        "page": "send-letter-remittance",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 76071
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 68,
+      "id": "voyage-result",
+      "title": "一航之后",
+      "filename": "previews/voyage-result.jpg",
+      "bytes": 98568,
+      "sha256": "f6c0978365f6ce32ec07c2fce29eee0ecaa93f02c7c741bb5c3512e3aca3e8db",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "ac1acd63ac7622d543e0fd398c37f25b61117a4d2087a576a21c609ad1a99285",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          39.1086,
+          32.7775,
+          31.462
+        ],
+        "lumaStddev": 34.3321
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "voyage-result",
+        "title": "一航之后",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png"
+          }
+        ],
+        "page": "voyage-result",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 98568
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 69,
+      "id": "accounts",
+      "title": "船上账房",
+      "filename": "previews/accounts.jpg",
+      "bytes": 56126,
+      "sha256": "42cba243b98f60402dce464eb59a6fac6de9b88e64987d6fd95c863753c936cf",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "232fc4954806f55281f3e90440c4bad3126dc4b50f8e1e333436b02a5a8f84dc",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          19.4272,
+          17.5211,
+          15.3243
+        ],
+        "lumaStddev": 17.695
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "accounts",
+        "title": "船上账房",
+        "badText": false,
+        "images": [],
+        "page": "accounts",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 56126
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 70,
+      "id": "tutorial",
+      "title": "掌船手册",
+      "filename": "previews/tutorial.jpg",
+      "bytes": 50204,
+      "sha256": "9d7386745fe74a408701c0f4d02c021bb9941bf7f58dfc6617eff37df7076823",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "43f17f03fe38a493e1ebef246c798c488f15c30ba5934d43c41478b46294f658",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          17.9596,
+          16.6213,
+          14.3559
+        ],
+        "lumaStddev": 16.5666
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "tutorial",
+        "title": "掌船手册",
+        "badText": false,
+        "images": [],
+        "page": "tutorial",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 50204
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 71,
+      "id": "defeat",
+      "title": "航次受挫",
+      "filename": "previews/defeat.jpg",
+      "bytes": 103507,
+      "sha256": "f37f975e718be3f68fad17b98e86adef5260de553cfdd37fc1cd0f07ace84973",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "44ffff9b5614f20873ed2d4c499754b4d0e6429227348c2ea751aaf7226fb85c",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          31.1104,
+          30.7332,
+          31.0276
+        ],
+        "lumaStddev": 30.4747
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "defeat",
+        "title": "航次受挫",
+        "badText": false,
+        "images": [
+          {
+            "loaded": true,
+            "src": "../../../narrative/zheng-zhilong/images/film-v3/zheng_a1_s3.png"
+          }
+        ],
+        "page": "defeat",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 103507
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    },
+    {
+      "order": 72,
+      "id": "notification-log",
+      "title": "船上消息",
+      "filename": "previews/notification-log.jpg",
+      "bytes": 55242,
+      "sha256": "124a1c186c465c0c5eccbb283fe3a82344eb68d2809a4528dc92e9ae7c6eb9af",
+      "format": "JPEG",
+      "width": 1440,
+      "height": 1000,
+      "decodedPixelSha256": "e0dc12faee3ca1e659bed3e3a740511ff33d2a0ce159135af3ec654878d7b7bf",
+      "pixelChecks": {
+        "completelyUniform": false,
+        "channelExtrema": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            255
+          ]
+        ],
+        "channelStddev": [
+          18.429,
+          17.0218,
+          15.3609
+        ],
+        "lumaStddev": 17.1222
+      },
+      "imageValidation": {
+        "pillowDecode": true,
+        "jpegHeaderAndEnd": true,
+        "positiveDimensions": true,
+        "notCompletelyBlank": true
+      },
+      "browserFacts": {
+        "id": "notification-log",
+        "title": "船上消息",
+        "badText": false,
+        "images": [],
+        "page": "notification-log",
+        "scrollWidth": 1440,
+        "width": 1440,
+        "bytes": 55242
+      },
+      "browserValidation": {
+        "identityMatches": true,
+        "catalogTitleMatches": true,
+        "documentImagesLoaded": true,
+        "noHorizontalOverflow": true,
+        "noNaNOrUndefined": true,
+        "recordedByteCountMatches": true
+      },
+      "status": "passed"
+    }
+  ],
+  "contactSheets": [
+    {
+      "filename": "previews/contact-sheet-01.jpg",
+      "screenIds": [
+        "main-menu",
+        "new-career",
+        "load-game",
+        "settings",
+        "accessibility",
+        "laboratory",
+        "experiment-detail",
+        "pause-menu",
+        "save-game",
+        "chapter-select",
+        "scene-briefing",
+        "dialogue"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 530124,
+      "sha256": "eb5613ef7ef144b4a23f25dcde804746132ffdb2ddabeeb1ff90e359eea99156"
+    },
+    {
+      "filename": "previews/contact-sheet-02.jpg",
+      "screenIds": [
+        "decision",
+        "history-notes",
+        "ending",
+        "sailing-hud",
+        "sea-chart",
+        "destination-detail",
+        "route-plan",
+        "weather-wind",
+        "sea-encounter",
+        "ship-overview",
+        "fleet",
+        "ship-refit"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 532600,
+      "sha256": "c37ac7699931074ee63c65e3a473aeb6ab057bd26de19196869ae89386806f43"
+    },
+    {
+      "filename": "previews/contact-sheet-03.jpg",
+      "screenIds": [
+        "ship-repair",
+        "cargo-hold",
+        "shipyard",
+        "inventory",
+        "item-detail",
+        "equipment",
+        "character-profile",
+        "character-growth",
+        "crew-roster",
+        "crew-detail",
+        "crew-recruit",
+        "crew-assign"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 460310,
+      "sha256": "1d69de52e09d91692ea4be6bca25dac9f5aaf4f0caa3e70d40bdc11a3821dda1"
+    },
+    {
+      "filename": "previews/contact-sheet-04.jpg",
+      "screenIds": [
+        "crew-morale",
+        "battle-hud",
+        "battle-orders",
+        "ammo-loading",
+        "boarding",
+        "battle-damage",
+        "battle-result",
+        "prize-distribution",
+        "port-hub",
+        "market",
+        "trade-order",
+        "contract-board"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 523558,
+      "sha256": "9c0fb970409ab51c2d2b9f0e86b5291853b9b6ee63e410eb9036825aafe86685"
+    },
+    {
+      "filename": "previews/contact-sheet-05.jpg",
+      "screenIds": [
+        "contract-detail",
+        "black-market",
+        "supplies",
+        "quest-journal",
+        "quest-detail",
+        "chronicle",
+        "intelligence",
+        "relationships",
+        "factions",
+        "faction-detail",
+        "diplomacy",
+        "sea-permits"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 435299,
+      "sha256": "81d59e52fa7eedb80231099a5db97ec77fbbb0aee464a43c0732d1524e391677"
+    },
+    {
+      "filename": "previews/contact-sheet-06.jpg",
+      "screenIds": [
+        "bounty-board",
+        "home",
+        "family",
+        "child-growth",
+        "letters",
+        "letter-detail",
+        "send-letter-remittance",
+        "voyage-result",
+        "accounts",
+        "tutorial",
+        "defeat",
+        "notification-log"
+      ],
+      "columns": 4,
+      "rows": 3,
+      "width": 1920,
+      "height": 1410,
+      "bytes": 426242,
+      "sha256": "f8fe31e128d376e7cac0397537033137330dedf2d87ba28dee9ab26be284b5e7"
+    }
+  ],
+  "additionalEvidenceFiles": [
+    {
+      "filename": "previews/mobile-ship.jpg",
+      "purpose": "另行导出的辅助证据，不计入72个页面预览或6张接触表",
+      "width": 374,
+      "height": 1552,
+      "format": "JPEG",
+      "bytes": 58112,
+      "sha256": "ee85ab9b8fd19354e499a3632edbca92f9fc1369c122d6eadb7fbf8f6e7766e1"
+    }
+  ]
+}

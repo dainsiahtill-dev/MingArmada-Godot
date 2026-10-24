@@ -1,0 +1,135 @@
+{
+  "id": "char-ruan-laoliu",
+  "name": "阮老六",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创海盗头目；外沿收路钱、识破假筹、后以空米船设伏。",
+  "visualBrief": "成年精瘦头领，脸型与杜七/一官明显区分；暗灰短褂、简洁头布、腰刀。常与收银小艇保持距离，侧身观察可退水路；弃船离去保持行动能力，不虚构死法。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "sea-encounter",
+    "factions",
+    "history-notes"
+  ],
+  "variants": [
+    "外船索费",
+    "败退",
+    "空米船设伏"
+  ],
+  "modelStrategy": "共享成年身体+独立头；独立脸尚缺。",
+  "historicalStatus": "原创人物。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "role": "scene-context",
+      "note": "目视前景是收银副手，远船上的阮无可核面容；本图不能裁成阮老六肖像。"
+    },
+    {
+      "path": "assets/art/characters/pirate-captain-v1.png",
+      "role": "style-reference",
+      "note": "旧通用海上船长立绘，只作粗布/防护层次参考；没有证据将其指定成阮老六。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-ruan",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "阮老六",
+    "阮"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-ruan-laoliu",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-3f0cfa8d-a305-4ece-a71c-e49f84915dab.png",
+      "promptId": "char-ruan-laoliu",
+      "sha256": "0c1f6d28a103fbedeb9f420ceb388bb48a4424a3cf0c48a1e1c26e5c0bf4a8bd",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/reference/zheng_a1_s6-f08a09ba.png",
+      "role": "scene-context",
+      "note": "目视前景是收银副手，远船上的阮无可核面容；本图不能裁成阮老六肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/reference/pirate-captain-v1-58018734.png",
+      "role": "style-reference",
+      "note": "旧通用海上船长立绘，只作粗布/防护层次参考；没有证据将其指定成阮老六。",
+      "sourcePath": "assets/art/characters/pirate-captain-v1.png",
+      "sha256": "580187340b0f80bbe3e44f272ef0469e6db65a6c61f4e4344c65fa695241768b",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-ruan-laoliu/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-3f0cfa8d-a305-4ece-a71c-e49f84915dab.png",
+    "promptId": "char-ruan-laoliu",
+    "sha256": "0c1f6d28a103fbedeb9f420ceb388bb48a4424a3cf0c48a1e1c26e5c0bf4a8bd",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

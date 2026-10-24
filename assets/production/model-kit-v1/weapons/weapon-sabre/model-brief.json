@@ -1,0 +1,45 @@
+{
+  "id": "weapon-sabre",
+  "name": "短刀",
+  "category": "武器与船具",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "鞘色"
+  ],
+  "lodLevels": 1,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "ship-refit",
+    "equipment",
+    "ammo-loading",
+    "boarding",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [],
+  "productionStatus": "needs-new",
+  "notes": [
+    "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a2_s3",
+    "zheng_a2_s7",
+    "zheng_a4_s1"
+  ],
+  "group": "weapons",
+  "artJobs": [
+    "weapon-sabre"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/weapons/weapon-sabre",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
+  "originalRequirements": [
+    "weapon-sabre"
+  ],
+  "sketchStatus": "not-generated"
+}

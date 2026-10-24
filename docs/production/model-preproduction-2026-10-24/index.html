@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>历史模型前期台账 · 海上明旗</title>
+  <link rel="stylesheet" href="review.css"><script defer src="data.js"></script><script defer src="review.js"></script>
+</head>
+<body>
+  <a class="skip" href="#results">跳到草图</a>
+  <header><a href="../resource-library/index.html">海上明旗 / 制作资源</a><h1>历史模型前期台账</h1><p>先考据与多视图，审定后再建模。</p><nav aria-label="台账资料"><a href="README.md">制作口径</a><a href="model-register.csv">下载模型表</a><a href="research-ships-weapons.md">船舰兵器</a><a href="research-characters-clothing.md">人物衣装</a><a href="research-environment-props.md">建筑器物</a></nav></header>
+  <main>
+    <section class="scope" aria-label="当前进度"><p id="progress">正在读取本地清单…</p><p>本页记录设计候选。史料支持的轮廓、创作补全与待补证分别说明；生成图仍需检查各视图结构。制作项不等于唯一网格数。</p></section>
+    <form id="filters" role="search"><label>查找模型或人物<input id="search" type="search" placeholder="如 福船、田川、炮架、粮袋" autocomplete="off"></label><label>类别<select id="group"><option value="all">全部类别</option></select></label><label>草图<select id="status"><option value="all">全部状态</option><option value="generated">已有草图</option><option value="pending">尚未生成</option><option value="redraw">需要修订</option></select></label><label>范围<select id="scope"><option value="all">制作与预备</option><option value="production">制作基线</option><option value="reserve">预备项</option></select></label><button type="reset">清除筛选</button></form>
+    <p id="result-count" role="status" aria-live="polite"></p>
+    <section id="results" class="sheets" aria-label="多视图草图"></section>
+    <section class="other"><h2>场景与未决子件</h2><p>整座港口、不同战役和天气不是新增独立模型。场景装配与二维资源另计。</p><div id="scene-packages"></div><h3>仍需拆解的需求</h3><ul id="unresolved"></ul></section>
+    <footer><p>当前剧本、旧83项预算和170项需求的输入哈希保存在 <a href="manifest.json">完整台账</a>。人物面貌为创作重建，所有图片均未标为精确历史复原或建模已验收。</p></footer>
+  </main>
+</body>
+</html>

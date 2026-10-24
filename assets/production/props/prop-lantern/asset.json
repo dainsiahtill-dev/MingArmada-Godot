@@ -1,0 +1,135 @@
+{
+  "id": "prop-lantern",
+  "name": "船灯与提灯",
+  "category": "prop",
+  "phase": "P0",
+  "description": "夜航、货栈及船舱照明；和手工纸灯分开。",
+  "visualBrief": "小型木／竹或金属框灯，护罩、提环和悬挂点明确；暖色内光，灭灯仍有完整轮廓。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a1_s3",
+    "zheng_a3_s1",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "cargo-hold",
+    "dialogue",
+    "battle-damage"
+  ],
+  "variants": [
+    "点亮／熄灭",
+    "提携／吊挂",
+    "护罩旧化"
+  ],
+  "modelStrategy": "复验lantern程序网格，灯火为灯光／效果，不另建亮灯基模；纸灯另见prop-paper-lantern。",
+  "historicalStatus": "needs-concept；灯油在剧本明确，护罩与灯框材料仍需年代审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "legacyModelIds": [
+    "prop-lantern"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-lantern",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-lantern/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-lantern/reference/zheng_a4_s6-f59f02e8.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-lantern",
+      "path": "assets/production/props/prop-lantern/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "dbf21308612a9e96cf064d0876a26fa8b8dd789281cf43fbe4b64e6bbe5e7642",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-lantern",
+    "path": "assets/production/props/prop-lantern/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "dbf21308612a9e96cf064d0876a26fa8b8dd789281cf43fbe4b64e6bbe5e7642",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

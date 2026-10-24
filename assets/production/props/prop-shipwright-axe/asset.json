@@ -1,0 +1,111 @@
+{
+  "id": "prop-shipwright-axe",
+  "name": "船匠断索斧",
+  "category": "prop",
+  "phase": "P0",
+  "description": "吕宋斩拖缆、湾口断接舷索与1634砍断危桅明确需要。",
+  "visualBrief": "朴素铁斧头、直木柄、握持磨损；双手抓点与甲板放置面清楚，比例可用于船务劳作，不用巨型战斧。",
+  "storyRefs": [
+    "zheng_a3_s9",
+    "zheng_a4_s7",
+    "zheng_a5_s7"
+  ],
+  "uiPages": [
+    "ship-repair",
+    "battle-damage",
+    "boarding",
+    "equipment"
+  ],
+  "variants": [
+    "木柄旧化",
+    "收存／持用"
+  ],
+  "modelStrategy": "一个工具斧主体，船匠与救援人员共用；工具箱装载引用同件，不再为三次断索建三把斧。",
+  "historicalStatus": "needs-concept；剧情明确船务工具，具体斧头刃型为美术方案。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "tool-axe"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-shipwright-axe",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-shipwright-axe/reference/zheng_a5_s7-04198830.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-shipwright-axe",
+      "path": "assets/production/props/prop-shipwright-axe/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "6f9081ccb99eb5bc541ed8993d6e35783a3b12aaaa7b3aecff2d699ce93bbe25",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-shipwright-axe",
+    "path": "assets/production/props/prop-shipwright-axe/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "6f9081ccb99eb5bc541ed8993d6e35783a3b12aaaa7b3aecff2d699ce93bbe25",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    }
+  ]
+}

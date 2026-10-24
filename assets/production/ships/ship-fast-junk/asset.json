@@ -1,0 +1,128 @@
+{
+  "id": "ship-fast-junk",
+  "name": "小型武装快船",
+  "category": "ship",
+  "phase": "P0",
+  "assetKind": "ship-hull-family",
+  "modelRequired": true,
+  "description": "船体、帆装与甲板挂点共享的船型资源，实例旗帜和损伤通过配置处理。",
+  "visualBrief": "船体水线、船首与船尾轮廓、帆装、舵桨和炮位须分别交代；本轮图像是形制参考，正式模型需三视图、比例和挂点复验。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7",
+    "zheng_a3_s1",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "ship-overview",
+    "fleet",
+    "ship-refit",
+    "ship-repair",
+    "boarding",
+    "battle-hud"
+  ],
+  "variants": [
+    "阮部旧旗",
+    "一官自用旗",
+    "缺帆节点隐藏"
+  ],
+  "modelStrategy": "沿用原船型基模预算；LOD不重复算船型。",
+  "historicalStatus": "art-candidate-needs-review；原型美术与旧模型均不构成精确时代形制认证。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/fishing-ship.png",
+      "role": "shape-reference",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/ships/patrol-lod0.glb",
+    "assets/models/ships/patrol-lod1.glb",
+    "assets/models/ships/patrol-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "ship-fast-junk"
+  ],
+  "categoryName": "船型",
+  "assetDirectory": "assets/production/ships/ship-fast-junk",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ships/ship-fast-junk/reference/fishing-ship-1b779179.png",
+      "role": "shape-reference",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/fishing-ship.png",
+      "sha256": "1b779179b5a4533d6c1f852d1012ad995b40a68e84f2328fe61ed381f3983c1e",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ships/ship-fast-junk/reference/fishing-ship-1b779179.png",
+    "role": "shape-reference",
+    "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+    "sourcePath": "docs/design/game-ui/prototype/assets/fishing-ship.png",
+    "sha256": "1b779179b5a4533d6c1f852d1012ad995b40a68e84f2328fe61ed381f3983c1e",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-overview",
+      "title": "舰船总览"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "ship-refit",
+      "title": "舰船改装"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    }
+  ]
+}

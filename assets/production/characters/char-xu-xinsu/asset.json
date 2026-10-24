@@ -1,0 +1,80 @@
+{
+  "id": "char-xu-xinsu",
+  "name": "许心素",
+  "category": "named-character",
+  "phase": "P2",
+  "description": "1628厦门战事对方，正文以势力、准入条件和败死消息呈现。",
+  "visualBrief": "中年官商人物信息头像候选；素长袍、商务腰袋、克制面容；无确证肖像，不加决斗/临终表情。",
+  "storyRefs": [
+    "zheng_a4_s3"
+  ],
+  "uiPages": [
+    "history-notes",
+    "factions"
+  ],
+  "variants": [
+    "可选信息头像"
+  ],
+  "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+  "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+      "role": "scene-context",
+      "note": "许心素的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "aliases": [
+    "许心素",
+    "许心素一方"
+  ],
+  "appearance": "mentioned-only",
+  "modelRequired": false,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-xu-xinsu",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-xu-xinsu/reference/zheng_a4_s3-90de778c.png",
+      "role": "scene-context",
+      "note": "许心素的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-xu-xinsu/reference/zheng_a4_s3-90de778c.png",
+    "role": "scene-context",
+    "note": "许心素的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+    "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    }
+  ]
+}

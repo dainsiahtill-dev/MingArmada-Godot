@@ -1,0 +1,106 @@
+{
+  "id": "prop-punt-pole",
+  "name": "撑船篙",
+  "category": "prop",
+  "phase": "P0",
+  "description": "湾口救援、寻人及阿旺离岸撑船；与枪、长钩、桨不同。",
+  "visualBrief": "长直竹／木杆、自然节理、末端磨损，纤细可折；双手持位与水面接触点明确，无枪刃和桨叶。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s5",
+    "zheng_a6_s4"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "battle-damage",
+    "dialogue"
+  ],
+  "variants": [
+    "完好／折断端",
+    "干湿"
+  ],
+  "modelStrategy": "一个篙杆基模；竹节、木杆作材质与同拓扑变体。破断端节点复用wreck木材风格，不另建每段篙。",
+  "historicalStatus": "needs-concept；明确剧情工具，材料为待审视觉方案。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "tool-oar"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-punt-pole",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-punt-pole/reference/zheng_a6_s4-590cb4d6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-punt-pole",
+      "path": "assets/production/props/prop-punt-pole/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "b7700e50cfb49dedf3609b040ee2be5e82b1f92a02ab0baa8f51e5f33a5d70e4",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-punt-pole",
+    "path": "assets/production/props/prop-punt-pole/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "b7700e50cfb49dedf3609b040ee2be5e82b1f92a02ab0baa8f51e5f33a5d70e4",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

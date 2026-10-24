@@ -1,0 +1,171 @@
+{
+  "id": "map-world-nautical-chart",
+  "name": "区域航海与势力底图",
+  "category": "scene-map",
+  "phase": "P0",
+  "description": "澳门、福建、大员、平户、吕宋方向的跨区域导航底层；不得据界面示意补出已证历史行程。",
+  "visualBrief": "纸面/数字矢量海图，海岸轮廓、地名层、目的港、航路、限制区和当前位置分层；16:10与窄屏可裁，地图装饰与操作标记分开，图形位置先服务导航可读性。",
+  "storyRefs": [
+    "zheng_a1_s5",
+    "zheng_a1_s6",
+    "zheng_a2_s1",
+    "zheng_a2_s6",
+    "zheng_a3_s1",
+    "zheng_a3_s9",
+    "zheng_a3_s10",
+    "zheng_a5_s2"
+  ],
+  "uiPages": [
+    "sea-chart",
+    "route-plan",
+    "destination-detail",
+    "factions"
+  ],
+  "variants": [
+    "常规航区",
+    "凭据待核航区",
+    "吕宋未核停靠提示",
+    "候选航路/已确认航路"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。二维底图与UI图层；旧art-maps的航行底图之一，不另算手工3D。当前矢量在render-world.js内联，无独立SVG文件。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "assets/art/maps/ming-nautical-chart-v2.png",
+      "role": "map-reference",
+      "note": "现有海图PNG，仅美术底层参照，非实测/原始历史海图。"
+    },
+    {
+      "path": "assets/art/maps/ming-nautical-land-paper-v2.png",
+      "role": "material-reference",
+      "note": "现有陆地纸纹PNG；不是可导航海岸几何。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "ui-map",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "docs/design/game-ui/prototype/render-world.js"
+  ],
+  "dependencies": [],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-world-nautical-chart",
+  "images": [
+    {
+      "path": "assets/production/maps/map-world-nautical-chart/reference/ming-nautical-chart-v2-16f5d1dc.png",
+      "role": "map-reference",
+      "note": "现有海图PNG，仅美术底层参照，非实测/原始历史海图。",
+      "sourcePath": "assets/art/maps/ming-nautical-chart-v2.png",
+      "sha256": "16f5d1dc1b66b83f2cf5407ac8fc33ccfdb5383619bd77dec5c2050f154dfd30",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-world-nautical-chart/reference/ming-nautical-land-paper-v2-fb8a2f1d.png",
+      "role": "material-reference",
+      "note": "现有陆地纸纹PNG；不是可导航海岸几何。",
+      "sourcePath": "assets/art/maps/ming-nautical-land-paper-v2.png",
+      "sha256": "fb8a2f1d9399feadbfd6ba56664e0eb7349307bf912fd99bac5057e0754e38b1",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-world-nautical-chart",
+      "path": "assets/production/maps/map-world-nautical-chart/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "6e1f8f57346d44c4481680a58840b86c7dcd84c0eb49716a1380b2aa59068d6a",
+      "sha256": "c2660410a0504e58e043bd643e484723f57379f18710fb0818a77d7eb5a8884c",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-world-nautical-chart",
+    "path": "assets/production/maps/map-world-nautical-chart/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "6e1f8f57346d44c4481680a58840b86c7dcd84c0eb49716a1380b2aa59068d6a",
+    "sha256": "c2660410a0504e58e043bd643e484723f57379f18710fb0818a77d7eb5a8884c",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s6",
+      "legacyTitle": "替谁说停船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s10",
+      "legacyTitle": "没有风的四天",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sea-chart",
+      "title": "东洋航海图"
+    },
+    {
+      "id": "route-plan",
+      "title": "航路筹划"
+    },
+    {
+      "id": "destination-detail",
+      "title": "目的地与靠泊"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    }
+  ]
+}

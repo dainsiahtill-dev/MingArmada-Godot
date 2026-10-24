@@ -1,0 +1,87 @@
+{
+  "id": "prop-drying-rack",
+  "name": "渔网晾晒架",
+  "category": "prop",
+  "phase": "P2",
+  "description": "有限渔寮环境陈设，用于湾口救援前后识别生活空间。",
+  "visualBrief": "粗木双架、横杆与挂网点，结构轻、海风旧化；挂网引用prop-cargo-net的独立绳网变体，避免现代金属晾衣架。",
+  "storyRefs": [
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "port-hub",
+    "dialogue"
+  ],
+  "variants": [
+    "空架／有网",
+    "旧化"
+  ],
+  "modelStrategy": "复验drying_rack程序网格；环境分册引用本条。P2可省，不影响六幕主线交付。",
+  "historicalStatus": "needs-concept；83预算可选道具，剧本渔寮环境关联，非特定渔具复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "legacyModelIds": [
+    "prop-drying-rack"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-drying-rack",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-drying-rack/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-drying-rack",
+      "path": "assets/production/props/prop-drying-rack/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "3415975e9bd6d44e1a7c5400aacff7266c7caf6825876021b056df6875b59aa4",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-drying-rack",
+    "path": "assets/production/props/prop-drying-rack/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "3415975e9bd6d44e1a7c5400aacff7266c7caf6825876021b056df6875b59aa4",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

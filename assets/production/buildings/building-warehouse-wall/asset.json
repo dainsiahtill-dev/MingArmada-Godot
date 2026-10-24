@@ -1,0 +1,133 @@
+{
+  "id": "building-warehouse-wall",
+  "name": "货栈墙体模块",
+  "category": "building",
+  "phase": "P0",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "建议宽2—3米、高3米的可重复墙段，粗砖、石灰抹面和木柱接口；内外两面可读，货栈侧墙/背墙用；不重复内含门窗。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a3_s4"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "砖墙材质",
+    "石灰材质"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 building-warehouse-wall；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "story-context",
+      "note": "货栈墙体情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "role": "story-context",
+      "note": "归港货棚背景；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "building-warehouse-wall"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "dependencies": [],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-warehouse-wall",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-warehouse-wall/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "story-context",
+      "note": "货栈墙体情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-wall/reference/zheng_a3_s4-35c5e2f0.png",
+      "role": "story-context",
+      "note": "归港货棚背景；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-warehouse-wall",
+      "path": "assets/production/buildings/building-warehouse-wall/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "7a1d3fa0ad58419af3ee6bc7f36474ec50b5f2e144fa889a7ecee2dcdc171d6b",
+      "sha256": "aba9a8134b7aa99c65880f47ede18b070ce4e7549c59cf34f5a55b30a2911ec4",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "building-warehouse-wall",
+    "path": "assets/production/buildings/building-warehouse-wall/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "7a1d3fa0ad58419af3ee6bc7f36474ec50b5f2e144fa889a7ecee2dcdc171d6b",
+    "sha256": "aba9a8134b7aa99c65880f47ede18b070ce4e7549c59cf34f5a55b30a2911ec4",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

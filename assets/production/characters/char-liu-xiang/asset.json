@@ -1,0 +1,79 @@
+{
+  "id": "char-liu-xiang",
+  "name": "刘香",
+  "category": "named-character",
+  "phase": "P2",
+  "description": "1635败亡消息的历史对手；当前正文重点为芝虎未归。",
+  "visualBrief": "成年海上头领信息头像候选；独立窄长脸方案，简洁海战衣；不据传说设计死亡姿态。",
+  "storyRefs": [
+    "zheng_a5_s5"
+  ],
+  "uiPages": [
+    "history-notes",
+    "factions"
+  ],
+  "variants": [
+    "可选信息头像"
+  ],
+  "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+  "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "role": "scene-context",
+      "note": "刘香的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "aliases": [
+    "刘香"
+  ],
+  "appearance": "mentioned-only",
+  "modelRequired": false,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-liu-xiang",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-liu-xiang/reference/zheng_a5_s5-0b81d5b1.png",
+      "role": "scene-context",
+      "note": "刘香的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-liu-xiang/reference/zheng_a5_s5-0b81d5b1.png",
+    "role": "scene-context",
+    "note": "刘香的关联场次上下文；不声称图中有本人，不可裁作其肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+    "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    }
+  ]
+}

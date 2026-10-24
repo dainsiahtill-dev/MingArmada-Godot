@@ -1,0 +1,84 @@
+{
+  "id": "prop-compass",
+  "name": "铜制罗盘",
+  "category": "prop",
+  "phase": "P0",
+  "description": "现有背包详情与导航说明已经使用，83模型预算遗漏。",
+  "visualBrief": "掌上圆盘或小方座、朴素金属边、纸／木刻盘面，磁针与玻璃罩是否采用需史料审查；手持抓边与桌面放置面明确。",
+  "storyRefs": [
+    "zheng_a3_s1"
+  ],
+  "uiPages": [
+    "equipment",
+    "inventory",
+    "item-detail",
+    "sailing-hud",
+    "weather-wind"
+  ],
+  "variants": [
+    "旧化",
+    "盘面纹理"
+  ],
+  "modelStrategy": "独立小器具，UI罗盘符号不当结构图；不得将现代黄铜怀表式航海罗盘未经审查直接作为明末中国实物。",
+  "historicalStatus": "needs-concept；UI既有铜制罗盘为产品设定，精确器形未证；storyRefs为导航场景关联，非正文明确提及实物。",
+  "existingImages": [],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-compass",
+  "dependencies": [],
+  "images": [
+    {
+      "id": "prop-compass",
+      "path": "assets/production/props/prop-compass/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "c1e6b70a953fe6e5b2a383d258ca1f33e9a507459c7c280a44b6b0a9178f2ed2",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-compass",
+    "path": "assets/production/props/prop-compass/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "c1e6b70a953fe6e5b2a383d258ca1f33e9a507459c7c280a44b6b0a9178f2ed2",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "weather-wind",
+      "title": "风信与潮候"
+    }
+  ]
+}

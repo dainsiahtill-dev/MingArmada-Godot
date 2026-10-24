@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-10-23T17:48:22.750Z",
+  "sourceSha256": "ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a",
+  "passed": true,
+  "build": [
+    {
+      "cmd": "rtk proxy node tools/build-zheng-story.mjs",
+      "chunk_id": "1335e8",
+      "wall_time_seconds": 1.7461365,
+      "exit_code": 0,
+      "original_token_count": 58,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nBuilt docs\\narrative\\zheng-zhilong\\story-data.js (201835 bytes; 6 acts).\nMirrored docs\\narrative\\zheng-zhilong\\zheng-zhilong-story.json (201737 bytes).\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/full-polish-2026-10-24/export.mjs",
+      "chunk_id": "c599b1",
+      "wall_time_seconds": 1.7834010999999999,
+      "exit_code": 0,
+      "original_token_count": 141,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"sourceSha256\":\"ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a\",\"version\":\"historical-reboot-polish-2026-10-24\",\"files\":[{\"file\":\"novel.md\",\"bytes\":107656,\"sha256\":\"b41f9ca16214c9b5c1597151214c2ebc22e9cb8cd36a606200a83b9cef042280\"},{\"file\":\"screenplay.md\",\"bytes\":183316,\"sha256\":\"6a49ef143b38985cbf472234921015dea6e26828c3158a568cec3e39d6ecc78a\"},{\"file\":\"game-scenes.md\",\"bytes\":40165,\"sha256\":\"d8e5617893c76cff2f720bdcf8f52f6946ed3f0a79fe637433c9e5bdbc076f07\"}]}\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/render-zheng-screenplay.mjs",
+      "chunk_id": "f3269f",
+      "wall_time_seconds": 1.9280784,
+      "exit_code": 0,
+      "original_token_count": 46,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRendered docs\\narrative\\zheng-zhilong-campaign-script-2026-10-21.md (183316 bytes; 6 acts; 22 scenes).\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/build-production-resource-library.mjs",
+      "chunk_id": "b362fa",
+      "wall_time_seconds": 3.8248796,
+      "exit_code": 0,
+      "original_token_count": 386,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRESOURCE_LIBRARY_BUILT {\"total\":170,\"categories\":[{\"id\":\"named-character\",\"name\":\"剧情人物\",\"count\":26},{\"id\":\"npc-archetype\",\"name\":\"NPC职业原型\",\"count\":28},{\"id\":\"ship\",\"name\":\"船型\",\"count\":8},{\"id\":\"cannon\",\"name\":\"火炮与炮架部件\",\"count\":6},{\"id\":\"firearm\",\"name\":\"个人火器\",\"count\":2},{\"id\":\"melee-weapon\",\"name\":\"冷兵器\",\"count\":3},{\"id\":\"ammunition\",\"name\":\"弹药外观\",\"count\":4},{\"id\":\"building\",\"name\":\"建筑与构件\",\"count\":15},{\"id\":\"coastal-building\",\"name\":\"沿海设施\",\"count\":6},{\"id\":\"scene-map\",\"name\":\"场景与地图\",\"count\":15},{\"id\":\"nature\",\"name\":\"自然与材质条件\",\"count\":10},{\"id\":\"prop\",\"name\":\"道具与货物\",\"count\":47}],\"phases\":{\"P0\":88,\"P1\":72,\"P2\":10},\"legacyBaseModels\":83,\"namedCharacters\":26,\"onScreenCharacters\":18,\"mentionedOnlyCharacters\":8,\"npcArchetypes\":28,\"cannonBarrelTypes\":3,\"cannonComponents\":3,\"images\":393,\"distinctImageFiles\":391,\"distinctImageContents\":211,\"archivedReferenceSources\":82,\"coveredStoryScenes\":43,\"coveredUiPages\":58,\"currentScenes\":22,\"legacyScenes\":43,\"mappedSuccessorScenes\":17,\"uiPagesWithoutObjectLinks\":[\"main-menu\",\"load-game\",\"settings\",\"accessibility\",\"experiment-detail\",\"pause-menu\",\"save-game\",\"chapter-select\",\"decision\",\"quest-journal\",\"chronicle\",\"bounty-board\",\"defeat\",\"notification-log\"],\"generatedConcepts\":21,\"technicalSketches\":108,\"evidence\":{\"dedicated-concept\":23,\"dedicated-original\":17,\"technical-sketch\":88,\"context-reference\":42}}\n"
+    }
+  ],
+  "checks": [
+    {
+      "cmd": "rtk proxy node --test tools/zheng-story-contract.test.mjs tools/zheng-reboot-aliases.test.mjs tools/verify-zheng-literary.test.mjs",
+      "chunk_id": "321ab9",
+      "wall_time_seconds": 3.1427958,
+      "exit_code": 0,
+      "original_token_count": 464,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n✔ archived V7 story passes without changing the source fixture (97.0162ms)\n✔ rejects one fewer paragraph in yiguan_a1_s1 (69.8829ms)\n✔ rejects one fewer paragraph in yiguan_a2_s2 (76.9279ms)\n✔ rejects one fewer paragraph in yiguan_a3_s3 (68.7143ms)\n✔ rejects one fewer paragraph in yiguan_a5_s1 (72.5448ms)\n✔ rejects one fewer paragraph in yiguan_a4_s4 (71.945ms)\n✔ rejects missing paragraph specifications instead of silently skipping a scene (72.2017ms)\n✔ rejects duplicate paragraph specifications instead of overwriting a count (70.8367ms)\n✔ archived v6 baseline rejects a matching accidental change to bible and story (76.4124ms)\n✔ published bookmark zheng_a4_s1 keeps its historical period (0.7228ms)\n✔ published bookmark zheng_a5_s1 keeps its historical period (0.1386ms)\n✔ published bookmark zheng_a5_s4 keeps its historical period (0.1772ms)\n✔ published bookmark yiguan_a2_s1 keeps its historical period (0.0785ms)\n✔ published bookmark yiguan_a4_s1 keeps its historical period (0.1896ms)\n✔ published bookmark yiguan_a5_s1 keeps its historical period (0.0774ms)\n✔ new historical edition has explicit variable-length six-part contract (1.4101ms)\n✔ edition cannot reduce its promised chapters by declaring new counts (0.3455ms)\n✔ unknown edition cannot fall back to historical reboot (0.1294ms)\n✔ all sixty-three published bookmarks remain valid navigation aliases (0.2848ms)\n✔ dropping a previous five-act bookmark is rejected (0.2619ms)\n✔ alias to an absent or chained chapter is rejected (0.1437ms)\n✔ legacy five-act contract still enforced (0.1329ms)\n✔ original six-act data remains recognized (0.2663ms)\nℹ tests 23\nℹ suites 0\nℹ pass 23\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 761.0054\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-zheng-story.mjs",
+      "chunk_id": "3315c1",
+      "wall_time_seconds": 2.2916249,
+      "exit_code": 0,
+      "original_token_count": 84,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nStory verification: passed; 377/377 checks; 0/0 images; 0 distinct image hashes.\nReport: docs/narrative/zheng-zhilong/verification.json. Browser QA: not-assessed.\nText: passed; illustrations: not-applicable-text-edition; literary acceptance: not-assessed.\n"
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/zheng-zhilong/verify-reader.mjs",
+      "chunk_id": "24dad1",
+      "wall_time_seconds": 2.2855181,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nZHENG_REBOOT_READER_STATIC checks=388 failures=0 chapters=22\n"
+    },
+    {
+      "cmd": "rtk proxy node tools/verify-production-resource-library.mjs",
+      "chunk_id": "6b2fa9",
+      "wall_time_seconds": 0.0000095,
+      "session_id": 61387,
+      "original_token_count": 143,
+      "output": "Import-CliXml : 缺少根元素。\r\n所在位置 C:\\Users\\dains\\Documents\\WindowsPowerShell\\Modules\\Terminal-Icons\\0.11.0\\Terminal-Icons.psm1:3419 字符: 23\r\n+     $userColorTheme = Import-CliXml -Path $_.FullName\r\n+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [Import-Clixml], XmlException\r\n    + FullyQualifiedErrorId : System.Xml.XmlException,Microsoft.PowerShell.Commands.ImportClixmlCommand\r\n \r\n索引操作失败；数组索引的计算结果为 Null。\r\n所在位置 C:\\Users\\dains\\Documents\\WindowsPowerShell\\Modules\\Terminal-Icons\\0.11.0\\Terminal-Icons.psm1:3420 字符: 5\r\n+     $userThemeData.Themes.Color[$userColorTheme.Name] = $userColorThe ...\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException\r\n    + FullyQualifiedErrorId : NullArrayIndex\r\n \r\n索引操作失败；数组索引的计算结果为 Null。\r\n所在位置 C:\\Users\\dains\\Documents\\WindowsPowerShell\\Modules\\Terminal-Icons\\0.11.0\\Terminal-Icons.psm1:3421 字符: 5\r\n+     $colorSequences[$userColorTheme.Name] = ConvertTo-ColorSequence - ...\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException\r\n    + FullyQualifiedErrorId : NullArrayIndex\r\n \r\n[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nRESOURCE_LIBRARY_VERIFIED {\"checks\":13,\"passed\":13,\"failed\":0,\"requirements\":170,\"categories\":{\"named-character\":26,\"npc-archetype\":28,\"ship\":8,\"cannon\":6,\"firearm\":2,\"melee-weapon\":3,\"ammunition\":4,\"building\":15,\"coastal-building\":6,\"scene-map\":15,\"nature\":10,\"prop\":47},\"phases\":{\"P0\":88,\"P1\":72,\"P2\":10},\"legacyBaseModels\":83,\"referencedScenes\":43,\"validSceneDomain\":43,\"referencedUiPages\":58,\"validUiDomain\":72,\"nativeOriginals\":21,\"rasterDecoded\":283,\"svgXmlValidated\":108,\"svgRendered\":108,\"totalImageFiles\":391,\"unreferencedLibraryImages\":0,\"negativeControls\":21}\n",
+      "exit_code": 0
+    },
+    {
+      "cmd": "rtk proxy node docs/narrative/full-polish-2026-10-24/verify-http.mjs",
+      "chunk_id": "6daa18",
+      "wall_time_seconds": 2.4665549,
+      "exit_code": 0,
+      "original_token_count": 448,
+      "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n{\"checkedAt\":\"2026-10-23T17:47:17.956Z\",\"sourceSha256\":\"ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a\",\"version\":\"historical-reboot-polish-2026-10-24\",\"localSourceAndExportsVerified\":true,\"sourceUnchanged\":true,\"url\":\"http://8.138.113.205:18794/docs/narrative/zheng-zhilong/?edition=11#top\",\"passed\":true,\"files\":[{\"file\":\"index.html\",\"status\":200,\"bytes\":6304,\"sha256\":\"2504bac2317dd1012d3811a660a2836494690d43f08f164ab256a4224577d15b\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"app.js\",\"status\":200,\"bytes\":42500,\"sha256\":\"739724f971d577b92e4dd679b98fa6cbf1d413c477d01758462708054a02b039\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"styles.css\",\"status\":200,\"bytes\":26477,\"sha256\":\"de48774f64fb182fb9d6856e94aff0d0da9cf2b8a6adaf77d42326907b691042\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"story-data.js\",\"status\":200,\"bytes\":201835,\"sha256\":\"06ca8b5fabe5e7709794965a00b4bf485302f2f590d6f6da28ef4612676257d9\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"zheng-zhilong-story.json\",\"status\":200,\"bytes\":201737,\"sha256\":\"ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"novel.md\",\"status\":200,\"bytes\":107656,\"sha256\":\"b41f9ca16214c9b5c1597151214c2ebc22e9cb8cd36a606200a83b9cef042280\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"screenplay.md\",\"status\":200,\"bytes\":183316,\"sha256\":\"6a49ef143b38985cbf472234921015dea6e26828c3158a568cec3e39d6ecc78a\",\"sameAsLocal\":true,\"passed\":true},{\"file\":\"game-scenes.md\",\"status\":200,\"bytes\":40165,\"sha256\":\"d8e5617893c76cff2f720bdcf8f52f6946ed3f0a79fe637433c9e5bdbc076f07\",\"sameAsLocal\":true,\"passed\":true}],\"scope\":\"Current-source local artifacts and public HTTP bytes; not visual browser evidence.\"}\n"
+    }
+  ],
+  "notes": [
+    "Terminal-Icons PowerShell profile emitted an XML theme warning in resource validation; underlying resource verifier completed with exit 0. No unrelated profile configuration was changed.",
+    "23 tests include 9 archived-contract fixtures; they do not score this novel's literary quality."
+  ]
+}

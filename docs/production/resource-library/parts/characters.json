@@ -1,0 +1,2474 @@
+{
+  "schemaVersion": 1,
+  "scope": "当前43场《一官入海》与现有72页UI的人物及NPC职业原型资源统筹。人物身份数不等于身体/头部基模数；仅提及人物无强制身体模型。",
+  "basis": {
+    "story": "docs/narrative/zheng-zhilong/zheng-zhilong-story.json",
+    "mirrorStory": "docs/narrative/zheng-zhilong-story.json",
+    "storyVersion": "v4-maritime-illustrated-2026-10-22",
+    "mirrorsByteIdentical": true,
+    "scenes": 43,
+    "previousBudget": "docs/design/game-ui/production-assets.json",
+    "portraitMapping": "docs/design/game-ui/prototype/ships.css",
+    "modelManifest": "assets/models/sailors/sailors-manifest.json",
+    "date": "2026-10-22"
+  },
+  "countingRules": [
+    "人物按独立身份计；同人不同姓名、年龄、服装不重复。",
+    "NPC按可复用职业/功能原型计，不是全场实际群众演员人数；named-character不再加到NPC。",
+    "26人物中18实际演出、8仅提及；后者仅为P2信息肖像候选，modelRequired=false。",
+    "existingModels列出的水手LOD为共享适配源而非该人物/职业已交付模型；三个LOD只是一族。",
+    "existingImages必须是实存文件。scene-context、ui-context、style-reference不算独立肖像，也不证明本人出现在图内。",
+    "visualBrief年龄/脸型/服装为生产提案，凡非史证不得包装成历史真实复原。"
+  ],
+  "counts": {
+    "namedCharacters": 26,
+    "onScreenNamedCharacters": 18,
+    "mentionedOnlyCharacters": 8,
+    "npcArchetypes": 28,
+    "distinctExistingModelFiles": 3,
+    "distinctExistingSailorFamilies": 1,
+    "independentPortraitIdentitiesBeforeNewProduction": 7
+  },
+  "items": [
+    {
+      "id": "char-zheng-zhilong",
+      "name": "郑芝龙",
+      "category": "named-character",
+      "phase": "P0",
+      "description": "主角，从澳门伙计、通译到海上首领和受抚官身；全剧为同一人。",
+      "visualBrief": "青年至中年，东南沿海青年长脸、黑发束髻、晒痕；初期靛青粗布短衣、赭黄腰带，后期深青长袍与细胡。动作从抢话、抬货、绷索到停手发令；官袍不得覆盖全部早期造型。年龄仅作美术阶段，不锁争议生年。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a2_s3",
+        "zheng_a3_s2",
+        "zheng_a4_s4",
+        "zheng_a5_s4",
+        "zheng_a6_s3",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "character-profile",
+        "character-growth",
+        "equipment",
+        "dialogue",
+        "relationships",
+        "family"
+      ],
+      "variants": [
+        "青年短衣",
+        "海上首领",
+        "受抚官袍",
+        "中年鬓发",
+        "湿衣/负伤表情"
+      ],
+      "modelStrategy": "成年共享身体+独立头部；衣装/胡须/年龄材质变体不增人物。旧sailor身体仅适配起点，现无此角色专属GLB。",
+      "historicalStatus": "历史人物；具体私人对白、动作与面容为创作，不称真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/zheng-portrait.png",
+          "role": "portrait",
+          "note": "当前一官专用新立绘；创作形象。"
+        },
+        {
+          "path": "assets/art/characters/zheng-captain-v1.png",
+          "role": "style-reference",
+          "note": "旧版甲胄立绘，仅供版本对照；不覆盖新一官脸与早期短衣。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-zheng",
+        "garment-work-tunic",
+        "garment-officer-robe",
+        "garment-padded-armor"
+      ],
+      "aliases": [
+        "一官",
+        "芝龙"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-tagawamatsu",
+      "name": "田川氏",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "一官之妻、福松之母；平户生活、送子、赴明与1646留居由本人选择。",
+      "visualBrief": "青年至中年女性；年轻阶段柔和椭圆脸、束发、朴素靛灰平户生活外衣、窄腰带；保留劳动手部。后期眼角、发色、衣物磨损递进；动作提桶、糊灯、收箱、替成年儿子理衣领。脸与衣装为创作提案，不把地方通称和家世演绎为确定史实。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s2",
+        "zheng_a2_s3",
+        "zheng_a5_s1",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "dialogue",
+        "family",
+        "home",
+        "child-growth",
+        "relationships"
+      ],
+      "variants": [
+        "青年日常",
+        "孕期服装适配",
+        "中年旧衣",
+        "赴明行装"
+      ],
+      "modelStrategy": "独立女性身体蒙皮+独立头部，成人骨架命名可共享；不能由男体缩放冒充。",
+      "historicalStatus": "历史人物；松为地方通称，具体家世与脸型未在本资源任务独立核史。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+          "role": "scene-character-reference",
+          "note": "画面左侧提漏桶的田川氏可作青年衣装/姿态参考，非独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-female",
+        "head-tagawamatsu",
+        "garment-japan-robe"
+      ],
+      "aliases": [
+        "松",
+        "田川氏／松"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-zheng-chenggong",
+      "name": "郑成功",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "1624出生、1630赴明、1645赐姓改名；幼年福松、少年森与成年成功合并一人。",
+      "visualBrief": "幼童圆脸、小手、素色交领衣与随身旧玩物；1634约九至十岁，按儿童比例制作，不做缩小成人。成年青年长脸保留父母眉眼线索，素青学子/军务衣装，理衣领时主动低头。1630幼童、1634儿童、1645青年为阶段方案。",
+      "storyRefs": [
+        "zheng_a2_s4",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a5_s7",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s3",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "family",
+        "child-growth",
+        "dialogue",
+        "relationships",
+        "ending"
+      ],
+      "variants": [
+        "幼年福松",
+        "儿童森",
+        "青年成功",
+        "军务便服"
+      ],
+      "modelStrategy": "幼年/成年须不同身体比例与两套头部拓扑方案；两套几何仍只算一个人物身份。",
+      "historicalStatus": "历史人物；生年与改名节点沿用当前剧本史注，所有面貌为创作。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "scene-character-reference",
+          "note": "目视：青年成功坐窗边持母亲旧衣；供青年侧脸、服装和情绪参考，不是独立头像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-child",
+        "body-adult-male",
+        "head-fusong-child",
+        "head-chenggong"
+      ],
+      "aliases": [
+        "福松",
+        "森",
+        "大木",
+        "成功",
+        "国姓爷"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-lin-awang",
+      "name": "林阿旺",
+      "category": "named-character",
+      "phase": "P0",
+      "description": "原创船匠、舵工，阿禾叔父；旧伤、回乡与女儿相见构成独立人物线。",
+      "visualBrief": "壮年至老年，宽颧、皱纹和灰胡；褐色头巾、蓝褐粗布短衣、旧工具带。掌舵肩背绷紧，伤后左/右腿在正式设定时统一，不从不同插画强定左右；末年步幅短、抱工具箱。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s3",
+        "zheng_a3_s4",
+        "zheng_a5_s7",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "crew-assign",
+        "dialogue",
+        "relationships"
+      ],
+      "variants": [
+        "早期劳动",
+        "旧腿伤",
+        "灰发老年",
+        "返乡行装"
+      ],
+      "modelStrategy": "成年共享身体+独立头部；跛行动作、坐姿与工具挂点适配；年龄不另算人物。",
+      "historicalStatus": "原创人物。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射awang，3×2图集左上；老人脸可作后期基准，早期需减龄方案。",
+          "cropNormalized": {
+            "x": 0,
+            "y": 0,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-awang",
+        "garment-work-tunic",
+        "headgear-headcloth"
+      ],
+      "aliases": [
+        "阿旺",
+        "旺叔"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-lin-ahe",
+      "name": "林阿禾",
+      "category": "named-character",
+      "phase": "P0",
+      "description": "原创少年水手，阿旺侄儿；后独立领船、离开杜七并自行参与救援。",
+      "visualBrief": "约十三岁出海，少年细瘦、略圆的脸；成年颧骨更清楚、晒痕重，灰米色旧衣、红褐发带/腰带作为可审查识别色。早期抱饭碗蹲低，成年操小艇、扶伤者，腰背绳伤只在相应阶段出现。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a3_s3",
+        "zheng_a3_s5",
+        "zheng_a4_s3",
+        "zheng_a5_s3",
+        "zheng_a5_s4",
+        "zheng_a6_s4"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "crew-assign",
+        "dialogue",
+        "relationships"
+      ],
+      "variants": [
+        "少年藏船",
+        "负伤少年",
+        "成年小艇领船"
+      ],
+      "modelStrategy": "儿童/少年身体与成人身体各适配；独立少年与成年头部，身份不加倍。",
+      "historicalStatus": "原创人物。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射ahe，上中；目视为青年脸，只适合成年/后少年参考，不冒充十三岁版本。",
+          "cropNormalized": {
+            "x": 0.3333333333333333,
+            "y": 0,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-child",
+        "body-adult-male",
+        "head-ahe-child",
+        "head-ahe-adult",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "阿禾",
+        "少年阿禾"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-chen-tian",
+      "name": "陈添",
+      "category": "named-character",
+      "phase": "P0",
+      "description": "原创货栈伙计、随船传话者，逐渐学习通译和账目；不是郑芝虎。",
+      "visualBrief": "青年至中年，较圆长脸、细胡、深蓝头巾、褐布交领短褂、肩挂小包；手部翻信、记账、递布，站姿略收肩。年龄材质缓变，不能直接复用郑芝龙脸。",
+      "storyRefs": [
+        "zheng_a1_s2",
+        "zheng_a2_s5",
+        "zheng_a3_s4",
+        "zheng_a5_s7",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "letters",
+        "accounts",
+        "dialogue"
+      ],
+      "variants": [
+        "货栈伙计",
+        "随船传话",
+        "中年账目"
+      ],
+      "modelStrategy": "共享男性身体+独立头部；文书和行囊为配件。",
+      "historicalStatus": "原创人物。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射chen，右上；只绑定陈添，与左下芝虎分开。",
+          "cropNormalized": {
+            "x": 0.6666666666666666,
+            "y": 0,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-chentian",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "陈添"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-duqi",
+      "name": "杜七",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创海上头领、合伙人；有自己的顺生大船、利益与回援要求。顺生是船名。",
+      "visualBrief": "三十至四十余岁的美术方案，宽厚颌部、黑粗胡、深褐盐旧短袍、粗腰带，身形比一官厚。伤手包布、后期手指僵硬；一手指失船残板的动作强调索偿，不加独眼或夸张海盗饰物。",
+      "storyRefs": [
+        "zheng_a2_s7",
+        "zheng_a3_s2",
+        "zheng_a3_s8",
+        "zheng_a3_s4",
+        "zheng_a4_s3",
+        "zheng_a4_s5",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "relationships",
+        "factions",
+        "fleet"
+      ],
+      "variants": [
+        "同盟船主",
+        "伤手",
+        "失船后小舟离去"
+      ],
+      "modelStrategy": "男性共享身体体态形变+独立头；伤手与普通手共用骨架。",
+      "historicalStatus": "原创人物，与真实人物无一一映射。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+          "role": "scene-character-reference",
+          "note": "目视：左侧黑褐衣粗胡男子为杜七的当前场景造型，指向顺生残板；供三视图前参考。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-duqi",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "杜七"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-ruan-laoliu",
+      "name": "阮老六",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创海盗头目；外沿收路钱、识破假筹、后以空米船设伏。",
+      "visualBrief": "成年精瘦头领，脸型与杜七/一官明显区分；暗灰短褂、简洁头布、腰刀。常与收银小艇保持距离，侧身观察可退水路；弃船离去保持行动能力，不虚构死法。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7",
+        "zheng_a4_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "sea-encounter",
+        "factions",
+        "history-notes"
+      ],
+      "variants": [
+        "外船索费",
+        "败退",
+        "空米船设伏"
+      ],
+      "modelStrategy": "共享成年身体+独立头；独立脸尚缺。",
+      "historicalStatus": "原创人物。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+          "role": "scene-context",
+          "note": "目视前景是收银副手，远船上的阮无可核面容；本图不能裁成阮老六肖像。"
+        },
+        {
+          "path": "assets/art/characters/pirate-captain-v1.png",
+          "role": "style-reference",
+          "note": "旧通用海上船长立绘，只作粗布/防护层次参考；没有证据将其指定成阮老六。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-ruan",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "阮老六",
+        "阮"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-huang-cheng",
+      "name": "黄程",
+      "category": "named-character",
+      "phase": "P0",
+      "description": "澳门亲族接引者，提供差事也要求偿损；不与普通货主/管事合并。",
+      "visualBrief": "中年东亚男性方案，较稳重的方长脸、细须、褐青素袍、布帽；衣着整洁但不豪奢。坐栈账旁等待一官解释、手指货损单的克制姿势；精确年龄/真实面容未知。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s4",
+        "zheng_a1_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "relationships",
+        "quest-detail"
+      ],
+      "variants": [
+        "货栈日常",
+        "重新议约"
+      ],
+      "modelStrategy": "共享东亚男性头部形变，须固定黄程身份的面貌参数；共享身体+素袍。",
+      "historicalStatus": "当前剧本标为有来源的澳门亲族接引者；具体买卖、对白、面容为创作。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "scene-context",
+          "note": "澳门货栈剧情上下文；不能把画面中不清楚的背景人当独立黄程立绘。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-officer-robe"
+      ],
+      "aliases": [
+        "黄程",
+        "舅父"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-manuel",
+      "name": "马努埃尔",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创葡萄牙商船长，与一官合作脱险并卖出需要修架的第二门轻炮。",
+      "visualBrief": "中年粗胡、海风乱发、深色短外套、浅麻衫、皮腰带；不是华丽18世纪军官。姿态扶舵/指安全水面、俯身查裂轴，受伤水手在其关切范围。",
+      "storyRefs": [
+        "zheng_a2_s8"
+      ],
+      "uiPages": [
+        "dialogue",
+        "trade-order",
+        "sea-encounter"
+      ],
+      "variants": [
+        "船长日常",
+        "炮战脱离"
+      ],
+      "modelStrategy": "共享欧籍男性头部但锁独立参数；共享成人体，航海外套需年代复验。",
+      "historicalStatus": "原创人物；具体遭遇为虚构，不代表整个国籍阵营。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "scene-character-reference",
+          "note": "目视左侧粗胡外籍船长指航向，为本场马努埃尔造型；仅场景角色参考。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat",
+        "headgear-seafarer"
+      ],
+      "aliases": [
+        "马努埃尔"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-kippei",
+      "name": "吉平",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创平户日本船主，要求按期装水并合货出资；非田川亲属。",
+      "visualBrief": "成年至中年日本商船主创作方案，窄长脸、朴素靛褐短外衣、束发、无夸张武士铠甲；双手检查水桶/合货清单，重心靠泊船方向，避免与供水者同脸。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "trade-order",
+        "relationships"
+      ],
+      "variants": [
+        "装水候船",
+        "合货谈价"
+      ],
+      "modelStrategy": "共享东亚男性头部固定形变+平户衣装；暂无独立面孔参考。",
+      "historicalStatus": "原创人物，不是田川氏亲属的替身。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+          "role": "scene-context",
+          "note": "当前图聚焦一官与田川氏；吉平仅属于本场剧情上下文，未核到可裁面容。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-japan-robe"
+      ],
+      "aliases": [
+        "吉平",
+        "日本船主吉平"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-alonso",
+      "name": "阿隆索",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创西班牙巡船掌艇者，有火力和扣船权，与安东不是同一人。",
+      "visualBrief": "三十至五十岁美术区间，长脸短胡、浅麻衣、深色无花短外套、简洁宽檐帽；掌艇时站后部发令。巡船兵可有头盔，不能把全艇制服倒推为其已考证身份。",
+      "storyRefs": [
+        "zheng_a3_s9"
+      ],
+      "uiPages": [
+        "dialogue",
+        "sea-encounter",
+        "boarding"
+      ],
+      "variants": [
+        "巡艇发令"
+      ],
+      "modelStrategy": "欧籍共享头部固定形变+成人身体，与马努埃尔/荷方职员保持不同脸型与衣色。",
+      "historicalStatus": "原创人物；本场不是已证郑氏亲历。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "scene-context",
+          "note": "目视巡艇后部宽檐帽发令者可供站位与服装关系参考；人物像素较小，不是独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat",
+        "headgear-seafarer"
+      ],
+      "aliases": [
+        "阿隆索"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-anton",
+      "name": "安东",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创吕宋本地水手；先提出同伴一同离开和工钱条件，合作不等于归附。",
+      "visualBrief": "成年划艇水手，结实肩臂、日晒皮肤、短发或简洁布带，灰米无袖劳动衣；姿态压低身体划艇。图集第五格当前呈卷发粗胡外籍面容，需按吕宋本地身份复审，不凭外貌推断民族。",
+      "storyRefs": [
+        "zheng_a3_s9"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "dialogue"
+      ],
+      "variants": [
+        "吕宋划艇",
+        "临时同行"
+      ],
+      "modelStrategy": "区域男性共享头部固定形变；现图集脸存在身份适配风险，定模前重审。",
+      "historicalStatus": "原创人物；吕宋本地身份取当前剧本，不把旧VOC船长插画冒充其本人。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射anton，下中；映射已核，但面容/衣装对吕宋本地身份的适配待审，不能视为最终定脸。",
+          "cropNormalized": {
+            "x": 0.3333333333333333,
+            "y": 0.5,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-regional-male",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "安东"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-ismail",
+      "name": "依斯迈",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "原创马来舟主；以运费、水和返程为合作条件，保留自有舟与船工。",
+      "visualBrief": "成年至中年，短胡、结实脸颊、细纹编织帽/头布、蓝绿粗布上衣；区域形制须单独考据，不能加幻想苏丹饰物。身体略前倾守住水器、与对方隔舟谈价。",
+      "storyRefs": [
+        "zheng_a3_s10"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "dialogue"
+      ],
+      "variants": [
+        "舟主谈价",
+        "无风共劳"
+      ],
+      "modelStrategy": "区域男性共享头部固定形变+成人体；衣帽样式待区域史料复核。",
+      "historicalStatus": "原创马来舟主。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射ismail，右下；创作头像，区域衣帽仍待史审。",
+          "cropNormalized": {
+            "x": 0.6666666666666666,
+            "y": 0.5,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s10.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-regional-male",
+        "garment-work-tunic"
+      ],
+      "aliases": [
+        "依斯迈"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-zheng-zhihu",
+      "name": "郑芝虎",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "郑芝龙之弟，独立领船共战，1635未归；不可与陈添或成年阿禾合并。",
+      "visualBrief": "青年至壮年，方颌、短胡、褐色头布、暗红无袖外褂配深内衣；临战前倾但按号令停。与芝龙有亲缘线索而非复制脸；1635不制作有争议死亡演出。",
+      "storyRefs": [
+        "zheng_a4_s3",
+        "zheng_a4_s7",
+        "zheng_a5_s4",
+        "zheng_a5_s5"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-detail",
+        "fleet",
+        "dialogue",
+        "relationships"
+      ],
+      "variants": [
+        "分队领船",
+        "火攻待令"
+      ],
+      "modelStrategy": "共享成年男性身体+固定独立面部形变；旧生产表没有芝虎专属head，需后续预算补审。",
+      "historicalStatus": "历史人物；未归与寻弟沿用剧本，不拍定异说死法，肖像为创作。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+          "role": "portrait-atlas-crop",
+          "note": "CSS映射zhihu，左下；与右上陈添严格分开。",
+          "cropNormalized": {
+            "x": 0,
+            "y": 0.5,
+            "width": 0.3333333333333333,
+            "height": 0.5
+          }
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-padded-armor"
+      ],
+      "aliases": [
+        "芝虎",
+        "弟弟（芝龙语境）"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-cai-shanji",
+      "name": "蔡善继",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "1626招抚交涉者；与1628熊文灿一方不是同场同一人。",
+      "visualBrief": "中年至老年文职官员方案，清瘦长脸、短灰须、素青袍与官帽；手指待验的船械文书，端坐倾听。面容、官服等级、补子不得凭空锁定。",
+      "storyRefs": [
+        "zheng_a4_s1"
+      ],
+      "uiPages": [
+        "dialogue",
+        "factions",
+        "history-notes"
+      ],
+      "variants": [
+        "1626交验交涉"
+      ],
+      "modelStrategy": "共享东亚男性头部固定形变+官袍/帽；暂无可核独立面容。",
+      "historicalStatus": "历史人物；交涉私人对白全为创作，衣冠需史审。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+          "role": "scene-context",
+          "note": "目视为交刀桌边人物；此旧者面貌与阿旺相近，不能在未确认身份时裁成蔡善继肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-officer-robe",
+        "headgear-official"
+      ],
+      "aliases": [
+        "蔡善继",
+        "蔡公"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-tagawamatsu-younger-son",
+      "name": "田川氏幼子",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "1630在平户与兄长分别，1635后随母长大；身份独立于福松。",
+      "visualBrief": "幼童到少年，年龄跨度按1630/1635后两阶段制作，朴素平户短衣；早期抱小碗，后期松开母亲的手。脸应与福松区分，未锁姓名、年龄数字或肖像。",
+      "storyRefs": [
+        "zheng_a5_s1",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "family",
+        "child-growth",
+        "dialogue"
+      ],
+      "variants": [
+        "1630幼童",
+        "1635后少年"
+      ],
+      "modelStrategy": "儿童共享身体+不同头部形变；本条独立身份但不强制独立新基模，后续若少年比例不兼容再重算。",
+      "historicalStatus": "历史家庭成员背景，当前剧本只称幼子；本清单不擅自绑定实姓名。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+          "role": "scene-character-reference",
+          "note": "目视田川氏牵一儿童背影；仅作母子身高、衣装关系参考，无正脸。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-child"
+      ],
+      "aliases": [
+        "幼子",
+        "福松的弟弟"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-awang-daughter",
+      "name": "阿旺的女儿",
+      "category": "named-character",
+      "phase": "P1",
+      "description": "早期缝工具带的女儿，1646末与返乡父亲团聚；只有一个身份。",
+      "visualBrief": "成年女性，三十至四十余岁仅为1646美术方案，朴素东南沿海布衫长裙、束髻、无奢华首饰；双手接重工具箱、抱怨中关心父亲。脸型需新设，不从田川氏或行商女立绘直接改名。",
+      "storyRefs": [
+        "zheng_a1_s5",
+        "zheng_a6_s4",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "relationships",
+        "ending"
+      ],
+      "variants": [
+        "返乡团聚"
+      ],
+      "modelStrategy": "共享女性身体和普通女性头部形变；旧预算无女性普通头部，须单列预算差异，不算已存在。",
+      "historicalStatus": "原创人物。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s5.png",
+          "role": "scene-context",
+          "note": "该场主图是成功持旧衣，女儿未在图中可辨；仅作为当前结尾场次上下文，不是女儿形象。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-female"
+      ],
+      "aliases": [
+        "闺女",
+        "阿旺女儿"
+      ],
+      "appearance": "on-screen",
+      "modelRequired": true
+    },
+    {
+      "id": "char-li-dan",
+      "name": "李旦",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "早期网络人物；死讯改变各船补给与关系。",
+      "visualBrief": "老年商海头领创作候选；朴素深袍、船货账册；真实面貌与精确年龄未知。",
+      "storyRefs": [
+        "zheng_a3_s2"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+          "role": "scene-context",
+          "note": "李旦的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "李旦"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-yan-siqi",
+      "name": "颜思齐",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "早期网络人物；死讯后留下的人分头选择，不能自动继承其全部事业。",
+      "visualBrief": "成年海上头领创作候选；粗布短袍、束发、开阔站姿；无已核肖像，不增回忆剧情。",
+      "storyRefs": [
+        "zheng_a3_s2"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s2.png",
+          "role": "scene-context",
+          "note": "颜思齐的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "颜思齐"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-xiong-wencan",
+      "name": "熊文灿",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "1628受抚交涉的官府一方；正文未把其本人明确带到镜头前。",
+      "visualBrief": "中年文官信息头像候选；官袍官帽等级与脸型须查史后定，不能把任一招抚使者指定成本人。",
+      "storyRefs": [
+        "zheng_a4_s4"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "scene-context",
+          "note": "熊文灿的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "熊文灿",
+        "熊文灿一方"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-xu-xinsu",
+      "name": "许心素",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "1628厦门战事对方，正文以势力、准入条件和败死消息呈现。",
+      "visualBrief": "中年官商人物信息头像候选；素长袍、商务腰袋、克制面容；无确证肖像，不加决斗/临终表情。",
+      "storyRefs": [
+        "zheng_a4_s3"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+          "role": "scene-context",
+          "note": "许心素的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "许心素",
+        "许心素一方"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-li-kuiqi",
+      "name": "李魁奇",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "1628联络的海上势力之一；当前正文无独立对白和明确本人镜头。",
+      "visualBrief": "成年海上头领信息头像候选；与钟斌区分脸型、头巾和衣色，不画成同一个海盗脸；形制待审。",
+      "storyRefs": [
+        "zheng_a4_s3"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+          "role": "scene-context",
+          "note": "李魁奇的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "李魁奇"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-zhong-bin",
+      "name": "钟斌",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "1628联络的海上势力之一；不与李魁奇合为同一人。",
+      "visualBrief": "成年海上头领信息头像候选；宽颧与短须方案、深褐工作衣；面貌为创作待定，不新增战场行为。",
+      "storyRefs": [
+        "zheng_a4_s3"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s3.png",
+          "role": "scene-context",
+          "note": "钟斌的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "钟斌"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-liu-xiang",
+      "name": "刘香",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "1635败亡消息的历史对手；当前正文重点为芝虎未归。",
+      "visualBrief": "成年海上头领信息头像候选；独立窄长脸方案，简洁海战衣；不据传说设计死亡姿态。",
+      "storyRefs": [
+        "zheng_a5_s5"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+          "role": "scene-context",
+          "note": "刘香的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "刘香"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "char-hans-putmans",
+      "name": "普特曼斯",
+      "category": "named-character",
+      "phase": "P2",
+      "description": "总人物表提及的VOC公司力量代表；43场正文没有明确本人出镜或独立对白。",
+      "visualBrief": "中年公司官员信息头像候选；17世纪短外套/白领与帽形必须另核；当前通用VOC船长不等于本人。",
+      "storyRefs": [
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "history-notes",
+        "factions"
+      ],
+      "variants": [
+        "可选信息头像"
+      ],
+      "modelStrategy": "当前不要求身体模型；仅信息肖像候选。若后续新增明确演出，先批准场次再变更模型预算。",
+      "historicalStatus": "历史人物；只按当前剧本史注登记身份，未在本任务核出真实肖像。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+          "role": "scene-context",
+          "note": "普特曼斯的关联场次上下文；不声称图中有本人，不可裁作其肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [],
+      "aliases": [
+        "普特曼斯"
+      ],
+      "appearance": "mentioned-only",
+      "modelRequired": false
+    },
+    {
+      "id": "npc-deck-sailor",
+      "name": "普通甲板水手",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "理缆、搬物、舀水、候航、伤员等船员共同基底；含被留操船者、被截船工和新伙计的普通变体，不含具名阿旺/阿禾。",
+      "visualBrief": "十八至五十余岁面部/体态变体，靛褐灰粗布短衣与束发头布；盐渍、湿衣、嘴角伤为材质层；动作拉绳、弯腰、坐等与扶同伴。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a2_s7",
+        "zheng_a3_s7",
+        "zheng_a4_s2",
+        "zheng_a4_s6"
+      ],
+      "uiPages": [
+        "crew-roster",
+        "crew-recruit",
+        "crew-morale",
+        "sailing-hud"
+      ],
+      "variants": [
+        "普通当值",
+        "伤病",
+        "新雇",
+        "被扣后释放"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-helmsman-rower",
+      "name": "轮值舵手与划艇人",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "匿名操舵/划桨船员，不替代安东、阿禾或阿旺独立身份。",
+      "visualBrief": "青年至中年结实肩臂，短衣束袖；手掌紧握木舵/桨，坐姿和蹬腿空间需适配低舷小艇。",
+      "storyRefs": [
+        "zheng_a3_s9",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "crew-assign",
+        "sailing-hud",
+        "battle-orders"
+      ],
+      "variants": [
+        "木舵",
+        "单桨",
+        "多人划艇"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-lookout",
+      "name": "瞭望与传旗水手",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "海战与航行中观察、报船影、传信号的岗位原型。",
+      "visualBrief": "青年至中年，窄袖短褂、头布；抬手遮日、扶栏望远、举信号布；不默认望远镜等新装备。",
+      "storyRefs": [
+        "zheng_a3_s1",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "crew-assign",
+        "sailing-hud",
+        "battle-orders"
+      ],
+      "variants": [
+        "瞭望",
+        "传旗"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+          "role": "ui-context",
+          "note": "岗位界面参考，仅作功能上下文，无独立瞭望员肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-gunner",
+      "name": "炮手与炮组长",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "点火、装填、拖炮座与当值炮组；将组长做参数变体。",
+      "visualBrief": "成年紧束袖短褂，前臂留操作空间；蹲跪装药、双手推杆、躲开后坐行程。火绳、炮口方向和组员站位统一。",
+      "storyRefs": [
+        "zheng_a2_s8",
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "ammo-loading",
+        "crew-assign",
+        "battle-hud"
+      ],
+      "variants": [
+        "组长",
+        "装填手",
+        "点火手"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-shipwright",
+      "name": "船匠与木匠",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "修船、砍坏桅、被掳后获救木匠；阿旺独立身份另列。",
+      "visualBrief": "成年厚掌与劳动肩背，粗布短衣/围布，工具带；持斧、敲钉、扶木、俯身验缝，破衣和旧伤可切换。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s7",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "ship-repair",
+        "shipyard",
+        "crew-recruit"
+      ],
+      "variants": [
+        "船厂修理",
+        "被掳后获救",
+        "紧急砍桅"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-medic",
+      "name": "随船医护",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "当前UI明确的医护岗位与接舷后备；剧本未另设具名医者。",
+      "visualBrief": "成年中性职业方案，素短褂、窄袖、便取的药囊；蹲下包扎、递清布、抬手拒绝重伤员继续派岗。",
+      "storyRefs": [],
+      "uiPages": [
+        "crew-assign",
+        "boarding",
+        "equipment",
+        "crew-recruit"
+      ],
+      "variants": [
+        "医护",
+        "救援后备"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/design/game-ui/prototype/previews/crew-assign.jpg",
+          "role": "ui-context",
+          "note": "已存在的医护岗位UI参考，尚无独立医护人物图；不得当作面貌图。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "ui-system-only",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-cargo-porter",
+      "name": "货栈伙计与码头搬运",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "搬箱、卸货、修扣与供水搬运的劳动群体；陈添单列。",
+      "visualBrief": "青年至中年，朴素蓝灰粗布、短袖或束袖、护肩垫变体；抬箱成对动作需共享载物锚点，重心低。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s2",
+        "zheng_a2_s1"
+      ],
+      "uiPages": [
+        "port-hub",
+        "cargo-hold",
+        "market"
+      ],
+      "variants": [
+        "栈房伙计",
+        "码头搬运",
+        "供水搬桶"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "scene-context",
+          "note": "澳门货栈劳动环境和抬货关系参考，无独立搬运工立绘。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-merchant-captain",
+      "name": "普通唐船船主",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "含早期大船船主、受验货老船主、等泊船主、告状船主；同职业不等于同一人。",
+      "visualBrief": "中年至老年海上经营者，素深袍/短褂、布帽、短须；摊旗、保护小包、退让泊位、问责的不同姿态。",
+      "storyRefs": [
+        "zheng_a1_s3",
+        "zheng_a1_s5",
+        "zheng_a1_s6",
+        "zheng_a2_s6",
+        "zheng_a5_s2",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "trade-order",
+        "sea-encounter"
+      ],
+      "variants": [
+        "早期大船主",
+        "受验老船主",
+        "候泊船主",
+        "护航告状人"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-market-trader",
+      "name": "货主与锚地行商",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "货损索赔者、换米卖针线伤药者、普通委托货主；男女经营者均为职业变体。",
+      "visualBrief": "成年/中年，素色交领外衣，有限腰袋/货单；女性商人束髻而非珠宝堆叠。摊布、称量、收银、护货姿态。",
+      "storyRefs": [
+        "zheng_a1_s4",
+        "zheng_a3_s7",
+        "zheng_a3_s8"
+      ],
+      "uiPages": [
+        "market",
+        "trade-order",
+        "dialogue"
+      ],
+      "variants": [
+        "货主",
+        "换米行商",
+        "针线/药材摊主",
+        "女性掌柜"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "assets/art/characters/merchant-woman-v1.png",
+          "role": "style-reference",
+          "note": "已存在通用行商女立绘，可作职业外衣/手势参考；不是田川氏或阿旺女儿。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "body-adult-female",
+        "head-eastasia-male"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-portuguese-dock-merchant",
+      "name": "澳门葡商",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "修箱付工钱并后续替一官说话的匿名葡商，同一角色的复现保持脸一致；与马努埃尔无依据合并。",
+      "visualBrief": "成年至中年，短胡、简洁深色短外套与浅麻衬衣，卷袖检查木扣；不直接套华丽蕾丝VOC船长。",
+      "storyRefs": [
+        "zheng_a1_s1",
+        "zheng_a1_s5"
+      ],
+      "uiPages": [
+        "dialogue",
+        "market"
+      ],
+      "variants": [
+        "修箱交涉",
+        "推荐随船"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+          "role": "scene-context",
+          "note": "修箱澳门葡商的场次上下文；暂无可核独立面貌图。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-voyage-manager",
+      "name": "随船管事与接洽人",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "黄程交代的管事、接武装航次者、管船排航者与出旗管事；不同关系人不强行合一。",
+      "visualBrief": "中年实用衣装、布帽、小账包；略收肩、看名单、伸手拦冲动上前者。经商与军务差事用腰袋/文书区分。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s3",
+        "zheng_a2_s4",
+        "zheng_a5_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "fleet",
+        "accounts"
+      ],
+      "variants": [
+        "黄程随船管事",
+        "武装航次接洽",
+        "出旗经办"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-pirate-toll-collector",
+      "name": "收银副手与登船刀手",
+      "category": "npc-archetype",
+      "phase": "P0",
+      "description": "阮部收银副手、留艇者、登板持刀手；副手连贯复现，不与远船阮老六合并。",
+      "visualBrief": "成年日晒窄脸、暗灰布带、粗短褂、腰刀；掂银时先看退路，登船时压低重心。不得人人画骷髅眼罩。",
+      "storyRefs": [
+        "zheng_a1_s6",
+        "zheng_a2_s7"
+      ],
+      "uiPages": [
+        "sea-encounter",
+        "boarding",
+        "dialogue"
+      ],
+      "variants": [
+        "收银副手",
+        "留艇",
+        "登船刀手"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+          "role": "scene-character-reference",
+          "note": "目视前景小艇男子为收银副手场景参考；不是阮老六肖像。"
+        },
+        {
+          "path": "assets/art/characters/pirate-captain-v1.png",
+          "role": "style-reference",
+          "note": "通用旧海上船长作服装层次参考，不能据此指认任何具名头领。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-portuguese-speaking-raider",
+      "name": "葡语索费武装者",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "第二门炮场索费者，虽与马努埃尔同语也敌对；与阮部不是一支已证同伙。",
+      "visualBrief": "成年短外套与粗麻衣，武器姿态节制；艇上指向炮口的索价手势。面容和服装不把所有葡语人物做成同一张脸。",
+      "storyRefs": [
+        "zheng_a2_s8"
+      ],
+      "uiPages": [
+        "sea-encounter",
+        "dialogue"
+      ],
+      "variants": [
+        "索费使者",
+        "快船武装"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-voc-cargo-officer",
+      "name": "VOC管货职员",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "大员扣款、发验货命令的合成职员；不等于普特曼斯。",
+      "visualBrief": "中年公司雇员方案，瘦长脸、深色简短外套、白麻领，账夹与货损单；姿态点账、催搬，不以大剑/舰长帽自动拔高职务。",
+      "storyRefs": [
+        "zheng_a2_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "factions",
+        "trade-order"
+      ],
+      "variants": [
+        "大员交涉",
+        "武装验货"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s6.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "assets/art/characters/voc-captain-v1.png",
+          "role": "style-reference",
+          "note": "旧图是通用公司船长风格，职员服制/帽饰须简化复核；不是普特曼斯。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-chinese-shipping-agent",
+      "name": "集团华商代理船主",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "华商代理、华商代理船主、集团华商代理为同一反复关系线；原先扣款、红封舱被截、后雇船追索。",
+      "visualBrief": "成年至中年方脸、细须、深褐短袍与布帽，袖口整齐、随带红封货单；靠货舱站立、阻拦开封、交易时保持距离。",
+      "storyRefs": [
+        "zheng_a2_s6",
+        "zheng_a3_s6",
+        "zheng_a3_s7",
+        "zheng_a3_s8"
+      ],
+      "uiPages": [
+        "dialogue",
+        "trade-order",
+        "accounts"
+      ],
+      "variants": [
+        "扣款代理",
+        "押红封舱船主",
+        "追索谈价"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-dutch-working-sailor",
+      "name": "荷方普通水手",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "在验货冲突中先取水扶人的荷兰水手及普通船工；与推人的护卫分别处理。",
+      "visualBrief": "成年劳动面容、素麻衬衣、短裤/裤装形制待核，卷袖、拿水扶人；不会因公司所属就统一恶相。",
+      "storyRefs": [
+        "zheng_a2_s6"
+      ],
+      "uiPages": [
+        "dialogue",
+        "boarding"
+      ],
+      "variants": [
+        "甲板劳动",
+        "扶伤者"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s6.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-company-armed-guard",
+      "name": "公司护卫与巡船兵",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "验货推人的护卫、西班牙巡艇兵等武装职务，属于不同组织的服装变体，不设统一国籍脸。",
+      "visualBrief": "成年均衡体格，短外衣/无花防护层、长杆或铳的安全握持；巡艇头盔轮廓独立审查。动作护舷、拦人、押货。",
+      "storyRefs": [
+        "zheng_a2_s6",
+        "zheng_a3_s9"
+      ],
+      "uiPages": [
+        "boarding",
+        "sea-encounter"
+      ],
+      "variants": [
+        "公司验货护卫",
+        "西班牙巡艇兵"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-european-male",
+        "garment-european-coat",
+        "garment-padded-armor"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-recruit-informer",
+      "name": "卖消息的新伙计",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "分利后入伙、领赏引一官登追索船的新伙计，匿名但需场次间保持同脸。",
+      "visualBrief": "青年偏瘦、灰褐旧衣、小包；眼神避开一官、手收小钱袋，逃离后只留空铺位，不新增死亡结局。",
+      "storyRefs": [
+        "zheng_a3_s7",
+        "zheng_a3_s8"
+      ],
+      "uiPages": [
+        "dialogue",
+        "crew-recruit",
+        "crew-morale"
+      ],
+      "variants": [
+        "新入伙",
+        "引路领钱"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-ming-clerk-envoy",
+      "name": "招抚使者与文吏",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "交验、安置名单、报效文书、战后报文等普通官府经办；不把使者改名成蔡善继或熊文灿。",
+      "visualBrief": "中年东亚男性，素青/灰袍、审定帽式、墨笔与文书夹；坐案抄名、双手递文、报伤亡时停笔。",
+      "storyRefs": [
+        "zheng_a4_s1",
+        "zheng_a4_s4",
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "dialogue",
+        "factions",
+        "accounts"
+      ],
+      "variants": [
+        "交验经办",
+        "安置登记",
+        "战后文吏"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-officer-robe",
+        "headgear-official"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-ming-deck-guard",
+      "name": "官船守船兵与接舷队",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "湾口救人时持长枪、篙钩的守船人，及分队中的普通接舷船员。",
+      "visualBrief": "成年海上防卫者，紧束短衣与轻便棉/皮防护层，长枪/钩不穿越手掌；湿甲板宽步、扶舷防落水。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s4"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-orders",
+        "battle-hud"
+      ],
+      "variants": [
+        "持枪守板",
+        "钩索手",
+        "救援后备"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-padded-armor"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-japan-waterfront-worker",
+      "name": "平户供水者与邻里",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "量水、等桶、租屋周边的匿名平户居民；吉平与田川氏另列。",
+      "visualBrief": "成年男女普通生活衣装，粗棉麻、简洁束发、围布；量桶、递物、催时辰，避免全员武士化。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a2_s2"
+      ],
+      "uiPages": [
+        "port-hub",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "供水者",
+        "邻里",
+        "屋主上下文"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+          "role": "scene-context",
+          "note": "平户水桶与临岸劳动空间参考，画面焦点为一官/田川氏，非供水者头像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "body-adult-female",
+        "head-eastasia-male",
+        "garment-japan-robe"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-family-escort",
+      "name": "平户亲属与送子随行者",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "送物、接福松赴明、迎接孩子的亲属及田川赴明随行人；除连贯送子者外不强定同一人。",
+      "visualBrief": "成年日常素袍、简洁行装，双手接孩子重箱、转身等候；可男女形变，脸不复用田川氏。",
+      "storyRefs": [
+        "zheng_a2_s1",
+        "zheng_a5_s1",
+        "zheng_a5_s2",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "family",
+        "dialogue",
+        "child-growth"
+      ],
+      "variants": [
+        "平户亲属",
+        "送子接引",
+        "赴明随行"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "body-adult-female",
+        "head-eastasia-male",
+        "garment-japan-robe"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-tutor",
+      "name": "教读先生",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "教福松写森、认名分的匿名先生；不是朝廷名臣替身。",
+      "visualBrief": "中年或老年清瘦文士方案，素长衫、小帽、短须；坐在儿童高度的案边指字/扶书，姿态平静。",
+      "storyRefs": [
+        "zheng_a5_s2",
+        "zheng_a6_s1"
+      ],
+      "uiPages": [
+        "child-growth",
+        "home",
+        "dialogue"
+      ],
+      "variants": [
+        "幼年教读",
+        "后续求学上下文"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-officer-robe"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-fishing-household",
+      "name": "沿岸渔户与获救居民",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "报湾口抢掠的赤脚渔户、被掳成年居民、等泊货船家庭；职业与处境为变体。",
+      "visualBrief": "青年至老年男女，晒痕、灰褐粗衣、短裤/裙装、少饰；赤足报信、扶船、递网；破衣不等于固定穷苦脸。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s2"
+      ],
+      "uiPages": [
+        "port-hub",
+        "dialogue",
+        "quest-detail"
+      ],
+      "variants": [
+        "报信渔户",
+        "获救居民",
+        "候泊家庭"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-adult-male",
+        "body-adult-female",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-civilian-child",
+      "name": "普通儿童与被掳少年",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "湾口先问旗号的少年、舱内哭声的儿童、候泊船上提鱼孩子；不与阿禾/福松/幼子合并。",
+      "visualBrief": "约六至十六岁比例变体，朴素粗布短衣，小手和头身比依阶段制作；扶舱口、递鱼、抓成年亲属衣袖。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a5_s2"
+      ],
+      "uiPages": [
+        "dialogue",
+        "port-hub"
+      ],
+      "variants": [
+        "被掳少年",
+        "获救儿童",
+        "船上提鱼孩子"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [],
+      "legacyModelIds": [
+        "body-child"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-mixed-raiding-swordsman",
+      "name": "沿海混合掠船刀手",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "1629湾口掠船上既有乡音船员也有日语刀手；“倭寇”是报信者称呼，不等同全为日本人。",
+      "visualBrief": "成年不同脸型体态，粗短衣/区域衣装、束发或头布，持长刀跨板；避免日式夸张大铠与统一鬼脸。",
+      "storyRefs": [
+        "zheng_a4_s7"
+      ],
+      "uiPages": [
+        "boarding",
+        "battle-hud",
+        "history-notes"
+      ],
+      "variants": [
+        "乡音船员",
+        "日语雇佣刀手"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process1.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic",
+        "garment-japan-robe"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-domestic-servant",
+      "name": "家中仆役与守门人",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "守门询问来人、1646应声通知不许开船的家中仆役等背景职务。",
+      "visualBrief": "成年朴素深灰/褐衣，少饰、收袖；侧立门边、接指示后转身；不把仆役写成另一个具名家臣。",
+      "storyRefs": [
+        "zheng_a4_s7",
+        "zheng_a6_s3"
+      ],
+      "uiPages": [
+        "home",
+        "dialogue",
+        "family"
+      ],
+      "variants": [
+        "守门",
+        "家中听差"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    },
+    {
+      "id": "npc-courier-herald",
+      "name": "报信人、传令人与筹粮来人",
+      "category": "npc-archetype",
+      "phase": "P1",
+      "description": "传家书、报1635战讯、1645军务回话与1646死讯核问的匿名来人。不同来报不推定同一名士。",
+      "visualBrief": "成年普通短衣/长衫按差事切换，旅行包和封信；站在门外等话、递信、将消息重复说清。脸与衣色随机但单场连续镜头固定。",
+      "storyRefs": [
+        "zheng_a2_s4",
+        "zheng_a5_s5",
+        "zheng_a6_s1",
+        "zheng_a6_s2",
+        "zheng_a6_s5"
+      ],
+      "uiPages": [
+        "letters",
+        "intelligence",
+        "dialogue",
+        "quest-detail"
+      ],
+      "variants": [
+        "捎信",
+        "战讯",
+        "军务筹粮",
+        "死讯核问"
+      ],
+      "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+      "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+      "existingImages": [
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        },
+        {
+          "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s2.png",
+          "role": "scene-context",
+          "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+        }
+      ],
+      "existingModels": [
+        "assets/models/sailors/sailor-lod0.glb",
+        "assets/models/sailors/sailor-lod1.glb",
+        "assets/models/sailors/sailor-lod2.glb"
+      ],
+      "legacyModelIds": [
+        "body-adult-male",
+        "head-eastasia-male",
+        "garment-work-tunic"
+      ],
+      "appearance": "on-screen-archetype",
+      "modelRequired": true
+    }
+  ]
+}
+

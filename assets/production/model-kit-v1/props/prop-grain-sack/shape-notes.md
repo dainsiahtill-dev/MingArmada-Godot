@@ -1,0 +1,5 @@
+# prop-grain-sack 形制说明
+
+C级生活贸易容器设计，袋料与尺寸未锁定考古原物。
+
+依据见 [环境器物分册](../../../../../docs/production/model-preproduction-2026-10-24/research-environment-props.md)。草图是外形候选，未审定为精确复原。

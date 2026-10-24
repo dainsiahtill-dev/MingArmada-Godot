@@ -1,0 +1,82 @@
+- link "跳至当前界面":
+  - /url: "#main-content"
+- banner:
+  - link "明 海上明旗 界面原型":
+    - /url: "#main-menu"
+    - generic: 明
+    - strong: 海上明旗
+    - generic: 界面原型
+  - navigation "审阅工具":
+    - button "全部页面 72"
+    - button "系统总表"
+    - button "玩法流程"
+    - button "页面目录" [active]
+  - generic: 交互为内存演示
+- main:
+  - generic: 结算与辅助 / 船上账房 · 69 / 72
+  - text: 页面状态
+  - combobox "页面状态":
+    - option "正常" [selected]
+    - option "周转充足"
+    - option "欠款未清"
+    - option "家用被挪"
+    - option "账目已核"
+  - button "重置演示"
+  - generic: 海上明旗
+  - text: 银两
+  - strong: 2,325
+  - text: 船员
+  - strong: 39 / 60
+  - text: 士气
+  - strong: "78"
+  - button "暂停与设置":
+  - paragraph: 港口与人间
+  - heading "账房" [level=1]
+  - paragraph: 毛利、成本、净余与尚欠，各有一行。用途不同的银，不悄悄混在一起。
+  - button "回看人船清点"
+  - generic: 当前可以支用
+  - strong: 2,325 两
+  - paragraph: 账上的钱能补船、买粮、付工钱。尚未寄出的家用，仍是一件未办的事。
+  - button "当前出入"
+  - button "前航次留档"
+  - button "用途与尚欠"
+  - generic: 账目
+  - generic: 收支
+  - generic: 该笔后余额
+  - strong: 招募waterman
+  - generic: 刚刚
+  - strong: "-45 两"
+  - generic: 2,325 两
+  - strong: 捎信至平户家中，附银70两
+  - generic: 刚刚
+  - strong: "-90 两"
+  - generic: 2,370 两
+  - strong: 上一航次货物结清
+  - generic: 昨日
+  - strong: +620 两
+  - generic: 2,460 两
+  - strong: 船员酬银
+  - generic: 前日
+  - strong: "-90 两"
+  - generic: 1,840 两
+  - strong: 现存可支
+  - strong: 2,325 两
+  - generic: 与资源栏一致
+  - navigation "游戏功能":
+    - button "航行":
+      - generic: 航行
+    - button "海图":
+      - generic: 海图
+    - button "舰船":
+      - generic: 舰船
+    - button "行囊":
+      - generic: 行囊
+    - button "船员":
+      - generic: 船员
+    - button "日志":
+      - generic: 日志
+    - button "家书":
+      - generic: 家书
+    - button "港口":
+      - generic: 港口
+- status: 本舷重新装填完成。

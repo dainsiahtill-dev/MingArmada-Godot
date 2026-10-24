@@ -1,0 +1,164 @@
+{
+  "id": "map-macau-harbor",
+  "name": "澳门货栈与接驳泊区差异包",
+  "category": "scene-map",
+  "phase": "P0",
+  "description": "第一幕港口工作区，与货栈、旧铺和夜航出港共用，提供装货至离岸的小范围路线。",
+  "visualBrief": "1621—约1623，有限石岸/木码头、华商货栈与外泊大船方向；步行区域建议几十米级，夜间岸灯用于离岸辨向，远城只做低干扰背景。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s2",
+    "zheng_a1_s4",
+    "zheng_a1_s5"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "scene-briefing",
+    "dialogue",
+    "new-career",
+    "shipyard"
+  ],
+  "variants": [
+    "白日交涉",
+    "夜装离岸",
+    "货损返栈"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。港口母布局装配货栈、铺位、码头与船只；不是完整澳门城。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "story-context",
+      "note": "货栈工作区；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "story-context",
+      "note": "夜航离岸；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+      "role": "story-context",
+      "note": "旧铺与伤员处；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-macau-warehouse",
+    "building-warehouse-berth",
+    "coastal-wood-pier",
+    "coastal-stone-step"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-macau-harbor",
+  "images": [
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "story-context",
+      "note": "货栈工作区；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "story-context",
+      "note": "夜航离岸；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s4-ddb03cbd.png",
+      "role": "story-context",
+      "note": "旧铺与伤员处；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s4.png",
+      "sha256": "ddb03cbd3983dc2cb5bdf13f0ec3c466782008ccb4a3111729d54bc878967caa",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-macau-harbor",
+      "path": "assets/production/maps/map-macau-harbor/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "ebbc5681d0e449cc60ea4fc5d312b1bb50f204c0f5f19196fbf8ab3720a484b4",
+      "sha256": "2d5ac5680896ba9b6ff86d917d0d61ab26a2a0133e0e8e42b7a486057b874330",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-macau-harbor",
+    "path": "assets/production/maps/map-macau-harbor/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "ebbc5681d0e449cc60ea4fc5d312b1bb50f204c0f5f19196fbf8ab3720a484b4",
+    "sha256": "2d5ac5680896ba9b6ff86d917d0d61ab26a2a0133e0e8e42b7a486057b874330",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "scene-briefing",
+      "title": "章场简报"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "new-career",
+      "title": "新生涯"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    }
+  ]
+}

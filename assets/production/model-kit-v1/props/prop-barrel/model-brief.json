@@ -1,0 +1,54 @@
+{
+  "id": "prop-barrel",
+  "name": "淡水桶",
+  "category": "货物与生活道具",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "补缝材质",
+    "裂口节点显示"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "cargo-hold",
+    "inventory",
+    "item-detail",
+    "market",
+    "black-market",
+    "home",
+    "dialogue",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+      "status": "procedural-source",
+      "note": "get_mesh支持barrel；现为运行时ArrayMesh，不是独立GLB交付。"
+    }
+  ],
+  "productionStatus": "reusable-after-review",
+  "notes": [
+    "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a2_s1",
+    "zheng_a3_s10"
+  ],
+  "group": "props",
+  "artJobs": [
+    "prop-barrel"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/props/prop-barrel",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "prop-barrel"
+  ],
+  "sketchStatus": "not-generated"
+}

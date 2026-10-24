@@ -1,0 +1,101 @@
+{
+  "id": "npc-civilian-child",
+  "name": "普通儿童与被掳少年",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "湾口先问旗号的少年、舱内哭声的儿童、候泊船上提鱼孩子；不与阿禾/福松/幼子合并。",
+  "visualBrief": "约六至十六岁比例变体，朴素粗布短衣，小手和头身比依阶段制作；扶舱口、递鱼、抓成年亲属衣袖。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s2"
+  ],
+  "uiPages": [
+    "dialogue",
+    "port-hub"
+  ],
+  "variants": [
+    "被掳少年",
+    "获救儿童",
+    "船上提鱼孩子"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-child"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-civilian-child",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-civilian-child/reference/zheng_a4_s7_process2-2da3e336.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process2.png",
+      "sha256": "2da3e336fac6e623233a07bba0837c673cf58f36fe05f9d781de009eba2fe3c9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-civilian-child/reference/zheng_a5_s2-a2d9d545.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-civilian-child/reference/zheng_a4_s7_process2-2da3e336.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7_process2.png",
+    "sha256": "2da3e336fac6e623233a07bba0837c673cf58f36fe05f9d781de009eba2fe3c9",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    }
+  ]
+}

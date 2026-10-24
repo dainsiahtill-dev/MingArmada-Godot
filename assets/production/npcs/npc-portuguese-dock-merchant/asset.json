@@ -1,0 +1,93 @@
+{
+  "id": "npc-portuguese-dock-merchant",
+  "name": "澳门葡商",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "修箱付工钱并后续替一官说话的匿名葡商，同一角色的复现保持脸一致；与马努埃尔无依据合并。",
+  "visualBrief": "成年至中年，短胡、简洁深色短外套与浅麻衬衣，卷袖检查木扣；不直接套华丽蕾丝VOC船长。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s5"
+  ],
+  "uiPages": [
+    "dialogue",
+    "market"
+  ],
+  "variants": [
+    "修箱交涉",
+    "推荐随船"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "scene-context",
+      "note": "修箱澳门葡商的场次上下文；暂无可核独立面貌图。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-european-male",
+    "garment-european-coat"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-portuguese-dock-merchant",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-portuguese-dock-merchant/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "scene-context",
+      "note": "修箱澳门葡商的场次上下文；暂无可核独立面貌图。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-portuguese-dock-merchant/reference/zheng_a1_s1-eb7501a9.png",
+    "role": "scene-context",
+    "note": "修箱澳门葡商的场次上下文；暂无可核独立面貌图。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+    "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    }
+  ]
+}

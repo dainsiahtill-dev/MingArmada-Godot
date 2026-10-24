@@ -1,0 +1,100 @@
+{
+  "id": "char-manuel",
+  "name": "马努埃尔",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创葡萄牙商船长，与一官合作脱险并卖出需要修架的第二门轻炮。",
+  "visualBrief": "中年粗胡、海风乱发、深色短外套、浅麻衫、皮腰带；不是华丽18世纪军官。姿态扶舵/指安全水面、俯身查裂轴，受伤水手在其关切范围。",
+  "storyRefs": [
+    "zheng_a2_s8"
+  ],
+  "uiPages": [
+    "dialogue",
+    "trade-order",
+    "sea-encounter"
+  ],
+  "variants": [
+    "船长日常",
+    "炮战脱离"
+  ],
+  "modelStrategy": "共享欧籍男性头部但锁独立参数；共享成人体，航海外套需年代复验。",
+  "historicalStatus": "原创人物；具体遭遇为虚构，不代表整个国籍阵营。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "role": "scene-character-reference",
+      "note": "目视左侧粗胡外籍船长指航向，为本场马努埃尔造型；仅场景角色参考。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-european-male",
+    "garment-european-coat",
+    "headgear-seafarer"
+  ],
+  "aliases": [
+    "马努埃尔"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-manuel",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-manuel/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-a7a98daf-2a5f-4136-899b-fb2630cbeb66.png",
+      "promptId": "char-manuel",
+      "sha256": "8a73057126b0c44c5459ee2085bb1721b9d42eb4900588250f9c5065c582adb1",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-manuel/reference/zheng_a2_s8-887c5851.png",
+      "role": "scene-character-reference",
+      "note": "目视左侧粗胡外籍船长指航向，为本场马努埃尔造型；仅场景角色参考。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-manuel/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-a7a98daf-2a5f-4136-899b-fb2630cbeb66.png",
+    "promptId": "char-manuel",
+    "sha256": "8a73057126b0c44c5459ee2085bb1721b9d42eb4900588250f9c5065c582adb1",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s8",
+      "legacyTitle": "第二门炮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    }
+  ]
+}

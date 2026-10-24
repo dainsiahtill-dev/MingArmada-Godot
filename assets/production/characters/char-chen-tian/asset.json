@@ -1,0 +1,158 @@
+{
+  "id": "char-chen-tian",
+  "name": "陈添",
+  "category": "named-character",
+  "phase": "P0",
+  "description": "原创货栈伙计、随船传话者，逐渐学习通译和账目；不是郑芝虎。",
+  "visualBrief": "青年至中年，较圆长脸、细胡、深蓝头巾、褐布交领短褂、肩挂小包；手部翻信、记账、递布，站姿略收肩。年龄材质缓变，不能直接复用郑芝龙脸。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a2_s5",
+    "zheng_a3_s4",
+    "zheng_a5_s7",
+    "zheng_a6_s4",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "letters",
+    "accounts",
+    "dialogue"
+  ],
+  "variants": [
+    "货栈伙计",
+    "随船传话",
+    "中年账目"
+  ],
+  "modelStrategy": "共享男性身体+独立头部；文书和行囊为配件。",
+  "historicalStatus": "原创人物。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射chen，右上；只绑定陈添，与左下芝虎分开。",
+      "cropNormalized": {
+        "x": 0.6666666666666666,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-chentian",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "陈添"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-chen-tian",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-chen-tian/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射chen，右上；只绑定陈添，与左下芝虎分开。",
+      "cropNormalized": {
+        "x": 0.6666666666666666,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-chen-tian/reference/crew-portraits-723ae50b.png",
+    "role": "portrait-atlas-crop",
+    "note": "CSS映射chen，右上；只绑定陈添，与左下芝虎分开。",
+    "cropNormalized": {
+      "x": 0.6666666666666666,
+      "y": 0,
+      "width": 0.3333333333333333,
+      "height": 0.5
+    },
+    "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+    "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "letters",
+      "title": "家书匣"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

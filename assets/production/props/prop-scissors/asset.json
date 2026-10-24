@@ -1,0 +1,96 @@
+{
+  "id": "prop-scissors",
+  "name": "剪刀",
+  "category": "prop",
+  "phase": "P1",
+  "description": "两人修纸灯和拆开红封货的小型动作道具。",
+  "visualBrief": "朴素金属双刃与双环柄，铰点、单手抓位清楚，使用磨损克制；不画现代塑料包胶柄。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a3_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "home",
+    "item-detail"
+  ],
+  "variants": [
+    "闭合／微开节点",
+    "旧化"
+  ],
+  "modelStrategy": "一个小剪刀道具，节点开合；两场共用，不增加裁缝小游戏或完整针线套装。",
+  "historicalStatus": "needs-concept；剧情明确剪刀，明末具体环柄与铰接外观尚需器物史审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-scissors",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-scissors/reference/zheng_a3_s6-8413c0a1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-scissors",
+      "path": "assets/production/props/prop-scissors/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "e20500cb9423809cbe3107f0555130a663aaae14f230e27355bb93cd5360c914",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-scissors",
+    "path": "assets/production/props/prop-scissors/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "e20500cb9423809cbe3107f0555130a663aaae14f230e27355bb93cd5360c914",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s6",
+      "legacyTitle": "红封舱里的抵偿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    }
+  ]
+}

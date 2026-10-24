@@ -1,0 +1,129 @@
+{
+  "id": "building-settlement-shelter",
+  "name": "受抚前后临时安置屋",
+  "category": "building",
+  "phase": "P1",
+  "description": "粮与职分未到的雨屋、临时居所及重组航次场面；以破损和陈设表明处境。",
+  "visualBrief": "1626—1630前福建沿海；建议单层约6×8米朴素屋，瓦顶/旧板雨漏节点、灰泥墙、门边遮雨，工作与病人位置分开；不引入未证的官方营房定制。",
+  "storyRefs": [
+    "zheng_a4_s2",
+    "zheng_a4_s5"
+  ],
+  "uiPages": [
+    "dialogue",
+    "crew-morale",
+    "diplomacy",
+    "home"
+  ],
+  "variants": [
+    "雨漏与缺粮",
+    "重新出航",
+    "门口断盟"
+  ],
+  "modelStrategy": "复用货栈/住宅模块装配，独立基模增量0；雨漏用效果与节点配置，不新增完整破屋基模。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "role": "story-context",
+      "note": "雨落进空锅的安置屋情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s5.png",
+      "role": "story-context",
+      "note": "门口断盟与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "prefab-assembly",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-plaster-wall",
+    "building-residence-roof",
+    "building-door",
+    "building-window",
+    "building-warehouse-front",
+    "building-warehouse-wall",
+    "building-pitched-roof",
+    "coastal-stone-step"
+  ],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-settlement-shelter",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-settlement-shelter/reference/zheng_a4_s2-88c88d50.png",
+      "role": "story-context",
+      "note": "雨落进空锅的安置屋情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-settlement-shelter/reference/zheng_a4_s5-248ef496.png",
+      "role": "story-context",
+      "note": "门口断盟与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s5.png",
+      "sha256": "248ef496c31c16b972d82a03477f9ba996d33d33af89110b04364eb4ba1e8a0d",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-settlement-shelter",
+      "path": "assets/production/buildings/building-settlement-shelter/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "dfe4f7a767f30d60dca0dcbaba6812fae3506edd8b894f9f757a915df29d428d",
+      "sha256": "653421ae5aab803ff21b435fc9fdffa8f4701ce10e1de8223f794d8cb1f56b8a",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "building-settlement-shelter",
+    "path": "assets/production/buildings/building-settlement-shelter/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "dfe4f7a767f30d60dca0dcbaba6812fae3506edd8b894f9f757a915df29d428d",
+    "sha256": "653421ae5aab803ff21b435fc9fdffa8f4701ce10e1de8223f794d8cb1f56b8a",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s2",
+      "legacyTitle": "没有等来的官船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s5",
+      "legacyTitle": "门槛",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "crew-morale",
+      "title": "士气与薪酬"
+    },
+    {
+      "id": "diplomacy",
+      "title": "交涉与盟约"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    }
+  ]
+}

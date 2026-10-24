@@ -1,0 +1,88 @@
+{
+  "id": "firearm-short-matchlock",
+  "name": "短铳（暂定短火绳枪形制）",
+  "category": "firearm",
+  "phase": "P1",
+  "description": "1631—1632同一面令旗明确出现埋伏的短铳；独立于长鸟铳和舰炮。",
+  "visualBrief": "较短金属管与近直短木柄、侧面火绳夹为暂定外轮廓；单／双手抓点须以角色动作核查。装饰克制，不使用19世纪左轮、燧发海盗手枪或江户中晚期华饰短筒。",
+  "storyRefs": [
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "boarding",
+    "battle-hud",
+    "history-notes"
+  ],
+  "variants": [
+    "朴素旧化",
+    "收存／持用"
+  ],
+  "modelStrategy": "独立短铳主体，禁止简单压短长铳。形制审查前只做示意占位；不额外建立现代手枪装备系统。",
+  "historicalStatus": "needs-concept；shape-unresolved。剧本只证明有短铳。HS-05馆藏断代16—17世纪但范围宽，属日本类比，不能证明福建1631具体样式；需专项复核再定稿。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "个人火器",
+  "assetDirectory": "assets/production/firearms/firearm-short-matchlock",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/firearms/firearm-short-matchlock/reference/zheng_a5_s6-7efaccf5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s6.png",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "firearm-short-matchlock",
+      "path": "assets/production/firearms/firearm-short-matchlock/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "0407979aed88596711e24c14f8968be59c741b62aeed7b197cba50e7f9877e00",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "firearm-short-matchlock",
+    "path": "assets/production/firearms/firearm-short-matchlock/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "0407979aed88596711e24c14f8968be59c741b62aeed7b197cba50e7f9877e00",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

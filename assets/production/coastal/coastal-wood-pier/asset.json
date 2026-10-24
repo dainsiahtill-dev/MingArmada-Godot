@@ -1,0 +1,139 @@
+{
+  "id": "coastal-wood-pier",
+  "name": "木码头段",
+  "category": "coastal-building",
+  "phase": "P0",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "木桩排架、纵横梁和可拼接铺板，建议直段4米长、2米宽；旧木、湿水线、端头节点可读，1621—1646装卸与登船使用。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a2_s1",
+    "zheng_a5_s2"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "直段拼接",
+    "端头配置"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 dock-wood-pier；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "story-context",
+      "note": "夜航离岸与岸灯的空间关系；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "dock-wood-pier"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "沿海设施",
+  "assetDirectory": "assets/production/coastal/coastal-wood-pier",
+  "images": [
+    {
+      "path": "assets/production/coastal/coastal-wood-pier/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "story-context",
+      "note": "夜航离岸与岸灯的空间关系；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/coastal/coastal-wood-pier/reference/port-hub-v2-edf92ad5.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "coastal-wood-pier",
+      "path": "assets/production/coastal/coastal-wood-pier/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "30151cc92e020f526c2f8a04ec12c724f6af7e9c02b351a5d1e4c2a7ad72f648",
+      "sha256": "eb31937afc31ccedd96a8e620d09b3ba7970acce8f6b7141bc681d13b88f1414",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "coastal-wood-pier",
+    "path": "assets/production/coastal/coastal-wood-pier/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "30151cc92e020f526c2f8a04ec12c724f6af7e9c02b351a5d1e4c2a7ad72f648",
+    "sha256": "eb31937afc31ccedd96a8e620d09b3ba7970acce8f6b7141bc681d13b88f1414",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

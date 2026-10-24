@@ -1,0 +1,92 @@
+{
+  "id": "prop-receipt",
+  "name": "损货回单",
+  "category": "prop",
+  "phase": "P0",
+  "description": "现有物品页已有；承担货损与赔付可追溯记录。",
+  "visualBrief": "折纸一张、旧折痕与货栈识别记号；主体内容在UI保持清楚排字，手持和桌面形态共享。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a1_s4"
+  ],
+  "uiPages": [
+    "inventory",
+    "item-detail",
+    "accounts",
+    "contract-detail",
+    "voyage-result"
+  ],
+  "variants": [
+    "赔付状态文字贴图",
+    "折叠／展开"
+  ],
+  "modelStrategy": "完全引用prop-letter纸张网格，仅新增文书内容与UI卡面；不新增纸张基模。",
+  "historicalStatus": "needs-concept；系统文书为原创重建，剧本货损责任明确但没有存世回单；不得拟作真实历史文书。",
+  "existingImages": [],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-receipt",
+  "dependencies": [],
+  "images": [
+    {
+      "id": "prop-receipt",
+      "path": "assets/production/props/prop-receipt/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "a42316189928c2afab3f46825f989d0f2591820e0f86aa9fd74be34888b829ad",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-receipt",
+    "path": "assets/production/props/prop-receipt/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "a42316189928c2afab3f46825f989d0f2591820e0f86aa9fd74be34888b829ad",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    },
+    {
+      "id": "contract-detail",
+      "title": "约定与交割"
+    },
+    {
+      "id": "voyage-result",
+      "title": "一航之后"
+    }
+  ]
+}

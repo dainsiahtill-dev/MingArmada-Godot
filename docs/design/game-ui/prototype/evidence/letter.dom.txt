@@ -1,0 +1,72 @@
+- link "跳至当前界面":
+  - /url: "#main-content"
+- banner:
+  - link "明 海上明旗 界面原型":
+    - /url: "#main-menu"
+    - generic: 明
+    - strong: 海上明旗
+    - generic: 界面原型
+  - navigation "审阅工具":
+    - button "全部页面 72"
+    - button "系统总表"
+    - button "玩法流程"
+    - button "页面目录" [active]
+  - generic: 交互为内存演示
+- main:
+  - generic: 家园与家书 / 一封家书 · 66 / 72
+  - text: 页面状态
+  - combobox "页面状态":
+    - option "正常" [selected]
+    - option "家书原文展示"
+    - option "附船图童谣"
+    - option "寄款附记"
+    - option "回信待写"
+  - button "重置演示"
+  - generic: 海上明旗
+  - text: 银两
+  - strong: 2,325
+  - text: 船员
+  - strong: 39 / 60
+  - text: 士气
+  - strong: "78"
+  - button "暂停与设置":
+  - paragraph: 港口与人间
+  - heading "灯下读信" [level=1]
+  - paragraph: 一官 → 平户家中 · 已托寄 · 等待回音
+  - button "收回信袋"
+  - complementary:
+    - img "寄往平户家中的家书"
+    - generic: 已托寄 · 尚待回音
+    - paragraph: 这封信已交给托话人，收到与否仍待回音。
+    - generic: 收信人
+    - strong: 平户家中
+    - generic: 随信家用
+    - strong: 70 两
+    - generic: 捎信费
+    - strong: 20 两
+  - article:
+    - text: 寄给 平户家中
+    - heading "寄往平户家中的家书" [level=2]
+    - paragraph: 归期未定，先寄家用七十两。海路若平安，下一封信再报抵港。
+    - generic: 一官
+    - generic: 已托寄 · 随信家用 70 两 · 已托寄 · 等待回音
+  - button "再写一封家信"
+  - button "看看海的两岸"
+  - navigation "游戏功能":
+    - button "航行":
+      - generic: 航行
+    - button "海图":
+      - generic: 海图
+    - button "舰船":
+      - generic: 舰船
+    - button "行囊":
+      - generic: 行囊
+    - button "船员":
+      - generic: 船员
+    - button "日志":
+      - generic: 日志
+    - button "家书":
+      - generic: 家书
+    - button "港口":
+      - generic: 港口
+- status: 本舷重新装填完成。

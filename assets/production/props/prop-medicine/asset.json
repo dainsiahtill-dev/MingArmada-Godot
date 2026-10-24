@@ -1,0 +1,141 @@
+{
+  "id": "prop-medicine",
+  "name": "随船药囊与裹伤布",
+  "category": "prop",
+  "phase": "P0",
+  "description": "UI已有药囊，旧伤、船员救治、粮药交换与补给系统必需。",
+  "visualBrief": "小布／油纸药包、朴素扎带及独立干净布条，袋口与递物抓点清楚；不使用现代十字急救包、玻璃注射器或现代药盒。",
+  "storyRefs": [
+    "zheng_a1_s4",
+    "zheng_a3_s7",
+    "zheng_a3_s4",
+    "zheng_a5_s7"
+  ],
+  "uiPages": [
+    "inventory",
+    "item-detail",
+    "supplies",
+    "black-market",
+    "crew-detail",
+    "battle-damage"
+  ],
+  "variants": [
+    "闭合／少量展开节点",
+    "余量呈UI文字",
+    "沾污状态"
+  ],
+  "modelStrategy": "袋体共享小袋拓扑，纸包共享paper模块，布条是可变形平面；不同治疗用途不新增独立药品3D全集。",
+  "historicalStatus": "needs-concept；医护为剧情／系统需求，内容与器形待审；不在本库提供药方或疗效承诺。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-medicine",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-medicine/reference/zheng_a3_s7-ad735196.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s7.png",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-medicine/reference/zheng_a5_s7-04198830.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s7.png",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-medicine",
+      "path": "assets/production/props/prop-medicine/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "7676994d23beeca907b43ba5960150600ffba2b4fc8edddec8f509c9c532eceb",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-medicine",
+    "path": "assets/production/props/prop-medicine/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "7676994d23beeca907b43ba5960150600ffba2b4fc8edddec8f509c9c532eceb",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    },
+    {
+      "id": "black-market",
+      "title": "隐蔽锚地与销货"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

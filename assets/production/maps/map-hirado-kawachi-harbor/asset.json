@@ -1,0 +1,154 @@
+{
+  "id": "map-hirado-kawachi-harbor",
+  "name": "平户川内浦港巷与石堤差异包",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "提水相识、送别和跨年候船的岸边空间；与小木屋场景连在同一有限港区。",
+  "visualBrief": "约1623—1645，窄石阶、石堤、朴素木屋檐线与商船泊向；以可搬桶走过的生活路径为尺度，城楼如无必要不纳入可玩区。",
+  "storyRefs": [
+    "zheng_a2_s1",
+    "zheng_a2_s3",
+    "zheng_a5_s1",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "port-hub",
+    "home",
+    "dialogue",
+    "destination-detail"
+  ],
+  "variants": [
+    "清晨搬桶",
+    "出航告别",
+    "1630送子",
+    "1645候船成行"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。使用石堤、木码头、木屋装配＋年代陈设差异；不拿港口概念图的城楼当具体历史地标。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "role": "story-context",
+      "note": "提水相识情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "role": "story-context",
+      "note": "石堤候船情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "coastal-stone-step",
+    "coastal-wood-pier",
+    "building-hirado-home"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-hirado-kawachi-harbor",
+  "images": [
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/zheng_a2_s1-31c72057.png",
+      "role": "story-context",
+      "note": "提水相识情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/zheng_a6_s1-fdd59fb8.png",
+      "role": "story-context",
+      "note": "石堤候船情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/port-hub-v2-edf92ad5.png",
+      "role": "scene-context",
+      "note": "现有港口整图；已目视有石堤、木货栈及日本城楼背景，只取局部材质、工作港密度参考，不整图指认为厦门。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/port-hub-v2.png",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-hirado-kawachi-harbor",
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "2dee637cd724f3c8bf51fc1da86aefda7445c9784ffb51aece4fcaf564b8622e",
+      "sha256": "37916eb747d8c1f563711505539c83f761314adc0b7c361fdfcb7e306673705f",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-hirado-kawachi-harbor",
+    "path": "assets/production/maps/map-hirado-kawachi-harbor/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "2dee637cd724f3c8bf51fc1da86aefda7445c9784ffb51aece4fcaf564b8622e",
+    "sha256": "37916eb747d8c1f563711505539c83f761314adc0b7c361fdfcb7e306673705f",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "destination-detail",
+      "title": "目的地与靠泊"
+    }
+  ]
+}

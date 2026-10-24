@@ -1,0 +1,124 @@
+{
+  "id": "char-anton",
+  "name": "安东",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创吕宋本地水手；先提出同伴一同离开和工钱条件，合作不等于归附。",
+  "visualBrief": "成年划艇水手，结实肩臂、日晒皮肤、短发或简洁布带，灰米无袖劳动衣；姿态压低身体划艇。图集第五格当前呈卷发粗胡外籍面容，需按吕宋本地身份复审，不凭外貌推断民族。 本轮新增吕宋本地水手独立候选；旧六人图的安东面貌仅保留为此前迭代证据，不作为当前首选。",
+  "storyRefs": [
+    "zheng_a3_s9"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "dialogue"
+  ],
+  "variants": [
+    "吕宋划艇",
+    "临时同行"
+  ],
+  "modelStrategy": "区域男性共享头部固定形变；现图集脸存在身份适配风险，定模前重审。",
+  "historicalStatus": "原创人物；吕宋本地身份取当前剧本，不把旧VOC船长插画冒充其本人。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射anton，下中；映射已核，但面容/衣装对吕宋本地身份的适配待审，不能视为最终定脸。",
+      "cropNormalized": {
+        "x": 0.3333333333333333,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-regional-male",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "安东"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-anton",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-anton/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-84b3a370-f8d5-4510-9551-c15e283c05b2.png",
+      "promptId": "char-anton",
+      "sha256": "1711808cf219ea8321f4133eb8da4318203a97ba390df520f0a7fbc5e1e24129",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-anton/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射anton，下中；映射已核，但面容/衣装对吕宋本地身份的适配待审，不能视为最终定脸。",
+      "cropNormalized": {
+        "x": 0.3333333333333333,
+        "y": 0.5,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-anton/reference/zheng_a3_s9-9109f5f5.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-anton/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-84b3a370-f8d5-4510-9551-c15e283c05b2.png",
+    "promptId": "char-anton",
+    "sha256": "1711808cf219ea8321f4133eb8da4318203a97ba390df520f0a7fbc5e1e24129",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

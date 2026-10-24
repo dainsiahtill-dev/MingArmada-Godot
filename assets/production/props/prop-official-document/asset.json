@@ -1,0 +1,106 @@
+{
+  "id": "prop-official-document",
+  "name": "官身与通行文书",
+  "category": "prop",
+  "phase": "P1",
+  "description": "招抚受职、官身边界与令旗凭据页需要的有限官文。",
+  "visualBrief": "素纸多页或封折，封记与身份栏可辨；不使用清代补子、龙纹制诰模板或未经核定的官印。",
+  "storyRefs": [
+    "zheng_a4_s4",
+    "zheng_a6_s2"
+  ],
+  "uiPages": [
+    "sea-permits",
+    "diplomacy",
+    "character-profile",
+    "history-notes",
+    "inventory"
+  ],
+  "variants": [
+    "任职／护航内容",
+    "收存／展开"
+  ],
+  "modelStrategy": "复用prop-letter纸网格，正文和印记单列可编辑资产；新文字不等于新基模。",
+  "historicalStatus": "needs-concept；受职为历史骨架，具体授文原貌未证；制度和印信须专项审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-official-document",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-official-document/reference/zheng_a4_s4-8a53973b.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-official-document",
+      "path": "assets/production/props/prop-official-document/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "e80807fc2819a9f0f8f9723414beb162cf39ed8c8fc2d55420eafcc7a21c2d1c",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-official-document",
+    "path": "assets/production/props/prop-official-document/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "e80807fc2819a9f0f8f9723414beb162cf39ed8c8fc2d55420eafcc7a21c2d1c",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s4",
+      "legacyTitle": "新旗，旧名字",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s2",
+      "legacyTitle": "福松，成功",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sea-permits",
+      "title": "令旗与通行凭据"
+    },
+    {
+      "id": "diplomacy",
+      "title": "交涉与盟约"
+    },
+    {
+      "id": "character-profile",
+      "title": "一官 · 人物经历"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    }
+  ]
+}

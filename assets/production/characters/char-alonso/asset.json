@@ -1,0 +1,99 @@
+{
+  "id": "char-alonso",
+  "name": "阿隆索",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创西班牙巡船掌艇者，有火力和扣船权，与安东不是同一人。",
+  "visualBrief": "三十至五十岁美术区间，长脸短胡、浅麻衣、深色无花短外套、简洁宽檐帽；掌艇时站后部发令。巡船兵可有头盔，不能把全艇制服倒推为其已考证身份。",
+  "storyRefs": [
+    "zheng_a3_s9"
+  ],
+  "uiPages": [
+    "dialogue",
+    "sea-encounter",
+    "boarding"
+  ],
+  "variants": [
+    "巡艇发令"
+  ],
+  "modelStrategy": "欧籍共享头部固定形变+成人身体，与马努埃尔/荷方职员保持不同脸型与衣色。",
+  "historicalStatus": "原创人物；本场不是已证郑氏亲历。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+      "role": "scene-context",
+      "note": "目视巡艇后部宽檐帽发令者可供站位与服装关系参考；人物像素较小，不是独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-european-male",
+    "garment-european-coat",
+    "headgear-seafarer"
+  ],
+  "aliases": [
+    "阿隆索"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-alonso",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-alonso/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-6367a69a-629a-4c5f-b187-7b6235eb23c6.png",
+      "promptId": "char-alonso",
+      "sha256": "e36a079e7c9c4ddf47d71fa25a7469122248808b442d227f185bfd40939593ba",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-alonso/reference/zheng_a3_s9-9109f5f5.png",
+      "role": "scene-context",
+      "note": "目视巡艇后部宽檐帽发令者可供站位与服装关系参考；人物像素较小，不是独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s9.png",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-alonso/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-6367a69a-629a-4c5f-b187-7b6235eb23c6.png",
+    "promptId": "char-alonso",
+    "sha256": "e36a079e7c9c4ddf47d71fa25a7469122248808b442d227f185bfd40939593ba",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    }
+  ]
+}

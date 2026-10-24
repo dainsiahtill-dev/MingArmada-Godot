@@ -1,0 +1,153 @@
+{
+  "id": "char-duqi",
+  "name": "杜七",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "原创海上头领、合伙人；有自己的顺生大船、利益与回援要求。顺生是船名。",
+  "visualBrief": "三十至四十余岁的美术方案，宽厚颌部、黑粗胡、深褐盐旧短袍、粗腰带，身形比一官厚。伤手包布、后期手指僵硬；一手指失船残板的动作强调索偿，不加独眼或夸张海盗饰物。",
+  "storyRefs": [
+    "zheng_a2_s7",
+    "zheng_a3_s2",
+    "zheng_a3_s8",
+    "zheng_a3_s4",
+    "zheng_a4_s3",
+    "zheng_a4_s5",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "relationships",
+    "factions",
+    "fleet"
+  ],
+  "variants": [
+    "同盟船主",
+    "伤手",
+    "失船后小舟离去"
+  ],
+  "modelStrategy": "男性共享身体体态形变+独立头；伤手与普通手共用骨架。",
+  "historicalStatus": "原创人物，与真实人物无一一映射。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "role": "scene-character-reference",
+      "note": "目视：左侧黑褐衣粗胡男子为杜七的当前场景造型，指向顺生残板；供三视图前参考。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-duqi",
+    "garment-work-tunic"
+  ],
+  "aliases": [
+    "杜七"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-duqi",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-duqi/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-6d3556b7-1d89-47b3-81a8-a833376dd3e5.png",
+      "promptId": "char-duqi",
+      "sha256": "832d54702e8995b28cf0361279c2a156852175e8f12f1b106a3da2eefbfc4581",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-duqi/reference/zheng_a3_s4-35c5e2f0.png",
+      "role": "scene-character-reference",
+      "note": "目视：左侧黑褐衣粗胡男子为杜七的当前场景造型，指向顺生残板；供三视图前参考。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-duqi/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-6d3556b7-1d89-47b3-81a8-a833376dd3e5.png",
+    "promptId": "char-duqi",
+    "sha256": "832d54702e8995b28cf0361279c2a156852175e8f12f1b106a3da2eefbfc4581",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s5",
+      "legacyTitle": "门槛",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    }
+  ]
+}

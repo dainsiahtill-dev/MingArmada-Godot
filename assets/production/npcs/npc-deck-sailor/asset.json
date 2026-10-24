@@ -1,0 +1,142 @@
+{
+  "id": "npc-deck-sailor",
+  "name": "普通甲板水手",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "理缆、搬物、舀水、候航、伤员等船员共同基底；含被留操船者、被截船工和新伙计的普通变体，不含具名阿旺/阿禾。",
+  "visualBrief": "十八至五十余岁面部/体态变体，靛褐灰粗布短衣与束发头布；盐渍、湿衣、嘴角伤为材质层；动作拉绳、弯腰、坐等与扶同伴。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a2_s7",
+    "zheng_a3_s7",
+    "zheng_a4_s2",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-recruit",
+    "crew-morale",
+    "sailing-hud"
+  ],
+  "variants": [
+    "普通当值",
+    "伤病",
+    "新雇",
+    "被扣后释放"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-deck-sailor",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-deck-sailor/reference/zheng_a4_s2-88c88d50.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-deck-sailor/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-deck-sailor/reference/zheng_a4_s2-88c88d50.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s2.png",
+    "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s2",
+      "legacyTitle": "没有等来的官船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    },
+    {
+      "id": "crew-morale",
+      "title": "士气与薪酬"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    }
+  ]
+}

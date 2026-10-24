@@ -1,0 +1,98 @@
+{
+  "id": "prop-pot",
+  "name": "锅具",
+  "category": "prop",
+  "phase": "P1",
+  "description": "船岸热饭与家庭生活；保持有限场景陈设。",
+  "visualBrief": "朴素圆腹铁锅／陶锅、双耳或提梁、锅沿与烟熏底；放置与手提挂点清楚。",
+  "storyRefs": [
+    "zheng_a3_s5",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "home",
+    "dialogue",
+    "supplies"
+  ],
+  "variants": [
+    "烟熏与旧化",
+    "带盖／开口"
+  ],
+  "modelStrategy": "一个锅具主体，可选盖节点；避免为了饭菜种类复制锅模。",
+  "historicalStatus": "needs-concept；83预算生活道具，剧本热饭不等于特定锅型实证。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-pot"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-pot",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-pot/reference/zheng_a3_s5-16808bd5.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s5.png",
+      "sha256": "16808bd516df5f9335e76d044c3b4c8ce3a4b67e11fd0f4a58171653a4c043f0",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-pot",
+      "path": "assets/production/props/prop-pot/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "fe7ba04f0f9bd3bd5b0bf606ec165d99d66aee556c5fd69c5ac896449e1c16fe",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-pot",
+    "path": "assets/production/props/prop-pot/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "fe7ba04f0f9bd3bd5b0bf606ec165d99d66aee556c5fd69c5ac896449e1c16fe",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s5",
+      "legacyTitle": "鱼还没吃完",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "building-timber-wall",
+  "name": "木构住宅墙体模块",
+  "category": "building",
+  "phase": "P1",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "平户普通居所的木柱与板壁拼段，建议宽2米、高2.5—3米，窄檐下木纹、雨渍和门窗空洞；1620年代至1645家居使用，纸面闭合方式另作概念审查。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a5_s1"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "平户木墙材质"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 building-timber-wall；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "role": "story-context",
+      "note": "已目视为窄檐与木壁，结构只见局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "role": "story-context",
+      "note": "平户送子室内情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "building-timber-wall"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-timber-wall",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-timber-wall/reference/zheng_a2_s2-4db31f0b.png",
+      "role": "story-context",
+      "note": "已目视为窄檐与木壁，结构只见局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-timber-wall/reference/zheng_a5_s1-19aef039.png",
+      "role": "story-context",
+      "note": "平户送子室内情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-timber-wall",
+      "path": "assets/production/buildings/building-timber-wall/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "35d0b9fff001fa2992ecb2577b9703439d7a98469978fbe352a709c3650f751a",
+      "sha256": "65eb6a931b0c1c80060130f2762602116831e819244469885966c27c4692c3c8",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "building-timber-wall",
+    "path": "assets/production/buildings/building-timber-wall/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "35d0b9fff001fa2992ecb2577b9703439d7a98469978fbe352a709c3650f751a",
+    "sha256": "65eb6a931b0c1c80060130f2762602116831e819244469885966c27c4692c3c8",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

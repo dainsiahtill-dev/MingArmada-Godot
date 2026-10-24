@@ -1,0 +1,128 @@
+{
+  "id": "npc-chinese-shipping-agent",
+  "name": "集团华商代理船主",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "华商代理、华商代理船主、集团华商代理为同一反复关系线；原先扣款、红封舱被截、后雇船追索。",
+  "visualBrief": "成年至中年方脸、细须、深褐短袍与布帽，袖口整齐、随带红封货单；靠货舱站立、阻拦开封、交易时保持距离。",
+  "storyRefs": [
+    "zheng_a2_s6",
+    "zheng_a3_s6",
+    "zheng_a3_s7",
+    "zheng_a3_s8"
+  ],
+  "uiPages": [
+    "dialogue",
+    "trade-order",
+    "accounts"
+  ],
+  "variants": [
+    "扣款代理",
+    "押红封舱船主",
+    "追索谈价"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-chinese-shipping-agent",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-chinese-shipping-agent/reference/zheng_a3_s6-8413c0a1.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-chinese-shipping-agent/reference/zheng_a3_s8-b1536ec1.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-chinese-shipping-agent/reference/zheng_a3_s6-8413c0a1.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s6.png",
+    "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s6",
+      "legacyTitle": "替谁说停船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s6",
+      "legacyTitle": "红封舱里的抵偿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    }
+  ]
+}

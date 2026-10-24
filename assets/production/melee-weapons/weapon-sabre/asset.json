@@ -1,0 +1,140 @@
+{
+  "id": "weapon-sabre",
+  "name": "随身短刀与刀鞘",
+  "category": "melee-weapon",
+  "phase": "P0",
+  "description": "主角防身、接舷、缴刀及刀落桌上的跨幕物件；鞘与刀须可分。",
+  "visualBrief": "单刃短刀、窄护手、朴素双片或缠柄、木鞘；刃长与成人前臂形成紧凑关系。左右腰带挂点、拔刀手位和收鞘点明确，不用清代制式大刀或现代军刀。",
+  "storyRefs": [
+    "zheng_a2_s3",
+    "zheng_a2_s7",
+    "zheng_a4_s1"
+  ],
+  "uiPages": [
+    "equipment",
+    "inventory",
+    "item-detail",
+    "boarding",
+    "dialogue"
+  ],
+  "variants": [
+    "鞘色与缠柄",
+    "入鞘／出鞘节点",
+    "磨损"
+  ],
+  "modelStrategy": "映射weapon-sabre；刀身与鞘在一个交付包中保留独立节点，角色、桌上剧情和物品检视共用。",
+  "historicalStatus": "needs-concept；剧本物件明确，具体明末沿海刀型为艺术方案，尚无一官佩刀实物依据。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "weapon-sabre"
+  ],
+  "categoryName": "冷兵器",
+  "assetDirectory": "assets/production/melee-weapons/weapon-sabre",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-79fa77fa-9e73-4e91-9d01-8593b1d2448b.png",
+      "promptId": "weapon-sabre",
+      "sha256": "f23eb27c9b10384ea3adb83f739145f9f7abc6b9f875f53a47777299d8785aa3",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/reference/zheng_a2_s3-784c4d99.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s3.png",
+      "sha256": "784c4d995a9ccff827e5daaa7fb324344fa170620fb4fde5b9b0a995730a32ad",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/reference/zheng_a4_s1-6c3023ec.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "weapon-sabre",
+      "path": "assets/production/melee-weapons/weapon-sabre/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "a447d01c2cd1b8f4ce58210fae0a1267f7390018af64ac6a38f20525914e5a20",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/melee-weapons/weapon-sabre/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-79fa77fa-9e73-4e91-9d01-8593b1d2448b.png",
+    "promptId": "weapon-sabre",
+    "sha256": "f23eb27c9b10384ea3adb83f739145f9f7abc6b9f875f53a47777299d8785aa3",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s1",
+      "legacyTitle": "刀落在桌上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

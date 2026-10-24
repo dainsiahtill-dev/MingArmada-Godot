@@ -1,0 +1,111 @@
+{
+  "id": "prop-bedding",
+  "name": "床铺与被褥",
+  "category": "prop",
+  "phase": "P1",
+  "description": "平户初家与送子场景中的有限室内生活陈设。",
+  "visualBrief": "低矮铺位与折叠／铺展被褥，织物压褶和贴地关系自然；坐卧接触区、枕位与角色尺度一致。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a5_s1"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "dialogue"
+  ],
+  "variants": [
+    "布色",
+    "铺展／折叠配置"
+  ],
+  "modelStrategy": "床架和软被作为可拆节点交一个生活模块；日本／福建摆放先用配置，不扩建室内模拟。",
+  "historicalStatus": "needs-concept；需分场审查两岸寝具差异，不把同一日式榻榻米铺满全游戏。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-bedding"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-bedding",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-bedding/reference/zheng_a2_s2-4db31f0b.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-bedding/reference/zheng_a5_s1-19aef039.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-bedding",
+      "path": "assets/production/props/prop-bedding/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "97aacb69686edc12286090a8d3fe8bebadd75ed14cfd11ce17623f60a021d990",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-bedding",
+    "path": "assets/production/props/prop-bedding/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "97aacb69686edc12286090a8d3fe8bebadd75ed14cfd11ce17623f60a021d990",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

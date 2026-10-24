@@ -1,0 +1,106 @@
+{
+  "id": "map-tianweiyang-search",
+  "name": "田尾洋战后锚地与搜索差异包",
+  "category": "scene-map",
+  "phase": "P1",
+  "description": "1635战后海面搜寻、伤员归航与轻艇续寻，只需开放水面和有限锚地。",
+  "visualBrief": "空旷海天、零散漂浮痕迹与搜索艇距离关系，能区分伤员所在母船与续寻轻艇；暮光/阴天是情绪配置，不新增完整战场。",
+  "storyRefs": [
+    "zheng_a5_s5"
+  ],
+  "uiPages": [
+    "battle-result",
+    "battle-damage",
+    "fleet",
+    "dialogue",
+    "history-notes"
+  ],
+  "variants": [
+    "搜索中",
+    "停止伤员船等待",
+    "轻艇续寻"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。复用外海与锚地，搜索路线/残骸/小艇为状态与实例；未承诺重建未在本场展开的整场刘香海战。",
+  "historicalStatus": "1635战事与芝虎未归沿当前剧本史源边界；死亡方式异说未拍定，具体停搜命令、搜索范围和海面布局为创作。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "role": "story-context",
+      "note": "战后搜索整幅情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "map-open-sea-mother"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-tianweiyang-search",
+  "images": [
+    {
+      "path": "assets/production/maps/map-tianweiyang-search/reference/zheng_a5_s5-0b81d5b1.png",
+      "role": "story-context",
+      "note": "战后搜索整幅情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s5.png",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-tianweiyang-search",
+      "path": "assets/production/maps/map-tianweiyang-search/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "62ab4d66ddd572c22d7eae4baebc307aa7f8ed89a9d2c4c418682b69ca5f05e6",
+      "sha256": "e428cbbbfc2293ed341a2080221307f956363fbaaff0e260e6b0e449fb2deda7",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-tianweiyang-search",
+    "path": "assets/production/maps/map-tianweiyang-search/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "62ab4d66ddd572c22d7eae4baebc307aa7f8ed89a9d2c4c418682b69ca5f05e6",
+    "sha256": "e428cbbbfc2293ed341a2080221307f956363fbaaff0e260e6b0e449fb2deda7",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "battle-result",
+      "title": "海战结果"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

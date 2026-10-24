@@ -1,0 +1,88 @@
+{
+  "id": "prop-paper-lantern",
+  "name": "平户手糊纸灯",
+  "category": "prop",
+  "phase": "P1",
+  "description": "两人共同弄坏又补好的灯，表现成家选择；不同于船灯。",
+  "visualBrief": "轻竹架、薄纸罩、明显补纸一角与提拿点；轮廓克制，双手护灯点清楚，不用现代节庆塑料灯或宫灯大穗。",
+  "storyRefs": [
+    "zheng_a2_s2"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "dialogue"
+  ],
+  "variants": [
+    "补纸显隐",
+    "点亮／熄灭"
+  ],
+  "modelStrategy": "独立纸灯软罩与竹架节点；与船灯共用光色但不同形体，不能简单换材质完成。",
+  "historicalStatus": "needs-concept；原创亲情物件，平户具体灯制尚需地方史料审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-paper-lantern",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-paper-lantern/reference/zheng_a2_s2-4db31f0b.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-paper-lantern",
+      "path": "assets/production/props/prop-paper-lantern/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "14e7aef2bb49e43dd423e61e997d513bc941bb81fd7bfd55db2c3fa62911446c",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-paper-lantern",
+    "path": "assets/production/props/prop-paper-lantern/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "14e7aef2bb49e43dd423e61e997d513bc941bb81fd7bfd55db2c3fa62911446c",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

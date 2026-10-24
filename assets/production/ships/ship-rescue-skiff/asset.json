@@ -1,0 +1,138 @@
+{
+  "id": "ship-rescue-skiff",
+  "name": "接应与救援小艇",
+  "category": "ship",
+  "phase": "P0",
+  "assetKind": "ship-hull-family",
+  "modelRequired": true,
+  "description": "沿用小艇轮廓须新增真实水线、桨挂点、载人位置；独立桨在船具中计数。",
+  "visualBrief": "船体水线、船首与船尾轮廓、帆装、舵桨和炮位须分别交代；本轮图像是形制参考，正式模型需三视图、比例和挂点复验。",
+  "storyRefs": [
+    "zheng_a3_s8",
+    "zheng_a3_s3",
+    "zheng_a4_s7",
+    "zheng_a5_s3",
+    "zheng_a5_s4",
+    "zheng_a5_s5",
+    "zheng_a6_s4"
+  ],
+  "uiPages": [
+    "fleet",
+    "battle-damage",
+    "boarding",
+    "sailing-hud"
+  ],
+  "variants": [
+    "接人",
+    "货物交接",
+    "轻装返乡"
+  ],
+  "modelStrategy": "沿用原船型基模预算；LOD不重复算船型。沿用小艇轮廓须新增真实水线、桨挂点、载人位置；独立桨在船具中计数。",
+  "historicalStatus": "art-candidate-needs-review；原型美术与旧模型均不构成精确时代形制认证。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s3.png",
+      "role": "story-context",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "ship-rescue-skiff"
+  ],
+  "categoryName": "船型",
+  "assetDirectory": "assets/production/ships/ship-rescue-skiff",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ships/ship-rescue-skiff/reference/zheng_a3_s3-c5e938a7.png",
+      "role": "story-context",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s3.png",
+      "sha256": "c5e938a7356f8963028398902da15837d50a5247e9a9cfa3748342bc397a6303",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ships/ship-rescue-skiff/reference/zheng_a3_s3-c5e938a7.png",
+    "role": "story-context",
+    "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s3.png",
+    "sha256": "c5e938a7356f8963028398902da15837d50a5247e9a9cfa3748342bc397a6303",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s2",
+      "title": "来船没有回礼",
+      "legacyId": "zheng_a5_s3",
+      "legacyTitle": "港里先起的火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a5_s1",
+      "title": "还没有回来的船",
+      "legacyId": "zheng_a5_s5",
+      "legacyTitle": "海面没有回答",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    }
+  ]
+}

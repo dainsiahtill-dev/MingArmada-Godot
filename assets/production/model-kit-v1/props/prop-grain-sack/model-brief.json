@@ -1,0 +1,47 @@
+{
+  "id": "prop-grain-sack",
+  "name": "粮袋",
+  "category": "货物与生活道具",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "谷物标记"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "cargo-hold",
+    "inventory",
+    "item-detail",
+    "market",
+    "black-market",
+    "home",
+    "dialogue",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [],
+  "productionStatus": "needs-new",
+  "notes": [
+    "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a3_s2",
+    "zheng_a4_s6"
+  ],
+  "group": "props",
+  "artJobs": [
+    "prop-grain-sack"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/props/prop-grain-sack",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "prop-grain-sack"
+  ],
+  "sketchStatus": "not-generated"
+}

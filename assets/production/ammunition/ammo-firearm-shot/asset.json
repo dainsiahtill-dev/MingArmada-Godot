@@ -1,0 +1,87 @@
+{
+  "id": "ammo-firearm-shot",
+  "name": "个人火器弹丸袋",
+  "category": "ammunition",
+  "phase": "P1",
+  "description": "长短个人火器场景需要的携带物，防止视觉上把小铳弹丸画成舰炮弹。",
+  "visualBrief": "小型朴素布袋与少量可见圆丸，袋口、腰带系点和手持抓点可读；不画现代金属定装弹。",
+  "storyRefs": [
+    "zheng_a4_s6",
+    "zheng_a5_s6"
+  ],
+  "uiPages": [
+    "equipment",
+    "inventory",
+    "boarding",
+    "supplies"
+  ],
+  "variants": [
+    "袋色",
+    "扎口／打开配置"
+  ],
+  "modelStrategy": "袋体复用prop-red-thread-pouch的通用小袋拓扑；小圆丸可复用球体几何，按角色画面比例设置，不增加一套现代弹药系统。",
+  "historicalStatus": "needs-concept；时代一般性表现，具体弹丸材质、尺度及携带方式未锁定；不得据此推断武器性能。",
+  "existingImages": [],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "弹药外观",
+  "assetDirectory": "assets/production/ammunition/ammo-firearm-shot",
+  "dependencies": [],
+  "images": [
+    {
+      "id": "ammo-firearm-shot",
+      "path": "assets/production/ammunition/ammo-firearm-shot/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "b05c868c176e0482b16b79fa17f1b29dc39166d6dbea4785c8647ca5e5dbf118",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "ammo-firearm-shot",
+    "path": "assets/production/ammunition/ammo-firearm-shot/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "b05c868c176e0482b16b79fa17f1b29dc39166d6dbea4785c8647ca5e5dbf118",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s1",
+      "title": "八张通行许可",
+      "legacyId": "zheng_a5_s6",
+      "legacyTitle": "同一面令旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    }
+  ]
+}

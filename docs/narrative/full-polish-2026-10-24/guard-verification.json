@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-23T17:46:53.362Z",
+  "sourceSha256": "ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a",
+  "scope": "Run immediately after adoption, before rebuilding stale reader files. Expected failures prove version/ownership/current-artifact guards.",
+  "passed": true,
+  "protectedUnchanged": true,
+  "before": {
+    "docs/narrative/zheng-zhilong-story.json": "ff49298756869eb372fac8503a9a246eff213d7db592fc06bd2361b18d4ce53a",
+    "docs/narrative/reboot-2026-10-23/DELIVERY.md": "3f6fcd93a61962ca326e4b2fad57a8ebdc9eea8da93cf5f83cd9ca7bd4d9a967",
+    "docs/narrative/reboot-2026-10-23/CAUSE-CHAIN.md": "77c36af4e717a7d387f57bb78710ecdb931982e1e6e5d23aa7b0d25fbe25e392",
+    "docs/narrative/reboot-2026-10-23/export-verification.json": "6ea7a64d306507cd3e43896a470e29d94bc595db81d64074286991469b463f34",
+    "docs/narrative/reboot-2026-10-23/public-verification.json": "0e331346fb1c85cf335d58b14cd0b9af1a9c038047f352a65afc44695966e761",
+    "docs/narrative/zheng-zhilong/novel.md": "9ca4ed9b4186974e6670d6d75f2a3060212eef382be48e868abd2592f51bcb46",
+    "docs/narrative/zheng-zhilong/screenplay.md": "016b463f89829498f83e3831ac80ca8a2c40350aeb1c0b6155d057668ef4309e",
+    "docs/narrative/zheng-zhilong/game-scenes.md": "c7bd97163128214d6367d9b3c07b47d9db1a6080d37e6e7e025c92517d039c1d",
+    "docs/narrative/zheng-zhilong/app.js": "5b0b261f827d79825d5ee4bd4bfdfcc54f2d4217940ec477cc1f260bbaae765e",
+    "docs/narrative/zheng-zhilong/index.html": "e9fb71abdfa62af3cbbcd2984f239e39378309b90b32f647893e9d146ae0c3d1"
+  },
+  "results": [
+    {
+      "file": "docs/narrative/reboot-2026-10-23/export.mjs",
+      "exitCode": 1,
+      "expectedError": "This archived export entry cannot publish another editorial round",
+      "matched": true,
+      "passed": true
+    },
+    {
+      "file": "docs/narrative/reboot-2026-10-23/verify-http.mjs",
+      "exitCode": 1,
+      "expectedError": "This archived verification entry cannot overwrite another round evidence",
+      "matched": true,
+      "passed": true
+    },
+    {
+      "file": "docs/narrative/reboot-2026-10-23/merge-revisions.mjs",
+      "exitCode": 1,
+      "expectedError": "This archived merge cannot replace a later editorial round",
+      "matched": true,
+      "passed": true
+    },
+    {
+      "file": "docs/narrative/full-polish-2026-10-24/verify-http.mjs",
+      "exitCode": 1,
+      "expectedError": "Build and exports are not current:",
+      "matched": true,
+      "passed": true
+    }
+  ]
+}

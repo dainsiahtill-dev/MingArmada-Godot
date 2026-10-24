@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="海上明旗制作资源图鉴：人物、船舶、火炮、武器、建筑、地图与道具的原图、设计简报和生产边界。">
+  <title>制作资源图鉴 · 海上明旗</title>
+  <link rel="stylesheet" href="styles.css?v=3">
+  <script defer src="data.js?v=3"></script>
+  <script defer src="app.js?v=3"></script>
+</head>
+<body>
+  <a class="skip-link" href="#results-heading">跳到资源结果</a>
+  <header class="masthead">
+    <a class="brand" href="../../../docs/design/game-ui/prototype/"><span class="brand-mark" aria-hidden="true">明</span><span>海上明旗</span></a>
+    <div class="masthead-title"><h1>制作资源图鉴</h1><p>角色、场景与器物的生产参考</p></div>
+    <nav aria-label="项目资料"><a href="../../../docs/design/game-ui/prototype/">游戏界面</a><a href="../../../docs/narrative/zheng-zhilong/">剧本</a><a href="README.md">资源说明</a></nav>
+  </header>
+  <div class="scope-bar"><p id="collection-summary">正在读取本地资源目录…</p><span id="generated-at"></span></div>
+  <div class="workspace">
+    <aside class="category-sidebar" aria-label="资源分类">
+      <details class="category-disclosure" open>
+        <summary>资源分类 <span id="category-total"></span></summary>
+        <nav id="category-list" aria-label="按资源类别筛选"></nav>
+      </details>
+      <div class="sidebar-note"><p>按资源身份与用途登记。</p><p>换装、年龄和颜色变体归在同一条目；参考原图不等于已交付模型。</p><p id="narrative-scope" hidden></p><a href="../../../docs/design/game-ui/production-assets.md">查阅83基模旧预算</a></div>
+    </aside>
+    <main id="main-content" class="main-content">
+      <form id="filters" class="filter-toolbar" role="search" aria-label="筛选制作资源">
+        <div class="search-field"><label for="resource-search">搜索资源</label><div class="search-input-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg><input id="resource-search" type="search" placeholder="名称、ID、用途或章节，如 第一幕" autocomplete="off" spellcheck="false" aria-controls="resource-results"></div></div>
+        <div class="select-field"><label for="phase-filter">制作优先级</label><select id="phase-filter" aria-controls="resource-results"><option value="all">全部优先级</option></select></div>
+        <div class="select-field"><label for="evidence-filter">图像状态</label><select id="evidence-filter" aria-controls="resource-results"><option value="all">全部图像状态</option></select></div>
+        <button class="button reset-button" type="reset" id="reset-filters">重置筛选</button>
+      </form>
+      <div class="results-toolbar">
+        <div><h2 id="results-heading" tabindex="-1">全部资源</h2><p id="result-count" role="status" aria-live="polite" aria-atomic="true"></p></div>
+        <div class="view-switch" role="group" aria-label="结果显示方式"><button type="button" id="grid-view" aria-pressed="true" title="以网格显示"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M2 2h6v6H2zm10 0h6v6h-6zM2 12h6v6H2zm10 0h6v6h-6z"></path></svg><span>网格</span></button><button type="button" id="table-view" aria-pressed="false" title="以表格显示"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M2 3h16M2 10h16M2 17h16"></path></svg><span>表格</span></button></div>
+      </div>
+      <div class="catalog-layout">
+        <section class="results-region" aria-labelledby="results-heading"><div id="resource-results" class="resource-grid"></div></section>
+        <aside id="detail-panel" class="detail-panel" aria-label="选中资源详情"><div class="detail-empty"><h2>选择一项资源</h2><p>查看原图、资源目录、造型简报，以及剧本与游戏界面的关联。</p></div></aside>
+      </div>
+      <p class="catalog-footnote">此图鉴用于UI、场景与建模协作。概念草图、情境原图与现存模型分别标识；历史人物面貌为创作形象。</p>
+    </main>
+  </div>
+  <noscript><p class="noscript">此图鉴需要JavaScript读取同目录的data.js。原始清单仍可在 <a href="parts/">parts目录</a> 查阅。</p></noscript>
+</body>
+</html>
+

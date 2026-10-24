@@ -1,0 +1,129 @@
+{
+  "id": "gun-light-muzzle",
+  "name": "船载轻型前装炮炮身",
+  "category": "cannon",
+  "phase": "P0",
+  "description": "第二幕购得坏炮架的轻炮与早期炮击所需；剧本只明确轻炮、轮轴和火绳，没有确定欧洲细分型号。",
+  "visualBrief": "以成年炮手为比例，紧凑长管、前细后厚、简节箍、两侧炮耳和尾部轮廓；铁或铜材质作变体。炮耳为炮架挂点，炮身与架分交；不绘内部制造结构。",
+  "storyRefs": [
+    "zheng_a2_s8",
+    "zheng_a2_s7",
+    "zheng_a3_s3"
+  ],
+  "uiPages": [
+    "ship-refit",
+    "ship-overview",
+    "battle-hud",
+    "ammo-loading",
+    "battle-damage"
+  ],
+  "variants": [
+    "铁色／铜色材质",
+    "海水旧化",
+    "炮衣显隐"
+  ],
+  "modelStrategy": "旧福船GLB的cannon_port_*/cannon_starboard_*节点只供提取评估；先重审轮廓。与红夷式重炮分基模，不能仅缩放重炮充当轻炮；一船多炮复用实例。",
+  "historicalStatus": "needs-concept；主线形制方案，非确证郑氏藏品。HS-01提供同代欧洲船载火器对照，具体澳门轻炮形制待美术史审查。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/ships/fuchuan-lod0.glb"
+  ],
+  "legacyModelIds": [
+    "gun-light"
+  ],
+  "categoryName": "火炮与炮架部件",
+  "assetDirectory": "assets/production/cannons/gun-light-muzzle",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/cannons/gun-light-muzzle/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-3a487c7d-f40f-470c-97a5-ad28d4dd024d.png",
+      "promptId": "gun-light-muzzle",
+      "sha256": "ec09832940eda359a3641fbe0be83576011e9afbf8fa86008ac55acfe53859eb",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/cannons/gun-light-muzzle/reference/zheng_a2_s8-887c5851.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s8.png",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "gun-light-muzzle",
+      "path": "assets/production/cannons/gun-light-muzzle/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "220333f31f3023783c16d14ae6f57ab16c38565c6ac517c178509cf3517e7b72",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/cannons/gun-light-muzzle/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已检查外部轮廓、材料与视图完整；静态美术候选，不是实物测绘，不用于内部机构或制造操作。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-3a487c7d-f40f-470c-97a5-ad28d4dd024d.png",
+    "promptId": "gun-light-muzzle",
+    "sha256": "ec09832940eda359a3641fbe0be83576011e9afbf8fa86008ac55acfe53859eb",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s8",
+      "legacyTitle": "第二门炮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-refit",
+      "title": "舰船改装"
+    },
+    {
+      "id": "ship-overview",
+      "title": "舰船总览"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "ammo-loading",
+      "title": "弹药与装填"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "id": "prop-boarding-plank",
+  "name": "接舷过板与跳板",
+  "category": "prop",
+  "phase": "P0",
+  "description": "接舷夺船、救被掳者和码头登离船的共同连接件。",
+  "visualBrief": "窄厚长木板、少量横条或边索，端部搭接区明确；按成人通行宽和两船高差审查，不画现代扶手舷梯。",
+  "storyRefs": [
+    "zheng_a2_s7",
+    "zheng_a4_s7",
+    "zheng_a6_s4"
+  ],
+  "uiPages": [
+    "boarding",
+    "port-hub",
+    "dialogue"
+  ],
+  "variants": [
+    "海水旧化",
+    "少量横条显隐"
+  ],
+  "modelStrategy": "单板模块可同拓扑调长，搭接角按场景配置；码头与战斗共用，不把整船连接关系烘死。",
+  "historicalStatus": "needs-concept；剧本明确过板／跳板，限于可读场景设计，不输出搭建教程。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-boarding-plank",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-boarding-plank/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-boarding-plank/reference/zheng_a6_s4-590cb4d6.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s4.png",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-boarding-plank",
+      "path": "assets/production/props/prop-boarding-plank/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "718ac06f808af62032bb61c9d8694379c1e1b2d9402286e040924c8c00150df9",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-boarding-plank",
+    "path": "assets/production/props/prop-boarding-plank/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "718ac06f808af62032bb61c9d8694379c1e1b2d9402286e040924c8c00150df9",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "id": "char-lin-awang",
+  "name": "林阿旺",
+  "category": "named-character",
+  "phase": "P0",
+  "description": "原创船匠、舵工，阿禾叔父；旧伤、回乡与女儿相见构成独立人物线。",
+  "visualBrief": "壮年至老年，宽颧、皱纹和灰胡；褐色头巾、蓝褐粗布短衣、旧工具带。掌舵肩背绷紧，伤后左/右腿在正式设定时统一，不从不同插画强定左右；末年步幅短、抱工具箱。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s3",
+    "zheng_a3_s4",
+    "zheng_a5_s7",
+    "zheng_a6_s4",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "crew-roster",
+    "crew-detail",
+    "crew-assign",
+    "dialogue",
+    "relationships"
+  ],
+  "variants": [
+    "早期劳动",
+    "旧腿伤",
+    "灰发老年",
+    "返乡行装"
+  ],
+  "modelStrategy": "成年共享身体+独立头部；跛行动作、坐姿与工具挂点适配；年龄不另算人物。",
+  "historicalStatus": "原创人物。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射awang，3×2图集左上；老人脸可作后期基准，早期需减龄方案。",
+      "cropNormalized": {
+        "x": 0,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      }
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-awang",
+    "garment-work-tunic",
+    "headgear-headcloth"
+  ],
+  "aliases": [
+    "阿旺",
+    "旺叔"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-lin-awang",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-lin-awang/reference/crew-portraits-723ae50b.png",
+      "role": "portrait-atlas-crop",
+      "note": "CSS映射awang，3×2图集左上；老人脸可作后期基准，早期需减龄方案。",
+      "cropNormalized": {
+        "x": 0,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 0.5
+      },
+      "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-lin-awang/reference/zheng_a3_s4-35c5e2f0.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s4.png",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-lin-awang/reference/crew-portraits-723ae50b.png",
+    "role": "portrait-atlas-crop",
+    "note": "CSS映射awang，3×2图集左上；老人脸可作后期基准，早期需减龄方案。",
+    "cropNormalized": {
+      "x": 0,
+      "y": 0,
+      "width": 0.3333333333333333,
+      "height": 0.5
+    },
+    "sourcePath": "docs/design/game-ui/prototype/assets/crew-portraits.png",
+    "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "crew-roster",
+      "title": "船员名册"
+    },
+    {
+      "id": "crew-detail",
+      "title": "船员与约定"
+    },
+    {
+      "id": "crew-assign",
+      "title": "岗位与值守"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    }
+  ]
+}

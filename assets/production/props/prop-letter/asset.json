@@ -1,0 +1,135 @@
+{
+  "id": "prop-letter",
+  "name": "家书纸张",
+  "category": "prop",
+  "phase": "P1",
+  "description": "跨海家书、托寄与收到状态；信件正文和凭据内容由UI呈现。",
+  "visualBrief": "旧纸单张／折叠纸，薄、轻、边角软化；手指捏纸点、桌上展开边和折痕明确，禁现代信封邮票。",
+  "storyRefs": [
+    "zheng_a2_s4",
+    "zheng_a2_s5",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "letters",
+    "letter-detail",
+    "send-letter-remittance",
+    "home",
+    "inventory",
+    "item-detail"
+  ],
+  "variants": [
+    "展开／折叠配置",
+    "信纸内容贴图",
+    "潮痕"
+  ],
+  "modelStrategy": "一套薄纸面与折纸状态复用于家书、回单、契约和官文；不同正文不增加基模，UI字排独立可读。",
+  "historicalStatus": "needs-concept；私人家书正文为剧本创作，不能生成仿古真迹后标为史料。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-letter"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-letter",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-letter/reference/zheng_a2_s4-6170f408.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s4.png",
+      "sha256": "6170f4085b2f1e1ef741562fbd47980250d56a58e5b3a7851253ed62b722a5bb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-letter/reference/zheng_a6_s1-fdd59fb8.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s1.png",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-letter",
+      "path": "assets/production/props/prop-letter/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "5ed770947c674850ab3a8ba4371f40b4f2cc926ed40f0d33f814f08e309e210e",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-letter",
+    "path": "assets/production/props/prop-letter/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "5ed770947c674850ab3a8ba4371f40b4f2cc926ed40f0d33f814f08e309e210e",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s4",
+      "legacyTitle": "他没有回去的那一航",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "letters",
+      "title": "家书匣"
+    },
+    {
+      "id": "letter-detail",
+      "title": "一封家书"
+    },
+    {
+      "id": "send-letter-remittance",
+      "title": "寄信与家用"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    }
+  ]
+}

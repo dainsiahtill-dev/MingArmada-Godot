@@ -1,0 +1,104 @@
+{
+  "id": "prop-porcelain-jar",
+  "name": "瓷货罐",
+  "category": "prop",
+  "phase": "P0",
+  "description": "六种商品中的瓷货，市场、货舱与家居可共用。",
+  "visualBrief": "短颈圆腹瓷罐、平稳底足、简盖或包口；釉色低饱和，货运可外加草绳／衬垫节点，手持点在罐腹。",
+  "storyRefs": [
+    "zheng_a3_s1",
+    "zheng_a3_s7"
+  ],
+  "uiPages": [
+    "market",
+    "trade-order",
+    "cargo-hold",
+    "home"
+  ],
+  "variants": [
+    "釉色",
+    "带盖／开口",
+    "货运外包配置"
+  ],
+  "modelStrategy": "一个瓷罐基模，货摊多件实例；不以青花／白釉每种配色增模。",
+  "historicalStatus": "已有原创商品图；具体窑口、纹样与年代未确证，不能标为特定官窑文物复原。",
+  "existingImages": [
+    {
+      "path": "assets/art/goods/porcelain-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-porcelain-jar"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-porcelain-jar",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-porcelain-jar/reference/porcelain-v1-a908c40b.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/goods/porcelain-v1.png",
+      "sha256": "a908c40b87c49bd6d4124e51ccc63e3b90d202cea27b39cad01e23a328e815ba",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-porcelain-jar",
+      "path": "assets/production/props/prop-porcelain-jar/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "90c5cb0813a0a04347f28488281019ad8bbac22c208be2cd921001001c132c5c",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/props/prop-porcelain-jar/reference/porcelain-v1-a908c40b.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/goods/porcelain-v1.png",
+    "sha256": "a908c40b87c49bd6d4124e51ccc63e3b90d202cea27b39cad01e23a328e815ba",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s1",
+      "legacyTitle": "两条船听谁的",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    }
+  ]
+}

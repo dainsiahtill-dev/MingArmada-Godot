@@ -1,0 +1,100 @@
+{
+  "id": "char-cai-shanji",
+  "name": "蔡善继",
+  "category": "named-character",
+  "phase": "P1",
+  "description": "1626招抚交涉者；与1628熊文灿一方不是同场同一人。",
+  "visualBrief": "中年至老年文职官员方案，清瘦长脸、短灰须、素青袍与官帽；手指待验的船械文书，端坐倾听。面容、官服等级、补子不得凭空锁定。",
+  "storyRefs": [
+    "zheng_a4_s1"
+  ],
+  "uiPages": [
+    "dialogue",
+    "factions",
+    "history-notes"
+  ],
+  "variants": [
+    "1626交验交涉"
+  ],
+  "modelStrategy": "共享东亚男性头部固定形变+官袍/帽；暂无可核独立面容。",
+  "historicalStatus": "历史人物；交涉私人对白全为创作，衣冠需史审。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "role": "scene-context",
+      "note": "目视为交刀桌边人物；此旧者面貌与阿旺相近，不能在未确认身份时裁成蔡善继肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-officer-robe",
+    "headgear-official"
+  ],
+  "aliases": [
+    "蔡善继",
+    "蔡公"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-cai-shanji",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-cai-shanji/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-18413fa4-24c3-4a54-8e0a-24653417acf6.png",
+      "promptId": "char-cai-shanji",
+      "sha256": "a1b1071e2cbe1a69ac192a99f5ff0607c1ea7b917266fe3ba1e8ac074cacd802",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-cai-shanji/reference/zheng_a4_s1-6c3023ec.png",
+      "role": "scene-context",
+      "note": "目视为交刀桌边人物；此旧者面貌与阿旺相近，不能在未确认身份时裁成蔡善继肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s1.png",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-cai-shanji/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-18413fa4-24c3-4a54-8e0a-24653417acf6.png",
+    "promptId": "char-cai-shanji",
+    "sha256": "a1b1071e2cbe1a69ac192a99f5ff0607c1ea7b917266fe3ba1e8ac074cacd802",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s1",
+      "legacyTitle": "刀落在桌上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    },
+    {
+      "id": "history-notes",
+      "title": "史料与创作边界"
+    }
+  ]
+}

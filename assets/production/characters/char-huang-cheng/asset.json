@@ -1,0 +1,116 @@
+{
+  "id": "char-huang-cheng",
+  "name": "黄程",
+  "category": "named-character",
+  "phase": "P0",
+  "description": "澳门亲族接引者，提供差事也要求偿损；不与普通货主/管事合并。",
+  "visualBrief": "中年东亚男性方案，较稳重的方长脸、细须、褐青素袍、布帽；衣着整洁但不豪奢。坐栈账旁等待一官解释、手指货损单的克制姿势；精确年龄/真实面容未知。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s4",
+    "zheng_a1_s5"
+  ],
+  "uiPages": [
+    "dialogue",
+    "relationships",
+    "quest-detail"
+  ],
+  "variants": [
+    "货栈日常",
+    "重新议约"
+  ],
+  "modelStrategy": "共享东亚男性头部形变，须固定黄程身份的面貌参数；共享身体+素袍。",
+  "historicalStatus": "当前剧本标为有来源的澳门亲族接引者；具体买卖、对白、面容为创作。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "scene-context",
+      "note": "澳门货栈剧情上下文；不能把画面中不清楚的背景人当独立黄程立绘。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-officer-robe"
+  ],
+  "aliases": [
+    "黄程",
+    "舅父"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-huang-cheng",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-huang-cheng/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-c57fbbc4-63b3-4eb9-8e5a-89ed990b8608.png",
+      "promptId": "char-huang-cheng",
+      "sha256": "bd6f5a242d026645da7f0bd960a48f74cfd243980449b6ff8f9e40cd1ecb62bd",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/characters/char-huang-cheng/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "scene-context",
+      "note": "澳门货栈剧情上下文；不能把画面中不清楚的背景人当独立黄程立绘。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-huang-cheng/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已逐张检查身份区分、完整构图、衣物层次与多视角一致性；文学化人物概念，不是历史肖像，服装形制须后续资料复核。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-c57fbbc4-63b3-4eb9-8e5a-89ed990b8608.png",
+    "promptId": "char-huang-cheng",
+    "sha256": "bd6f5a242d026645da7f0bd960a48f74cfd243980449b6ff8f9e40cd1ecb62bd",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "conceptStatus": "concept-candidate",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s4",
+      "legacyTitle": "没有他的铺位",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s5",
+      "legacyTitle": "先把自己押上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    },
+    {
+      "id": "quest-detail",
+      "title": "任务与后果"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "id": "ship-fuchuan",
+  "name": "福建武装福船",
+  "category": "ship",
+  "phase": "P0",
+  "assetKind": "ship-hull-family",
+  "modelRequired": true,
+  "description": "网页透明福船PNG是概念图，不是本条3D现货；新形制需资料审查。",
+  "visualBrief": "船体水线、船首与船尾轮廓、帆装、舵桨和炮位须分别交代；本轮图像是形制参考，正式模型需三视图、比例和挂点复验。",
+  "storyRefs": [
+    "zheng_a3_s2",
+    "zheng_a4_s3",
+    "zheng_a4_s4",
+    "zheng_a4_s7",
+    "zheng_a5_s4",
+    "zheng_a5_s7"
+  ],
+  "uiPages": [
+    "ship-overview",
+    "ship-refit",
+    "shipyard",
+    "fleet",
+    "battle-hud",
+    "battle-damage"
+  ],
+  "variants": [
+    "商装",
+    "官旗",
+    "新桅",
+    "断桅节点状态"
+  ],
+  "modelStrategy": "沿用原船型基模预算；LOD不重复算船型。网页透明福船PNG是概念图，不是本条3D现货；新形制需资料审查。",
+  "historicalStatus": "art-candidate-needs-review；原型美术与旧模型均不构成精确时代形制认证。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/fuchuan-inspection.png",
+      "role": "dedicated-original",
+      "note": "已有原创船型检视概念，非生产GLB。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/ships/fuchuan-lod0.glb",
+    "assets/models/ships/fuchuan-lod1.glb",
+    "assets/models/ships/fuchuan-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "ship-fuchuan"
+  ],
+  "categoryName": "船型",
+  "assetDirectory": "assets/production/ships/ship-fuchuan",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ships/ship-fuchuan/reference/fuchuan-inspection-df2d3327.png",
+      "role": "dedicated-original",
+      "note": "已有原创船型检视概念，非生产GLB。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/fuchuan-inspection.png",
+      "sha256": "df2d33275143e3cf90a512e37898ad5642c1162bb7b7d966f4939eecd42a12af",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ships/ship-fuchuan/reference/fuchuan-inspection-df2d3327.png",
+    "role": "dedicated-original",
+    "note": "已有原创船型检视概念，非生产GLB。",
+    "sourcePath": "docs/design/game-ui/prototype/assets/fuchuan-inspection.png",
+    "sha256": "df2d33275143e3cf90a512e37898ad5642c1162bb7b7d966f4939eecd42a12af",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s4",
+      "legacyTitle": "新旗，旧名字",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s7",
+      "legacyTitle": "折桅",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-overview",
+      "title": "舰船总览"
+    },
+    {
+      "id": "ship-refit",
+      "title": "舰船改装"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

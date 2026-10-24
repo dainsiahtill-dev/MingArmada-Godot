@@ -1,0 +1,103 @@
+{
+  "id": "ammo-solid",
+  "name": "实心炮弹",
+  "category": "ammunition",
+  "phase": "P0",
+  "description": "三种现有海战弹药中的实心弹，兼作甲板弹架与UI物品。",
+  "visualBrief": "单枚深色金属球、局部旧化；可成小堆与木托组合，按炮与手掌比例核查。",
+  "storyRefs": [
+    "zheng_a2_s8",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "ammo-loading",
+    "battle-hud",
+    "inventory",
+    "supplies"
+  ],
+  "variants": [
+    "旧化",
+    "储存摆放"
+  ],
+  "modelStrategy": "单件模块重复实例化；UI由合格模型正交渲染或复验现有PNG。弹药与炮身、炮架分别交付。",
+  "historicalStatus": "既有游戏设计；实心弹为时代通用形体，链弹／葡萄弹未核得本剧每场具体使用记录，history-notes不得写成确证史实。",
+  "existingImages": [
+    {
+      "path": "assets/art/ammo/solid-shot-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "ammo-solid"
+  ],
+  "categoryName": "弹药外观",
+  "assetDirectory": "assets/production/ammunition/ammo-solid",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ammunition/ammo-solid/reference/solid-shot-v1-10679242.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/ammo/solid-shot-v1.png",
+      "sha256": "10679242cb8c5f8b6600dfadecb47c18dfe43147a7baff692187ade50fa71203",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "ammo-solid",
+      "path": "assets/production/ammunition/ammo-solid/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "300f10d725ec828c93d8289111ba091ac04f7773813ab3c6b52daa3937c078eb",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ammunition/ammo-solid/reference/solid-shot-v1-10679242.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/ammo/solid-shot-v1.png",
+    "sha256": "10679242cb8c5f8b6600dfadecb47c18dfe43147a7baff692187ade50fa71203",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s8",
+      "legacyTitle": "第二门炮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ammo-loading",
+      "title": "弹药与装填"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    }
+  ]
+}

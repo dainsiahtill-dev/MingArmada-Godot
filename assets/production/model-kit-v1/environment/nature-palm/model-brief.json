@@ -1,0 +1,54 @@
+{
+  "id": "nature-palm",
+  "name": "区域棕榈树",
+  "category": "自然环境陈设",
+  "phase": "P2",
+  "baseMeshCount": 1,
+  "variants": [
+    "叶色"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "sailing-hud",
+    "sea-chart",
+    "port-hub",
+    "battle-hud",
+    "home"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/vegetation_library.gd",
+      "status": "procedural-source",
+      "note": "palm从vegetation-geometry读取顶点生成；未打包为独立GLB。"
+    },
+    {
+      "path": "assets/reference/vegetation-geometry.json",
+      "status": "file-present",
+      "note": "含植被数值几何，需复核来源与目标风格。"
+    }
+  ],
+  "productionStatus": "reusable-after-review",
+  "notes": [
+    "保留程序式生成可行性；本条LOD交付可用原生Mesh资源，不强制转换GLB。海面与整岛地形不算手工基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a3_s10"
+  ],
+  "group": "environment",
+  "artJobs": [
+    "nature-palm"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/environment/nature-palm",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "nature-palm"
+  ],
+  "sketchStatus": "not-generated"
+}

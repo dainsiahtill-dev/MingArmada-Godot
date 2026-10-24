@@ -1,0 +1,105 @@
+{
+  "id": "prop-basket",
+  "name": "货物竹篮",
+  "category": "prop",
+  "phase": "P0",
+  "description": "货栈果筐、市场零货与生活容器共享。",
+  "visualBrief": "竹编开口筐，弧形提手为可选节点，粗编纹理与底圈清楚；空篮可叠放，盛果只组合现有内容。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a3_s7"
+  ],
+  "uiPages": [
+    "market",
+    "port-hub",
+    "dialogue",
+    "inventory"
+  ],
+  "variants": [
+    "空篮／装货",
+    "提手显隐"
+  ],
+  "modelStrategy": "复验basket程序网格；水果属于场景少量填充件，不为每筐建立新基模。",
+  "historicalStatus": "needs-concept；生活器物艺术方案，剧本果筐明确，编法细节未复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "legacyModelIds": [
+    "prop-basket"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-basket",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-basket/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-basket",
+      "path": "assets/production/props/prop-basket/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "5a569ee1f05975acf6a4de393aad72950e3706a5dad82c7a5fbae4ec81b00d10",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-basket",
+    "path": "assets/production/props/prop-basket/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "5a569ee1f05975acf6a4de393aad72950e3706a5dad82c7a5fbae4ec81b00d10",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    }
+  ]
+}

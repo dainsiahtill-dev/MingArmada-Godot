@@ -1,0 +1,96 @@
+{
+  "id": "npc-japan-waterfront-worker",
+  "name": "平户供水者与邻里",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "量水、等桶、租屋周边的匿名平户居民；吉平与田川氏另列。",
+  "visualBrief": "成年男女普通生活衣装，粗棉麻、简洁束发、围布；量桶、递物、催时辰，避免全员武士化。",
+  "storyRefs": [
+    "zheng_a2_s1",
+    "zheng_a2_s2"
+  ],
+  "uiPages": [
+    "port-hub",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "供水者",
+    "邻里",
+    "屋主上下文"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "role": "scene-context",
+      "note": "平户水桶与临岸劳动空间参考，画面焦点为一官/田川氏，非供水者头像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "body-adult-female",
+    "head-eastasia-male",
+    "garment-japan-robe"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-japan-waterfront-worker",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-japan-waterfront-worker/reference/zheng_a2_s1-31c72057.png",
+      "role": "scene-context",
+      "note": "平户水桶与临岸劳动空间参考，画面焦点为一官/田川氏，非供水者头像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-japan-waterfront-worker/reference/zheng_a2_s1-31c72057.png",
+    "role": "scene-context",
+    "note": "平户水桶与临岸劳动空间参考，画面焦点为一官/田川氏，非供水者头像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s1.png",
+    "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

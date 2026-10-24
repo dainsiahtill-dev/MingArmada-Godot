@@ -1,0 +1,98 @@
+{
+  "id": "npc-recruit-informer",
+  "name": "卖消息的新伙计",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "分利后入伙、领赏引一官登追索船的新伙计，匿名但需场次间保持同脸。",
+  "visualBrief": "青年偏瘦、灰褐旧衣、小包；眼神避开一官、手收小钱袋，逃离后只留空铺位，不新增死亡结局。",
+  "storyRefs": [
+    "zheng_a3_s7",
+    "zheng_a3_s8"
+  ],
+  "uiPages": [
+    "dialogue",
+    "crew-recruit",
+    "crew-morale"
+  ],
+  "variants": [
+    "新入伙",
+    "引路领钱"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-recruit-informer",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-recruit-informer/reference/zheng_a3_s8-b1536ec1.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-recruit-informer/reference/zheng_a3_s8-b1536ec1.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a3_s8.png",
+    "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s8",
+      "legacyTitle": "两个价码",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    },
+    {
+      "id": "crew-morale",
+      "title": "士气与薪酬"
+    }
+  ]
+}

@@ -1,0 +1,2955 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T10:07:37.708Z",
+  "status": "passed",
+  "businessOnly": false,
+  "method": "Execute unchanged classic app.js in Node VM; hydrate input/button nodes from its actual rendered HTML, dispatch the real document click/change/input listeners and observe GameUI.getState(). Optional domain fixtures overlay only the initial defaults clone. Minimal DOM harness does not emulate layout.",
+  "sourceHashes": {
+    "data.js": "b899d4e1f89fa9703b0b7b5c07d8af7440dbad1e4c4fb32e6f083b3273ffb8ab",
+    "ui-core.js": "8d1b0d4c3bb11e565ba5554cfcc5a7fb78f8ebeeccf5b952c8cb8536469b95cb",
+    "render-world.js": "3f6a412cbc40c0de8880792321a89384125d5dd7871c6dbb43bc197698afb283",
+    "render-ships.js": "36fa593d7e23e6682f0acfae79ae68a8c1e19b83a69a3958ea289d84923ea8b6",
+    "render-life.js": "22d9cd27f2f0f3fad3b3c7fe714f76d56cc7148f080203c364acfe33f07b5c8f",
+    "app.js": "5f8da66e8c7ccb1ee246e14a0d1ee656975eafc2b9f5284c15c44d07a4ee62dc",
+    "systems.json": "220ae864ac9fb08bbfbba3aef0d4d91af14bf80811ec1e83ef79ab88a0245220",
+    "production-assets.json": "754683331583d63a3dd7c49a44bc5a2b21c5cfc49a962747a3d8874e58538b62"
+  },
+  "counts": {
+    "businessTests": 27,
+    "businessPassed": 27,
+    "businessFailed": 0,
+    "assertions": 185,
+    "defaultPages": 72,
+    "defaultPassed": 72,
+    "defaultFailed": 0,
+    "screenStates": 236,
+    "statePassed": 236,
+    "stateFailed": 0
+  },
+  "tests": [
+    {
+      "id": "weighted-cargo-overflow-is-atomic",
+      "status": "passed",
+      "assertions": 3,
+      "evidence": {
+        "initialWeightedCargo": 194,
+        "requestedUnits": 79,
+        "unitWeight": 2,
+        "capacity": 350
+      }
+    },
+    {
+      "id": "light-cargo-same-quantity-fits",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "id": "port-market-buy-sell-updates-local-stock",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "id": "hidden-market-does-not-pollute-port-stock",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "id": "recruit-records-are-visible-in-roster",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "id": "full-crew-refuses-without-charge",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "id": "one-person-has-one-post",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "id": "crew-pay-is-idempotent-per-period",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "id": "contract-delivery-needs-acceptance-and-never-auto-pays",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "id": "empty-save-slot-refuses-load",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "id": "save-overwrite-needs-second-confirmation",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "id": "save-load-restores-full-domain-state",
+      "status": "passed",
+      "assertions": 4,
+      "evidence": {
+        "comparedFields": [
+          "silver",
+          "hull",
+          "sails",
+          "crew",
+          "maxCrew",
+          "morale",
+          "ammo",
+          "stock",
+          "selectedGood",
+          "selectedCrew",
+          "selectedItem",
+          "equipped",
+          "refit",
+          "post",
+          "contractAccepted",
+          "questAccepted",
+          "letterSent",
+          "sentLetters",
+          "share",
+          "paused",
+          "weather",
+          "speed",
+          "zoom",
+          "formation",
+          "leftShots",
+          "rightShots",
+          "reloading",
+          "settings",
+          "transactions",
+          "careerMode",
+          "sentLetterRecords",
+          "acceptedContracts",
+          "contractDeliveries",
+          "recruitRecords",
+          "cargoCapacity",
+          "cargoOwnership",
+          "marketStock",
+          "recruited",
+          "assignment",
+          "selectedContract",
+          "acceptedContract",
+          "customVoyageNote",
+          "letterDraft",
+          "saveNameDraft",
+          "confirmSaveSlot"
+        ],
+        "excludedTransientFields": [
+          "saves",
+          "feedback",
+          "notice",
+          "notifications",
+          "notificationCounter",
+          "previewScenario"
+        ]
+      }
+    },
+    {
+      "id": "notifications-retain-history-and-mark-read",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "id": "route-confirmation-is-bound-to-current-destination",
+      "status": "passed",
+      "assertions": 8,
+      "evidence": {
+        "invalidatedBy": [
+          "set route",
+          "set destination",
+          "open route",
+          "open destination"
+        ]
+      }
+    },
+    {
+      "id": "route-confirmation-refuses-insufficient-supplies-and-can-recover",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "id": "jettison-owned-goods-updates-weighted-cargo-without-income",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "id": "jettison-disputed-marker-applies-to-any-good",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "id": "jettison-invalid-quantity-and-unknown-good-are-atomic",
+      "status": "passed",
+      "assertions": 13,
+      "evidence": {
+        "cases": 6
+      }
+    },
+    {
+      "id": "cargo-page-jettison-controls-follow-actual-ownership",
+      "status": "passed",
+      "assertions": 12,
+      "evidence": {
+        "ownedCases": 2,
+        "disputedCases": 2
+      }
+    },
+    {
+      "id": "shipyard-fisherman-quote-order-ledger-and-save-agree",
+      "status": "passed",
+      "assertions": 8,
+      "evidence": {
+        "model": "fisherman",
+        "name": "小渔船",
+        "price": 420,
+        "remainingSilver": 2040
+      }
+    },
+    {
+      "id": "shipyard-merchant-quote-order-ledger-and-save-agree",
+      "status": "passed",
+      "assertions": 8,
+      "evidence": {
+        "model": "merchant",
+        "name": "海贸福船",
+        "price": 1280,
+        "remainingSilver": 1180
+      }
+    },
+    {
+      "id": "shipyard-barque-quote-order-ledger-and-save-agree",
+      "status": "passed",
+      "assertions": 8,
+      "evidence": {
+        "model": "barque",
+        "name": "西式商船",
+        "price": 2300,
+        "remainingSilver": 160
+      }
+    },
+    {
+      "id": "letter-input-locally-refreshes-submit-reason-count-and-fees",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "id": "letter-invalid-remittance-rejects-and-keeps-draft",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "id": "letter-same-draft-is-idempotent-and-each-signature-field-can-change",
+      "status": "passed",
+      "assertions": 15,
+      "evidence": {
+        "signatureFields": [
+          "body",
+          "amount",
+          "recipient"
+        ]
+      }
+    },
+    {
+      "id": "catalog-systems-pages-flows-and-built-data-agree",
+      "status": "passed",
+      "assertions": 10,
+      "evidence": {
+        "defaultPages": 72,
+        "declaredStates": 236,
+        "canonicalScenes": 43
+      }
+    },
+    {
+      "id": "production-assets-counts-and-references",
+      "status": "passed",
+      "assertions": 14,
+      "evidence": {
+        "baseMeshes": 83,
+        "byPhase": {
+          "P0": 47,
+          "P1": 34,
+          "P2": 2
+        },
+        "byCategory": {
+          "船舶": 8,
+          "人物身体与头部": 16,
+          "独立服装与配件": 8,
+          "港口与室内模块": 12,
+          "自然环境陈设": 6,
+          "货物与生活道具": 23,
+          "武器与船具": 10
+        },
+        "variants": 117,
+        "lods": 227,
+        "rigs": 2,
+        "animations": 29
+      }
+    }
+  ],
+  "assetCounts": {
+    "baseMeshes": 83,
+    "byPhase": {
+      "P0": 47,
+      "P1": 34,
+      "P2": 2
+    },
+    "byCategory": {
+      "船舶": 8,
+      "人物身体与头部": 16,
+      "独立服装与配件": 8,
+      "港口与室内模块": 12,
+      "自然环境陈设": 6,
+      "货物与生活道具": 23,
+      "武器与船具": 10
+    },
+    "variants": 117,
+    "lods": 227,
+    "rigs": 2,
+    "animations": 29
+  },
+  "defaultChecks": [
+    {
+      "screenId": "main-menu",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1087,
+      "bodyHash": "124bb090cf59018e05466ad70a85a95dbefeec0fab35c48d9789d5a678cb622c"
+    },
+    {
+      "screenId": "new-career",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1848,
+      "bodyHash": "4f1254f371fb4280402b518388c57becafb7fa9738f1fce443d302fdd8aa1474"
+    },
+    {
+      "screenId": "load-game",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2123,
+      "bodyHash": "039bdc3d4b17e38b4fe07479fddb100d3930f894f3ed79da41e18048fd5b0c06"
+    },
+    {
+      "screenId": "settings",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3284,
+      "bodyHash": "34029f3f92fcc24c9d408997a28150f6291a84072749437497cf4023a3ae1ff1"
+    },
+    {
+      "screenId": "accessibility",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3245,
+      "bodyHash": "64b5494c25bd3c5a6bdddfe4843694967ba611fcb26b09c9bcd5bb31581e3df0"
+    },
+    {
+      "screenId": "laboratory",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3237,
+      "bodyHash": "ec1359f35cfbe07f850b9d705515c08b7450dd1c648cc4bdc438eac0b555ea89"
+    },
+    {
+      "screenId": "experiment-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2662,
+      "bodyHash": "10ce952b91a347ab1c915a8cfc6d915815e65b9f9574d27e9eeb145b9258617d"
+    },
+    {
+      "screenId": "pause-menu",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1645,
+      "bodyHash": "9b714921b082f528b1bfbb1ec2694144dc5ccb6f6be7d37c976cd9bb2a8c9bb5"
+    },
+    {
+      "screenId": "save-game",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2074,
+      "bodyHash": "2d8290d379268b0a7eed7d7d976ec92374f76facbdf8c866ea00282e0f217d59"
+    },
+    {
+      "screenId": "chapter-select",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5852,
+      "bodyHash": "c9e72a9baabd28da6cb825bf9c9ee41e9c176866a599a817f6431050262b92e2"
+    },
+    {
+      "screenId": "scene-briefing",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1650,
+      "bodyHash": "484701245059913293d6f1956516c7ff426e84890d2b3c7bc27446608f430e5c"
+    },
+    {
+      "screenId": "dialogue",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1280,
+      "bodyHash": "9a9cae8dbd8a7f8ad86669894d37f1679e325fdfb90c62110216200ac50356bd"
+    },
+    {
+      "screenId": "decision",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1880,
+      "bodyHash": "51ce82451bfe811aba9494472652ab3b570c1ec74afe22dc0a0073e663bcbce6"
+    },
+    {
+      "screenId": "history-notes",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1937,
+      "bodyHash": "ca901f35e40c65414bec1d5cc1263bd9379304026b0533325100b0390dabe663"
+    },
+    {
+      "screenId": "ending",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 709,
+      "bodyHash": "e241df6405e6e31e2d46b9bcb46efc3f6fc881666f0cc886116a2a05739a3dc7"
+    },
+    {
+      "screenId": "sailing-hud",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5134,
+      "bodyHash": "a95b94637c705a23d74691e857a89c543c654aedb335a04540ed7bbe4e000e7b"
+    },
+    {
+      "screenId": "sea-chart",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5017,
+      "bodyHash": "bb91a12978ed5f825fb58ba2523f30f54814765ae92e9970e338775eed118bd4"
+    },
+    {
+      "screenId": "destination-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1772,
+      "bodyHash": "d7862e4a1b04dd7355a5ebbb9775d2ac130589d13e902e1034837763138273fe"
+    },
+    {
+      "screenId": "route-plan",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5079,
+      "bodyHash": "40b5fad82e5359c43361ebc73d2f24252c20015f6d77156398678b186adfdf06"
+    },
+    {
+      "screenId": "weather-wind",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3489,
+      "bodyHash": "c6ba7f325d68032c0990d13c0000ae850519455a7177e241d5cbddaf2454b9c3"
+    },
+    {
+      "screenId": "sea-encounter",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1769,
+      "bodyHash": "bd37307865e5e6acfd4282525f9d0ccd1bb36036b0cb1abf860695228d0d80b1"
+    },
+    {
+      "screenId": "ship-overview",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3024,
+      "bodyHash": "913af29f0142241046a4d893cfaab98096afde2244ae157588d043bdf92c09e4"
+    },
+    {
+      "screenId": "fleet",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3323,
+      "bodyHash": "c3aee3f253528cd3b6467426580605a4b77e418c754544f802e59cecaef76534"
+    },
+    {
+      "screenId": "ship-refit",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2806,
+      "bodyHash": "c3d48677457f2d07c04639ce7df2e6d6275cba4334dfb7438f52e1831a8267fc"
+    },
+    {
+      "screenId": "ship-repair",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2065,
+      "bodyHash": "ac48a06b565d9541cf606df0a26f280cdd2fb539d0269edefa1673dfadfabcb6"
+    },
+    {
+      "screenId": "cargo-hold",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4332,
+      "bodyHash": "9607578d51edc672da094e037ce05e7f20928259546a79056fca4d05a53ddb33"
+    },
+    {
+      "screenId": "shipyard",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2412,
+      "bodyHash": "fa3881db2b487969f9512faf29dbbaf6a0638a0c23efa8e028a2b533099cb906"
+    },
+    {
+      "screenId": "inventory",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6251,
+      "bodyHash": "bd2e8d1f1b2c105ea4baaf3ec2e6563ad00ab429bcdb2d7410d8b9e7ee99be22"
+    },
+    {
+      "screenId": "item-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1682,
+      "bodyHash": "e27727528c8cf1062167f390c39c95d7ad56d96445fbd2763a1b48227a30c53c"
+    },
+    {
+      "screenId": "equipment",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2721,
+      "bodyHash": "d860e0b178bf76f7d5811e462d082a89b878fda9b3d8c7fd8a7fa9acf6742996"
+    },
+    {
+      "screenId": "character-profile",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3166,
+      "bodyHash": "a0fbecaa2fd1dc1a316b9e00411efc68725685c3a0ca457f5e0a0d18fbecf293"
+    },
+    {
+      "screenId": "character-growth",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2433,
+      "bodyHash": "17fea6976354ebc8c0a864e17e89ae8238fc20dbdb8171a2f6c99c3d078ab1d0"
+    },
+    {
+      "screenId": "crew-roster",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6256,
+      "bodyHash": "ded7d67d845bccb309675ac651fa4b7820295c3711a499e463e636543c889156"
+    },
+    {
+      "screenId": "crew-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2458,
+      "bodyHash": "d687b62c760162a7464670c23220073c8522332032bd287af9ba9183e374f6b6"
+    },
+    {
+      "screenId": "crew-recruit",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4096,
+      "bodyHash": "17d72bd0812cbd54f79d8e4b0c5e5aa7ff841d68f6fc4ed9c4def14f7b9ccbf4"
+    },
+    {
+      "screenId": "crew-assign",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6862,
+      "bodyHash": "7584d3e9dd4cead55816257a12ce5da85a66845e539b30f4c59a8b10bab713bc"
+    },
+    {
+      "screenId": "crew-morale",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1725,
+      "bodyHash": "0cec44f57d6df7cbd6fcccdffc58bc56ff113cc6dc7ad8be6a20256e06951836"
+    },
+    {
+      "screenId": "battle-hud",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3123,
+      "bodyHash": "dcdef79184935703263d69b87cde84ab7e8d908ba4064132fff07704a00528b1"
+    },
+    {
+      "screenId": "battle-orders",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3190,
+      "bodyHash": "3fe0e87698ce75ba4d7a41b4f8a21d17c92700472b525a309b51b3a5d1b1e6bd"
+    },
+    {
+      "screenId": "ammo-loading",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2571,
+      "bodyHash": "2d4e7c552bcfc6d466fccfc1cc930c809d5164c0b042b65fc4f0839b9418b62f"
+    },
+    {
+      "screenId": "boarding",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4933,
+      "bodyHash": "04255d082a91c91e9c47af68348bd63c034e45e10972ca459a217705c7609528"
+    },
+    {
+      "screenId": "battle-damage",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2202,
+      "bodyHash": "1dbace490be10dc66a60f819d964d319c5ba615aedfb56649433c726c088e28b"
+    },
+    {
+      "screenId": "battle-result",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1810,
+      "bodyHash": "2d35c07cd15d867c82b24e2fd75264cc20a6d0ed3363738603764925279483de"
+    },
+    {
+      "screenId": "prize-distribution",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3058,
+      "bodyHash": "03e3889d74b7c7bc08cab8c7c54ac9c0a1c42cc636eedfcfad0ccb71dd2daea6"
+    },
+    {
+      "screenId": "port-hub",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5322,
+      "bodyHash": "62df333ff8d14a090c450c7a38b65df2e6b12c5b5fd4cc22a899aebe1115f5d0"
+    },
+    {
+      "screenId": "market",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5953,
+      "bodyHash": "48f80f910bdca77ddc773594c90a9eec3a0942651275219f2d5cd6ee7c935665"
+    },
+    {
+      "screenId": "trade-order",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2588,
+      "bodyHash": "99ca32365f0dabe7d9e89c1cf8799e4ce9e5c41f7c15401edd19916629baec8c"
+    },
+    {
+      "screenId": "contract-board",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4398,
+      "bodyHash": "f6493fa0d1e3545793e0e99c8be529282befb9f04f2240b5b1c3af00b02b47d4"
+    },
+    {
+      "screenId": "contract-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2321,
+      "bodyHash": "2326b68866f0cd574650089c02a5a3ff9976f9e106ce3dcbc3cbd5e330cc545f"
+    },
+    {
+      "screenId": "black-market",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3499,
+      "bodyHash": "ae35374b4b441922b17b36e21cbb5f6a416bb4a9efda45b80692b98697bf313e"
+    },
+    {
+      "screenId": "supplies",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4498,
+      "bodyHash": "ee39115acb0436524f989551bc93c5ecc628a28c9e71a085e37b57dcda2d63d1"
+    },
+    {
+      "screenId": "quest-journal",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3655,
+      "bodyHash": "8ed2c787addd9c11f07a8bf52c2403ee02f697c244e0b3fc978935cdc42d6381"
+    },
+    {
+      "screenId": "quest-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2606,
+      "bodyHash": "1ac64512219f79f7b5c6ae5b9529e866d971eb3dc572d56c997d5635f96f6550"
+    },
+    {
+      "screenId": "chronicle",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 7803,
+      "bodyHash": "66ef6db89aa8e5e2c92ed95c139d7a6a58b2c59ed5c27b61e050f9b0f000e194"
+    },
+    {
+      "screenId": "intelligence",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3702,
+      "bodyHash": "c5bddcacc0b57663e900a3b91a018928e5e70ee28ee66e789cb05c5366e5333b"
+    },
+    {
+      "screenId": "relationships",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2837,
+      "bodyHash": "be5325d24a5d8bde4465192a8257da4b99dfcec0d52d921349a8d99bd0da6022"
+    },
+    {
+      "screenId": "factions",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3809,
+      "bodyHash": "c644c017da38b49fa89b3e2894261967f3545bd2a9fd79b7b44b3072be64fb12"
+    },
+    {
+      "screenId": "faction-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2045,
+      "bodyHash": "3f2dd11140bcc0e19d70ae4af668223e3ef1871595151f77a5267ffd230add56"
+    },
+    {
+      "screenId": "diplomacy",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2817,
+      "bodyHash": "09df7f4eed9eea5877b8a958904a7472bdd6ac0d06e4cd182733921787b4d29a"
+    },
+    {
+      "screenId": "sea-permits",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2647,
+      "bodyHash": "feef714ac36d1b2c97ea29b8bfff3664b96456c785a24bbc333093a5d351c1fe"
+    },
+    {
+      "screenId": "bounty-board",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2391,
+      "bodyHash": "67d81599670a0a0bfbe9c84edce9abbc21b354a4305afc4f3360a91d3c524b03"
+    },
+    {
+      "screenId": "home",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2703,
+      "bodyHash": "cf39502425e6f55ec3e6f4c2d73297be93c9a0953c3fcf693f7d0b13b3ce5863"
+    },
+    {
+      "screenId": "family",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2844,
+      "bodyHash": "b3e82ebe41e94d71b1ff0eca619f55d78355e3f288d1cfc601609f769c70ee70"
+    },
+    {
+      "screenId": "child-growth",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2462,
+      "bodyHash": "067ea47ed6845dad1b696c3eda1dee0be2c8e016f723b4aa55656c8c823991f5"
+    },
+    {
+      "screenId": "letters",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3087,
+      "bodyHash": "85c3f18d4abb32ddea558cdc594030c4dba4392d579336edf4ed33e94dcb90f4"
+    },
+    {
+      "screenId": "letter-detail",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2237,
+      "bodyHash": "4b442a2ed5784ab8685a8ddec48c0a191fc5383f6e8e56f4d2b0a50b112ff58a"
+    },
+    {
+      "screenId": "send-letter-remittance",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3519,
+      "bodyHash": "54ff9a99267036a53ddb477cca06e9e00387ae3d59cf106bb509d77e5274f9db"
+    },
+    {
+      "screenId": "voyage-result",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2938,
+      "bodyHash": "5493ce25d62c49406c42c8df3c41709a7ac1ab08ea1a5fa0a920fafd1869de27"
+    },
+    {
+      "screenId": "accounts",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3032,
+      "bodyHash": "18c129d877e09b76a8f6e81b141984cd6f594c52940dd1fac42fc3e3382e43d6"
+    },
+    {
+      "screenId": "tutorial",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5159,
+      "bodyHash": "12f66847f210fe35f0983eb3f282cdb7302a8d1ee87df93117046ecad3ed53b4"
+    },
+    {
+      "screenId": "defeat",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1453,
+      "bodyHash": "e94d98a29358915aa8eb77798765a2d4adb156eb49b0d8d785b03e6906c1737f"
+    },
+    {
+      "screenId": "notification-log",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1748,
+      "bodyHash": "6921462f8a2d38df1d6a7356e24a9b68234a9412940eb7dd076eefa5d3fbe477"
+    }
+  ],
+  "stateChecks": [
+    {
+      "screenId": "main-menu",
+      "state": "没有演示存档",
+      "defaultHash": "124bb090cf59018e05466ad70a85a95dbefeec0fab35c48d9789d5a678cb622c",
+      "stateHash": "8319a4f2d46b7d7941a5b7547efbf3b84ef073c8dbcd3b00a3cb06ddff27e9b0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1211
+    },
+    {
+      "screenId": "main-menu",
+      "state": "已有航次存档",
+      "defaultHash": "124bb090cf59018e05466ad70a85a95dbefeec0fab35c48d9789d5a678cb622c",
+      "stateHash": "7250d569d23b2c8817a6a66d0ea791b732ce3f4c0b943262439b5e97093793d3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1094
+    },
+    {
+      "screenId": "main-menu",
+      "state": "全部页面可预览",
+      "defaultHash": "124bb090cf59018e05466ad70a85a95dbefeec0fab35c48d9789d5a678cb622c",
+      "stateHash": "faa26e63e822d31e304ca299d29d74e1d1a37f3a4751f05c80f622bb702ae1ba",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1518
+    },
+    {
+      "screenId": "new-career",
+      "state": "首次开始",
+      "defaultHash": "4f1254f371fb4280402b518388c57becafb7fa9738f1fce443d302fdd8aa1474",
+      "stateHash": "e371dc9a13577924c0158ceab5bc2678403a64f5340ca5d08c39176f9c38bdd5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1976
+    },
+    {
+      "screenId": "new-career",
+      "state": "确认新档",
+      "defaultHash": "4f1254f371fb4280402b518388c57becafb7fa9738f1fce443d302fdd8aa1474",
+      "stateHash": "75cb225a3b895d0fd0a25fd8ecdc47001d81871e203125477b9f54ec57de7094",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2083
+    },
+    {
+      "screenId": "new-career",
+      "state": "保留既有存档",
+      "defaultHash": "4f1254f371fb4280402b518388c57becafb7fa9738f1fce443d302fdd8aa1474",
+      "stateHash": "dbede0d522c434fb43af35a047e42a077281c87b635fa7ded0cbc4ecddcd934b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1963
+    },
+    {
+      "screenId": "load-game",
+      "state": "自动档",
+      "defaultHash": "039bdc3d4b17e38b4fe07479fddb100d3930f894f3ed79da41e18048fd5b0c06",
+      "stateHash": "99bee851878526cc1beec02d91a115bc71a3f5e237d6d6a146e29ab3e733a67f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1944
+    },
+    {
+      "screenId": "load-game",
+      "state": "手动档",
+      "defaultHash": "039bdc3d4b17e38b4fe07479fddb100d3930f894f3ed79da41e18048fd5b0c06",
+      "stateHash": "ff674d4f8d6e672df855939a6a5647f1755f00abaf443ddb31242de3d538a881",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1938
+    },
+    {
+      "screenId": "load-game",
+      "state": "不兼容说明",
+      "defaultHash": "039bdc3d4b17e38b4fe07479fddb100d3930f894f3ed79da41e18048fd5b0c06",
+      "stateHash": "1260bf7865f54e67f0fab6e95bd72ea4c46e125bf214e8126149fd14ec655e53",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2216
+    },
+    {
+      "screenId": "load-game",
+      "state": "空档位",
+      "defaultHash": "039bdc3d4b17e38b4fe07479fddb100d3930f894f3ed79da41e18048fd5b0c06",
+      "stateHash": "817bf482cbd98ae9040985ae80650d4d3cd65a77048fb8526c17ac3231dad35f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2119
+    },
+    {
+      "screenId": "settings",
+      "state": "未修改",
+      "defaultHash": "34029f3f92fcc24c9d408997a28150f6291a84072749437497cf4023a3ae1ff1",
+      "stateHash": "0b7bc08837e8b5f3e191a1f36b7a8f94ce46bb51c110eec13898a064d7349621",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3242
+    },
+    {
+      "screenId": "settings",
+      "state": "待应用",
+      "defaultHash": "34029f3f92fcc24c9d408997a28150f6291a84072749437497cf4023a3ae1ff1",
+      "stateHash": "9a178da52ec84932014c779e64b13dc860ce97a3eafd89163f47eb5e4eb26118",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3284
+    },
+    {
+      "screenId": "settings",
+      "state": "已保存",
+      "defaultHash": "34029f3f92fcc24c9d408997a28150f6291a84072749437497cf4023a3ae1ff1",
+      "stateHash": "cb6bcb00a5de9db1d4b0d46b215886536b8a4c5df30d670307a286e142faaf5f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3276
+    },
+    {
+      "screenId": "accessibility",
+      "state": "常规对比",
+      "defaultHash": "64b5494c25bd3c5a6bdddfe4843694967ba611fcb26b09c9bcd5bb31581e3df0",
+      "stateHash": "3bbd490e2d2b621dd3a9c611cf0ec0dd7b36efa4bbcb0d1351299d5f9d72df08",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3232
+    },
+    {
+      "screenId": "accessibility",
+      "state": "高对比",
+      "defaultHash": "64b5494c25bd3c5a6bdddfe4843694967ba611fcb26b09c9bcd5bb31581e3df0",
+      "stateHash": "27ec858e5f3cf1258e0f25eca90716fb4ed3cd5befa61222ff944644977d0a43",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3307
+    },
+    {
+      "screenId": "accessibility",
+      "state": "大字模式",
+      "defaultHash": "64b5494c25bd3c5a6bdddfe4843694967ba611fcb26b09c9bcd5bb31581e3df0",
+      "stateHash": "95a0217adf72bd80f4345ec51c79cc8b369be6e47913eca910d879f709641b34",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3247
+    },
+    {
+      "screenId": "accessibility",
+      "state": "减少动态",
+      "defaultHash": "64b5494c25bd3c5a6bdddfe4843694967ba611fcb26b09c9bcd5bb31581e3df0",
+      "stateHash": "07a4cb3e79d0e3b0ed778ab1241a9207af00cdcc6f013f365913df965a199743",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3264
+    },
+    {
+      "screenId": "laboratory",
+      "state": "已验证",
+      "defaultHash": "ec1359f35cfbe07f850b9d705515c08b7450dd1c648cc4bdc438eac0b555ea89",
+      "stateHash": "ad82d4a97612ee851c3020e2131d8cab50469a4c9461596fc951931933593239",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1791
+    },
+    {
+      "screenId": "laboratory",
+      "state": "待测",
+      "defaultHash": "ec1359f35cfbe07f850b9d705515c08b7450dd1c648cc4bdc438eac0b555ea89",
+      "stateHash": "b6b2041c277ad3e8b0a76dd5a768083eb6bb293fb62e28bf66e9686581390d94",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1794
+    },
+    {
+      "screenId": "laboratory",
+      "state": "尚未接入",
+      "defaultHash": "ec1359f35cfbe07f850b9d705515c08b7450dd1c648cc4bdc438eac0b555ea89",
+      "stateHash": "26138ee42a00380822e2455d516d82871e64c1cd21f6665dc0d4b4a8f0c0b6c7",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1802
+    },
+    {
+      "screenId": "experiment-detail",
+      "state": "基线",
+      "defaultHash": "10ce952b91a347ab1c915a8cfc6d915815e65b9f9574d27e9eeb145b9258617d",
+      "stateHash": "7e3154d619f2b0a583208c65345bdc99a551bac0cca42b892b7a3a2ea1dc30bb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2650
+    },
+    {
+      "screenId": "experiment-detail",
+      "state": "候选",
+      "defaultHash": "10ce952b91a347ab1c915a8cfc6d915815e65b9f9574d27e9eeb145b9258617d",
+      "stateHash": "a52140d5dee0697e7014d530d09cf9bbae2f7b978d0466a5f0f98cd8d03e5ea5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2657
+    },
+    {
+      "screenId": "experiment-detail",
+      "state": "报告待补",
+      "defaultHash": "10ce952b91a347ab1c915a8cfc6d915815e65b9f9574d27e9eeb145b9258617d",
+      "stateHash": "4e63dc186c635d62f51e0a0efd24bf232ca98784e36499f2f09390a4fa5ef706",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2567
+    },
+    {
+      "screenId": "experiment-detail",
+      "state": "原生运行另开",
+      "defaultHash": "10ce952b91a347ab1c915a8cfc6d915815e65b9f9574d27e9eeb145b9258617d",
+      "stateHash": "ea94e343e7a8c3429f365c00451a2929a8ff8c462a169c28238015ee9fb5a4b5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2842
+    },
+    {
+      "screenId": "pause-menu",
+      "state": "航行暂停",
+      "defaultHash": "9b714921b082f528b1bfbb1ec2694144dc5ccb6f6be7d37c976cd9bb2a8c9bb5",
+      "stateHash": "0470b5221949c111a9572152417ccd921c3b671055d410f070aa84c8182a9f8b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1883
+    },
+    {
+      "screenId": "pause-menu",
+      "state": "战术暂停",
+      "defaultHash": "9b714921b082f528b1bfbb1ec2694144dc5ccb6f6be7d37c976cd9bb2a8c9bb5",
+      "stateHash": "dfd361b927364835bfdf087fc712992e9095cfdb5f096d1187791f1ab10c956d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1671
+    },
+    {
+      "screenId": "pause-menu",
+      "state": "尚有未保存变更",
+      "defaultHash": "9b714921b082f528b1bfbb1ec2694144dc5ccb6f6be7d37c976cd9bb2a8c9bb5",
+      "stateHash": "03edd46b283f311f8f33bafc87ad218d7f5674e0c17ba14da6a5e68cdf196a61",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1922
+    },
+    {
+      "screenId": "save-game",
+      "state": "空档位",
+      "defaultHash": "2d8290d379268b0a7eed7d7d976ec92374f76facbdf8c866ea00282e0f217d59",
+      "stateHash": "2379a7b574afcda299634a7038912f7014a61b62b1e171f886d134c4a7c518e8",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2081
+    },
+    {
+      "screenId": "save-game",
+      "state": "确认覆盖",
+      "defaultHash": "2d8290d379268b0a7eed7d7d976ec92374f76facbdf8c866ea00282e0f217d59",
+      "stateHash": "003f1592fdaa5309200d929e78e9f271dd68b5b9721ea153b391fcf6d92a0fee",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2303
+    },
+    {
+      "screenId": "save-game",
+      "state": "保存成功",
+      "defaultHash": "2d8290d379268b0a7eed7d7d976ec92374f76facbdf8c866ea00282e0f217d59",
+      "stateHash": "10bfdc9a76245ab6730c4006c2cc74c1bf81064b7934e3a62c552353a6ab1ecc",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2248
+    },
+    {
+      "screenId": "save-game",
+      "state": "存储不可用",
+      "defaultHash": "2d8290d379268b0a7eed7d7d976ec92374f76facbdf8c866ea00282e0f217d59",
+      "stateHash": "8aa9a73b3b2024c53acee896637578a177fb869b071d69d516151c07ab92542a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2370
+    },
+    {
+      "screenId": "chapter-select",
+      "state": "未开始",
+      "defaultHash": "c9e72a9baabd28da6cb825bf9c9ee41e9c176866a599a817f6431050262b92e2",
+      "stateHash": "35b161485b91e61958dab7905175a54c39481e6f44f9b9de9a7f5a35a621ebf8",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5840
+    },
+    {
+      "screenId": "chapter-select",
+      "state": "进行中",
+      "defaultHash": "c9e72a9baabd28da6cb825bf9c9ee41e9c176866a599a817f6431050262b92e2",
+      "stateHash": "b21481f5bbbbe5904cdf07b2a935faace033c9ee75389cc9a1c3efa830f9cb2f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 7858
+    },
+    {
+      "screenId": "chapter-select",
+      "state": "已回顾",
+      "defaultHash": "c9e72a9baabd28da6cb825bf9c9ee41e9c176866a599a817f6431050262b92e2",
+      "stateHash": "bd5b1ed5815326c41801abad2aacfb7055f13fca456d7c1d54fa1b5bb5c1aa3f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5378
+    },
+    {
+      "screenId": "chapter-select",
+      "state": "原型全解锁",
+      "defaultHash": "c9e72a9baabd28da6cb825bf9c9ee41e9c176866a599a817f6431050262b92e2",
+      "stateHash": "781304d7b79d87f18aae3510453b78c53ce5ccbb20683a27494e05249338d500",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5849
+    },
+    {
+      "screenId": "scene-briefing",
+      "state": "准备阶段",
+      "defaultHash": "484701245059913293d6f1956516c7ff426e84890d2b3c7bc27446608f430e5c",
+      "stateHash": "2c77120b916922db0cc96738fc4c9bce4081ee1f05f502a2e6bdf3fa122afb07",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1979
+    },
+    {
+      "screenId": "scene-briefing",
+      "state": "剧情前提已定",
+      "defaultHash": "484701245059913293d6f1956516c7ff426e84890d2b3c7bc27446608f430e5c",
+      "stateHash": "883720015ca56ded598b77731644f1cc0d17996623468bc5f4c7b34abf3b994a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1337
+    },
+    {
+      "screenId": "scene-briefing",
+      "state": "缺少出航条件",
+      "defaultHash": "484701245059913293d6f1956516c7ff426e84890d2b3c7bc27446608f430e5c",
+      "stateHash": "9304bc2263bce0eeab7768609f81172182dd2faf23cffbc57574bbc7d9647b19",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1826
+    },
+    {
+      "screenId": "dialogue",
+      "state": "普通对白",
+      "defaultHash": "9a9cae8dbd8a7f8ad86669894d37f1679e325fdfb90c62110216200ac50356bd",
+      "stateHash": "872985d2f39b8983fbd498af07a2ed1ab94363ddf7c289bb7244c7147cd850b5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1294
+    },
+    {
+      "screenId": "dialogue",
+      "state": "重要承诺",
+      "defaultHash": "9a9cae8dbd8a7f8ad86669894d37f1679e325fdfb90c62110216200ac50356bd",
+      "stateHash": "f2bdf156f4b0a1341aa9c663603ffc05d8380bda1842f0629e0c4d1c8bd9127f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1730
+    },
+    {
+      "screenId": "dialogue",
+      "state": "人物拒绝",
+      "defaultHash": "9a9cae8dbd8a7f8ad86669894d37f1679e325fdfb90c62110216200ac50356bd",
+      "stateHash": "e7dcc9fc017caa9f662194cb5ff6d1ed61bdb2abe68bc77332e608391b28890d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1430
+    },
+    {
+      "screenId": "dialogue",
+      "state": "历史节点",
+      "defaultHash": "9a9cae8dbd8a7f8ad86669894d37f1679e325fdfb90c62110216200ac50356bd",
+      "stateHash": "b300641ec3c4165f2fec756869a89cd6a0567b7f5759ad088e1c3ea17cfcdb58",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1394
+    },
+    {
+      "screenId": "decision",
+      "state": "局部方案预览",
+      "defaultHash": "51ce82451bfe811aba9494472652ab3b570c1ec74afe22dc0a0073e663bcbce6",
+      "stateHash": "f888460e9b4eb3a14ca0473371502dcb0d39af02ca778f6053ca34bd6d267e32",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2002
+    },
+    {
+      "screenId": "decision",
+      "state": "固定剧情步骤",
+      "defaultHash": "51ce82451bfe811aba9494472652ab3b570c1ec74afe22dc0a0073e663bcbce6",
+      "stateHash": "161a92207a4b1632df8d5d5b1fc74c06e4c03abaebeb18490786bdfa80307cc3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1709
+    },
+    {
+      "screenId": "decision",
+      "state": "资源不足",
+      "defaultHash": "51ce82451bfe811aba9494472652ab3b570c1ec74afe22dc0a0073e663bcbce6",
+      "stateHash": "676dcb8e3028a42211b8654863420d9e557fc58146bffb51fefa32eb8a16958b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2138
+    },
+    {
+      "screenId": "decision",
+      "state": "结果待发生",
+      "defaultHash": "51ce82451bfe811aba9494472652ab3b570c1ec74afe22dc0a0073e663bcbce6",
+      "stateHash": "a974deaba8d4f0e8abc1450363eadb2a251039a1f6240612a7a9420d25591d4d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2086
+    },
+    {
+      "screenId": "history-notes",
+      "state": "历史骨架",
+      "defaultHash": "ca901f35e40c65414bec1d5cc1263bd9379304026b0533325100b0390dabe663",
+      "stateHash": "c847d9ec637b50bd231a418b4d9154a6c3f93381bfe5d3cda31d2e42f0a5e15b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2179
+    },
+    {
+      "screenId": "history-notes",
+      "state": "晚出材料",
+      "defaultHash": "ca901f35e40c65414bec1d5cc1263bd9379304026b0533325100b0390dabe663",
+      "stateHash": "032181b16385dc25d590d1d5a8d473c6dfc85319ec0ffd7fa20b6d901267bed1",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1891
+    },
+    {
+      "screenId": "history-notes",
+      "state": "研究推断",
+      "defaultHash": "ca901f35e40c65414bec1d5cc1263bd9379304026b0533325100b0390dabe663",
+      "stateHash": "845223b4353e4d22fa2bdf3e6621b887e59a301a5c6426549ef1926ecaf9bced",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2014
+    },
+    {
+      "screenId": "history-notes",
+      "state": "原创场面",
+      "defaultHash": "ca901f35e40c65414bec1d5cc1263bd9379304026b0533325100b0390dabe663",
+      "stateHash": "bfb94ff9cb5e7eac3e092395ef54ae79b92458f08ff56df6f20f8acadb703612",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2499
+    },
+    {
+      "screenId": "ending",
+      "state": "首次终章",
+      "defaultHash": "e241df6405e6e31e2d46b9bcb46efc3f6fc881666f0cc886116a2a05739a3dc7",
+      "stateHash": "19bd9681172a43edcfffb6ec188870c7e1ec4dd059dc6f6b1bbb44d08214aa87",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 962
+    },
+    {
+      "screenId": "ending",
+      "state": "章节回顾",
+      "defaultHash": "e241df6405e6e31e2d46b9bcb46efc3f6fc881666f0cc886116a2a05739a3dc7",
+      "stateHash": "410e935a35034048a480acb9cc6e2d8f8a614d2dfa1335ca3fecbe168e3d2a0e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1100
+    },
+    {
+      "screenId": "ending",
+      "state": "固定历史结局",
+      "defaultHash": "e241df6405e6e31e2d46b9bcb46efc3f6fc881666f0cc886116a2a05739a3dc7",
+      "stateHash": "657f73e214e736f3ecaac4658c881e7a94dfd7e891a55eac4a24a6d647bbb895",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 975
+    },
+    {
+      "screenId": "sailing-hud",
+      "state": "顺风前进",
+      "defaultHash": "a95b94637c705a23d74691e857a89c543c654aedb335a04540ed7bbe4e000e7b",
+      "stateHash": "93749325b690b03e456a6bab6c755001abd78bf4ac7be7bc378ecb83450655a9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5138
+    },
+    {
+      "screenId": "sailing-hud",
+      "state": "逆风辅助",
+      "defaultHash": "a95b94637c705a23d74691e857a89c543c654aedb335a04540ed7bbe4e000e7b",
+      "stateHash": "494c09435b9ab2a21b8c76b2e8ee1a1692b12af7daf8ec4d70b635a6e2036eb8",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5383
+    },
+    {
+      "screenId": "sailing-hud",
+      "state": "接近目的地",
+      "defaultHash": "a95b94637c705a23d74691e857a89c543c654aedb335a04540ed7bbe4e000e7b",
+      "stateHash": "f3e1c20cb9624eec81f03ee1053e23e68b41a2598418bfa2142af279f63afddb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5164
+    },
+    {
+      "screenId": "sailing-hud",
+      "state": "应急状态",
+      "defaultHash": "a95b94637c705a23d74691e857a89c543c654aedb335a04540ed7bbe4e000e7b",
+      "stateHash": "f2512c784f74a02b7532f40a6bfec91febc1437140a881fe21706497797453de",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5391
+    },
+    {
+      "screenId": "sea-chart",
+      "state": "已知港口",
+      "defaultHash": "bb91a12978ed5f825fb58ba2523f30f54814765ae92e9970e338775eed118bd4",
+      "stateHash": "6ff61b2ede9c4729b5c033c215a89942606eb2835fa4c8a246f65b279aa91152",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4789
+    },
+    {
+      "screenId": "sea-chart",
+      "state": "情报未核",
+      "defaultHash": "bb91a12978ed5f825fb58ba2523f30f54814765ae92e9970e338775eed118bd4",
+      "stateHash": "6fa529941c0462fa84d1ac2bc42c329b77a17e335c1592989aabc75866c1fc87",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5312
+    },
+    {
+      "screenId": "sea-chart",
+      "state": "当前航路",
+      "defaultHash": "bb91a12978ed5f825fb58ba2523f30f54814765ae92e9970e338775eed118bd4",
+      "stateHash": "1daa732643166eca9398993e7946c547e23909e6a48f5a9f5a17d6a0ceccef2a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5036
+    },
+    {
+      "screenId": "sea-chart",
+      "state": "航区受限",
+      "defaultHash": "bb91a12978ed5f825fb58ba2523f30f54814765ae92e9970e338775eed118bd4",
+      "stateHash": "0c5bec878d6b48056a4654d3aeda57d992bb9d27245071b9f155c2c232e714b0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5444
+    },
+    {
+      "screenId": "destination-detail",
+      "state": "可进港",
+      "defaultHash": "d7862e4a1b04dd7355a5ebbb9775d2ac130589d13e902e1034837763138273fe",
+      "stateHash": "149ae459db845ad77c450b3e6ba031a894b1b044d08e0a6e46eed38e3f46c483",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1843
+    },
+    {
+      "screenId": "destination-detail",
+      "state": "需要凭据",
+      "defaultHash": "d7862e4a1b04dd7355a5ebbb9775d2ac130589d13e902e1034837763138273fe",
+      "stateHash": "43f7d0582ae6356ca2b293342a2fa35d8534beea45d6109df89af81b09f99585",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1938
+    },
+    {
+      "screenId": "destination-detail",
+      "state": "接近靠泊范围",
+      "defaultHash": "d7862e4a1b04dd7355a5ebbb9775d2ac130589d13e902e1034837763138273fe",
+      "stateHash": "8863c64f82fe2c0ee21deccd26438ae390af8c0d1e651574d3ca01d5209d4d7e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1822
+    },
+    {
+      "screenId": "destination-detail",
+      "state": "设施受损",
+      "defaultHash": "d7862e4a1b04dd7355a5ebbb9775d2ac130589d13e902e1034837763138273fe",
+      "stateHash": "af24dd8c7d982e8a04c45954274f8964db3eb91b783a8e3d7245c7ca8a6297f2",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1829
+    },
+    {
+      "screenId": "route-plan",
+      "state": "沿岸稳妥",
+      "defaultHash": "40b5fad82e5359c43361ebc73d2f24252c20015f6d77156398678b186adfdf06",
+      "stateHash": "96178f861851bad6efd7d1cd20b688e3050e32d96d94aa3b40277e9cc673359c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5076
+    },
+    {
+      "screenId": "route-plan",
+      "state": "外海较快",
+      "defaultHash": "40b5fad82e5359c43361ebc73d2f24252c20015f6d77156398678b186adfdf06",
+      "stateHash": "50a881446790522ee49aa2f17b50d1ffb54bfdd8346f446e3705d640d2098a91",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5185
+    },
+    {
+      "screenId": "route-plan",
+      "state": "补给不足",
+      "defaultHash": "40b5fad82e5359c43361ebc73d2f24252c20015f6d77156398678b186adfdf06",
+      "stateHash": "f1c21baeddbf1827afa579a721bd4e31ae311b4d9fc545df1881e295eef8823c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5213
+    },
+    {
+      "screenId": "route-plan",
+      "state": "航路已定",
+      "defaultHash": "40b5fad82e5359c43361ebc73d2f24252c20015f6d77156398678b186adfdf06",
+      "stateHash": "bfc67e18557ff6402ee3d5d3b426aba7fb1a3e4f9e75c430453a885ef50ad1d6",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5422
+    },
+    {
+      "screenId": "weather-wind",
+      "state": "有利风",
+      "defaultHash": "c6ba7f325d68032c0990d13c0000ae850519455a7177e241d5cbddaf2454b9c3",
+      "stateHash": "9cf41882093c2bbaaf9e142255d349d44c6cfdc0f9429e8b0219607ea6373512",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3485
+    },
+    {
+      "screenId": "weather-wind",
+      "state": "逆风",
+      "defaultHash": "c6ba7f325d68032c0990d13c0000ae850519455a7177e241d5cbddaf2454b9c3",
+      "stateHash": "c775dddd4c772fb1354eedd07477c016869bb90ec0cd63c7c131cde037176594",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3490
+    },
+    {
+      "screenId": "weather-wind",
+      "state": "无风",
+      "defaultHash": "c6ba7f325d68032c0990d13c0000ae850519455a7177e241d5cbddaf2454b9c3",
+      "stateHash": "69846e4d5ffafeabcfac269a0007ed13ebf9c191c09c62824a3833b2ecec1853",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3476
+    },
+    {
+      "screenId": "weather-wind",
+      "state": "风暴临近",
+      "defaultHash": "c6ba7f325d68032c0990d13c0000ae850519455a7177e241d5cbddaf2454b9c3",
+      "stateHash": "9769e7ee29d1570d77962e56c908f871838abc73beb63939bc780e354ff9706f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3467
+    },
+    {
+      "screenId": "sea-encounter",
+      "state": "身份不明",
+      "defaultHash": "bd37307865e5e6acfd4282525f9d0ccd1bb36036b0cb1abf860695228d0d80b1",
+      "stateHash": "15a7a678cfca6643ad82301c1d9e1a6253f5a8a2f4320064c0adfbf5c489592b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1751
+    },
+    {
+      "screenId": "sea-encounter",
+      "state": "索路收费",
+      "defaultHash": "bd37307865e5e6acfd4282525f9d0ccd1bb36036b0cb1abf860695228d0d80b1",
+      "stateHash": "6046bb7f2d8beffa6b9a9ee1778a81891841446ae324f2ecf4ccac7e1de9cd0d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1766
+    },
+    {
+      "screenId": "sea-encounter",
+      "state": "扣船盘查",
+      "defaultHash": "bd37307865e5e6acfd4282525f9d0ccd1bb36036b0cb1abf860695228d0d80b1",
+      "stateHash": "e93b130868b711f434bb42192769ead49165d64bf77f9dc8f37710ed181da58a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1785
+    },
+    {
+      "screenId": "sea-encounter",
+      "state": "同行求助",
+      "defaultHash": "bd37307865e5e6acfd4282525f9d0ccd1bb36036b0cb1abf860695228d0d80b1",
+      "stateHash": "3451d9f19bc0da0d89a852d84efec3a3f7b0232099de9c615137efae6f307e99",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1810
+    },
+    {
+      "screenId": "ship-overview",
+      "state": "适航",
+      "defaultHash": "913af29f0142241046a4d893cfaab98096afde2244ae157588d043bdf92c09e4",
+      "stateHash": "181503a24442a5121477aeae052743f925e2a8b3c5776b5878de58b23540dc31",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3006
+    },
+    {
+      "screenId": "ship-overview",
+      "state": "须拖带",
+      "defaultHash": "913af29f0142241046a4d893cfaab98096afde2244ae157588d043bdf92c09e4",
+      "stateHash": "cc28acfaf2417deda712e37c005e312e9875ccb6970e96f51675d668e19340c4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3407
+    },
+    {
+      "screenId": "ship-overview",
+      "state": "待交付",
+      "defaultHash": "913af29f0142241046a4d893cfaab98096afde2244ae157588d043bdf92c09e4",
+      "stateHash": "f2e313b1a24547b631ef9f41789cca750b404671fbf31726ec85b03801d7b193",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3377
+    },
+    {
+      "screenId": "fleet",
+      "state": "独船",
+      "defaultHash": "c3aee3f253528cd3b6467426580605a4b77e418c754544f802e59cecaef76534",
+      "stateHash": "345358577f43c7c96c00b502d9a1e8b528ae7db7555d1836548b9804e8478ee3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3033
+    },
+    {
+      "screenId": "fleet",
+      "state": "联合舰队",
+      "defaultHash": "c3aee3f253528cd3b6467426580605a4b77e418c754544f802e59cecaef76534",
+      "stateHash": "05057a2ba75f9a421ac07c52481dbba470bb45ddb90d16c126624a39f75ed323",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3920
+    },
+    {
+      "screenId": "fleet",
+      "state": "人员分流",
+      "defaultHash": "c3aee3f253528cd3b6467426580605a4b77e418c754544f802e59cecaef76534",
+      "stateHash": "f3d434e74a83024a435d4869f9088bb89ab3a8adad17684cea303a9f770f208c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3941
+    },
+    {
+      "screenId": "ship-refit",
+      "state": "缺少材料",
+      "defaultHash": "c3d48677457f2d07c04639ce7df2e6d6275cba4334dfb7438f52e1831a8267fc",
+      "stateHash": "3195df23e5aa5ef8c49a19b21e0d3fc3df96f1755847ff7c74be34d2c59a24a1",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2965
+    },
+    {
+      "screenId": "ship-refit",
+      "state": "炮架待修",
+      "defaultHash": "c3d48677457f2d07c04639ce7df2e6d6275cba4334dfb7438f52e1831a8267fc",
+      "stateHash": "39f2a7ddf11b5712635a0088b0509dbd4ee3d3d6f06ee1d6ee88b4c8e24c44ac",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2965
+    },
+    {
+      "screenId": "ship-refit",
+      "state": "容量冲突",
+      "defaultHash": "c3d48677457f2d07c04639ce7df2e6d6275cba4334dfb7438f52e1831a8267fc",
+      "stateHash": "a80f67b2648612d95205de78ad1e7c0927c7531d62737ac08556147440db3e4e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2971
+    },
+    {
+      "screenId": "ship-repair",
+      "state": "等待材料",
+      "defaultHash": "ac48a06b565d9541cf606df0a26f280cdd2fb539d0269edefa1673dfadfabcb6",
+      "stateHash": "064ffd5d639176b912a85ee22e0aebccf43c10ee7c779e24a1e029b0ec506096",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2224
+    },
+    {
+      "screenId": "ship-repair",
+      "state": "修理中",
+      "defaultHash": "ac48a06b565d9541cf606df0a26f280cdd2fb539d0269edefa1673dfadfabcb6",
+      "stateHash": "8f2b63e664d598f49426edd9def33f199df411a0d67a7e3ac6cb21d8a325bb72",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2545
+    },
+    {
+      "screenId": "ship-repair",
+      "state": "修复完毕",
+      "defaultHash": "ac48a06b565d9541cf606df0a26f280cdd2fb539d0269edefa1673dfadfabcb6",
+      "stateHash": "e9988e1a99d351fa24b8b68fb6431a374c1faaa65d973842fcf74bd1d54f5cfc",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2183
+    },
+    {
+      "screenId": "cargo-hold",
+      "state": "载重临界",
+      "defaultHash": "9607578d51edc672da094e037ce05e7f20928259546a79056fca4d05a53ddb33",
+      "stateHash": "6d8b06b8b09fdff435a7887251db5a62f8e6b27f4235aa538c34ee28b1fcb280",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4687
+    },
+    {
+      "screenId": "cargo-hold",
+      "state": "争议货待辨",
+      "defaultHash": "9607578d51edc672da094e037ce05e7f20928259546a79056fca4d05a53ddb33",
+      "stateHash": "0fb685961d84d50ca29f694cef1fe2194718c1ea31ef6cbdb0d4c15bec7834e4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4701
+    },
+    {
+      "screenId": "cargo-hold",
+      "state": "抛货确认",
+      "defaultHash": "9607578d51edc672da094e037ce05e7f20928259546a79056fca4d05a53ddb33",
+      "stateHash": "b737e93f889ccabba749c6c477c02d4f83d365a75e253b3f229bed947558992f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5043
+    },
+    {
+      "screenId": "shipyard",
+      "state": "资金不足",
+      "defaultHash": "fa3881db2b487969f9512faf29dbbaf6a0638a0c23efa8e028a2b533099cb906",
+      "stateHash": "e7ae0b6b7ff27207e7313fecaeb0d051f2b25845e558fed2de703e6a38f5a6d0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2554
+    },
+    {
+      "screenId": "shipyard",
+      "state": "待修旧船",
+      "defaultHash": "fa3881db2b487969f9512faf29dbbaf6a0638a0c23efa8e028a2b533099cb906",
+      "stateHash": "c211d3db66ca89d82efd485238dec18afb9cb7ca85a103fecf583738a24be02c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2967
+    },
+    {
+      "screenId": "shipyard",
+      "state": "仅供预览",
+      "defaultHash": "fa3881db2b487969f9512faf29dbbaf6a0638a0c23efa8e028a2b533099cb906",
+      "stateHash": "54c82ac3634b2eae34b3b5e039d5860b9385896c3433be8d132407c37d72debb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2580
+    },
+    {
+      "screenId": "inventory",
+      "state": "任务文书",
+      "defaultHash": "bd2e8d1f1b2c105ea4baaf3ec2e6563ad00ab429bcdb2d7410d8b9e7ee99be22",
+      "stateHash": "fc424de866b6791e25771be08a5069f2fb9edb1974e3b8bd84da9aa427e5c10f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4578
+    },
+    {
+      "screenId": "inventory",
+      "state": "家族纪念",
+      "defaultHash": "bd2e8d1f1b2c105ea4baaf3ec2e6563ad00ab429bcdb2d7410d8b9e7ee99be22",
+      "stateHash": "e8b34c4adb0d1197bcb838765a3cce38ceccd41d22867ae59767ed17745996c0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4550
+    },
+    {
+      "screenId": "inventory",
+      "state": "不可出售",
+      "defaultHash": "bd2e8d1f1b2c105ea4baaf3ec2e6563ad00ab429bcdb2d7410d8b9e7ee99be22",
+      "stateHash": "6768a0187ad62cab5365a4b740eb9353d441be28350b6902038e52cf33bc58d3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4572
+    },
+    {
+      "screenId": "item-detail",
+      "state": "已失效凭据",
+      "defaultHash": "e27727528c8cf1062167f390c39c95d7ad56d96445fbd2763a1b48227a30c53c",
+      "stateHash": "707f976b70c7e2b2fd811cca7dbbbd081313d4d1704b5f6a9732163fb717f03a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2048
+    },
+    {
+      "screenId": "item-detail",
+      "state": "封存保管",
+      "defaultHash": "e27727528c8cf1062167f390c39c95d7ad56d96445fbd2763a1b48227a30c53c",
+      "stateHash": "87ee3fc1b5faffea680cc732aa935b703e048180fc5a36722c09e8ae4df4ba4d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1999
+    },
+    {
+      "screenId": "item-detail",
+      "state": "纪念物",
+      "defaultHash": "e27727528c8cf1062167f390c39c95d7ad56d96445fbd2763a1b48227a30c53c",
+      "stateHash": "0fc1158bb04a8c4ae024ad90498f99623ed4a6cd41ce1b09c77128d87eee1ac3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1652
+    },
+    {
+      "screenId": "equipment",
+      "state": "场景锁定",
+      "defaultHash": "d860e0b178bf76f7d5811e462d082a89b878fda9b3d8c7fd8a7fa9acf6742996",
+      "stateHash": "19b740dcaad67709c46fe0a3ad741a2773fb883912fdfeddda6321dd43485841",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3417
+    },
+    {
+      "screenId": "equipment",
+      "state": "已交械",
+      "defaultHash": "d860e0b178bf76f7d5811e462d082a89b878fda9b3d8c7fd8a7fa9acf6742996",
+      "stateHash": "b17a6c5c4f738b63216e5c1ab3f8166e8eec46ea593a3e91cc707bebe7a98e3d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3410
+    },
+    {
+      "screenId": "equipment",
+      "state": "文书失效",
+      "defaultHash": "d860e0b178bf76f7d5811e462d082a89b878fda9b3d8c7fd8a7fa9acf6742996",
+      "stateHash": "9b7162d2f4e21c7133168d838f17af3d40accb1623bd2ea13d2c13b111abab5f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3429
+    },
+    {
+      "screenId": "character-profile",
+      "state": "随船伙计",
+      "defaultHash": "a0fbecaa2fd1dc1a316b9e00411efc68725685c3a0ca457f5e0a0d18fbecf293",
+      "stateHash": "a2b9158a1d1734cbdec54a2e431771305a637e56af330f036b97480b65a7d209",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3166
+    },
+    {
+      "screenId": "character-profile",
+      "state": "受抚游击",
+      "defaultHash": "a0fbecaa2fd1dc1a316b9e00411efc68725685c3a0ca457f5e0a0d18fbecf293",
+      "stateHash": "d30865d044fcfaafd417d3907c0b672fa8a9228a2303b07962d5ee9346923422",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3166
+    },
+    {
+      "screenId": "character-profile",
+      "state": "家族主事",
+      "defaultHash": "a0fbecaa2fd1dc1a316b9e00411efc68725685c3a0ca457f5e0a0d18fbecf293",
+      "stateHash": "6720347e38f9f3c26fbe5ebf693b49f7eebb4a5f86cb9e66521682e53d94ea4d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3166
+    },
+    {
+      "screenId": "character-growth",
+      "state": "尚待历练",
+      "defaultHash": "17fea6976354ebc8c0a864e17e89ae8238fc20dbdb8171a2f6c99c3d078ab1d0",
+      "stateHash": "4d4fd963185d4b8395acf8e80b20bda5b6c55c678c79337d2931ce654712064e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2961
+    },
+    {
+      "screenId": "character-growth",
+      "state": "已习得",
+      "defaultHash": "17fea6976354ebc8c0a864e17e89ae8238fc20dbdb8171a2f6c99c3d078ab1d0",
+      "stateHash": "39ad3a7495752ca85bd645665115d994574aad5452ef0a2c0ba82a49e7eda050",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2571
+    },
+    {
+      "screenId": "character-growth",
+      "state": "未来玩法预览",
+      "defaultHash": "17fea6976354ebc8c0a864e17e89ae8238fc20dbdb8171a2f6c99c3d078ab1d0",
+      "stateHash": "31c5b42a3dee9d1573b52b9de3e3e2709316348f08db4f47c2d9778377a2e7d9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2955
+    },
+    {
+      "screenId": "crew-roster",
+      "state": "在船",
+      "defaultHash": "ded7d67d845bccb309675ac651fa4b7820295c3711a499e463e636543c889156",
+      "stateHash": "5a60ede47cfc8b11577629656426a4cbd0fd0c4c907559859fc1d9516fff3fe4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3912
+    },
+    {
+      "screenId": "crew-roster",
+      "state": "养伤",
+      "defaultHash": "ded7d67d845bccb309675ac651fa4b7820295c3711a499e463e636543c889156",
+      "stateHash": "98297874a12680ee09705093ba191c7bc527cfef2a65a45b23587e39e53a084d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2729
+    },
+    {
+      "screenId": "crew-roster",
+      "state": "临时同行",
+      "defaultHash": "ded7d67d845bccb309675ac651fa4b7820295c3711a499e463e636543c889156",
+      "stateHash": "f5b9ed2768d696067951f41ff0c63658e46a4400eb70d947d959d2753b2476be",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3973
+    },
+    {
+      "screenId": "crew-roster",
+      "state": "自主离队",
+      "defaultHash": "ded7d67d845bccb309675ac651fa4b7820295c3711a499e463e636543c889156",
+      "stateHash": "f505f64fa19b8abe315aca2945bee3a11a328b711763ee4f20df80f1a56a45b5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3982
+    },
+    {
+      "screenId": "crew-detail",
+      "state": "受伤",
+      "defaultHash": "d687b62c760162a7464670c23220073c8522332032bd287af9ba9183e374f6b6",
+      "stateHash": "cd58147e82854d0f07321ba2fc705df5c744beebcfe9f5c591071a8c105c405c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2459
+    },
+    {
+      "screenId": "crew-detail",
+      "state": "雇期将满",
+      "defaultHash": "d687b62c760162a7464670c23220073c8522332032bd287af9ba9183e374f6b6",
+      "stateHash": "64abc85c6c09b22dd7c5878113466544b50520d9a917d316a1d36eaa42ffa6f7",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2806
+    },
+    {
+      "screenId": "crew-detail",
+      "state": "拒绝续航",
+      "defaultHash": "d687b62c760162a7464670c23220073c8522332032bd287af9ba9183e374f6b6",
+      "stateHash": "38c24125f4f81b5735c96ceb3d7b08bffa832f8d9dc39666833efcb93a3d56af",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2799
+    },
+    {
+      "screenId": "crew-recruit",
+      "state": "条件待谈",
+      "defaultHash": "17d72bd0812cbd54f79d8e4b0c5e5aa7ff841d68f6fc4ed9c4def14f7b9ccbf4",
+      "stateHash": "310c7ae6502fc03aff76fcd219426ecbd37c8a3189e4df0576847de9c0b3c7b0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4930
+    },
+    {
+      "screenId": "crew-recruit",
+      "state": "暂时同行",
+      "defaultHash": "17d72bd0812cbd54f79d8e4b0c5e5aa7ff841d68f6fc4ed9c4def14f7b9ccbf4",
+      "stateHash": "26e2a53038176d9fa16635cf188a6c1534697d59e5553182d581dc612a33488f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4396
+    },
+    {
+      "screenId": "crew-recruit",
+      "state": "名额不足",
+      "defaultHash": "17d72bd0812cbd54f79d8e4b0c5e5aa7ff841d68f6fc4ed9c4def14f7b9ccbf4",
+      "stateHash": "a2ff23686c4bc510d3df52aa65c08f59d4a38af62ad9a1444ab58ce395447f2a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4908
+    },
+    {
+      "screenId": "crew-assign",
+      "state": "岗位齐备",
+      "defaultHash": "7584d3e9dd4cead55816257a12ce5da85a66845e539b30f4c59a8b10bab713bc",
+      "stateHash": "5cf7a72e30c0c440f1ed9e7b3f3f9c1347f4820a11fe874b3e8af1130193f88f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6876
+    },
+    {
+      "screenId": "crew-assign",
+      "state": "缺少炮手",
+      "defaultHash": "7584d3e9dd4cead55816257a12ce5da85a66845e539b30f4c59a8b10bab713bc",
+      "stateHash": "f62bd7a0465c93cf70511367b9f458043d78d50d0a575e6b1035a471df1d0a49",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 7192
+    },
+    {
+      "screenId": "crew-assign",
+      "state": "救援抽调",
+      "defaultHash": "7584d3e9dd4cead55816257a12ce5da85a66845e539b30f4c59a8b10bab713bc",
+      "stateHash": "dcc4a9e6b86993e61d31e32abeb0c14cb0bdae55b09fd53bae8c9250ebe6f7b9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 7213
+    },
+    {
+      "screenId": "crew-assign",
+      "state": "伤员不可派岗",
+      "defaultHash": "7584d3e9dd4cead55816257a12ce5da85a66845e539b30f4c59a8b10bab713bc",
+      "stateHash": "52215a478f327606368974d67cd02ab3c64ac9ad06b1325b184b12e0010210c0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 7277
+    },
+    {
+      "screenId": "crew-morale",
+      "state": "欠薪不满",
+      "defaultHash": "0cec44f57d6df7cbd6fcccdffc58bc56ff113cc6dc7ad8be6a20256e06951836",
+      "stateHash": "6abf0238c5eeb3a8ca2ee5c6133e3c26ad73de2b3c715bf4ca3dbc6f5e86dcf4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1719
+    },
+    {
+      "screenId": "crew-morale",
+      "state": "等待赔付",
+      "defaultHash": "0cec44f57d6df7cbd6fcccdffc58bc56ff113cc6dc7ad8be6a20256e06951836",
+      "stateHash": "6aa2db3be26e1a590d7a65bf152cc7fa2487ad9bbed62e4eeecac05b0355a2ca",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2085
+    },
+    {
+      "screenId": "crew-morale",
+      "state": "已付仍有旧怨",
+      "defaultHash": "0cec44f57d6df7cbd6fcccdffc58bc56ff113cc6dc7ad8be6a20256e06951836",
+      "stateHash": "ab2a9f52a9342354e9dc6dabb95821da8ee9968145314b7da55f7c64c09172e6",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1906
+    },
+    {
+      "screenId": "battle-hud",
+      "state": "接敌",
+      "defaultHash": "dcdef79184935703263d69b87cde84ab7e8d908ba4064132fff07704a00528b1",
+      "stateHash": "5f180cff30fd41a2a2a6ea0c30f44d6ced3637edef0a4a893f59bff9fb6d422a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3453
+    },
+    {
+      "screenId": "battle-hud",
+      "state": "正在装填",
+      "defaultHash": "dcdef79184935703263d69b87cde84ab7e8d908ba4064132fff07704a00528b1",
+      "stateHash": "3ff908e7be0ee7243c82f819bd4e35a7cb795c2e2764c3b2dd58bf4958676b42",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3447
+    },
+    {
+      "screenId": "battle-hud",
+      "state": "准备撤离",
+      "defaultHash": "dcdef79184935703263d69b87cde84ab7e8d908ba4064132fff07704a00528b1",
+      "stateHash": "6ad4e49c0d4b368e5b1c7b44164b7d70b5178097f6fa010406001c5ea6bf5b03",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3429
+    },
+    {
+      "screenId": "battle-orders",
+      "state": "友船执行中",
+      "defaultHash": "3fe0e87698ce75ba4d7a41b4f8a21d17c92700472b525a309b51b3a5d1b1e6bd",
+      "stateHash": "214eca536499d99cf505bf36a78e87b05d551706be5a213f3f9ff1b1cca1530b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3421
+    },
+    {
+      "screenId": "battle-orders",
+      "state": "接应受阻",
+      "defaultHash": "3fe0e87698ce75ba4d7a41b4f8a21d17c92700472b525a309b51b3a5d1b1e6bd",
+      "stateHash": "607b274f275eb0689651524bbd6f7b2e7245c979837efa8d1dfaf9549f331c95",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3613
+    },
+    {
+      "screenId": "battle-orders",
+      "state": "改变原约",
+      "defaultHash": "3fe0e87698ce75ba4d7a41b4f8a21d17c92700472b525a309b51b3a5d1b1e6bd",
+      "stateHash": "798ea6f071ba33ca8f19a208c377895ebb043308add0685a076f90e121240444",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3646
+    },
+    {
+      "screenId": "ammo-loading",
+      "state": "装填中",
+      "defaultHash": "2d4e7c552bcfc6d466fccfc1cc930c809d5164c0b042b65fc4f0839b9418b62f",
+      "stateHash": "1813e521a343db52d39583e7cd5f36193ae9f27dca83306033e69a5f2df7b9b8",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3209
+    },
+    {
+      "screenId": "ammo-loading",
+      "state": "火绳受潮",
+      "defaultHash": "2d4e7c552bcfc6d466fccfc1cc930c809d5164c0b042b65fc4f0839b9418b62f",
+      "stateHash": "a1aa3e8819d455cc586b88984b5872de77b650a84ce1307465917fb35c9dd356",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3100
+    },
+    {
+      "screenId": "ammo-loading",
+      "state": "弹药不足",
+      "defaultHash": "2d4e7c552bcfc6d466fccfc1cc930c809d5164c0b042b65fc4f0839b9418b62f",
+      "stateHash": "9b0b15a833100ddfc17cc000290a30b13fc7adaa3d77c48776d80aae95b652eb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2969
+    },
+    {
+      "screenId": "boarding",
+      "state": "过板争夺",
+      "defaultHash": "04255d082a91c91e9c47af68348bd63c034e45e10972ca459a217705c7609528",
+      "stateHash": "140fc8cd6cf7e29f1dad233c9f9bdcff2768154a7f08b52c2b8537f57701d891",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4987
+    },
+    {
+      "screenId": "boarding",
+      "state": "发现被掳者",
+      "defaultHash": "04255d082a91c91e9c47af68348bd63c034e45e10972ca459a217705c7609528",
+      "stateHash": "7ddd6d608d0188b1e3bd2b313dc03a98f481722bfb33d8147745be16d3a4fca1",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5392
+    },
+    {
+      "screenId": "boarding",
+      "state": "撤回己船",
+      "defaultHash": "04255d082a91c91e9c47af68348bd63c034e45e10972ca459a217705c7609528",
+      "stateHash": "fead4a6dffee872c0385dbfce43cb446e08757270936c26d0ba00dbc688899a3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5124
+    },
+    {
+      "screenId": "battle-damage",
+      "state": "火势扩大",
+      "defaultHash": "1dbace490be10dc66a60f819d964d319c5ba615aedfb56649433c726c088e28b",
+      "stateHash": "ded3addc0d23ae9eab61718804ae0e616291efe4d0cc9f2d9988e171e81623b7",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2211
+    },
+    {
+      "screenId": "battle-damage",
+      "state": "断桅压船",
+      "defaultHash": "1dbace490be10dc66a60f819d964d319c5ba615aedfb56649433c726c088e28b",
+      "stateHash": "20a0d3ee4b3922b14f3029100b8736d487c9d8676ca0181882a51289c5385727",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2237
+    },
+    {
+      "screenId": "battle-damage",
+      "state": "伤员待接",
+      "defaultHash": "1dbace490be10dc66a60f819d964d319c5ba615aedfb56649433c726c088e28b",
+      "stateHash": "4c185b71d31d467449b6b5bf46c141508dcfbfa3b9fec69dd948c5f7ef42e2ff",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2236
+    },
+    {
+      "screenId": "battle-result",
+      "state": "付出损船",
+      "defaultHash": "2d35c07cd15d867c82b24e2fd75264cc20a6d0ed3363738603764925279483de",
+      "stateHash": "5932966c0c2e3ba9c103febcde8ee82a7a583e99dbbe6aaa32702aface2dde7d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1825
+    },
+    {
+      "screenId": "battle-result",
+      "state": "失踪待寻",
+      "defaultHash": "2d35c07cd15d867c82b24e2fd75264cc20a6d0ed3363738603764925279483de",
+      "stateHash": "bab60747bb42d62190bde634e20c0ebd98e0fd0e1d52379fc244419056c62f71",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1825
+    },
+    {
+      "screenId": "battle-result",
+      "state": "撤离保全",
+      "defaultHash": "2d35c07cd15d867c82b24e2fd75264cc20a6d0ed3363738603764925279483de",
+      "stateHash": "63ec0da91183b1385725f6f8198df0a446eea1aced053b1f20d3791768a8ff46",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1825
+    },
+    {
+      "screenId": "prize-distribution",
+      "state": "民货待辨",
+      "defaultHash": "03e3889d74b7c7bc08cab8c7c54ac9c0a1c42cc636eedfcfad0ccb71dd2daea6",
+      "stateHash": "9df0fe98aa0a5b5537a8b74900561f5f9543ea024a02e6100a54c51ed70db793",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3583
+    },
+    {
+      "screenId": "prize-distribution",
+      "state": "赔付优先",
+      "defaultHash": "03e3889d74b7c7bc08cab8c7c54ac9c0a1c42cc636eedfcfad0ccb71dd2daea6",
+      "stateHash": "ba00879b4a8e7f953fa1ed77e2e3218b253bc9dc8af23fc0a8efc18de9be59f2",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3565
+    },
+    {
+      "screenId": "prize-distribution",
+      "state": "分配已确认",
+      "defaultHash": "03e3889d74b7c7bc08cab8c7c54ac9c0a1c42cc636eedfcfad0ccb71dd2daea6",
+      "stateHash": "9ea655adc3ce82195617a177b6459d9a71b31bf872dbd369ef7f7913f2088dab",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3508
+    },
+    {
+      "screenId": "port-hub",
+      "state": "澳门货栈",
+      "defaultHash": "62df333ff8d14a090c450c7a38b65df2e6b12c5b5fd4cc22a899aebe1115f5d0",
+      "stateHash": "dfdd94670fcd8d6a81981389c7f196345c96588d8075b727b798aaf99f7b483f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5380
+    },
+    {
+      "screenId": "port-hub",
+      "state": "隐蔽锚地",
+      "defaultHash": "62df333ff8d14a090c450c7a38b65df2e6b12c5b5fd4cc22a899aebe1115f5d0",
+      "stateHash": "59e6fc97d119ed18834ecfe1793fb335791b5523fb3d6ee52fb17fdc9d14b15c",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5376
+    },
+    {
+      "screenId": "port-hub",
+      "state": "港火之后",
+      "defaultHash": "62df333ff8d14a090c450c7a38b65df2e6b12c5b5fd4cc22a899aebe1115f5d0",
+      "stateHash": "49f96492b81cf6e1aa25edf08a57b646a500c119b10fa9e74af7d319ebca931e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5435
+    },
+    {
+      "screenId": "market",
+      "state": "库存不足",
+      "defaultHash": "48f80f910bdca77ddc773594c90a9eec3a0942651275219f2d5cd6ee7c935665",
+      "stateHash": "cf50aa992983b8126ed09955e4b3c202630b2a0bef4eb70682e134296aaa2910",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6560
+    },
+    {
+      "screenId": "market",
+      "state": "急需补给",
+      "defaultHash": "48f80f910bdca77ddc773594c90a9eec3a0942651275219f2d5cd6ee7c935665",
+      "stateHash": "f7409964a69dc2c6a35022653772224420418b6d81ad155f29cbdd830be13ea2",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4869
+    },
+    {
+      "screenId": "market",
+      "state": "货舱将满",
+      "defaultHash": "48f80f910bdca77ddc773594c90a9eec3a0942651275219f2d5cd6ee7c935665",
+      "stateHash": "465714b24fb819fee412f231c6d17fbe3269613cb42470c983a1e71f5f84c702",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6537
+    },
+    {
+      "screenId": "trade-order",
+      "state": "银两不足",
+      "defaultHash": "99ca32365f0dabe7d9e89c1cf8799e4ce9e5c41f7c15401edd19916629baec8c",
+      "stateHash": "8ec7d440c3514b7e1bda94a9ced72af4c3ff1609f756782a8aa63b0a3fb53f87",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3176
+    },
+    {
+      "screenId": "trade-order",
+      "state": "容量不足",
+      "defaultHash": "99ca32365f0dabe7d9e89c1cf8799e4ce9e5c41f7c15401edd19916629baec8c",
+      "stateHash": "4656c2ed4228fd8a88d5deb6a8c3b6e87ba93a050cc65cfc0e61a01f872d269f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3197
+    },
+    {
+      "screenId": "trade-order",
+      "state": "成交完成",
+      "defaultHash": "99ca32365f0dabe7d9e89c1cf8799e4ce9e5c41f7c15401edd19916629baec8c",
+      "stateHash": "03785dc95c56250cbc2e374d41c480ccb033b4d31c7cf8d877f0faad80e03c32",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3388
+    },
+    {
+      "screenId": "contract-board",
+      "state": "进行中",
+      "defaultHash": "f6493fa0d1e3545793e0e99c8be529282befb9f04f2240b5b1c3af00b02b47d4",
+      "stateHash": "887556c356f668ab39c533ba848a28ca2bc54114ce637000251a8ca133bac1a4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3398
+    },
+    {
+      "screenId": "contract-board",
+      "state": "待交割",
+      "defaultHash": "f6493fa0d1e3545793e0e99c8be529282befb9f04f2240b5b1c3af00b02b47d4",
+      "stateHash": "44391e05c751d5bd1a99164c5340f0ecd616412d155e64c8c189949efb23a559",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3411
+    },
+    {
+      "screenId": "contract-board",
+      "state": "有争议",
+      "defaultHash": "f6493fa0d1e3545793e0e99c8be529282befb9f04f2240b5b1c3af00b02b47d4",
+      "stateHash": "1ade92d9417abbc288b43145f851ebc492ee3c8f6d4e5c1117fda16a3cbd430e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5421
+    },
+    {
+      "screenId": "contract-detail",
+      "state": "条件不足",
+      "defaultHash": "2326b68866f0cd574650089c02a5a3ff9976f9e106ce3dcbc3cbd5e330cc545f",
+      "stateHash": "1bbbe5811114760851f4a15c72fbabca90fc2a0a07d4554b1219bc849e8d48c0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2897
+    },
+    {
+      "screenId": "contract-detail",
+      "state": "履约待验",
+      "defaultHash": "2326b68866f0cd574650089c02a5a3ff9976f9e106ce3dcbc3cbd5e330cc545f",
+      "stateHash": "35952bd9281434244085d4e7868f3a32a9b80f2739513ecfbb34e3efc14b4fdb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3843
+    },
+    {
+      "screenId": "contract-detail",
+      "state": "欠损未清",
+      "defaultHash": "2326b68866f0cd574650089c02a5a3ff9976f9e106ce3dcbc3cbd5e330cc545f",
+      "stateHash": "d0eec9f5e5e4bbeb53cce387b21fddfa6abe53db7a0654dc82433ffe10d1eb11",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3477
+    },
+    {
+      "screenId": "black-market",
+      "state": "来路待辨",
+      "defaultHash": "ae35374b4b441922b17b36e21cbb5f6a416bb4a9efda45b80692b98697bf313e",
+      "stateHash": "21c035066e6463c5340e4a27dfee4bd76d446c1f3cdeb4db983a4c48b179d7cb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4370
+    },
+    {
+      "screenId": "black-market",
+      "state": "有人追索",
+      "defaultHash": "ae35374b4b441922b17b36e21cbb5f6a416bb4a9efda45b80692b98697bf313e",
+      "stateHash": "ef8e5d4fbee7232b14bf3731725bf92a3969bf0c1ded626ad8ebfc0f538fd369",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4087
+    },
+    {
+      "screenId": "black-market",
+      "state": "买主拒收",
+      "defaultHash": "ae35374b4b441922b17b36e21cbb5f6a416bb4a9efda45b80692b98697bf313e",
+      "stateHash": "9542cf6cebae0ec2a5843cea82012dfec392576512f4f64550858f5ca13ffd96",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4097
+    },
+    {
+      "screenId": "supplies",
+      "state": "水量不足",
+      "defaultHash": "ee39115acb0436524f989551bc93c5ecc628a28c9e71a085e37b57dcda2d63d1",
+      "stateHash": "4a3673a1564341b267bff8333f21072ad4b05901c08bcea0afe60e19b8a9fde0",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4904
+    },
+    {
+      "screenId": "supplies",
+      "state": "超出预算",
+      "defaultHash": "ee39115acb0436524f989551bc93c5ecc628a28c9e71a085e37b57dcda2d63d1",
+      "stateHash": "8c577fffcee00faa720c86ab2b5a01886303de310910f3e58d8375c5edc5ac38",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5101
+    },
+    {
+      "screenId": "supplies",
+      "state": "容量冲突",
+      "defaultHash": "ee39115acb0436524f989551bc93c5ecc628a28c9e71a085e37b57dcda2d63d1",
+      "stateHash": "8943f3eb0f7f46f2f2dbafe7a821a1d14d4b43b1da416dff4e5eb2ee41c89fc3",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5084
+    },
+    {
+      "screenId": "quest-journal",
+      "state": "当前主线",
+      "defaultHash": "8ed2c787addd9c11f07a8bf52c2403ee02f697c244e0b3fc978935cdc42d6381",
+      "stateHash": "4863ab6b0fbe9cbf398b75b017957d6a114b3a58b11b704ae04c43b1a8ba85aa",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2861
+    },
+    {
+      "screenId": "quest-journal",
+      "state": "待交割",
+      "defaultHash": "8ed2c787addd9c11f07a8bf52c2403ee02f697c244e0b3fc978935cdc42d6381",
+      "stateHash": "6459047d62d156496ca236bd9d0db2c8f83986022eb74923f594654a3bbce228",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2414
+    },
+    {
+      "screenId": "quest-journal",
+      "state": "承诺未清",
+      "defaultHash": "8ed2c787addd9c11f07a8bf52c2403ee02f697c244e0b3fc978935cdc42d6381",
+      "stateHash": "9d1ff983f6f015c8d5b9037bec6d9534372240d87fb7855d352202d0c00d27c7",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2747
+    },
+    {
+      "screenId": "quest-journal",
+      "state": "已完成",
+      "defaultHash": "8ed2c787addd9c11f07a8bf52c2403ee02f697c244e0b3fc978935cdc42d6381",
+      "stateHash": "7b0df11252c2b4e42996027016d4837a30a623e68de2ed1c2512988c518e9001",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2464
+    },
+    {
+      "screenId": "quest-detail",
+      "state": "目标进行中",
+      "defaultHash": "1ac64512219f79f7b5c6ae5b9529e866d971eb3dc572d56c997d5635f96f6550",
+      "stateHash": "305336a761eba42f6a50b0e96b61a0c9f233688d48f4231ccefc1e431fb7bec5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3122
+    },
+    {
+      "screenId": "quest-detail",
+      "state": "完成有代价",
+      "defaultHash": "1ac64512219f79f7b5c6ae5b9529e866d971eb3dc572d56c997d5635f96f6550",
+      "stateHash": "71bec55240b408eb1d61704d9067c54e50e705dbfb40fd894a22d998670f5a8f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3275
+    },
+    {
+      "screenId": "quest-detail",
+      "state": "固定结果",
+      "defaultHash": "1ac64512219f79f7b5c6ae5b9529e866d971eb3dc572d56c997d5635f96f6550",
+      "stateHash": "e58e48d8acaf2bd0857d1a82f2d260ca14e74776fd3704405b751b088d99fe2f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3262
+    },
+    {
+      "screenId": "chronicle",
+      "state": "历史节点",
+      "defaultHash": "66ef6db89aa8e5e2c92ed95c139d7a6a58b2c59ed5c27b61e050f9b0f000e194",
+      "stateHash": "5d517be2f65cec5ee9ffe1d6fc885c3f21b51d9578724c245b22619b771ff87d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5471
+    },
+    {
+      "screenId": "chronicle",
+      "state": "跨年概括",
+      "defaultHash": "66ef6db89aa8e5e2c92ed95c139d7a6a58b2c59ed5c27b61e050f9b0f000e194",
+      "stateHash": "2122023c31dd332150c9d4e70c4ddaa998044d861f2afe7c9392d1043d353efb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3267
+    },
+    {
+      "screenId": "chronicle",
+      "state": "原创航次",
+      "defaultHash": "66ef6db89aa8e5e2c92ed95c139d7a6a58b2c59ed5c27b61e050f9b0f000e194",
+      "stateHash": "3cccde5b2598879e013f2809818bb31eae3c4980fdd4ee58c43a92ff2a24e789",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3862
+    },
+    {
+      "screenId": "chronicle",
+      "state": "当前年份",
+      "defaultHash": "66ef6db89aa8e5e2c92ed95c139d7a6a58b2c59ed5c27b61e050f9b0f000e194",
+      "stateHash": "aac30fe751e24546a4324b4a0a1ca504d410a38873f13024a662383ba9b38050",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2698
+    },
+    {
+      "screenId": "intelligence",
+      "state": "未经核实",
+      "defaultHash": "c5bddcacc0b57663e900a3b91a018928e5e70ee28ee66e789cb05c5366e5333b",
+      "stateHash": "2709ed8fc6dfea6b9a6392bf2d1e0104d7c5d01de559e8c06338774cc57c4832",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3757
+    },
+    {
+      "screenId": "intelligence",
+      "state": "相互印证",
+      "defaultHash": "c5bddcacc0b57663e900a3b91a018928e5e70ee28ee66e789cb05c5366e5333b",
+      "stateHash": "5b18ce76ef2a6444359787d44c989a9d05003ae9a6cd42c891d20a3775cea6f4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3433
+    },
+    {
+      "screenId": "intelligence",
+      "state": "已证伪",
+      "defaultHash": "c5bddcacc0b57663e900a3b91a018928e5e70ee28ee66e789cb05c5366e5333b",
+      "stateHash": "e26b31248f4b8a244d98de2811222e9ba436bf0f0dd542d834923aeff7e91688",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3555
+    },
+    {
+      "screenId": "intelligence",
+      "state": "已过时",
+      "defaultHash": "c5bddcacc0b57663e900a3b91a018928e5e70ee28ee66e789cb05c5366e5333b",
+      "stateHash": "784486350645586cb070b401013c2cb85896732c352ef152ace2f80c8113e800",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3413
+    },
+    {
+      "screenId": "relationships",
+      "state": "旧恩未偿",
+      "defaultHash": "be5325d24a5d8bde4465192a8257da4b99dfcec0d52d921349a8d99bd0da6022",
+      "stateHash": "5010f2a7b193746bde666b44f7b12f7c9877c60ccc0889cc525bf6d50735a24a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3317
+    },
+    {
+      "screenId": "relationships",
+      "state": "关系破裂",
+      "defaultHash": "be5325d24a5d8bde4465192a8257da4b99dfcec0d52d921349a8d99bd0da6022",
+      "stateHash": "5010f2a7b193746bde666b44f7b12f7c9877c60ccc0889cc525bf6d50735a24a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3317
+    },
+    {
+      "screenId": "relationships",
+      "state": "有限缓和",
+      "defaultHash": "be5325d24a5d8bde4465192a8257da4b99dfcec0d52d921349a8d99bd0da6022",
+      "stateHash": "5010f2a7b193746bde666b44f7b12f7c9877c60ccc0889cc525bf6d50735a24a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3314
+    },
+    {
+      "screenId": "factions",
+      "state": "临时结盟",
+      "defaultHash": "c644c017da38b49fa89b3e2894261967f3545bd2a9fd79b7b44b3072be64fb12",
+      "stateHash": "3b0dbe5cd9892c3423c244ca868ce017a7ba0250c39e352424c6dcd0231148be",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5011
+    },
+    {
+      "screenId": "factions",
+      "state": "通路受制",
+      "defaultHash": "c644c017da38b49fa89b3e2894261967f3545bd2a9fd79b7b44b3072be64fb12",
+      "stateHash": "9e70af84540b81c37d61ff5502d14ef8a50f9bc56dc3a757c3f8f1bbc95ab958",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3377
+    },
+    {
+      "screenId": "factions",
+      "state": "交战",
+      "defaultHash": "c644c017da38b49fa89b3e2894261967f3545bd2a9fd79b7b44b3072be64fb12",
+      "stateHash": "288c26efb54789d4012f74abc2ff9d2434f2691e719752a4fa8eb1ab1643fe45",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3386
+    },
+    {
+      "screenId": "faction-detail",
+      "state": "情报不足",
+      "defaultHash": "3f2dd11140bcc0e19d70ae4af668223e3ef1871595151f77a5267ffd230add56",
+      "stateHash": "315965149d05267a587d91b74dd9ad9c0890f5db24c568f228f96d0a805d77d1",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2511
+    },
+    {
+      "screenId": "faction-detail",
+      "state": "谈判中",
+      "defaultHash": "3f2dd11140bcc0e19d70ae4af668223e3ef1871595151f77a5267ffd230add56",
+      "stateHash": "67dbbf828575ddc6d7c419cbd915e476579aad06f77251c112988db8198ff3dd",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2442
+    },
+    {
+      "screenId": "faction-detail",
+      "state": "关系紧张",
+      "defaultHash": "3f2dd11140bcc0e19d70ae4af668223e3ef1871595151f77a5267ffd230add56",
+      "stateHash": "2cf0786837eaa75fa7657b9ae67ccebb3fa521df13e424a74966731f192ed5f4",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2984
+    },
+    {
+      "screenId": "diplomacy",
+      "state": "条件未落实",
+      "defaultHash": "09df7f4eed9eea5877b8a958904a7472bdd6ac0d06e4cd182733921787b4d29a",
+      "stateHash": "8e91925815b23cd39404c1172598db66833fbc8346238f1e6e75c5fcef3c088e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3887
+    },
+    {
+      "screenId": "diplomacy",
+      "state": "身份改变",
+      "defaultHash": "09df7f4eed9eea5877b8a958904a7472bdd6ac0d06e4cd182733921787b4d29a",
+      "stateHash": "13abd422f129267f90955a7d4beaabb7012b3b1896cb92ec05e6d123fa3d6df9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3839
+    },
+    {
+      "screenId": "diplomacy",
+      "state": "对方拒绝",
+      "defaultHash": "09df7f4eed9eea5877b8a958904a7472bdd6ac0d06e4cd182733921787b4d29a",
+      "stateHash": "5dd453cb8531e72631876dc03294eba788cb4ef39fdf5b6b713868edc43d1623",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3435
+    },
+    {
+      "screenId": "sea-permits",
+      "state": "不被对方承认",
+      "defaultHash": "feef714ac36d1b2c97ea29b8bfff3664b96456c785a24bbc333093a5d351c1fe",
+      "stateHash": "9069ce0d76d48e05d6331cc68b0b7193a9120c0009e624f6c9f3c3936143cbc2",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3083
+    },
+    {
+      "screenId": "sea-permits",
+      "state": "旗号冒用",
+      "defaultHash": "feef714ac36d1b2c97ea29b8bfff3664b96456c785a24bbc333093a5d351c1fe",
+      "stateHash": "0c5e2cd363e70694955a351204ab6457c8b039c29ca67ce86e9dbf91598f683f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3078
+    },
+    {
+      "screenId": "sea-permits",
+      "state": "凭据已毁",
+      "defaultHash": "feef714ac36d1b2c97ea29b8bfff3664b96456c785a24bbc333093a5d351c1fe",
+      "stateHash": "a8d17217becbb31d5153fed90827caa8f6ba28421f48e4b0e126adcf0c363126",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3099
+    },
+    {
+      "screenId": "bounty-board",
+      "state": "来源存疑",
+      "defaultHash": "67d81599670a0a0bfbe9c84edce9abbc21b354a4305afc4f3360a91d3c524b03",
+      "stateHash": "12cae36704f61cb82542def661ab8e848268e541bba3c2e0ed3ed2b6abe9d7ff",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2958
+    },
+    {
+      "screenId": "bounty-board",
+      "state": "本人被追索",
+      "defaultHash": "67d81599670a0a0bfbe9c84edce9abbc21b354a4305afc4f3360a91d3c524b03",
+      "stateHash": "cf3b64f4d45e0d578f83986e69f9a43ff35de411f87a436e4799fa3f985098a5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2034
+    },
+    {
+      "screenId": "bounty-board",
+      "state": "后果已发生",
+      "defaultHash": "67d81599670a0a0bfbe9c84edce9abbc21b354a4305afc4f3360a91d3c524b03",
+      "stateHash": "6e30d0f6608a240da790d25fb66d107c8f36daaa5c67024745dee0bcc595a8ad",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2572
+    },
+    {
+      "screenId": "home",
+      "state": "隔海两地",
+      "defaultHash": "cf39502425e6f55ec3e6f4c2d73297be93c9a0953c3fcf693f7d0b13b3ce5863",
+      "stateHash": "e54e14512a57b69bdac6897798babc48abb80ec38ac2542c4d9a81707ef45f78",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3128
+    },
+    {
+      "screenId": "home",
+      "state": "短暂重聚",
+      "defaultHash": "cf39502425e6f55ec3e6f4c2d73297be93c9a0953c3fcf693f7d0b13b3ce5863",
+      "stateHash": "f92f8bf8a1413db97b5ec4a5eca117bf50cc22c69e35e82021b831fd4a2e7207",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3132
+    },
+    {
+      "screenId": "home",
+      "state": "分途之前",
+      "defaultHash": "cf39502425e6f55ec3e6f4c2d73297be93c9a0953c3fcf693f7d0b13b3ce5863",
+      "stateHash": "3cccb90f2bd8493fbbd2def14547392cf56dfd9049b5bcd232a9a1b2b68cd74e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3096
+    },
+    {
+      "screenId": "family",
+      "state": "成家",
+      "defaultHash": "b3e82ebe41e94d71b1ff0eca619f55d78355e3f288d1cfc601609f769c70ee70",
+      "stateHash": "c87a57896eddf9461c6b73fa8982446051d2ba8cf365d3774c29779625f3fe14",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2889
+    },
+    {
+      "screenId": "family",
+      "state": "迎子赴明",
+      "defaultHash": "b3e82ebe41e94d71b1ff0eca619f55d78355e3f288d1cfc601609f769c70ee70",
+      "stateHash": "3714f0d9f8595ad5d3678720c04c6d8e510c131619627be496a4521be1f00a5b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3251
+    },
+    {
+      "screenId": "family",
+      "state": "各有决定",
+      "defaultHash": "b3e82ebe41e94d71b1ff0eca619f55d78355e3f288d1cfc601609f769c70ee70",
+      "stateHash": "53dd9fadfca7d35f13cd1cbf0c672de79504ce8840e652383fd0aba642309159",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3222
+    },
+    {
+      "screenId": "child-growth",
+      "state": "幼年平户",
+      "defaultHash": "067ea47ed6845dad1b696c3eda1dee0be2c8e016f723b4aa55656c8c823991f5",
+      "stateHash": "be0844b253c14fd8e9bc40ce4c11f3830625dfdd59976fcd59c9de391a96ecd1",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2832
+    },
+    {
+      "screenId": "child-growth",
+      "state": "求学成长",
+      "defaultHash": "067ea47ed6845dad1b696c3eda1dee0be2c8e016f723b4aa55656c8c823991f5",
+      "stateHash": "be81f7e91b945bb018c0904cda5f991eb37706f1f9d84ff5a646b2fbcd80d347",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2858
+    },
+    {
+      "screenId": "child-growth",
+      "state": "领受职分",
+      "defaultHash": "067ea47ed6845dad1b696c3eda1dee0be2c8e016f723b4aa55656c8c823991f5",
+      "stateHash": "a043aecd42a5602758ab96c7ef0abf95a3fbbabb492281250ece681d6cfed150",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2796
+    },
+    {
+      "screenId": "letters",
+      "state": "已写未托",
+      "defaultHash": "85c3f18d4abb32ddea558cdc594030c4dba4392d579336edf4ed33e94dcb90f4",
+      "stateHash": "c8e74b48f25e31c5ca621e7235432ae620f8658d0ec3d455d813b8a1468abb70",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2921
+    },
+    {
+      "screenId": "letters",
+      "state": "随船在途",
+      "defaultHash": "85c3f18d4abb32ddea558cdc594030c4dba4392d579336edf4ed33e94dcb90f4",
+      "stateHash": "5282ba187fa6d943579b161bd8f493dc34bd8c1175b57dba1e0eeb1c398666c2",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2891
+    },
+    {
+      "screenId": "letters",
+      "state": "送达不明",
+      "defaultHash": "85c3f18d4abb32ddea558cdc594030c4dba4392d579336edf4ed33e94dcb90f4",
+      "stateHash": "1c1b2240378dc4174dbe9ad238c7ebe1751cae82820eef2513f178297c79648b",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2924
+    },
+    {
+      "screenId": "letter-detail",
+      "state": "附船图童谣",
+      "defaultHash": "4b442a2ed5784ab8685a8ddec48c0a191fc5383f6e8e56f4d2b0a50b112ff58a",
+      "stateHash": "a6d582a421abd4384892633afef2d67beef2bacfe168ab611c0d7f78d2221d98",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2701
+    },
+    {
+      "screenId": "letter-detail",
+      "state": "寄款附记",
+      "defaultHash": "4b442a2ed5784ab8685a8ddec48c0a191fc5383f6e8e56f4d2b0a50b112ff58a",
+      "stateHash": "c9ddd3cbf58a7975094c88d256aaa9363c081dd32ab14d04f963ce41f1c28450",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3087
+    },
+    {
+      "screenId": "letter-detail",
+      "state": "回信待写",
+      "defaultHash": "4b442a2ed5784ab8685a8ddec48c0a191fc5383f6e8e56f4d2b0a50b112ff58a",
+      "stateHash": "fdd85f633b2d9489b212675158bca7bf217b058f59270c6e6246d0cf9aa674eb",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3200
+    },
+    {
+      "screenId": "send-letter-remittance",
+      "state": "待写",
+      "defaultHash": "54ff9a99267036a53ddb477cca06e9e00387ae3d59cf106bb509d77e5274f9db",
+      "stateHash": "9e58a5d5d062c514dc2835dc219b78a9e8c62701faf8504bf710328e72a1ad5d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3950
+    },
+    {
+      "screenId": "send-letter-remittance",
+      "state": "银两待筹",
+      "defaultHash": "54ff9a99267036a53ddb477cca06e9e00387ae3d59cf106bb509d77e5274f9db",
+      "stateHash": "d1b1f6e43359390a6ddc8928485d1544de27eb3fedab57b0fa0da60a391ad522",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4100
+    },
+    {
+      "screenId": "send-letter-remittance",
+      "state": "已经托寄",
+      "defaultHash": "54ff9a99267036a53ddb477cca06e9e00387ae3d59cf106bb509d77e5274f9db",
+      "stateHash": "8970105816529fd0dfb108dcf8f99c616f885797d80fd4f29adeec31877d2454",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 4085
+    },
+    {
+      "screenId": "voyage-result",
+      "state": "顺利交割",
+      "defaultHash": "5493ce25d62c49406c42c8df3c41709a7ac1ab08ea1a5fa0a920fafd1869de27",
+      "stateHash": "a659c4f4df2eb45ddc278119bcce21ac70bab6e7364bbe4fb00b5e7bb214900f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3090
+    },
+    {
+      "screenId": "voyage-result",
+      "state": "获利但失援",
+      "defaultHash": "5493ce25d62c49406c42c8df3c41709a7ac1ab08ea1a5fa0a920fafd1869de27",
+      "stateHash": "2454117aa63de7d4cfc249e7f781e0d8073175c6c441fbacd6f187685d95ecd9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3119
+    },
+    {
+      "screenId": "voyage-result",
+      "state": "货损待偿",
+      "defaultHash": "5493ce25d62c49406c42c8df3c41709a7ac1ab08ea1a5fa0a920fafd1869de27",
+      "stateHash": "57b547126bc88fdf951c171cf41eca3f88c747ac03b94ec877a92021e7de6fb9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3109
+    },
+    {
+      "screenId": "voyage-result",
+      "state": "人船保全",
+      "defaultHash": "5493ce25d62c49406c42c8df3c41709a7ac1ab08ea1a5fa0a920fafd1869de27",
+      "stateHash": "1034cfc4ef3efbb142d77271532df0d4293642a71e13900c60db16a37a4de57e",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3131
+    },
+    {
+      "screenId": "accounts",
+      "state": "欠款未清",
+      "defaultHash": "18c129d877e09b76a8f6e81b141984cd6f594c52940dd1fac42fc3e3382e43d6",
+      "stateHash": "8a7c1eb0c9a2d7020f98692af39acebd68adf2a19d86ec1a2813311a98a4bd2f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2575
+    },
+    {
+      "screenId": "accounts",
+      "state": "家用被挪",
+      "defaultHash": "18c129d877e09b76a8f6e81b141984cd6f594c52940dd1fac42fc3e3382e43d6",
+      "stateHash": "8a7c1eb0c9a2d7020f98692af39acebd68adf2a19d86ec1a2813311a98a4bd2f",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2599
+    },
+    {
+      "screenId": "tutorial",
+      "state": "可跳过",
+      "defaultHash": "12f66847f210fe35f0983eb3f282cdb7302a8d1ee87df93117046ecad3ed53b4",
+      "stateHash": "bdc9588e12872da293f1e9494ec48a48d895325dafa2e80a49b36114a6fdacc9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 5977
+    },
+    {
+      "screenId": "tutorial",
+      "state": "已学会",
+      "defaultHash": "12f66847f210fe35f0983eb3f282cdb7302a8d1ee87df93117046ecad3ed53b4",
+      "stateHash": "b46b94b581cbf5059e462298cbc4b6414e0a5c1fbecb0c7ca62f22609f45dbe9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6208
+    },
+    {
+      "screenId": "tutorial",
+      "state": "随时重看",
+      "defaultHash": "12f66847f210fe35f0983eb3f282cdb7302a8d1ee87df93117046ecad3ed53b4",
+      "stateHash": "c95f0a2751b0ea278740baea6e5704989360cb367063463f4ee5b5319e33582a",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 6081
+    },
+    {
+      "screenId": "defeat",
+      "state": "玩家操作失败",
+      "defaultHash": "e94d98a29358915aa8eb77798765a2d4adb156eb49b0d8d785b03e6906c1737f",
+      "stateHash": "727a790e91995caa73060d866d6c999ba3d86e13e468327f219610e1c0d9e175",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2224
+    },
+    {
+      "screenId": "defeat",
+      "state": "可恢复检查点",
+      "defaultHash": "e94d98a29358915aa8eb77798765a2d4adb156eb49b0d8d785b03e6906c1737f",
+      "stateHash": "8c80e93431265b644e3b19fb973c09d6b4507767c7adba0385a37be029ac2e67",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2153
+    },
+    {
+      "screenId": "defeat",
+      "state": "剧情损失另记",
+      "defaultHash": "e94d98a29358915aa8eb77798765a2d4adb156eb49b0d8d785b03e6906c1737f",
+      "stateHash": "ce46cad8fb819b7e8bb319bffb924006bda6d7b2c5d7ac914173e09389d6fdb5",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 1910
+    },
+    {
+      "screenId": "notification-log",
+      "state": "紧急待办",
+      "defaultHash": "6921462f8a2d38df1d6a7356e24a9b68234a9412940eb7dd076eefa5d3fbe477",
+      "stateHash": "110dc72537c20ecb6e22d26e5faa9e7ee9e902744955d793aa40d2d2c677e0fd",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3416
+    },
+    {
+      "screenId": "notification-log",
+      "state": "普通见闻",
+      "defaultHash": "6921462f8a2d38df1d6a7356e24a9b68234a9412940eb7dd076eefa5d3fbe477",
+      "stateHash": "e883f2ea193a736a35a3c636408d10c7ab2ae0b21bfb78065964c0e2e6c0c3d9",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 3156
+    },
+    {
+      "screenId": "notification-log",
+      "state": "已读",
+      "defaultHash": "6921462f8a2d38df1d6a7356e24a9b68234a9412940eb7dd076eefa5d3fbe477",
+      "stateHash": "796a62855bb721a2ad577a6c303d51ec65144a7d6fc276122a058735540f692d",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2359
+    },
+    {
+      "screenId": "notification-log",
+      "state": "相关事项已结束",
+      "defaultHash": "6921462f8a2d38df1d6a7356e24a9b68234a9412940eb7dd076eefa5d3fbe477",
+      "stateHash": "e11769f6081f4376dad4e30f6732e6ad70b9e51e9c2a8c3c3203351818112961",
+      "issues": [],
+      "status": "passed",
+      "htmlBytes": 2491
+    }
+  ],
+  "pending": [],
+  "limitations": [
+    "No browser layout, accessibility tree, GPU, native gameplay or persistence execution.",
+    "The minimal DOM handles rendered form controls and synchronous event feedback; it is not a general browser DOM.",
+    "Timers are queued as no-op handles; none of the requested business acceptance cases depends on elapsed time.",
+    "State comparison excludes generic scenario surfaces, the outer state banner and page heading; meaningful text/control/image changes are required."
+  ]
+}

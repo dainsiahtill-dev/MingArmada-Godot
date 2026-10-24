@@ -1,0 +1,96 @@
+{
+  "id": "prop-torch",
+  "name": "火把",
+  "category": "prop",
+  "phase": "P1",
+  "description": "湾口已点火把与停火冲突所需，配合火船准备的可见手持火源。",
+  "visualBrief": "短木柄与布束头，抓点远离燃烧效果，熄灭时仍可辨；火焰与烟单独效果，不画配制或点火教学。",
+  "storyRefs": [
+    "zheng_a4_s7",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "boarding",
+    "battle-hud",
+    "battle-orders"
+  ],
+  "variants": [
+    "点亮／熄灭",
+    "焦黑"
+  ],
+  "modelStrategy": "火把实体一个小件；火烟复用效果，整艘火船由船型装配，不另造一套未计火船零件。",
+  "historicalStatus": "needs-concept；剧情明确或场景准备关联，绑扎细节为视觉方案。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-torch",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-torch/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-torch",
+      "path": "assets/production/props/prop-torch/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "4b91befe6c714254400a8adde1d75d2f4914a44673d985f1200c57f3ca1aa34a",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-torch",
+    "path": "assets/production/props/prop-torch/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "4b91befe6c714254400a8adde1d75d2f4914a44673d985f1200c57f3ca1aa34a",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "battle-orders",
+      "title": "令旗与舰队指挥"
+    }
+  ]
+}

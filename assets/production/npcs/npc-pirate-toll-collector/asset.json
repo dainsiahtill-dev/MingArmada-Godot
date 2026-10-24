@@ -1,0 +1,112 @@
+{
+  "id": "npc-pirate-toll-collector",
+  "name": "收银副手与登船刀手",
+  "category": "npc-archetype",
+  "phase": "P0",
+  "description": "阮部收银副手、留艇者、登板持刀手；副手连贯复现，不与远船阮老六合并。",
+  "visualBrief": "成年日晒窄脸、暗灰布带、粗短褂、腰刀；掂银时先看退路，登船时压低重心。不得人人画骷髅眼罩。",
+  "storyRefs": [
+    "zheng_a1_s6",
+    "zheng_a2_s7"
+  ],
+  "uiPages": [
+    "sea-encounter",
+    "boarding",
+    "dialogue"
+  ],
+  "variants": [
+    "收银副手",
+    "留艇",
+    "登船刀手"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "role": "scene-character-reference",
+      "note": "目视前景小艇男子为收银副手场景参考；不是阮老六肖像。"
+    },
+    {
+      "path": "assets/art/characters/pirate-captain-v1.png",
+      "role": "style-reference",
+      "note": "通用旧海上船长作服装层次参考，不能据此指认任何具名头领。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-eastasia-male",
+    "garment-work-tunic"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-pirate-toll-collector",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-pirate-toll-collector/reference/zheng_a1_s6-f08a09ba.png",
+      "role": "scene-character-reference",
+      "note": "目视前景小艇男子为收银副手场景参考；不是阮老六肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-pirate-toll-collector/reference/pirate-captain-v1-58018734.png",
+      "role": "style-reference",
+      "note": "通用旧海上船长作服装层次参考，不能据此指认任何具名头领。",
+      "sourcePath": "assets/art/characters/pirate-captain-v1.png",
+      "sha256": "580187340b0f80bbe3e44f272ef0469e6db65a6c61f4e4344c65fa695241768b",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-pirate-toll-collector/reference/zheng_a1_s6-f08a09ba.png",
+    "role": "scene-character-reference",
+    "note": "目视前景小艇男子为收银副手场景参考；不是阮老六肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s6.png",
+    "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

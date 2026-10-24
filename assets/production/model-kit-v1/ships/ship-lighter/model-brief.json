@@ -1,0 +1,50 @@
+{
+  "id": "ship-lighter",
+  "name": "敞口接驳驳船",
+  "category": "船舶",
+  "phase": "P0",
+  "baseMeshCount": 1,
+  "variants": [
+    "满载货箱配置",
+    "抛货后配置"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "ship-overview",
+    "cargo-hold",
+    "sailing-hud",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+      "status": "procedural-source",
+      "note": "get_mesh支持beached_boat；现为运行时ArrayMesh，不是独立GLB交付。"
+    }
+  ],
+  "productionStatus": "needs-new",
+  "notes": [
+    "海岸搁浅小艇只供比例参考；接驳船须独立可航船壳、低舷与货舱。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a1_s2",
+    "zheng_a1_s3"
+  ],
+  "group": "ships",
+  "artJobs": [
+    "ship-lighter"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/ships/ship-lighter",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
+  "originalRequirements": [
+    "ship-lighter"
+  ],
+  "sketchStatus": "not-generated"
+}

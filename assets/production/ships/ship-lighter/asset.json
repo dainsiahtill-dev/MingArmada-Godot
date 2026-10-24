@@ -1,0 +1,97 @@
+{
+  "id": "ship-lighter",
+  "name": "敞口接驳驳船",
+  "category": "ship",
+  "phase": "P0",
+  "assetKind": "ship-hull-family",
+  "modelRequired": true,
+  "description": "海岸搁浅小艇只供比例参考；接驳船须独立可航船壳、低舷与货舱。",
+  "visualBrief": "船体水线、船首与船尾轮廓、帆装、舵桨和炮位须分别交代；本轮图像是形制参考，正式模型需三视图、比例和挂点复验。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a1_s3"
+  ],
+  "uiPages": [
+    "ship-overview",
+    "cargo-hold",
+    "sailing-hud",
+    "battle-damage"
+  ],
+  "variants": [
+    "满载货箱配置",
+    "抛货后配置"
+  ],
+  "modelStrategy": "沿用原船型基模预算；LOD不重复算船型。海岸搁浅小艇只供比例参考；接驳船须独立可航船壳、低舷与货舱。",
+  "historicalStatus": "art-candidate-needs-review；原型美术与旧模型均不构成精确时代形制认证。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "story-context",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "ship-lighter"
+  ],
+  "categoryName": "船型",
+  "assetDirectory": "assets/production/ships/ship-lighter",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ships/ship-lighter/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "story-context",
+      "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ships/ship-lighter/reference/zheng_a1_s2-7ffaa0eb.png",
+    "role": "story-context",
+    "note": "只参考关联剧情或邻近船型，不能把该图当成独立船型定稿。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+    "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-overview",
+      "title": "舰船总览"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    }
+  ]
+}

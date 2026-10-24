@@ -1,0 +1,111 @@
+{
+  "id": "prop-polehook",
+  "name": "长钩与篙钩",
+  "category": "prop",
+  "phase": "P0",
+  "description": "阿旺顶过板、守船挡长刀和勾取绳物的长杆工具。",
+  "visualBrief": "长木杆与窄铁钩头，钩尖克制、轮廓显著区别枪头；双手抓点、钩索接触点和甲板倚靠处明确。",
+  "storyRefs": [
+    "zheng_a2_s7",
+    "zheng_a4_s7"
+  ],
+  "uiPages": [
+    "boarding",
+    "battle-damage",
+    "equipment"
+  ],
+  "variants": [
+    "杆材旧化",
+    "钩头同拓扑微调"
+  ],
+  "modelStrategy": "一个长钩主体，不与weapon-spear混名；杆可共享材质，钩头仍有独立可识别几何。",
+  "historicalStatus": "needs-concept；剧情明确，具体钩形尚未文物复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "tool-hook"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-polehook",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-polehook/reference/zheng_a2_s7-2ff89d96.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-polehook/reference/zheng_a4_s7-986ae674.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s7.png",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-polehook",
+      "path": "assets/production/props/prop-polehook/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "c7aa06fb3b5faa915c560a927952d1765bc187345c0b58000d95123187dfbe3e",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-polehook",
+    "path": "assets/production/props/prop-polehook/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "c7aa06fb3b5faa915c560a927952d1765bc187345c0b58000d95123187dfbe3e",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    }
+  ]
+}

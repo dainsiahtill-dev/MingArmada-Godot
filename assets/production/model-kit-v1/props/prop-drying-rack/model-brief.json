@@ -1,0 +1,53 @@
+{
+  "id": "prop-drying-rack",
+  "name": "渔网晾晒架",
+  "category": "货物与生活道具",
+  "phase": "P2",
+  "baseMeshCount": 1,
+  "variants": [
+    "有网",
+    "空架"
+  ],
+  "lodLevels": 3,
+  "rigFamily": null,
+  "animations": [],
+  "pages": [
+    "cargo-hold",
+    "inventory",
+    "item-detail",
+    "market",
+    "black-market",
+    "home",
+    "dialogue",
+    "battle-damage"
+  ],
+  "storyRefs": [],
+  "existing": [
+    {
+      "path": "modules/scene_engine/assets/coastal_detail_library.gd",
+      "status": "procedural-source",
+      "note": "get_mesh支持drying_rack；现为运行时ArrayMesh，不是独立GLB交付。"
+    }
+  ],
+  "productionStatus": "reusable-after-review",
+  "notes": [
+    "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。",
+    "旧预算保留项；不是既有形制已通过审定的声明。"
+  ],
+  "scope": "production",
+  "origin": "legacy-retained",
+  "legacyStoryRefs": [
+    "zheng_a4_s7"
+  ],
+  "group": "props",
+  "artJobs": [
+    "prop-drying-rack"
+  ],
+  "assetDirectory": "assets/production/model-kit-v1/props/prop-drying-rack",
+  "historyStatus": "evidence-and-shape-review-required",
+  "research": "docs/production/model-preproduction-2026-10-24/research-environment-props.md",
+  "originalRequirements": [
+    "prop-drying-rack"
+  ],
+  "sketchStatus": "not-generated"
+}

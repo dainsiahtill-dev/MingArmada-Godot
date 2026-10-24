@@ -1,0 +1,112 @@
+{
+  "id": "npc-family-escort",
+  "name": "平户亲属与送子随行者",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "送物、接福松赴明、迎接孩子的亲属及田川赴明随行人；除连贯送子者外不强定同一人。",
+  "visualBrief": "成年日常素袍、简洁行装，双手接孩子重箱、转身等候；可男女形变，脸不复用田川氏。",
+  "storyRefs": [
+    "zheng_a2_s1",
+    "zheng_a5_s1",
+    "zheng_a5_s2",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "family",
+    "dialogue",
+    "child-growth"
+  ],
+  "variants": [
+    "平户亲属",
+    "送子接引",
+    "赴明随行"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。女性/儿童需对应身体和蒙皮，不能用男性水手缩放替代。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "body-adult-female",
+    "head-eastasia-male",
+    "garment-japan-robe"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-family-escort",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-family-escort/reference/zheng_a5_s1-19aef039.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-family-escort/reference/zheng_a5_s1-19aef039.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+    "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a2_s1",
+      "legacyTitle": "水漏在谁脚下",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    }
+  ]
+}

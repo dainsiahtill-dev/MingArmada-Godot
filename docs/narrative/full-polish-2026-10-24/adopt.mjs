@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const dir=path.dirname(fileURLToPath(import.meta.url)),source=path.resolve(dir,'../zheng-zhilong-story.json');
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const candidate=fs.readFileSync(path.join(dir,'candidate.json')),baseline=fs.readFileSync(path.join(dir,'baseline.json')),current=fs.readFileSync(source);
+if(!current.equals(baseline)&&!current.equals(candidate))throw new Error('Live source changed outside this polish; reconcile before adopting.');
+const review=fs.readFileSync(path.join(dir,'FINAL-REVIEW.md'),'utf8');
+if(!review.includes(hash(candidate)))throw new Error('Independent review does not identify this candidate');
+fs.writeFileSync(source,candidate);
+fs.writeFileSync(path.join(dir,'adoption.json'),JSON.stringify({at:new Date().toISOString(),beforeSha256:hash(current),sourceSha256:hash(candidate),scope:'Authorized continuation of full polish and existing public reader update.'},null,2)+'\n');
+console.log('Adopted '+hash(candidate));

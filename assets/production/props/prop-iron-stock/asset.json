@@ -1,0 +1,83 @@
+{
+  "id": "prop-iron-stock",
+  "name": "铁料货组",
+  "category": "prop",
+  "phase": "P0",
+  "description": "六货种中的铁料，货舱与市场必须具备与粮、瓷、布不同的轮廓。",
+  "visualBrief": "少量朴素铁块／条坯、粗锻表面、绳捆或木托，体量可搬；避免现代钢卷、螺纹钢和工业标准锭标。",
+  "storyRefs": [],
+  "uiPages": [
+    "market",
+    "cargo-hold",
+    "trade-order",
+    "supplies"
+  ],
+  "variants": [
+    "氧化材质",
+    "码放数量配置"
+  ],
+  "modelStrategy": "一套简单铁料模块，图标与货舱共用；不衍生未经系统需要的矿石／冶炼工艺链。",
+  "historicalStatus": "已有原创铁料PNG；具体明末铁料贸易形态待审，属于既有商品系统需求。",
+  "existingImages": [
+    {
+      "path": "assets/art/goods/iron-v1.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-iron-stock",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-iron-stock/reference/iron-v1-1fb74b11.png",
+      "role": "item-art",
+      "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+      "sourcePath": "assets/art/goods/iron-v1.png",
+      "sha256": "1fb74b110aa4b62c1b8ff305e8d674ebc9201476a29e4a600fe7c5243a1305bb",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-iron-stock",
+      "path": "assets/production/props/prop-iron-stock/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "9a6953e241d8c2d71a5268ee0feed4ea15a1b35ec80cadda5241be0ca87be68a",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/props/prop-iron-stock/reference/iron-v1-1fb74b11.png",
+    "role": "item-art",
+    "note": "既有原创物品PNG；须复验透明边缘、缩略图可读性与生产溯源，不等于3D结构图。",
+    "sourcePath": "assets/art/goods/iron-v1.png",
+    "sha256": "1fb74b110aa4b62c1b8ff305e8d674ebc9201476a29e4a600fe7c5243a1305bb",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 2,
+  "storyLinks": [],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    }
+  ]
+}

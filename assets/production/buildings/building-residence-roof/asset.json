@@ -1,0 +1,138 @@
+{
+  "id": "building-residence-roof",
+  "name": "住宅屋顶模块",
+  "category": "building",
+  "phase": "P1",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "住宅低矮坡顶与深浅可调檐口，建议单间跨3—5米；木椽与瓦片，平户/福建外观先分概念稿审查，若需不同拓扑须后续单列增补预算。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a5_s2",
+    "zheng_a6_s3"
+  ],
+  "uiPages": [
+    "port-hub",
+    "market",
+    "shipyard",
+    "ship-repair",
+    "home",
+    "dialogue"
+  ],
+  "variants": [
+    "木色与瓦色材质"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 building-residence-roof；目标交付3级LOD。未核到本项独立环境模型文件。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "role": "story-context",
+      "note": "平户屋檐局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "role": "story-context",
+      "note": "福建居所局部，不能推出完整屋顶；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "building-residence-roof"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-residence-roof",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-residence-roof/reference/zheng_a2_s2-4db31f0b.png",
+      "role": "story-context",
+      "note": "平户屋檐局部；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a2_s2.png",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-residence-roof/reference/zheng_a6_s3-02ac3844.png",
+      "role": "story-context",
+      "note": "福建居所局部，不能推出完整屋顶；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-residence-roof",
+      "path": "assets/production/buildings/building-residence-roof/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "4cfdc72aac053ef7dc01184fb511b4619f68e47610e2ba47ba3aa6757879bd8e",
+      "sha256": "bbe1e720bed4a8411bc95b6c5ad6f62b722436dd11d9dc7382cb5e90a5622bf4",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "building-residence-roof",
+    "path": "assets/production/buildings/building-residence-roof/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "4cfdc72aac053ef7dc01184fb511b4619f68e47610e2ba47ba3aa6757879bd8e",
+    "sha256": "bbe1e720bed4a8411bc95b6c5ad6f62b722436dd11d9dc7382cb5e90a5622bf4",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

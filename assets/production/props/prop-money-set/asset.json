@@ -1,0 +1,135 @@
+{
+  "id": "prop-money-set",
+  "name": "钱串与小银块",
+  "category": "prop",
+  "phase": "P0",
+  "description": "工钱、索路、贸易与寄银中的手持支付表现；金额以UI账目为准。",
+  "visualBrief": "少量方孔铜钱串与朴素不规则小银块，不作统一巨大元宝；留手指捏取与袋内装载点。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a1_s6",
+    "zheng_a2_s7",
+    "zheng_a2_s5"
+  ],
+  "uiPages": [
+    "accounts",
+    "trade-order",
+    "prize-distribution",
+    "send-letter-remittance",
+    "dialogue"
+  ],
+  "variants": [
+    "表面旧化",
+    "少量组合配置"
+  ],
+  "modelStrategy": "一套小货币件，钱串按单钱重复实例或合并低模；不依银两数堆等量3D，不把计账银两直接等同固定元宝外观。",
+  "historicalStatus": "needs-concept；银两与铜钱为剧情表达；具体币种、银形和流通区域尚未核定。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-money-set",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-money-set/reference/zheng_a1_s1-eb7501a9.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v3/zheng_a1_s1.png",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-money-set/reference/zheng_a2_s7-2ff89d96.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s7.png",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-money-set",
+      "path": "assets/production/props/prop-money-set/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "db29daf2f81c05453c1406677e1f082a067e94c322d29938cadee30698768199",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-money-set",
+    "path": "assets/production/props/prop-money-set/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "db29daf2f81c05453c1406677e1f082a067e94c322d29938cadee30698768199",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s6",
+      "legacyTitle": "一面旗的过路钱",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s5",
+      "legacyTitle": "暂且不寄的家用",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "accounts",
+      "title": "船上账房"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    },
+    {
+      "id": "prize-distribution",
+      "title": "战利与分利"
+    },
+    {
+      "id": "send-letter-remittance",
+      "title": "寄信与家用"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    }
+  ]
+}

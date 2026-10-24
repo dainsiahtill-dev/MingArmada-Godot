@@ -1,0 +1,213 @@
+{
+  "id": "map-fujian-working-harbor",
+  "name": "福建工作港与厦门泊区差异包",
+  "category": "scene-map",
+  "phase": "P0",
+  "description": "受抚、补给修船、认子、港火救人和1646分途共用工作港母布局，按地点/年代切换岸段。",
+  "visualBrief": "1626—1646，有限货栈、石堤、木泊位、修船支架、官署热点和居所入口；港内水面须容小艇救援，普通泊位/火损泊位通过状态差异读清。",
+  "storyRefs": [
+    "zheng_a3_s4",
+    "zheng_a3_s5",
+    "zheng_a4_s1",
+    "zheng_a4_s2",
+    "zheng_a4_s4",
+    "zheng_a5_s2",
+    "zheng_a5_s3",
+    "zheng_a6_s4",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "port-hub",
+    "shipyard",
+    "ship-repair",
+    "supplies",
+    "dialogue",
+    "battle-damage",
+    "crew-recruit"
+  ],
+  "variants": [
+    "受抚交验",
+    "日常修船",
+    "1633港火",
+    "港火后清场",
+    "1646各自登船"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。共享港口装配，厦门具体泊位属于差异布局；火损用节点显隐与效果，不把前后各算完整新港。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+      "role": "story-context",
+      "note": "受抚码头；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "role": "story-context",
+      "note": "港火与救援；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "assets/art/ports/xiamen-harbor-v1.png",
+      "role": "style-reference",
+      "note": "既有福建港背景；同名prompt明确写约1661且地点虚构，与本故事1621—1646有时代差，限气氛、木石材料参考，不能据此复原本故事港区。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "scene-variant-pack",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [
+    "coastal-wood-pier",
+    "coastal-stone-step",
+    "coastal-shipyard-cradle",
+    "building-inspection-room",
+    "building-fujian-residence",
+    "building-shore-sickroom"
+  ],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-fujian-working-harbor",
+  "images": [
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/zheng_a4_s4-8a53973b.png",
+      "role": "story-context",
+      "note": "受抚码头；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s4.png",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/zheng_a5_s3-572fe434.png",
+      "role": "story-context",
+      "note": "港火与救援；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s3.png",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/xiamen-harbor-v1-357741f1.png",
+      "role": "style-reference",
+      "note": "既有福建港背景；同名prompt明确写约1661且地点虚构，与本故事1621—1646有时代差，限气氛、木石材料参考，不能据此复原本故事港区。",
+      "sourcePath": "assets/art/ports/xiamen-harbor-v1.png",
+      "sha256": "357741f14185d1ba4625c45119da30b2db8a2729ad9f1bc0315b4bfc6cad7b41",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-fujian-working-harbor",
+      "path": "assets/production/maps/map-fujian-working-harbor/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "7c13ec608a03779c72d9a436aa2d818d9533822e54757e0a72fcc0f762c0f33b",
+      "sha256": "8053ec02487e8d5ce8fe59f55917bad72b7fd722d7b046429c981c45d381c270",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-fujian-working-harbor",
+    "path": "assets/production/maps/map-fujian-working-harbor/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "7c13ec608a03779c72d9a436aa2d818d9533822e54757e0a72fcc0f762c0f33b",
+    "sha256": "8053ec02487e8d5ce8fe59f55917bad72b7fd722d7b046429c981c45d381c270",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 4,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s4",
+      "legacyTitle": "谁先答应了这条腿",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s5",
+      "legacyTitle": "鱼还没吃完",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s1",
+      "legacyTitle": "刀落在桌上",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a4_s2",
+      "legacyTitle": "没有等来的官船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s4",
+      "legacyTitle": "新旗，旧名字",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s2",
+      "title": "来船没有回礼",
+      "legacyId": "zheng_a5_s3",
+      "legacyTitle": "港里先起的火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s4",
+      "legacyTitle": "不随行的人",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "ship-repair",
+      "title": "船坞维修"
+    },
+    {
+      "id": "supplies",
+      "title": "出航补给"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "battle-damage",
+      "title": "战损与救援"
+    },
+    {
+      "id": "crew-recruit",
+      "title": "招募与雇期"
+    }
+  ]
+}

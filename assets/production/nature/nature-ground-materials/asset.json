@@ -1,0 +1,123 @@
+{
+  "id": "nature-ground-materials",
+  "name": "内岸草土地表材质集",
+  "category": "nature",
+  "phase": "P1",
+  "description": "岛岸后层、港巷边缘与宅院外部的地表过渡；与独立草簇和灌木区分。",
+  "visualBrief": "草土、林下暗土与碎石路的低密度组合，通行区域保持平整可读；避免热带密林覆盖全部福建/平户港口，具体生态待地域审查。",
+  "storyRefs": [
+    "zheng_a3_s7",
+    "zheng_a4_s7",
+    "zheng_a6_s1"
+  ],
+  "uiPages": [
+    "port-hub",
+    "home",
+    "sailing-hud"
+  ],
+  "variants": [
+    "草土",
+    "林下土",
+    "碎石路径"
+  ],
+  "modelStrategy": "地表材质/贴图与散布配置，独立基模0；草簇、灌木仍只引用原6自然基模。",
+  "historicalStatus": "地域生态与地表概念；未作植物/土壤历史调查，不把现有贴图名当考证。",
+  "existingImages": [
+    {
+      "path": "assets/textures/fidelity_island/terrain/grasspatch.png",
+      "role": "material-reference",
+      "note": "现有草土地面参考。"
+    },
+    {
+      "path": "assets/textures/fidelity_island/terrain/forest.png",
+      "role": "material-reference",
+      "note": "现有林下地面参考，不能推出地点植被史实。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "material-set",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [],
+  "dependencies": [],
+  "categoryName": "自然与材质条件",
+  "assetDirectory": "assets/production/nature/nature-ground-materials",
+  "images": [
+    {
+      "path": "assets/production/nature/nature-ground-materials/reference/grasspatch-d7d12c00.png",
+      "role": "material-reference",
+      "note": "现有草土地面参考。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/grasspatch.png",
+      "sha256": "d7d12c005a6ea7c6e18834650f0af33da5d3422c3b3b6f0b7e63a973ca0b23ac",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "path": "assets/production/nature/nature-ground-materials/reference/forest-91604399.png",
+      "role": "material-reference",
+      "note": "现有林下地面参考，不能推出地点植被史实。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/forest.png",
+      "sha256": "916043998c1e44b57b709bb502005cf129593d09a5ea6d999c529161bb6cdbc1",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "id": "nature-ground-materials",
+      "path": "assets/production/nature/nature-ground-materials/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "b6400dedcdc3edb84010a9333225188a8ad8c4ca30c0b0d887fc078e65c4392e",
+      "sha256": "b6e030c555a84791dfd9bcb23fc0ed15c53f46f27aa51c43e7015e2cc4e37938",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "nature-ground-materials",
+    "path": "assets/production/nature/nature-ground-materials/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "b6400dedcdc3edb84010a9333225188a8ad8c4ca30c0b0d887fc078e65c4392e",
+    "sha256": "b6e030c555a84791dfd9bcb23fc0ed15c53f46f27aa51c43e7015e2cc4e37938",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s1",
+      "legacyTitle": "另一岸的十五年",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    }
+  ]
+}

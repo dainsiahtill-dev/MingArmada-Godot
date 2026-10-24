@@ -1,0 +1,100 @@
+{
+  "id": "prop-cargo-net",
+  "name": "货网与吊货网",
+  "category": "prop",
+  "phase": "P0",
+  "description": "货物装卸与舱内固定；可挂到既有货箱、粮袋和布包。",
+  "visualBrief": "粗绳大网眼，结点可读，边绳与四角吊点清楚；松网与包覆网保持同一网格关系。",
+  "storyRefs": [
+    "zheng_a1_s2",
+    "zheng_a3_s7"
+  ],
+  "uiPages": [
+    "cargo-hold",
+    "port-hub",
+    "market"
+  ],
+  "variants": [
+    "空网／捆货配置",
+    "磨损"
+  ],
+  "modelStrategy": "复验cargo_net程序网格，按货件变形或装配；不把裹住不同货物算新网模。",
+  "historicalStatus": "needs-concept；83预算保留的装卸道具，具体场景摆放为设计推断。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "legacyModelIds": [
+    "prop-cargo-net"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-cargo-net",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-cargo-net/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-cargo-net",
+      "path": "assets/production/props/prop-cargo-net/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "7a6d9c6ef63cafbfa55f11adce1dfa408fc7e2d4892f4fb021ecf8d92bae84f9",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-cargo-net",
+    "path": "assets/production/props/prop-cargo-net/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "7a6d9c6ef63cafbfa55f11adce1dfa408fc7e2d4892f4fb021ecf8d92bae84f9",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s2",
+      "legacyTitle": "先过这一潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s7",
+      "legacyTitle": "分过以后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "cargo-hold",
+      "title": "货舱装载"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "market",
+      "title": "港口市场"
+    }
+  ]
+}

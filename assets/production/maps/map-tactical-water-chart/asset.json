@@ -1,0 +1,152 @@
+{
+  "id": "map-tactical-water-chart",
+  "name": "海战与接舷态势底图",
+  "category": "scene-map",
+  "phase": "P0",
+  "description": "战术封口、护货、回援、火攻和双船接舷的共享图层语法；每场载入差异配置。",
+  "visualBrief": "俯视海面/海岸简形、船影、射界、潮风、危险浅区、接应承诺和撤出线分层；接舷图保留双船、过板、甲板、舱门，文字和标记矢量化。",
+  "storyRefs": [
+    "zheng_a2_s7",
+    "zheng_a3_s3",
+    "zheng_a4_s3",
+    "zheng_a4_s7",
+    "zheng_a5_s4"
+  ],
+  "uiPages": [
+    "battle-orders",
+    "boarding",
+    "fleet",
+    "battle-hud",
+    "tutorial"
+  ],
+  "variants": [
+    "封口与回援",
+    "火攻接应",
+    "双船接舷",
+    "被掳者撤回路线"
+  ],
+  "modelStrategy": "场景/地图装配，不是独立3D基模，83预算增量0。二维战术层＋船模俯视投影；对应art-maps的战术底层。不得把每场战术截图当一个3D地图；当前接舷SVG在render-ships.js内联。",
+  "historicalStatus": "地名与年代边界沿当前剧本；可游玩尺度、海岸布局、战术航线和建筑配置均为制作概念，未作原始测绘或逐舰战报复原。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/previews/battle-orders.jpg",
+      "role": "ui-screenshot",
+      "note": "已有评审截图，供信息层级参考，不能冒充独立矢量原稿。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+      "role": "story-context",
+      "note": "料罗湾战斗空间情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "ui-map",
+  "modelRequired": false,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "docs/design/game-ui/prototype/render-ships.js"
+  ],
+  "dependencies": [],
+  "categoryName": "场景与地图",
+  "assetDirectory": "assets/production/maps/map-tactical-water-chart",
+  "images": [
+    {
+      "path": "assets/production/maps/map-tactical-water-chart/reference/battle-orders-d692ff34.jpg",
+      "role": "ui-screenshot",
+      "note": "已有评审截图，供信息层级参考，不能冒充独立矢量原稿。",
+      "sourcePath": "docs/design/game-ui/prototype/previews/battle-orders.jpg",
+      "sha256": "d692ff34a11e7bbafc628fd97188d4674b60f9b7e1f4034bafb48fe70690caaf",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/maps/map-tactical-water-chart/reference/zheng_a5_s4-523047d4.png",
+      "role": "story-context",
+      "note": "料罗湾战斗空间情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s4.png",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "map-tactical-water-chart",
+      "path": "assets/production/maps/map-tactical-water-chart/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "a7a39874c9b9ba63fc0a7547e46fb1e19a8432359c8583a0b5d6dab7171f1323",
+      "sha256": "5ed19e4f343ab5111842a4e06c491288d41defbd2db20bb703168e1fdaa16fb9",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "map-tactical-water-chart",
+    "path": "assets/production/maps/map-tactical-water-chart/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "a7a39874c9b9ba63fc0a7547e46fb1e19a8432359c8583a0b5d6dab7171f1323",
+    "sha256": "5ed19e4f343ab5111842a4e06c491288d41defbd2db20bb703168e1fdaa16fb9",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s7",
+      "legacyTitle": "借他的旗",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s4",
+      "title": "城门内外",
+      "legacyId": "zheng_a4_s3",
+      "legacyTitle": "厦门口的潮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s3",
+      "title": "白旗三个黑点",
+      "legacyId": "zheng_a4_s7",
+      "legacyTitle": "湾口起火",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "battle-orders",
+      "title": "令旗与舰队指挥"
+    },
+    {
+      "id": "boarding",
+      "title": "接舷争夺"
+    },
+    {
+      "id": "fleet",
+      "title": "船队编组"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "tutorial",
+      "title": "掌船手册"
+    }
+  ]
+}

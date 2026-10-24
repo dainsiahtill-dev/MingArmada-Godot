@@ -1,0 +1,137 @@
+{
+  "id": "nature-rock",
+  "name": "岩礁石簇",
+  "category": "nature",
+  "phase": "P0",
+  "description": "原生产预算模块；为命名建筑及场景装配提供可复用构件。",
+  "visualBrief": "建议0.3—8米多尺度岩礁簇，棱角块面与风化圆边并存，潮上干石/水线湿石分材质；近岸碰撞轮廓与航道危险可读。",
+  "storyRefs": [
+    "zheng_a1_s3",
+    "zheng_a3_s3",
+    "zheng_a4_s6"
+  ],
+  "uiPages": [
+    "sailing-hud",
+    "sea-chart",
+    "port-hub",
+    "battle-hud",
+    "home"
+  ],
+  "variants": [
+    "水下湿润材质",
+    "岸上材质",
+    "参数变体"
+  ],
+  "modelStrategy": "原83基模预算内1项，沿用 nature-rock；目标交付3级LOD。现有仅程序式ArrayMesh/数据源 modules/scene_engine/assets/coastal_detail_library.gd，没有独立环境GLB，不当作已完成模型。 同拓扑材质、尺度与节点显隐不增基模；独立新拓扑须调整预算。",
+  "historicalStatus": "现代创作生态概念；未作历史植被或具体树种鉴定，不宣称某地点17世纪植物分布已考证。建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "assets/textures/fidelity_island/terrain/rock.png",
+      "role": "material-reference",
+      "note": "旧岩面贴图，仅表面参考。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "role": "story-context",
+      "note": "虚构岛岸伏击情境，不能推定真实礁位；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "nature-rock"
+  ],
+  "assetKind": "base-mesh",
+  "modelRequired": true,
+  "conceptStatus": "editable-sketch",
+  "proceduralSources": [
+    "modules/scene_engine/assets/coastal_detail_library.gd"
+  ],
+  "dependencies": [],
+  "categoryName": "自然与材质条件",
+  "assetDirectory": "assets/production/nature/nature-rock",
+  "images": [
+    {
+      "path": "assets/production/nature/nature-rock/reference/rock-ff380c17.png",
+      "role": "material-reference",
+      "note": "旧岩面贴图，仅表面参考。",
+      "sourcePath": "assets/textures/fidelity_island/terrain/rock.png",
+      "sha256": "ff380c179c70702e3c34e5ee7346b21303d43326c57393a9664f0e4a4283cd8d",
+      "rights": "reference-only-review-required"
+    },
+    {
+      "path": "assets/production/nature/nature-rock/reference/zheng_a4_s6-f59f02e8.png",
+      "role": "story-context",
+      "note": "虚构岛岸伏击情境，不能推定真实礁位；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a4_s6.png",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "nature-rock",
+      "path": "assets/production/nature/nature-rock/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "7dd2fb0fcf6bd83f752a1ccd3979221fd96414159adcbd79abc9574abef18305",
+      "sha256": "d3080fecc44fb7805b308eaf8b43882d843af06c73c98dc390795333ab7d2f53",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "nature-rock",
+    "path": "assets/production/nature/nature-rock/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+    "geometrySha256": "7dd2fb0fcf6bd83f752a1ccd3979221fd96414159adcbd79abc9574abef18305",
+    "sha256": "d3080fecc44fb7805b308eaf8b43882d843af06c73c98dc390795333ab7d2f53",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s3",
+      "legacyTitle": "沉下去的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s1",
+      "title": "破桅归港",
+      "legacyId": "zheng_a3_s3",
+      "legacyTitle": "先保后面的货",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a2_s2",
+      "title": "谁让鱼船过海",
+      "legacyId": "zheng_a4_s6",
+      "legacyTitle": "米船没有压舷",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "sailing-hud",
+      "title": "海上航行"
+    },
+    {
+      "id": "sea-chart",
+      "title": "东洋航海图"
+    },
+    {
+      "id": "port-hub",
+      "title": "港口街巷"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    },
+    {
+      "id": "home",
+      "title": "两岸家园"
+    }
+  ]
+}

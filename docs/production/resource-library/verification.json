@@ -1,0 +1,3649 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-23T18:42:52.360Z",
+  "status": "passed",
+  "scope": "Independent structural, metadata, provenance, path, decode and SVG-render verification. Browser behavior, visual taste, historical shape certification, licensing clearance and production 3D acceptance are outside this report.",
+  "summary": {
+    "checks": 13,
+    "passed": 13,
+    "failed": 0,
+    "requirements": 170,
+    "categories": {
+      "named-character": 26,
+      "npc-archetype": 28,
+      "ship": 8,
+      "cannon": 6,
+      "firearm": 2,
+      "melee-weapon": 3,
+      "ammunition": 4,
+      "building": 15,
+      "coastal-building": 6,
+      "scene-map": 15,
+      "nature": 10,
+      "prop": 47
+    },
+    "phases": {
+      "P0": 88,
+      "P1": 72,
+      "P2": 10
+    },
+    "legacyBaseModels": 83,
+    "referencedScenes": 43,
+    "validSceneDomain": 43,
+    "referencedUiPages": 58,
+    "validUiDomain": 72,
+    "nativeOriginals": 21,
+    "rasterDecoded": 283,
+    "svgXmlValidated": 108,
+    "svgRendered": 108,
+    "totalImageFiles": 391,
+    "unreferencedLibraryImages": 0,
+    "negativeControls": 21
+  },
+  "snapshots": {
+    "docs/production/resource-library/catalog.json": "e8ee70c89be152f73d5d7c0bcbe6e0f8aa03a4c357911a3e0022c4737af6d7c9",
+    "docs/production/resource-library/data.js": "9c45558f1e8058530388bb0d3f2db944b42ce465a951da2b2a5540e8ca30ae65",
+    "assets/production/catalog.json": "e8ee70c89be152f73d5d7c0bcbe6e0f8aa03a4c357911a3e0022c4737af6d7c9",
+    "docs/production/resource-library/generated-art.json": "ce62e13dbee75cab1b970d222412d758141193da36b57e9d350ef0b5d830717d",
+    "docs/production/resource-library/resource-register.csv": "6a4b5c0e0de15cf9c5fb0cb9703a6fa4a18b6452285d4c4ce8dcaf971b263154",
+    "docs/production/resource-library/story-baseline-v4.json": "622f3926884df14c1c2a5fc5f5b437eb2160eefe174e83450f202e281efe852f",
+    "docs/narrative/zheng-zhilong/zheng-zhilong-story.json": "8eedaf3ba504648f1630e4ffc1188bc388da820b199866d0e7328f68defba749",
+    "docs/design/game-ui/systems.json": "220ae864ac9fb08bbfbba3aef0d4d91af14bf80811ec1e83ef79ab88a0245220",
+    "docs/design/game-ui/production-assets.json": "754683331583d63a3dd7c49a44bc5a2b21c5cfc49a962747a3d8874e58538b62",
+    "tools/verify-production-resource-library.mjs": "7ff0deb1e891d9313ea828e4bf5ff4f0d1e8108e659be4181149ae9419170f92",
+    "tools/zheng-story-contract.mjs": "54dff805cc1346558905ba3a58cd3ec90ed5a02ff646b6c02be166c9a9e4121e"
+  },
+  "checks": [
+    {
+      "id": "catalog-fields-identities-paths-images-and-references",
+      "status": "passed",
+      "errors": [],
+      "items": 170
+    },
+    {
+      "id": "expected-counts",
+      "status": "passed",
+      "errors": [],
+      "categories": {
+        "named-character": 26,
+        "npc-archetype": 28,
+        "ship": 8,
+        "cannon": 6,
+        "firearm": 2,
+        "melee-weapon": 3,
+        "ammunition": 4,
+        "building": 15,
+        "coastal-building": 6,
+        "scene-map": 15,
+        "nature": 10,
+        "prop": 47
+      },
+      "phases": {
+        "P0": 88,
+        "P1": 72,
+        "P2": 10
+      },
+      "legacyBaseModels": 83
+    },
+    {
+      "id": "character-and-profession-counting",
+      "status": "passed",
+      "errors": [],
+      "onScreen": 18,
+      "mentionedOnly": 8,
+      "npcArchetypes": 28,
+      "sharedNpcBodyFamilies": [
+        "body-adult-male",
+        "body-adult-female",
+        "body-child"
+      ]
+    },
+    {
+      "id": "story-and-ui-reference-domains",
+      "status": "passed",
+      "errors": [],
+      "validSceneDomain": 43,
+      "currentScenes": 22,
+      "legacyScenes": 43,
+      "validUiDomain": 72,
+      "referencedScenes": 43,
+      "referencedUiPages": 58,
+      "pagesWithoutPhysicalAssetMapping": [
+        "main-menu",
+        "load-game",
+        "settings",
+        "accessibility",
+        "experiment-detail",
+        "pause-menu",
+        "save-game",
+        "chapter-select",
+        "decision",
+        "quest-journal",
+        "chronicle",
+        "bounty-board",
+        "defeat",
+        "notification-log"
+      ],
+      "interpretation": "Resource references retain their published v4 provenance. Rewrite successors preserve navigation, not confirmation of current mainline appearance. UI pages without a physical asset are listed, not silently counted as covered."
+    },
+    {
+      "id": "bundle-and-per-item-record-consistency",
+      "status": "passed",
+      "errors": [],
+      "recordsCompared": 170
+    },
+    {
+      "id": "native-imagegen-originals-and-provenance",
+      "status": "passed",
+      "errors": [],
+      "entries": 21,
+      "distinctOriginalHashes": 21,
+      "categories": {
+        "characters": 12,
+        "buildings": 3,
+        "cannons": 3,
+        "firearms": 1,
+        "melee-weapons": 2
+      }
+    },
+    {
+      "id": "csv-register",
+      "status": "passed",
+      "errors": [],
+      "dataRows": 170
+    },
+    {
+      "id": "in-memory-contract-negative-controls",
+      "status": "passed",
+      "errors": [],
+      "controls": [
+        {
+          "name": "duplicate ID",
+          "expectedCode": "duplicate-id",
+          "rejected": true,
+          "observedCodes": [
+            "duplicate-id",
+            "asset-path"
+          ]
+        },
+        {
+          "name": "invalid category",
+          "expectedCode": "category-prefix",
+          "rejected": true,
+          "observedCodes": [
+            "category-prefix",
+            "asset-path"
+          ]
+        },
+        {
+          "name": "path escape",
+          "expectedCode": "asset-path",
+          "rejected": true,
+          "observedCodes": [
+            "asset-path",
+            "reference-source"
+          ]
+        },
+        {
+          "name": "missing image",
+          "expectedCode": "missing-image",
+          "rejected": true,
+          "observedCodes": [
+            "missing-image",
+            "reference-source"
+          ]
+        },
+        {
+          "name": "bad hash",
+          "expectedCode": "image-hash",
+          "rejected": true,
+          "observedCodes": [
+            "image-hash",
+            "reference-hash",
+            "primary-membership"
+          ]
+        },
+        {
+          "name": "reference source bytes changed",
+          "expectedCode": "reference-hash",
+          "rejected": true,
+          "observedCodes": [
+            "reference-hash"
+          ]
+        },
+        {
+          "name": "unknown scene",
+          "expectedCode": "story-reference",
+          "rejected": true,
+          "observedCodes": [
+            "story-reference",
+            "story-link-count",
+            "story-link-alias"
+          ]
+        },
+        {
+          "name": "unknown UI page",
+          "expectedCode": "ui-reference",
+          "rejected": true,
+          "observedCodes": [
+            "ui-reference"
+          ]
+        },
+        {
+          "name": "unknown dependency",
+          "expectedCode": "dependency",
+          "rejected": true,
+          "observedCodes": [
+            "dependency"
+          ]
+        },
+        {
+          "name": "legacy coverage removed",
+          "expectedCode": "legacy-coverage",
+          "rejected": true,
+          "observedCodes": [
+            "legacy-coverage"
+          ]
+        },
+        {
+          "name": "invalid portrait crop",
+          "expectedCode": "invalid-crop",
+          "rejected": true,
+          "observedCodes": [
+            "primary-membership",
+            "invalid-crop",
+            "onscreen-atlas-crop"
+          ]
+        },
+        {
+          "name": "context passed as on-screen portrait",
+          "expectedCode": "onscreen-primary",
+          "rejected": true,
+          "observedCodes": [
+            "primary-membership",
+            "evidence-role",
+            "onscreen-primary"
+          ]
+        },
+        {
+          "name": "NPC occupation gets independent body",
+          "expectedCode": "npc-independent-body",
+          "rejected": true,
+          "observedCodes": [
+            "npc-independent-body"
+          ]
+        },
+        {
+          "name": "mentioned identity gets a body",
+          "expectedCode": "mentioned-body",
+          "rejected": true,
+          "observedCodes": [
+            "mentioned-body"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "godot-production-library-exclusion",
+      "status": "passed",
+      "errors": [],
+      "path": "assets/production/.gdignore",
+      "meaning": "Godot source-art directory exclusion marker exists; no import or runtime loading was exercised."
+    },
+    {
+      "id": "raster-decode-svg-xml-and-portrait-crop",
+      "status": "passed",
+      "errors": [],
+      "rasterFilesDecoded": 283,
+      "svgXmlValidated": 108,
+      "primaryPortraitsDecoded": 18,
+      "nativeOriginalsDecoded": 21,
+      "filesExpected": 391,
+      "python": "C:\\Users\\dains\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+    },
+    {
+      "id": "media-in-memory-negative-controls",
+      "status": "passed",
+      "errors": [],
+      "controls": [
+        {
+          "name": "corrupt raster",
+          "rejected": true
+        },
+        {
+          "name": "truncated raster",
+          "rejected": true
+        },
+        {
+          "name": "malformed SVG",
+          "rejected": true,
+          "observed": [
+            "malformed-xml"
+          ]
+        },
+        {
+          "name": "SVG script",
+          "rejected": true,
+          "observed": [
+            "active-content:script",
+            "no-visible-elements"
+          ]
+        },
+        {
+          "name": "SVG external link",
+          "rejected": true,
+          "observed": [
+            "external-link",
+            "no-visible-elements"
+          ]
+        },
+        {
+          "name": "SVG event handler",
+          "rejected": true,
+          "observed": [
+            "event-handler"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "all-svg-actual-render",
+      "status": "passed",
+      "errors": [],
+      "filesRendered": 108,
+      "renderer": "bundled sharp/libvips",
+      "nodeModules": "C:\\Users\\dains\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules",
+      "malformedSvgNegativeRejected": true
+    },
+    {
+      "id": "input-snapshot-stability",
+      "status": "passed",
+      "errors": []
+    }
+  ],
+  "primaryPortraits": [
+    {
+      "id": "char-zheng-zhilong",
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-portrait-6f1065ac.png",
+      "hasCrop": false,
+      "width": 1024,
+      "height": 1536,
+      "decoded": true
+    },
+    {
+      "id": "char-tagawamatsu",
+      "path": "assets/production/characters/char-tagawamatsu/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-zheng-chenggong",
+      "path": "assets/production/characters/char-zheng-chenggong/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-lin-awang",
+      "path": "assets/production/characters/char-lin-awang/reference/crew-portraits-723ae50b.png",
+      "hasCrop": true,
+      "width": 512,
+      "height": 512,
+      "decoded": true
+    },
+    {
+      "id": "char-lin-ahe",
+      "path": "assets/production/characters/char-lin-ahe/reference/crew-portraits-723ae50b.png",
+      "hasCrop": true,
+      "width": 512,
+      "height": 512,
+      "decoded": true
+    },
+    {
+      "id": "char-chen-tian",
+      "path": "assets/production/characters/char-chen-tian/reference/crew-portraits-723ae50b.png",
+      "hasCrop": true,
+      "width": 512,
+      "height": 512,
+      "decoded": true
+    },
+    {
+      "id": "char-duqi",
+      "path": "assets/production/characters/char-duqi/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-ruan-laoliu",
+      "path": "assets/production/characters/char-ruan-laoliu/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-huang-cheng",
+      "path": "assets/production/characters/char-huang-cheng/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-manuel",
+      "path": "assets/production/characters/char-manuel/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-kippei",
+      "path": "assets/production/characters/char-kippei/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-alonso",
+      "path": "assets/production/characters/char-alonso/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-anton",
+      "path": "assets/production/characters/char-anton/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-ismail",
+      "path": "assets/production/characters/char-ismail/reference/crew-portraits-723ae50b.png",
+      "hasCrop": true,
+      "width": 512,
+      "height": 512,
+      "decoded": true
+    },
+    {
+      "id": "char-zheng-zhihu",
+      "path": "assets/production/characters/char-zheng-zhihu/reference/crew-portraits-723ae50b.png",
+      "hasCrop": true,
+      "width": 512,
+      "height": 512,
+      "decoded": true
+    },
+    {
+      "id": "char-cai-shanji",
+      "path": "assets/production/characters/char-cai-shanji/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-tagawamatsu-younger-son",
+      "path": "assets/production/characters/char-tagawamatsu-younger-son/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    },
+    {
+      "id": "char-awang-daughter",
+      "path": "assets/production/characters/char-awang-daughter/concept/original-v1.png",
+      "hasCrop": false,
+      "width": 1536,
+      "height": 1024,
+      "decoded": true
+    }
+  ],
+  "rasterImages": [
+    {
+      "path": "assets/production/ammunition/ammo-chain/reference/chain-shot-v1-b1bbb563.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "b1bbb5633f0f4f36bb45b3cc9a01026029803eeca6a2d53d954f419882eb2f42"
+    },
+    {
+      "path": "assets/production/ammunition/ammo-grape/reference/grape-shot-v1-af115be2.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "af115be2d3dcb31012c9f2ec16de3c28e897b4b6974579c0f0412ba3539a97cc"
+    },
+    {
+      "path": "assets/production/ammunition/ammo-solid/reference/solid-shot-v1-10679242.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "10679242cb8c5f8b6600dfadecb47c18dfe43147a7baff692187ade50fa71203"
+    },
+    {
+      "path": "assets/production/buildings/building-door/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/buildings/building-door/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "cedea99ca2f867aad32cad18f7c3ce2ad58391acba06ce9085c1579917626a95"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a6_s2-6c2dcacf.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c2dcacfeea6ee3f364acc8f7bb3353333d8811b0eb2b8328cb351d4483f7294"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/buildings/building-hirado-home/concept/original-v1.png",
+      "width": 1774,
+      "height": 887,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "39440ab4df51e56374fa62decec898fe1b7d7a49352a1e1e86cfba881ca881e4"
+    },
+    {
+      "path": "assets/production/buildings/building-hirado-home/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/buildings/building-hirado-home/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/buildings/building-inspection-room/reference/zheng_a4_s1-6c3023ec.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69"
+    },
+    {
+      "path": "assets/production/buildings/building-inspection-room/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/reference/zheng_a1_s4-ddb03cbd.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ddb03cbd3983dc2cb5bdf13f0ec3c466782008ccb4a3111729d54bc878967caa"
+    },
+    {
+      "path": "assets/production/buildings/building-pitched-roof/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/buildings/building-plaster-wall/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/buildings/building-plaster-wall/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/buildings/building-residence-roof/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/buildings/building-residence-roof/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/buildings/building-settlement-shelter/reference/zheng_a4_s2-88c88d50.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8"
+    },
+    {
+      "path": "assets/production/buildings/building-settlement-shelter/reference/zheng_a4_s5-248ef496.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "248ef496c31c16b972d82a03477f9ba996d33d33af89110b04364eb4ba1e8a0d"
+    },
+    {
+      "path": "assets/production/buildings/building-shore-sickroom/reference/zheng_a3_s4-35c5e2f0.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b"
+    },
+    {
+      "path": "assets/production/buildings/building-shore-sickroom/reference/zheng_a3_s5-16808bd5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "16808bd516df5f9335e76d044c3b4c8ce3a4b67e11fd0f4a58171653a4c043f0"
+    },
+    {
+      "path": "assets/production/buildings/building-timber-wall/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/buildings/building-timber-wall/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-berth/reference/zheng_a1_s4-ddb03cbd.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ddb03cbd3983dc2cb5bdf13f0ec3c466782008ccb4a3111729d54bc878967caa"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-front/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0775da934bed7b8e6ce9b63e395ed895f8fa58410eaff7e7d88d4d6025fbd775"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-front/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-front/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-wall/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-wall/reference/zheng_a3_s4-35c5e2f0.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b"
+    },
+    {
+      "path": "assets/production/buildings/building-window/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/buildings/building-window/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/cannons/gun-deck-carriage/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/cannons/gun-folangji/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "89e7e7b64b5f0991994b5b2507d04cb5e708e4a34f7da009e7a81a0d1ed20ef0"
+    },
+    {
+      "path": "assets/production/cannons/gun-hongyipao/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "74ede519d69d8b8e6c2db751b60a868f36016a5a9fd0a0eb690c689d875e028b"
+    },
+    {
+      "path": "assets/production/cannons/gun-hongyipao/reference/zheng_a5_s4-523047d4.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68"
+    },
+    {
+      "path": "assets/production/cannons/gun-light-muzzle/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ec09832940eda359a3641fbe0be83576011e9afbf8fa86008ac55acfe53859eb"
+    },
+    {
+      "path": "assets/production/cannons/gun-light-muzzle/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/characters/char-alonso/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "e36a079e7c9c4ddf47d71fa25a7469122248808b442d227f185bfd40939593ba"
+    },
+    {
+      "path": "assets/production/characters/char-alonso/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/characters/char-anton/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "1711808cf219ea8321f4133eb8da4318203a97ba390df520f0a7fbc5e1e24129"
+    },
+    {
+      "path": "assets/production/characters/char-anton/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-anton/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/characters/char-awang-daughter/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6522afa75de0b8303c3ef4bb05d843a969d04cc311047105a479fd8742e4ecd6"
+    },
+    {
+      "path": "assets/production/characters/char-awang-daughter/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/characters/char-cai-shanji/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a1b1071e2cbe1a69ac192a99f5ff0607c1ea7b917266fe3ba1e8ac074cacd802"
+    },
+    {
+      "path": "assets/production/characters/char-cai-shanji/reference/zheng_a4_s1-6c3023ec.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69"
+    },
+    {
+      "path": "assets/production/characters/char-chen-tian/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-duqi/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "832d54702e8995b28cf0361279c2a156852175e8f12f1b106a3da2eefbfc4581"
+    },
+    {
+      "path": "assets/production/characters/char-duqi/reference/zheng_a3_s4-35c5e2f0.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b"
+    },
+    {
+      "path": "assets/production/characters/char-hans-putmans/reference/zheng_a5_s4-523047d4.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68"
+    },
+    {
+      "path": "assets/production/characters/char-huang-cheng/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "bd6f5a242d026645da7f0bd960a48f74cfd243980449b6ff8f9e40cd1ecb62bd"
+    },
+    {
+      "path": "assets/production/characters/char-huang-cheng/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/characters/char-ismail/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-ismail/reference/zheng_a3_s10-9c790155.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e"
+    },
+    {
+      "path": "assets/production/characters/char-kippei/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "d7456accc0720cf38b47abaa1f79fe78bd494813fcf60094bc3b0cd1184a0474"
+    },
+    {
+      "path": "assets/production/characters/char-kippei/reference/zheng_a2_s1-31c72057.png",
+      "width": 1923,
+      "height": 817,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6"
+    },
+    {
+      "path": "assets/production/characters/char-li-dan/reference/zheng_a3_s2-4270f04c.png",
+      "width": 1941,
+      "height": 810,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4270f04c6150888755d3bfa9ba6c2d07824fa47b0964d6aec8dec2d1682593ed"
+    },
+    {
+      "path": "assets/production/characters/char-li-kuiqi/reference/zheng_a4_s3-90de778c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850"
+    },
+    {
+      "path": "assets/production/characters/char-lin-ahe/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-lin-ahe/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/characters/char-lin-awang/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-lin-awang/reference/zheng_a3_s4-35c5e2f0.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "35c5e2f00c0f890e7bf2ac4d9df23ac4e7d457b6321c3496acf42dafa885eb6b"
+    },
+    {
+      "path": "assets/production/characters/char-liu-xiang/reference/zheng_a5_s5-0b81d5b1.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231"
+    },
+    {
+      "path": "assets/production/characters/char-manuel/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a73057126b0c44c5459ee2085bb1721b9d42eb4900588250f9c5065c582adb1"
+    },
+    {
+      "path": "assets/production/characters/char-manuel/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0c1f6d28a103fbedeb9f420ceb388bb48a4424a3cf0c48a1e1c26e5c0bf4a8bd"
+    },
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/reference/pirate-captain-v1-58018734.png",
+      "width": 1122,
+      "height": 1402,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "580187340b0f80bbe3e44f272ef0469e6db65a6c61f4e4344c65fa695241768b"
+    },
+    {
+      "path": "assets/production/characters/char-ruan-laoliu/reference/zheng_a1_s6-f08a09ba.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu-younger-son/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6e252b35c0bbf006eb383f7f78fe62ee4d04685b29dcc2479b4390d5ac9aef21"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu-younger-son/reference/zheng_a6_s1-fdd59fb8.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "b37464f6c78177dd098a77e3e563ffbc1c4506d01a5b7737050a8be445ada15d"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu/reference/zheng_a2_s1-31c72057.png",
+      "width": 1923,
+      "height": 817,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6"
+    },
+    {
+      "path": "assets/production/characters/char-tagawamatsu/reference/zheng_a6_s1-fdd59fb8.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9"
+    },
+    {
+      "path": "assets/production/characters/char-xiong-wencan/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/characters/char-xu-xinsu/reference/zheng_a4_s3-90de778c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850"
+    },
+    {
+      "path": "assets/production/characters/char-yan-siqi/reference/zheng_a3_s2-4270f04c.png",
+      "width": 1941,
+      "height": 810,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4270f04c6150888755d3bfa9ba6c2d07824fa47b0964d6aec8dec2d1682593ed"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-chenggong/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7b982fd67a1b5c15b4f86482297b432913bfd44d5c9b2f71c579b13066818c97"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-chenggong/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-chenggong/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhihu/reference/crew-portraits-723ae50b.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "723ae50bf218b335a8e217ab3e5aad9f8160d3f43b1403f3a3e4124dbc1f6044"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-captain-v1-8d1a690d.png",
+      "width": 1145,
+      "height": 1374,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "8d1a690d284ce82779756b387c8e4c8572284d5adf017022b3ae584e68b4a3da"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-portrait-6f1065ac.png",
+      "width": 1024,
+      "height": 1536,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "6f1065ac7c29a2a3db0e9319726e5ea4b2cbd1df9550872eb7188117f62937d7"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/characters/char-zhong-bin/reference/zheng_a4_s3-90de778c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850"
+    },
+    {
+      "path": "assets/production/coastal/coastal-fishing-hamlet/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/coastal/coastal-luzon-battery/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/coastal/coastal-market-stall/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/coastal/coastal-market-stall/reference/zheng_a3_s7-ad735196.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec"
+    },
+    {
+      "path": "assets/production/coastal/coastal-shipyard-cradle/reference/zheng_a4_s2-88c88d50.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8"
+    },
+    {
+      "path": "assets/production/coastal/coastal-shipyard-cradle/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/coastal/coastal-stone-step/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/coastal/coastal-stone-step/reference/zheng_a6_s1-fdd59fb8.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9"
+    },
+    {
+      "path": "assets/production/coastal/coastal-wood-pier/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/coastal/coastal-wood-pier/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/firearms/firearm-matchlock/concept/original-v1.png",
+      "width": 1774,
+      "height": 887,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "d4683fe5c971878015b125c4ce22d3fcdf3bea70cfb22589ab3b8e3d85be8278"
+    },
+    {
+      "path": "assets/production/firearms/firearm-matchlock/reference/zheng_a4_s6-f59f02e8.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e"
+    },
+    {
+      "path": "assets/production/firearms/firearm-short-matchlock/reference/zheng_a5_s6-7efaccf5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a3_s7-ad735196.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a3_s8-b1536ec1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/reference/zheng_a5_s6-7efaccf5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a3_s5-16808bd5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "16808bd516df5f9335e76d044c3b4c8ce3a4b67e11fd0f4a58171653a4c043f0"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/xiamen-harbor-v1-357741f1.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "357741f14185d1ba4625c45119da30b2db8a2729ad9f1bc0315b4bfc6cad7b41"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/reference/zheng_a5_s3-572fe434.png",
+      "width": 1918,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-home-scene/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-home-scene/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/zheng_a2_s1-31c72057.png",
+      "width": 1923,
+      "height": 817,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6"
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/reference/zheng_a6_s1-fdd59fb8.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9"
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4-523047d4.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68"
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4_process1-5dbdaa3e.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "5dbdaa3e5cb6f56afae2e0eccb86a9c8a9ed806983dc6767e70bb3281677adeb"
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/reference/zheng_a5_s4_process2-12e39cc6.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "12e39cc67fabe27593a06e807b6749df191d4cc4888c1c616a81c08ef8c5028e"
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/reference/zheng_a1_s4-ddb03cbd.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ddb03cbd3983dc2cb5bdf13f0ec3c466782008ccb4a3111729d54bc878967caa"
+    },
+    {
+      "path": "assets/production/maps/map-nearshore-channel/reference/zheng_a3_s3-c5e938a7.png",
+      "width": 1938,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "c5e938a7356f8963028398902da15837d50a5247e9a9cfa3748342bc397a6303"
+    },
+    {
+      "path": "assets/production/maps/map-nearshore-channel/reference/zheng_a4_s3-90de778c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850"
+    },
+    {
+      "path": "assets/production/maps/map-nearshore-channel/reference/zheng_a4_s6-f59f02e8.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e"
+    },
+    {
+      "path": "assets/production/maps/map-open-sea-mother/reference/sailing-background-76a6fe13.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "76a6fe13583cddc48c6091ca4e860425b4aff361d094b85bb4884464c236e736"
+    },
+    {
+      "path": "assets/production/maps/map-open-sea-mother/reference/zheng_a3_s1-a9bc1b0f.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a9bc1b0fe7339ffa44d5f861b11a6181a7506c6235decfee47dac52d6016714f"
+    },
+    {
+      "path": "assets/production/maps/map-open-sea-mother/reference/zheng_a3_s10-9c790155.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e"
+    },
+    {
+      "path": "assets/production/maps/map-shipboard-mother/reference/zheng_a1_s3-ecf367d9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ecf367d95301c4a410686c43e45a9958f334f97baa49b15c098a115ee76e9418"
+    },
+    {
+      "path": "assets/production/maps/map-shipboard-mother/reference/zheng_a2_s4-6170f408.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6170f4085b2f1e1ef741562fbd47980250d56a58e5b3a7851253ed62b722a5bb"
+    },
+    {
+      "path": "assets/production/maps/map-shipboard-mother/reference/zheng_a5_s7-04198830.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860"
+    },
+    {
+      "path": "assets/production/maps/map-tactical-water-chart/reference/battle-orders-d692ff34.jpg",
+      "width": 1424,
+      "height": 1000,
+      "format": "JPEG",
+      "mode": "RGB",
+      "sha256": "d692ff34a11e7bbafc628fd97188d4674b60f9b7e1f4034bafb48fe70690caaf"
+    },
+    {
+      "path": "assets/production/maps/map-tactical-water-chart/reference/zheng_a5_s4-523047d4.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68"
+    },
+    {
+      "path": "assets/production/maps/map-taiwan-southwest-anchorage/reference/zheng_a3_s1-a9bc1b0f.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a9bc1b0fe7339ffa44d5f861b11a6181a7506c6235decfee47dac52d6016714f"
+    },
+    {
+      "path": "assets/production/maps/map-taiwan-southwest-anchorage/reference/zheng_a3_s2-4270f04c.png",
+      "width": 1941,
+      "height": 810,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4270f04c6150888755d3bfa9ba6c2d07824fa47b0964d6aec8dec2d1682593ed"
+    },
+    {
+      "path": "assets/production/maps/map-tianweiyang-search/reference/zheng_a5_s5-0b81d5b1.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231"
+    },
+    {
+      "path": "assets/production/maps/map-unnamed-rescue-bay/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/maps/map-unnamed-rescue-bay/reference/zheng_a4_s7_process1-28aa1589.png",
+      "width": 1938,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "28aa158987e1c5bd325a6d2a545902a9d30c124171d1c9d6d12648a126a58590"
+    },
+    {
+      "path": "assets/production/maps/map-world-nautical-chart/reference/ming-nautical-chart-v2-16f5d1dc.png",
+      "width": 1448,
+      "height": 1086,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "16f5d1dc1b66b83f2cf5407ac8fc33ccfdb5383619bd77dec5c2050f154dfd30"
+    },
+    {
+      "path": "assets/production/maps/map-world-nautical-chart/reference/ming-nautical-land-paper-v2-fb8a2f1d.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fb8a2f1d9399feadbfd6ba56664e0eb7349307bf912fd99bac5057e0754e38b1"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-longblade/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0c8ea4aca6bafa7851fc54a835ae99a1b22efc057793cb3f65fd95069c50d17b"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-longblade/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/concept/original-v1.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f23eb27c9b10384ea3adb83f739145f9f7abc6b9f875f53a47777299d8785aa3"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/reference/zheng_a2_s3-784c4d99.png",
+      "width": 1918,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "784c4d995a9ccff827e5daaa7fb324344fa170620fb4fde5b9b0a995730a32ad"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/reference/zheng_a4_s1-6c3023ec.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69"
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-spear/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/nature/nature-broadleaf/reference/canopy_tree-e4149e5e.png",
+      "width": 256,
+      "height": 256,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "e4149e5e81161a06828d61778a8c910852f4dd1bb9fc10372ea4232eacb5e9ef"
+    },
+    {
+      "path": "assets/production/nature/nature-broadleaf/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/nature/nature-grass/reference/grassbeach-7d8078a9.png",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "7d8078a9a6af250d3b95a18efbda6f34c1030d48f8eaa8976122ab712cffe0ac"
+    },
+    {
+      "path": "assets/production/nature/nature-ground-materials/reference/forest-91604399.png",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "916043998c1e44b57b709bb502005cf129593d09a5ea6d999c529161bb6cdbc1"
+    },
+    {
+      "path": "assets/production/nature/nature-ground-materials/reference/grasspatch-d7d12c00.png",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "d7d12c005a6ea7c6e18834650f0af33da5d3422c3b3b6f0b7e63a973ca0b23ac"
+    },
+    {
+      "path": "assets/production/nature/nature-island-terrain/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/nature/nature-island-terrain/reference/weights_0-7da036eb.png",
+      "width": 120,
+      "height": 140,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "7da036eb5e84ca181bc18fa880770234bfad01d66143ffb476bef22aafd1d38b"
+    },
+    {
+      "path": "assets/production/nature/nature-ocean-sky-profile/reference/sailing-background-76a6fe13.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "76a6fe13583cddc48c6091ca4e860425b4aff361d094b85bb4884464c236e736"
+    },
+    {
+      "path": "assets/production/nature/nature-ocean-sky-profile/reference/waternormals-add9912b.jpg",
+      "width": 1024,
+      "height": 1024,
+      "format": "JPEG",
+      "mode": "RGB",
+      "sha256": "add9912b158a4fe9c12421745babe68c44c8af75631ac4837236cb2a03bc373f"
+    },
+    {
+      "path": "assets/production/nature/nature-palm/reference/palm_plant-cf8c2455.png",
+      "width": 128,
+      "height": 128,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "cf8c245572ff0bc2b9a5b49a65a0480b8fa2179c94732b1666f9edc0f100b43a"
+    },
+    {
+      "path": "assets/production/nature/nature-rock/reference/rock-ff380c17.png",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "ff380c179c70702e3c34e5ee7346b21303d43326c57393a9664f0e4a4283cd8d"
+    },
+    {
+      "path": "assets/production/nature/nature-rock/reference/zheng_a4_s6-f59f02e8.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/rock-ff380c17.png",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "ff380c179c70702e3c34e5ee7346b21303d43326c57393a9664f0e4a4283cd8d"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/sand-42258f3d.png",
+      "width": 16,
+      "height": 16,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "42258f3ddc140afb9df63c4ef52f8ef7bf88b89c8722932e34635068b793d402"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/reference/sandwet-5c9f96a1.png",
+      "width": 16,
+      "height": 16,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "5c9f96a1b5a40198c4fa76588d15e69f0d5bd1e59eaae46fd41e2a810ef6dc82"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-tree/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/nature/nature-shore-tree/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/nature/nature-shrub/reference/port-hub-v2-edf92ad5.png",
+      "width": 1672,
+      "height": 941,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "edf92ad55c2d2e31b8768ba999898d4ae623af6a30327840acba6ecc7293e1eb"
+    },
+    {
+      "path": "assets/production/npcs/npc-cargo-porter/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/npcs/npc-chinese-shipping-agent/reference/zheng_a3_s6-8413c0a1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa"
+    },
+    {
+      "path": "assets/production/npcs/npc-chinese-shipping-agent/reference/zheng_a3_s8-b1536ec1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947"
+    },
+    {
+      "path": "assets/production/npcs/npc-civilian-child/reference/zheng_a4_s7_process2-2da3e336.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2da3e336fac6e623233a07bba0837c673cf58f36fe05f9d781de009eba2fe3c9"
+    },
+    {
+      "path": "assets/production/npcs/npc-civilian-child/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/npcs/npc-company-armed-guard/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/npcs/npc-courier-herald/reference/zheng_a5_s5-0b81d5b1.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231"
+    },
+    {
+      "path": "assets/production/npcs/npc-courier-herald/reference/zheng_a6_s2-6c2dcacf.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c2dcacfeea6ee3f364acc8f7bb3353333d8811b0eb2b8328cb351d4483f7294"
+    },
+    {
+      "path": "assets/production/npcs/npc-deck-sailor/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/npcs/npc-deck-sailor/reference/zheng_a4_s2-88c88d50.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "88c88d50bd984edade64a9af96e2caa8d16223e2f9896a551819a725230b60c8"
+    },
+    {
+      "path": "assets/production/npcs/npc-domestic-servant/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/npcs/npc-domestic-servant/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/npcs/npc-dutch-working-sailor/reference/zheng_a2_s6-4d7835db.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4d7835db0fec074246d1f703254594ee416ed27f10d5571a87cf62ddefbb1ba7"
+    },
+    {
+      "path": "assets/production/npcs/npc-family-escort/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/npcs/npc-fishing-household/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/npcs/npc-fishing-household/reference/zheng_a4_s7_process2-2da3e336.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2da3e336fac6e623233a07bba0837c673cf58f36fe05f9d781de009eba2fe3c9"
+    },
+    {
+      "path": "assets/production/npcs/npc-gunner/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/npcs/npc-helmsman-rower/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/npcs/npc-japan-waterfront-worker/reference/zheng_a2_s1-31c72057.png",
+      "width": 1923,
+      "height": 817,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6"
+    },
+    {
+      "path": "assets/production/npcs/npc-lookout/reference/crew-assign-44fb66fc.jpg",
+      "width": 1424,
+      "height": 1170,
+      "format": "JPEG",
+      "mode": "RGB",
+      "sha256": "44fb66fca3ef463e8ba3734139f0c4448433e9e0e3602b34cbc95efa21c9b3c9"
+    },
+    {
+      "path": "assets/production/npcs/npc-lookout/reference/zheng_a3_s1-a9bc1b0f.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a9bc1b0fe7339ffa44d5f861b11a6181a7506c6235decfee47dac52d6016714f"
+    },
+    {
+      "path": "assets/production/npcs/npc-market-trader/reference/merchant-woman-v1-0a02061e.png",
+      "width": 1145,
+      "height": 1374,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "0a02061e4bbc5f3b980bf45a92b7b09cea968f864e9e6b1b1f2e7b218b7447a3"
+    },
+    {
+      "path": "assets/production/npcs/npc-market-trader/reference/zheng_a3_s7-ad735196.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec"
+    },
+    {
+      "path": "assets/production/npcs/npc-medic/reference/crew-assign-44fb66fc.jpg",
+      "width": 1424,
+      "height": 1170,
+      "format": "JPEG",
+      "mode": "RGB",
+      "sha256": "44fb66fca3ef463e8ba3734139f0c4448433e9e0e3602b34cbc95efa21c9b3c9"
+    },
+    {
+      "path": "assets/production/npcs/npc-merchant-captain/reference/zheng_a5_s6-7efaccf5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d"
+    },
+    {
+      "path": "assets/production/npcs/npc-ming-clerk-envoy/reference/zheng_a4_s1-6c3023ec.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69"
+    },
+    {
+      "path": "assets/production/npcs/npc-ming-clerk-envoy/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/npcs/npc-ming-deck-guard/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/npcs/npc-ming-deck-guard/reference/zheng_a4_s7_process1-28aa1589.png",
+      "width": 1938,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "28aa158987e1c5bd325a6d2a545902a9d30c124171d1c9d6d12648a126a58590"
+    },
+    {
+      "path": "assets/production/npcs/npc-mixed-raiding-swordsman/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/npcs/npc-mixed-raiding-swordsman/reference/zheng_a4_s7_process1-28aa1589.png",
+      "width": 1938,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "28aa158987e1c5bd325a6d2a545902a9d30c124171d1c9d6d12648a126a58590"
+    },
+    {
+      "path": "assets/production/npcs/npc-pirate-toll-collector/reference/pirate-captain-v1-58018734.png",
+      "width": 1122,
+      "height": 1402,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "580187340b0f80bbe3e44f272ef0469e6db65a6c61f4e4344c65fa695241768b"
+    },
+    {
+      "path": "assets/production/npcs/npc-pirate-toll-collector/reference/zheng_a1_s6-f08a09ba.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8"
+    },
+    {
+      "path": "assets/production/npcs/npc-portuguese-dock-merchant/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/npcs/npc-portuguese-speaking-raider/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/npcs/npc-recruit-informer/reference/zheng_a3_s8-b1536ec1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "b1536ec12dbc5180b5e5f4ec4e29bf00911acfc12f98b8fdb3e3411ec5d3e947"
+    },
+    {
+      "path": "assets/production/npcs/npc-shipwright/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/npcs/npc-shipwright/reference/zheng_a5_s7-04198830.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860"
+    },
+    {
+      "path": "assets/production/npcs/npc-tutor/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/npcs/npc-voc-cargo-officer/reference/voc-captain-v1-0f3e0162.png",
+      "width": 1145,
+      "height": 1374,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "0f3e0162a55843b015d9fc50fef6890f128cd24097fccace353e6e11cece45d1"
+    },
+    {
+      "path": "assets/production/npcs/npc-voc-cargo-officer/reference/zheng_a2_s6-4d7835db.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4d7835db0fec074246d1f703254594ee416ed27f10d5571a87cf62ddefbb1ba7"
+    },
+    {
+      "path": "assets/production/npcs/npc-voyage-manager/reference/zheng_a1_s6-f08a09ba.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8"
+    },
+    {
+      "path": "assets/production/props/prop-barrel/reference/zheng_a2_s1-31c72057.png",
+      "width": 1923,
+      "height": 817,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "31c7205701637788308d0c0c4e6b308fce1eaefa5ac868e0368beeb3df9b21f6"
+    },
+    {
+      "path": "assets/production/props/prop-barrel/reference/zheng_a3_s10-9c790155.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e"
+    },
+    {
+      "path": "assets/production/props/prop-basket/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/props/prop-bedding/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/props/prop-bedding/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/props/prop-bench/reference/zheng_a4_s1-6c3023ec.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6c3023ec00f1e0e11cb854c1389e07b70732a577e2e6949d157608e88a1e1e69"
+    },
+    {
+      "path": "assets/production/props/prop-boarding-plank/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-boarding-plank/reference/zheng_a6_s4-590cb4d6.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84"
+    },
+    {
+      "path": "assets/production/props/prop-bollard/reference/zheng_a6_s4-590cb4d6.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84"
+    },
+    {
+      "path": "assets/production/props/prop-bowl/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/props/prop-bowl/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/props/prop-bucket/reference/zheng_a1_s3-ecf367d9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ecf367d95301c4a410686c43e45a9958f334f97baa49b15c098a115ee76e9418"
+    },
+    {
+      "path": "assets/production/props/prop-bucket/reference/zheng_a5_s3-572fe434.png",
+      "width": 1918,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315"
+    },
+    {
+      "path": "assets/production/props/prop-cargo-net/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/props/prop-chart/reference/ming-nautical-chart-v2-16f5d1dc.png",
+      "width": 1448,
+      "height": 1086,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "16f5d1dc1b66b83f2cf5407ac8fc33ccfdb5383619bd77dec5c2050f154dfd30"
+    },
+    {
+      "path": "assets/production/props/prop-chart/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/props/prop-chest/reference/zheng_a5_s1-19aef039.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8"
+    },
+    {
+      "path": "assets/production/props/prop-chest/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/props/prop-cloth-bale/reference/silk-v1-1c7dd23b.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "1c7dd23b3a4be60593a059a94718abbfdc5081bbcbe886aa2e3c23198d2c588c"
+    },
+    {
+      "path": "assets/production/props/prop-cloth-bale/reference/zheng_a3_s6-8413c0a1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa"
+    },
+    {
+      "path": "assets/production/props/prop-command-flag/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/props/prop-command-flag/reference/zheng_a5_s6-7efaccf5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d"
+    },
+    {
+      "path": "assets/production/props/prop-contract-document/reference/zheng_a3_s9-9109f5f5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9109f5f55c007a7589e3c1d37b22cd7d6f5dbfab7c762080a2c4317dbc9c8eb1"
+    },
+    {
+      "path": "assets/production/props/prop-crate/reference/zheng_a3_s6-8413c0a1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa"
+    },
+    {
+      "path": "assets/production/props/prop-drying-rack/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-gong/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-grain-sack/reference/grain-v1-ca4197ca.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "ca4197ca775e730d035625c0ce414f5a170ae357c32c2f0b8dbbcc73a6c45ea3"
+    },
+    {
+      "path": "assets/production/props/prop-grain-sack/reference/zheng_a4_s6-f59f02e8.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e"
+    },
+    {
+      "path": "assets/production/props/prop-grapnel/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-grapnel/reference/zheng_a5_s6-7efaccf5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7efaccf588880b354d8c3a8220fa2b421c2d6d0cdcd30f48513a47c7f3994a1d"
+    },
+    {
+      "path": "assets/production/props/prop-iron-stock/reference/iron-v1-1fb74b11.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "1fb74b110aa4b62c1b8ff305e8d674ebc9201476a29e4a600fe7c5243a1305bb"
+    },
+    {
+      "path": "assets/production/props/prop-lantern/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/props/prop-lantern/reference/zheng_a4_s6-f59f02e8.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f59f02e84f2816ad464fde151fcd5b151ebad9cf277578c6f92cbf583327541e"
+    },
+    {
+      "path": "assets/production/props/prop-letter/reference/zheng_a2_s4-6170f408.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "6170f4085b2f1e1ef741562fbd47980250d56a58e5b3a7851253ed62b722a5bb"
+    },
+    {
+      "path": "assets/production/props/prop-letter/reference/zheng_a6_s1-fdd59fb8.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "fdd59fb86302904484a8e2feaeb47b2d79a40ac8b162aaa3b26063fae802fdc9"
+    },
+    {
+      "path": "assets/production/props/prop-matchcord/reference/zheng_a2_s8-887c5851.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "887c58517f6f1a12895d24342bdd63348ab95414cbd22d11af0817d8a2a5fc57"
+    },
+    {
+      "path": "assets/production/props/prop-medicine/reference/zheng_a3_s7-ad735196.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ad735196a8e6604d73e3f54e53bc364aaa62b297f0951b3ab6a47cdcbf68eeec"
+    },
+    {
+      "path": "assets/production/props/prop-medicine/reference/zheng_a5_s7-04198830.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860"
+    },
+    {
+      "path": "assets/production/props/prop-money-pouch/reference/zheng_a2_s5-ce510aab.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "ce510aab2c8808ea77b349f218bb7577dc74637e0064ef1a6f02362fa37dc5b9"
+    },
+    {
+      "path": "assets/production/props/prop-money-pouch/reference/zheng_a2_s7-2ff89d96.png",
+      "width": 1940,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec"
+    },
+    {
+      "path": "assets/production/props/prop-money-set/reference/zheng_a1_s1-eb7501a9.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "eb7501a91beba3af2fd41814f588355afa230aeda5fae2656d2d60617a96904c"
+    },
+    {
+      "path": "assets/production/props/prop-money-set/reference/zheng_a2_s7-2ff89d96.png",
+      "width": 1940,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec"
+    },
+    {
+      "path": "assets/production/props/prop-oar/reference/zheng_a3_s10-9c790155.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e"
+    },
+    {
+      "path": "assets/production/props/prop-oar/reference/zheng_a4_s3-90de778c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "90de778c56842a20493573ea8bc25ed6c34f77f87fac992ae27d304d0156a850"
+    },
+    {
+      "path": "assets/production/props/prop-official-document/reference/zheng_a4_s4-8a53973b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8a53973bdea74f272c6e0ac96328fa4f131d9c1d8c9094e19b59cd00a7527ad9"
+    },
+    {
+      "path": "assets/production/props/prop-paper-lantern/reference/zheng_a2_s2-4db31f0b.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4db31f0b0e86c155f389d0c1947a1234485d20d66b26b3a7051c8b9fdf543634"
+    },
+    {
+      "path": "assets/production/props/prop-polehook/reference/zheng_a2_s7-2ff89d96.png",
+      "width": 1940,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec"
+    },
+    {
+      "path": "assets/production/props/prop-polehook/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-porcelain-jar/reference/porcelain-v1-a908c40b.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "a908c40b87c49bd6d4124e51ccc63e3b90d202cea27b39cad01e23a328e815ba"
+    },
+    {
+      "path": "assets/production/props/prop-pot/reference/zheng_a3_s5-16808bd5.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "16808bd516df5f9335e76d044c3b4c8ce3a4b67e11fd0f4a58171653a4c043f0"
+    },
+    {
+      "path": "assets/production/props/prop-punt-pole/reference/zheng_a6_s4-590cb4d6.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84"
+    },
+    {
+      "path": "assets/production/props/prop-red-thread-pouch/reference/zheng_a5_s2-a2d9d545.png",
+      "width": 1933,
+      "height": 813,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1"
+    },
+    {
+      "path": "assets/production/props/prop-red-thread-pouch/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/props/prop-rope-coil/reference/zheng_a5_s7-04198830.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860"
+    },
+    {
+      "path": "assets/production/props/prop-scissors/reference/zheng_a3_s6-8413c0a1.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "8413c0a175ef55cc8fc392a7aea998ea73f26867f2b327fa6f3b554c17e1f9fa"
+    },
+    {
+      "path": "assets/production/props/prop-shipwright-axe/reference/zheng_a5_s7-04198830.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "04198830a9e23635f96b8839ca167ec6e94013b895c9f22afdfecbd6a45f1860"
+    },
+    {
+      "path": "assets/production/props/prop-spices/reference/spices-v1-79894c0a.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "79894c0a88dee00a7e76e06983607549e90f65e0d9f4449594cb46502cc4f33a"
+    },
+    {
+      "path": "assets/production/props/prop-table/reference/zheng_a6_s3-02ac3844.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620"
+    },
+    {
+      "path": "assets/production/props/prop-tally/reference/zheng_a1_s6-f08a09ba.png",
+      "width": 1930,
+      "height": 815,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "f08a09baba2682f1cab276a35991fb0291319ac48f80bd5d7dd0af06e0053af8"
+    },
+    {
+      "path": "assets/production/props/prop-tally/reference/zheng_a2_s7-2ff89d96.png",
+      "width": 1940,
+      "height": 811,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "2ff89d962ab5c517bae416f97341a73049afc70c84a97dd24afb27b3857c38ec"
+    },
+    {
+      "path": "assets/production/props/prop-timber-stock/reference/wood-v1-ae101474.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "ae101474a579ab7709995225281f977475b68cfd95f115501d455dd5206df372"
+    },
+    {
+      "path": "assets/production/props/prop-timber-stock/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/props/prop-toolbelt/reference/zheng_a1_s5-9e03c68c.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9e03c68cd4b44abf65cbc33a042ed84f0d2fca1eb871b8c76c607318ecec2de3"
+    },
+    {
+      "path": "assets/production/props/prop-toolbelt/reference/zheng_a6_s4-590cb4d6.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84"
+    },
+    {
+      "path": "assets/production/props/prop-toolbox/reference/zheng_a6_s4-590cb4d6.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "590cb4d689fc4b8bb947e08872112c506510463b03da631b2cb5f27f6258dd84"
+    },
+    {
+      "path": "assets/production/props/prop-toolbox/reference/zheng_a6_s5-4f434cf3.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "4f434cf3d32cacd7c274f587f8f8f6f140bd6f7d00aa9228e4baac2f85c995f1"
+    },
+    {
+      "path": "assets/production/props/prop-torch/reference/zheng_a4_s7-986ae674.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "986ae674a1ddcebe5c0ddefd3650ad1f90ee6d1d339f8f940e67f768ddc71166"
+    },
+    {
+      "path": "assets/production/props/prop-wreck-timber/reference/zheng_a5_s3-572fe434.png",
+      "width": 1918,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "572fe434087e9da3940582c3a43bada77e390c6b362ddbfff348ff89cc646315"
+    },
+    {
+      "path": "assets/production/props/prop-wreck-timber/reference/zheng_a5_s5-0b81d5b1.png",
+      "width": 1932,
+      "height": 814,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "0b81d5b1f698751c8b4a215073fd02f1edc4e581e6604ca04d90c3509cca7231"
+    },
+    {
+      "path": "assets/production/ships/ship-european-merchant/reference/merchant-barque-8b19a91d.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "8b19a91db3139be94e141dc99b6c234b1f37c752d57b5758dc722750b6ffe84f"
+    },
+    {
+      "path": "assets/production/ships/ship-european-warship/reference/zheng_a5_s4-523047d4.png",
+      "width": 1919,
+      "height": 820,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "523047d4100c252d5d1a52a461bebedd5b061a48ba6e0a44a7249df1b2f09d68"
+    },
+    {
+      "path": "assets/production/ships/ship-fast-junk/reference/fishing-ship-1b779179.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "1b779179b5a4533d6c1f852d1012ad995b40a68e84f2328fe61ed381f3983c1e"
+    },
+    {
+      "path": "assets/production/ships/ship-fuchuan/reference/fuchuan-inspection-df2d3327.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "df2d33275143e3cf90a512e37898ad5642c1162bb7b7d966f4939eecd42a12af"
+    },
+    {
+      "path": "assets/production/ships/ship-lighter/reference/zheng_a1_s2-7ffaa0eb.png",
+      "width": 1935,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf"
+    },
+    {
+      "path": "assets/production/ships/ship-merchant-junk/reference/fuchuan-inspection-df2d3327.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "mode": "RGBA",
+      "sha256": "df2d33275143e3cf90a512e37898ad5642c1162bb7b7d966f4939eecd42a12af"
+    },
+    {
+      "path": "assets/production/ships/ship-regional-craft/reference/zheng_a3_s10-9c790155.png",
+      "width": 1916,
+      "height": 821,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "9c790155a7f99727c8a87d8b406338fbdd0662c1d0221c828d8eff45a535409e"
+    },
+    {
+      "path": "assets/production/ships/ship-rescue-skiff/reference/zheng_a3_s3-c5e938a7.png",
+      "width": 1938,
+      "height": 812,
+      "format": "PNG",
+      "mode": "RGB",
+      "sha256": "c5e938a7356f8963028398902da15837d50a5247e9a9cfa3748342bc397a6303"
+    }
+  ],
+  "svgRenders": [
+    {
+      "path": "assets/production/ammunition/ammo-chain/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "f7c9cf09ee55d607ac2034d1c8c34e4e8d7d11cc89b2d0191dcfcae14af8caa8",
+      "renderedPixelSha256": "7bb9c946498995d8c18547e382c991ffd3c67eceb8c8cbcba672a68f9f986a20",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/ammunition/ammo-firearm-shot/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "b05c868c176e0482b16b79fa17f1b29dc39166d6dbea4785c8647ca5e5dbf118",
+      "renderedPixelSha256": "9d4ec57e92e4c42259041abcaf588f66330627e1035a513cedb62e864d2b616d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/ammunition/ammo-grape/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "66d69914593c9ae7552e26c7b7f63ef0b4f0748ca8aab270c46b5849485d2bbf",
+      "renderedPixelSha256": "a74aba2201ffcc218cf4410fa6a655c31402c2f68eb731e0773f1ecace9fa992",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/ammunition/ammo-solid/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "300f10d725ec828c93d8289111ba091ac04f7773813ab3c6b52daa3937c078eb",
+      "renderedPixelSha256": "1d907795e7a28fc291cd2a9ef264c9373c16577c47e7e8d85105430c500ee115",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-door/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "1565f04c947659fbb084b9dba89b2a8c9cd65ab611154360648cad4401369426",
+      "renderedPixelSha256": "8bab72d213533dd092e4992c50b3b787c74099761e52588d18c0ed7112df2000",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "864eb0177ac0bef6e67cf954590d984c5c18af45542f6d98569e1c59bc110224",
+      "renderedPixelSha256": "db578d7b3d3f54a56e7586a4ab721123941fe66b2db8bddbc20dccd2fd022bb0",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-hirado-home/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "ab625bf9c620c937879b57d65f00b06128f1bc703502dc590ff62d81337424dc",
+      "renderedPixelSha256": "db5127632066d9ee7ec148c7a66d7a6f9c56ae82877957b8910872fbb797654b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-inspection-room/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "3d8a7bf044c96b2fef5b43842f49a2324b834244cd7f58540bacdf7b3fe79496",
+      "renderedPixelSha256": "8fe996afec53278364a41dc4b55566ab5a6400e4fb9e7610fcb5921dbdcb4faf",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-macau-warehouse/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "b7dd1e21a9c75677ef3d92f9afbd89eb00f5cd1c638ef01f22f476507de579ed",
+      "renderedPixelSha256": "628360ef7bb4f56f0e76db4a0a3a3cb52fee334ed65df4a1f520daccc2917042",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-pitched-roof/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "28c836aab30a971b953d6153a30af2e84f70c96ce988473d641585864bc6e61d",
+      "renderedPixelSha256": "26a1a6786b68daab20e234fa2b919a55be72eeca12c2af640163af2beb891c9c",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-plaster-wall/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "b0131c2a18f3dce09ef080fd8f19bb3d4b562e99d66ca47c463a157a4472cba3",
+      "renderedPixelSha256": "9beadd6bf7e662af6cd5e8f4d7bf66c98694319de4bd88b3d7075e85be2a4e72",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-residence-roof/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "bbe1e720bed4a8411bc95b6c5ad6f62b722436dd11d9dc7382cb5e90a5622bf4",
+      "renderedPixelSha256": "00a4fd67414c340b9ae4584c02ee8f5b38ca29b3139bf9d5d8c22f9f984c1c7b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-settlement-shelter/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "653421ae5aab803ff21b435fc9fdffa8f4701ce10e1de8223f794d8cb1f56b8a",
+      "renderedPixelSha256": "6a43cc60b0607060bc6fb31865c8faa2b4d853729687c9caa4f48d6388eb0338",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-shore-sickroom/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "37d8d61aeb3beb3e04384a203a793950f9e6cda749131e1ff83a79e686d7785a",
+      "renderedPixelSha256": "6a3f623cc00d2c09177a1d0449ad69bd1fca2d41479c23f1d841f47c73cf3516",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-timber-wall/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "65eb6a931b0c1c80060130f2762602116831e819244469885966c27c4692c3c8",
+      "renderedPixelSha256": "4c2b41c886101bfdc8ad443051d11223ab352ba80e6b42a5c52fcd0f6fe5b8b2",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-berth/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "ff0b4cd8d7a80e439d6907945ceb980cf4eeaf6d97fbe9a7b58a42560cbbb4a1",
+      "renderedPixelSha256": "c5a11303b98486d37d54ae29917ec1e6a28f0e767df46643504a5ab66359df86",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-front/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "75181d6b85e4a8968236bdc2fe75ef73bd55cabb87d40047ca14672cc9abcbb3",
+      "renderedPixelSha256": "c699b67d13bafb997af8b0ff3c47f6d3bf6d58a06f637d6c57d506e6c5e469fc",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-warehouse-wall/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "aba9a8134b7aa99c65880f47ede18b070ce4e7549c59cf34f5a55b30a2911ec4",
+      "renderedPixelSha256": "c820e6f19c4e89f35088e3daf836d99bb5cb853d315bee7f812fd7916f6b77fc",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/buildings/building-window/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "9e06489dc0ad995fdb41d973d3859c598bc2df86bc645a9a6c986c7bd98f75e7",
+      "renderedPixelSha256": "01bae9392b352d94cc505d096b2e155f31b21be03607768c95d951bb9f03907d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-deck-carriage/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "49cf4d1035dfc857c3384c34ac106c61fcbfec4ecb2ed226bf8b2de201bd222a",
+      "renderedPixelSha256": "e41624b2cae6abd9738fe3de00dd0c40988c2e80b4a3f96f8ec2d50162dd3809",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-folangji-chamber/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c526911b4c79b2228d47d4d5026955a354dc58356fbced4055151af5003f0234",
+      "renderedPixelSha256": "67364584639929769907f7278afffc4c8e1d68b8d67789780bfdfa0c54a7a5e2",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-folangji/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c7d02bdc0d712a9b3d3c55df1e3c95b4f2d1ebb281771f3d48f8c2133154eed8",
+      "renderedPixelSha256": "84850601718e40e6c1b3ed36587df0d93964a56a179409a87a7ac177fcd243fe",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-hongyipao/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "ba9e962a4267a67b2484b092391b255fd18c00c490c6e0ebdb15074c9e923db2",
+      "renderedPixelSha256": "5b82eba33a0968c2d2a9c541d3722b999367e824b9396e398767497d59f75d18",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-light-muzzle/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "220333f31f3023783c16d14ae6f57ab16c38565c6ac517c178509cf3517e7b72",
+      "renderedPixelSha256": "008bd9df923821c8224c86a8ab7144cfde4e6dac822e2bd8a5fb9d5f322cf5ed",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/cannons/gun-swivel-mount/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "7241b5c7d1f3e2854fd7be77e54a0e1155ac824605ef5fe4a470c14e30f8c721",
+      "renderedPixelSha256": "7396b20b5c639a944737e9620e9946a1211f1ad0dc7fdcf303a4c56e5c014d21",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-fishing-hamlet/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "51abfc9ae64aba992c1cf683103c05e27e33effd8305b515c5b9d4bc59aac1e8",
+      "renderedPixelSha256": "72c0ac4088a2511d8cf75d792b2df8eef0f1e2a5b61b7c680b26ce5816b93b08",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-luzon-battery/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "83bee293845c78bfbdcfb55f5e6ea0181ea8d7464dd89cb82a7f0a3a2ac0d787",
+      "renderedPixelSha256": "3e93dffe87b444d6b124d80636dc2c08fb248190fc821805d4ebe3354852f547",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-market-stall/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "f47b1a48239180d6519e4aa76a5229edbe7e4010f69db98cc4bd9271d27b0ed2",
+      "renderedPixelSha256": "5b4105ffb981e60923cdf2c46a29129acf5041657b93389519264bf4847bcc98",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-shipyard-cradle/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "e69d726dc198cb8786e1691b500028bde620d4f687e9afdb7679dd33215b595f",
+      "renderedPixelSha256": "10ba0e1ed404cff903579015031d1796a57045b6abbee1fe0e795131534c76cd",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-stone-step/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "f14208b14ad2783a8838ff8a38308265532599c4498600507326a148373831f7",
+      "renderedPixelSha256": "b09836fd88186979ba0cde54ae4a269d07fe351d10014e368efdef801a2a8b92",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/coastal/coastal-wood-pier/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "eb31937afc31ccedd96a8e620d09b3ba7970acce8f6b7141bc681d13b88f1414",
+      "renderedPixelSha256": "1a0eda0d2c4150c19fefbbc7d6b3903ebdc2c7151791ba4f7943c003bcc2ce8f",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/firearms/firearm-matchlock/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "d93e7c03b12358a85c19b92e85dc2f61bd457be5cbee116f040a3da317166c97",
+      "renderedPixelSha256": "4bbc974630929a83076164f4b4e53773108bb2d03264be213143371a5e471d9d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/firearms/firearm-short-matchlock/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "0407979aed88596711e24c14f8968be59c741b62aeed7b197cba50e7f9877e00",
+      "renderedPixelSha256": "3460baa15a7a7d9c644eb10b38a644b268f3188b3abd415de186f148b0ede0fb",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-fujian-hidden-anchorage/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "d3cbd19f7f7d0fcc9fbcedd0128dadf61412c22ecb5deff472a4bc76f0bede40",
+      "renderedPixelSha256": "5b74b79c396a1e5ff41c1f6c13890a23b5e028136dd3165f96519ec6b593783f",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-fujian-household-scene/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "50eccef158bf58ab14ed0c3151a5099ffdf0d6a554b6a8318c274af1d36c25be",
+      "renderedPixelSha256": "3daba2e4278d03a35a5ab0d5caa45b2fb6503583eb6bf708287a08c49c66d80f",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-fujian-working-harbor/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "8053ec02487e8d5ce8fe59f55917bad72b7fd722d7b046429c981c45d381c270",
+      "renderedPixelSha256": "b2997137773e2735e297e33648bacd814640cab06e4ca8a90abf24d917b64a08",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-hirado-home-scene/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "d48439361c405df3626b97905f5c3853f7f2c0f37a20bdc82af9953640ca8464",
+      "renderedPixelSha256": "11348480384926918cd9ab54bd6b68d4b5c3203116bf3a1604d8206324256570",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-hirado-kawachi-harbor/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "37916eb747d8c1f563711505539c83f761314adc0b7c361fdfcb7e306673705f",
+      "renderedPixelSha256": "7c44b8774e6b79ff8052a627d5340c017d191298574989bd6596c94b334f3b06",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-liaoluo-bay/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "e6f0ee575c23d1425e0d479204d0fea34b9383517598a8d08acf00dac9e32006",
+      "renderedPixelSha256": "f2eb52a068a37bbfa1900d9a7ae0c1d9628cac237dfc469a6bacc46f407be598",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-macau-harbor/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "2d5ac5680896ba9b6ff86d917d0d61ab26a2a0133e0e8e42b7a486057b874330",
+      "renderedPixelSha256": "1bfb6430c16e7fb3abe02bdfa012bd91aaa7e290e0fd82f22bddfff155622953",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-nearshore-channel/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "4b221ed984f049e30d15a9e3711b61fa3649b20061ba692c1becd2b9f126d77c",
+      "renderedPixelSha256": "de65565d1d1dcaffd74546f0499de1c265439b439bc57fa54b0e4378d828655f",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-open-sea-mother/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "92029ded11281370420a7db65592fe2c8ada1885c6b2e31e657dc6575e350b44",
+      "renderedPixelSha256": "f9ccc5a402a6512745c2b9511f7b38460f12364ed4d6f544a95ea50fedb5e61b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-shipboard-mother/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "72b8e521819280be552bd2f1de2d0621f4494c7e37ac9b367adce0c9579fbb0f",
+      "renderedPixelSha256": "271882082f2405cce704402824751ee50e1353fcc22a7bf64be5cb1a511e8119",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-tactical-water-chart/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "5ed19e4f343ab5111842a4e06c491288d41defbd2db20bb703168e1fdaa16fb9",
+      "renderedPixelSha256": "62d6f903549c487a9f1e8f12e0f2ebe0db774e9714011a848e6a75cdb02e7413",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-taiwan-southwest-anchorage/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "ceb6982ab2916252099ae01ddb13f9c1eb4467e5892d91aabab60f9499400c52",
+      "renderedPixelSha256": "ac0fba3ad5611c3685209b1f8c5470010ba5817c5b13367a3a9a92df7a094f80",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-tianweiyang-search/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "e428cbbbfc2293ed341a2080221307f956363fbaaff0e260e6b0e449fb2deda7",
+      "renderedPixelSha256": "707364e302996132c9ac988e34ad2c9daf3781b72881c07ea6b8b425357b3f70",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-unnamed-rescue-bay/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "a06829ca716549026fa4d7dff6adfe60f159bfd73a3cc41d486cdcf435cf74ad",
+      "renderedPixelSha256": "b149a3ccb60ded3a760110227412c624a6ea12baf49e77906c688a3abbb99280",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/maps/map-world-nautical-chart/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "c2660410a0504e58e043bd643e484723f57379f18710fb0818a77d7eb5a8884c",
+      "renderedPixelSha256": "88832fb5cc933e8d29b8b3c35335be30679298a16d1dcfbc61d6af70b6107de2",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-longblade/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "2ca1f80b19f826f8f1225faa29a952a92c0f54dbce662ce117c9798cc5700390",
+      "renderedPixelSha256": "c9c884c9154895520fed84a105c9eac9b725a17dc06e9b819beb234a5ac831f3",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-sabre/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "a447d01c2cd1b8f4ce58210fae0a1267f7390018af64ac6a38f20525914e5a20",
+      "renderedPixelSha256": "959f5203f5632aca959f4595b957eddf377f7f528e8893709bb5f1c5a0a8757a",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/melee-weapons/weapon-spear/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c307a30a90bca0116fe659f3ad7f0cd9dd39191a924e2b0bf3f3c653c7bd2b2b",
+      "renderedPixelSha256": "04d8c510128824994f8e1c442c718573b1c553492d85994c66d77b8507d112bd",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-broadleaf/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "b068c100a54c2c27db7f9097cd857d8f8025cedba802562871c4ff1269b52808",
+      "renderedPixelSha256": "8e514c1bf2308d28eff18d749828eaf028346ed222f573e2ad617bf1963ed880",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-grass/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "a5976555e9e775d2255d6d83c777e0cbf26a8ce88416857af5509bba17ee9c6b",
+      "renderedPixelSha256": "343cd6ebc5b8ff2842f18cf60091a18737beb08d54dc02223276cb1ef377e106",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-ground-materials/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "b6e030c555a84791dfd9bcb23fc0ed15c53f46f27aa51c43e7015e2cc4e37938",
+      "renderedPixelSha256": "23c01c7c07f1bc8a5208b32ae625a7c7fcf3cca9d0105d8e643b0c84dce214e0",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-island-terrain/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "bed703ad9940736013dfdcd2eec1defd29a8b854f13d708ece214cd5a8b3146e",
+      "renderedPixelSha256": "a586bf8fa2ec083e186025759b39f87e9695d1eeb160ac650a8b4feda4a643ac",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-ocean-sky-profile/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "b633261a2efedecaaa3d70844badbca9f7e9c2e30a2c24fd1fb33e7c5d396f64",
+      "renderedPixelSha256": "1ac5d51ef9de3a63cee6d42bc19ebca8b25ee8b788b9e744e9d994b265b93398",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-palm/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "f596fce6cd10b929f8c5fc4e2b11ba01e47fe43547e4c867e4e5173756096af3",
+      "renderedPixelSha256": "23d51eda24eca66699d66049a57f1c50d17ea347ef858b21fbe453fe30042da1",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-rock/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "d3080fecc44fb7805b308eaf8b43882d843af06c73c98dc390795333ab7d2f53",
+      "renderedPixelSha256": "005132f15d761a4221f7b28e6f3f1e3a4f1d7de359f79aba2478fc9ee4dc23a1",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-shore-materials/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "743a8f8cd02bb0f9a4848c82ae9e366c225a79e3acb02d41a865e20058c609d7",
+      "renderedPixelSha256": "82abccc20dd616c1ce4340b3a422af1f3fd04ba54b66164c344c1e6812b82541",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-shore-tree/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "21b766defc88785e531c9db50e80bfb132a4ae1cbd1830b710273e619a00a4d7",
+      "renderedPixelSha256": "673e97f6f51c99156424a1eb3350aa7e26e4222f6f3b5832b9a36fe69715cabe",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/nature/nature-shrub/sketch/structure-v1.svg",
+      "width": 1440,
+      "height": 1000,
+      "sourceSha256": "2fa7ce0f9b274ef3c7974dff76cf2011550baee51181d6d8621eec9f2f17bf12",
+      "renderedPixelSha256": "2c49b4c526b7d614d18cec1702a760530ff579482a570d9e3a6ce6e42ed7b5dc",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-barrel/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "20f07e73ab562d4be11130d4438805eaf6881a16f37020835e1e8888a0b2dc24",
+      "renderedPixelSha256": "9831dbaee51b3f8a562bd3542b6d681b06bf56b35ed519b4d7a8b96a876ccc1a",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-basket/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "5a569ee1f05975acf6a4de393aad72950e3706a5dad82c7a5fbae4ec81b00d10",
+      "renderedPixelSha256": "202e19913b2a18cdd716287b849161412fbf1e5e27c565808234f857d2d6c02e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-bedding/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "97aacb69686edc12286090a8d3fe8bebadd75ed14cfd11ce17623f60a021d990",
+      "renderedPixelSha256": "c81bc805a908bac136dff1b8f0991f33f1192996fcbb6f4b5d5ce1b369d9318a",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-bench/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "740459253c192bfbf8d35bbe899bde2ebbbe4f040ef49b0ae024b6720a180b05",
+      "renderedPixelSha256": "5e98f5a8c183872b81e820d34ba5dbf6777fd4619d5800ad6c5ff0beebcc0909",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-boarding-plank/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "718ac06f808af62032bb61c9d8694379c1e1b2d9402286e040924c8c00150df9",
+      "renderedPixelSha256": "45377080c60a6c901ebb0636f1d7e20d94a83fa99aea18e82494d68381799da0",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-bollard/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "d7d6a08877edd06334b30f2c7ab1946939eeaf3dde470e107ac6a24ebe269f2c",
+      "renderedPixelSha256": "2fdcc1b65ed934f7215f1eb0030cdedc0961b6345789604251a150f259bf2e52",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-bowl/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "e67cf623e8c43e3958ee03602683e816d226716aa0b25da1827d2460289a0124",
+      "renderedPixelSha256": "2f110b9545e728aa70bc8e23fc482e59d4c513df27360fb8881027515c05c209",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-bucket/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "14c170cffe4586f7f6cf0de445a822f8062567dbd63c4789272e5a79a875b8b9",
+      "renderedPixelSha256": "8c66986210b194732e8decf4fcb09a5a6aa8357973d1105aae5103ba003cbe79",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-cargo-net/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "7a6d9c6ef63cafbfa55f11adce1dfa408fc7e2d4892f4fb021ecf8d92bae84f9",
+      "renderedPixelSha256": "18b1a300e86eb6d8f6dd54b0965b8db80349bccb6cc902c4361859c7c1916781",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-chart/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "b10a0e6b5eb697542fd03074d40816ca1786250cba37cfb6db98af3471d1e152",
+      "renderedPixelSha256": "7a9a9d5c27aaf2f00189f541cfb1d867a6bb673a5c5bd90e11af152bbd86e2a3",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-chest/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "b8138d3da4b3083ea231b0276d1129b03b9db8efc390c731c3b0db260be64372",
+      "renderedPixelSha256": "abfef7f2ecf45e23bcd52bef82eeda1a080f2dac989f2cc72ea14803cc987f1b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-cloth-bale/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "3510c1213fb7ec9df484f03109738da094b13b445d6e8274fa8bdab628b30bec",
+      "renderedPixelSha256": "f8e97e4ae04d7a9487dcd95443b216d66aafa334a9142f9db3a823f1c6e650e5",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-command-flag/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "38dbd02a9db6f8363c1a6965070bb03181a9c16de9ae5c56eb92eb2b9158b862",
+      "renderedPixelSha256": "adcb9e6b46a59964cbb9a9f96e43d14512a7303e660b9ee7de220f1f992c6ef5",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-compass/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c1e6b70a953fe6e5b2a383d258ca1f33e9a507459c7c280a44b6b0a9178f2ed2",
+      "renderedPixelSha256": "2adcf0e64e29f8fade1da85ebc5a2bdc520f0dbfbcaeadf305a11bdaa612d945",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-contract-document/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "51d0467c3f9bd40ce815aa0a53bb74ff4b7b2c5215f86667b64b1874774dc975",
+      "renderedPixelSha256": "dcd62750efda53d84333eff2f393d4f402fa31ee13527c917c495763c0a5a36d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-crate/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "431010a553ae1757b4fea9201747c5c6de3bd47c580c2ae21b2e52548c962cac",
+      "renderedPixelSha256": "efeb4825c20be3674e2a42136ae10e2141ae505591f3e30c4ef9f4193f0322fa",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-drying-rack/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "3415975e9bd6d44e1a7c5400aacff7266c7caf6825876021b056df6875b59aa4",
+      "renderedPixelSha256": "b095fbbaf756cdeddd2833f8e669cab326115711dbd5bfcd2dc3ebdd4fe8a12d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-gong/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "1da6755a10b4dddec68510be18a88109685bf179c32ab506faa409a7c12c47a8",
+      "renderedPixelSha256": "b26c70277070b16c3519c5b795820d3a847368066126078e7895e4362e37cb0e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-grain-sack/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c665243e793d80d0d904aa5759bfcbf9ae15346bf0e170aecb361191df800b38",
+      "renderedPixelSha256": "15036a9d9ba95fdf14f63f12c68fcc07363599f4dec3e993579360278e8297bf",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-grapnel/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "1d6eb5cf7baaaa0f6b8071568e09c023b57cd7dc1d303655c0cd4b166de5a5cb",
+      "renderedPixelSha256": "ebf99724d787401236f6e955e393be92104bb5c6b2ed8410af22764c2a10b13f",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-iron-stock/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "9a6953e241d8c2d71a5268ee0feed4ea15a1b35ec80cadda5241be0ca87be68a",
+      "renderedPixelSha256": "be9226f48a0333e7a99d98f692ff6874b785b3089e565b08b79ea8cf0a3aea62",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-lantern/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "dbf21308612a9e96cf064d0876a26fa8b8dd789281cf43fbe4b64e6bbe5e7642",
+      "renderedPixelSha256": "f81ff4091c35c5567c257e6b3a4014e196fb02f5afe1b02fb5b5236f427acb6d",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-letter/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "5ed770947c674850ab3a8ba4371f40b4f2cc926ed40f0d33f814f08e309e210e",
+      "renderedPixelSha256": "87425d8aac6ee919cff8386c08085d76933cd4b751bf56d0c4f7dfbaa8171873",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-matchcord/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "96d15be779dc9d238dfd00b289e4d250dc818ee8a692b0caaed7369b73f22919",
+      "renderedPixelSha256": "32323a2b9cde40c6502a4d2c97b49a29b1ef73842315071bd609b6d53e66c4db",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-medicine/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "7676994d23beeca907b43ba5960150600ffba2b4fc8edddec8f509c9c532eceb",
+      "renderedPixelSha256": "7432741e810a25a46a6b54ae799e924a76149406d3358895a8f5d4e33e3339f1",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-money-pouch/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "7d2351a313e897cc3ab9d33e37bc0f1b218bab4b9456973bdc59123b30e43b77",
+      "renderedPixelSha256": "141a95e9c425b8480fc0f937845c813aeb774c1aeb098a772e3d5992a86a5e6b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-money-set/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "db29daf2f81c05453c1406677e1f082a067e94c322d29938cadee30698768199",
+      "renderedPixelSha256": "b3043f830192c84c8b7ff4988a0c9bff11e1835aa31809b913d04f82d1302c44",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-oar/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "b3b62ab46f84a344c362b34c933238efcbcc6bec9c5c604e07e3d74d4e952457",
+      "renderedPixelSha256": "5648650fc73e43fcf724d8fac3087c4f88df4c2c431849a642475abe9dc38a12",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-official-document/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "e80807fc2819a9f0f8f9723414beb162cf39ed8c8fc2d55420eafcc7a21c2d1c",
+      "renderedPixelSha256": "4eac00d9b6991823541e277db62ef069dc81e38c93ea4597cd0ff7c1ca53f04e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-paper-lantern/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "14e7aef2bb49e43dd423e61e997d513bc941bb81fd7bfd55db2c3fa62911446c",
+      "renderedPixelSha256": "6b900dae78f9db5e1cba2a2608d3bce93728e597ea17377cfb6cbfb59e68e50e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-polehook/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "c7aa06fb3b5faa915c560a927952d1765bc187345c0b58000d95123187dfbe3e",
+      "renderedPixelSha256": "1ef4fae2ec17165e723fe468e066bdbb651643c56e4756237eebbb5d77d17e10",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-porcelain-jar/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "90c5cb0813a0a04347f28488281019ad8bbac22c208be2cd921001001c132c5c",
+      "renderedPixelSha256": "f5ce5ddc169987ea57327f2e9e5422454e64d93de6900478ef5a01f65690384c",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-pot/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "fe7ba04f0f9bd3bd5b0bf606ec165d99d66aee556c5fd69c5ac896449e1c16fe",
+      "renderedPixelSha256": "167091571cb52b7d868b92ee46329245553b08996db39b8adffdcb9dc47bb02c",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-punt-pole/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "b7700e50cfb49dedf3609b040ee2be5e82b1f92a02ab0baa8f51e5f33a5d70e4",
+      "renderedPixelSha256": "74e8691be7a03d43b94f5f2342478176798e6c1856a2ff41af39dd7a03acda38",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-receipt/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "a42316189928c2afab3f46825f989d0f2591820e0f86aa9fd74be34888b829ad",
+      "renderedPixelSha256": "379ed03419975dc56bfc9aaf66f9990f7650b7482f0bc74ffcc0a738f6e5de45",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-red-thread-pouch/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "d5396dd1b95956570c2c1a999323cc4f43a731a35140e0405d901e42e040e352",
+      "renderedPixelSha256": "390ca414b0a247954989585dd618e2c3cdad86626d5d5c1f580f87b6440dde0b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-rope-coil/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "708b36ae1f01bea0fdff828bc492724ea52f0baa19404750f6bed2198b4c7f4c",
+      "renderedPixelSha256": "1e3b6d36dce36738822fb601622cbe77d5e9a475e07d2155fd93676d260df3e4",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-scissors/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "e20500cb9423809cbe3107f0555130a663aaae14f230e27355bb93cd5360c914",
+      "renderedPixelSha256": "4081c2b32055b93ea4582640d445cf3b85985c43e56931151b7d94837260af71",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-shipwright-axe/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "6f9081ccb99eb5bc541ed8993d6e35783a3b12aaaa7b3aecff2d699ce93bbe25",
+      "renderedPixelSha256": "6d27c83af693cf271422c64ea394599243afa3bc97e9bac38226be1c52ff75a0",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-spices/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "07a8529859fbf9c6f9c70e7b80d46757074cabc1ef9cfb55239d321139a2a0f0",
+      "renderedPixelSha256": "56b83506b615dc9ba28b6175f6b442a9b1fb1baa26ebfa7e79cd16871b67ea36",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-table/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "f30da43e2d2f0ebdee3db1e2d5592524003c18821d8569f32e4c244d7c015de8",
+      "renderedPixelSha256": "ff0a12c511a4a2b96afa4cb009b667547e34f3af3d3ed4a79eaff93a2ac9741e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-tally/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "06a0ebda21f7b6c52f761ef6376b182a9f8efe94e768f1d549f7c942c03a2a74",
+      "renderedPixelSha256": "91248b1a2b2cfebb7eb11be86f815563362f250d3dea184530d5eba5d4361518",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-timber-stock/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "a416502b0df2ca935b693210bca176aa791a6073189b1158294733917b32cc5f",
+      "renderedPixelSha256": "ff4d1a26b5aeadd713416f4639e0be8ebd57ce4dc6a82b5da8504595966665bc",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-toolbelt/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "bf1a8a4249c62f588d139782cfd36b5309ac120e5a257429040d0e3d700b08f1",
+      "renderedPixelSha256": "ac2cecf20033bf82ce642b3ab4fce782373e8dbe0a39578c909e8d3be2acf40b",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-toolbox/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "e93d687bb9745f94c7576f68758874760557e46300a688d8edb0271ba47cdf58",
+      "renderedPixelSha256": "afa2897244a960e358183f9c8455b8a130b2ba3ca0f86bfb6da1aa18e6d4cb80",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-torch/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "4b91befe6c714254400a8adde1d75d2f4914a44673d985f1200c57f3ca1aa34a",
+      "renderedPixelSha256": "00c424bdbc7884ba1f80fccb9c8d8b6a059ef0246793d25d7cc810ec092fcb1e",
+      "rendered": true
+    },
+    {
+      "path": "assets/production/props/prop-wreck-timber/sketch/structure-v1.svg",
+      "width": 1200,
+      "height": 800,
+      "sourceSha256": "aab1e646453087a344b46e371754d8bc071f964cb25269d0feac73b14fb51895",
+      "renderedPixelSha256": "096d6b8075ee67db90b45f74b0d4b556265215059b6a00d4fc43458366be4650",
+      "rendered": true
+    }
+  ],
+  "unreferencedLibraryImages": [],
+  "limitations": [
+    "All referenced scene/UI IDs are validated; UI pages without physical-asset mappings are reported separately.",
+    "Raster decode checks every PNG/JPG file in the production tree, including any unreferenced files. SVGs are parsed and rendered individually.",
+    "No production asset was changed by negative controls; failures are injected only into in-memory catalogs, XML strings and raster byte buffers.",
+    "A passing report certifies the above checks for its recorded hashes, not 3D models, exact historical reconstruction, rights clearance, browser rendering or full visual review."
+  ]
+}

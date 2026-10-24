@@ -1,0 +1,102 @@
+{
+  "id": "ship-european-merchant",
+  "name": "早期近世欧式商船",
+  "category": "ship",
+  "phase": "P1",
+  "assetKind": "ship-hull-family",
+  "modelRequired": true,
+  "description": "按故事时代审查船型，不把旧voc标签当精确史实型谱；船主国籍不强制新增船壳。",
+  "visualBrief": "船体水线、船首与船尾轮廓、帆装、舵桨和炮位须分别交代；本轮图像是形制参考，正式模型需三视图、比例和挂点复验。",
+  "storyRefs": [
+    "zheng_a2_s8",
+    "zheng_a3_s9"
+  ],
+  "uiPages": [
+    "ship-overview",
+    "shipyard",
+    "sea-encounter",
+    "battle-hud"
+  ],
+  "variants": [
+    "马努埃尔商船",
+    "巡查拖带配置"
+  ],
+  "modelStrategy": "沿用原船型基模预算；LOD不重复算船型。按故事时代审查船型，不把旧voc标签当精确史实型谱；船主国籍不强制新增船壳。",
+  "historicalStatus": "art-candidate-needs-review；原型美术与旧模型均不构成精确时代形制认证。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/merchant-barque.png",
+      "role": "dedicated-original",
+      "note": "已有原创船型检视概念，非生产GLB。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/ships/voc-lod0.glb",
+    "assets/models/ships/voc-lod1.glb",
+    "assets/models/ships/voc-lod2.glb",
+    "assets/models/fidelity_naval/ship_merman.glb"
+  ],
+  "legacyModelIds": [
+    "ship-european-merchant"
+  ],
+  "categoryName": "船型",
+  "assetDirectory": "assets/production/ships/ship-european-merchant",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/ships/ship-european-merchant/reference/merchant-barque-8b19a91d.png",
+      "role": "dedicated-original",
+      "note": "已有原创船型检视概念，非生产GLB。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/merchant-barque.png",
+      "sha256": "8b19a91db3139be94e141dc99b6c234b1f37c752d57b5758dc722750b6ffe84f",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/ships/ship-european-merchant/reference/merchant-barque-8b19a91d.png",
+    "role": "dedicated-original",
+    "note": "已有原创船型检视概念，非生产GLB。",
+    "sourcePath": "docs/design/game-ui/prototype/assets/merchant-barque.png",
+    "sha256": "8b19a91db3139be94e141dc99b6c234b1f37c752d57b5758dc722750b6ffe84f",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 1,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s8",
+      "legacyTitle": "第二门炮",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s9",
+      "legacyTitle": "白旗下面",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "ship-overview",
+      "title": "舰船总览"
+    },
+    {
+      "id": "shipyard",
+      "title": "船坞与船型"
+    },
+    {
+      "id": "sea-encounter",
+      "title": "海上来船"
+    },
+    {
+      "id": "battle-hud",
+      "title": "海战态势"
+    }
+  ]
+}

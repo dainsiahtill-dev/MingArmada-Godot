@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import {verifyReboot} from '../../../tools/verify-zheng-reboot.mjs';
+import {editorialOutputDirectory} from '../../../tools/render-zheng-reboot-exports.mjs';
+const dir=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(dir,'../../..');
+const sourcePath=path.resolve(dir,'../zheng-zhilong-story.json'),source=fs.readFileSync(sourcePath),story=JSON.parse(source);
+if(story.version!=='historical-reboot-polish-2026-10-24'||path.resolve(root,editorialOutputDirectory(story))!==dir)throw new Error('Current source is not this polish edition');
+const local=verifyReboot({writeReport:false});
+if(!local.valid)throw new Error('Build and exports are not current: '+local.failures.map(f=>f.name).join(', '));
+const base='http://8.138.113.205:18794/docs/narrative/zheng-zhilong/';
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const files=['index.html','app.js','styles.css','story-data.js','zheng-zhilong-story.json','novel.md','screenplay.md','game-scenes.md'];
+const results=await Promise.all(files.map(async file=>{try{const response=await fetch(base+file+'?edition=11&verify='+Date.now(),{signal:AbortSignal.timeout(30000),cache:'no-store'});const bytes=Buffer.from(await response.arrayBuffer()),local=fs.readFileSync(path.join(root,'docs/narrative/zheng-zhilong',file));return {file,status:response.status,bytes:bytes.length,sha256:hash(bytes),sameAsLocal:bytes.equals(local),passed:response.ok&&bytes.equals(local)};}catch(error){return {file,passed:false,error:error.message};}}));
+const sourceUnchanged=source.equals(fs.readFileSync(sourcePath));
+const report={checkedAt:new Date().toISOString(),sourceSha256:hash(source),version:story.version,localSourceAndExportsVerified:local.valid,sourceUnchanged,url:base+'?edition=11#top',passed:sourceUnchanged&&results.every(x=>x.passed),files:results,scope:'Current-source local artifacts and public HTTP bytes; not visual browser evidence.'};
+fs.writeFileSync(path.join(dir,'public-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));process.exitCode=report.passed?0:1;

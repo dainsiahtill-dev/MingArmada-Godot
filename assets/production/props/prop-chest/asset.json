@@ -1,0 +1,130 @@
+{
+  "id": "prop-chest",
+  "name": "衣物行李箱",
+  "category": "prop",
+  "phase": "P0",
+  "description": "两人成家、母亲送子与1646取回箱子的关键容器。",
+  "visualBrief": "朴素木箱或漆木衣箱、平盖、侧把手和扣件，体量允许两人搬抬；箱盖铰点、抓位与落地边清楚。",
+  "storyRefs": [
+    "zheng_a2_s2",
+    "zheng_a5_s1",
+    "zheng_a6_s3"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "dialogue",
+    "inventory",
+    "item-detail"
+  ],
+  "variants": [
+    "旧木／朴素漆面",
+    "开盖／合盖",
+    "衣物装载配置"
+  ],
+  "modelStrategy": "独立行李箱，chest-open节点动作；与无铰盖货箱区分，不把母亲箱子当可售战利品。",
+  "historicalStatus": "needs-concept；剧情明确，不能把场景插画当箱具结构图。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "prop-chest"
+  ],
+  "categoryName": "道具与货物",
+  "assetDirectory": "assets/production/props/prop-chest",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/props/prop-chest/reference/zheng_a6_s3-02ac3844.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/props/prop-chest/reference/zheng_a5_s1-19aef039.png",
+      "role": "story-context",
+      "note": "既有原创剧情场景图；仅供所属场景、色调与道具关系参照，未据此认证物件结构或史实。仍需独立结构概念。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s1.png",
+      "sha256": "19aef03983ec2a33c94f2a28515d87ae17c2633db22476078e516b4e6d7109b8",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "prop-chest",
+      "path": "assets/production/props/prop-chest/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+      "sha256": "b8138d3da4b3083ea231b0276d1129b03b9db8efc390c731c3b0db260be64372",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "id": "prop-chest",
+    "path": "assets/production/props/prop-chest/sketch/structure-v1.svg",
+    "role": "technical-sketch",
+    "note": "可编辑外观说明草图；形制待证，不是写实概念图、史实复原或正式3D验收；仅整体轮廓、材质分区、挂点与节点关系。火炮火器无内部机构、尺寸、装药、制造或操作步骤。",
+    "sha256": "b8138d3da4b3083ea231b0276d1129b03b9db8efc390c731c3b0db260be64372",
+    "rights": "project-authored-editable-diagram"
+  },
+  "evidenceStatus": "technical-sketch",
+  "conceptStatus": "editable-sketch",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s2",
+      "title": "岸上的人",
+      "legacyId": "zheng_a2_s2",
+      "legacyTitle": "两个人的屋檐",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s1",
+      "legacyTitle": "母亲交代的行李",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "inventory",
+      "title": "随身行囊"
+    },
+    {
+      "id": "item-detail",
+      "title": "物件与来处"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "id": "building-fujian-residence",
+  "name": "福建郑氏居所",
+  "category": "building",
+  "phase": "P1",
+  "description": "1630认亲、蒙学、1645团聚及1646分途共用的家宅装配；不以现代故居取代历史建筑。",
+  "visualBrief": "1630—1646福建沿海；建议有限两三间家居围合及面海出入口，灰泥墙、木梁门窗、旧瓦、石门槛，体面但不宫殿化；家人屋室与读书区以陈设分区，完整平面属于创作。",
+  "storyRefs": [
+    "zheng_a5_s2",
+    "zheng_a6_s2",
+    "zheng_a6_s3"
+  ],
+  "uiPages": [
+    "home",
+    "family",
+    "child-growth",
+    "dialogue",
+    "relationships",
+    "ending"
+  ],
+  "variants": [
+    "1630认亲与蒙学",
+    "1645团聚",
+    "1646箱子取回屋内"
+  ],
+  "modelStrategy": "命名建筑prefab，复用住宅模块与共享室内表面，独立基模增量0；家书、桌凳、书读物与箱子在道具分册，建筑不重复内含。",
+  "historicalStatus": "创作概念；地点与年代沿当前剧本，未取得当时原始建筑平面、立面与构造档案，不是精确历史复原。所有建议尺寸是制作尺度。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "role": "story-context",
+      "note": "认父与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s2.png",
+      "role": "story-context",
+      "note": "团聚家居情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "role": "story-context",
+      "note": "已目视灰墙、木门框与出入口；为整幅剧情情境图，不能当本物件独立原画或结构验收。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [],
+  "assetKind": "prefab-assembly",
+  "modelRequired": false,
+  "conceptStatus": "concept-candidate",
+  "proceduralSources": [],
+  "dependencies": [
+    "building-plaster-wall",
+    "building-residence-roof",
+    "building-door",
+    "building-window"
+  ],
+  "categoryName": "建筑与构件",
+  "assetDirectory": "assets/production/buildings/building-fujian-residence",
+  "images": [
+    {
+      "path": "assets/production/buildings/building-fujian-residence/concept/original-v1.png",
+      "role": "dedicated-concept",
+      "note": "已检查建筑主体、分视图与结构可读性；创作性空间候选，视图间比例、局部植物与模块拆分须建模前复核，非历史实址测绘。",
+      "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-394cf208-d252-414e-9ee8-6fb0199ddc60.png",
+      "promptId": "building-fujian-residence",
+      "sha256": "cedea99ca2f867aad32cad18f7c3ce2ad58391acba06ce9085c1579917626a95",
+      "rights": "generated-project-concept"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a5_s2-a2d9d545.png",
+      "role": "story-context",
+      "note": "认父与居所情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a5_s2.png",
+      "sha256": "a2d9d54583f3c7842ac23892b8d057840841bf027fa33b0e61357224b60125a1",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a6_s2-6c2dcacf.png",
+      "role": "story-context",
+      "note": "团聚家居情境；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s2.png",
+      "sha256": "6c2dcacfeea6ee3f364acc8f7bb3353333d8811b0eb2b8328cb351d4483f7294",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/buildings/building-fujian-residence/reference/zheng_a6_s3-02ac3844.png",
+      "role": "story-context",
+      "note": "已目视灰墙、木门框与出入口；为整幅剧情情境图，不能当本物件独立原画或结构验收。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a6_s3.png",
+      "sha256": "02ac3844c5c563a089d04891c701586fcb73ae689ef564572474078ace863620",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "id": "building-fujian-residence",
+      "path": "assets/production/buildings/building-fujian-residence/sketch/structure-v1.svg",
+      "role": "technical-sketch",
+      "note": "可编辑概念结构/空间关系草图；非实测比例、非历史实址、非精确复原，不替代写实原画、模型或史料。",
+      "geometrySha256": "c2b8414808ddaf13d1ec03f28e99d63c8e6845a759cfd4fab8e83c24bb9f8922",
+      "sha256": "864eb0177ac0bef6e67cf954590d984c5c18af45542f6d98569e1c59bc110224",
+      "rights": "project-authored-editable-diagram"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/buildings/building-fujian-residence/concept/original-v1.png",
+    "role": "dedicated-concept",
+    "note": "已检查建筑主体、分视图与结构可读性；创作性空间候选，视图间比例、局部植物与模块拆分须建模前复核，非历史实址测绘。",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-394cf208-d252-414e-9ee8-6fb0199ddc60.png",
+    "promptId": "building-fujian-residence",
+    "sha256": "cedea99ca2f867aad32cad18f7c3ce2ad58391acba06ce9085c1579917626a95",
+    "rights": "generated-project-concept"
+  },
+  "evidenceStatus": "dedicated-concept",
+  "imageCount": 5,
+  "storyLinks": [
+    {
+      "id": "zzl_a3_s4",
+      "title": "来家的孩子",
+      "legacyId": "zheng_a5_s2",
+      "legacyTitle": "认识父亲",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s1",
+      "title": "两种迎接",
+      "legacyId": "zheng_a6_s2",
+      "legacyTitle": "福松，成功",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "home",
+      "title": "两岸家园"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    },
+    {
+      "id": "child-growth",
+      "title": "福松、森与成功"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    },
+    {
+      "id": "ending",
+      "title": "未回的船 · 终章"
+    }
+  ]
+}

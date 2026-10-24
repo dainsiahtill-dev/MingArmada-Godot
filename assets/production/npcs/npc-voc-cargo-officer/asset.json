@@ -1,0 +1,103 @@
+{
+  "id": "npc-voc-cargo-officer",
+  "name": "VOC管货职员",
+  "category": "npc-archetype",
+  "phase": "P1",
+  "description": "大员扣款、发验货命令的合成职员；不等于普特曼斯。",
+  "visualBrief": "中年公司雇员方案，瘦长脸、深色简短外套、白麻领，账夹与货损单；姿态点账、催搬，不以大剑/舰长帽自动拔高职务。",
+  "storyRefs": [
+    "zheng_a2_s6"
+  ],
+  "uiPages": [
+    "dialogue",
+    "factions",
+    "trade-order"
+  ],
+  "variants": [
+    "大员交涉",
+    "武装验货"
+  ],
+  "modelStrategy": "职业原型共享身体/头部形变与衣装模块；不同场次的同职业不推定同一人。现存水手3个LOD只作成人男性身体适配来源，尚非该职业验收模型。",
+  "historicalStatus": "匿名职业/场次合成人物；不是新增历史名人，不按国籍推定善恶。",
+  "existingImages": [
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s6.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    },
+    {
+      "path": "assets/art/characters/voc-captain-v1.png",
+      "role": "style-reference",
+      "note": "旧图是通用公司船长风格，职员服制/帽饰须简化复核；不是普特曼斯。"
+    }
+  ],
+  "existingModels": [
+    "assets/models/sailors/sailor-lod0.glb",
+    "assets/models/sailors/sailor-lod1.glb",
+    "assets/models/sailors/sailor-lod2.glb"
+  ],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-european-male",
+    "garment-european-coat"
+  ],
+  "appearance": "on-screen-archetype",
+  "modelRequired": true,
+  "categoryName": "NPC职业原型",
+  "assetDirectory": "assets/production/npcs/npc-voc-cargo-officer",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/npcs/npc-voc-cargo-officer/reference/zheng_a2_s6-4d7835db.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s6.png",
+      "sha256": "4d7835db0fec074246d1f703254594ee416ed27f10d5571a87cf62ddefbb1ba7",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/npcs/npc-voc-cargo-officer/reference/voc-captain-v1-0f3e0162.png",
+      "role": "style-reference",
+      "note": "旧图是通用公司船长风格，职员服制/帽饰须简化复核；不是普特曼斯。",
+      "sourcePath": "assets/art/characters/voc-captain-v1.png",
+      "sha256": "0f3e0162a55843b015d9fc50fef6890f128cd24097fccace353e6e11cece45d1",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/npcs/npc-voc-cargo-officer/reference/zheng_a2_s6-4d7835db.png",
+    "role": "scene-context",
+    "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+    "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a2_s6.png",
+    "sha256": "4d7835db0fec074246d1f703254594ee416ed27f10d5571a87cf62ddefbb1ba7",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "context-reference",
+  "conceptStatus": "context-only-needs-independent-concept",
+  "imageCount": 2,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s6",
+      "legacyTitle": "替谁说停船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "factions",
+      "title": "海上诸势力"
+    },
+    {
+      "id": "trade-order",
+      "title": "成交清单"
+    }
+  ]
+}

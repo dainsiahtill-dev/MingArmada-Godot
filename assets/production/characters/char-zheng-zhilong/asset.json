@@ -1,0 +1,184 @@
+{
+  "id": "char-zheng-zhilong",
+  "name": "郑芝龙",
+  "category": "named-character",
+  "phase": "P0",
+  "description": "主角，从澳门伙计、通译到海上首领和受抚官身；全剧为同一人。",
+  "visualBrief": "青年至中年，东南沿海青年长脸、黑发束髻、晒痕；初期靛青粗布短衣、赭黄腰带，后期深青长袍与细胡。动作从抢话、抬货、绷索到停手发令；官袍不得覆盖全部早期造型。年龄仅作美术阶段，不锁争议生年。",
+  "storyRefs": [
+    "zheng_a1_s1",
+    "zheng_a2_s3",
+    "zheng_a3_s2",
+    "zheng_a4_s4",
+    "zheng_a5_s4",
+    "zheng_a6_s3",
+    "zheng_a6_s5"
+  ],
+  "uiPages": [
+    "character-profile",
+    "character-growth",
+    "equipment",
+    "dialogue",
+    "relationships",
+    "family"
+  ],
+  "variants": [
+    "青年短衣",
+    "海上首领",
+    "受抚官袍",
+    "中年鬓发",
+    "湿衣/负伤表情"
+  ],
+  "modelStrategy": "成年共享身体+独立头部；衣装/胡须/年龄材质变体不增人物。旧sailor身体仅适配起点，现无此角色专属GLB。",
+  "historicalStatus": "历史人物；具体私人对白、动作与面容为创作，不称真实肖像。",
+  "existingImages": [
+    {
+      "path": "docs/design/game-ui/prototype/assets/zheng-portrait.png",
+      "role": "portrait",
+      "note": "当前一官专用新立绘；创作形象。"
+    },
+    {
+      "path": "assets/art/characters/zheng-captain-v1.png",
+      "role": "style-reference",
+      "note": "旧版甲胄立绘，仅供版本对照；不覆盖新一官脸与早期短衣。"
+    },
+    {
+      "path": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。"
+    }
+  ],
+  "existingModels": [],
+  "legacyModelIds": [
+    "body-adult-male",
+    "head-zheng",
+    "garment-work-tunic",
+    "garment-officer-robe",
+    "garment-padded-armor"
+  ],
+  "aliases": [
+    "一官",
+    "芝龙"
+  ],
+  "appearance": "on-screen",
+  "modelRequired": true,
+  "categoryName": "剧情人物",
+  "assetDirectory": "assets/production/characters/char-zheng-zhilong",
+  "dependencies": [],
+  "images": [
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-portrait-6f1065ac.png",
+      "role": "portrait",
+      "note": "当前一官专用新立绘；创作形象。",
+      "sourcePath": "docs/design/game-ui/prototype/assets/zheng-portrait.png",
+      "sha256": "6f1065ac7c29a2a3db0e9319726e5ea4b2cbd1df9550872eb7188117f62937d7",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-captain-v1-8d1a690d.png",
+      "role": "style-reference",
+      "note": "旧版甲胄立绘，仅供版本对照；不覆盖新一官脸与早期短衣。",
+      "sourcePath": "assets/art/characters/zheng-captain-v1.png",
+      "sha256": "8d1a690d284ce82779756b387c8e4c8572284d5adf017022b3ae584e68b4a3da",
+      "rights": "project-art-or-context-review-required"
+    },
+    {
+      "path": "assets/production/characters/char-zheng-zhilong/reference/zheng_a1_s2-7ffaa0eb.png",
+      "role": "scene-context",
+      "note": "当前43场剧本的剧情图，只作环境、姿态与服装上下文；不是该人物独立肖像。",
+      "sourcePath": "docs/narrative/zheng-zhilong/images/film-v4/zheng_a1_s2.png",
+      "sha256": "7ffaa0eb97a48afa78cc0b3539dc4a359346fe9699ecdad35e1c6bc1119723bf",
+      "rights": "project-art-or-context-review-required"
+    }
+  ],
+  "primaryImage": {
+    "path": "assets/production/characters/char-zheng-zhilong/reference/zheng-portrait-6f1065ac.png",
+    "role": "portrait",
+    "note": "当前一官专用新立绘；创作形象。",
+    "sourcePath": "docs/design/game-ui/prototype/assets/zheng-portrait.png",
+    "sha256": "6f1065ac7c29a2a3db0e9319726e5ea4b2cbd1df9550872eb7188117f62937d7",
+    "rights": "project-art-or-context-review-required"
+  },
+  "evidenceStatus": "dedicated-original",
+  "conceptStatus": "existing-original-review",
+  "imageCount": 3,
+  "storyLinks": [
+    {
+      "id": "zzl_a1_s1",
+      "title": "唐船来处",
+      "legacyId": "zheng_a1_s1",
+      "legacyTitle": "一句话值多少",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s3",
+      "title": "大员的舌头",
+      "legacyId": "zheng_a2_s3",
+      "legacyTitle": "只替人翻话",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a1_s4",
+      "title": "空出来的位置",
+      "legacyId": "zheng_a3_s2",
+      "legacyTitle": "一面旗，两个人的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a3_s1",
+      "title": "有条件的官身",
+      "legacyId": "zheng_a4_s4",
+      "legacyTitle": "新旗，旧名字",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a4_s4",
+      "title": "料罗湾",
+      "legacyId": "zheng_a5_s4",
+      "legacyTitle": "风转之后",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s2",
+      "title": "粮走不到的地方",
+      "legacyId": "zheng_a6_s3",
+      "legacyTitle": "箱子放下来",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    },
+    {
+      "id": "zzl_a6_s3",
+      "title": "船没有跟着他走",
+      "legacyId": "zheng_a6_s5",
+      "legacyTitle": "未回的船",
+      "relationship": "rewrite-successor-not-confirmed-appearance"
+    }
+  ],
+  "narrativeScope": "资源需求保留自旧版六幕43场。链接只指向当前6部22章的相近历史阶段，不证明该物件或人物仍在新主线演出；逐项制作范围须另行复审。",
+  "narrativeStatus": "legacy-requirement-needs-mainline-audit",
+  "uiLinks": [
+    {
+      "id": "character-profile",
+      "title": "一官 · 人物经历"
+    },
+    {
+      "id": "character-growth",
+      "title": "本领与阅历"
+    },
+    {
+      "id": "equipment",
+      "title": "装备与工具"
+    },
+    {
+      "id": "dialogue",
+      "title": "人物对话"
+    },
+    {
+      "id": "relationships",
+      "title": "人情与旧约"
+    },
+    {
+      "id": "family",
+      "title": "家人与彼此的路"
+    }
+  ]
+}
