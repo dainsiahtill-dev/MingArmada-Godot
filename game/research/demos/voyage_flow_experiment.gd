@@ -1,4 +1,5 @@
 extends Node3D
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 ## Declared display fixtures, never gameplay completion or a writable campaign.
 const Campaign = preload("res://game/domain/mingqi/campaign.gd")
 const Story = preload("res://game/domain/mingqi/opening_story.gd")
@@ -13,6 +14,8 @@ var _accumulator := 0.0
 var _configured := false
 var _disposed := false
 var _label: Label
+var _paper: PanelContainer
+var _layout_viewport: Viewport
 
 func _ready() -> void:
 	set_process(false)
@@ -88,17 +91,30 @@ func _fixture(preset: String) -> Dictionary:
 	return state
 
 func _build() -> void:
+	var paper := PanelContainer.new()
+	_paper = paper
+	paper.name = "VoyageFlowPaper"
+	paper.theme = Parchment.create()
+	paper.position = Vector2(24,24)
+	paper.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	paper.add_theme_stylebox_override("panel",Parchment.panel(20))
+	add_child(paper)
 	_label = Label.new()
 	_label.name = "VoyageFlowFixture"
-	_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_label.offset_left = 24
-	_label.offset_top = 24
-	_label.offset_right = -24
-	_label.offset_bottom = -24
+	_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_label.add_theme_font_size_override("font_size", 22)
-	add_child(_label)
+	paper.add_child(_label)
+	_layout_viewport = get_viewport()
+	_layout_viewport.size_changed.connect(_layout)
+	_label.minimum_size_changed.connect(func(): _layout.call_deferred())
 	_refresh()
+	_layout()
+
+func _layout() -> void:
+	if not is_instance_valid(_paper) or not is_instance_valid(_layout_viewport): return
+	_paper.size = Vector2(maxf(0,minf(720,_layout_viewport.get_visible_rect().size.x-48)),_paper.get_combined_minimum_size().y)
 
 func _refresh() -> void:
 	if not is_instance_valid(_label): return
@@ -117,9 +133,13 @@ func inspection_snapshot() -> Dictionary:
 
 func dispose() -> void:
 	_disposed = true
-	if is_instance_valid(_label):
-		remove_child(_label)
-		_label.free()
+	if is_instance_valid(_layout_viewport) and _layout_viewport.size_changed.is_connected(_layout):
+		_layout_viewport.size_changed.disconnect(_layout)
+	_layout_viewport = null
+	if is_instance_valid(_paper):
+		remove_child(_paper)
+		_paper.free()
+	_paper = null
 	_label = null
 	_state.clear()
 	_accumulator = 0

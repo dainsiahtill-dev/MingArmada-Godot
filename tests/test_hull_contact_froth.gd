@@ -1,4 +1,6 @@
 extends SceneTree
+# Recorded original-hull fixtures; authored flagship has a separate water test.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 ## Actual ship hull sections drive bounded contact ribbons and world droplets.
 const Ship=preload("res://game/presentation/ships/ship_view.gd")
 const Packet=preload("res://game/presentation/world/source_water_packet.gd")
@@ -113,7 +115,7 @@ func _shape(effect:RefCounted,owner:Node3D,packet:Dictionary,require_rings:bool=
 
 func _case(module:Script,kind:String)->void:
 	var actor:=Ship.new();root.add_child(actor)
-	if not check(actor.configure(kind),"actual ship configures "+kind):actor.free();return
+	if not check(actor.configure(kind,null,Reference.new()),"actual ship configures "+kind):actor.free();return
 	var packet:=_packet(actor,kind,6.0*.514444)
 	var owner:=Node3D.new();root.add_child(owner)
 	var effect:RefCounted=module.new()
@@ -173,7 +175,7 @@ func _case(module:Script,kind:String)->void:
 	owner.free();actor.dispose();actor.free()
 
 func _fallback(module:Script)->void:
-	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan"),"legacy profile compatibility uses real fuchuan")
+	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan",null,Reference.new()),"legacy profile compatibility uses real fuchuan")
 	var packet:=_packet(actor,"fuchuan",6.0*.514444);packet.surfaceProfile.erase("verticalSections")
 	var owner:=Node3D.new();root.add_child(owner)
 	var effect:RefCounted=module.new();check(effect.configure(owner,int(packet.family),7).ok,"legacy optional-ring fallback configures")
@@ -183,7 +185,7 @@ func _fallback(module:Script)->void:
 	effect.dispose();owner.free();actor.dispose();actor.free()
 
 func _ghost(module:Script)->void:
-	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan"),"out-of-water fixture uses actual fuchuan hull")
+	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan",null,Reference.new()),"out-of-water fixture uses actual fuchuan hull")
 	var state:=_state("fuchuan",6.0*.514444);state.visual.position={"x":0.0,"y":2.0,"z":0.0};state.visual.heading=0.0;state.visual.heel=.16;state.visual.velocity={"x":6.0*.514444,"z":0.0}
 	actor.apply_snapshot(state,{},0.0)
 	var source:Dictionary=Packet.compose({"time":0.0,"environment":{"route":"sailing","acceptedTime":0.0,"sourceCallIndex":0},"ships":[state]},{"contact":actor},null).ships[0].sourceWake
@@ -209,7 +211,7 @@ func _ghost(module:Script)->void:
 	effect.dispose();owner.free();actor.dispose();actor.free()
 
 func _velocity_contract(module:Script)->void:
-	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan"),"velocity contract uses actual fuchuan")
+	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan",null,Reference.new()),"velocity contract uses actual fuchuan")
 	var packet:=_packet(actor,"fuchuan",6.0*.514444)
 	var speed:=6.0*.514444;var forward:=Vector3(cos(.3),0.0,sin(.3))
 	var owner:=Node3D.new();root.add_child(owner)
@@ -240,7 +242,7 @@ func _velocity_contract(module:Script)->void:
 	effect.dispose();replay.dispose();owner.free();actor.dispose();actor.free()
 
 func _heave(module:Script)->void:
-	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan"),"heave uses real fuchuan")
+	var actor:=Ship.new();root.add_child(actor);check(actor.configure("fuchuan",null,Reference.new()),"heave uses real fuchuan")
 	var state:=_state("fuchuan",6.0*.514444);state.visual.heel=.16;actor.apply_snapshot(state,{},0.0)
 	var source:Dictionary=Packet.compose({"time":0.0,"environment":{"route":"sailing","acceptedTime":0.0,"sourceCallIndex":0},"ships":[state]},{"contact":actor},null).ships[0].sourceWake
 	var packet:Dictionary=source.duplicate(true);packet.merge(source.froth,true);packet.targetSpeed=6.0*.514444

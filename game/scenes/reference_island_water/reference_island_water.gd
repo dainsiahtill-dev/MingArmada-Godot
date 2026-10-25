@@ -1,4 +1,5 @@
 extends Control
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 ## Direct island-water/app.mjs scene contract, independent from the sailing simulation.
 signal main_menu_requested
 const Model = preload("res://modules/scene_engine/reference_island_water/reference_island_model.gd")
@@ -174,15 +175,18 @@ func _exit_tree() -> void: dispose()
 
 func _label(parent: Node, text: String, font_size: int=16) -> Label:
 	var label := Label.new(); label.text = text; label.add_theme_font_size_override("font_size",font_size)
-	label.add_theme_color_override("font_color",Color("b8d9da")); parent.add_child(label); return label
+	label.add_theme_color_override("font_color",Parchment.INK)
+	if font_size>=20:
+		label.add_theme_font_override("font",Parchment.title_font()); label.add_theme_color_override("font_color",Parchment.CINNABAR)
+	parent.add_child(label); return label
 
 func _button(parent: Node, name_: String, text: String, action: Callable) -> Button:
 	var button := Button.new(); button.name = name_; button.text = text; button.custom_minimum_size.y = 42
 	parent.add_child(button); button.pressed.connect(action); return button
 
 func _build_ui() -> void:
-	var background := ColorRect.new(); background.color = Color("0f1b22")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); background.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(background)
+	theme = Parchment.create()
+	Parchment.background(self,"ledger","ReferenceWaterPaper")
 	var margin := MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
 	add_child(margin)
@@ -199,9 +203,7 @@ func _build_ui() -> void:
 	view.msaa_3d = Viewport.MSAA_DISABLED; view.handle_input_locally = false
 	_view_container.add_child(view); _view_container.gui_input.connect(_view_input)
 	var panel := PanelContainer.new(); panel.custom_minimum_size.x = 290; body.add_child(panel)
-	var style := StyleBoxFlat.new(); style.bg_color = Color("142630")
-	style.content_margin_left = 20; style.content_margin_right = 20; style.content_margin_top = 20; style.content_margin_bottom = 20
-	panel.add_theme_stylebox_override("panel",style)
+	panel.add_theme_stylebox_override("panel",Parchment.panel(20))
 	var scroll := ScrollContainer.new(); scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; panel.add_child(scroll)
 	var controls := VBoxContainer.new(); controls.add_theme_constant_override("separation",14); controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL; scroll.add_child(controls)
 	_label(controls,"Cat Island · 效果预览",20)

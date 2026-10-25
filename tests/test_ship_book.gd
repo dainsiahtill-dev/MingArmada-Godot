@@ -2,7 +2,7 @@ extends SceneTree
 var failures := 0
 var assertions := 0
 var _sent_button_mask := 0
-const SOURCE_FAMILIES := {"fuchuan":"barque","fisherman":"sloop1","merchant":"ship_merman","voc":"frigate","patrol":"ship_brigantine","heavy":"treasure_galleon"}
+const SOURCE_FAMILIES := {"fuchuan":"hero_fuchuan","fisherman":"sloop1","merchant":"ship_merman","voc":"frigate","patrol":"ship_brigantine","heavy":"treasure_galleon"}
 class FailingLibrary extends "res://modules/scene_engine/assets/asset_library.gd":
 	var fail := true
 	var attempts:Array[String]=[]
@@ -24,14 +24,15 @@ func _run() -> void:
 	for kind in ["fuchuan","fisherman","merchant","voc","patrol","heavy"]:
 		for lod in 3:
 			check(scene.select_ship(kind,lod).ok,"real ship GLB loads: %s LOD%s"%[kind,lod])
-			check(scene.snapshot().path=="res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind] and scene.snapshot().source_kind==SOURCE_FAMILIES[kind],"selected game kind uses its distinct original reference family")
+			var expected_path:String="res://assets/models/hero_fuchuan_v2/fuchuan-lod%d.glb"%lod if kind=="fuchuan" else "res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind]
+			check(scene.snapshot().path==expected_path and scene.snapshot().source_kind==SOURCE_FAMILIES[kind],"ship book shows the same authored or reference family as gameplay")
 			var sails := 0
 			for mesh in scene.ship_model.find_children("sail_*","MeshInstance3D",true,false):
-				if mesh.get_meta("source_sail_control","") != "game_furl_inflate_morph":
+				if mesh.get_meta("source_sail_control","") not in ["game_furl_inflate_morph","authored_blender_morph"]:
 					check(not mesh.visible and mesh.get_meta("damage_surface","") == "sail","original hidden furled targets do not create duplicate cloth")
 					continue
 				sails+=1
-				check(mesh.mesh.get_blend_shape_count()==2 and mesh.get_meta("source_sail_control","")=="game_furl_inflate_morph","original rigid sail has explicit game furl/inflate controls")
+				check(mesh.mesh.get_blend_shape_count()==2,"actual ship sail retains explicit furl/inflate controls")
 			check(sails>0,"real ship retains authored rigging")
 	scene.select_ship("fuchuan",0)
 	var original: Dictionary = scene.snapshot()

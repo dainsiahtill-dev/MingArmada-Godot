@@ -1,0 +1,147 @@
+{
+  "createdAtUtc": "2026-10-25T16:14:38.381055+00:00",
+  "scope": "Authored flagship delivery. Initial full run and final directed recovery are distinct receipts. Controlled GPU rig video is not native gameplay video.",
+  "initialFullSuite": {
+    "selected": 294,
+    "passed": 270,
+    "failed": 24,
+    "passedAll": false
+  },
+  "recovery": {
+    "uniqueTests": 33,
+    "passed": 33,
+    "failed": []
+  },
+  "artifacts": [
+    {
+      "path": "tools/blender/build_hero_fuchuan.py",
+      "bytes": 22396,
+      "sha256": "384e3db401eaca0fd31baed8f43d87020020a622efc246cafdc92e4d4db158b0"
+    },
+    {
+      "path": "assets/production/hero-fuchuan-blender/hero-fuchuan.blend",
+      "bytes": 757934,
+      "sha256": "91e5755df3c062d3188a63de82e8506c4d6851b0b6e65643a0cf42974822eb1d"
+    },
+    {
+      "path": "assets/models/hero_fuchuan/manifest.json",
+      "bytes": 1544,
+      "sha256": "3838522402ef57573882019e1f14dda9b91b1fce3ecc5120bc4ff209e7e88c52"
+    },
+    {
+      "path": "modules/scene_engine/assets/hero_ship_provider.gd",
+      "bytes": 3363,
+      "sha256": "ff1f3a38859c4f9db8e46f7ad1909bbf79e982f96592fb232237e32d9307cecd"
+    },
+    {
+      "path": "game/presentation/ships/ship_view.gd",
+      "bytes": 19188,
+      "sha256": "156b0941dc068b78b19d5ea1d0e58f09774e9bc2657a89c478f19e876d051c39"
+    },
+    {
+      "path": "game/presentation/ships/ship_damage.gd",
+      "bytes": 17566,
+      "sha256": "799f1b1b9b96b27c7790f16dd404d01a801e48beaf8d71988559eabc4cfd8e4c"
+    },
+    {
+      "path": "game/presentation/ships/ship_damage_surface.gdshaderinc",
+      "bytes": 4801,
+      "sha256": "5c134ad11272479805a624e45b585fc3aba8783f3bb85a650e6a35b659b137e9"
+    },
+    {
+      "path": "game/presentation/crew/deck_stations.gd",
+      "bytes": 8266,
+      "sha256": "50fb58ad1e2c6461d036aad5c2f72ddf7a5e52a08d696eaed69af6b0a0408377"
+    },
+    {
+      "path": "game/presentation/world/source_water_packet.gd",
+      "bytes": 5244,
+      "sha256": "dbdb99a48e7ea3fdc6916465079fb5595d7a7d65c89e9f63cb9548e6840eb36d"
+    },
+    {
+      "path": "game/research/demos/hero_fuchuan_experiment.gd",
+      "bytes": 5311,
+      "sha256": "e6b54bcee8e26d442d7b2c8f21a695905429397ffe7b33a6c4446b17afd7063a"
+    },
+    {
+      "path": "game/scenes/ship_book/ship_book.gd",
+      "bytes": 18433,
+      "sha256": "bd8c85e40f8cc8a60e5af4ee0359cb675ebfc2faa7941eef0921772d9118a292"
+    },
+    {
+      "path": "tests/test_hero_fuchuan.gd",
+      "bytes": 4569,
+      "sha256": "1c07f3051c4a8c51dc8ee257e192ea382fcc4cdef359b2a65bb4919bbeb655db"
+    },
+    {
+      "path": "tests/test_hero_fuchuan_rig.gd",
+      "bytes": 4989,
+      "sha256": "88071c5d5600f24e07aff403fb53be3bf2cfc0c8bdcb465e36d1e4bf1f86e688"
+    },
+    {
+      "path": "tests/test_hero_fuchuan_water.gd",
+      "bytes": 2396,
+      "sha256": "06f7cf0882c92cfbfb7a726af7e8bdff6508caddb30cb0a53952af9ed42640e3"
+    },
+    {
+      "path": "tools/verify-hero-fuchuan-gpu.gd",
+      "bytes": 3373,
+      "sha256": "1788187359b8a5e7d1d38247cf41b78fb3590db7be5840869c07ace9aad4e3c7"
+    },
+    {
+      "path": "assets/models/hero_fuchuan/fuchuan-lod0.glb",
+      "bytes": 2150912,
+      "sha256": "7d8d9239ce71909f6045e4a01d405b51b68cf6fd69487dba760e8c859836d767"
+    },
+    {
+      "path": "assets/models/hero_fuchuan/fuchuan-lod1.glb",
+      "bytes": 1339716,
+      "sha256": "cc7c646448168515c5124b2b79f10663462501005b52a4732322621a802201c4"
+    },
+    {
+      "path": "assets/models/hero_fuchuan/fuchuan-lod2.glb",
+      "bytes": 909560,
+      "sha256": "0a17c3cb091d1b16b46ba545da72900a38f9115250d987a46e71351aa5b969fc"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/native-play/01-normal-sailing.png",
+      "bytes": 74179,
+      "sha256": "957ccc2711d021ac1d5bab52ccfb79a9b2a5e57148ee7fff8544783f5d4a8f9e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/native-play/02-port-shot-ammo39.png",
+      "bytes": 81314,
+      "sha256": "3b27847fd7f84d6412466864b5478f5c93b37734506ca297a4e66523fc192d45"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/native-play/03-native-course-change.png",
+      "bytes": 78437,
+      "sha256": "e130203b5b6e5bf134e21b6e773e6595c3101c4bfdecadb7a1f08f40fcce82df"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/native-play/04-paused-inspection.png",
+      "bytes": 64203,
+      "sha256": "181ba7049c16776e1bb00244e63270c44de984712c83b427f2c06ff0c62c0dce"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/native-play/05-final-career-observed.png",
+      "bytes": 95167,
+      "sha256": "f24e57eda1ce8277a62d13a16c7ee4a1a28f7ca5d20d29be072a04a1da30514b"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/blender-hero.png",
+      "bytes": 2141360,
+      "sha256": "dc50f5185f54c07bb000fd2e7eee1c0d22fcc51ca154629516ba57c6a4098116"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/hero-rig-continuous-v5.mp4",
+      "bytes": 1650671,
+      "sha256": "cb68e7333afbd233c9a058cc8a613022e50dfe4400883ae5c1890249b1ac4ad7"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-25/gpu-final-v5/manifest.json",
+      "bytes": 277081,
+      "sha256": "645187907f3e039c537d416661c0296704a772b178dbf2818b2cdd53c30c697a"
+    }
+  ]
+}

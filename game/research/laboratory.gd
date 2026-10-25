@@ -4,6 +4,7 @@ signal main_menu_requested
 const Catalog = preload("res://game/research/catalog.gd")
 const Reader = preload("res://game/research/paper_reader.gd")
 const ParameterPanel = preload("res://game/research/parameter_panel.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const CASES := ["cruise","slow","turn","stop","reentry"]
 const CASE_LABELS := ["匀速航行","低速航行","转向","减速至停止","重入水压力测试"]
 const KINDS := ["fuchuan","fisherman","merchant","voc","patrol","heavy"]
@@ -25,7 +26,7 @@ var _status: Label
 var _reader_body: VBoxContainer
 var _reference_body: ScrollContainer
 var _references: VBoxContainer
-var _demo_body: VBoxContainer
+var _demo_body: ScrollContainer
 var _viewport: SubViewport
 var _run_button: Button
 var _pause_button: Button
@@ -67,7 +68,8 @@ func select_topic(id: String) -> bool:
 	_run_button.disabled = _catalog.demo_path(id).is_empty()
 	_run_button.tooltip_text = "此课题尚未提供独立实验；登记不代表验证通过。" if _run_button.disabled else "固定初态，在独立场景复现当前方案。"
 	for key: String in _topic_buttons:
-		_topic_buttons[key].add_theme_color_override("font_color",Color("e2c48b") if key == id else Color("dce7e5"))
+		_topic_buttons[key].add_theme_color_override("font_color",Parchment.CINNABAR if key == id else Parchment.INK)
+		_topic_buttons[key].add_theme_stylebox_override("normal",Parchment.button_style("pressed" if key == id else "normal"))
 	_show_paper(); return true
 
 func _show_paper() -> void:
@@ -114,6 +116,7 @@ func start_demo(options: Dictionary = {}) -> Dictionary:
 	_demo = candidate
 	_demo_revision += 1
 	_reader_body.hide(); _reference_body.hide(); _demo_body.show()
+	_demo_body.scroll_vertical = 0
 	_hull_controls.visible = _selected == "hull-contact"
 	_parameter_panel.visible = _selected != "hull-contact"
 	var bound: Dictionary = _parameter_panel.bind_specs(candidate.control_spec() if candidate.has_method("control_spec") else [])
@@ -247,6 +250,7 @@ func _view_input(event: InputEvent) -> void:
 		elif event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
 			_demo_revision += 1
 			_demo.zoom_camera(-0.12 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 0.12)
+			accept_event()
 	elif event is InputEventMouseMotion and _dragging: _demo_revision += 1; _demo.orbit_camera(-event.relative.x*0.006,event.relative.y*0.004)
 	var state: Dictionary = _demo.inspection_snapshot()
 	if state.has("parameters"): _demo_options = state.parameters.duplicate(true)
@@ -299,6 +303,7 @@ func _exit_tree() -> void: dispose()
 func _label(parent: Node, node_name: String, text: String, size: int = 17) -> Label:
 	var label := Label.new(); label.name = node_name; label.text = text
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if size >= 21: label.add_theme_font_override("font",Parchment.title_font())
 	label.add_theme_font_size_override("font_size",size); parent.add_child(label); return label
 func _button(parent: Node, node_name: String, text: String) -> Button:
 	var button := Button.new(); button.name = node_name; button.text = text
@@ -308,20 +313,11 @@ func _option(parent: Node, node_name: String, labels: Array, callback: Callable)
 	for label: String in labels: option.add_item(label)
 	option.item_selected.connect(callback); parent.add_child(option); return option
 func _theme() -> Theme:
-	var theme := Theme.new(); theme.default_font_size = 17
-	var font := SystemFont.new(); font.font_names = PackedStringArray(["Microsoft YaHei","Noto Sans CJK SC","sans-serif"]); theme.default_font = font
-	for type: String in ["Label","Button","OptionButton","CheckBox","RichTextLabel"]: theme.set_color("font_color",type,Color("dce7e5"))
-	theme.set_color("font_hover_color","Button",Color("ffe2a4")); theme.set_color("font_disabled_color","Button",Color("7a9295"))
-	for state: String in ["normal","hover","pressed","disabled","focus"]:
-		var style := StyleBoxFlat.new(); style.bg_color = Color("20373e") if state in ["hover","pressed"] else Color("142930")
-		style.border_color = Color("c4a76e") if state == "focus" else Color("38535a")
-		style.set_border_width_all(2 if state == "focus" else 1); style.set_content_margin_all(10)
-		theme.set_stylebox(state,"Button",style); theme.set_stylebox(state,"OptionButton",style)
-	return theme
+	return Parchment.create()
 
 func _build_ui() -> void:
 	name = "Laboratory"; set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); theme = _theme()
-	var backdrop := ColorRect.new(); backdrop.color = Color("0c1c23"); backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(backdrop)
+	Parchment.background(self,"ledger")
 	var margin := MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side: String in ["left","top","right","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
 	add_child(margin)
@@ -334,8 +330,9 @@ func _build_ui() -> void:
 	var topic_scroll := ScrollContainer.new(); topic_scroll.custom_minimum_size.x = 230; split.add_child(topic_scroll)
 	var topic_list := VBoxContainer.new(); topic_list.name = "TopicList"; topic_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; topic_list.add_theme_constant_override("separation",10); topic_scroll.add_child(topic_list)
 	_label(topic_list,"SubjectLabel","研究目录",21)
-	var detail := VBoxContainer.new(); detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL; detail.custom_minimum_size.x = 300; detail.add_theme_constant_override("separation",12); split.add_child(detail)
-	_title = _label(detail,"TopicTitle","",27); _summary = _label(detail,"TopicAbstract","",17); _status = _label(detail,"ResearchStatus","",15); _status.modulate = Color("c5b590")
+	var detail_panel := PanelContainer.new(); detail_panel.name = "ResearchPage"; detail_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL; detail_panel.add_theme_stylebox_override("panel",Parchment.panel(20)); split.add_child(detail_panel)
+	var detail := VBoxContainer.new(); detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL; detail.custom_minimum_size.x = 300; detail.add_theme_constant_override("separation",12); detail_panel.add_child(detail)
+	_title = _label(detail,"TopicTitle","",27); _summary = _label(detail,"TopicAbstract","",17); _status = _label(detail,"ResearchStatus","",15); _status.add_theme_color_override("font_color",Parchment.MUTED)
 	var tabs := HBoxContainer.new(); detail.add_child(tabs)
 	_button(tabs,"ReadPaper","研究全文").pressed.connect(_show_paper)
 	_run_button = _button(tabs,"RunExperiment","运行实验"); _run_button.pressed.connect(func(): start_demo())
@@ -345,24 +342,27 @@ func _build_ui() -> void:
 	_paper.size_flags_vertical = Control.SIZE_EXPAND_FILL; _paper.size_flags_horizontal = Control.SIZE_EXPAND_FILL; _paper.add_theme_constant_override("normal_v_separation",8); _reader_body.add_child(_paper)
 	_reference_body = ScrollContainer.new(); _reference_body.size_flags_vertical = Control.SIZE_EXPAND_FILL; detail.add_child(_reference_body); _reference_body.hide()
 	_references = VBoxContainer.new(); _references.size_flags_horizontal = Control.SIZE_EXPAND_FILL; _references.add_theme_constant_override("separation",14); _reference_body.add_child(_references)
-	_demo_body = VBoxContainer.new(); _demo_body.size_flags_vertical = Control.SIZE_EXPAND_FILL; detail.add_child(_demo_body); _demo_body.hide()
-	_hull_controls = HFlowContainer.new(); _hull_controls.add_theme_constant_override("h_separation",10); _demo_body.add_child(_hull_controls)
+	_demo_body = ScrollContainer.new(); _demo_body.name = "ExperimentScroll"; _demo_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_demo_body.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; detail.add_child(_demo_body); _demo_body.hide()
+	var demo_content := VBoxContainer.new(); demo_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL; demo_content.size_flags_vertical = Control.SIZE_EXPAND_FILL; _demo_body.add_child(demo_content)
+	_hull_controls = HFlowContainer.new(); _hull_controls.add_theme_constant_override("h_separation",10); demo_content.add_child(_hull_controls)
 	_option(_hull_controls,"ExperimentCase",CASE_LABELS,_change_case); _option(_hull_controls,"ExperimentShip",KIND_LABELS,_change_kind); _option(_hull_controls,"ExperimentCamera",CAMERA_LABELS,_change_camera)
 	_option(_hull_controls,"ExperimentCarrier",["海面载体：1200m 基准","海面载体：384m 近场"],_change_carrier)
 	_contact = CheckBox.new(); _contact.name = "ContactEnabled"; _contact.text = "船体接触水沫"; _contact.button_pressed = true; _contact.toggled.connect(_toggle_contact); _hull_controls.add_child(_contact)
 	var buoyancy:=CheckBox.new();buoyancy.name="WaterRelativeBuoyancy";buoyancy.text="相对水面浮动（关闭看旧方案）";buoyancy.button_pressed=true
 	buoyancy.toggled.connect(func(value:bool):_reset_demo({"water_relative_buoyancy":value}));_hull_controls.add_child(buoyancy)
-	_parameter_panel = ParameterPanel.new(); _parameter_panel.name = "TopicParameters"; _parameter_panel.add_theme_constant_override("h_separation",10); _demo_body.add_child(_parameter_panel)
+	_parameter_panel = ParameterPanel.new(); _parameter_panel.name = "TopicParameters"; _parameter_panel.add_theme_constant_override("h_separation",10); demo_content.add_child(_parameter_panel)
 	_parameter_panel.parameter_changed.connect(_change_parameter)
-	var controls := HFlowContainer.new(); controls.add_theme_constant_override("h_separation",10); _demo_body.add_child(controls)
+	var controls := HFlowContainer.new(); controls.add_theme_constant_override("h_separation",10); demo_content.add_child(controls)
 	_pause_button = _button(controls,"PauseExperiment","暂停"); _pause_button.pressed.connect(_pause_demo)
 	_step_button = _button(controls,"StepExperiment","单步 1/32 秒"); _step_button.pressed.connect(func(): step_demo())
 	_button(controls,"ResetExperiment","同条件重置").pressed.connect(_reset_demo)
 	_button(controls,"SaveExperiment","保存截图与参数").pressed.connect(_save_demo)
 	var container := SubViewportContainer.new(); container.name = "ExperimentView"; container.stretch = true
-	container.size_flags_vertical = Control.SIZE_EXPAND_FILL; container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; _demo_body.add_child(container)
+	container.custom_minimum_size.y = 200; container.mouse_force_pass_scroll_events = false
+	container.size_flags_vertical = Control.SIZE_EXPAND_FILL; container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; demo_content.add_child(container)
 	_viewport = SubViewport.new(); _viewport.name = "ExperimentViewport"; _viewport.size = Vector2i(1000,600); _viewport.world_3d = World3D.new()
 	_viewport.size_changed.connect(_refresh_viewport)
 	_viewport.msaa_3d = Viewport.MSAA_4X; _viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS; container.add_child(_viewport); container.gui_input.connect(_view_input)
-	_stats = _label(_demo_body,"ExperimentTelemetry","",15)
-	_notice = _label(_demo_body,"ExperimentNotice","",15)
+	_stats = _label(demo_content,"ExperimentTelemetry","",15)
+	_notice = _label(demo_content,"ExperimentNotice","",15)

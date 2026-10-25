@@ -1,0 +1,229 @@
+{
+	"actionCount": 2,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "naval-duel-chart-1600",
+	"pngSha256": "81cc0965896f5fffdc7082e91f6131ae709bbfa82fb9704b5dfa950e9fe898d3",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/naval_practice/naval_practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605",
+				"panelMargins": [
+					16.0,
+					16.0,
+					16.0,
+					16.0
+				],
+				"rect": [
+					18.0,
+					18.0,
+					390.0,
+					460.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@Label@610",
+				"rect": [
+					34.0,
+					34.0,
+					354.0,
+					147.0
+				],
+				"text": "单舰炮战 · 逐浪号\n航向 000°   航速 0.7 节\n船体 100%   风帆 100%   水手 100\n帆面 100%   风速 14 m/s\n炮弹 40 / 链弹 20 / 葡萄弹 20\n左舷 0.0s   右舷 0.0s",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@611/fire_port",
+				"rect": [
+					34.0,
+					225.0,
+					177.0,
+					38.0
+				],
+				"text": "左舷开炮 Q",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@611/fire_starboard",
+				"rect": [
+					215.0,
+					225.0,
+					173.0,
+					38.0
+				],
+				"text": "右舷开炮 E",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/GunneryStatus",
+				"rect": [
+					34.0,
+					273.0,
+					354.0,
+					41.0
+				],
+				"text": "左舷 · 转船使敌舰进入舷侧 ±25°\n右舷 · 可齐射 · VOC武装商船",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@612/solid",
+				"rect": [
+					34.0,
+					324.0,
+					354.0,
+					38.0
+				],
+				"text": "实心弹 1 · 船壳 / 250米 · 当前",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@612/chain",
+				"rect": [
+					34.0,
+					366.0,
+					171.0,
+					38.0
+				],
+				"text": "链弹 2 · 风帆 / 190米",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@612/grape",
+				"rect": [
+					209.0,
+					366.0,
+					178.0,
+					38.0
+				],
+				"text": "葡萄弹 3 · 水手 / 80米",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@613/stop_sailing",
+				"rect": [
+					34.0,
+					414.0,
+					99.0,
+					38.0
+				],
+				"text": "停船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@613/trim",
+				"rect": [
+					137.0,
+					414.0,
+					147.0,
+					38.0
+				],
+				"text": "自动调帆 R",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/@PanelContainer@605/@ScrollContainer@608/@VBoxContainer@609/@HFlowContainer@613/pause",
+				"rect": [
+					288.0,
+					414.0,
+					99.0,
+					38.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@349/@CanvasLayer@603/@Control@604/PracticeChart/close_chart",
+				"rect": [
+					332.0,
+					208.0,
+					80.0,
+					38.0
+				],
+				"text": "收起航图",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 9,
+		"visibleControls": 20
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

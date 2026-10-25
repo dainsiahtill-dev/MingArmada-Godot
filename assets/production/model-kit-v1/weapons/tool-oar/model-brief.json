@@ -1,6 +1,6 @@
 {
   "id": "tool-oar",
-  "name": "长桨与篙",
+  "name": "应急手桨与长桨",
   "category": "武器与船具",
   "phase": "P0",
   "baseMeshCount": 1,
@@ -22,7 +22,8 @@
   "productionStatus": "needs-new",
   "notes": [
     "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。",
-    "旧预算保留项；不是既有形制已通过审定的声明。"
+    "旧预算保留项；不是既有形制已通过审定的声明。",
+    "此项是手桨，不能覆盖船尾摇橹；另见tool-sculling-oar和tool-punt-pole。"
   ],
   "scope": "production",
   "origin": "legacy-retained",
@@ -39,8 +40,8 @@
   "historyStatus": "evidence-and-shape-review-required",
   "research": "docs/production/model-preproduction-2026-10-24/research-ships-weapons.md",
   "originalRequirements": [
-    "prop-oar",
-    "prop-punt-pole"
+    "prop-oar"
   ],
-  "sketchStatus": "not-generated"
+  "requirementStatus": "gameplay-or-environment-candidate",
+  "sketchStatus": "generated-review-required"
 }

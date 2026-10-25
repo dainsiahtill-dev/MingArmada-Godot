@@ -14,5 +14,23 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/weapons/weapon-sabre/multiview-v1.png",
-  "status": "not-generated"
+  "status": "not-generated",
+  "generationFailure": {
+    "jobId": "weapon-sabre",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID 51deb3e5-59d6-41d4-b82d-1243d6ac2d4f. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"output\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  },
+  "review": {
+    "jobId": "weapon-sabre",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID 51deb3e5-59d6-41d4-b82d-1243d6ac2d4f. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"output\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  }
 }

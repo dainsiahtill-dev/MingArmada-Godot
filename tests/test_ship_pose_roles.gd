@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 ## Exact pose oracle is the frozen pre-convergence ShipView, not a duplicate rewrite.
 const Ship = preload("res://game/presentation/ships/ship_view.gd")
 const Crew = preload("res://game/presentation/crew/crew_view.gd")
@@ -23,7 +25,7 @@ func _run() -> void:
 	var oracle: Node3D = baseline.new(); root.add_child(oracle)
 	var prior: WeakRef
 	for kind: String in Ship.KINDS:
-		check(candidate.configure(kind,library) and oracle.configure(kind,library), "both source model compositions configure: " + kind)
+		check(candidate.configure(kind,library,Reference.new()) and oracle.configure(kind,library), "both source model compositions configure: " + kind)
 		if prior != null: check(prior.get_ref() == null, "reconfigure releases the previous model and its cached role references")
 		prior = weakref(candidate.get("_models")[0])
 		var subtree_nodes := 0

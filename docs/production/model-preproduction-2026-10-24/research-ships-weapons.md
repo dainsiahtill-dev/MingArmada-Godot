@@ -123,3 +123,26 @@ CodeGraph 首次查询返回该仓库没有 `.codegraph` 索引，因此本分�
 进入 Blender 前逐件检查：是否一图一资产、四视一致、形制来源可定位、原件年代与复制年代不混、D部分明确、人位／握持／装配合理、炮身与架拆分、没有后世特征混入。通过这些检查不等于海战性能、浮力、炮械仿真、Godot集成或最终历史专家审定完成。
 
 本轮完成：两份当前目录的目标类别读取；机构页面与原典入口在线核验；来源年代／地域／类型边界整理。未完成：80册兵书逐叶核图、所有高清物件图像检查、福建船体考古线型复原、短铳确切形制认定、商业图像授权链确认。本报告没有下载馆藏图作为正式美术，没有改正式目录、剧情、模型或Git状态。
+
+## 2026-10-25 草图开工补证
+
+- **W10 炮架**：[Mary Rose馆方网站2024保育第一手记录](https://maryrose.org/conservation-of-a-gun-carriage/)明确该出水炮架有四木轮与阶梯侧板，支持四轮架的较早欧洲实物类比；仍不是福建直接证据。文章保留作者个人观点声明，采用的是其实际点验木轮／侧板的保育观察。[Vasa馆方发掘说明](https://www.vasamuseet.se/en/explore/vasa-history/excavation)确认1628炮架出土；[Vasa馆藏18548记录入口](https://preprod.digitaltmuseum.se/011024637228/lavettkolv)检索摘要记平床、阶梯侧板与四轮，但直开403，未完成图像核看。
+- **W11 实心弹／散弹**：[WA Museum Batavia物件检索](https://museum.wa.gov.au/maritime-archaeology-db/artefacts/advanced-search?field_ancods_value=&field_description_value=&field_registration_number_value=&field_site_area_code_value=&field_site_location_value=&field_status_value=&field_wreck_temp_value=&order=field_description_value&page=30&sort=asc&title=)可定位BAT576等cannon ball、BAT4435等canister shot。馆方[Batavia考古报告](https://museum.wa.gov.au/maritime-archaeology-db/sites/default/files/no-276-batavia-bar489.pdf)检索正文区分杆弹与疑似链弹，并明确腐蚀导致判断不确定；**不能把所有有孔炮弹当确证链弹**。
+- **W12 链弹外观比较**：[Science Museum Group A634658](https://collection.sciencemuseumgroup.org.uk/objects/co156069/chain-shot)登记欧洲、1501—1800、铁；可比较两端球体与链的外观，但宽断代不能证明1633福建使用相同形制。链弹、葡萄弹包的游戏图均为目标玩法外观候选；包裹方式、球数和具体配发不宣称已证。
+
+## 2026-10-25 本分工草图交付实况
+
+负责art-jobs中ships/weapons合计27项：8船、18生产武器/工具、1预留短铳。已实际生成14个独立ID，共19张PNG（14份v1、5份修订v2），全部查看且PNG解码验证通过。当前13项为concept-reviewed，1项ammo-chain为needs-redraw。所有historyApproved/modelingApproved均false；没有进入Blender。
+
+- 8船均有候选；ship-fuchuan、ship-european-merchant、ship-european-warship首轮错误已保留v1，v2分别修正炮口数及船首帆装。review.json内preferredImagePath指向各自v2，generation-v2.json保留新图来源和哈希；原generation.json记录v1，不冒充同一版本。
+- 船具/弹药新图：tool-hook、tool-oar(v2)、tool-punt-pole(v2)、gun-tool-set、ammo-solid、ammo-chain(v1)。桨v2补薄叶侧边和端视，篙v2补圆形端视。ammo-chain链节数跨视图仍不一致，v2修订请求被安全系统拒绝，保留needs-redraw，不当作完成。
+- 12个生产ID未取得可登记新图：gun-light、gun-heavy、gun-carriage、gun-folangji、gun-swivel-mount、gun-folangji-chamber、firearm-matchlock、ammo-grape、weapon-sabre、weapon-spear、weapon-longblade、tool-axe。工具返回moderation_blocked/violence；轻重炮并发批次因其中一项拒绝提前结束，另一项没有可恢复输出回执，不能断言两者分别都得到独立拒绝。各目录保留原prompt、shape-notes、art-brief及generation-error，不改名或转渠道规避，不拿旧概念或Blender试验替代新多视图。
+- firearm-short-matchlock仍为not-generated：预留、现主线未确认、具体时代地域形制未决；没有强行虚构。
+
+复核时读取每项目录review.json当前状态，不能只按存在multiview-v1.png就通过。船图中水下线型、桅位、甲板结构仍是时期约束下的设计补全；侧视/端视的局部透视与索具精度限制已逐图记录，concept-reviewed不等于可直接按像素进入工程建模。
+
+### 收尾补项：船尾长橹
+
+正文zzl_a5_s1艄公站着摇橹不能由普通手桨替代，新增独立tool-sculling-oar，保留原tool-oar。已生成并实看一张1536×1024宽面／薄边／俯向／端面候选，含同ID木座、木销和绳环小套件，记录concept-reviewed；PNG解码与来源哈希验证通过。S02只支持时期用橹语境，曲率、橹叶、支点形式仍D，站姿、双手抓点、船艉挂点、运动空间和水线关系尚须当前船体/角色验证。不是已完成动作验收。
+
+补项后本分工累计28个ID：15个ID有新图、20张PNG；14concept-reviewed、1needs-redraw；其余12项工具阻断/无回执、1项史料未定。所有historyApproved/modelingApproved保持false。

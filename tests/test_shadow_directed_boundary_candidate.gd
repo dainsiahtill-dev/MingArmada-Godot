@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const Math=preload("res://modules/scene_engine/fidelity_fx/source_shadow_math.gd")
 const Adapter=preload("res://game/presentation/world/target_rigid_shadow_caster.gd")
 const Ship=preload("res://game/presentation/ships/ship_view.gd")
@@ -44,7 +46,7 @@ func run()->void:
 	var ordinary:Dictionary=Math.build_volume_component(positions,[0,0,-1],[[0,1],[1,2],[2,0]],[0,1,2])
 	var kept:Dictionary=candidate_for(ordinary)
 	check(kept.ok and kept.addedSides==0 and kept.geometry==ordinary,"valid directed triangle is byte-equivalent")
-	var ship:=Ship.new();root.add_child(ship);check(ship.configure("fuchuan"),"actual imported barque fixture configures")
+	var ship:=Ship.new();root.add_child(ship);check(ship.configure("fuchuan",null,Reference.new()),"actual imported barque fixture configures")
 	var mesh:MeshInstance3D=ship.get_model().find_child("native_hull_56_component_03",true,false)
 	var adapter:=Adapter.new();var source:Dictionary=adapter._mesh_geometry(mesh.mesh)
 	var prepared:=Prepared.new();check(prepared.configure(source.positions,source.faces).ok,"actual culprit source prepares")

@@ -2,7 +2,7 @@ extends Control
 ## Native ShipViewer: original GLB assets, orbit camera and authored sail/cannon rigs.
 signal main_menu_requested
 const Library = preload("res://modules/scene_engine/assets/asset_library.gd")
-const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
+const ModelProvider = preload("res://modules/scene_engine/assets/hero_ship_provider.gd")
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
@@ -89,7 +89,7 @@ func _build_controls() -> void:
 	var scroll:=ScrollContainer.new(); scroll.follow_focus=true; scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; margin.add_child(scroll)
 	var content:=VBoxContainer.new(); content.size_flags_horizontal=Control.SIZE_EXPAND_FILL; content.add_theme_constant_override("separation",10); scroll.add_child(content)
 	_button(content,"MainMenu","‹ 返回主菜单",_leave)
-	var title:=_label(content,"船坞检阅"); title.add_theme_font_size_override("font_size",28)
+	var title:=_label(content,"船坞检阅"); title.theme_type_variation="HeadingLabel"; title.add_theme_font_size_override("font_size",28)
 	_label(content,"观其形，知其用。")
 	_label(content,"选择船型")
 	_ship_choice=OptionButton.new(); _ship_choice.name="ShipKind"; content.add_child(_ship_choice)
@@ -118,7 +118,7 @@ func select_ship(kind: String, lod: int = 0) -> Dictionary:
 		if SHIPS[n].id==kind: index=n; break
 	if index<0 or lod not in [0,1,2]: return {"ok":false,"reason":"invalid-ship-selection"}
 	_attempted_kind=kind; _attempted_lod=lod
-	var model: Node3D = ModelProvider.for_library(_library).instantiate_ship(kind,lod,_library)
+	var model: Node3D = ModelProvider.new().instantiate_ship(kind,lod,_library)
 	if model==null:
 		if _status: _status.text="船只载入失败；可重试。"
 		return {"ok":false,"reason":"ship-model-unavailable"}
@@ -137,7 +137,8 @@ func select_ship(kind: String, lod: int = 0) -> Dictionary:
 	_ship_choice.select(index); _lod_choice.select(lod); _furl_slider.set_value_no_signal(0)
 	var ship: Dictionary=SHIPS[index]
 	var family := str(model.get_meta("source_family",""))
-	_description.text="%s\n%s\n临时外观：原版 %s 西式帆船。\n操船、火炮与船员沿用当前船型参数。\n船长 %s m · 船宽 %s m · 吃水 %s m"%[ship.name,ship.role,SOURCE_NAMES.get(family,family),ship.length,ship.beam,ship.draft]
+	var appearance: String="三桅硬帆、独立舵叶与长舵柄，每舷四炮。" if family=="hero_fuchuan" else "临时外观：原版 %s 西式帆船。"%SOURCE_NAMES.get(family,family)
+	_description.text="%s\n%s\n%s\n操船、火炮与船员沿用当前船型参数。\n船长 %s m · 船宽 %s m · 吃水 %s m"%[ship.name,ship.role,appearance,ship.length,ship.beam,ship.draft]
 	_status.text=""; set_furl(0); set_angle(_angle)
 	return {"ok":true,"kind":kind,"lod":lod}
 func set_furl(value: float) -> void:
@@ -279,7 +280,7 @@ func _layout() -> void:
 		_sidebar.position=Vector2.ZERO; _sidebar.size=Vector2(width,bounds.y)
 		_view.position=Vector2(width,0); _view.size=Vector2(maxf(1,bounds.x-width),bounds.y)
 func snapshot() -> Dictionary:
-	return {"kind":_kind,"source_kind":str(ship_model.get_meta("source_family","")) if ship_model else "","lod":_lod,"path":str(ship_model.get_meta("source_path","")) if ship_model else "","lod_policy":"same_source_lowend","angle":_angle,"furl":_furl,"distance":_distance}
+	return {"kind":_kind,"source_kind":str(ship_model.get_meta("source_family","")) if ship_model else "","lod":_lod,"path":str(ship_model.get_meta("source_path","")) if ship_model else "","lod_policy":str(ship_model.get_meta("lod_policy","")) if ship_model else "","angle":_angle,"furl":_furl,"distance":_distance}
 func _leave() -> void:
 	if _leaving or not is_inside_tree(): return
 	_leaving=true; _clear_camera_motion(); main_menu_requested.emit()

@@ -1,4 +1,6 @@
 extends SceneTree
+# Recorded original-hull fixtures; authored flagship has a separate water test.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 ## Real six-model vertical hull rings; ray/triangle oracle is independent of
 ## the builder's height-plane edge intersections followed by Z sections.
 const Ship=preload("res://game/presentation/ships/ship_view.gd")
@@ -59,7 +61,7 @@ func _run()->void:
 	var timings:Array=[]
 	for kind:String in Ship.KINDS:
 		var actor:=Ship.new();root.add_child(actor)
-		var start:=Time.get_ticks_usec();check(actor.configure(kind),"actual model configures "+kind)
+		var start:=Time.get_ticks_usec();check(actor.configure(kind,null,Reference.new()),"actual model configures "+kind)
 		var elapsed:=Time.get_ticks_usec()-start
 		var profile:Dictionary=actor.source_water_attachment().surfaceProfile
 		check(profile.has("verticalSections"),"actual cached profile exposes vertical rings "+kind)

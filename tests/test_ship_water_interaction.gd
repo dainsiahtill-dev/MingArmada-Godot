@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const Ship=preload("res://game/presentation/ships/ship_view.gd")
 const DIMENSIONS="res://tests/fixtures/ship_water_interaction_dimensions.json"
 var assertions:=0
@@ -22,7 +24,7 @@ func run()->void:
 	var dimensions:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(DIMENSIONS))
 	var metrics:Array=[]
 	for kind:String in ["fuchuan","fisherman","merchant","heavy"]:
-		var ship:=Ship.new();root.add_child(ship);check(ship.configure(kind),"real model configures: "+kind)
+		var ship:=Ship.new();root.add_child(ship);check(ship.configure(kind,null,Reference.new()),"real model configures: "+kind)
 		var input:RefCounted=producer.new();var attachment:Dictionary=ship.source_water_attachment()
 		var born:Dictionary=input.sample(kind,attachment,10.0,flat)
 		check(born.diagnostics.accepted and born.emitters.size()==5,"five valid actual-profile probes: "+kind)

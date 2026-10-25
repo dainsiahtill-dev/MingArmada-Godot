@@ -1,0 +1,23 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+    "--path",
+    "C:/Users/dains/Documents/Git/ming-armada",
+    "--rendering-method",
+    "forward_plus",
+    "--rendering-driver",
+    "vulkan",
+    "--log-file",
+    "C:/Users/dains/Documents/Git/ming-armada/docs/design/2026-10-25-parchment-ui/gpu-naval-r2.log",
+    "--script",
+    "res://tools/capture-parchment-ui.gd",
+    "--",
+    "--group=naval",
+    "--output=res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r2"
+  ],
+  "exitCode": 0,
+  "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\nVulkan 1.4.325 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) 130T GPU (16GB)\r\n\r\nPARCHMENT_UI_GROUP_START naval\r\nPARCHMENT_UI_CAPTURE naval-duel-hud-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-duel-chart-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-duel-hud-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-duel-chart-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-settings-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-pause-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-surrender-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-fleet-hud-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-fleet-chart-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-fleet-hud-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-fleet-chart-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-sail-hud-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-sail-chart-1600 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-sail-hud-1280 overflowCandidates=0\r\nPARCHMENT_UI_CAPTURE naval-sail-chart-1280 overflowCandidates=0\r\nPARCHMENT_UI_COMPLETE group=naval captures=15 assertions=178 failures=0\r\n",
+  "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\n"
+}

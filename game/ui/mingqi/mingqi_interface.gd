@@ -4,6 +4,7 @@ signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 
 const Chart = preload("res://game/ui/mingqi/mingqi_chart.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const Gunnery = preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const BUSINESS = ["accept-convoy", "buy", "sell", "depart", "choose-route", "assign-order", "claim-convoy", "dock", "repair", "refit", "start-boarding", "board-action", "allocate-prize", "release-prisoners", "treat-wounded", "take-prize-cargo", "resolve-prize", "sell-prize", "incorporate-prize", "story-choice", "repay-debt"]
 const PANELS = {"ship": "旗舰与操船", "convoy": "船队与海图", "port": "靠港与贸易", "boarding": "接舷与俘获", "tactics": "船队战术", "story": "航海日志"}
@@ -198,13 +199,14 @@ func _build() -> void:
 	hud.minimum_size_changed.connect(_queue_layout)
 	var hud_theme: Theme = _theme.duplicate()
 	hud_theme.default_font_size = 14
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		hud_theme.set_stylebox(state, "Button", Parchment.button_style(state, false, 8))
 	hud.theme = hud_theme
-	var hud_style: StyleBoxFlat = _theme.get_stylebox("panel", "PanelContainer").duplicate()
-	hud_style.set_content_margin_all(12)
+	var hud_style: StyleBox = Parchment.panel(12)
 	hud.add_theme_stylebox_override("panel", hud_style)
 	var head := _column(hud)
 	head.add_theme_constant_override("separation", 6)
-	_text(head, "title", func(): return "海上明旗  ·  1650", 24, Color("e3c88d"))
+	_text(head, "title", func(): return "海上明旗  ·  1650", 24, Parchment.CINNABAR)
 	_text(head, "identity", func():
 		var c: Dictionary = _state().get("calendar", {})
 		var captain: Dictionary = _state().get("captain", {})
@@ -213,18 +215,18 @@ func _build() -> void:
 	_text(head, "navigation", _navigation_text, 14)
 	var broadside := _text(head, "broadside_status", func():
 		var id := str(_state().get("flagshipId",""))
-		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Color("a9c3bd"))
+		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Parchment.MUTED)
 	_watchers.append(func(): broadside.visible = not _native(str(_state().get("flagshipId",""))).is_empty())
-	_text(head, "time_state", func(): return ("航程结束" if _naval().get("status", "") == "defeat" else "已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Color("a9c3bd"))
+	_text(head, "time_state", func(): return ("航程结束" if _naval().get("status", "") == "defeat" else "已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Parchment.MUTED)
 	var goal := _row(head)
 	goal.name = "objective_row"
-	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 13, Color("e3c88d"))
+	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 13, Parchment.CINNABAR)
 	var goal_button := _local_button(goal, "objective_open", "查看", func(): open_panel(str(_story().get("objective", {}).get("panel", "story"))))
 	goal_button.custom_minimum_size = Vector2(48, 28)
 	_watchers.append(func():
 		goal.visible = not str(_story().get("objective", {}).get("title", "")).is_empty()
 		goal_button.disabled = not PANELS.has(str(_story().get("objective", {}).get("panel", ""))))
-	var voyage_progress := _text(head, "voyage_progress", _voyage_progress_text, 13, Color("a9c3bd"))
+	var voyage_progress := _text(head, "voyage_progress", _voyage_progress_text, 13, Parchment.MUTED)
 	_watchers.append(func(): voyage_progress.visible = not voyage_progress.text.is_empty())
 	var time := _row(head)
 	_button(time, "pause", "暂停", func(): return {"type": "pause", "value": not _runtime().get("paused", false)}, func(): return _operational())
@@ -244,13 +246,13 @@ func _build() -> void:
 	_local_button(cameras, "camera_captain", "驾驶视角", func(): view_requested.emit(false))
 	_local_button(cameras, "camera_tactical", "高位海图", func(): view_requested.emit(true))
 	_button(cameras, "stop_sailing", "停船", func(): return {"type": "stop-sailing"}, _can_mouse_sail)
-	var notice := _text(head, "notice", func(): return _reason(_runtime().get("notice", _runtime().get("reason", ""))), 14, Color("ffd99a"))
+	var notice := _text(head, "notice", func(): return _reason(_runtime().get("notice", _runtime().get("reason", ""))), 14, Parchment.DANGER)
 	_watchers.append(func(): notice.visible = not notice.text.is_empty())
-	_text(head, "keys", func(): return ("先离港，再左键点海面航行 · 中键停船" if _state().get("currentPortId") != null else "左键点海面持续航行 · 中键停船") + "\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Color("a9c3bd"))
+	_text(head, "keys", func(): return ("先离港，再左键点海面航行 · 中键停船" if _state().get("currentPortId") != null else "左键点海面持续航行 · 中键停船") + "\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Parchment.MUTED)
 	_operation = _box(_screen, "operation")
 	var operation_column := _column(_operation)
 	var heading := _row(operation_column)
-	_text(heading, "panel_heading", func(): return PANELS.get(_panel, "航程操作"), 24, Color("e3c88d"))
+	_text(heading, "panel_heading", func(): return PANELS.get(_panel, "航程操作"), 24, Parchment.CINNABAR)
 	_local_button(heading, "panel_close", "收起", close_panel)
 	var scroll := ScrollContainer.new()
 	scroll.name = "operation_scroll"
@@ -428,7 +430,7 @@ func _build_story(parent: Control) -> void:
 	if _story().is_empty():
 		_text(parent, "story_fallback", func(): return "这段航程暂未载入航海日志。旗舰、船队、贸易与接舷仍可照常查看。")
 		return
-	_text(parent, "story_chapter", func(): return _story().get("chapter", {}).get("title", "航海日志"), 22, Color("e3c88d"))
+	_text(parent, "story_chapter", func(): return _story().get("chapter", {}).get("title", "航海日志"), 22, Parchment.CINNABAR)
 	_text(parent, "story_premise", func(): return _story().get("chapter", {}).get("summary", ""))
 	_heading(parent, "下一步")
 	_text(parent, "story_objective", func():
@@ -446,12 +448,12 @@ func _build_story(parent: Control) -> void:
 	for source_scene in display_scenes:
 		var scene_id := str(source_scene.get("id", ""))
 		var section := _column(_box(parent, "story_scene_" + scene_id))
-		_text(section, "story_title_" + scene_id, func(): return _story_scene(scene_id).get("title", ""), 20, Color("e3c88d"))
+		_text(section, "story_title_" + scene_id, func(): return _story_scene(scene_id).get("title", ""), 20, Parchment.CINNABAR)
 		_text(section, "story_npc_" + scene_id, func():
 			var npc: Dictionary = _story_scene(scene_id).get("npc", {})
-			return str(npc.get("name", "")) + " · " + str(npc.get("role", "")), 15, Color("a9c3bd"))
+			return str(npc.get("name", "")) + " · " + str(npc.get("role", "")), 15, Parchment.MUTED)
 		if scene_id == "second-return":
-			_text(section, "story_bill_" + scene_id, func(): return _story_bill(scene_id), 15, Color("e3c88d"))
+			_text(section, "story_bill_" + scene_id, func(): return _story_bill(scene_id), 15, Parchment.CINNABAR)
 		match source_scene.get("status", "locked"):
 			"completed":
 				_text(section, "story_outcome_" + scene_id, func():
@@ -461,7 +463,7 @@ func _build_story(parent: Control) -> void:
 			"available":
 				_text(section, "story_dialogue_" + scene_id, func(): return _story_lines(scene_id))
 				var native_label := _text(section, "story_native_" + scene_id, func():
-					return _reason("runtime-unavailable") if not _operational() else (_story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified")) if not _story_native(scene_id).get("ok", false) else ""), 15, Color("ffd99a"))
+					return _reason("runtime-unavailable") if not _operational() else (_story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified")) if not _story_native(scene_id).get("ok", false) else ""), 15, Parchment.DANGER)
 				_watchers.append(func(): native_label.visible = not native_label.text.is_empty())
 				for source_choice in source_scene.get("choices", []):
 					var choice_id := str(source_choice.get("id", ""))
@@ -473,10 +475,10 @@ func _build_story(parent: Control) -> void:
 					_watchers.append(func():
 						button.text = str(_story_choice(scene_id, choice_id).get("label", "作出决定"))
 						button.tooltip_text = _story_choice_reason(scene_id, choice_id))
-					var reason := _text(choices, "story_choice_reason_" + scene_id + "_" + choice_id, func(): return _story_choice_reason(scene_id, choice_id), 14, Color("ffd99a"))
+					var reason := _text(choices, "story_choice_reason_" + scene_id + "_" + choice_id, func(): return _story_choice_reason(scene_id, choice_id), 14, Parchment.DANGER)
 					_watchers.append(func(): reason.visible = not reason.text.is_empty())
 			_:
-				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Color("a9c3bd"))
+				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Parchment.MUTED)
 	if preparing: _build_voyage_flow(parent)
 	_heading(parent, "账册与债务")
 	_text(parent, "story_debt", func():
@@ -505,9 +507,9 @@ func _build_story(parent: Control) -> void:
 	var captured := _token()
 	quantity.get_line_edit().text_changed.connect(func(_draft):
 		if captured == _token() and not _repay_refreshing: _refresh())
-	_text(parent, "repay_limit", func(): return "当前最多可还%d两；付款只减少这本账册记下的实际欠款。" % _repay_limit(), 14, Color("a9c3bd"))
+	_text(parent, "repay_limit", func(): return "当前最多可还%d两；付款只减少这本账册记下的实际欠款。" % _repay_limit(), 14, Parchment.MUTED)
 	_button(parent, "repay_debt", "偿还欠款", func(): return {"type": "repay-debt", "quantity": _debt_quantity()}, _repay_ok)
-	var reason := _text(parent, "repay_debt_reason", _repay_reason, 15, Color("ffd99a"))
+	var reason := _text(parent, "repay_debt_reason", _repay_reason, 15, Parchment.DANGER)
 	_watchers.append(func(): reason.visible = not reason.text.is_empty())
 	_heading(parent, "同行的人")
 	for relation in _story().get("relations", []):
@@ -575,7 +577,7 @@ func _build_voyage_flow(parent: Control) -> void:
 		var active: Dictionary = _voyage_flow().get("active", {})
 		var counts: Dictionary = active.get("counts", {})
 		return _voyage_progress_text() + "\n粮船：在途%d · 到达%d · 损失%d。%s" % [counts.get("underway", 0), counts.get("arrived", 0), counts.get("lost", 0), "首航从开局计时；可先暂停，决定旧账与航路。对白可跳过。" if active.get("contractId") == "convoy-001" and active.get("stage") in ["offered", "loading"] else "按实际交付交差，逾期可能失去奖金。" if active.get("stage") != "closed" else "结算后仍须安全靠港，才能保存船队。"], 15)
-	var bill := _text(section, "voyage_bill", _voyage_bill_text, 15, Color("e3c88d"))
+	var bill := _text(section, "voyage_bill", _voyage_bill_text, 15, Parchment.CINNABAR)
 	_watchers.append(func(): bill.visible = not bill.text.is_empty())
 	var decisions := _text(section, "voyage_decisions", func():
 		var entries: PackedStringArray = []
@@ -796,7 +798,7 @@ func _build_port(parent: Control) -> void:
 		for type in ["buy", "sell"]:
 			var fact := _fact(type)
 			if not fact.get("ok", false): reasons.append(("买入：" if type == "buy" else "卖出：") + _reason(fact.get("reason", "save-unverified")))
-		return "\n".join(reasons), 14, Color("ffd99a"))
+		return "\n".join(reasons), 14, Parchment.DANGER)
 	_heading(parent, "船务与治伤")
 	_select(parent, "service_ship", "作业船只", _ship_options(true), str(_state().get("flagshipId", "")))
 	_text(parent, "service_crew", func(): return _crew_text(_vessel(str(_form.get("service_ship", "")))))
@@ -1045,7 +1047,7 @@ func _build_menu() -> void:
 	_local_button(body, "menu_resume", "继续航行", func():
 		close_menu()
 		_send({"type": "pause", "value": false}, _token()))
-	_text(body, "save_reason", func(): return "安全条件已核验，可保存航程。" if _runtime().get("canSave", false) == true else _reason(_runtime().get("saveReason", "save-unverified")), 16, Color("ffd99a"))
+	_text(body, "save_reason", func(): return "安全条件已核验，可保存航程。" if _runtime().get("canSave", false) == true else _reason(_runtime().get("saveReason", "save-unverified")), 16, Parchment.DANGER)
 	_button(body, "save", "保存安全航程", func(): return {"type": "save"}, func(): return _runtime().get("canSave", false) == true)
 	_button(body, "save_and_menu", "保存并返回主菜单", func(): return {"type": "save-and-menu"}, func(): return _runtime().get("canSave", false) == true)
 	_local_button(body, "menu_settings", "画面与声音设置", func(): _send({"type":"open-settings"}, _token()))
@@ -1067,9 +1069,14 @@ func _build_menu() -> void:
 	picker.access = FileDialog.ACCESS_FILESYSTEM
 	picker.filters = PackedStringArray(["*.json ; JSON 存档"])
 	_screen.add_child(picker)
+	picker.theme = Parchment.create()
 	var captured := _token()
 	picker.file_selected.connect(func(path): _send({"type": "import-save", "path": path}, captured))
-	_local_button(body, "import_choose_file", "选择 JSON 存档文件", func(): picker.popup_centered_ratio(0.7))
+	_local_button(body, "import_choose_file", "选择 JSON 存档文件", func():
+		picker.popup_centered_ratio(0.7)
+		picker.title = "导入航程存档"
+		picker.ok_button_text = "导入"
+		picker.get_cancel_button().text = "取消")
 	_text(body, "import_note", func(): return "导入先核验完整存档。验证失败时保留当前航程；原文件不改动。", 14)
 	_local_button(body, "menu_close", "收起菜单", close_menu)
 
@@ -1103,6 +1110,8 @@ func _receipts(parent: Control, id: String, kinds: Array) -> void:
 func _box(parent: Node, id: String) -> PanelContainer:
 	var box := PanelContainer.new()
 	box.name = id
+	if id.begins_with("story_scene_") or id == "voyage_closure":
+		box.add_theme_stylebox_override("panel", Parchment.panel(14, "inset"))
 	parent.add_child(box)
 	return box
 func _column(parent: Node) -> VBoxContainer:
@@ -1118,14 +1127,15 @@ func _row(parent: Node) -> HBoxContainer:
 func _heading(parent: Control, text: String) -> void:
 	var separator := HSeparator.new()
 	parent.add_child(separator)
-	_text(parent, "heading_" + str(parent.get_child_count()), func(): return text, 20, Color("e3c88d"))
-func _text(parent: Node, id: String, source: Callable, font_size: int = 16, color: Color = Color("eee6d4")) -> Label:
+	_text(parent, "heading_" + str(parent.get_child_count()), func(): return text, 20, Parchment.CINNABAR)
+func _text(parent: Node, id: String, source: Callable, font_size: int = 16, color: Color = Parchment.INK) -> Label:
 	var label := Label.new()
 	label.name = id
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", color)
+	if font_size >= 20: label.add_theme_font_override("font", Parchment.title_font())
 	parent.add_child(label)
 	_watchers.append(func(): label.text = str(source.call()))
 	return label
@@ -1235,24 +1245,4 @@ func _layout() -> void:
 	_menu.size = Vector2(minf(500, viewport.x - 36), maxf(220, viewport.y - 48))
 
 func _make_theme() -> Theme:
-	var theme := Theme.new()
-	theme.default_font_size = 16
-	var panel := StyleBoxFlat.new()
-	panel.bg_color = Color(0.045, 0.14, 0.155, 0.95)
-	panel.border_color = Color("a88b54")
-	panel.set_border_width_all(1)
-	panel.set_content_margin_all(16)
-	theme.set_stylebox("panel", "PanelContainer", panel)
-	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-		var style := StyleBoxFlat.new()
-		style.bg_color = Color("264d49") if state == "normal" else Color("3b6256") if state == "hover" else Color("806b43") if state == "pressed" else Color("152f33") if state == "disabled" else Color(0, 0, 0, 0)
-		style.border_color = Color("e6c981") if state == "focus" else Color("ae935d")
-		style.set_border_width_all(2 if state == "focus" else 1)
-		style.set_content_margin_all(8)
-		theme.set_stylebox(state, "Button", style)
-		theme.set_stylebox(state, "OptionButton", style)
-	for type in ["Button", "OptionButton", "Label", "CheckBox", "LineEdit", "TextEdit"]:
-		theme.set_color("font_color", type, Color("eee6d4"))
-		theme.set_color("font_disabled_color", type, Color("76918a"))
-		theme.set_color("font_hover_color", type, Color("fff0c9"))
-	return theme
+	return Parchment.create()

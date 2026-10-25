@@ -80,7 +80,7 @@
 
 ## 最小共享接缝
 
-增加单一 `game/ui/theme/parchment_theme.gd`（路径可由主任务最终确定），提供静态 `create()`、纸面 StyleBox、背景图挂载和少量语义色。所有根 Control / CanvasLayer 下 `_screen` 显式使用它。现有 `_theme()` / `_make_theme()` / `legacy_theme.create()` 可保留短委托适配，避免让其他调用者直接依赖菜单实例。
+已由 DESIGN.md 固定单一 `game/ui/shared/parchment_theme.gd`，提供静态 `create()`、纸面 StyleBox、背景图挂载和少量语义色。所有根 Control / CanvasLayer 下 `_screen` 显式使用它。现有 `_theme()` / `_make_theme()` / `legacy_theme.create()` 可保留短委托适配，避免让其他调用者直接依赖菜单实例。
 
 共享主题至少覆盖：
 
@@ -112,3 +112,20 @@ FileDialog 是 Window，需单独验证它的嵌入/主题继承结果；仅父 
 - debug/editor + `--dev` 覆盖旧版、挑战网格、QA、水面参考、来源对照；独立 Trial/Prototype 另注明直接场景验证。
 - 只读检查已有测试：`test_menu_consolidation.gd`, `test_development_access.gd`, `test_game_router.gd`, `test_laboratory_entry.gd`, `test_release_game_entry.gd` 等；样式修改不能改变其命令合同。
 - 纹理 import/脚本解析通过不等于 GPU 视觉完成；静态截图也不代表交互/动态验证。将实际测到的窗口尺寸、入口、焦点/弹窗状态与未覆盖状态写入最终报告。
+
+## 辅助 UI 实施与回归记录
+
+2026-10-25，设置、恢复、旧版 Theme/Interface、实验室、论文阅读器共 6 个实现文件已接入 DESIGN.md 共享接口。`legacy_chart.gd`、`parameter_panel.gd` 无独立样式，直接继承。保留信号、存档会话 token、实验时钟与游戏动作合同。
+
+修改前基线：`test_user_settings` 21、`test_legacy_ui` 371、`test_laboratory_ui` 26 断言，均 0 失败。修改后在 Godot 4.7.2 实际运行 6 组 headless 回归，591 断言、0 失败、无脚本/资源错误：
+
+| 测试 | 断言 | 证据 |
+| --- | ---: | --- |
+| `test_user_settings` | 21 | `evidence/post-test_user_settings.json` |
+| `test_legacy_ui` | 371 | `evidence/post-test_legacy_ui.json` |
+| `test_laboratory_ui` | 26 | `evidence/post-test_laboratory_ui.json` |
+| `test_game_router` | 55 | `evidence/post-test_game_router.json` |
+| `test_laboratory_catalog` | 99 | `evidence/post-test_laboratory_catalog.json` |
+| `test_app_settings_convergence` | 19 | `evidence/post-test_app_settings_convergence.json` |
+
+测试子进程独立设置 `APPDATA` / `LOCALAPPDATA` 为 `Temp/parchment-ui-profiles/menu/roaming` 与 `local`，不修改系统环境。上述证据证明脚本加载和既有设置、UI、路由、恢复、论文转义等行为回归通过；实际 GPU 的纸纹对比、弹窗裁切、焦点与鼠标透明度由本任务统一截图验收另行记录。

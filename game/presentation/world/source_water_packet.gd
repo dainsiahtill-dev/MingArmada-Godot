@@ -1,7 +1,7 @@
 extends RefCounted
 ## Explicit target scene units/cadence/ship-class adapter. Native formulas live
 ## in water modules; these mappings are not recovered original actor producers.
-const FAMILIES := {"sloop1":0,"ship_brigantine":1,"frigate":2,"barque":3,"ship_merman":5,"treasure_galleon":6}
+const FAMILIES := {"sloop1":0,"ship_brigantine":1,"frigate":2,"barque":3,"hero_fuchuan":3,"ship_merman":5,"treasure_galleon":6}
 const FROTH_NAMES := ["sloop","brigantine","frigate","barque","fluyt","merchantman","treasuregalleon","fast_galleon","tartane"]
 static func native_vector(p:Vector3)->Array:return [p.x,-p.z,p.y]
 static func native_rotation(b:Basis)->Array:

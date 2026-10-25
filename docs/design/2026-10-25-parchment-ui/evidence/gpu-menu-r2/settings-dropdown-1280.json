@@ -1,0 +1,568 @@
+{
+	"actionCount": 6,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Value",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "settings-dropdown-1280",
+	"pngSha256": "6e4412e248365fa5737ac8ca9b7cb51d954660151f39ed05900bcfb480aa6f13",
+	"popup": "actual OptionButton PopupMenu",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel",
+				"panelMargins": [
+					22.0,
+					22.0,
+					22.0,
+					22.0
+				],
+				"rect": [
+					83.1999969482422,
+					28.0,
+					480.0,
+					664.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Intro",
+				"rect": [
+					105.199996948242,
+					10.0,
+					432.0,
+					47.0
+				],
+				"text": "一叶福船，万里海疆。\n乘风起航，在炮火与商路间写下你的海上生涯。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/CaptainLabel",
+				"rect": [
+					105.199996948242,
+					65.0,
+					432.0,
+					19.0
+				],
+				"text": "船长姓名",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Captain",
+				"rect": [
+					105.199996948242,
+					92.0,
+					432.0,
+					44.0
+				],
+				"text": "沈沧海",
+				"type": "LineEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "fff1d3ff",
+				"fontSize": 19,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi",
+				"rect": [
+					105.199996948242,
+					144.0,
+					432.0,
+					72.0
+				],
+				"text": "海上明旗新生涯\n1650 · 厦金护粮",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi-continue",
+				"rect": [
+					105.199996948242,
+					224.0,
+					432.0,
+					60.0
+				],
+				"text": "继续海上明旗 · 1650\n导入存档或恢复航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/duel",
+				"rect": [
+					105.199996948242,
+					292.0,
+					211.0,
+					60.0
+				],
+				"text": "单舰炮战\n一对一交锋",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/fleet",
+				"rect": [
+					326.200012207031,
+					292.0,
+					211.0,
+					60.0
+				],
+				"text": "舰队遭遇\n一对二挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/sail",
+				"rect": [
+					105.199996948242,
+					360.0,
+					432.0,
+					60.0
+				],
+				"text": "自由试航\n练习风帆与操舵",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/laboratory",
+				"rect": [
+					105.199996948242,
+					428.0,
+					432.0,
+					60.0
+				],
+				"text": "实验室\n研究报告 · 独立可复现实验",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/fidelity-island",
+				"rect": [
+					105.199996948242,
+					496.0,
+					432.0,
+					60.0
+				],
+				"text": "海面与海岛验收\n正式航海世界 · 海水、海岛与动态岸浪",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/ships",
+				"rect": [
+					105.199996948242,
+					564.0,
+					432.0,
+					60.0
+				],
+				"text": "检阅船只\n福船、渔舟与远洋商船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/Settings",
+				"rect": [
+					105.199996948242,
+					632.0,
+					211.0,
+					38.0
+				],
+				"text": "航海设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/quit",
+				"rect": [
+					326.200012207031,
+					632.0,
+					211.0,
+					38.0
+				],
+				"text": "退出游戏",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel",
+				"panelMargins": [
+					20.0,
+					20.0,
+					20.0,
+					20.0
+				],
+				"rect": [
+					340.0,
+					25.0,
+					600.0,
+					669.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/@Label@316",
+				"rect": [
+					360.0,
+					45.0,
+					560.0,
+					29.0
+				],
+				"text": "航海设置",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "8d3d2bff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Reason",
+				"rect": [
+					360.0,
+					86.0,
+					560.0,
+					22.0
+				],
+				"text": "首次启动，使用默认设置。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/@Label@329",
+				"rect": [
+					360.0,
+					129.0,
+					273.0,
+					22.0
+				],
+				"text": "操船方式",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Value",
+				"rect": [
+					647.0,
+					120.0,
+					273.0,
+					40.0
+				],
+				"text": "辅助操船",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/@Label@340",
+				"rect": [
+					360.0,
+					179.0,
+					273.0,
+					22.0
+				],
+				"text": "画面质量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Value",
+				"rect": [
+					647.0,
+					170.0,
+					273.0,
+					40.0
+				],
+				"text": "均衡",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/@Label@341",
+				"rect": [
+					360.0,
+					229.0,
+					273.0,
+					22.0
+				],
+				"text": "航海音效",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/Value",
+				"rect": [
+					647.0,
+					220.0,
+					273.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/soundVolume/@Label@342",
+				"rect": [
+					360.0,
+					277.0,
+					273.0,
+					22.0
+				],
+				"text": "音效音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/@Label@343",
+				"rect": [
+					360.0,
+					325.0,
+					273.0,
+					22.0
+				],
+				"text": "背景音乐",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/Value",
+				"rect": [
+					647.0,
+					316.0,
+					273.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/musicVolume/@Label@344",
+				"rect": [
+					360.0,
+					373.0,
+					273.0,
+					22.0
+				],
+				"text": "音乐音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/@Label@345",
+				"rect": [
+					360.0,
+					421.0,
+					273.0,
+					22.0
+				],
+				"text": "减少动态效果",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/Value",
+				"rect": [
+					647.0,
+					412.0,
+					273.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraShake/@Label@346",
+				"rect": [
+					360.0,
+					469.0,
+					273.0,
+					22.0
+				],
+				"text": "镜头晃动",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/@Label@347",
+				"rect": [
+					360.0,
+					517.0,
+					273.0,
+					22.0
+				],
+				"text": "镜头跟随",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/Value",
+				"rect": [
+					647.0,
+					508.0,
+					273.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/horizonStability/@Label@348",
+				"rect": [
+					360.0,
+					565.0,
+					273.0,
+					22.0
+				],
+				"text": "地平线稳定",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Close",
+				"rect": [
+					360.0,
+					632.0,
+					560.0,
+					42.0
+				],
+				"text": "返回",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 2,
+		"unclippedOverflow": [],
+		"visibleButtons": 17,
+		"visibleControls": 60
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

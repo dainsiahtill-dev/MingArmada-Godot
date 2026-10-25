@@ -1,12 +1,12 @@
 {
   "id": "tool-oar",
-  "title": "长桨与篙",
+  "title": "应急手桨与长桨",
   "group": "weapons",
   "scope": "production",
   "covers": [
     "tool-oar"
   ],
-  "brief": "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。 旧预算保留项；不是既有形制已通过审定的声明。",
+  "brief": "独立船具按基模计数；炮身与炮架分开，船壳交付包只引用这些模块，不再重复统计。弹种是目标游戏设计，不据此证明每场史实用过该弹。 旧预算保留项；不是既有形制已通过审定的声明。 此项是手桨，不能覆盖船尾摇橹；另见tool-sculling-oar和tool-punt-pole。",
   "requiredViews": [
     "front",
     "side",
@@ -14,5 +14,71 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/weapons/tool-oar/multiview-v1.png",
-  "status": "not-generated"
+  "status": "generated-review-required",
+  "sha256": "e115c61358ad9a81413e432fdf2e00faa5731ac90e29fa52b30b198c2ec138e4",
+  "generation": {
+    "jobId": "tool-oar",
+    "tool": "built-in-imagegen",
+    "generatedAt": "2026-10-24T16:19:42.149Z",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a16e9b-c1fc-7df1-adac-457d5864e696\\exec-5a4edc19-003f-4ec6-aabb-cca24fe0e763.png",
+    "imagePath": "assets/production/model-kit-v1/weapons/tool-oar/multiview-v1.png",
+    "sha256": "e115c61358ad9a81413e432fdf2e00faa5731ac90e29fa52b30b198c2ec138e4",
+    "width": 1536,
+    "height": 1024,
+    "review": {
+      "jobId": "tool-oar",
+      "version": 2,
+      "status": "concept-reviewed",
+      "preferredImagePath": "assets/production/model-kit-v1/weapons/tool-oar/multiview-v2.png",
+      "observedViews": [
+        "thinblade side",
+        "broadblade top",
+        "handle end",
+        "blade end",
+        "three-quarter"
+      ],
+      "observations": [
+        "v2真正薄叶侧边已补；桨叶宽面、握柄端面和叶尖端面可区分",
+        "同一长桨没有混入船篙"
+      ],
+      "issues": [
+        "端面图与纵向图采用不同显示尺度，未标工程尺寸；几何厚度仍为概念"
+      ],
+      "nextChanges": [
+        "建模时以同一横断面母体统一厚度，不把此概念当工程图"
+      ],
+      "historyApproved": false,
+      "modelingApproved": false
+    },
+    "modelingApproved": false,
+    "historyApproved": false,
+    "promptPath": "assets/production/model-kit-v1/weapons/tool-oar/prompt.txt"
+  },
+  "review": {
+    "jobId": "tool-oar",
+    "version": 2,
+    "status": "concept-reviewed",
+    "preferredImagePath": "assets/production/model-kit-v1/weapons/tool-oar/multiview-v2.png",
+    "observedViews": [
+      "thinblade side",
+      "broadblade top",
+      "handle end",
+      "blade end",
+      "three-quarter"
+    ],
+    "observations": [
+      "v2真正薄叶侧边已补；桨叶宽面、握柄端面和叶尖端面可区分",
+      "同一长桨没有混入船篙"
+    ],
+    "issues": [
+      "端面图与纵向图采用不同显示尺度，未标工程尺寸；几何厚度仍为概念"
+    ],
+    "nextChanges": [
+      "建模时以同一横断面母体统一厚度，不把此概念当工程图"
+    ],
+    "historyApproved": false,
+    "modelingApproved": false
+  },
+  "preferredImagePath": "assets/production/model-kit-v1/weapons/tool-oar/multiview-v2.png",
+  "preferredSha256": "beac9923a54b3c004f0356d69ea8341b49d70c77e374c032028da17ea145bfc9"
 }

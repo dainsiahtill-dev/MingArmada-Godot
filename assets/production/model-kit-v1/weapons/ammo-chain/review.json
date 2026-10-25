@@ -1,0 +1,28 @@
+{
+  "jobId": "ammo-chain",
+  "version": 1,
+  "observedViews": [
+    "side",
+    "top",
+    "front",
+    "rear",
+    "three-quarter"
+  ],
+  "status": "needs-redraw",
+  "observations": [
+    "两端铁球与单根链组合明确；多视图没有混入不同弹种"
+  ],
+  "issues": [
+    "各图链节数不是提示要求七节，侧俯/端视链长不同；需统一"
+  ],
+  "nextChanges": [
+    "v1链节数量仍不一致，保留needs-redraw；v2被安全系统拒绝，无新图。"
+  ],
+  "historyApproved": false,
+  "modelingApproved": false,
+  "revisionAttempt": {
+    "version": 2,
+    "status": "safety-system-blocked",
+    "errorFile": "generation-error-v2.json"
+  }
+}

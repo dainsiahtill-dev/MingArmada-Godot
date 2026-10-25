@@ -15,6 +15,7 @@ func _run() -> void:
 	var missing: Dictionary = store.load_settings()
 	check(missing.ok and missing.reason == "settings-not-found" and missing.settings.handling == "assisted" and missing.settings.musicVolume == 0.7,"missing file exposes reason and source assisted/music defaults")
 	check(missing.settings.cameraShake == 0 and missing.settings.cameraFollow and missing.settings.horizonStability == 1 and not missing.settings.reducedMotion,"first launch keeps stable source camera defaults")
+	check(not missing.settings.sound and not missing.settings.music,"new profiles start with both music and sound muted")
 	var result: Dictionary = store.update_settings({"quality":"high","soundVolume":-2.0,"musicVolume":2.0,"handlingMode":"realistic","cameraFollow":false})
 	check(result.ok and result.settings.soundVolume == 0 and result.settings.musicVolume == 1 and result.settings.handling == "realistic","finite numeric patch clamps and handling alias maps to canonical source field")
 	var bytes := FileAccess.get_file_as_string(path)
@@ -25,8 +26,8 @@ func _run() -> void:
 	result = store.update_settings({"sound":false,"musicVolume":NAN})
 	check(not result.ok and result.reason == "settings-invalid-musicVolume" and store.snapshot() == before and FileAccess.get_file_as_string(path) == bytes,"mixed invalid patch changes neither settings nor disk")
 	check(not store.update_settings({"quality":"ultra"}).ok and not store.update_settings({"sound":"yes"}).ok and not store.update_settings({"unknown":true}).ok,"invalid enum/type/unknown field are explicit refusals")
-	var detached: Dictionary = store.snapshot(); detached.sound = false
-	check(store.snapshot().sound,"returned settings cannot mutate live state")
+	var detached: Dictionary = store.snapshot(); detached.sound = true
+	check(not store.snapshot().sound,"returned settings cannot mutate live state")
 	var name := "海".repeat(23)+"😀"
 	check(store.update_settings({"captainName":name}).ok,"source UTF16 name truncation can persist a split surrogate")
 	var expected_units: Array = Text.native_units("海".repeat(23)); expected_units.append(0xd83d)
@@ -39,9 +40,9 @@ func _run() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path+".rollback"))
 	var file := FileAccess.open(path,FileAccess.WRITE); file.store_string("{bad json"); file.close()
 	result = reloaded.load_settings()
-	check(not result.ok and result.reason == "settings-invalid-json" and result.settings.sound and result.settings.musicVolume == 0.7,"corrupt file restores defaults and actual load reason")
+	check(not result.ok and result.reason == "settings-invalid-json" and not result.settings.sound and not result.settings.music and result.settings.musicVolume == 0.7,"corrupt file restores muted defaults and actual load reason")
 	file = FileAccess.open(path,FileAccess.WRITE); file.store_string('{"version":2,"settings":{"sound":false}}'); file.close()
-	check(reloaded.load_settings().reason == "settings-unsupported-version" and reloaded.snapshot().sound,"future version cannot silently overwrite defaults")
+	check(reloaded.load_settings().reason == "settings-unsupported-version" and not reloaded.snapshot().sound,"future version cannot silently overwrite muted defaults")
 	file = FileAccess.open(path,FileAccess.WRITE); file.store_string('{"version":1,"settings":{"quality":"ultra","sound":false,"cameraShake":9,"horizonStability":-5}}'); file.close()
 	result = reloaded.load_settings()
 	check(result.ok and result.reason == "settings-normalized" and result.settings.quality == "balanced" and not result.settings.sound and result.settings.cameraShake == 1 and result.settings.horizonStability == 0,"load uses source field fallback and finite bounds")

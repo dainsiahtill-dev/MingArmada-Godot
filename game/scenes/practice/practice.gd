@@ -3,7 +3,7 @@ signal main_menu_requested
 const Runtime = preload("res://game/runtime/practice_runtime.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const EncounterInterface = preload("res://game/ui/encounters/encounter_interface.gd")
-const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const KINDS = ["duel","landBattle","treasure","banquet"]
 var startup_options: Dictionary = {}
 var startup_receipt: Dictionary = {}
@@ -22,8 +22,8 @@ func _ready() -> void:
 	if not development_access_allowed():
 		_leaving = true; set_process(false)
 		startup_receipt = {"ok":false,"reason":"practice-development-only"}; return
-	theme=ThemeFactory.create(); set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var background:=ColorRect.new(); background.color=Color("173e3e"); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(background)
+	theme=Parchment.create(); set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	Parchment.background(self,"ledger","PracticePaper")
 	encounter_ui=EncounterInterface.new(); add_child(encounter_ui); encounter_ui.command_requested.connect(_command)
 	var header:=HFlowContainer.new(); _header=header; header.name="PracticeHeader"; add_child(header)
 	header.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE); header.offset_left=12; header.offset_right=-12; header.offset_top=10

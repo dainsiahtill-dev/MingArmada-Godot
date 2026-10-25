@@ -1,0 +1,302 @@
+{
+	"actionCount": 0,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Captain",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "menu-normal-1600",
+	"pngSha256": "9539cad9a4a1da50400ed4b904a3072b90b0bc5022fb91f0e56bebc1f569f30e",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel",
+				"panelMargins": [
+					22.0,
+					22.0,
+					22.0,
+					22.0
+				],
+				"rect": [
+					100.0,
+					28.0,
+					480.0,
+					844.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "6b513bff",
+				"fontSize": 15,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Era",
+				"rect": [
+					122.0,
+					50.0,
+					436.0,
+					20.0
+				],
+				"text": "南明 · 永历四年 · 1650",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 48,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Title",
+				"rect": [
+					122.0,
+					78.0,
+					436.0,
+					49.0
+				],
+				"text": "海上明旗",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Intro",
+				"rect": [
+					122.0,
+					135.0,
+					436.0,
+					47.0
+				],
+				"text": "一叶福船，万里海疆。\n乘风起航，在炮火与商路间写下你的海上生涯。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/CaptainLabel",
+				"rect": [
+					122.0,
+					190.0,
+					436.0,
+					19.0
+				],
+				"text": "船长姓名",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Captain",
+				"rect": [
+					122.0,
+					217.0,
+					436.0,
+					44.0
+				],
+				"text": "沈沧海",
+				"type": "LineEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "fff1d3ff",
+				"fontSize": 19,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi",
+				"rect": [
+					122.0,
+					269.0,
+					436.0,
+					72.0
+				],
+				"text": "海上明旗新生涯\n1650 · 厦金护粮",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi-continue",
+				"rect": [
+					122.0,
+					349.0,
+					436.0,
+					60.0
+				],
+				"text": "继续海上明旗 · 1650\n导入存档或恢复航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/duel",
+				"rect": [
+					122.0,
+					417.0,
+					213.0,
+					60.0
+				],
+				"text": "单舰炮战\n一对一交锋",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/fleet",
+				"rect": [
+					345.0,
+					417.0,
+					213.0,
+					60.0
+				],
+				"text": "舰队遭遇\n一对二挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/sail",
+				"rect": [
+					122.0,
+					485.0,
+					436.0,
+					60.0
+				],
+				"text": "自由试航\n练习风帆与操舵",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/laboratory",
+				"rect": [
+					122.0,
+					553.0,
+					436.0,
+					60.0
+				],
+				"text": "实验室\n研究报告 · 独立可复现实验",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/fidelity-island",
+				"rect": [
+					122.0,
+					621.0,
+					436.0,
+					60.0
+				],
+				"text": "海面与海岛验收\n正式航海世界 · 海水、海岛与动态岸浪",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/ships",
+				"rect": [
+					122.0,
+					689.0,
+					436.0,
+					60.0
+				],
+				"text": "检阅船只\n福船、渔舟与远洋商船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/Settings",
+				"rect": [
+					122.0,
+					757.0,
+					213.0,
+					38.0
+				],
+				"text": "航海设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/quit",
+				"rect": [
+					345.0,
+					757.0,
+					213.0,
+					38.0
+				],
+				"text": "退出游戏",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "6b513bff",
+				"fontSize": 12,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Footer",
+				"rect": [
+					122.0,
+					803.0,
+					436.0,
+					37.0
+				],
+				"text": "1650 · 厦门至金门\n键盘 / 鼠标 · 单人航海",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 10,
+		"visibleControls": 23
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

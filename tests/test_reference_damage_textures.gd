@@ -1,4 +1,6 @@
 extends SceneTree
+# Recorded original-hull fixtures; authored flagship has a separate water test.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 
 var failures: Array[String] = []
 var assertions := 0
@@ -24,7 +26,7 @@ func _run() -> void:
 	var script = load("res://game/presentation/ships/ship_view.gd")
 	var view = script.new()
 	root.add_child(view)
-	check(view.configure("voc"), "actual source ship loads for reference texture probe")
+	check(view.configure("voc",null,Reference.new()), "actual source ship loads for reference texture probe")
 	view.apply_snapshot({"id": "probe", "time": 1.0, "hull": 60.0, "sail": 63.0}, {}, 0.0)
 	for sail: MeshInstance3D in _damage_meshes(view.get_model(), "sail"):
 		for material: ShaderMaterial in _checked_materials(sail):
@@ -42,8 +44,8 @@ func _test_bindings(view, script) -> void:
 	var healthy = script.new()
 	root.add_child(healthy)
 	for kind in ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]:
-		check(view.configure(kind), "actual damaged source ship loads: " + kind)
-		check(healthy.configure(kind), "independent healthy source ship loads: " + kind)
+		check(view.configure(kind,null,Reference.new()), "actual damaged source ship loads: " + kind)
+		check(healthy.configure(kind,null,Reference.new()), "independent healthy source ship loads: " + kind)
 		healthy.apply_snapshot({"id": "clean-" + kind, "time": 1.0, "hull": 100.0, "sail": 100.0}, {}, 0.0)
 		var clean_materials: Array[ShaderMaterial] = []
 		for distance in [0.0, 300.0, 800.0]:

@@ -14,5 +14,71 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/ships/ship-fuchuan/multiview-v1.png",
-  "status": "not-generated"
+  "status": "generated-review-required",
+  "sha256": "5087e14ca6d24f601a4773dce100ddf41b47f14b0340534092240dfff0f84618",
+  "generation": {
+    "jobId": "ship-fuchuan",
+    "tool": "built-in-imagegen",
+    "generatedAt": "2026-10-24T16:08:33.308Z",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a16e9b-c1fc-7df1-adac-457d5864e696\\exec-384adf63-580b-49e8-a67a-9dd5fad79a33.png",
+    "imagePath": "assets/production/model-kit-v1/ships/ship-fuchuan/multiview-v1.png",
+    "sha256": "5087e14ca6d24f601a4773dce100ddf41b47f14b0340534092240dfff0f84618",
+    "width": 1536,
+    "height": 1024,
+    "review": {
+      "jobId": "ship-fuchuan",
+      "version": 2,
+      "status": "concept-reviewed",
+      "preferredImagePath": "assets/production/model-kit-v1/ships/ship-fuchuan/multiview-v2.png",
+      "observedViews": [
+        "side",
+        "front/bow",
+        "rear/stern",
+        "top",
+        "three-quarter"
+      ],
+      "observations": [
+        "v2侧视和三分之四图均改成每侧三炮口",
+        "三桅三帆、船底和水线保留，炮身独立不混入"
+      ],
+      "issues": [
+        "俯视舱楼比例仍近似；端视非可直接建模的精确船线"
+      ],
+      "nextChanges": [
+        "保留v1失败记录，建模前统一正投影基准"
+      ],
+      "historyApproved": false,
+      "modelingApproved": false
+    },
+    "modelingApproved": false,
+    "historyApproved": false,
+    "promptPath": "assets/production/model-kit-v1/ships/ship-fuchuan/prompt.txt"
+  },
+  "review": {
+    "jobId": "ship-fuchuan",
+    "version": 2,
+    "status": "concept-reviewed",
+    "preferredImagePath": "assets/production/model-kit-v1/ships/ship-fuchuan/multiview-v2.png",
+    "observedViews": [
+      "side",
+      "front/bow",
+      "rear/stern",
+      "top",
+      "three-quarter"
+    ],
+    "observations": [
+      "v2侧视和三分之四图均改成每侧三炮口",
+      "三桅三帆、船底和水线保留，炮身独立不混入"
+    ],
+    "issues": [
+      "俯视舱楼比例仍近似；端视非可直接建模的精确船线"
+    ],
+    "nextChanges": [
+      "保留v1失败记录，建模前统一正投影基准"
+    ],
+    "historyApproved": false,
+    "modelingApproved": false
+  },
+  "preferredImagePath": "assets/production/model-kit-v1/ships/ship-fuchuan/multiview-v2.png",
+  "preferredSha256": "8d36e50893f47b174650f7493b9088b3395d2b819305d325f0f5e7fb165e4057"
 }

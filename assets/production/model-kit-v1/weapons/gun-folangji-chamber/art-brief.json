@@ -14,5 +14,23 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/weapons/gun-folangji-chamber/multiview-v1.png",
-  "status": "not-generated"
+  "status": "not-generated",
+  "generationFailure": {
+    "jobId": "gun-folangji-chamber",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID f4f7b228-04d0-40b6-9583-7fea8dd176d8. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"input\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  },
+  "review": {
+    "jobId": "gun-folangji-chamber",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID f4f7b228-04d0-40b6-9583-7fea8dd176d8. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"input\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  }
 }

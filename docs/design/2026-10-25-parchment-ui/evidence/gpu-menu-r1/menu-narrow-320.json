@@ -1,0 +1,93 @@
+{
+	"actionCount": 8,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/Settings",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "menu-narrow-320",
+	"pngSha256": "314040dff397f91c75c91f7770e49f74414608347f06acb04a9d993e04327f23",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel",
+				"rect": [
+					12.0,
+					12.0,
+					296.0,
+					456.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Captain",
+				"rect": [
+					34.0,
+					248.0,
+					248.0,
+					44.0
+				],
+				"text": "沈沧海",
+				"type": "LineEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "fff1d3ff",
+				"fontSize": 19,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi",
+				"rect": [
+					34.0,
+					304.0,
+					248.0,
+					76.0
+				],
+				"text": "海上明旗新生涯\n1650 · 厦金护粮",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi-continue",
+				"rect": [
+					34.0,
+					392.0,
+					248.0,
+					64.0
+				],
+				"text": "继续海上明旗 · 1650\n导入存档或恢复航程",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 2,
+		"visibleControls": 12
+	},
+	"viewport": [
+		320,
+		480
+	]
+}

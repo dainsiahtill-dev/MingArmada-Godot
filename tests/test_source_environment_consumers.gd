@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const Sea = preload("res://game/presentation/world/naval_world_view.gd")
 const Runtime = preload("res://game/runtime/mingqi_runtime.gd")
 const Height = preload("res://modules/scene_engine/terrain/height_field.gd")
@@ -64,7 +66,7 @@ func _run()->void:
 	view.dispose();view.dispose();view.free();runtime.dispose()
 	var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/fidelity_naval/ships-manifest.json"))
 	for kind:String in Ship.KINDS:
-		var marker_actor:=Ship.new();root.add_child(marker_actor);check(marker_actor.configure(kind),kind+" actual model configures")
+		var marker_actor:=Ship.new();root.add_child(marker_actor);check(marker_actor.configure(kind,null,Reference.new()),kind+" actual model configures")
 		marker_actor.position=Vector3(123,4,-57);marker_actor.rotation=Vector3(0.1,0.7,-0.05)
 		var attachment:Dictionary=marker_actor.source_water_attachment()
 		var entry:Dictionary=manifest.mappings[kind]

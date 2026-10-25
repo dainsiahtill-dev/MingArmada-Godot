@@ -10,6 +10,7 @@ const WaveDescriptor = preload("res://modules/contracts/wave_descriptor.gd")
 const CrewView = preload("res://game/presentation/crew/crew_view.gd")
 const SeaChartOverlay = preload("res://game/scenes/common/sea_chart_overlay.gd")
 const NauticalChart = preload("res://game/ui/charts/nautical_chart.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const Wakes = preload("res://game/presentation/water/wake_trails.gd")
 const WaterPacket = preload("res://game/presentation/world/source_water_packet.gd")
 const ShadowRenderer = preload("res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd")
@@ -164,7 +165,7 @@ func _configure_charts(ports: Array) -> void:
 	mini_chart.chart_requested.connect(func(): _set_chart_open(true))
 	chart_layer = CanvasLayer.new(); chart_layer.layer = 28; add_child(chart_layer)
 	var backdrop := ColorRect.new(); backdrop.name = "trial_chart_backdrop"
-	backdrop.color = Color(0.025,0.065,0.07,0.86)
+	backdrop.color = Color(Parchment.INK,0.78)
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	chart_layer.add_child(backdrop)
 	expanded_chart = NauticalChart.new(); expanded_chart.name = "trial_chart"
@@ -174,12 +175,14 @@ func _configure_charts(ports: Array) -> void:
 	expanded_chart.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chart_caption = Label.new(); chart_caption.text = "试航模式 · 航位显示"
 	chart_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	chart_caption.add_theme_color_override("font_color",Color("f0d6a1"))
+	chart_caption.add_theme_color_override("font_color",Parchment.PAPER)
+	chart_caption.add_theme_font_override("font",Parchment.title_font())
 	chart_caption.add_theme_font_size_override("font_size",20)
 	chart_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chart_layer.add_child(chart_caption)
 	chart_close = Button.new(); chart_close.name = "trial_chart_close"
 	chart_close.text = "关闭海图  ·  M / Esc"
+	chart_close.theme = Parchment.create()
 	chart_layer.add_child(chart_close)
 	chart_close.pressed.connect(func(): _set_chart_open(false))
 	# The chart recalculates its intrinsic minimum after width changes.

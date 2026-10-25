@@ -1,4 +1,5 @@
 extends CanvasLayer
+const Parchment=preload("res://game/ui/shared/parchment_theme.gd")
 signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 const Runtime=preload("res://game/runtime/visual_qa_runtime.gd")
@@ -15,13 +16,13 @@ var _applying:=false
 var _packet: Dictionary={}
 func _ready() -> void:
 	_screen=Control.new(); _screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); _screen.mouse_filter=Control.MOUSE_FILTER_IGNORE; add_child(_screen)
-	var theme:=Theme.new(); var font:=SystemFont.new(); font.font_names=PackedStringArray(["Microsoft YaHei","sans-serif"]); theme.default_font=font; theme.default_font_size=14; _screen.theme=theme
+	var theme:=Parchment.create(); theme.default_font_size=14; _screen.theme=theme
 	_panel=PanelContainer.new(); _panel.position=Vector2(12,12); _screen.add_child(_panel)
-	var style:=StyleBoxFlat.new(); style.bg_color=Color(0.03,0.12,0.13,0.94); style.border_color=Color("c5a46b"); style.set_border_width_all(1); style.set_content_margin_all(12); _panel.add_theme_stylebox_override("panel",style)
+	_panel.add_theme_stylebox_override("panel",Parchment.panel(12))
 	var scroll:=ScrollContainer.new(); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; scroll.follow_focus=true; _panel.add_child(scroll)
 	var column:=VBoxContainer.new(); column.size_flags_horizontal=Control.SIZE_EXPAND_FILL; column.add_theme_constant_override("separation",8); scroll.add_child(column)
 	_status=_label(column,"真实引擎画面验收")
-	_scenario=OptionButton.new(); _scenario.name="scenario"; _scenario.fit_to_longest_item=false; column.add_child(_scenario)
+	_scenario=OptionButton.new(); _scenario.name="scenario"; _scenario.fit_to_longest_item=false; _scenario.clip_text=true; column.add_child(_scenario)
 	for title: String in Runtime.LABELS: _scenario.add_item(title)
 	_scenario.item_selected.connect(func(index):
 		if not _applying: command_requested.emit({"type":"scenario","value":Runtime.SCENARIOS[index]}))

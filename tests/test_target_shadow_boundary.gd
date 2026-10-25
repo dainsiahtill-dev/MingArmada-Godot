@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const Prepared=preload("res://game/presentation/world/prepared_rigid_shadow.gd")
 const Adapter=preload("res://game/presentation/world/target_rigid_shadow_caster.gd")
 const Renderer=preload("res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd")
@@ -87,7 +89,7 @@ func bounded()->void:
 	check(actual==source.build_volume([0,0,-1]) and actual.vertexCount<=65535,"out-of-scope repair retains complete bounded original geometry instead of dropping caster")
 	check(not str(target.diagnostics().get("boundaryError","")).is_empty(),"bounded fallback exposes a repair diagnostic")
 func real_mesh()->void:
-	var ship:=Ship.new();root.add_child(ship);check(ship.configure("fuchuan"),"actual culprit model configures")
+	var ship:=Ship.new();root.add_child(ship);check(ship.configure("fuchuan",null,Reference.new()),"actual culprit model configures")
 	var mesh:MeshInstance3D=ship.get_model().find_child("native_hull_56_component_03",true,false)
 	var adapter:=Adapter.new();var geometry:Dictionary=adapter._mesh_geometry(mesh.mesh)
 	var target:=owner();target.configure(geometry.positions,geometry.faces)

@@ -1,4 +1,5 @@
 extends Control
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 ## The actual game's shared natural world, retained sea and source surf.
 signal main_menu_requested
 const Height = preload("res://modules/scene_engine/terrain/height_field.gd")
@@ -69,9 +70,11 @@ func _view_input(event: InputEvent) -> void:
 		orbit.yaw = float(orbit.yaw)-event.relative.x*0.006
 		orbit.elevation = clampf(float(orbit.elevation)+event.relative.y*0.004,0.20,1.35); _update_camera()
 func _build_ui() -> void:
+	theme = Parchment.create()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(column)
-	var toolbar := HBoxContainer.new(); toolbar.add_theme_constant_override("separation",16); column.add_child(toolbar)
+	var paper := PanelContainer.new(); paper.name = "ToolbarPaper"; paper.add_theme_stylebox_override("panel",Parchment.panel(8)); column.add_child(paper)
+	var toolbar := HBoxContainer.new(); toolbar.add_theme_constant_override("separation",16); paper.add_child(toolbar)
 	var title := Label.new(); title.text = "海上明旗 · 海岛与航海实景"; title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; toolbar.add_child(title)
 	for entry in [["厦门",Vector3(-415,5,-45),490.0],["金门",Vector3(420,5,160),420.0],["列岛",Vector3(-60,5,390),270.0]]:
 		var button := Button.new(); button.text = entry[0]
@@ -82,7 +85,8 @@ func _build_ui() -> void:
 	var container := SubViewportContainer.new(); container.stretch = true; container.size_flags_vertical = Control.SIZE_EXPAND_FILL; column.add_child(container)
 	view = SubViewport.new(); view.size = Vector2i(1280,720); view.msaa_3d = Viewport.MSAA_4X; view.render_target_update_mode = SubViewport.UPDATE_ALWAYS; container.add_child(view)
 	container.gui_input.connect(_view_input)
-	_status = Label.new(); column.add_child(_status)
+	var status_paper := PanelContainer.new(); status_paper.add_theme_stylebox_override("panel",Parchment.panel(6)); column.add_child(status_paper)
+	_status = Label.new(); status_paper.add_child(_status)
 func activate_entry() -> void:
 	if startup_receipt.ok: camera.make_current(); get_window().title = "海上明旗 · 新海岛与原海水"; _render()
 func inspection_snapshot() -> Dictionary:

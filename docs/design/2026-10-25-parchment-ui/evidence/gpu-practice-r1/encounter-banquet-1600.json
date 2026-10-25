@@ -1,0 +1,383 @@
+{
+	"actionCount": 5,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "encounter-banquet-1600",
+	"pngSha256": "4ee5b5d91203939109d7cf12025c5cfa651afb9a834677592692e07b471a3f3e",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/practice/practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					410.0,
+					66.0,
+					780.0,
+					818.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "8d3d2bff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/encounter_heading",
+				"rect": [
+					424.0,
+					80.0,
+					752.0,
+					25.0
+				],
+				"text": "港口雅宴 · 演练",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "6b513bff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/encounter_context",
+				"rect": [
+					424.0,
+					117.0,
+					752.0,
+					19.0
+				],
+				"text": "难度：标准 · ",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/banquet_stats",
+				"rect": [
+					424.0,
+					148.0,
+					752.0,
+					47.0
+				],
+				"text": "得分 0 · 连击 0 / 最高 0 · 命中 0 · 失误 0\n经过 0.00 / 12.40 秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/banquet_cues",
+				"rect": [
+					424.0,
+					207.0,
+					752.0,
+					97.0
+				],
+				"text": "→ 右揖 · 1.00 秒\n→ 右揖 · 1.80 秒\n↑ 举手 · 2.60 秒\n↑ 举手 · 3.40 秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@383/gesture_up",
+				"rect": [
+					424.0,
+					316.0,
+					76.0,
+					38.0
+				],
+				"text": "↑ 举手",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@383/gesture_down",
+				"rect": [
+					504.0,
+					316.0,
+					76.0,
+					38.0
+				],
+				"text": "↓ 俯身",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@383/gesture_left",
+				"rect": [
+					584.0,
+					316.0,
+					77.0,
+					38.0
+				],
+				"text": "← 左揖",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@383/gesture_right",
+				"rect": [
+					665.0,
+					316.0,
+					77.0,
+					38.0
+				],
+				"text": "→ 右揖",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/feedback",
+				"rect": [
+					424.0,
+					366.0,
+					752.0,
+					22.0
+				],
+				"text": "准备就绪",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/encounter_result",
+				"rect": [
+					424.0,
+					400.0,
+					752.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/settlement_notice",
+				"rect": [
+					424.0,
+					434.0,
+					752.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@384/encounter_pause",
+				"rect": [
+					424.0,
+					468.0,
+					137.0,
+					38.0
+				],
+				"text": "暂停 / 继续挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@384/retreat",
+				"rect": [
+					565.0,
+					468.0,
+					88.0,
+					38.0
+				],
+				"text": "退出挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@384/settle",
+				"rect": [
+					657.0,
+					468.0,
+					120.0,
+					38.0
+				],
+				"text": "确认实际结果",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@384/retry",
+				"rect": [
+					781.0,
+					468.0,
+					88.0,
+					38.0
+				],
+				"text": "再次演练",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@382/encounter_content/@HFlowContainer@384/encounter_close",
+				"rect": [
+					873.0,
+					468.0,
+					88.0,
+					38.0
+				],
+				"text": "返回航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/MainMenu",
+				"rect": [
+					12.0,
+					10.0,
+					96.0,
+					40.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/PracticeKind",
+				"rect": [
+					122.0,
+					10.0,
+					116.0,
+					40.0
+				],
+				"text": "港口宴会",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/Restart",
+				"rect": [
+					252.0,
+					10.0,
+					112.0,
+					40.0
+				],
+				"text": "重新进入练习",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/Begin",
+				"rect": [
+					378.0,
+					10.0,
+					80.0,
+					40.0
+				],
+				"text": "开始宴会",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/PracticeHeader/@Label@360",
+				"rect": [
+					472.0,
+					19.0,
+					222.0,
+					22.0
+				],
+				"text": "等待开始 · 阅读操作后点击开始",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 13,
+		"visibleControls": 30
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

@@ -1,0 +1,515 @@
+{
+	"actionCount": 4,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@HBoxContainer@406/ReadSources",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "laboratory-sources-1600",
+	"pngSha256": "e6beb60a4fe26a202b4baac1d22c9d46caed9781aa6f2e76d8cde725c9a615c7",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/research/laboratory.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 30,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HBoxContainer@399/LaboratoryTitle",
+				"rect": [
+					24.0,
+					27.0,
+					1468.0,
+					31.0
+				],
+				"text": "实验室",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HBoxContainer@399/ReturnToMenu",
+				"rect": [
+					1496.0,
+					24.0,
+					80.0,
+					38.0
+				],
+				"text": "返回首页",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/ResearchPrinciple",
+				"rect": [
+					24.0,
+					78.0,
+					1552.0,
+					22.0
+				],
+				"text": "提出问题 · 比较方案 · 独立实验 · 保留证据 · 接入游戏",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 21,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/SubjectLabel",
+				"rect": [
+					24.0,
+					116.0,
+					280.0,
+					22.0
+				],
+				"text": "研究目录",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "8d3d2bff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_hull-contact",
+				"rect": [
+					24.0,
+					148.0,
+					280.0,
+					78.0
+				],
+				"text": "船体与海面的接触水沫\n船舶表现",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_ocean-surface",
+				"rect": [
+					24.0,
+					236.0,
+					280.0,
+					78.0
+				],
+				"text": "近海与远海的水面层次\n海面渲染",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_shore-surf",
+				"rect": [
+					24.0,
+					324.0,
+					280.0,
+					78.0
+				],
+				"text": "沿岸推进浪与残沫的融合\n岸线表现",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_weather-shadow",
+				"rect": [
+					24.0,
+					412.0,
+					280.0,
+					78.0
+				],
+				"text": "天气、移动云层与云影\n环境表现",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_shadow-edges",
+				"rect": [
+					24.0,
+					500.0,
+					280.0,
+					78.0
+				],
+				"text": "阴影轮廓边的等价加速\n性能与正确性",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_wake-flow",
+				"rect": [
+					24.0,
+					588.0,
+					280.0,
+					78.0
+				],
+				"text": "航迹水流与船尾扩散\n船舶表现",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/@ScrollContainer@404/TopicList/Topic_architecture-convergence-2026-10-21",
+				"rect": [
+					24.0,
+					676.0,
+					280.0,
+					78.0
+				],
+				"text": "架构基础收敛：采样与固定步\n性能与正确性",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage",
+				"panelMargins": [
+					20.0,
+					20.0,
+					20.0,
+					20.0
+				],
+				"rect": [
+					316.0,
+					116.0,
+					1260.0,
+					760.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 27,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/TopicTitle",
+				"rect": [
+					336.0,
+					136.0,
+					1220.0,
+					28.0
+				],
+				"text": "船体与海面的接触水沫",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 17,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/TopicAbstract",
+				"rect": [
+					336.0,
+					176.0,
+					1220.0,
+					23.0
+				],
+				"text": "以真实船壳、水面相对速度与各船吃水驱动稳定浮动和接触水沫；实验室可对照旧浮动算法。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "6b513bff",
+				"fontSize": 15,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/ResearchStatus",
+				"rect": [
+					336.0,
+					211.0,
+					1220.0,
+					20.0
+				],
+				"text": "已集成 · 事后整理  |  独立实验可运行 · 近拍效果待改进",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@HBoxContainer@406/ReadPaper",
+				"rect": [
+					336.0,
+					243.0,
+					80.0,
+					38.0
+				],
+				"text": "研究全文",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@HBoxContainer@406/RunExperiment",
+				"rect": [
+					420.0,
+					243.0,
+					80.0,
+					38.0
+				],
+				"text": "运行实验",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@HBoxContainer@406/ReadSources",
+				"rect": [
+					504.0,
+					243.0,
+					96.0,
+					38.0
+				],
+				"text": "来源与证据",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/SourceExplanation",
+				"rect": [
+					336.0,
+					293.0,
+					1220.0,
+					22.0
+				],
+				"text": "论文随游戏发布；原始源码、历史日志和完整证据在仓库内查看。当前安装未包含的引用会明确提示。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 21,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/Group_sources",
+				"rect": [
+					336.0,
+					329.0,
+					1220.0,
+					22.0
+				],
+				"text": "实现与研究来源",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/Reference",
+				"rect": [
+					336.0,
+					365.0,
+					1220.0,
+					38.0
+				],
+				"text": "modules/scene_engine/water/hull_contact_froth.gd",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@457",
+				"rect": [
+					336.0,
+					417.0,
+					1220.0,
+					38.0
+				],
+				"text": "modules/scene_engine/water/hull_contact_foam.gdshader",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@458",
+				"rect": [
+					336.0,
+					469.0,
+					1220.0,
+					38.0
+				],
+				"text": "game/presentation/ships/hull_waterline_profile.gd",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@459",
+				"rect": [
+					336.0,
+					521.0,
+					1220.0,
+					38.0
+				],
+				"text": "docs/migration/hull-dynamics-2026-10-14.md",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@460",
+				"rect": [
+					336.0,
+					573.0,
+					1220.0,
+					38.0
+				],
+				"text": "modules/physics_engine/ships/ship_dynamics.gd",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@461",
+				"rect": [
+					336.0,
+					625.0,
+					1220.0,
+					38.0
+				],
+				"text": "docs/research/ship-buoyancy-contact-2026-10-14.md",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 21,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/Group_evidence",
+				"rect": [
+					336.0,
+					677.0,
+					1220.0,
+					22.0
+				],
+				"text": "历史证据",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@462",
+				"rect": [
+					336.0,
+					713.0,
+					1220.0,
+					38.0
+				],
+				"text": "docs/migration/evidence/hull-dynamics-2026-10-14/DELIVERY_VERIFY.json",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@463",
+				"rect": [
+					336.0,
+					765.0,
+					1220.0,
+					38.0
+				],
+				"text": "docs/migration/evidence/hull-dynamics-2026-10-14/performance/comparison-gpu.json",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Laboratory/@MarginContainer@397/@VBoxContainer@398/@HSplitContainer@401/ResearchPage/@VBoxContainer@405/@ScrollContainer@412/@VBoxContainer@413/@Button@464",
+				"rect": [
+					336.0,
+					817.0,
+					1220.0,
+					38.0
+				],
+				"text": "docs/research/evidence/ship-buoyancy-2026-10-14/VERIFY.json",
+				"type": "Button"
+			}
+		],
+		"decorations": [
+			{
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Laboratory/ParchmentBackground"
+			}
+		],
+		"scrollContainers": 2,
+		"unclippedOverflow": [],
+		"visibleButtons": 20,
+		"visibleControls": 42
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

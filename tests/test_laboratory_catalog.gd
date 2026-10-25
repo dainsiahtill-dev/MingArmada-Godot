@@ -13,7 +13,7 @@ func _run() -> void:
 	var receipt: Dictionary = catalog.load_catalog()
 	check(receipt.get("ok",false),"bundled research catalog loads")
 	var topics: Array = catalog.topics()
-	check(topics.size() == 7,"six existing subjects plus the architecture convergence experiment registered")
+	check(topics.size() == 8,"existing subjects plus architecture and authored flagship experiments registered")
 	var ids: Dictionary = {}
 	for topic: Dictionary in topics:
 		check(not ids.has(topic.id),"unique subject identity")
@@ -23,9 +23,9 @@ func _run() -> void:
 		if paper.get("ok",false):
 			for heading: String in script.PAPER_SECTIONS:
 				check(paper.text.contains("## "+heading),"paper contains research section "+heading+": "+topic.id)
-		check(topic.retrospective == (topic.id not in ["wake-flow","architecture-convergence-2026-10-21"]),"historical and prospective research are distinguished")
+		check(topic.retrospective == (topic.id not in ["wake-flow","architecture-convergence-2026-10-21","hero-fuchuan"]),"historical and prospective research are distinguished")
 		check(not catalog.demo_path(topic.id).is_empty(),"all visual subjects have a registered independent demo: "+topic.id)
-	for required: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow","shadow-edges","wake-flow","architecture-convergence-2026-10-21"]:
+	for required: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow","shadow-edges","wake-flow","architecture-convergence-2026-10-21","hero-fuchuan"]:
 		check(ids.has(required),"expected visual research subject: "+required)
 	check(not catalog.read_paper("not-a-topic").get("ok",true),"unknown topic rejected")
 	check(catalog.demo_path("not-a-topic").is_empty(),"unknown demo cannot load script")

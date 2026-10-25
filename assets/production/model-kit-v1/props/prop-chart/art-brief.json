@@ -1,12 +1,12 @@
 {
   "id": "prop-chart",
-  "title": "船图与水程笺",
+  "title": "船图与水程笺（纸面配置）",
   "group": "props",
   "scope": "production",
   "covers": [
-    "prop-chart"
+    "prop-letter"
   ],
-  "brief": "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。 旧预算保留项；不是既有形制已通过审定的声明。",
+  "brief": "共享纸张几何；航路/图案是独立二维内容，折叠状态为配置，不新增第二个基础模型。",
   "requiredViews": [
     "front",
     "side",
@@ -14,5 +14,53 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/props/prop-chart/multiview-v1.png",
-  "status": "not-generated"
+  "status": "generated-review-required",
+  "sha256": "26401b6cf617095930a38c4c6427e4ebaccdac352ab5d77a140e213495d5e01b",
+  "generation": {
+    "jobId": "prop-chart",
+    "tool": "built-in-imagegen",
+    "generatedAt": "2026-10-24T16:17:15.695Z",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-97716520-684f-49b5-a615-8f50fc258775.png",
+    "imagePath": "assets/production/model-kit-v1/props/prop-chart/multiview-v1.png",
+    "sha256": "26401b6cf617095930a38c4c6427e4ebaccdac352ab5d77a140e213495d5e01b",
+    "width": 1536,
+    "height": 1024,
+    "review": {
+      "status": "concept-reviewed",
+      "reviewedBy": "root",
+      "observedPanels": [
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "TOP",
+        "detail-or-three-quarter"
+      ],
+      "notes": [
+        "折叠包和展开纸面可读；图形仅示意，不是精确地图，纸面几何与prop-letter共享，不另增基模。"
+      ],
+      "historyBoundary": "环境S15仅支持1620年代纸墨航路语境；未使用1687拉丁后注。",
+      "historyApproved": false,
+      "modelingApproved": false
+    },
+    "modelingApproved": false,
+    "historyApproved": false,
+    "promptPath": "assets/production/model-kit-v1/props/prop-chart/prompt.txt"
+  },
+  "review": {
+    "status": "concept-reviewed",
+    "reviewedBy": "root",
+    "observedPanels": [
+      "FRONT",
+      "SIDE",
+      "REAR",
+      "TOP",
+      "detail-or-three-quarter"
+    ],
+    "notes": [
+      "折叠包和展开纸面可读；图形仅示意，不是精确地图，纸面几何与prop-letter共享，不另增基模。"
+    ],
+    "historyBoundary": "环境S15仅支持1620年代纸墨航路语境；未使用1687拉丁后注。",
+    "historyApproved": false,
+    "modelingApproved": false
+  }
 }

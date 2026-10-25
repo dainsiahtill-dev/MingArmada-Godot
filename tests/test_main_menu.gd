@@ -22,6 +22,9 @@ func _run() -> void:
 	var initial_scroll = menu.find_child("MenuScroll",true,false)
 	check(initial_scroll.scroll_vertical == 0,"initial wide menu keeps title/name visible after layout/focus frames; scroll="+str(initial_scroll.scroll_vertical))
 	check(menu.find_child("Captain",true,false).has_focus(),"initial name editor owns keyboard focus after first layout")
+	var wide_settings: Button = menu.find_child("Settings",true,false)
+	var wide_panel: PanelContainer = menu.find_child("MenuPanel",true,false)
+	check(wide_settings.get_global_rect().end.y <= wide_panel.get_global_rect().end.y-12,"wide main menu keeps settings/exit actions in the initial visible viewport")
 	model.settings.captainName = "外部修改"
 	var captain = menu.find_child("Captain",true,false)
 	check(captain is LineEdit and captain.text == "林正衡","native name input uses detached confirmed snapshot")

@@ -1,4 +1,6 @@
 extends SceneTree
+# Frozen source geometry oracle. Ordinary/default hero entry remains covered separately.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const Ship = preload("res://game/presentation/ships/ship_view.gd")
 var assertions := 0
 var failures := 0
@@ -9,7 +11,7 @@ func check(ok: bool, message: String) -> void:
 func run() -> void:
 	for kind: String in ["fuchuan","fisherman","merchant","heavy"]:
 		var ship := Ship.new();root.add_child(ship)
-		check(ship.configure(kind),"actual ship configured: "+kind)
+		check(ship.configure(kind,null,Reference.new()),"actual ship configured: "+kind)
 		ship.position = Vector3(30,0,40);ship.rotation.y = .6
 		var attachment: Dictionary = ship.source_water_attachment()
 		check(attachment.get("flowStern") is Vector3,"actual hull stern distinct from original Dummy_Wake: "+kind)

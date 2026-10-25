@@ -1,0 +1,1296 @@
+{
+	"actionCount": 4,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "encounter-treasure-1280",
+	"pngSha256": "9ed636f2581c510056ddf4ea14c798caa2299604b8bdaadd0abc77e1f0f03f3b",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/practice/practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					250.0,
+					66.0,
+					780.0,
+					638.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "8d3d2bff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/encounter_heading",
+				"rect": [
+					264.0,
+					80.0,
+					748.0,
+					25.0
+				],
+				"text": "孤岛寻宝 · 演练",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "6b513bff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/encounter_context",
+				"rect": [
+					264.0,
+					117.0,
+					748.0,
+					19.0
+				],
+				"text": "难度：标准 · ",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/treasure_clue",
+				"rect": [
+					264.0,
+					148.0,
+					748.0,
+					22.0
+				],
+				"text": "行至东岸第8列、南侧第6行，古石旁掘土。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/treasure_stats",
+				"rect": [
+					264.0,
+					182.0,
+					748.0,
+					22.0
+				],
+				"text": "生命 100 · 剩余挖掘 3 · 已走 0 步",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_0",
+				"rect": [
+					264.0,
+					216.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_0",
+				"rect": [
+					348.0,
+					216.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_0",
+				"rect": [
+					432.0,
+					216.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_0",
+				"rect": [
+					516.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_0",
+				"rect": [
+					599.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_0",
+				"rect": [
+					682.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_0",
+				"rect": [
+					765.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_0",
+				"rect": [
+					848.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_0",
+				"rect": [
+					931.0,
+					216.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_1",
+				"rect": [
+					264.0,
+					260.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_1",
+				"rect": [
+					348.0,
+					260.0,
+					82.0,
+					42.0
+				],
+				"text": "船长",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_1",
+				"rect": [
+					432.0,
+					260.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_1",
+				"rect": [
+					516.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_1",
+				"rect": [
+					599.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_1",
+				"rect": [
+					682.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_1",
+				"rect": [
+					765.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_1",
+				"rect": [
+					848.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_1",
+				"rect": [
+					931.0,
+					260.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_2",
+				"rect": [
+					264.0,
+					304.0,
+					82.0,
+					42.0
+				],
+				"text": "墙",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_2",
+				"rect": [
+					348.0,
+					304.0,
+					82.0,
+					42.0
+				],
+				"text": "·",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_2",
+				"rect": [
+					432.0,
+					304.0,
+					82.0,
+					42.0
+				],
+				"text": "·",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_2",
+				"rect": [
+					516.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_2",
+				"rect": [
+					599.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_2",
+				"rect": [
+					682.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_2",
+				"rect": [
+					765.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_2",
+				"rect": [
+					848.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_2",
+				"rect": [
+					931.0,
+					304.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_3",
+				"rect": [
+					264.0,
+					348.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_3",
+				"rect": [
+					348.0,
+					348.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_3",
+				"rect": [
+					432.0,
+					348.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_3",
+				"rect": [
+					516.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_3",
+				"rect": [
+					599.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_3",
+				"rect": [
+					682.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_3",
+				"rect": [
+					765.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_3",
+				"rect": [
+					848.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_3",
+				"rect": [
+					931.0,
+					348.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_4",
+				"rect": [
+					264.0,
+					392.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_4",
+				"rect": [
+					348.0,
+					392.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_4",
+				"rect": [
+					432.0,
+					392.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_4",
+				"rect": [
+					516.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_4",
+				"rect": [
+					599.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_4",
+				"rect": [
+					682.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_4",
+				"rect": [
+					765.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_4",
+				"rect": [
+					848.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_4",
+				"rect": [
+					931.0,
+					392.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_5",
+				"rect": [
+					264.0,
+					436.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_5",
+				"rect": [
+					348.0,
+					436.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_5",
+				"rect": [
+					432.0,
+					436.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_5",
+				"rect": [
+					516.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_5",
+				"rect": [
+					599.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_5",
+				"rect": [
+					682.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_5",
+				"rect": [
+					765.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_5",
+				"rect": [
+					848.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_5",
+				"rect": [
+					931.0,
+					436.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_0_6",
+				"rect": [
+					264.0,
+					480.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_1_6",
+				"rect": [
+					348.0,
+					480.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_2_6",
+				"rect": [
+					432.0,
+					480.0,
+					82.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_3_6",
+				"rect": [
+					516.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_4_6",
+				"rect": [
+					599.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_5_6",
+				"rect": [
+					682.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_6_6",
+				"rect": [
+					765.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_7_6",
+				"rect": [
+					848.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "33281dff",
+				"fontSize": 13,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/grid/cell_8_6",
+				"rect": [
+					931.0,
+					480.0,
+					81.0,
+					42.0
+				],
+				"text": "？",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/@HFlowContainer@378/move_up",
+				"rect": [
+					264.0,
+					534.0,
+					76.0,
+					38.0
+				],
+				"text": "↑ 举手",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/@HFlowContainer@378/move_down",
+				"rect": [
+					344.0,
+					534.0,
+					76.0,
+					38.0
+				],
+				"text": "↓ 俯身",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/@HFlowContainer@378/move_left",
+				"rect": [
+					424.0,
+					534.0,
+					77.0,
+					38.0
+				],
+				"text": "← 左揖",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/@HFlowContainer@378/move_right",
+				"rect": [
+					505.0,
+					534.0,
+					77.0,
+					38.0
+				],
+				"text": "→ 右揖",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/dig",
+				"rect": [
+					264.0,
+					584.0,
+					748.0,
+					38.0
+				],
+				"text": "在当前位置掘土",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/feedback",
+				"rect": [
+					264.0,
+					634.0,
+					748.0,
+					22.0
+				],
+				"text": "准备就绪",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@349/encounter_panel/@ScrollContainer@377/encounter_content/encounter_result",
+				"rect": [
+					264.0,
+					668.0,
+					748.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/MainMenu",
+				"rect": [
+					12.0,
+					10.0,
+					96.0,
+					40.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/PracticeKind",
+				"rect": [
+					122.0,
+					10.0,
+					116.0,
+					40.0
+				],
+				"text": "登岸寻宝",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/Restart",
+				"rect": [
+					252.0,
+					10.0,
+					112.0,
+					40.0
+				],
+				"text": "重新进入练习",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/PracticeHeader/@Label@360",
+				"rect": [
+					378.0,
+					19.0,
+					251.0,
+					22.0
+				],
+				"text": "练习场景 · 可反复体验 · 不影响生涯",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 71,
+		"visibleControls": 87
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

@@ -3,6 +3,7 @@ extends Control
 signal settings_requested(patch: Dictionary)
 signal close_requested
 const Settings = preload("res://game/persistence/user_settings.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 var _built := false
 var _applying := false
 var _controls: Dictionary = {}
@@ -18,16 +19,16 @@ func build() -> void:
 	if _built: return
 	_built = true
 	name = "SettingsPanel"; set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	theme = Parchment.create()
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var shade := ColorRect.new(); shade.color = Color(0.015,0.04,0.05,0.8); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(shade)
+	var shade := ColorRect.new(); shade.color = Color(Parchment.INK,0.62); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); shade.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(shade)
 	var center := CenterContainer.new(); center.name = "Center"; center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(center)
 	_panel = PanelContainer.new(); _panel.name = "Panel"; center.add_child(_panel)
-	var style := StyleBoxFlat.new(); style.bg_color = Color("173b3b"); style.border_color = Color("c4a36d"); style.set_border_width_all(1); style.set_content_margin_all(20)
-	_panel.add_theme_stylebox_override("panel",style)
-	_panel.add_theme_color_override("font_color",Color("f5e7c4")); _panel.add_theme_font_size_override("font_size",18)
+	_panel.add_theme_stylebox_override("panel",Parchment.panel(20))
+	_panel.add_theme_font_size_override("font_size",18)
 	var column := VBoxContainer.new(); column.name = "Column"; column.add_theme_constant_override("separation",12); _panel.add_child(column)
-	var title := Label.new(); title.text = "航海设置"; title.add_theme_font_size_override("font_size",28); column.add_child(title)
-	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_color_override("font_color",Color("e6c58d")); column.add_child(_reason)
+	var title := Label.new(); title.text = "航海设置"; title.add_theme_font_override("font",Parchment.title_font()); title.add_theme_font_size_override("font_size",28); column.add_child(title)
+	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_color_override("font_color",Parchment.CINNABAR); column.add_child(_reason)
 	_scroll = ScrollContainer.new(); _scroll.name = "Scroll"; _scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _scroll.follow_focus = true; column.add_child(_scroll)
 	var fields := VBoxContainer.new(); fields.name = "Fields"; fields.size_flags_horizontal = Control.SIZE_EXPAND_FILL; fields.add_theme_constant_override("separation",10); _scroll.add_child(fields)
 	_choice(fields,"handling","操船方式",["辅助操船","真实操船"],["assisted","realistic"])

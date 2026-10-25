@@ -1,0 +1,1193 @@
+{
+  "date": "2026-10-25",
+  "scope": "Godot UI render, layout and listed viewport input checks; not FPS or continuous gameplay validation.",
+  "groups": [
+    {
+      "directory": "gpu-menu-r4",
+      "group": "menu",
+      "assertions": 121,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "menu-normal-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-normal-1600.png",
+          "sha256": "9539cad9a4a1da50400ed4b904a3072b90b0bc5022fb91f0e56bebc1f569f30e",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-focus-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-focus-1600.png",
+          "sha256": "7f1d1ba352efe370a465084ddbf61cc98c51773cf3a7d60be37647b08e3b46e8",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-settings-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-settings-1600.png",
+          "sha256": "d36df29a40fb9c7dd3ad798aa734f0dca1565fd4886c34cd591341c70aec15a0",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "settings-dropdown-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/settings-dropdown-1600.png",
+          "sha256": "653f403c1b4bf96bc4b1932e8b7bd6bcd556041b76dfef740d951ad5139f491d",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-normal-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-normal-1280.png",
+          "sha256": "90b7ae1f6106bb519836396e12ab79c0c1a121eed3b84a6a6534cc16ac2f6e19",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-focus-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-focus-1280.png",
+          "sha256": "15e039b84953d6555685a6ad4e7fb6078db4f3e9c28e711021c0ecca7fc99df7",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-settings-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-settings-1280.png",
+          "sha256": "13411306767b297cb79aba729248d67d31518e682b1ff4776d4263dcd7e8ced1",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "settings-dropdown-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/settings-dropdown-1280.png",
+          "sha256": "6e4412e248365fa5737ac8ca9b7cb51d954660151f39ed05900bcfb480aa6f13",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "menu-narrow-320",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-narrow-320.png",
+          "sha256": "90ffa56a8e696b6f2a9eeb40755bf23afe3812913f351d81cbf6afeecc0274d9",
+          "unclippedOverflow": 0,
+          "width": 320,
+          "height": 480,
+          "rasterValidated": true
+        },
+        {
+          "label": "recovery-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/recovery-1280.png",
+          "sha256": "b7d6719607c84257eeadde8074896588e3bcc66b3ac996e73b9b710d6964117c",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "recovery-file-dialog-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/recovery-file-dialog-1280.png",
+          "sha256": "cc943f606bfde92a6727a1d279b43a0fd4c9409003773d0be8e0ee9cb791d3de",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-mingqi-r2",
+      "group": "mingqi",
+      "assertions": 198,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/common/mouse_course_projection.gd": "cc4f2d48f55b2c692b7f3b9e9ddb15e30eb774f31fa8e10ac20bb267e5d2ad6e",
+        "res://game/scenes/common/reference_geography.gd": "442f22fccb8e12ad47d83aa283f9cf390cfd499f14d6e36ef50935c8d86a7d2b",
+        "res://game/scenes/common/sea_chart_overlay.gd": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd",
+        "res://game/scenes/common/sea_services.gd": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970",
+        "res://game/scenes/common/terminal_presentation_clock.gd": "05522c9cf8a16bea2f9e7fe5fac393e2a664f5d219b250d3260773030bf5da2a",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/scenes/mingqi/mingqi_scene.gd": "3e7bd46ee3bb9a75154a83caabfd4fbdb725ebed99b5664d387a7b00054e413c",
+        "res://game/scenes/mingqi/mingqi_scene.tscn": "0357d8199fe811e933b821e46e4b7501154348fe70a6460628b604e5a503cf61",
+        "res://game/ui/charts/nautical_chart.gd": "8ac51a88072de48193d052c798b6824709be35a5b23c2f0b26d74e3a8862f3f3",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/mingqi/mingqi_chart.gd": "1430eb626118fd28add7beff59215f6174ea6a038c56875ee1e3756dbbf565da",
+        "res://game/ui/mingqi/mingqi_interface.gd": "2eb0214bf7a780bac7193c77fff51cbf7ba8e04082a9eadd7b2ea4a36485087f",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "mingqi-ship-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-ship-1600.png",
+          "sha256": "5c76439ff5633646272efce97f076c4dafd36490b4dd643e97792eac8668e5a0",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-convoy-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-convoy-1600.png",
+          "sha256": "0afea203dfa4b25d5e47d27891edfcd98b13dd5bb3dc920c1c32759ce0ea7a45",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-port-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-port-1600.png",
+          "sha256": "7a8fbc5069419e8ca49c10bdeb85bec88e9b0b823afb9c99ac095152bf811104",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-boarding-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-boarding-1600.png",
+          "sha256": "cb82a3f0329d013704e20127607ddbd133cdb742fd98ffb1f8e8caf7229a662d",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-tactics-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-tactics-1600.png",
+          "sha256": "c4bb2d608851fcf7117c1aadc9f272f075ae0d1428c711ac2d6dfaf52cc8908c",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-story-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-story-1600.png",
+          "sha256": "56768f9a130f2e837245f697d668c82061e27fb1dcac7df2e9fe1cb85d8661d8",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-menu-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-menu-1600.png",
+          "sha256": "725802e6bc3183903a214d2819e5ca73d61010dfd429e8228b24b8eab47bf416",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-file-dialog-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-file-dialog-1600.png",
+          "sha256": "bae5c4118410b657bc652ca0217f9345a811712b9845b1d28ece0f29894b42e5",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-ship-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-ship-1280.png",
+          "sha256": "3b3d20b3c6c7517711caa3e37ad81eb941580fc1cfe40ba0b958a51600a10056",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-convoy-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-convoy-1280.png",
+          "sha256": "ef6c135d6e31b78e001bdf474074723aa74a88f36ff41e4a57fb97783cb8a14d",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-port-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-port-1280.png",
+          "sha256": "b3e4b193d3a25c8408df75a5ba18db1f4cc4d3c869df6520a1418b2c2252226e",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-boarding-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-boarding-1280.png",
+          "sha256": "9ffba9bfadccdac210896e78b73c71b1db9c59815aac2f119825bc3499bd58c7",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-tactics-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-tactics-1280.png",
+          "sha256": "a2295ce0165d27ebbf118180ac233b2917ccefb3ff2e71cb790e57129fa0f623",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-story-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-story-1280.png",
+          "sha256": "717d9a78b93b7a1af236ed8e5a37f5f8f5fdecf8c99b9e13a0fbf81d9ac23736",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-menu-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-menu-1280.png",
+          "sha256": "391b12a0ccb9b9f30c9f729712a70a27a931232568f0a4ac96b57b5ca4180e24",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "mingqi-file-dialog-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-file-dialog-1280.png",
+          "sha256": "af8e146b8612b5481350f257d3106b2ab0a5f06fb2b680d5346195da67f28bdd",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-legacy-r2",
+      "group": "legacy",
+      "assertions": 94,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/common/mouse_course_projection.gd": "cc4f2d48f55b2c692b7f3b9e9ddb15e30eb774f31fa8e10ac20bb267e5d2ad6e",
+        "res://game/scenes/common/reference_geography.gd": "442f22fccb8e12ad47d83aa283f9cf390cfd499f14d6e36ef50935c8d86a7d2b",
+        "res://game/scenes/common/sea_chart_overlay.gd": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd",
+        "res://game/scenes/common/sea_services.gd": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970",
+        "res://game/scenes/common/terminal_presentation_clock.gd": "05522c9cf8a16bea2f9e7fe5fac393e2a664f5d219b250d3260773030bf5da2a",
+        "res://game/scenes/legacy/legacy_scene.gd": "680a790b38dab109919c780f4664510953b1b22d8359b6ce2d6aedd35f274e28",
+        "res://game/scenes/legacy/legacy_scene.tscn": "97e624adcea17d1aaaa57f5ed3721bbf0417f60e26f92fbf4a73d8a3bf7fae81",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/ui/charts/nautical_chart.gd": "8ac51a88072de48193d052c798b6824709be35a5b23c2f0b26d74e3a8862f3f3",
+        "res://game/ui/legacy/legacy_chart.gd": "a3795ff94e16f2279fd7d37b4a0d109ba499b74f86794346be9104a883cdbce0",
+        "res://game/ui/legacy/legacy_interface.gd": "d0dc4ed7e77f6d78f88be3e48660deae5ab294f71bfc0a4c61b47e6817ceef59",
+        "res://game/ui/legacy/legacy_theme.gd": "29b863de985a6b6c17fb75c7a64e6f2a9647e9c17c48a71f1248ca9cf32591c7",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "legacy-market-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-market-1600.png",
+          "sha256": "c5bc5bf875f624bdecfd529084469bcd3391d7f938c3288ace1cab7137fced7e",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-chart-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-chart-1600.png",
+          "sha256": "0e6eab5c56f7962db53bb4e94d33b3a458117f9e940a73c0b4cdcbdec6c204ae",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-save-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-save-1600.png",
+          "sha256": "d9d862650e516f7c7ff53f0c66eb5c7c70c2c7b0c8a2e8babbfde04de1e5ae24",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-settings-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-settings-1600.png",
+          "sha256": "a6f40ac005001f553002fbecdff79dbef9eee3c384cd762c42d39fcee2831aa1",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-market-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-market-1280.png",
+          "sha256": "46e681d64285b2fa3b87cc5006b13ae33846d0591778db5e384d37cd22ec9302",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-chart-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-chart-1280.png",
+          "sha256": "0d40b1ced580ce2882edaa0a7f615962eeb676674fa0c3900104b5890fbe8d59",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-save-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-save-1280.png",
+          "sha256": "caac7585550a75647857ad5aa782af6c3e61eb346c196997d9ed5d7d30d9ae2f",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "legacy-settings-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-legacy-r2/legacy-settings-1280.png",
+          "sha256": "1f896c7caf83f61d700fa196bb7a0c44fb87fe3d62d6e39b3f52d77deb44abfb",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-naval-r3",
+      "group": "naval",
+      "assertions": 178,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/common/mouse_course_projection.gd": "cc4f2d48f55b2c692b7f3b9e9ddb15e30eb774f31fa8e10ac20bb267e5d2ad6e",
+        "res://game/scenes/common/reference_geography.gd": "442f22fccb8e12ad47d83aa283f9cf390cfd499f14d6e36ef50935c8d86a7d2b",
+        "res://game/scenes/common/sea_chart_overlay.gd": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd",
+        "res://game/scenes/common/sea_services.gd": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970",
+        "res://game/scenes/common/terminal_presentation_clock.gd": "05522c9cf8a16bea2f9e7fe5fac393e2a664f5d219b250d3260773030bf5da2a",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/scenes/naval_practice/naval_practice.gd": "81e8fe468c6be4820c471659a6667cdd6639f309bae39592b19a59f961bfef50",
+        "res://game/scenes/naval_practice/naval_practice.tscn": "d4c26d207cdaccde84e74ee76cf09b5b27996a684adeecde1d5607c0b3a51a70",
+        "res://game/ui/charts/nautical_chart.gd": "8ac51a88072de48193d052c798b6824709be35a5b23c2f0b26d74e3a8862f3f3",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/naval_practice.gd": "19221bec5a02fd0180bf91a38ef67ff2c024d83f00fbf11803ed30df25272503",
+        "res://game/ui/sailing_hud.gd": "69b2aa851ab210517914941d5cbf6dd27c28f30fef6d7b7112b70560bedf5c41",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "naval-duel-hud-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-duel-hud-1600.png",
+          "sha256": "521c328f2d0ac3b71d90ebec13f3a1255b7d8d81c0f82722fb52403cc65d8310",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-duel-chart-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-duel-chart-1600.png",
+          "sha256": "fada89a13389c0f9401c5df531544e8f638e62e40a92b9a15ec2a0039889c11d",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-duel-hud-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-duel-hud-1280.png",
+          "sha256": "c789d4a8289ce63e89c67936593af96cf8661f021452357dfa0ca14b68e37c63",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-duel-chart-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-duel-chart-1280.png",
+          "sha256": "56d6974ca6a9cc033e2128005470dcb427ac7b65d32146273c673a747cc68ca1",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-settings-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-settings-1280.png",
+          "sha256": "1ed0cfa7b222de27664dfa629248765e0fda1ff20e49a73a44d82e8de1a6aa62",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-pause-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-pause-1280.png",
+          "sha256": "3045ff7a3572ce81e64456f9fc4454cddb6b699ddfb17263b1a8b4407bc3ee36",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-surrender-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-surrender-1280.png",
+          "sha256": "34f29d3374256b4fda6ad32f2e05a5210bb1f9b3ac1d25c704c46a6157f550ec",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-fleet-hud-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-fleet-hud-1600.png",
+          "sha256": "abc32604e3c553fe77061d7879935777f36a368084a380f3afae02e51f8d440f",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-fleet-chart-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-fleet-chart-1600.png",
+          "sha256": "52a523dfeeb08beb2244f5e7e4c70084c1bc34da23d548d9dae08af6ef6fcd55",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-fleet-hud-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-fleet-hud-1280.png",
+          "sha256": "f68e67e624fa645dd1ab0fcb2080f40366ca51680d813a8a166e364f6c4d4e0e",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-fleet-chart-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-fleet-chart-1280.png",
+          "sha256": "391b734610895692e52479080feb1e27eb103e64db80e55a48dd555f6b79106b",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-sail-hud-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-sail-hud-1600.png",
+          "sha256": "627cc118ebf91a43ea5b6bd4ace51ee88e6c7b2b5dd40f2f4c0202cb3e230544",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-sail-chart-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-sail-chart-1600.png",
+          "sha256": "e5c6c27dd2753d55f9140e970b989dab88194e779f65d4dfa8230f9d2ccce37c",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-sail-hud-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-sail-hud-1280.png",
+          "sha256": "c8e8a583fa75f0b1c336a35bd42f5ed5b84f9e8eb50d78283ee372261fc4346b",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "naval-sail-chart-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-sail-chart-1280.png",
+          "sha256": "552b471e839fb5abc31241ee58241920fcc212224e23a9c970276a8432ae4aa3",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-catalog-r2",
+      "group": "catalog",
+      "assertions": 110,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/research/candidates/water_relative_ship_dynamics.gd": "c6e0b86dc06b4ca360ecf4923cceeec83d60b5ab74179cc4f4a57fe2db3b7549",
+        "res://game/research/catalog.gd": "aff8ca738f6ea014249694967c9b7f8ecc2bdb9d33507ee082f08a57ba993bec",
+        "res://game/research/demos/architecture_convergence_experiment.gd": "3900e8ce3b392404bb45cd458aedd31ae7620b970d2c0db22c6ac204aa91b062",
+        "res://game/research/demos/cloud_transform_trial.gd": "01bf94488bced38b8392bc2fc08974a500188ea3416c8cb2171e8bdc79ea9a4b",
+        "res://game/research/demos/hull_contact_experiment.gd": "65ffe52918835f4f87c0c767584e3e781ae86d4995cb61618a854c09241c86b9",
+        "res://game/research/demos/ocean_surface_experiment.gd": "5591b27e474d37b244583ee2ba27710542a773168355b4f14f330bb8a5e9cc6a",
+        "res://game/research/demos/sailing_handling_experiment.gd": "dfd730f925787a39cf624aa31f1ae670519e36fe4d909988c8ceaebd973d2004",
+        "res://game/research/demos/shadow_edges_experiment.gd": "e6935856e02f7e0bc3bc1a4e45de069a45ddfd9571940e7b20f35b281f72e4df",
+        "res://game/research/demos/shore_surf_experiment.gd": "7dd77b46291a2f46c1422e3c416748c35318974efbebe57a61d3f2b367d776b5",
+        "res://game/research/demos/voyage_flow_experiment.gd": "01bc185987f8e846fb734cbc93df221b40e5948a0af4bae0f14c365881bb83c6",
+        "res://game/research/demos/wake_flow_experiment.gd": "080ca47b0bf94ee798d8f42a2c2e633c06197800ed51c642ffc227761e6558d5",
+        "res://game/research/demos/weather_shadow_experiment.gd": "0e25be91c00f34c1dfe30f785332344fe4f011d83cf3f557627199e874be0e66",
+        "res://game/research/laboratory.gd": "70ef56872049ea2c11190e0bfef9361ed187f60edf4eed2059afcd3d9b31f464",
+        "res://game/research/paper_reader.gd": "01347762a2be3ad7e3ec96f21ec05e1f05fa121b23bd7b639ba0a9fa156bf98c",
+        "res://game/research/parameter_panel.gd": "847d0285894eee1f80a5568e114e712b280946aef2d29cba9277618e5e5863ed",
+        "res://game/research/shadow_cap_winding_candidate.gd": "2d4a9db6444a0e66fa5191813c90bca44e6141bd99e4574b2557a9a146a47a39",
+        "res://game/research/shadow_directed_boundary_candidate.gd": "cae2118ea223ef55c84d7d8b477815d957cd3f531be5f5149e78da1c162599fd",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/scenes/ship_book/ship_book.gd": "6bfa56cd9047c549395487f39563ae50a47afd3f7c9204db75dee863f670175c",
+        "res://game/scenes/ship_book/ship_book.tscn": "cf638fdbbc36c9ce2be76b64b7514574eba61b7b22081e793fb8e670c66f3a35",
+        "res://game/ui/legacy/legacy_chart.gd": "a3795ff94e16f2279fd7d37b4a0d109ba499b74f86794346be9104a883cdbce0",
+        "res://game/ui/legacy/legacy_interface.gd": "d0dc4ed7e77f6d78f88be3e48660deae5ab294f71bfc0a4c61b47e6817ceef59",
+        "res://game/ui/legacy/legacy_theme.gd": "29b863de985a6b6c17fb75c7a64e6f2a9647e9c17c48a71f1248ca9cf32591c7",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "shipbook-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/shipbook-1600.png",
+          "sha256": "7b726be2a1db69ae440c8775676138b47df91c2e24faa44f2dc6db511bea4998",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "shipbook-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/shipbook-1280.png",
+          "sha256": "c5f9a9b73f64291d4870e29b28caa1b6f222263de78cf546117fbd08fd7f7723",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-paper-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-paper-1600.png",
+          "sha256": "cddb6fd34ba291c6520c76da8731653c663167bf822e3cb16e7ce2f4ea20027d",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-sources-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-sources-1600.png",
+          "sha256": "e6beb60a4fe26a202b4baac1d22c9d46caed9781aa6f2e76d8cde725c9a615c7",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-paper-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-paper-1280.png",
+          "sha256": "2bcabfe3a566b81e40bab73e1954c75b54c0188c5a459c06c68362f7252ea2bf",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-sources-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-sources-1280.png",
+          "sha256": "129ac3f92035d2d7ce18e6d8cda419d68e730d14324e85249b1a7c0628dfeafb",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-parameters-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-parameters-1600.png",
+          "sha256": "ed86d808254add4a0133e6397114a7bcb975d8f6c91bd6945fa96bb63b905141",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "laboratory-parameters-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-catalog-r2/laboratory-parameters-1280.png",
+          "sha256": "86049a6e5ed31d776495207e4813d4ecdab01ac0b54bf147016fe240279c6112",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-practice-r1",
+      "group": "practice",
+      "assertions": 64,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/scenes/practice/practice.gd": "1dfaec6ac6768854b1b69757c508dd289295b3823662892c6ac436fbe2a4102e",
+        "res://game/scenes/practice/practice.tscn": "b202a28b2a300c3c77e377b3ba87b05e1a7d5cab278fd2f8f81e74e298a14b6d",
+        "res://game/ui/encounters/encounter_interface.gd": "c55c9e0b3b98445eb10756cdfb15ee701e37d984e4254973dffad9ae96b63a25",
+        "res://game/ui/legacy/legacy_chart.gd": "a3795ff94e16f2279fd7d37b4a0d109ba499b74f86794346be9104a883cdbce0",
+        "res://game/ui/legacy/legacy_interface.gd": "d0dc4ed7e77f6d78f88be3e48660deae5ab294f71bfc0a4c61b47e6817ceef59",
+        "res://game/ui/legacy/legacy_theme.gd": "29b863de985a6b6c17fb75c7a64e6f2a9647e9c17c48a71f1248ca9cf32591c7",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "encounter-duel-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-duel-1600.png",
+          "sha256": "352a682f1138ab32eb5b4bf7b2517414b1488f1e3f21b819e6e540b478366e92",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-duel-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-duel-1280.png",
+          "sha256": "97a25f2bebc06f9d27b91c661bbdb29b537f54a8776b2d891291b0b0b62531b0",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-landbattle-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-landbattle-1600.png",
+          "sha256": "aae11740fc78d198118d0cee9755f4e648081a930e0dd178722bec901eaaba05",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-landbattle-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-landbattle-1280.png",
+          "sha256": "97dae76aaa43738b970f416dcebee8f3f333f9a7f8337b16f979002b4ba5950e",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-treasure-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-treasure-1600.png",
+          "sha256": "03133f5f4ab8be0a96aec69adc547f065d3debe06185737283958337f71666c1",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-treasure-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-treasure-1280.png",
+          "sha256": "9ed636f2581c510056ddf4ea14c798caa2299604b8bdaadd0abc77e1f0f03f3b",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-banquet-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-banquet-1600.png",
+          "sha256": "4ee5b5d91203939109d7cf12025c5cfa651afb9a834677592692e07b471a3f3e",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "encounter-banquet-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-practice-r1/encounter-banquet-1280.png",
+          "sha256": "0556e4c19c4c4881e61dba2549aa3587d93cb7f762913931c180c7ab092f8450",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    },
+    {
+      "directory": "gpu-auxiliary-r1",
+      "group": "auxiliary",
+      "assertions": 140,
+      "failures": 0,
+      "originalSlotsUnchanged": true,
+      "profileSlotsUnchanged": true,
+      "currentSourceHashesMatch": true,
+      "sourceHashes": {
+        "res://assets/research/catalog.json": "61de7f6a4717b5d7f9b515b42ae9078f8664cba97026e0890528f0154321f908",
+        "res://game/research/demos/voyage_flow_experiment.gd": "01bc185987f8e846fb734cbc93df221b40e5948a0af4bae0f14c365881bb83c6",
+        "res://game/runtime/game_router.gd": "80db1c56fbca14dbfcc5fb026c4ca95fe848d65e9df932e6cae4e06cd7077f1b",
+        "res://game/scenes/common/mouse_course_projection.gd": "cc4f2d48f55b2c692b7f3b9e9ddb15e30eb774f31fa8e10ac20bb267e5d2ad6e",
+        "res://game/scenes/common/reference_geography.gd": "442f22fccb8e12ad47d83aa283f9cf390cfd499f14d6e36ef50935c8d86a7d2b",
+        "res://game/scenes/common/sea_chart_overlay.gd": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd",
+        "res://game/scenes/common/sea_services.gd": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970",
+        "res://game/scenes/common/terminal_presentation_clock.gd": "05522c9cf8a16bea2f9e7fe5fac393e2a664f5d219b250d3260773030bf5da2a",
+        "res://game/scenes/fidelity_island/combined_island.gd": "fcd98b147c53e52f4451033f196cc4ae07eda82d13f5872e2395ec46b6999160",
+        "res://game/scenes/fidelity_island/fidelity_island.gd": "6f66466012105a86b19c6c5fb008a4e468337dfdc67d286a7b8f2956b2ae3368",
+        "res://game/scenes/fidelity_island/fidelity_island.tscn": "55827c44654cd71389d942aba690d82f9b0a2cd4be7e44f64f95f827e50b55e9",
+        "res://game/scenes/fidelity_island/fidelity_source.tscn": "ccb409eefdedc2dd2f137c72334364dd493688b1595e8c71c605975a387d9afa",
+        "res://game/scenes/main/main_scene.gd": "11c52d681542107ad853b691c483a2c9efe3651c6dad67e372bc595971314753",
+        "res://game/scenes/main/main_scene.tscn": "5fd2098efb5645b2fd739bc8e725df5715e30e48e1c6b8091571b88b81492eb7",
+        "res://game/scenes/natural_island/natural_island_prototype.gd": "255c96fc8c54ce0fc25a2160dfa62c4d13057f2d1c30cfdec9b23b73875022be",
+        "res://game/scenes/reference_island_water/reference_island_water.gd": "21acdd45e3d6ca7b284fbf3d94f36023ce16316e9df672c4e672ff8c49ac0549",
+        "res://game/scenes/reference_island_water/reference_island_water.tscn": "341cf8a948730f66cfac409442fe0bd511869ed4d1f6df98d9320bc68122d355",
+        "res://game/scenes/sailing_trial/sailing_trial.gd": "dd879b1a4c9c46c2edd0f3a0920baaccd295daf615182342a322ed20731324c0",
+        "res://game/scenes/sailing_trial/sailing_trial.tscn": "b2a6e7dde110b77d19b26c2c6306428c18d5cea14232a35ad3d4be44806b79e7",
+        "res://game/scenes/visual_qa/visual_qa.gd": "20013df487ccacde229b5843a4abd414ab8e9bd44d5a4846790427059b64b8ef",
+        "res://game/scenes/visual_qa/visual_qa.tscn": "5e975329ac8f02ae9db9054e349d77bf5f19a446938e0496450f5d33049f9fd1",
+        "res://game/scenes/visual_qa/visual_qa_inspector.gd": "65830305dacbaf4c79d7674082601b9b2e299b8cd3302e4f77295e93b902acfd",
+        "res://game/ui/charts/nautical_chart.gd": "8ac51a88072de48193d052c798b6824709be35a5b23c2f0b26d74e3a8862f3f3",
+        "res://game/ui/menu/main_menu.gd": "2736df2ab11895cefc189ebfdb5146ebdd981fb42c04b2ccc8762defb613098f",
+        "res://game/ui/menu/save_recovery.gd": "f029b2ebece4ab8c0186434f67d34f1a8e32ded3669c59fd059695895fc00d9c",
+        "res://game/ui/naval_practice.gd": "19221bec5a02fd0180bf91a38ef67ff2c024d83f00fbf11803ed30df25272503",
+        "res://game/ui/sailing_hud.gd": "69b2aa851ab210517914941d5cbf6dd27c28f30fef6d7b7112b70560bedf5c41",
+        "res://game/ui/settings/settings_panel.gd": "e5d0571d7b5f53874ac4bea9f643272b551fbaab70e73ff047f87a51f4dfe108",
+        "res://game/ui/shared/parchment_theme.gd": "3a9fc0c01db63b67153a229552292793d0dfcc239ae985958259a8fcb8f4353b",
+        "res://ming-armada-ui-background-chart.png": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+        "res://ming-armada-ui-background-ledger.png": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+        "res://ming-armada-ui-background-parchment.png": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+        "res://ming-armada-ui-button-primary.png": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+        "res://ming-armada-ui-button.png": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+        "res://ming-armada-ui-panel.png": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+        "res://project.godot": "d01c980a86bac86144e57c34f83e817adf1b8c88456239c8567acd3dc9b5a85d",
+        "res://tools/capture-parchment-ui.gd": "ec95badc5288c22ec79054d3054c0a75bbac662f7e841be0a44bb27df03b0709"
+      },
+      "captures": [
+        {
+          "label": "aux-qa-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-qa-1600.png",
+          "sha256": "993bd5ff3193fa50feb8a45532a666407b2c907ed2d35d8849e26ddac3f6ea39",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-qa-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-qa-1280.png",
+          "sha256": "2376328d618759dc170087244f9c66d58f78baae576e10a61fcbb69a92fef8be",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-fidelity-island-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-fidelity-island-1600.png",
+          "sha256": "13acef171705c7681a63dbe090c393b399627126c76e05548c7ea9e2ec4318ce",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-fidelity-island-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-fidelity-island-1280.png",
+          "sha256": "db30c92d70463341e1d43aaddd07fc48eebd393bc7fc702ac78dc373c7483f12",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-water-study-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-water-study-1600.png",
+          "sha256": "13086b467ae6d85b4d423da7edb88167209a3a613760c1663e45d4b392659649",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-water-study-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-water-study-1280.png",
+          "sha256": "80e8628bbd5a04b1b8ec90cf141ac90e2a1684ccdca8dbd8e139b48285da9452",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-fidelity-source-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-fidelity-source-1600.png",
+          "sha256": "ef8d74d8344d4a5ebe22f3414449be42dd28bf9cda3510c253d15643206c8e7f",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-fidelity-source-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-fidelity-source-1280.png",
+          "sha256": "1f3c885e7e813fd26baf9f7c7475a4a001623722b2e99ace267d514bdb781a4e",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-sailing-trial-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-sailing-trial-1600.png",
+          "sha256": "5d0d5e65335295f16cce42d44d58a372cf758df0dd68f13d90fe780274d4fd95",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-sailing-trial-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-sailing-trial-1280.png",
+          "sha256": "ee29b4f1994ca088145bca6080f64c0767e35fd7275df7bc0c0f09cd2b2bc1bc",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-sailing-trial-chart-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-sailing-trial-chart-1280.png",
+          "sha256": "f7b70e5ffd8337bfe7e6db53f425b4efc8bfcaf9646484d8defeca28f152ea93",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-natural-island-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-natural-island-1600.png",
+          "sha256": "eb569c0605e9032c9edbd5630c6ad32308041c0ab1c73b67a0e41f47da9b4ea6",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-natural-island-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-natural-island-1280.png",
+          "sha256": "33a6afe1e3e4d311976875b24e16362d05532ed901b0235468b999f346b2491a",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-voyage-flow-1600",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-voyage-flow-1600.png",
+          "sha256": "055e4a3b4d6d25d37355fa03d0a4da4923511bacf29602ef46225d1bdcb73fab",
+          "unclippedOverflow": 0,
+          "width": 1600,
+          "height": 900,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-voyage-flow-1280",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-voyage-flow-1280.png",
+          "sha256": "64d47e8b70b1ba05d8d27cf483de1c52dfe2e2e7beae21460118780f43447063",
+          "unclippedOverflow": 0,
+          "width": 1280,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-voyage-flow-narrow-360",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-voyage-flow-narrow-360.png",
+          "sha256": "67b3a97d15cda241d4a4136611ddb7b0132e144161f708e56981a2c4125a88cb",
+          "unclippedOverflow": 0,
+          "width": 360,
+          "height": 720,
+          "rasterValidated": true
+        },
+        {
+          "label": "aux-voyage-flow-restored-960",
+          "png": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-auxiliary-r1/aux-voyage-flow-restored-960.png",
+          "sha256": "c05ae5fcbcaee876f8b80c93dfb1774fe71947fe4c52e76f2587dd4251645822",
+          "unclippedOverflow": 0,
+          "width": 960,
+          "height": 720,
+          "rasterValidated": true
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "ledger",
+      "file": "ming-armada-ui-background-ledger.png",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "rasterValidated": true,
+      "bytes": 2725957,
+      "sha256": "1d046c059f8b0c078108d2dd648f513f03354430e7c6026ae1a47529f892d114",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "chart",
+      "file": "ming-armada-ui-background-chart.png",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "rasterValidated": true,
+      "bytes": 2832284,
+      "sha256": "b4f6e1ec1fe3215452fba8be2c263ecf10b9be7586b724762bb3fab70ec1630a",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "panel",
+      "file": "ming-armada-ui-panel.png",
+      "format": "PNG",
+      "width": 1254,
+      "height": 1254,
+      "rasterValidated": true,
+      "bytes": 3064841,
+      "sha256": "8635c42d4e3fbadf43dcaa3f8e787b985ee03a351efed504e66b52d06344b82f",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "button",
+      "file": "ming-armada-ui-button.png",
+      "format": "PNG",
+      "width": 2172,
+      "height": 724,
+      "rasterValidated": true,
+      "bytes": 3027673,
+      "sha256": "928356b6c088c0c66c338db04fcc928eddd01210c4537ec1e8fa0d36cc851b04",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "button-primary",
+      "file": "ming-armada-ui-button-primary.png",
+      "format": "PNG",
+      "width": 2172,
+      "height": 724,
+      "rasterValidated": true,
+      "bytes": 2649722,
+      "sha256": "bf570878f49124f5652a46bdf371d98719d7fd2e15e67dddbd0870b1c890cf25",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "menu",
+      "file": "ming-armada-ui-background-parchment.png",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "rasterValidated": true,
+      "bytes": 2961560,
+      "sha256": "2772c1fbc69ee73cfdac75115e55e89fcafd421d306ea05c37c7fd9537733bd2",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    },
+    {
+      "id": "menu-draft",
+      "file": "ming-armada-ui-background-parchment-draft-v1.png",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "rasterValidated": true,
+      "bytes": 3091053,
+      "sha256": "94d83c36db058a5b40f2c4b5f90b15cd603f0578671598015a51f6eeb77ab26c",
+      "review": "Original PNG decoded and hash verified; active UI materials reviewed in final GPU captures. Chart background and menu draft are retained alternatives."
+    }
+  ],
+  "icons": [
+    {
+      "file": "assets/ui/parchment/arrow-down.svg",
+      "sha256": "24bfb922b65bc80d5fbce5313d9e598753b3dac0efc64aaa822e4e31b9bb7658"
+    },
+    {
+      "file": "assets/ui/parchment/arrow-right.svg",
+      "sha256": "f788bf274d17b150b62e820d82de297e688c82e7a6da2c1ae931b67ccab89de9"
+    },
+    {
+      "file": "assets/ui/parchment/arrow-up.svg",
+      "sha256": "ca6cbeaef11bf3eb29392bd1316408f299790b1cd435bfd018507b2b21c0447c"
+    },
+    {
+      "file": "assets/ui/parchment/check-off.svg",
+      "sha256": "982f2114384b78df8e3b4ab478aeaa4326b595ea4c2001bb8c29db5df9366135"
+    },
+    {
+      "file": "assets/ui/parchment/check-on.svg",
+      "sha256": "ddd6b241824ea654a5a16883a925b63c33c22cc5e995001f5c734bc90742c5cf"
+    },
+    {
+      "file": "assets/ui/parchment/close.svg",
+      "sha256": "457114a536183806168e7821f90f486e1686bf2db92103a7dad190541df841a3"
+    },
+    {
+      "file": "assets/ui/parchment/grabber.svg",
+      "sha256": "06f5fab9246576e30da0d56abe26793757d07c4dde9ad04cb90215813b1dc544"
+    },
+    {
+      "file": "assets/ui/parchment/radio-off.svg",
+      "sha256": "3840bd194fffa5ec918749ebfcb83345e54392d2bc1f644a2b312bbe2ff4540a"
+    },
+    {
+      "file": "assets/ui/parchment/radio-on.svg",
+      "sha256": "ff3dea50e5db466ec9a4661eb87adf57184a66113b738c0606b62920db0023cf"
+    },
+    {
+      "file": "assets/ui/parchment/spin-down.svg",
+      "sha256": "5a5cf968ed4b75864bf349cc13929f92c99d48a8d732bfa777d72875da648b64"
+    },
+    {
+      "file": "assets/ui/parchment/spin-up.svg",
+      "sha256": "767d55c6e468962b432b40665e8bde6a99459747113ee70086171e9a73963299"
+    }
+  ],
+  "previews": [
+    {
+      "file": "ming-armada-ui-preview-main-menu-2026-10-25.png",
+      "source": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-normal-1600.png",
+      "sha256": "9539cad9a4a1da50400ed4b904a3072b90b0bc5022fb91f0e56bebc1f569f30e",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "ming-armada-ui-preview-settings-2026-10-25.png",
+      "source": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-menu-r4/menu-settings-1600.png",
+      "sha256": "d36df29a40fb9c7dd3ad798aa734f0dca1565fd4886c34cd591341c70aec15a0",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "ming-armada-ui-preview-port-2026-10-25.png",
+      "source": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-mingqi-r2/mingqi-port-1600.png",
+      "sha256": "7a8fbc5069419e8ca49c10bdeb85bec88e9b0b823afb9c99ac095152bf811104",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "file": "ming-armada-ui-preview-naval-2026-10-25.png",
+      "source": "res://docs/design/2026-10-25-parchment-ui/evidence/gpu-naval-r3/naval-fleet-hud-1600.png",
+      "sha256": "abc32604e3c553fe77061d7879935777f36a368084a380f3afae02e51f8d440f",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "totalCaptures": 83,
+  "totalAssertions": 905
+}

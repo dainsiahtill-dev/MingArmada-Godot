@@ -1,4 +1,6 @@
 extends SceneTree
+# Recorded original-hull fixtures; authored flagship has a separate water test.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 
 var failures: Array[String] = []
 var assertions := 0
@@ -15,7 +17,7 @@ func _run() -> void:
 	var script = load("res://game/presentation/ships/ship_view.gd")
 	var view = script.new()
 	root.add_child(view)
-	check(view.configure("fuchuan"), "real ship GLBs load")
+	check(view.configure("fuchuan",null,Reference.new()), "real ship GLBs load")
 	check(view.has_method("damage_diagnostics"), "ship exposes state driven damage diagnostics")
 	if view.has_method("damage_diagnostics"):
 		_test_damage(view)
@@ -95,7 +97,7 @@ func _test_all_kinds(script) -> void:
 	for kind in ["fuchuan", "fisherman", "merchant", "voc", "patrol", "heavy"]:
 		var view = script.new()
 		root.add_child(view)
-		check(view.configure(kind), "damage binds actual " + kind + " models")
+		check(view.configure(kind,null,Reference.new()), "damage binds actual " + kind + " models")
 		var events: Array = []
 		view.presentation_event.connect(func(event): events.append(event))
 		for row: Array in [[100.0, 0], [81.0, 0], [80.0, 1], [60.0, 2], [40.0, 3], [20.0, 4], [0.0, 5]]:
@@ -113,7 +115,7 @@ func _test_all_kinds(script) -> void:
 					check(material is ShaderMaterial and material.get_shader_parameter("damage_stage") == 4.0, "each authored sail material receives full perforation stage")
 		check(events.is_empty(), "first loaded destroyed sail cannot replay historical mast effect")
 		view.dispose()
-		view.configure(kind)
+		view.configure(kind,null,Reference.new())
 		view.apply_snapshot({"id": kind, "time": 500.0, "hull": 0.0, "sail": 0.0}, {}, 0.0)
 		check(not view.get_model().visible, "restored sunk ship seeks finished state without replay")
 		check(events.is_empty(), "restored terminal snapshot emits no past destruction effects")

@@ -3,12 +3,13 @@ extends Control
 signal intent_requested(intent: Dictionary)
 signal settings_requested
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const DEFAULT_NAME := "沈沧海"
 const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
-const PAPER := Color("f1e6cb")
-const INK := Color("183e3c")
-const BRASS := Color("b89a60")
+const PAPER := Parchment.PAPER
+const INK := Parchment.INK
+const BRASS := Parchment.OUTLINE
 var _built := false
 var _model: Dictionary = {"settings":{"captainName":DEFAULT_NAME},"hasLegacySave":false,"mingqiSlot":"missing","dev":false,"qa":false}
 var _generation := -1
@@ -155,27 +156,8 @@ func _render() -> void:
 	_slot_hint.text = {"present":"载入本地安全存档","unreadable":"读取受阻 · 重试或导入存档","missing":"导入存档或恢复航程"}.get(_model.get("mingqiSlot","missing"),"导入存档或恢复航程")
 	_buttons["mingqi-continue"].text = "继续海上明旗 · 1650\n"+_slot_hint.text
 
-func _style(background: Color, border: Color, margin: int = 14) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new(); style.bg_color = background; style.border_color = border
-	style.set_border_width_all(1); style.set_content_margin_all(margin); style.set_corner_radius_all(3)
-	return style
-
 func _theme() -> Theme:
-	var result := Theme.new(); result.default_font_size = 17
-	var font := SystemFont.new(); font.font_names = PackedStringArray(["Microsoft YaHei","Noto Sans CJK SC","sans-serif"]); result.default_font = font
-	for type in ["Label","Button","LineEdit"]: result.set_color("font_color",type,INK)
-	result.set_color("font_disabled_color","Button",Color("82908a"))
-	result.set_color("font_hover_color","Button",INK); result.set_color("font_pressed_color","Button",INK)
-	result.set_color("font_focus_color","Button",INK)
-	result.set_color("font_selected_color","LineEdit",PAPER); result.set_color("selection_color","LineEdit",INK)
-	for state in ["normal","hover","pressed","disabled"]:
-		var color: Color = {"normal":Color("e7ddc4"),"hover":Color("f9edcc"),"pressed":Color("ccb789"),"disabled":Color("ded6c4")}[state]
-		result.set_stylebox(state,"Button",_style(color,BRASS,12))
-	var focus := _style(Color(0,0,0,0),Color("187b77"),2); focus.set_border_width_all(3)
-	result.set_stylebox("focus","Button",focus); result.set_stylebox("focus","LineEdit",focus)
-	result.set_stylebox("normal","LineEdit",_style(Color("faf2df"),BRASS,10))
-	result.set_stylebox("read_only","LineEdit",_style(Color("ded6c4"),BRASS,10))
-	return result
+	return Parchment.create()
 
 func _label(parent: Node, id: String, text: String, font_size: int = 17) -> Label:
 	var label := Label.new(); label.name = id; label.text = text; label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -184,11 +166,12 @@ func _label(parent: Node, id: String, text: String, font_size: int = 17) -> Labe
 func _entry(parent: Node, id: String, title: String, subtitle: String, primary: bool = false) -> Button:
 	var button := Button.new(); button.name = id; button.text = title+"\n"+subtitle
 	button.tooltip_text = title+" · "+subtitle; button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; button.custom_minimum_size.y = 70 if primary else 64
+	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; button.custom_minimum_size.y = 64 if primary else 56
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL; button.add_theme_font_size_override("font_size",19 if primary else 16)
 	if primary:
-		button.add_theme_stylebox_override("normal",_style(Color("c9ad73"),Color("907239"),15))
-		button.add_theme_stylebox_override("hover",_style(Color("e3c78d"),Color("907239"),15))
+		button.theme_type_variation = "PrimaryButton"
+		for state in ["normal","hover","pressed","disabled","focus"]:
+			button.add_theme_stylebox_override(state,Parchment.button_style(state,true,10))
 	parent.add_child(button); _buttons[id] = button
 	button.pressed.connect(func(): _request(id)); return button
 
@@ -196,21 +179,15 @@ func build() -> void:
 	if _built: return
 	_built = true; name = "MainMenu"; set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP; theme = _theme()
-	var harbor := TextureRect.new(); harbor.name = "Harbor"; harbor.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	harbor.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; harbor.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	harbor.texture = load("res://assets/art/ports/xiamen-harbor-v1.png"); harbor.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(harbor)
-	var shade := TextureRect.new(); shade.name = "Shade"; shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var gradient := Gradient.new(); gradient.set_color(0,Color(0.035,0.16,0.16,0.88)); gradient.set_color(1,Color(0.035,0.16,0.16,0.16))
-	var shade_texture := GradientTexture2D.new(); shade_texture.gradient = gradient; shade_texture.fill_from = Vector2.ZERO; shade_texture.fill_to = Vector2.RIGHT
-	shade.texture = shade_texture; shade.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(shade)
-	_panel = PanelContainer.new(); _panel.name = "MenuPanel"; _panel.add_theme_stylebox_override("panel",_style(PAPER,BRASS,22)); add_child(_panel)
+	Parchment.background(self,"menu","Harbor")
+	_panel = PanelContainer.new(); _panel.name = "MenuPanel"; _panel.add_theme_stylebox_override("panel",Parchment.panel(22)); add_child(_panel)
 	_scroll = ScrollContainer.new(); _scroll.name = "MenuScroll"; _scroll.follow_focus = true
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _panel.add_child(_scroll)
 	var column := VBoxContainer.new(); column.name = "Content"; column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	column.add_theme_constant_override("separation",12); _scroll.add_child(column)
-	_label(column,"Era","南明 · 永历四年 · 1650",15).add_theme_color_override("font_color",Color("7a643c"))
-	var title := _label(column,"Title","海上明旗",54)
-	var song := SystemFont.new(); song.font_names = PackedStringArray(["SimSun","Songti SC","serif"]); title.add_theme_font_override("font",song)
+	column.add_theme_constant_override("separation",8); _scroll.add_child(column)
+	_label(column,"Era","南明 · 永历四年 · 1650",15).add_theme_color_override("font_color",Parchment.MUTED)
+	var title := _label(column,"Title","海上明旗",48)
+	title.add_theme_font_override("font",Parchment.title_font())
 	_label(column,"Intro","一叶福船，万里海疆。\n乘风起航，在炮火与商路间写下你的海上生涯。",16)
 	_label(column,"CaptainLabel","船长姓名",14)
 	_captain = LineEdit.new(); _captain.name = "Captain"; _captain.text = DEFAULT_NAME; _captain.placeholder_text = DEFAULT_NAME
@@ -221,11 +198,10 @@ func build() -> void:
 	_seed = LineEdit.new(); _seed.name = "QASeed"; _seed.text = "1661"; _seed.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER; _seed_row.add_child(_seed)
 	_seed.text_submitted.connect(func(_text: String): _request("mingqi"))
 	_label(_seed_row,"SeedHelp","uint32：0–4294967295；留空随机。仅用于新的 1650 航程。",12)
-	_seed_error = _label(_seed_row,"SeedError","",14); _seed_error.add_theme_color_override("font_color",Color("923b27")); _seed_error.hide()
+	_seed_error = _label(_seed_row,"SeedError","",14); _seed_error.add_theme_color_override("font_color",Parchment.DANGER); _seed_error.hide()
 	_status_box = VBoxContainer.new(); _status_box.name = "StatusBox"; column.add_child(_status_box)
 	_status = _label(_status_box,"Status","正在备帆，请稍候。",18)
 	_progress = ProgressBar.new(); _progress.name = "Progress"; _progress.custom_minimum_size.y = 24; _status_box.add_child(_progress)
-	_progress.add_theme_stylebox_override("background",_style(Color("d7cbb2"),BRASS,0)); _progress.add_theme_stylebox_override("fill",_style(Color("2c6860"),Color("2c6860"),0))
 	var recovery := HBoxContainer.new(); recovery.add_theme_constant_override("separation",10); _status_box.add_child(recovery)
 	_retry = Button.new(); _retry.name = "Retry"; _retry.text = "重新加载"; _retry.size_flags_horizontal = Control.SIZE_EXPAND_FILL; recovery.add_child(_retry); _retry.pressed.connect(_retry_request)
 	_back = Button.new(); _back.name = "Back"; _back.text = "返回菜单"; _back.size_flags_horizontal = Control.SIZE_EXPAND_FILL; recovery.add_child(_back); _back.pressed.connect(_back_request)
@@ -249,7 +225,7 @@ func build() -> void:
 	var utility := HBoxContainer.new(); utility.name = "Utility"; utility.add_theme_constant_override("separation",10); column.add_child(utility)
 	_settings = Button.new(); _settings.name = "Settings"; _settings.text = "航海设置"; _settings.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(_settings); _settings.pressed.connect(_settings_request)
 	var exit := Button.new(); exit.name = "quit"; exit.text = "退出游戏"; exit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(exit); _buttons.quit = exit; exit.pressed.connect(func():_request("quit"))
-	_label(column,"Footer","1650 · 厦门至金门\n键盘 / 鼠标 · 单人航海",12).add_theme_color_override("font_color",Color("7a643c"))
+	_label(column,"Footer","1650 · 厦门至金门\n键盘 / 鼠标 · 单人航海",12).add_theme_color_override("font_color",Parchment.MUTED)
 	resized.connect(_layout); _layout(); _render()
 	tree_exiting.connect(_cancel_initial_focus)
 	_focus_after_layout()

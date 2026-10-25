@@ -61,7 +61,9 @@ func _test_vessel(row: Dictionary, library: RefCounted) -> void:
 	vessel.time = native.time
 	var view := ShipView.new()
 	root.add_child(view)
-	var loaded := view.configure(row.kind, library)
+	# This lane intentionally retains the original-source equivalence oracle.
+	# Default flagship routing is covered by test_hero_fuchuan_rig and entries.
+	var loaded := view.configure(row.kind, library,load(PROVIDER_PATH).for_library(library))
 	check(loaded, "actual game model loads: " + row.kind)
 	if not loaded:
 		view.free()
@@ -279,7 +281,8 @@ func _test_playable_entries() -> void:
 			check(scene.sea.ships.size() == native.ships.size() and scene.sea.sailors.size() == native.ships.size(), "ordinary entry renders its actual fleet and native crew: " + mode)
 			for vessel: Dictionary in native.ships:
 				var actual: Node3D = scene.sea.ships[vessel.id].get_model()
-				check(actual.get_meta("model_origin", "") == "pirates_native_lowend", "ordinary entry reaches source vessel renderer: %s %s" % [mode, vessel.id])
+				var expected_origin: String = "blender_authored" if vessel.kind == "fuchuan" else "pirates_native_lowend"
+				check(actual.get_meta("model_origin", "") == expected_origin, "ordinary entry reaches the declared vessel source: %s %s" % [mode, vessel.id])
 			if mode == "duel":
 				scene.runtime.set_pause("loading", false)
 				check(scene.runtime.command({"type":"fire", "side":"starboard"}).ok, "ordinary duel launches an actual authoritative shot")
@@ -300,10 +303,16 @@ func _test_playable_entries() -> void:
 						var value: Dictionary = fire.source_muzzle_position
 						var point := Vector3(value.x, value.y, value.z)
 						var matched := false
+						if model.get_meta("model_origin","") == "blender_authored":
+							for index in 4:
+								var z := 32.0*(-0.138+index*0.092)
+								var x := 9.0*0.435*pow(1.0-pow(z/16.0,2.0),0.64)+0.87
+								var authored := Vector3(x if fire.side=="port" else -x,2.2,z)
+								matched = matched or point.distance_to(model.global_transform*authored)<0.01
 						for key: String in _original_muzzles:
 							if key.begins_with(str(model.get_meta("source_family", "")) + ":") and point.distance_to(model.global_transform * _original_muzzles[key]) < 0.01:
 								matched = true
-						check(matched, "actual fire effect receives an untouched original cannon mouth")
+						check(matched, "actual fire effect receives the declared ship's rendered cannon mouth")
 		scene.free()
 		await process_frame
 		await process_frame

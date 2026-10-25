@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-24T16:39:18.009Z",
+  "scope": "Root shared-theme and main-menu verification after final material/title-bar fixes. Headless behavior checks, not GPU evidence.",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "cmd": "rtk proxy node docs/design/2026-10-25-parchment-ui/run-check.mjs --headless --script res://tests/test_parchment_theme.gd",
+        "chunk_id": "5d0648",
+        "wall_time_seconds": 0.6448745,
+        "exit_code": 0,
+        "original_token_count": 50,
+        "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nPARCHMENT_THEME_TEST assertions=44 failures=0\r\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "cmd": "rtk proxy node docs/design/2026-10-25-parchment-ui/run-check.mjs --headless --script res://tests/test_main_menu.gd",
+        "chunk_id": "3a5f20",
+        "wall_time_seconds": 1.7576074,
+        "exit_code": 0,
+        "original_token_count": 49,
+        "output": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nMAIN_MENU_TESTS assertions=62 failures=0\r\n"
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ extends Node3D
 
 const AssetLibrary = preload("res://modules/scene_engine/assets/asset_library.gd")
 const ModelProvider = preload("res://modules/scene_engine/assets/ship_model_provider.gd")
+const HeroProvider = preload("res://modules/scene_engine/assets/hero_ship_provider.gd")
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 const DeckSupport = preload("res://game/presentation/crew/deck_stations.gd")
 const HullWaterline = preload("res://game/presentation/ships/hull_waterline_profile.gd")
@@ -42,13 +43,13 @@ var _reduced_motion := false
 func set_reduced_motion(enabled: bool) -> void:
 	_reduced_motion = enabled
 
-func configure(kind: String, asset_library: RefCounted = null) -> bool:
+func configure(kind: String, asset_library: RefCounted = null, model_provider: RefCounted = null) -> bool:
 	dispose()
 	if not kind in KINDS:
 		return false
 	_owns_library = asset_library == null
 	_library = AssetLibrary.new() if _owns_library else asset_library
-	_provider = ModelProvider.for_library(_library)
+	_provider = model_provider if model_provider != null else HeroProvider.new()
 	_kind = kind
 	_disposed = false
 	_lod = 0
@@ -321,7 +322,10 @@ func source_water_attachment() -> Dictionary:
 	var markers: Dictionary = model.get_meta("source_water_markers",{})
 	if not markers.has_all(["wake","bow"]): return {}
 	var unit := float(markers.sourceToWorld)
-	var result := {"sourceToWorld":unit,"sourceResourceName":markers.sourceResourceName,"modelScale":model.global_basis.get_scale().x,"rotation":model.global_basis.orthonormalized(),"markerId":markers.wake.id}
+	# Marker geometry and old effect-history coordinates need not share units.
+	# Original assets use one scale; the Blender ship authors markers in metres.
+	var effect_unit:=float(markers.get("effectSourceToWorld",unit))
+	var result := {"sourceToWorld":effect_unit,"sourceResourceName":markers.sourceResourceName,"modelScale":model.global_basis.get_scale().x,"rotation":model.global_basis.orthonormalized(),"markerId":markers.wake.id}
 	if _waterline_profiles.size()>_lod and not _waterline_profiles[_lod].is_empty():
 		# Only transforms change per frame. The actual hull-only Y=0 contour is
 		# cached in model coordinates during configure, independently of motion.

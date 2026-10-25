@@ -14,7 +14,7 @@ func _init(settings_path: String = "user://settings.json") -> void:
 	path = settings_path; _settings = defaults()
 
 static func defaults() -> Dictionary:
-	return {"handling":"assisted","quality":"balanced","sound":true,"music":true,"soundVolume":1.0,"musicVolume":0.7,"reducedMotion":false,"cameraShake":0.0,"cameraFollow":true,"horizonStability":1.0,"captainName":"沈沧海"}
+	return {"handling":"assisted","quality":"balanced","sound":false,"music":false,"soundVolume":1.0,"musicVolume":0.7,"reducedMotion":false,"cameraShake":0.0,"cameraFollow":true,"horizonStability":1.0,"captainName":"沈沧海"}
 
 static func _finite(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))

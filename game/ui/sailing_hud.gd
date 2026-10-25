@@ -1,4 +1,5 @@
 extends CanvasLayer
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 
 signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
@@ -8,12 +9,9 @@ var _assist: Button
 
 func _ready() -> void:
 	var panel := PanelContainer.new()
+	panel.theme = Parchment.create()
 	panel.position = Vector2(24, 24)
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.035, 0.12, 0.14, 0.88)
-	style.border_color = Color("c5a46b")
-	style.set_border_width_all(1)
-	style.set_content_margin_all(18)
+	var style: StyleBox = Parchment.panel(18)
 	panel.add_theme_stylebox_override("panel", style)
 	add_child(panel)
 	var column := VBoxContainer.new()
@@ -22,11 +20,12 @@ func _ready() -> void:
 	var title := Label.new()
 	title.text = "海上明旗  ·  厦门海域"
 	title.add_theme_font_size_override("font_size", 27)
-	title.add_theme_color_override("font_color", Color("f0d6a1"))
+	title.add_theme_font_override("font", Parchment.title_font())
+	title.add_theme_color_override("font_color", Parchment.CINNABAR)
 	column.add_child(title)
 	_status = Label.new()
 	_status.add_theme_font_size_override("font_size", 18)
-	_status.add_theme_color_override("font_color", Color("f8edcf"))
+	_status.add_theme_color_override("font_color", Parchment.INK)
 	column.add_child(_status)
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation", 10)
@@ -37,7 +36,7 @@ func _ready() -> void:
 	_button(buttons, "高位海图", func(): view_requested.emit(true))
 	var hint := Label.new()
 	hint.text = "W/S 升帆与收帆 · A/D 转舵 · Q/E 调帆\n空格 暂停 · 1/2 镜头 · F12 截图"
-	hint.add_theme_color_override("font_color", Color("e4dfc5"))
+	hint.add_theme_color_override("font_color", Parchment.MUTED)
 	column.add_child(hint)
 
 func _button(parent: Control, label: String, action: Callable) -> Button:

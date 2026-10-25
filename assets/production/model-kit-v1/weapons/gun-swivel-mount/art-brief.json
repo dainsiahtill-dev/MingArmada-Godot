@@ -14,5 +14,23 @@
     "top"
   ],
   "imagePath": "assets/production/model-kit-v1/weapons/gun-swivel-mount/multiview-v1.png",
-  "status": "not-generated"
+  "status": "not-generated",
+  "generationFailure": {
+    "jobId": "gun-swivel-mount",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID 69e7aea6-3bdc-4bcc-9f26-6769cab65d85. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"output\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  },
+  "review": {
+    "jobId": "gun-swivel-mount",
+    "status": "not-generated",
+    "generationStatus": "safety-system-blocked",
+    "error": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID 69e7aea6-3bdc-4bcc-9f26-6769cab65d85. safety_violations=[violence].\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"moderation_blocked\\\",\\n    \\\"moderation_details\\\": {\\n      \\\"moderation_stage\\\": \\\"output\\\",\\n      \\\"categories\\\": [\\n        \\\"violence\\\"\\n      ]\\n    }\\n  }\\n}\")",
+    "historyApproved": false,
+    "modelingApproved": false,
+    "noBypassAttempted": true
+  }
 }

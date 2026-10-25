@@ -1,7 +1,7 @@
 extends Control
 ## Renders the coordinator's detached model. Never advances models or computes rewards.
 signal command_requested(intent:Dictionary)
-const ThemeFactory=preload("res://game/ui/legacy/legacy_theme.gd")
+const Parchment=preload("res://game/ui/shared/parchment_theme.gd")
 const Text=preload("res://game/domain/legacy/utf16_text.gd")
 const TITLES={"duel":"船长决斗","landBattle":"登岸交锋","treasure":"孤岛寻宝","banquet":"港口雅宴"}
 const DIRECTIONS={"up":"↑ 举手","down":"↓ 俯身","left":"← 左揖","right":"→ 右揖"}
@@ -18,7 +18,7 @@ var _kind=""
 var _identity=""
 var _disposed=false
 func _ready():
-	theme=ThemeFactory.create();mouse_filter=Control.MOUSE_FILTER_IGNORE;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);visible=false;resized.connect(_layout)
+	theme=Parchment.create();mouse_filter=Control.MOUSE_FILTER_IGNORE;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);visible=false;resized.connect(_layout)
 func _exit_tree():_disposed=true;_token="disposed"
 func _state()->Dictionary:return _packet.get("state",_packet.get("model",{}))
 func _active()->bool:return _state().get("phase")=="active" and not _packet.get("paused",false)
@@ -37,7 +37,12 @@ func _emit(payload:Dictionary,token:String):
 func _action(action,token:String):
 	if _active():_emit({"type":"encounter-action","action":action},token)
 func _label(id:String,watch:Callable)->Label:
-	var label=Label.new();label.name=id;label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;_content.add_child(label);_bindings.append(func():label.text=Text.display_text(str(watch.call())));return label
+	var label=Label.new();label.name=id;label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	if id=="encounter_heading":
+		label.add_theme_font_override("font",Parchment.title_font());label.add_theme_font_size_override("font_size",24);label.add_theme_color_override("font_color",Parchment.CINNABAR)
+	elif id=="encounter_context":
+		label.add_theme_font_size_override("font_size",14);label.add_theme_color_override("font_color",Parchment.MUTED)
+	_content.add_child(label);_bindings.append(func():label.text=Text.display_text(str(watch.call())));return label
 func _button(parent,id:String,title:String,callback:Callable,enabled:Callable)->Button:
 	var b=Button.new();b.name=id;b.text=title;b.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;parent.add_child(b);var font=b.get_theme_default_font();b.custom_minimum_size=Vector2(max(76.0,font.get_string_size(title,HORIZONTAL_ALIGNMENT_LEFT,-1,b.get_theme_default_font_size()).x+24),38);var token=_token;b.pressed.connect(func():
 		if token==_token and not b.disabled:callback.call(token))
@@ -100,7 +105,7 @@ func _grid(kind:String):
 					var revealed=_state().get("revealed",[]);var known=revealed.size()>y and revealed[y][x];b.text="？" if not known else "船长" if _state().get("position",{})=={"x":x,"y":y} else "守卫" if _state().get("guard",{})=={"x":x,"y":y} else "墙" if value=="wall" else "古石" if _state().get("treasure",{})=={"x":x,"y":y} else "·"
 				else:
 					b.text=("我" if unit.get("side")=="player" else "敌")+("刀" if unit.get("role")=="melee" else "铳")+"\n"+str(unit.get("health",0)) if not unit.is_empty() else "墙" if value=="wall" else "掩体" if value=="cover" else "·"
-					b.modulate=Color("a0e7d8") if unit.get("id")==_state().get("selectedUnitId") else Color("f4b6a0") if unit.get("side")=="enemy" else Color.WHITE
+					b.modulate=Color("b9d0cb") if unit.get("id")==_state().get("selectedUnitId") else Color("e4b5a4") if unit.get("side")=="enemy" else Color.WHITE
 				b.tooltip_text="第%s列，第%s行：%s"%[x+1,y+1,b.text.replace("\n"," ")])
 func _unit_at(x,y)->Dictionary:
 	for unit in _state().get("units",[]):

@@ -1,5 +1,6 @@
 uniform float damage_stage = 0.0;
 uniform bool sail_surface = false;
+uniform bool authored_thin_cloth = false;
 uniform float original_roughness = 0.85;
 uniform vec4 original_color : source_color = vec4(1.0);
 uniform bool use_original_vertex_color = true;
@@ -81,6 +82,11 @@ void fragment() {
 		}
 	}
 	ALBEDO = base;
+	// Only the newly authored canvas opts into thin-fabric transmission.
+	// This keeps the shaded reverse readable while retaining normal shadows.
+	if (authored_thin_cloth && sail_surface) {
+		BACKLIGHT = base * 0.5;
+	}
 #ifdef PRESERVE_SOURCE_ALPHA
 	ALPHA = clamp(source.a * tint.a, 0.0, 1.0);
 #endif

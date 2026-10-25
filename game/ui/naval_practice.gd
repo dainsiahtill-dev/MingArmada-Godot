@@ -3,6 +3,7 @@ extends CanvasLayer
 signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 const Chart=preload("res://game/ui/charts/nautical_chart.gd")
+const Parchment=preload("res://game/ui/shared/parchment_theme.gd")
 const Cannon=preload("res://modules/naval_simulation/combat/cannon_system.gd")
 var chart: Control
 var _screen: Control
@@ -19,13 +20,13 @@ var _menu:=false
 var _applying:=false
 func _ready() -> void:
 	_screen=Control.new(); _screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); _screen.mouse_filter=Control.MOUSE_FILTER_IGNORE; add_child(_screen)
-	var theme:=Theme.new(); var font:=SystemFont.new(); font.font_names=PackedStringArray(["Microsoft YaHei","sans-serif"]); theme.default_font=font; theme.default_font_size=17; _screen.theme=theme
+	_screen.theme=Parchment.create()
 	var panel:=PanelContainer.new(); _panel=panel; panel.position=Vector2(18,18)
-	var style:=StyleBoxFlat.new(); style.bg_color=Color(0.035,0.13,0.14,0.94); style.border_color=Color("c5a46b"); style.set_border_width_all(1); style.set_content_margin_all(16)
+	var style:StyleBox=Parchment.panel(16)
 	panel.add_theme_stylebox_override("panel",style); _screen.add_child(panel)
 	var scroll:=ScrollContainer.new(); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; scroll.follow_focus=true; panel.add_child(scroll)
 	var column:=VBoxContainer.new(); column.size_flags_horizontal=Control.SIZE_EXPAND_FILL; column.add_theme_constant_override("separation",10); scroll.add_child(column)
-	_status=Label.new(); _status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _status.size_flags_horizontal=Control.SIZE_EXPAND_FILL; _status.add_theme_color_override("font_color",Color("f1e6cb")); column.add_child(_status)
+	_status=Label.new(); _status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _status.size_flags_horizontal=Control.SIZE_EXPAND_FILL; _status.add_theme_color_override("font_color",Parchment.INK); column.add_child(_status)
 	_sails=HSlider.new(); _sails.name="sails"; _sails.min_value=0; _sails.max_value=100; _sails.step=1; column.add_child(_sails)
 	_sails.value_changed.connect(func(value):
 		if not _applying: command_requested.emit({"type":"sails","value":value/100.0}))
@@ -41,11 +42,11 @@ func _ready() -> void:
 	var tactical:=button(views,"tactical_view","高位视角",{}); tactical.pressed.connect(func(): view_requested.emit(true))
 	var actions:=HFlowContainer.new(); column.add_child(actions)
 	button(actions,"surrender","降旗投降",{"type":"begin-surrender"}); button(actions,"settings","设置",{"type":"open-settings"})
-	var hint:=Label.new(); hint.name="MouseSailingHint"; hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; hint.text="左键点海面持续航行 · 中键停船\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升帆与收帆 · A/D 转舵\n空格 朝最近敌舰开炮 · M 航图\n[ / ] 调整帆角 · Esc 菜单"; hint.add_theme_font_size_override("font_size",14); hint.add_theme_color_override("font_color",Color("d2c6a7")); column.add_child(hint)
-	_notice=Label.new(); _notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _notice.add_theme_color_override("font_color",Color("e7c887")); column.add_child(_notice)
-	_modal=PanelContainer.new(); _modal.add_theme_stylebox_override("panel",style.duplicate()); _screen.add_child(_modal)
+	var hint:=Label.new(); hint.name="MouseSailingHint"; hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; hint.text="左键点海面持续航行 · 中键停船\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升帆与收帆 · A/D 转舵\n空格 朝最近敌舰开炮 · M 航图\n[ / ] 调整帆角 · Esc 菜单"; hint.add_theme_font_size_override("font_size",14); hint.add_theme_color_override("font_color",Parchment.MUTED); column.add_child(hint)
+	_notice=Label.new(); _notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; _notice.add_theme_color_override("font_color",Parchment.DANGER); column.add_child(_notice)
+	_modal=PanelContainer.new(); _modal.add_theme_stylebox_override("panel",Parchment.panel(16,"overlay")); _screen.add_child(_modal)
 	var modal_column:=VBoxContainer.new(); modal_column.add_theme_constant_override("separation",12); _modal.add_child(modal_column)
-	_modal_title=Label.new(); _modal_title.add_theme_font_size_override("font_size",24); modal_column.add_child(_modal_title)
+	_modal_title=Label.new(); _modal_title.add_theme_font_size_override("font_size",24); _modal_title.add_theme_font_override("font",Parchment.title_font()); _modal_title.add_theme_color_override("font_color",Parchment.CINNABAR); modal_column.add_child(_modal_title)
 	button(modal_column,"resume","继续航行",{"type":"resume"})
 	button(modal_column,"confirm_surrender","确认降旗",{"type":"confirm-surrender"})
 	button(modal_column,"cancel_surrender","继续抵抗",{"type":"cancel-surrender"})

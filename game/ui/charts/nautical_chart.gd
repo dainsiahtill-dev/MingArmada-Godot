@@ -3,6 +3,7 @@ extends Control
 signal waypoint_requested(point: Dictionary)
 signal chart_requested
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const DEFAULT_BOUNDS = Rect2(-1000,-800,2400,1750)
 const GRID_STEP = 30.0
 const CACHE_LIMIT = 20480
@@ -10,8 +11,8 @@ const BACKGROUND = "res://assets/art/maps/ming-nautical-chart-v2.png"
 const BACKGROUND_FALLBACK = "res://assets/art/maps/ming-nautical-chart-v1.png"
 const LAND_PAPER = "res://assets/art/maps/ming-nautical-land-paper-v2.png"
 const LAND_GRAIN_SPAN = 720.0
-const INK = Color("423b29")
-const GOLD = Color("b3944f")
+const INK = Parchment.INK
+const GOLD = Parchment.OUTLINE
 var _ports: Array = []
 var _height: Callable
 var _native: Dictionary = {}
@@ -31,8 +32,8 @@ var _configured := false
 var _background: Texture2D
 var _land_paper: Texture2D
 var _fallback_land_paper: Texture2D
-var _font: SystemFont
-var _title_font: SystemFont
+var _font: Font
+var _title_font: Font
 var _land_mesh: ArrayMesh
 var _shoal_mesh: ArrayMesh
 var _mesh_rect: Rect2
@@ -42,8 +43,9 @@ var _label_boxes: Array = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP; clip_contents = true; custom_minimum_size = Vector2(160,230)
-	_font = SystemFont.new(); _font.font_names = PackedStringArray(["KaiTi","Microsoft YaHei","Noto Sans CJK SC","sans-serif"])
-	_title_font = SystemFont.new(); _title_font.font_names = PackedStringArray(["KaiTi","STKaiti","Microsoft YaHei","sans-serif"])
+	theme = Parchment.create()
+	_font = theme.default_font
+	_title_font = Parchment.title_font()
 	_background=_load_texture(BACKGROUND)
 	if not _background: _background=_load_texture(BACKGROUND_FALLBACK)
 	_land_paper=_load_texture(LAND_PAPER); _fallback_land_paper=_native_land_paper()
@@ -316,13 +318,13 @@ func _draw_routes() -> void:
 	for objective: Dictionary in _overlays.get("activeObjectives",[]):
 		var p := projected(objective.get("position",{}))
 		if not map_rect().grow(-9).has_point(p): continue
-		draw_arc(p,7,0,TAU,20,Color("8f4d35"),1.5,true)
+		draw_arc(p,7,0,TAU,20,Parchment.CINNABAR,1.5,true)
 		_label_boxes.append(Rect2(p-Vector2(8,8),Vector2(16,16)))
 		if not _compact: _label(Text.display_text(str(objective.get("label",""))),p+Vector2(12,14),13,map_rect(),_label_boxes)
 	if not waypoint.is_empty():
 		var p := projected(waypoint)
 		if map_rect().grow(-8).has_point(p):
-			draw_line(p+Vector2(-6,0),p+Vector2(6,0),Color("8f4d35"),1.5,true); draw_line(p+Vector2(0,-6),p+Vector2(0,6),Color("8f4d35"),1.5,true)
+			draw_line(p+Vector2(-6,0),p+Vector2(6,0),Parchment.CINNABAR,1.5,true); draw_line(p+Vector2(0,-6),p+Vector2(0,6),Parchment.CINNABAR,1.5,true)
 			_label_boxes.append(Rect2(p-Vector2(8,8),Vector2(16,16)))
 
 func _dotted(a: Vector2, b: Vector2, color: Color) -> void:
@@ -388,7 +390,7 @@ func _draw_label(label: Dictionary) -> void:
 	draw_string(_font,label.position,label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,label.size,INK)
 
 func _label_ground() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new(); style.bg_color=Color(0.91,0.82,0.60,0.92); style.set_corner_radius_all(2)
+	var style := StyleBoxFlat.new(); style.bg_color=Color(Parchment.PAPER,0.96); style.set_corner_radius_all(2)
 	return style
 
 func _draw_ships() -> void:
@@ -396,7 +398,7 @@ func _draw_ships() -> void:
 		var p := _world_pixel(mark.position)
 		if not map_rect().grow(-12).has_point(p): continue
 		var direction: Vector2 = mark.direction; var normal := Vector2(-direction.y,direction.x)
-		var color := Color("ecdf9f") if mark.flagship else Color("b94732") if mark.role=="hostile" else Color("68d5cf") if mark.role=="ally" else Color("d6a24c")
+		var color := Color("e2c989") if mark.flagship else Parchment.CINNABAR if mark.role=="hostile" else Parchment.SEA if mark.role=="ally" else Color("b38a45")
 		var length := 8.0 if mark.flagship else 6.0
 		var polygon := PackedVector2Array([p+direction*length,p-direction*length*.7+normal*4,p-direction*length*.45,p-direction*length*.7-normal*4])
 		if mark.flagship: draw_circle(p,11,Color(0.99,0.90,0.58,0.17)); draw_arc(p,10,0,TAU,24,Color("765b34"),1,true)
@@ -438,7 +440,7 @@ func _draw_compass(center: Vector2) -> void:
 	draw_string(_font,center+Vector2(-4,-radius-2),"北",HORIZONTAL_ALIGNMENT_LEFT,-1,9,INK)
 
 func _cartouche() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new(); style.bg_color=Color("e3c88e"); style.border_color=GOLD; style.set_border_width_all(1); style.set_corner_radius_all(3)
+	var style := StyleBoxFlat.new(); style.bg_color=Parchment.PAPER; style.border_color=GOLD; style.set_border_width_all(1); style.set_corner_radius_all(3)
 	return style
 
 func _gui_input(event: InputEvent) -> void:

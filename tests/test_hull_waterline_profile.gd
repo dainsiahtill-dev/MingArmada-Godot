@@ -1,4 +1,6 @@
 extends SceneTree
+# Recorded original-hull fixtures; authored flagship has a separate water test.
+const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 ## Real model -> cached waterline -> production packet, without GPU.
 const Ship=preload("res://game/presentation/ships/ship_view.gd")
 const Packet=preload("res://game/presentation/world/source_water_packet.gd")
@@ -18,7 +20,7 @@ func _run()->void:
 	check(detached._waterline_profiles.size()==3 and detached._waterline_profiles[0].beam>4.9,"off-tree configuration builds actual local waterline")
 	detached.dispose();detached.free()
 	for kind:String in Ship.KINDS:
-		var actor:=Ship.new();root.add_child(actor);check(actor.configure(kind),"actual ship configures "+kind)
+		var actor:=Ship.new();root.add_child(actor);check(actor.configure(kind,null,Reference.new()),"actual ship configures "+kind)
 		var state:=_state(kind,1.0,6.0*0.514444)
 		actor.apply_snapshot(state,{},0.0)
 		var attachment:Dictionary=actor.source_water_attachment()

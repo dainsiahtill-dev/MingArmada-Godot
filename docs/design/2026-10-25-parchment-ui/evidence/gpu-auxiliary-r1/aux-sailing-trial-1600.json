@@ -1,0 +1,164 @@
+{
+	"actionCount": 4,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "aux-sailing-trial-1600",
+	"pngSha256": "5d0d5e65335295f16cce42d44d58a372cf758df0dd68f13d90fe780274d4fd95",
+	"renderingMethod": "forward_plus",
+	"route": "direct existing scene, not registered MainScene menu route",
+	"scene": "res://game/scenes/sailing_trial/sailing_trial.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975",
+				"panelMargins": [
+					18.0,
+					18.0,
+					18.0,
+					18.0
+				],
+				"rect": [
+					24.0,
+					24.0,
+					434.0,
+					232.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "8d3d2bff",
+				"fontSize": 27,
+				"mouseFilter": 2,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@Label@977",
+				"rect": [
+					42.0,
+					42.0,
+					398.0,
+					28.0
+				],
+				"text": "海上明旗  ·  厦门海域",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "33281dff",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@Label@978",
+				"rect": [
+					42.0,
+					80.0,
+					398.0,
+					53.0
+				],
+				"text": "航向 022°   航速 0.0 节\n帆面 75%   帆角 45°   风速 12 m/s",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@HBoxContainer@979/@Button@980",
+				"rect": [
+					42.0,
+					143.0,
+					92.0,
+					38.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@HBoxContainer@979/@Button@981",
+				"rect": [
+					144.0,
+					143.0,
+					92.0,
+					38.0
+				],
+				"text": "均衡操船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@HBoxContainer@979/@Button@982",
+				"rect": [
+					246.0,
+					143.0,
+					92.0,
+					38.0
+				],
+				"text": "船长视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "33281dff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@HBoxContainer@979/@Button@983",
+				"rect": [
+					348.0,
+					143.0,
+					92.0,
+					38.0
+				],
+				"text": "高位海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "6b513bff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/SailingTrial/@CanvasLayer@974/@PanelContainer@975/@VBoxContainer@976/@Label@984",
+				"rect": [
+					42.0,
+					191.0,
+					398.0,
+					47.0
+				],
+				"text": "W/S 升帆与收帆 · A/D 转舵 · Q/E 调帆\n空格 暂停 · 1/2 镜头 · F12 截图",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 0,
+		"unclippedOverflow": [],
+		"visibleButtons": 4,
+		"visibleControls": 11
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

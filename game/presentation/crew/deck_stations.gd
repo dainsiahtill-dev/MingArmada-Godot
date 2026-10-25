@@ -65,7 +65,12 @@ func configure(kind: String, model: Node3D) -> bool:
 		var p := _local_frame(gun, model).origin
 		_extra(p.x - signf(p.x) * gun_inset, p.z, 0.95, 1.2)
 	var helms := {"fuchuan": -0.20, "fisherman": -0.38, "merchant": -0.26, "voc": -0.23, "patrol": -0.125, "heavy": -0.183}
-	_add("helm", 0.0, length * float(helms.get(kind, -0.2)), 0.0, "", length, width)
+	var authored_helm := model.find_child("crew_helm",true,false) as Node3D
+	if authored_helm:
+		var helm_point := _local_frame(authored_helm,model).origin
+		_add("helm",helm_point.x,helm_point.z,0.0,"",length,width)
+	else:
+		_add("helm", 0.0, length * float(helms.get(kind, -0.2)), 0.0, "", length, width)
 	for mast in masts:
 		var p := _local_frame(mast, model).origin
 		if _source_geometry: _extra(p.x,p.z,0.65,0.65)

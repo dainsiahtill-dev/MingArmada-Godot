@@ -5,6 +5,7 @@ signal view_requested(tactical:bool)
 const Catalog=preload("res://game/domain/legacy/catalog.gd")
 const Text=preload("res://game/domain/legacy/utf16_text.gd")
 const ThemeFactory=preload("res://game/ui/legacy/legacy_theme.gd")
+const Parchment=preload("res://game/ui/shared/parchment_theme.gd")
 const Chart=preload("res://game/ui/legacy/legacy_chart.gd")
 const Gunnery=preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const C=Catalog.DATA
@@ -190,6 +191,7 @@ func _box(parent,id:String)->VBoxContainer:
 	var box=VBoxContainer.new();box.name=id;box.size_flags_horizontal=Control.SIZE_EXPAND_FILL;box.add_theme_constant_override("separation",9);parent.add_child(box);return box
 func _label(parent,id:String,text="",watch=Callable())->Label:
 	var label=Label.new();label.name=id;label.text=text;label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(label)
+	if id.ends_with("_heading"):label.add_theme_font_override("font",Parchment.title_font());label.add_theme_font_size_override("font_size",24)
 	if watch.is_valid():_watchers.append(func():label.text=_display(watch.call()))
 	return label
 func _button(parent,id:String,label:String,action:Callable,gate=false)->Button:
@@ -200,7 +202,7 @@ func _button(parent,id:String,label:String,action:Callable,gate=false)->Button:
 	button.pressed.connect(func():
 		if token==_token() and is_inside_tree() and not button.disabled:_send(action.call(),token,gate))
 	if gate:
-		var reason=_label(target,id+"_reason");reason.add_theme_color_override("font_color",Color("e6b89a"))
+		var reason=_label(target,id+"_reason");reason.add_theme_color_override("font_color",Parchment.CINNABAR)
 		_watchers.append(func():
 			if not button.is_visible_in_tree():return
 			var payload=action.call();var key=command_signature(payload)
@@ -282,6 +284,7 @@ func _build():
 	_button(result,"career_menu","返回主菜单",func():return {"type":"main-menu"})
 	_watchers.append(_refresh_result)
 	_dialog=FileDialog.new();_dialog.name="import_file_dialog";_dialog.file_mode=FileDialog.FILE_MODE_OPEN_FILE;_dialog.access=FileDialog.ACCESS_FILESYSTEM;_dialog.filters=PackedStringArray(["*.json ; 航程存档 JSON"]);_screen.add_child(_dialog);var token=_token()
+	_dialog.theme=_screen.theme
 	_dialog.file_selected.connect(func(path):_send({"type":"import-save","path":path},token))
 	_operation.visible=_panel_open;_menu.visible=_menu_open;_screen.get_viewport().size_changed.connect(_queue_layout,CONNECT_REFERENCE_COUNTED)
 	_hud.minimum_size_changed.connect(_queue_layout);_refresh()

@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const dir=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(dir,'../../..');
+const appdata=path.join(root,'Temp/parchment-ui-profiles/root-checks');fs.mkdirSync(appdata,{recursive:true});
+const exe='C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe';
+const args=process.argv.slice(2);if(!args.length)throw new Error('Godot arguments required');
+const r=spawnSync(exe,['--path',root,...args],{cwd:root,env:{...process.env,APPDATA:appdata,LOCALAPPDATA:appdata},encoding:'utf8',timeout:180000});
+process.stdout.write(r.stdout||'');process.stderr.write(r.stderr||'');if(r.error)console.error(r.error.message);process.exitCode=r.status??1;

@@ -6,13 +6,61 @@
   "covers": [
     "prop-cargo-net"
   ],
-  "brief": "单件可重复实例化；布包、粮袋、木箱拓扑不同分别计数。容器内货物从已列道具组合，不再隐含新增基模。 旧预算保留项；不是既有形制已通过审定的声明。",
+  "brief": "单张平面绳网，四角提点；修订候选为4列×3行网目。平面/背面/薄边/垂挂应来自同一拓扑，禁止刚性箱笼。",
   "requiredViews": [
-    "front",
-    "side",
-    "rear",
-    "top"
+    "plan",
+    "reverse",
+    "edge",
+    "drape"
   ],
   "imagePath": "assets/production/model-kit-v1/props/prop-cargo-net/multiview-v1.png",
-  "status": "not-generated"
+  "status": "generated-review-required",
+  "sha256": "f9ec98e928237acaf8aa28a15ad9c4ef541707308307591868512d1a5288ac98",
+  "generation": {
+    "jobId": "prop-cargo-net",
+    "tool": "built-in-imagegen",
+    "generatedAt": "2026-10-24T16:08:26.795Z",
+    "sourcePath": "C:\\Users\\dains\\.codex\\generated_images\\01a12087-2701-7d12-9091-fd4eb5b1d3be\\exec-5af71d46-29c1-413c-b69f-bc9722739e2e.png",
+    "imagePath": "assets/production/model-kit-v1/props/prop-cargo-net/multiview-v1.png",
+    "sha256": "f9ec98e928237acaf8aa28a15ad9c4ef541707308307591868512d1a5288ac98",
+    "width": 1536,
+    "height": 1024,
+    "review": {
+      "status": "concept-reviewed",
+      "reviewedBy": "root",
+      "preferredImagePath": "assets/production/model-kit-v1/props/prop-cargo-net/multiview-v2.png",
+      "observedPanels": [
+        "PLAN",
+        "REVERSE",
+        "EDGE",
+        "DRAPE"
+      ],
+      "notes": [
+        "v2消除刚性五面箱笼，改成同一平网正反/薄边/垂挂。实际候选是4列×3行网目；不宣称提示要求的4×4得到落实，后续按4×3统一并校验变形。"
+      ],
+      "historyApproved": false,
+      "modelingApproved": false
+    },
+    "modelingApproved": false,
+    "historyApproved": false,
+    "promptPath": "assets/production/model-kit-v1/props/prop-cargo-net/prompt.txt"
+  },
+  "review": {
+    "status": "concept-reviewed",
+    "reviewedBy": "root",
+    "preferredImagePath": "assets/production/model-kit-v1/props/prop-cargo-net/multiview-v2.png",
+    "observedPanels": [
+      "PLAN",
+      "REVERSE",
+      "EDGE",
+      "DRAPE"
+    ],
+    "notes": [
+      "v2消除刚性五面箱笼，改成同一平网正反/薄边/垂挂。实际候选是4列×3行网目；不宣称提示要求的4×4得到落实，后续按4×3统一并校验变形。"
+    ],
+    "historyApproved": false,
+    "modelingApproved": false
+  },
+  "preferredImagePath": "assets/production/model-kit-v1/props/prop-cargo-net/multiview-v2.png",
+  "preferredSha256": "b4b4be678af4b070ee6d6f975ce49729e38921c36a659b175c9f7629ad7b50d9"
 }

@@ -17,12 +17,13 @@
     if(!selected.length){out.append(el('p','没有符合条件的资源。可清除筛选后重新查找。'));return;}
     for(const j of selected){
       const a=el('article',undefined,'sheet');a.id=j.id;
-      const head=el('div',undefined,'sheet-head'),title=el('div');title.append(el('h2',j.title),el('p',j.id+' · '+labels[j.group]));head.append(title,el('span',j.status==='not-generated'?'尚未生成':j.generation?.review?.status==='needs-redraw'?'需要修订':'候选草图','status'));a.append(head);
+      const head=el('div',undefined,'sheet-head'),title=el('div');title.append(el('h2',j.title),el('p',j.id+' · '+labels[j.group]));head.append(title,el('span',j.status==='not-generated'?(j.generationFailure?'生成未取得图片':'尚未生成'):j.generation?.review?.status==='needs-redraw'?'需要修订':'候选草图','status'));a.append(head);
       const preferred=j.preferredImagePath||j.imagePath;
-      if(j.status!=='not-generated') {const imageLink=link('',file(preferred));imageLink.className='image-link';const img=el('img');img.src=file(preferred);img.alt=j.title+'的多方向建模候选草图';img.loading='lazy';img.decoding='async';imageLink.append(img);a.append(imageLink);}else a.append(el('div','该任务已有资源简报，尚未生成多视图。','pending'));
+      if(j.status!=='not-generated') {const imageLink=link('',file(preferred));imageLink.className='image-link';const img=el('img');img.src=file(preferred);img.alt=j.title+'的多方向建模候选草图';img.loading='lazy';img.decoding='async';imageLink.append(img);a.append(imageLink);}else a.append(el('div',j.generationFailure?'生成工具未返回可登记的图片，失败记录与资料简报已保存。':'该任务已有资源简报，尚未生成多视图。','pending'));
       a.append(el('p',j.brief||'外形要求见资源简报与考据分册。','brief'),el('p',`覆盖制作项：${j.covers.join('、')} · ${j.scope==='reserve'?'预备项':'制作基线'}`,'meta'));
       const dir=j.imagePath.slice(0,j.imagePath.lastIndexOf('/'));
       const links=el('div',undefined,'links');links.append(link('资源简报',file(dir+'/art-brief.json')));
+      if(j.generationFailure)links.append(link('生成失败记录',file(dir+'/generation-error.json')));
       if(j.status!=='not-generated'){links.append(link('查看原图',file(preferred)),link('生成与审查记录',file(dir+'/generation.json')));if(j.generation?.promptPath)links.append(link('提示词',file(j.generation.promptPath)));}
       const research=data.models.find(m=>j.covers.includes(m.id))?.research;if(research)links.append(link('考据分册',file(research)));a.append(links);
       if(j.generation?.review){const d=el('details');d.append(el('summary','查看本张目视审查与未决问题'),el('pre',JSON.stringify(j.generation.review,null,2)));a.append(d);}

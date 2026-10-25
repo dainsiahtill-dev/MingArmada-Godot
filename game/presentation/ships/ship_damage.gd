@@ -53,11 +53,16 @@ func configure(models: Array[Node3D], texture_root: String = TEXTURE_ROOT) -> vo
 				continue
 			var sail := surface_kind == "sail"
 			for surface in node.mesh.get_surface_count():
+				# Authored junk sails merge cloth, bamboo and sheets to reef as one
+				# mesh. Only canvas tears; solid rig parts retain their own material.
+				var authored_material = node.get_active_material(surface)
+				if model.get_meta("model_origin","")=="blender_authored" and sail and authored_material is StandardMaterial3D and authored_material.resource_name!="canvas":continue
 				var material := ShaderMaterial.new()
 				material.shader = DamageShader
 				material.set_shader_parameter("sail_surface", sail)
 				var original = node.get_active_material(surface)
 				if original is StandardMaterial3D:
+					material.set_shader_parameter("authored_thin_cloth",model.get_meta("model_origin","")=="blender_authored" and sail and original.resource_name=="canvas")
 					material.set_shader_parameter("original_color", original.albedo_color)
 					material.set_shader_parameter("original_roughness", original.roughness)
 					material.set_shader_parameter("original_albedo", original.albedo_texture)
@@ -202,6 +207,15 @@ func _find_component(parents: Array[int], index: int) -> int:
 	return index
 
 func _split_rigging(model: Node3D, masts: Array[Dictionary]) -> void:
+	# New Blender assets carry explicit standing-rig ownership. Trim rotates
+	# cloth around a fixed spar; only damage should move the deck-fixed stays.
+	for node: Node3D in model.find_children("*", "Node3D", true, false):
+		if not node.has_meta("authored_mast_index"): continue
+		var mast_name := "mast_%d" % int(node.get_meta("authored_mast_index"))
+		for mast: Dictionary in masts:
+			if String(mast.node.name) == mast_name:
+				_rigs.append({"node":node,"rest":node.transform,"pivot":mast.rest.origin})
+				break
 	# Authored exporter merged shrouds/ratlines with deck trim. Recover actual
 	# disconnected beam components, with coincident vertices welded for caps/seams.
 	var batch := model.find_child("fittings_trim", true, false) as MeshInstance3D
