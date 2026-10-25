@@ -1,0 +1,31 @@
+{
+  "scope": "Temporary real production compiler contract before integration; expected failing reduction assertion, all original 608 tests run headlessly; no GPU claim",
+  "startedAtUtc": "2026-10-25T21:07:41.727Z",
+  "finishedAtUtc": "2026-10-25T21:07:42.445Z",
+  "command": [
+    "rtk",
+    "proxy",
+    "C:/Users/dains/Downloads/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+    "--headless",
+    "--path",
+    "C:\\Users\\dains\\Documents\\Git\\ming-armada",
+    "--script",
+    "res://Temp/research/billboard_production_contract.gd"
+  ],
+  "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nCLOUD_BILLBOARD_PRODUCTION_WORK baselineTransposeCalls=1449 candidateTransposeCalls=1449\r\nCLOUD_BILLBOARD_PRODUCTION_TESTS assertions=608 failures=1\r\n",
+  "stderr": "[rtk] /!\\ No hook installed — run `rtk init -g` for automatic token savings\nFAIL cloud billboard reuse: 30-cloud minimum path reduces underlying transpose work baseline=1449 candidate=1449\r\n",
+  "exitCode": 1,
+  "signal": null,
+  "processError": null,
+  "diagnostics": [],
+  "completions": [
+    "CLOUD_BILLBOARD_PRODUCTION_TESTS assertions=608 failures=1"
+  ],
+  "expectedRed": true,
+  "sourceHashes": {
+    "Temp/research/billboard_production_contract.gd": "1799034cce456c94dea567477d014cd6e24ee9367df7c4d754356fe7d0310f0e",
+    "tests/test_cloud_billboard_reuse.gd": "51795c274f745e959149c9fa9a4d39546cfd65cec6a81dbb7a948f408b0e3fb2",
+    "modules/scene_engine/fidelity_fx/cloud_render_compiler.gd": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe",
+    "game/research/fixtures/cloud_billboard_baseline.gd": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe"
+  }
+}

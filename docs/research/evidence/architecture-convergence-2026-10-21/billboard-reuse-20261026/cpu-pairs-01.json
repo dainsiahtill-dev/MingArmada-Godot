@@ -1,0 +1,213 @@
+{
+	"acceptance": {
+		"byteEqualityRequired": true,
+		"fasterPairsAtLeast": 10,
+		"meanRatioAtMost": 0.95,
+		"passed": true
+	},
+	"baselineMs": {
+		"count": 12,
+		"maximum": 116.795,
+		"mean": 107.279333333333,
+		"minimum": 102.505,
+		"p50": 105.811,
+		"p95": 116.795
+	},
+	"candidateMs": {
+		"count": 12,
+		"maximum": 89.932,
+		"mean": 87.6370833333333,
+		"minimum": 84.905,
+		"p50": 87.63,
+		"p95": 89.932
+	},
+	"controls": {
+		"clones": 30,
+		"encounterSeed": 1661,
+		"measuredPairs": 12,
+		"order": "alternating",
+		"powerTemperatureBackground": "unknown",
+		"quantile": "nearest-rank ceil(q*n)-1",
+		"repeatsPerBatch": 24,
+		"skyCrtSeed": 1,
+		"units": "milliseconds per 24*30-clone batch",
+		"warmupPairs": 2
+	},
+	"display": "headless",
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": [],
+	"fasterPairs": 12,
+	"inputsSha256": "84dd0d7f59ab074346647c96f3ceed425acc98eafc7da63d5f0107ed0777fc48",
+	"meanRatio": 0.816905554968649,
+	"processorIdentifier": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel",
+	"rows": [
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 109.924
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 87.176
+			},
+			"first": "baseline",
+			"pair": 0
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 106.869
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 87.364
+			},
+			"first": "candidate",
+			"pair": 1
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 108.548
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 85.853
+			},
+			"first": "baseline",
+			"pair": 2
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 116.795
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 87.944
+			},
+			"first": "candidate",
+			"pair": 3
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 102.505
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 88.503
+			},
+			"first": "baseline",
+			"pair": 4
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 103.107
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 85.591
+			},
+			"first": "candidate",
+			"pair": 5
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 105.024
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 89.932
+			},
+			"first": "baseline",
+			"pair": 6
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 107.27
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 84.905
+			},
+			"first": "candidate",
+			"pair": 7
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 104.832
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 88.475
+			},
+			"first": "baseline",
+			"pair": 8
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 112.977
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 89.13
+			},
+			"first": "candidate",
+			"pair": 9
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 103.69
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 87.63
+			},
+			"first": "baseline",
+			"pair": 10
+		},
+		{
+			"baseline": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 105.811
+			},
+			"candidate": {
+				"checksum": 92.7694253325462,
+				"milliseconds": 89.142
+			},
+			"first": "candidate",
+			"pair": 11
+		}
+	],
+	"scope": "Independent headless CPU; 30 original skyCRT1 cloud clones matching ordinary encounter seed1661 default sky configuration, two fixed camera bases, each batch repeats24 times. Compilation, byte checks and file IO outside timed interval. Not a GPU/scene/full-game FPS measurement.",
+	"sourceFiles": {
+		"res://assets/data/fidelity_fx/atmosphere/assets-json/domecloud1.nif.json": "701b01e714e9b8d96e6febb521f0a2180dd6fc8d0021a76d230246f0013e6611",
+		"res://assets/data/fidelity_fx/atmosphere/assets-json/domecloud2.nif.json": "411604034b1bdc3c4f63559d3f83e30589d3fd68096635069a74c3110d177e5d",
+		"res://assets/data/fidelity_fx/atmosphere/assets-json/domecloud3.nif.json": "4da39b48ea17069cfedead2fe4e883c4659c070d89810c21be95fccf57f858e8",
+		"res://assets/data/fidelity_fx/atmosphere/assets-json/domecloud4.nif.json": "c41070c16698a27a0792c4e65200fd5d21ac36d74732805cee91dba7794531f4",
+		"res://assets/data/fidelity_fx/atmosphere/assets-json/domecloud5.nif.json": "a161fd43135370d9b2eac2a3391fb0b350521a41dc7637633ab311a5cd949625",
+		"res://game/research/demos/architecture_billboard_candidate.gd": "6278954ffd344d7595b920a4fcc182ad5eaf1bde570c48866fa975cc89cce202",
+		"res://game/research/fixtures/cloud_billboard_baseline.gd": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe",
+		"res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe",
+		"res://tools/measure-cloud-billboard-reuse.gd": "8060bb4721b683778a0c5b851c4a1e91870eb25d3d7681c99d88d5781ac5c802"
+	},
+	"topic": "architecture-convergence-2026-10-21",
+	"verdict": "cost-gate-passed; GPU/integration not yet verified"
+}

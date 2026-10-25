@@ -22,6 +22,10 @@ func attach(object:Object,label:String,methods:Array,sets:bool=false)->void:
 	if sets:
 		source=source.replace('_materials[i].set_shader_parameter(', '_probe_set(_materials[i],')
 		source=source.replace('material.set_shader_parameter(key,current)', '_probe_set(material,key,current)')
+	if label=="sourceWakes":
+		# Keep ContactFroth's original script: its existing ContactBuffer values
+		# belong to that script's nested type and cannot be retyped by swapping it.
+		source=source.replace('actor.froth.apply_snapshot(attached,_time,water,sea)','_probe_call("contact_froth",func():actor.froth.apply_snapshot(attached,_time,water,sea))')
 	var script:=GDScript.new();script.source_code=source+PROBE_HELPER+wrappers
 	if not check(script.reload()==OK,label+" instrumented source compiles"):return
 	object.set_script(script)
@@ -45,6 +49,13 @@ func install_frame_timers()->void:
 	for crew:Node3D in game.sea.sailors.values():attach(crew,"crew",[["apply_snapshot","ship:Dictionary,wind:Dictionary={},consumed:float=0.0","ship,wind,consumed","void"]])
 	attach(game.sea.effects,"effects",[["begin_snapshot","native:Dictionary,consumed:float=0.0","native,consumed","void"],["finish_snapshot","","","void"]])
 	attach(game.sea.wakes,"wakes",[["apply_snapshot","native:Dictionary","native","void"]])
+	if "--deep-wakes" in OS.get_cmdline_user_args():
+		var source:RefCounted=game.sea.wakes.get("_source_wakes")
+		if source!=null:
+			attach(source,"sourceWakes",[["apply_snapshot","native:Dictionary,water:Callable,sea:Callable","native,water,sea","void"]])
+			for actor:Dictionary in source.get("_actors").values():
+				if actor.flow!=null:
+					attach(actor.flow,"wakeFlow",[["apply_snapshot","packet:Dictionary,seconds:float,water:Callable,sea:Callable","packet,seconds,water,sea","void"],["_rebuild","water:Callable,sea:Callable","water,sea","void"]])
 	attach(game.interface,"interface",[["apply_snapshot","packet:Dictionary","packet","void"]])
 	attach(game.services,"services",[["present","native:Dictionary,events:Array,consumed:float,paused:bool","native,events,consumed,paused","void"]])
 	attach(game.minimap,"minimap",[["present","native:Dictionary,overlays:Dictionary={},blocked:bool=false","native,overlays,blocked","void"]])

@@ -8,11 +8,12 @@ const Types = preload("res://modules/contracts/physics_types.gd")
 const Ship = preload("res://game/presentation/ships/ship_view.gd")
 const Ocean = preload("res://modules/scene_engine/ocean/projected_ocean.gd")
 const Shore = preload("res://modules/scene_engine/ocean/shore_field.gd")
+const CloudPair = preload("res://game/research/demos/architecture_cloud_pair.gd")
 const TOPIC := "architecture-convergence-2026-10-21"
 const STEP := 1.0 / 60.0
 const SEED := 1661
 const KINDS := ["fuchuan","fisherman","patrol","merchant","voc","heavy"]
-const DEFAULTS := {"kind":"fuchuan","depth":4.0,"variant":"scalar","interpolation":true,"camera_mode":"side","paused":false}
+const DEFAULTS := {"kind":"fuchuan","depth":4.0,"variant":"scalar","interpolation":true,"camera_mode":"side","paused":false,"clouds":false,"billboard_variant":"candidate"}
 const SCOPE := "Paired production Encounter/SailingSimulation and coastal wave samplers, one observed real ShipView, production five-wave ocean. Full baseline retains discarded gradient/normal work; scalar candidate requests height only. Same seed/commands/60Hz. Counts cover water sampler terrain calls only; shoreline checks, renderer and full-game FPS are outside the metric. No campaign/save/settings writes or additional demo RNG; production environment remains seeded. Crew and combat are omitted from this isolated workload. GPU appearance is not validated by headless contracts."
 var _options := DEFAULTS.duplicate(true)
 var _configured := false
@@ -37,6 +38,7 @@ var _exact := true
 var _orbit_yaw := 0.0
 var _orbit_pitch := 0.0
 var _zoom := 1.0
+var _cloud_pair:RefCounted
 
 class CountedGround:
 	extends RefCounted
@@ -70,7 +72,7 @@ func get_default_options() -> Dictionary: return DEFAULTS.duplicate(true)
 func _validate(options: Dictionary) -> bool:
 	for key: String in options:
 		if not DEFAULTS.has(key): return false
-	return options.kind in KINDS and options.depth in [4.0,24.0] and options.variant in ["full","scalar"] and options.interpolation is bool and options.camera_mode in ["side","high"] and options.paused is bool
+	return options.kind in KINDS and options.depth in [4.0,24.0] and options.variant in ["full","scalar"] and options.interpolation is bool and options.camera_mode in ["side","high"] and options.paused is bool and options.clouds is bool and options.billboard_variant in ["baseline","candidate"]
 
 func configure(options: Dictionary) -> Dictionary:
 	var candidate := DEFAULTS.duplicate(true); candidate.merge(options.duplicate(true),true)
@@ -95,14 +97,16 @@ func control_spec() -> Array:
 		{"id":"interpolation","label":"渲染插值（不改物理）","type":"toggle","value":_options.interpolation},
 		{"id":"kind","label":"真实船型（重置）","type":"choice","value":_options.kind,"choices":[{"value":"fuchuan","label":"福船"},{"value":"fisherman","label":"渔舟"},{"value":"patrol","label":"巡逻船"},{"value":"merchant","label":"商船"},{"value":"voc","label":"荷兰商船"},{"value":"heavy","label":"重舰"}]},
 		{"id":"depth","label":"固定水深（重置）","type":"choice","value":_options.depth,"choices":[{"value":4.0,"label":"浅水 4m"},{"value":24.0,"label":"深水 24m"}]},
-		{"id":"camera_mode","label":"固定镜头","type":"choice","value":_options.camera_mode,"choices":[{"value":"side","label":"侧面跟船"},{"value":"high","label":"俯视"}]}
+		{"id":"camera_mode","label":"固定镜头","type":"choice","value":_options.camera_mode,"choices":[{"value":"side","label":"侧面跟船"},{"value":"high","label":"俯视"}]},
+		{"id":"clouds","label":"云层对照（重置）","type":"toggle","value":_options.clouds},
+		{"id":"billboard_variant","label":"观察云层路径","type":"choice","value":_options.billboard_variant,"choices":[{"value":"baseline","label":"基线：原计算"},{"value":"candidate","label":"候选：复用计算"}]}
 	]
 
 func set_parameter(id: String, value: Variant) -> Dictionary:
-	if id not in ["variant","interpolation","kind","depth","camera_mode"]: return {"ok":false,"reason":"unknown-parameter"}
+	if id not in ["variant","interpolation","kind","depth","camera_mode","clouds","billboard_variant"]: return {"ok":false,"reason":"unknown-parameter"}
 	var candidate := _options.duplicate(true); candidate[id] = value
 	if not _validate(candidate): return {"ok":false,"reason":"unsupported-architecture-factor"}
-	if id in ["kind","depth"]: return {"ok":true,"value":value,"reset_required":value != _options[id]}
+	if id in ["kind","depth","clouds"]: return {"ok":true,"value":value,"reset_required":value != _options[id]}
 	_options = candidate
 	if id == "camera_mode": _orbit_yaw = 0.0; _orbit_pitch = 0.0; _zoom = 1.0
 	_refresh()
@@ -148,6 +152,10 @@ func _build() -> void:
 		var sky := Sky.new(); sky.sky_material = sky_material; settings.sky = sky; settings.background_mode = Environment.BG_SKY
 	var overlay := CanvasLayer.new(); _world.add_child(overlay)
 	_overlay = Label.new(); _overlay.position = Vector2(12,12); _overlay.add_theme_font_size_override("font_size",16); _overlay.add_theme_color_override("font_color",Color.WHITE); _overlay.add_theme_color_override("font_shadow_color",Color("142730")); _overlay.add_theme_constant_override("shadow_offset_x",1); _overlay.add_theme_constant_override("shadow_offset_y",1); overlay.add_child(_overlay)
+	if _options.clouds:
+		_cloud_pair=CloudPair.new()
+		var clouds:Dictionary=_cloud_pair.configure(_world)
+		if not clouds.ok:dispose();_reason=clouds.reason;return
 	_ready_experiment = true; _refresh()
 
 func advance(delta: float) -> void:
@@ -184,6 +192,9 @@ func _refresh() -> void:
 	var ship: Dictionary = Simulation._ship(_presented,"player"); ship.time = _presented.time
 	_ship.apply_snapshot(ship,_presented.wind,0.0)
 	_update_camera(); _ocean.set_simulation_time(float(_presented.time)); _ocean.update_projection()
+	if _cloud_pair!=null:
+		_cloud_pair.select_variant(_options.billboard_variant)
+		_cloud_pair.apply_snapshot(_presented,_camera,_ocean.get_reflection_camera())
 	_overlay.text = "%s · %s\n权威 60Hz：%d 步 / %.3f s · 显示 %.3f s\n水位地形查询：full %d / scalar %d · 精确状态 %s\n同种真实船体、同一五波水面；重置清零计数。\nGPU 对照已留证；此处计数不代表整场 FPS。" % ["完整波面对照" if _options.variant == "full" else "仅取水位候选","生产渲染插值" if _options.interpolation else "固定步姿态",_tick,_candidate.current_time(),float(_presented.time),_full_ground.calls,_scalar_ground.calls,"相同" if _exact else "不一致"]
 
 func _update_camera() -> void:
@@ -212,10 +223,13 @@ func inspection_snapshot() -> Dictionary:
 		state.camera_transform = _matrix(Projection(_camera.global_transform)); state.camera_projection = _matrix(_camera.get_camera_projection())
 		var material: ShaderMaterial = _ocean.material_override
 		state.surface = {"shader":material.shader.resource_path,"wave_count":material.get_shader_parameter("wave_count"),"shallow_field":material.get_shader_parameter("has_shore_field"),"simulation_time":material.get_shader_parameter("simulation_time"),"u_time":material.get_shader_parameter("u_time")}
+	state.clouds=_cloud_pair.inspection_snapshot() if _cloud_pair!=null else {"enabled":_options.clouds,"ready":false,"variant":_options.billboard_variant,"exact":false,"baselineHash":"","candidateHash":"","sourceTime":0.0,"resources":{"renderers":0,"parents":0}}
+	state.resources.cloud_renderers=state.clouds.resources.renderers
 	return state
 
 func dispose() -> void:
 	_ready_experiment = false; _disposed = true
+	if _cloud_pair!=null:_cloud_pair.dispose();_cloud_pair=null
 	if _baseline: _baseline.set_paused(true)
 	if _candidate: _candidate.set_paused(true)
 	_baseline = null; _candidate = null; _full_ground = null; _scalar_ground = null; _full_surface = null; _scalar_surface = null

@@ -1,5 +1,11 @@
 # 阴影轮廓边索引：保序奇偶抵消与 CPU 热点修复
 
+## 2026-10-26：实验使用生产实际选定的投影网格
+
+原创福船R6保留高精可见网格，通过`target_shadow_geometry`元数据选择独立代理。生产Adapter已消费该合同，实验的Prepared输入仍读取`mesh.mesh`，导致两条路径在比较不同输入。全量首轮中原实验10断言/2失败；独立夹具逐个证明deck/hull/三桅准备输入错误，7断言/5预期失败，记录保存在`architecture-convergence-2026-10-21/billboard-reuse-20261026/shadow-proxy-red-01-process.json`。
+
+修复仅使实验按与生产Adapter相同的元数据/回退规则选网格，保留actor、姿态、投影与所有原算法。原120帧配对实验修后10/0，五代理夹具7/0，见同目录`shadow-proxy-green-01.json`。新增`tests/test_laboratory_shadow_proxy.gd`保留合同。这里是CPU与实验接线复验，不宣称此次另做了阴影GPU观感或完整游戏性能验证；既有GPU记录保持原范围。最终全套回归重跑仍进行中。
+
 ## 2026-10-14 最新补充：通用 target 有向边重数修复
 
 以下为后续新增证据，不把前文历史“尚未GPU”阶段改写为当时已验证。root 的单caster候选已通过真实GPU：同24s远线像素158→0，近船阴影29→22；actual backend回读targetCalls=alteredCalls=8、rejectedCalls=0，仅补2片侧面，原positions/indices前缀及direction保持不变。[原始对照](../../../docs/research/evidence/shadow-edges/DIRECTED_BOUNDARY_GPU_COMPARE.json)。随后root运行未注入候选的正式通用路径：[production DIAGNOSIS](../../../docs/research/evidence/shadow-edges/directed-boundary-production-20261014-r1/DIAGNOSIS.json) valid=true，同24s四张原帧，activeCasters44、addedSides4、errors空；同ROI远线0、近船22，与隔离候选一致。

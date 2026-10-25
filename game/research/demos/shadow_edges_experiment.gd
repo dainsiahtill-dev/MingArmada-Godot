@@ -68,7 +68,10 @@ func _update(measure:bool)->void:
 	for caster:Dictionary in packet.native.sourceShadows.casters:
 		var mesh:MeshInstance3D=packet.actors[caster.actorId]
 		if not _prepared.has(caster.id):
-			var source:Dictionary=_adapter._mesh_geometry(mesh.mesh)
+			# The production caster may use authored shadow geometry while the
+			# same actor still displays its detailed mesh in the identical frame.
+			var selected:Mesh=mesh.get_meta("target_shadow_geometry",mesh.mesh)
+			var source:Dictionary=_adapter._mesh_geometry(selected)
 			var component:=Prepared.new();component.configure(source.positions,source.faces);_prepared[caster.id]=component
 		var start:=Time.get_ticks_usec()
 		var original:Dictionary=Math.build_volume_component(caster.positions,caster.localLight,caster.edges,caster.capIndices)

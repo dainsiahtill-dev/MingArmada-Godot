@@ -1,0 +1,41 @@
+{
+  "recordType": "integration-progress",
+  "topic": "architecture-convergence-2026-10-21",
+  "productionIntegrated": true,
+  "productionSha256": "555f5b4be3918f43ef7f09a1f2d95ec7313c96786917f3af209f58ed361d5fb5",
+  "directProductionContract": {
+    "assertions": 608,
+    "failures": 0,
+    "report": "production-green-01-process.json"
+  },
+  "researchLabContract": {
+    "assertions": 103,
+    "failures": 0,
+    "report": "labadapter-work-green-02.json"
+  },
+  "controlledGpu": {
+    "steps": 96,
+    "assertions": 985,
+    "failures": 0,
+    "submissionExactPairs": 96,
+    "mainImageExactPairs": 94,
+    "reflectionExactPairs": 96,
+    "report": "gpu-03/GPU_VERIFY.json"
+  },
+  "normalEntry": {
+    "baseline": "live-baseline-01/live-observation.json",
+    "candidate": "live-candidate-01/live-observation.json",
+    "significantWholeGameSpeedupClaim": false,
+    "sixtyFpsAchieved": false
+  },
+  "currentGameModuleSourceMismatchesFromNativeRun": [],
+  "fullSuite": {
+    "status": "running",
+    "execSessionId": 50173,
+    "command": "rtk proxy node tools/verify-godot.mjs --output docs/research/evidence/architecture-convergence-2026-10-21/billboard-reuse-20261026/full-suite-final-01.json",
+    "knownFailure": "test_laboratory_shadow_edges.gd assertions10 failures2",
+    "freshRegression": "shadow-proxy-red-01-process.json assertions7 failures5 expected",
+    "preserveGameModuleSourceUntilTerminal": true
+  },
+  "goalStatus": "active; art/performance/gameplay incomplete"
+}

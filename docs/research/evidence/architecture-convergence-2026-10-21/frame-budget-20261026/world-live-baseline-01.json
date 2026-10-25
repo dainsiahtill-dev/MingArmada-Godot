@@ -1,0 +1,3618 @@
+{
+	"compilerDetail": false,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": [],
+	"rows": [
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 26537,
+			"runtimeUsec": 1989,
+			"sourceCallIndex": 7,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2306,
+						"_update_group": 2201,
+						"apply_snapshot": 10075
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5404
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 116
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2164,
+						"sync_surface_state": 341
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 108,
+						"set_surface_wind": 3,
+						"update_projection": 1562
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2006,
+						"sync_surface_state": 240
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1777
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 368,
+						"_update_window": 25,
+						"apply_snapshot": 14375
+					}
+				}
+			},
+			"tick": 8
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 29287,
+			"runtimeUsec": 2000,
+			"sourceCallIndex": 8,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2243,
+						"_update_group": 2068,
+						"apply_snapshot": 15062
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4491,
+						"render_states": 9848
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 27
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 126
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2197,
+						"sync_surface_state": 389
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 131,
+						"set_surface_wind": 4,
+						"update_projection": 1500
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2031,
+						"sync_surface_state": 269
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 980
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 20,
+						"_sync_terrain_surface": 419,
+						"_update_window": 28,
+						"apply_snapshot": 19427
+					}
+				}
+			},
+			"tick": 9
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 24967,
+			"runtimeUsec": 1892,
+			"sourceCallIndex": 8,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2130,
+						"_update_group": 2152,
+						"apply_snapshot": 9933
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5344
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 22
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2173,
+						"sync_surface_state": 338
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 122,
+						"set_surface_wind": 4,
+						"update_projection": 1481
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2011,
+						"sync_surface_state": 239
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 3,
+						"apply_snapshot": 1007
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 367,
+						"_update_window": 27,
+						"apply_snapshot": 14156
+					}
+				}
+			},
+			"tick": 10
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 32291,
+			"runtimeUsec": 2004,
+			"sourceCallIndex": 9,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2167,
+						"_update_group": 2036,
+						"apply_snapshot": 15760
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 5249,
+						"render_states": 10547
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 123
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2185,
+						"sync_surface_state": 331
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 103,
+						"set_surface_wind": 3,
+						"update_projection": 1588
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2021,
+						"sync_surface_state": 231
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1447
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 356,
+						"_update_window": 25,
+						"apply_snapshot": 20094
+					}
+				}
+			},
+			"tick": 11
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 27237,
+			"runtimeUsec": 1743,
+			"sourceCallIndex": 9,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2059,
+						"_update_group": 2109,
+						"apply_snapshot": 9721
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5227
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 22
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 120
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2172,
+						"sync_surface_state": 326
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 106,
+						"set_surface_wind": 4,
+						"update_projection": 1467
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2011,
+						"sync_surface_state": 228
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1784
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 353,
+						"_update_window": 25,
+						"apply_snapshot": 13927
+					}
+				}
+			},
+			"tick": 12
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 33761,
+			"runtimeUsec": 2033,
+			"sourceCallIndex": 10,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2319,
+						"_update_group": 2072,
+						"apply_snapshot": 15626
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4413,
+						"render_states": 10345
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 131
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2182,
+						"sync_surface_state": 325
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 118,
+						"set_surface_wind": 4,
+						"update_projection": 1480
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2012,
+						"sync_surface_state": 229
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 1848
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 352,
+						"_update_window": 24,
+						"apply_snapshot": 19856
+					}
+				}
+			},
+			"tick": 13
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 24782,
+			"runtimeUsec": 1859,
+			"sourceCallIndex": 10,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2142,
+						"_update_group": 2268,
+						"apply_snapshot": 10672
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5819
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 120
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2191,
+						"sync_surface_state": 325
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 109,
+						"set_surface_wind": 3,
+						"update_projection": 1448
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2033,
+						"sync_surface_state": 227
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 926
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 353,
+						"_update_window": 23,
+						"apply_snapshot": 14875
+					}
+				}
+			},
+			"tick": 14
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 30031,
+			"runtimeUsec": 2227,
+			"sourceCallIndex": 11,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2141,
+						"_update_group": 2023,
+						"apply_snapshot": 15196
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4470,
+						"render_states": 10096
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 119
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2245,
+						"sync_surface_state": 327
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 107,
+						"set_surface_wind": 3,
+						"update_projection": 1498
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2087,
+						"sync_surface_state": 229
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 3,
+						"apply_snapshot": 919
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 355,
+						"_update_window": 25,
+						"apply_snapshot": 19502
+					}
+				}
+			},
+			"tick": 15
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 24460,
+			"runtimeUsec": 1761,
+			"sourceCallIndex": 11,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2322,
+						"_update_group": 2199,
+						"apply_snapshot": 10113
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5446
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 29
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 116
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2186,
+						"sync_surface_state": 325
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 101,
+						"set_surface_wind": 3,
+						"update_projection": 1421
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2033,
+						"sync_surface_state": 229
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 984
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 17,
+						"_sync_terrain_surface": 350,
+						"_update_window": 29,
+						"apply_snapshot": 14293
+					}
+				}
+			},
+			"tick": 16
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 32799,
+			"runtimeUsec": 2072,
+			"sourceCallIndex": 12,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2269,
+						"_update_group": 2083,
+						"apply_snapshot": 16378
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4484,
+						"render_states": 10776
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 27
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 117
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2259,
+						"sync_surface_state": 330
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 111,
+						"set_surface_wind": 4,
+						"update_projection": 1464
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2105,
+						"sync_surface_state": 229
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 13,
+						"apply_snapshot": 1496
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 20,
+						"_sync_terrain_surface": 360,
+						"_update_window": 25,
+						"apply_snapshot": 20672
+					}
+				}
+			},
+			"tick": 17
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 24552,
+			"runtimeUsec": 1955,
+			"sourceCallIndex": 12,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2298,
+						"_update_group": 2236,
+						"apply_snapshot": 10344
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5560
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 122
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2170,
+						"sync_surface_state": 339
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 110,
+						"set_surface_wind": 4,
+						"update_projection": 1444
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2009,
+						"sync_surface_state": 237
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 3,
+						"apply_snapshot": 987
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 366,
+						"_update_window": 25,
+						"apply_snapshot": 14539
+					}
+				}
+			},
+			"tick": 18
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 32891,
+			"runtimeUsec": 2001,
+			"sourceCallIndex": 13,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2274,
+						"_update_group": 2314,
+						"apply_snapshot": 16402
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4464,
+						"render_states": 10623
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 130
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2186,
+						"sync_surface_state": 325
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 107,
+						"set_surface_wind": 3,
+						"update_projection": 1545
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2015,
+						"sync_surface_state": 227
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1052
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 353,
+						"_update_window": 24,
+						"apply_snapshot": 20697
+					}
+				}
+			},
+			"tick": 19
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 29196,
+			"runtimeUsec": 1784,
+			"sourceCallIndex": 13,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2128,
+						"_update_group": 2369,
+						"apply_snapshot": 10616
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5734
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 119
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2110,
+						"sync_surface_state": 329
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 104,
+						"set_surface_wind": 3,
+						"update_projection": 1616
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 1951,
+						"sync_surface_state": 231
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 2109
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 355,
+						"_update_window": 25,
+						"apply_snapshot": 14888
+					}
+				}
+			},
+			"tick": 20
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 30385,
+			"runtimeUsec": 2051,
+			"sourceCallIndex": 14,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2077,
+						"_update_group": 2056,
+						"apply_snapshot": 15004
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4654,
+						"render_states": 9918
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 23
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2207,
+						"sync_surface_state": 328
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 104,
+						"set_surface_wind": 3,
+						"update_projection": 1604
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2050,
+						"sync_surface_state": 229
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 1141
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 17,
+						"_sync_terrain_surface": 355,
+						"_update_window": 25,
+						"apply_snapshot": 19377
+					}
+				}
+			},
+			"tick": 21
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 24903,
+			"runtimeUsec": 1735,
+			"sourceCallIndex": 14,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2896,
+						"_update_group": 2258,
+						"apply_snapshot": 10796
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5998
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 30
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 128
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2239,
+						"sync_surface_state": 326
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 105,
+						"set_surface_wind": 3,
+						"update_projection": 1531
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2070,
+						"sync_surface_state": 227
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 959
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 353,
+						"_update_window": 25,
+						"apply_snapshot": 15135
+					}
+				}
+			},
+			"tick": 22
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 30737,
+			"runtimeUsec": 2007,
+			"sourceCallIndex": 15,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2158,
+						"_update_group": 2023,
+						"apply_snapshot": 15273
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4770,
+						"render_states": 10138
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 25
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2186,
+						"sync_surface_state": 344
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 108,
+						"set_surface_wind": 4,
+						"update_projection": 1515
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2027,
+						"sync_surface_state": 241
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1034
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 372,
+						"_update_window": 25,
+						"apply_snapshot": 19555
+					}
+				}
+			},
+			"tick": 23
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 26629,
+			"runtimeUsec": 1884,
+			"sourceCallIndex": 16,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2121,
+						"_update_group": 2317,
+						"apply_snapshot": 10449
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5616
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2175,
+						"sync_surface_state": 327
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 105,
+						"set_surface_wind": 3,
+						"update_projection": 1410
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2019,
+						"sync_surface_state": 231
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 1364
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 20,
+						"_sync_terrain_surface": 355,
+						"_update_window": 24,
+						"apply_snapshot": 14600
+					}
+				}
+			},
+			"tick": 24
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": false,
+			"presentationUsec": 30402,
+			"runtimeUsec": 2283,
+			"sourceCallIndex": 16,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2208,
+						"_update_group": 2036,
+						"apply_snapshot": 15677
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 5163,
+						"render_states": 10491
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 123
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2180,
+						"sync_surface_state": 328
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 107,
+						"set_surface_wind": 4,
+						"update_projection": 1505
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2018,
+						"sync_surface_state": 230
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 966
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 17,
+						"_sync_terrain_surface": 355,
+						"_update_window": 25,
+						"apply_snapshot": 19884
+					}
+				}
+			},
+			"tick": 25
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 29537,
+			"runtimeUsec": 1801,
+			"sourceCallIndex": 17,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2254,
+						"_update_group": 2173,
+						"apply_snapshot": 9999
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5435
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 23
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 136
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2192,
+						"sync_surface_state": 356
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 120,
+						"set_surface_wind": 3,
+						"update_projection": 1544
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2014,
+						"sync_surface_state": 249
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 976
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 20,
+						"_sync_terrain_surface": 385,
+						"_update_window": 34,
+						"apply_snapshot": 14360
+					}
+				}
+			},
+			"tick": 26
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 33830,
+			"runtimeUsec": 1949,
+			"sourceCallIndex": 17,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2466,
+						"_update_group": 2156,
+						"apply_snapshot": 16112
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4494,
+						"render_states": 10664
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 28
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 119
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2190,
+						"sync_surface_state": 441
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 153,
+						"set_surface_wind": 5,
+						"update_projection": 1627
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2028,
+						"sync_surface_state": 292
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 1614
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 477,
+						"_update_window": 33,
+						"apply_snapshot": 20678
+					}
+				}
+			},
+			"tick": 27
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 31360,
+			"runtimeUsec": 1758,
+			"sourceCallIndex": 18,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2217,
+						"_update_group": 2255,
+						"apply_snapshot": 10437
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5589
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 27
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2145,
+						"sync_surface_state": 332
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 114,
+						"set_surface_wind": 4,
+						"update_projection": 1554
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 1990,
+						"sync_surface_state": 233
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 3,
+						"apply_snapshot": 938
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 18,
+						"_sync_terrain_surface": 361,
+						"_update_window": 26,
+						"apply_snapshot": 14715
+					}
+				}
+			},
+			"tick": 28
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 30930,
+			"runtimeUsec": 2127,
+			"sourceCallIndex": 18,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2143,
+						"_update_group": 2118,
+						"apply_snapshot": 15502
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4484,
+						"render_states": 10189
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 25
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 125
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2229,
+						"sync_surface_state": 366
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 126,
+						"set_surface_wind": 5,
+						"update_projection": 1543
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2066,
+						"sync_surface_state": 247
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1037
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 21,
+						"_sync_terrain_surface": 398,
+						"_update_window": 29,
+						"apply_snapshot": 19914
+					}
+				}
+			},
+			"tick": 29
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 33564,
+			"runtimeUsec": 1869,
+			"sourceCallIndex": 19,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2188,
+						"_update_group": 2210,
+						"apply_snapshot": 10150
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5447
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 143
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2463,
+						"sync_surface_state": 343
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 110,
+						"set_surface_wind": 3,
+						"update_projection": 2238
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2263,
+						"sync_surface_state": 242
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 1359
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 27,
+						"_sync_terrain_surface": 369,
+						"_update_window": 25,
+						"apply_snapshot": 15456
+					}
+				}
+			},
+			"tick": 30
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 31458,
+			"runtimeUsec": 3017,
+			"sourceCallIndex": 19,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2185,
+						"_update_group": 2249,
+						"apply_snapshot": 16470
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4731,
+						"render_states": 10827
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 123
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2308,
+						"sync_surface_state": 370
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 124,
+						"set_surface_wind": 5,
+						"update_projection": 1669
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2141,
+						"sync_surface_state": 255
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 962
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 21,
+						"_sync_terrain_surface": 401,
+						"_update_window": 27,
+						"apply_snapshot": 21085
+					}
+				}
+			},
+			"tick": 31
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 31895,
+			"runtimeUsec": 1823,
+			"sourceCallIndex": 20,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2151,
+						"_update_group": 2269,
+						"apply_snapshot": 10208
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5430
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 137
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2243,
+						"sync_surface_state": 335
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 113,
+						"set_surface_wind": 4,
+						"update_projection": 1690
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2056,
+						"sync_surface_state": 236
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 977
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 25,
+						"_sync_terrain_surface": 361,
+						"_update_window": 26,
+						"apply_snapshot": 14773
+					}
+				}
+			},
+			"tick": 32
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 29108,
+			"runtimeUsec": 2360,
+			"sourceCallIndex": 20,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2144,
+						"_update_group": 2168,
+						"apply_snapshot": 15006
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4455,
+						"render_states": 9792
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 121
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2159,
+						"sync_surface_state": 332
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 107,
+						"set_surface_wind": 3,
+						"update_projection": 1544
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 1999,
+						"sync_surface_state": 232
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 914
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 358,
+						"_update_window": 26,
+						"apply_snapshot": 19280
+					}
+				}
+			},
+			"tick": 33
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 34374,
+			"runtimeUsec": 1787,
+			"sourceCallIndex": 21,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2091,
+						"_update_group": 2232,
+						"apply_snapshot": 10032
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5358
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 22
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 120
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2179,
+						"sync_surface_state": 333
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 120,
+						"set_surface_wind": 4,
+						"update_projection": 1534
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2014,
+						"sync_surface_state": 231
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 1864
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 20,
+						"_sync_terrain_surface": 361,
+						"_update_window": 27,
+						"apply_snapshot": 14353
+					}
+				}
+			},
+			"tick": 34
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 29908,
+			"runtimeUsec": 2153,
+			"sourceCallIndex": 21,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2242,
+						"_update_group": 2040,
+						"apply_snapshot": 14866
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4502,
+						"render_states": 9742
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 26
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 142
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2426,
+						"sync_surface_state": 325
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 106,
+						"set_surface_wind": 3,
+						"update_projection": 1460
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2238,
+						"sync_surface_state": 226
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 5,
+						"apply_snapshot": 914
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 23,
+						"_sync_terrain_surface": 350,
+						"_update_window": 24,
+						"apply_snapshot": 19319
+					}
+				}
+			},
+			"tick": 35
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 33466,
+			"runtimeUsec": 1734,
+			"sourceCallIndex": 22,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2193,
+						"_update_group": 2259,
+						"apply_snapshot": 10963
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 6059
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 25
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2137,
+						"sync_surface_state": 333
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 115,
+						"set_surface_wind": 4,
+						"update_projection": 1506
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 1979,
+						"sync_surface_state": 233
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 995
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 373,
+						"_update_window": 25,
+						"apply_snapshot": 15196
+					}
+				}
+			},
+			"tick": 36
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": false,
+			"presentationUsec": 29619,
+			"runtimeUsec": 2421,
+			"sourceCallIndex": 22,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2087,
+						"_update_group": 1971,
+						"apply_snapshot": 14890
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4446,
+						"render_states": 9822
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 24
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 120
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2226,
+						"sync_surface_state": 341
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 110,
+						"set_surface_wind": 3,
+						"update_projection": 1479
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2065,
+						"sync_surface_state": 240
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 975
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 19,
+						"_sync_terrain_surface": 368,
+						"_update_window": 25,
+						"apply_snapshot": 19185
+					}
+				}
+			},
+			"tick": 37
+		},
+		{
+			"accepted": 0.0166666666666666,
+			"freshSourceCall": true,
+			"presentationUsec": 31260,
+			"runtimeUsec": 1869,
+			"sourceCallIndex": 23,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2111,
+						"_update_group": 2373,
+						"apply_snapshot": 10255
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_states": 9
+					},
+					"usec": {
+						"render_states": 5356
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 22
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 118
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2334,
+						"sync_surface_state": 344
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 130,
+						"set_surface_wind": 4,
+						"update_projection": 1509
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2171,
+						"sync_surface_state": 240
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 3,
+						"apply_snapshot": 933
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 22,
+						"_sync_terrain_surface": 371,
+						"_update_window": 27,
+						"apply_snapshot": 14726
+					}
+				}
+			},
+			"tick": 38
+		},
+		{
+			"accepted": 0.0166666666666667,
+			"freshSourceCall": true,
+			"presentationUsec": 37492,
+			"runtimeUsec": 2033,
+			"sourceCallIndex": 24,
+			"stages": {
+				"atmosphere": {
+					"counts": {
+						"_apply_weather": 1,
+						"_update_group": 39,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_weather": 2203,
+						"_update_group": 2150,
+						"apply_snapshot": 15371
+					}
+				},
+				"cloudCompiler": {
+					"counts": {
+						"render_minimum_states": 30,
+						"render_states": 39
+					},
+					"usec": {
+						"render_minimum_states": 4542,
+						"render_states": 10003
+					}
+				},
+				"cloudLifecycle": {
+					"counts": {
+						"advance": 3
+					},
+					"usec": {
+						"advance": 25
+					}
+				},
+				"forest": {
+					"counts": {
+						"apply_snapshot": 6
+					},
+					"usec": {
+						"apply_snapshot": 138
+					}
+				},
+				"naturalWorld": {
+					"counts": {
+						"apply_snapshot": 1,
+						"sync_surface_state": 1
+					},
+					"usec": {
+						"apply_snapshot": 2548,
+						"sync_surface_state": 492
+					}
+				},
+				"ocean": {
+					"counts": {
+						"set_simulation_time": 1,
+						"set_surface_wind": 1,
+						"update_projection": 2
+					},
+					"usec": {
+						"set_simulation_time": 129,
+						"set_surface_wind": 4,
+						"update_projection": 1740
+					}
+				},
+				"shore": {
+					"counts": {
+						"apply_snapshot": 6,
+						"sync_surface_state": 6
+					},
+					"usec": {
+						"apply_snapshot": 2355,
+						"sync_surface_state": 374
+					}
+				},
+				"sourceShadow": {
+					"counts": {
+						"_reconcile_snapshot_planes": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_reconcile_snapshot_planes": 4,
+						"apply_snapshot": 961
+					}
+				},
+				"world": {
+					"counts": {
+						"_apply_source_lighting": 1,
+						"_sync_terrain_surface": 1,
+						"_update_window": 1,
+						"apply_snapshot": 1
+					},
+					"usec": {
+						"_apply_source_lighting": 24,
+						"_sync_terrain_surface": 523,
+						"_update_window": 26,
+						"apply_snapshot": 20468
+					}
+				}
+			},
+			"tick": 39
+		}
+	],
+	"sameTimeRefresh": {
+		"atmosphere": {
+			"counts": {
+				"_apply_weather": 1,
+				"_update_group": 39,
+				"apply_snapshot": 1
+			},
+			"usec": {
+				"_apply_weather": 567,
+				"_update_group": 2488,
+				"apply_snapshot": 3069
+			}
+		},
+		"cloudCompiler": {
+			"counts": {},
+			"usec": {}
+		},
+		"cloudLifecycle": {
+			"counts": {
+				"advance": 3
+			},
+			"usec": {
+				"advance": 22
+			}
+		},
+		"forest": {
+			"counts": {
+				"apply_snapshot": 6
+			},
+			"usec": {
+				"apply_snapshot": 128
+			}
+		},
+		"naturalWorld": {
+			"counts": {
+				"apply_snapshot": 1,
+				"sync_surface_state": 1
+			},
+			"usec": {
+				"apply_snapshot": 242,
+				"sync_surface_state": 184
+			}
+		},
+		"ocean": {
+			"counts": {
+				"set_simulation_time": 1,
+				"set_surface_wind": 1,
+				"update_projection": 2
+			},
+			"usec": {
+				"set_simulation_time": 99,
+				"set_surface_wind": 3,
+				"update_projection": 190
+			}
+		},
+		"shore": {
+			"counts": {
+				"apply_snapshot": 6,
+				"sync_surface_state": 6
+			},
+			"usec": {
+				"apply_snapshot": 72,
+				"sync_surface_state": 89
+			}
+		},
+		"sourceShadow": {
+			"counts": {
+				"_reconcile_snapshot_planes": 1,
+				"apply_snapshot": 1
+			},
+			"usec": {
+				"_reconcile_snapshot_planes": 4,
+				"apply_snapshot": 643
+			}
+		},
+		"world": {
+			"counts": {
+				"_apply_source_lighting": 1,
+				"_sync_terrain_surface": 1,
+				"_update_window": 1,
+				"apply_snapshot": 1
+			},
+			"usec": {
+				"_apply_source_lighting": 15,
+				"_sync_terrain_surface": 212,
+				"_update_window": 25,
+				"apply_snapshot": 3920
+			}
+		}
+	},
+	"samplerDetail": false,
+	"samples": 32,
+	"scope": "Actual public sail scene and current direct World.apply_snapshot sequence. Runtime script instrumentation restores all existing fields; no production file is changed. Nested timers include call/clock overhead and must not be summed. Headless CPU only; no GPU/world FPS claim.",
+	"sourceInstrumentedSHA256": {
+		"atmosphere": "d5c9fd7ddca0e8bfc64d452a3931e783feafadea2b4e9f7fde3b70ddd38cbd2b",
+		"cloudCompiler": "13e09ef6fea693d65747bd86a07cfc1ab5f31a035afa02e7fcb14f9f6d72fc04",
+		"cloudLifecycle": "925ccc3062f505b1e11fe10dff86adfb864f4b4362f20db1d1c8f7263b281bf8",
+		"forest": "cfcae316eb9e29bc920917b412329ac76a0c3bd18a251c76b8533282f2529ce7",
+		"naturalWorld": "cfb3663adfcc8526d50400e5c1b4d404e968228442aa06f16a6fe62e8030182a",
+		"ocean": "a69d8f50d57172bab510ab3ffc200c65484cb380be870f6c38a3f5abeade69f6",
+		"shore": "d4557f35d8f4cb0e2246174531b8c2b3e89547e956d802312e3319df9723634c",
+		"sourceShadow": "21d872d9462aa1664b643a606c981dc57e1030effa1671fa86c7af39edb64a97",
+		"world": "6be18915cab60132429e807209980266b9d5f3444939b84dd7cf2e5e148b4875"
+	},
+	"sourceOriginal": {
+		"atmosphere": {
+			"path": "res://modules/scene_engine/fidelity_fx/atmosphere.gd",
+			"sha256": "a75adafb76589576e3c0a10865de9cd23a775d9df778560a45d99f5a99ae7bf8"
+		},
+		"cloudCompiler": {
+			"path": "res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd",
+			"sha256": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe"
+		},
+		"cloudLifecycle": {
+			"path": "res://modules/scene_engine/fidelity_fx/world_cloud_lifecycle.gd",
+			"sha256": "6ab32d6b440345909d6b659dd073f022991cb3c8376bd06eb6148ef21efae1a0"
+		},
+		"forest": {
+			"path": "res://modules/scene_engine/fidelity_island/vegetation.gd",
+			"sha256": "36f46af9372f8997c0fa273cde4b952f375aeb70e4c5021b31506232d3a282cb"
+		},
+		"naturalWorld": {
+			"path": "res://modules/scene_engine/terrain/natural_world.gd",
+			"sha256": "f357c0629eef4a05c04e09d7525f330ea640a32e6083873979196c7df60af388"
+		},
+		"ocean": {
+			"path": "res://modules/scene_engine/ocean/projected_ocean.gd",
+			"sha256": "4c84499ae82e432ec7ea845602af906ef36815cafda41ec30ea6a0322e277cae"
+		},
+		"shore": {
+			"path": "res://modules/scene_engine/terrain/natural_shore_surf.gd",
+			"sha256": "39e8f3a586928a8617fbc9740ebcc89c02725cbac72f3a740d5ba33573a5f915"
+		},
+		"sourceShadow": {
+			"path": "res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd",
+			"sha256": "563f39ad2128615b9d52cea210b8966be2589de5ecf3560b0b7dc75e283caf10"
+		},
+		"world": {
+			"path": "res://modules/scene_engine/world/world_view.gd",
+			"sha256": "f5979b078d296df9292f1d1e00d34aa15770542209a34430f442dadb9b17c989"
+		}
+	},
+	"stageMs": {
+		"atmosphere._apply_weather": {
+			"count": 32,
+			"maximum": 2.896,
+			"mean": 2.21665625,
+			"minimum": 2.059,
+			"p50": 2.185,
+			"p95": 2.466
+		},
+		"atmosphere._update_group": {
+			"count": 32,
+			"maximum": 2.373,
+			"mean": 2.17009375,
+			"minimum": 1.971,
+			"p50": 2.168,
+			"p95": 2.369
+		},
+		"atmosphere.apply_snapshot": {
+			"count": 32,
+			"maximum": 16.47,
+			"mean": 12.9174375,
+			"minimum": 9.721,
+			"p50": 10.963,
+			"p95": 16.402
+		},
+		"cloudCompiler.render_minimum_states": {
+			"count": 16,
+			"maximum": 5.249,
+			"mean": 4.61325,
+			"minimum": 4.413,
+			"p50": 4.491,
+			"p95": 5.249
+		},
+		"cloudCompiler.render_states": {
+			"count": 32,
+			"maximum": 10.827,
+			"mean": 7.89509375,
+			"minimum": 5.227,
+			"p50": 6.059,
+			"p95": 10.776
+		},
+		"cloudLifecycle.advance": {
+			"count": 32,
+			"maximum": 0.03,
+			"mean": 0.0250625,
+			"minimum": 0.022,
+			"p50": 0.025,
+			"p95": 0.029
+		},
+		"forest.apply_snapshot": {
+			"count": 32,
+			"maximum": 0.143,
+			"mean": 0.12375,
+			"minimum": 0.116,
+			"p50": 0.12,
+			"p95": 0.142
+		},
+		"naturalWorld.apply_snapshot": {
+			"count": 32,
+			"maximum": 2.548,
+			"mean": 2.2245625,
+			"minimum": 2.11,
+			"p50": 2.186,
+			"p95": 2.463
+		},
+		"naturalWorld.sync_surface_state": {
+			"count": 32,
+			"maximum": 0.492,
+			"mean": 0.3451875,
+			"minimum": 0.325,
+			"p50": 0.332,
+			"p95": 0.441
+		},
+		"ocean.set_simulation_time": {
+			"count": 32,
+			"maximum": 0.153,
+			"mean": 0.11384375,
+			"minimum": 0.101,
+			"p50": 0.11,
+			"p95": 0.131
+		},
+		"ocean.set_surface_wind": {
+			"count": 32,
+			"maximum": 0.005,
+			"mean": 0.003625,
+			"minimum": 0.003,
+			"p50": 0.004,
+			"p95": 0.005
+		},
+		"ocean.update_projection": {
+			"count": 32,
+			"maximum": 2.238,
+			"mean": 1.553625,
+			"minimum": 1.41,
+			"p50": 1.515,
+			"p95": 1.74
+		},
+		"shore.apply_snapshot": {
+			"count": 32,
+			"maximum": 2.355,
+			"mean": 2.059,
+			"minimum": 1.951,
+			"p50": 2.027,
+			"p95": 2.263
+		},
+		"shore.sync_surface_state": {
+			"count": 32,
+			"maximum": 0.374,
+			"mean": 0.24165625,
+			"minimum": 0.226,
+			"p50": 0.232,
+			"p95": 0.292
+		},
+		"sourceShadow._reconcile_snapshot_planes": {
+			"count": 32,
+			"maximum": 0.013,
+			"mean": 0.00446875,
+			"minimum": 0.003,
+			"p50": 0.004,
+			"p95": 0.005
+		},
+		"sourceShadow.apply_snapshot": {
+			"count": 32,
+			"maximum": 2.109,
+			"mean": 1.19371875,
+			"minimum": 0.914,
+			"p50": 0.987,
+			"p95": 1.864
+		},
+		"world._apply_source_lighting": {
+			"count": 32,
+			"maximum": 0.027,
+			"mean": 0.01971875,
+			"minimum": 0.017,
+			"p50": 0.019,
+			"p95": 0.025
+		},
+		"world._sync_terrain_surface": {
+			"count": 32,
+			"maximum": 0.523,
+			"mean": 0.37353125,
+			"minimum": 0.35,
+			"p50": 0.361,
+			"p95": 0.477
+		},
+		"world._update_window": {
+			"count": 32,
+			"maximum": 0.034,
+			"mean": 0.0260625,
+			"minimum": 0.023,
+			"p50": 0.025,
+			"p95": 0.033
+		},
+		"world.apply_snapshot": {
+			"count": 32,
+			"maximum": 21.085,
+			"mean": 17.2925,
+			"minimum": 13.927,
+			"p50": 15.456,
+			"p95": 20.697
+		}
+	},
+	"warmup": 8
+}

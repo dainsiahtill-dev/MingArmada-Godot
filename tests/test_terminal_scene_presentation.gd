@@ -9,6 +9,13 @@ const STEP := 1.0 / 60.0
 const TAIL_STEP := 0.05
 const UTC := "2026-10-13T00:00:00.000Z"
 
+class TailAudioSettings extends "res://game/persistence/user_settings.gd":
+	func _init(settings_path: String) -> void:
+		super(settings_path)
+		# This audio-clock fixture explicitly enables sound in its owned memory.
+		# Product defaults stay muted; no settings file is loaded or written.
+		_settings.sound = true
+
 class MemoryCheckpoint extends RefCounted:
 	var raw := ""
 	func write_checkpoint(value: String) -> Dictionary:
@@ -38,7 +45,7 @@ func _release(scene: Node) -> void:
 	check(await AudioCleanup.wait_for_release(self, playbacks), "terminal scene releases actual audio playback")
 
 func _mount(scene: Node, label: String) -> bool:
-	scene.set("settings_storage", Settings.new("user://verification/terminal-scene-%s-no-write-%d.json" % [label, OS.get_process_id()]))
+	scene.set("settings_storage", TailAudioSettings.new("user://verification/terminal-scene-%s-no-write-%d.json" % [label, OS.get_process_id()]))
 	root.add_child(scene)
 	# _ready is synchronous: no automatic callback can sneak into the fixture.
 	scene.set_physics_process(false)

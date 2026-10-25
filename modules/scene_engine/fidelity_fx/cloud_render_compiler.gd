@@ -7,6 +7,8 @@ const SourceMath=preload("res://modules/scene_engine/fidelity_island/native_math
 const TransformKernel=preload("res://modules/scene_engine/fidelity_fx/cloud_transform_kernel.gd")
 const CurveSampler=preload("res://modules/scene_engine/fidelity_fx/cloud_curve_sampler.gd")
 var _float_store:=PackedFloat32Array()
+var _minimum_scope:=false
+var _billboard_values:Dictionary={}
 
 func _init()->void:_float_store.resize(1)
 
@@ -118,6 +120,18 @@ func _compose_transform(parent:Dictionary,local:Dictionary)->Dictionary:
 	return {"rotation":_multiply_matrix(parent.rotation,local.rotation),"translation":moved,"scale":_f32(float(parent.scale)*float(local.scale))}
 
 func _billboard_mode0(rotation:Array,camera:Dictionary)->Array:
+	if not _minimum_scope:return _compute_billboard_mode0(rotation,camera)
+	# One static minimum invocation has one camera. Exact bytes retain signed
+	# zero; each published rotation remains independent of the cache and peers.
+	var key:=PackedFloat64Array(rotation).to_byte_array()
+	if _billboard_values.has(key):
+		var cached:Array=_billboard_values[key]
+		return cached.duplicate()
+	var value:Array=_compute_billboard_mode0(rotation,camera)
+	_billboard_values[key]=value.duplicate()
+	return value
+
+func _compute_billboard_mode0(rotation:Array,camera:Dictionary)->Array:
 	if not camera.has_all(["direction","up","right"]):return []
 	var direction:Array=camera.direction.duplicate()
 	for i in 3:direction[i]=_f32(-float(direction[i]))
@@ -314,7 +328,12 @@ func render_states(compiled:Dictionary,time:float=0.0,outer:Dictionary={},animat
 	return result
 
 func render_minimum_states(compiled:Dictionary,outer:Dictionary,camera:Dictionary)->Array:
-	return render_states(compiled,0.0,outer,false,camera,false,true)
+	var previous_scope:=_minimum_scope
+	var previous_values:=_billboard_values
+	_minimum_scope=true;_billboard_values={}
+	var states:Array=render_states(compiled,0.0,outer,false,camera,false,true)
+	_minimum_scope=previous_scope;_billboard_values=previous_values
+	return states
 
 func _minimum_z(vertices:Array,world:Dictionary)->float:
 	var minimum:=INF

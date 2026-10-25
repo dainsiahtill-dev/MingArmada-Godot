@@ -1,0 +1,3033 @@
+{
+	"capture": {
+		"path": "res://docs/research/evidence/architecture-convergence-2026-10-21/frame-budget-20261026/live-cpu-profile-01.png",
+		"sha256": "c2f8ebf9f3f94f36e5959c39f2da0d175dbc1b1b9e041564bf5977edbaa0ffb6"
+	},
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": [
+		"simulation original field restored: encounter",
+		"simulation original field restored: _deployment",
+		"simulation original field restored: _auto_trim",
+		"simulation original field restored: _sail_angle",
+		"simulation original field restored: _held",
+		"simulation original field restored: _queued",
+		"simulation original field restored: _events",
+		"simulation original field restored: _results",
+		"simulation original field restored: _accumulator",
+		"simulation original field restored: _paused",
+		"simulation original field restored: _rudder",
+		"simulation original field restored: _rudder_intent",
+		"simulation original field restored: _previous",
+		"simulation original field restored: _current",
+		"simulation original field restored: _mode",
+		"simulation original field restored: _manual_active",
+		"simulation original field restored: _owned_helm",
+		"simulation original field restored: _assist",
+		"simulation original field restored: _course",
+		"simulation original field restored: _sailing_allowed",
+		"instrumentation preserves complete authoritative snapshot"
+	],
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"invalid": [],
+	"renderer": "forward_plus",
+	"rows": [
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.971,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.80499994754791,
+					"gpuMs": 25.9769992828369,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.08599996566772,
+					"gpuMs": 2.41599988937378,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.044956
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.234,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.34299993515015,
+					"gpuMs": 25.9860000610352,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.12899994850159,
+					"gpuMs": 2.40199995040894,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.07519
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.961,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.56700003147125,
+					"gpuMs": 26.9780006408691,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.26400005817413,
+					"gpuMs": 2.64100003242493,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.103151
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.446,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.22699999809265,
+					"gpuMs": 24.9150009155273,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.97299998998642,
+					"gpuMs": 2.40599989891052,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.135597
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.526,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.44700002670288,
+					"gpuMs": 27.3379993438721,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.21000003814697,
+					"gpuMs": 2.79800009727478,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.163123
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.449,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.12600004673004,
+					"gpuMs": 23.7730007171631,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.00899994373322,
+					"gpuMs": 2.65700006484985,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.191572
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.808,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.22000002861023,
+					"gpuMs": 24.4290008544922,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.01400005817413,
+					"gpuMs": 2.37700009346008,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.22138
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.562,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.39100003242493,
+					"gpuMs": 26.7719993591309,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.06599998474121,
+					"gpuMs": 2.45000004768372,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.250942
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.401,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.60300004482269,
+					"gpuMs": 26.3729991912842,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.10899996757507,
+					"gpuMs": 2.6010000705719,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.278343
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.281,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.8400000333786,
+					"gpuMs": 24.1159992218018,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.5440000295639,
+					"gpuMs": 2.44700002670288,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.307624
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.879,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.17999994754791,
+					"gpuMs": 24.2080001831055,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.22300004959106,
+					"gpuMs": 2.45799994468689,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.336503
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.676,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.85599994659424,
+					"gpuMs": 24.3519992828369,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.20899999141693,
+					"gpuMs": 2.49900007247925,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.364179
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.907,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.24100005626678,
+					"gpuMs": 24.7509994506836,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02799999713898,
+					"gpuMs": 2.40899991989136,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.395086
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.469,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.34100008010864,
+					"gpuMs": 26.8549995422363,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.07700002193451,
+					"gpuMs": 2.44000005722046,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.424555
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.72,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.95500004291534,
+					"gpuMs": 26.0030002593994,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.36600005626678,
+					"gpuMs": 2.77300000190735,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.456275
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.333,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.30299997329712,
+					"gpuMs": 26.2999992370605,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.07200002670288,
+					"gpuMs": 2.54099988937378,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.485608
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.0,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.31500005722046,
+					"gpuMs": 25.951000213623,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.12999999523163,
+					"gpuMs": 2.41499996185303,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.514608
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.263,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.87399995326996,
+					"gpuMs": 26.048999786377,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.22000002861023,
+					"gpuMs": 2.5460000038147,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.542871
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.816,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.26800000667572,
+					"gpuMs": 24.8540000915527,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.0809999704361,
+					"gpuMs": 2.39400005340576,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.570687
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.992,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.82200002670288,
+					"gpuMs": 24.0930004119873,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.2150000333786,
+					"gpuMs": 2.59699988365173,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.598679
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.908,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.57099997997284,
+					"gpuMs": 23.3689994812012,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.28999996185303,
+					"gpuMs": 2.65300011634827,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.626587
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.671,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.26199996471405,
+					"gpuMs": 24.6439990997314,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.00399994850159,
+					"gpuMs": 2.61999988555908,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.656258
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.164,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.55299997329712,
+					"gpuMs": 26.1469993591309,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.08299994468689,
+					"gpuMs": 2.40400004386902,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.683422
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.477,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.83000004291534,
+					"gpuMs": 23.7490005493164,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11800003051758,
+					"gpuMs": 2.41499996185303,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.711899
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.069,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.36199998855591,
+					"gpuMs": 25.1580009460449,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.20500004291534,
+					"gpuMs": 2.6470000743866,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.739968
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.846,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.96200001239777,
+					"gpuMs": 24.7040004730225,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.28600001335144,
+					"gpuMs": 2.45900011062622,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.768814
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.375,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.59500002861023,
+					"gpuMs": 24.8080005645752,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.24399995803833,
+					"gpuMs": 2.42899990081787,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.797189
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.633,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.32599997520447,
+					"gpuMs": 25.3369998931885,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02100002765656,
+					"gpuMs": 2.40100002288818,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.824822
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.737,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.9099999666214,
+					"gpuMs": 24.5620002746582,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.14900004863739,
+					"gpuMs": 2.35899996757507,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.852559
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.044,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.78799998760223,
+					"gpuMs": 24.5009994506836,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.37600004673004,
+					"gpuMs": 2.36700010299683,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.881603
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.974,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.49399995803833,
+					"gpuMs": 23.2630004882813,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.23300004005432,
+					"gpuMs": 2.42400002479553,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.909577
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.046,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.40799999237061,
+					"gpuMs": 24.7019996643066,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.19700002670288,
+					"gpuMs": 2.35999989509583,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.939623
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.873,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.48500001430511,
+					"gpuMs": 25.3920001983643,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.26800000667572,
+					"gpuMs": 2.55399990081787,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.969496
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.823,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.22000002861023,
+					"gpuMs": 25.2980003356934,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02499997615814,
+					"gpuMs": 3.38599991798401,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 5.998319
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.428,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.09599995613098,
+					"gpuMs": 25.0359992980957,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.976999998092651,
+					"gpuMs": 2.3840000629425,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.026747
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.93,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.16199994087219,
+					"gpuMs": 23.753999710083,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.59500002861023,
+					"gpuMs": 2.62899994850159,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.055677
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.963,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.17400002479553,
+					"gpuMs": 25.1790008544922,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.01600003242493,
+					"gpuMs": 3.22199988365173,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.08364
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 26.482,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.12999999523163,
+					"gpuMs": 25.0249996185303,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.944999992847443,
+					"gpuMs": 2.32999992370605,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.110122
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.312,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.52199995517731,
+					"gpuMs": 23.4440002441406,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.2150000333786,
+					"gpuMs": 2.48699998855591,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.139434
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.305,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.63999998569489,
+					"gpuMs": 23.7759990692139,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.35800004005432,
+					"gpuMs": 2.52800011634827,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.167739
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.57,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.46000003814697,
+					"gpuMs": 25.1110000610352,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.01800000667572,
+					"gpuMs": 2.64299988746643,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.198309
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.923,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.46600008010864,
+					"gpuMs": 27.3460006713867,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.1690000295639,
+					"gpuMs": 2.4760000705719,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.228232
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.001,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.06100010871887,
+					"gpuMs": 26.6639995574951,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.28299999237061,
+					"gpuMs": 2.47199988365173,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.259233
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.042,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.44799995422363,
+					"gpuMs": 27.55299949646,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.25699996948242,
+					"gpuMs": 2.72900009155273,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.289275
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.422,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.46200001239777,
+					"gpuMs": 23.4650001525879,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.54799997806549,
+					"gpuMs": 2.36400008201599,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.319697
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.347,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.51199996471405,
+					"gpuMs": 25.6319999694824,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.34099996089935,
+					"gpuMs": 2.56100010871887,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.352044
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 33.857,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.21099996566772,
+					"gpuMs": 28.9619998931885,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.09599995613098,
+					"gpuMs": 2.45700001716614,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.385901
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.745,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.43499994277954,
+					"gpuMs": 28.82200050354,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.22599995136261,
+					"gpuMs": 3.53500008583069,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.415646
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 34.169,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.22800004482269,
+					"gpuMs": 26.5990009307861,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02799999713898,
+					"gpuMs": 2.58299994468689,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.449815
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.466,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.39999997615814,
+					"gpuMs": 28.9479999542236,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.12999999523163,
+					"gpuMs": 2.57699990272522,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.478281
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.269,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.77300000190735,
+					"gpuMs": 25.4309997558594,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.26800000667572,
+					"gpuMs": 2.82699990272522,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.50855
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.977,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.54200005531311,
+					"gpuMs": 26.2980003356934,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.13800001144409,
+					"gpuMs": 2.3529999256134,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.539527
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 36.812,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.60199999809265,
+					"gpuMs": 27.9820003509521,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.20700001716614,
+					"gpuMs": 2.41499996185303,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.576339
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.442,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.49199998378754,
+					"gpuMs": 30.3430004119873,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.16600000858307,
+					"gpuMs": 3.70099997520447,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.606781
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.709,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.22899997234344,
+					"gpuMs": 27.701000213623,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02699995040894,
+					"gpuMs": 2.40199995040894,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.63749
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.57,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.54499995708466,
+					"gpuMs": 27.7000007629395,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.23099994659424,
+					"gpuMs": 2.44700002670288,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.66606
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.293,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.54999995231628,
+					"gpuMs": 25.0650005340576,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.68299996852875,
+					"gpuMs": 2.41799998283386,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.695353
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.964,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.02900004386902,
+					"gpuMs": 23.6630001068115,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.35300004482269,
+					"gpuMs": 2.57399988174438,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.725317
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.306,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.08800005912781,
+					"gpuMs": 25.0939998626709,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.24899995326996,
+					"gpuMs": 2.5090000629425,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.756623
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.522,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.55200004577637,
+					"gpuMs": 28.1499996185303,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.16299998760223,
+					"gpuMs": 2.55399990081787,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.788145
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.427,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.41999995708466,
+					"gpuMs": 28.3460006713867,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.38199996948242,
+					"gpuMs": 2.51999998092651,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.818572
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 34.051,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.69200003147125,
+					"gpuMs": 26.7940006256104,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.09500002861023,
+					"gpuMs": 2.62700009346008,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.852623
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.401,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.66499996185303,
+					"gpuMs": 28.5219993591309,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.34300005435944,
+					"gpuMs": 2.37199997901917,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.885024
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.411,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.64800000190735,
+					"gpuMs": 28.3020000457764,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.39400005340576,
+					"gpuMs": 3.29299998283386,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.915435
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.237,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.39800000190735,
+					"gpuMs": 26.8129997253418,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.14900004863739,
+					"gpuMs": 3.08500003814697,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.943672
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.079,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.69200003147125,
+					"gpuMs": 25.0240001678467,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.995999991893768,
+					"gpuMs": 2.55599999427795,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 6.973751
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.605,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.89199995994568,
+					"gpuMs": 24.0289993286133,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.27600002288818,
+					"gpuMs": 2.42799997329712,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.002356
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.581,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.56400001049042,
+					"gpuMs": 25.5750007629395,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.44400000572205,
+					"gpuMs": 2.38499999046326,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.031937
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.24,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.29299998283386,
+					"gpuMs": 26.07200050354,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.21899998188019,
+					"gpuMs": 2.88599991798401,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.059177
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.155,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.7039999961853,
+					"gpuMs": 23.9330005645752,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.898000001907349,
+					"gpuMs": 2.52600002288818,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.091332
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.784,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.32800006866455,
+					"gpuMs": 25.5149993896484,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.0789999961853,
+					"gpuMs": 2.3840000629425,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.120116
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.876,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.35199999809265,
+					"gpuMs": 25.6909999847412,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.12000000476837,
+					"gpuMs": 2.7039999961853,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.150992
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 34.401,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.29299998283386,
+					"gpuMs": 27.0699996948242,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.936999976634979,
+					"gpuMs": 3.33999991416931,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.185393
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.251,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.10700011253357,
+					"gpuMs": 30.6490001678467,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.06900000572205,
+					"gpuMs": 2.56299996376038,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.216644
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 26.856,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.48800003528595,
+					"gpuMs": 24.3159999847412,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.25100004673004,
+					"gpuMs": 3.25,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.2435
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.501,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.6710000038147,
+					"gpuMs": 23.7450008392334,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.973999977111816,
+					"gpuMs": 2.50699996948242,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.272001
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.3,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.54900002479553,
+					"gpuMs": 24.1560001373291,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.67200005054474,
+					"gpuMs": 2.8199999332428,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.299301
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.874,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.45500004291534,
+					"gpuMs": 24.4580001831055,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.24000000953674,
+					"gpuMs": 2.3840000629425,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.331175
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.337,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.36500000953674,
+					"gpuMs": 27.0520000457764,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.10199999809265,
+					"gpuMs": 2.37700009346008,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.360512
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.062,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.56700003147125,
+					"gpuMs": 25.8939990997314,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.28299999237061,
+					"gpuMs": 2.79200005531311,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.388574
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.669,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.59500002861023,
+					"gpuMs": 24.7089996337891,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.26900005340576,
+					"gpuMs": 2.44300007820129,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.416243
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.243,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.47599995136261,
+					"gpuMs": 24.6609992980957,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.27499997615814,
+					"gpuMs": 2.38899993896484,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.446486
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.494,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.54799997806549,
+					"gpuMs": 24.7520008087158,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.21800005435944,
+					"gpuMs": 2.59999990463257,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.47798
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.021,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.11700010299683,
+					"gpuMs": 28.2849998474121,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.62300002574921,
+					"gpuMs": 2.41100001335144,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.507001
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.447,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.71200001239777,
+					"gpuMs": 26.2670001983643,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.27199995517731,
+					"gpuMs": 2.37599992752075,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.535448
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.917,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.8400000333786,
+					"gpuMs": 25.4230003356934,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.29100000858307,
+					"gpuMs": 2.42600011825562,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.563365
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.037,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.36500000953674,
+					"gpuMs": 24.5610008239746,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11099994182587,
+					"gpuMs": 2.64400005340576,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.591402
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 31.651,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.22199988365173,
+					"gpuMs": 23.4559993743896,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.12399995326996,
+					"gpuMs": 2.45600008964539,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.623053
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.111,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.86899995803833,
+					"gpuMs": 28.5939998626709,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.15299999713898,
+					"gpuMs": 2.38000011444092,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.655164
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.478,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.04099988937378,
+					"gpuMs": 27.7609996795654,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.16499996185303,
+					"gpuMs": 3.62899994850159,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.682642
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.722,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.26600003242493,
+					"gpuMs": 24.7049999237061,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.02499997615814,
+					"gpuMs": 2.40100002288818,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.712364
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.821,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.47800004482269,
+					"gpuMs": 23.6119995117188,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.17499995231628,
+					"gpuMs": 2.39000010490417,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.742185
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.383,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.95099997520447,
+					"gpuMs": 27.0139999389648,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.40100002288818,
+					"gpuMs": 2.42300009727478,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.769568
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.116,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.8860000371933,
+					"gpuMs": 24.4330005645752,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.23000001907349,
+					"gpuMs": 2.41400003433228,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.797684
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.66,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.65699994564056,
+					"gpuMs": 25.0189990997314,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.14199995994568,
+					"gpuMs": 2.40599989891052,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.827344
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.745,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.37999999523163,
+					"gpuMs": 26.1709995269775,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11699998378754,
+					"gpuMs": 2.60700011253357,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.857089
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.949,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.5809999704361,
+					"gpuMs": 25.7859992980957,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.0440000295639,
+					"gpuMs": 3.21199989318848,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.885038
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 26.502,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.17599999904633,
+					"gpuMs": 25.1830005645752,
+					"name": "main"
+				},
+				{
+					"cpuMs": 0.994000017642975,
+					"gpuMs": 2.55200004577637,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.91154
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.712,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.19400000572205,
+					"gpuMs": 23.1609992980957,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.24800002574921,
+					"gpuMs": 2.3989999294281,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.940252
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.689,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.56500005722046,
+					"gpuMs": 23.4860000610352,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.50999999046326,
+					"gpuMs": 2.3659999370575,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.968941
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.637,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.48699998855591,
+					"gpuMs": 25.1630001068115,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.07299995422363,
+					"gpuMs": 2.38700008392334,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 7.997578
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.191,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.61899995803833,
+					"gpuMs": 25.806999206543,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.10500001907349,
+					"gpuMs": 2.37800002098084,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.024769
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.933,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.18900001049042,
+					"gpuMs": 23.8680000305176,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.35300004482269,
+					"gpuMs": 2.67700004577637,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.052702
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.259,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.43299996852875,
+					"gpuMs": 23.6959991455078,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.49899995326996,
+					"gpuMs": 2.39000010490417,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.081961
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.561,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.54499995708466,
+					"gpuMs": 25.8439998626709,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.14800000190735,
+					"gpuMs": 2.39299988746643,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.110522
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.983,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.0220000743866,
+					"gpuMs": 25.3339996337891,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11500000953674,
+					"gpuMs": 2.43499994277954,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.139505
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.232,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.16700005531311,
+					"gpuMs": 25.503999710083,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.60699999332428,
+					"gpuMs": 2.34400010108948,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.166737
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.298,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.40699994564056,
+					"gpuMs": 24.1849994659424,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.17599999904633,
+					"gpuMs": 2.38499999046326,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.195035
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.031,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.47599995136261,
+					"gpuMs": 25.1959991455078,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.08299994468689,
+					"gpuMs": 2.64800000190735,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.225066
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 30.812,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.76600003242493,
+					"gpuMs": 25.7180004119873,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.60199999809265,
+					"gpuMs": 2.53800010681152,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.255878
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.801,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.64499998092651,
+					"gpuMs": 27.4629993438721,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.13900005817413,
+					"gpuMs": 2.64800000190735,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.283679
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.593,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.47099995613098,
+					"gpuMs": 24.6520004272461,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11099994182587,
+					"gpuMs": 2.43499994277954,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.313272
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.88,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.0789999961853,
+					"gpuMs": 26.5610008239746,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.50800001621246,
+					"gpuMs": 2.46700000762939,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.341152
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.079,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 2.18300008773804,
+					"gpuMs": 24.2900009155273,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.62100005149841,
+					"gpuMs": 3.04999995231628,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.369231
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 27.447,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.31500005722046,
+					"gpuMs": 24.5639991760254,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.00800001621246,
+					"gpuMs": 2.3840000629425,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.396678
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 29.03,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.40900003910065,
+					"gpuMs": 24.4860000610352,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.07400000095367,
+					"gpuMs": 2.52099990844727,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.425708
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 32.046,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.58800005912781,
+					"gpuMs": 24.1340007781982,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.14699995517731,
+					"gpuMs": 2.40000009536743,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.457754
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 25.774,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.85500001907349,
+					"gpuMs": 27.8339996337891,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11300003528595,
+					"gpuMs": 3.36899995803833,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.483528
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.549,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.43799996376038,
+					"gpuMs": 22.9699993133545,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11099994182587,
+					"gpuMs": 2.38299989700317,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.512077
+		},
+		{
+			"actors": {
+				"ships": 3,
+				"visibleCrew": 35
+			},
+			"diagnosticIntervalMs": 28.602,
+			"focused": true,
+			"nativeTime": 0.0,
+			"paused": false,
+			"renderTimes": [
+				{
+					"cpuMs": 1.65400004386902,
+					"gpuMs": 23.2859992980957,
+					"name": "main"
+				},
+				{
+					"cpuMs": 1.11899995803833,
+					"gpuMs": 2.44700002670288,
+					"name": "ReferencePlanarReflection"
+				}
+			],
+			"stages": {},
+			"wallSeconds": 8.540679
+		}
+	],
+	"scope": "Actual automatic Main/router/NavalPractice public sail, seed1661, 1600x900 default quality/actors. In-memory method wrappers restore every field and authoritative snapshot. Five seconds warmup then120 rendered frames. Nested timers include wrapper overhead; do not sum parent/child. Instrumented intervals are not unmodified FPS; GPU queries are separately observed. No actor/quality/effect removal.",
+	"sourceFiles": {
+		"res://game/presentation/combat/combat_effects.gd": "5775c69d4c1bc30a4a54eda0543fadac5a78c0423879e4d81c109fbd1714d6bd",
+		"res://game/presentation/crew/crew_view.gd": "b10ce10d2a6ba9349d28c6bd34edc4891969e6b0bead8a6bcd8b89123e483b19",
+		"res://game/presentation/ships/ship_view.gd": "156b0941dc068b78b19d5ea1d0e58f09774e9bc2657a89c478f19e876d051c39",
+		"res://game/presentation/water/wake_trails.gd": "46f7653fb207ce6e803e79afc9b196ff107a4b35d6555c3c3526bcad19dc0e87",
+		"res://game/presentation/world/naval_world_view.gd": "2da2cf011247c9dd3a2f428c1a745dbe0373a32e5cb5c4a580e5811905e0d59f",
+		"res://game/runtime/naval_practice_runtime.gd": "670dff2dfcbabb4178c2e088aa2cf2cfdf23b573bc7d4cdd88f6d75621dec64d",
+		"res://game/runtime/sailing_simulation.gd": "a5ddc9ff427685233068bfeb6f9119302bd43db55fa7cd46117ec2225cca0110",
+		"res://game/scenes/common/sea_chart_overlay.gd": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd",
+		"res://game/scenes/common/sea_services.gd": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970",
+		"res://game/scenes/naval_practice/naval_practice.gd": "81e8fe468c6be4820c471659a6667cdd6639f309bae39592b19a59f961bfef50",
+		"res://game/ui/naval_practice.gd": "19221bec5a02fd0180bf91a38ef67ff2c024d83f00fbf11803ed30df25272503",
+		"res://modules/scene_engine/fidelity_fx/atmosphere.gd": "a75adafb76589576e3c0a10865de9cd23a775d9df778560a45d99f5a99ae7bf8",
+		"res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe",
+		"res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd": "563f39ad2128615b9d52cea210b8966be2589de5ecf3560b0b7dc75e283caf10",
+		"res://modules/scene_engine/fidelity_fx/world_cloud_lifecycle.gd": "6ab32d6b440345909d6b659dd073f022991cb3c8376bd06eb6148ef21efae1a0",
+		"res://modules/scene_engine/fidelity_island/vegetation.gd": "36f46af9372f8997c0fa273cde4b952f375aeb70e4c5021b31506232d3a282cb",
+		"res://modules/scene_engine/ocean/projected_ocean.gd": "4c84499ae82e432ec7ea845602af906ef36815cafda41ec30ea6a0322e277cae",
+		"res://modules/scene_engine/terrain/natural_shore_surf.gd": "39e8f3a586928a8617fbc9740ebcc89c02725cbac72f3a740d5ba33573a5f915",
+		"res://modules/scene_engine/terrain/natural_world.gd": "f357c0629eef4a05c04e09d7525f330ea640a32e6083873979196c7df60af388",
+		"res://modules/scene_engine/world/world_view.gd": "f5979b078d296df9292f1d1e00d34aa15770542209a34430f442dadb9b17c989",
+		"res://tools/profile-frame-budget-live.gd": "9a9d6b9267ae4fe59f8fa8fda29f17764f2da38845de9209523e70ed1b7dd48c"
+	},
+	"sourceOriginal": {
+		"atmosphere": {
+			"path": "res://modules/scene_engine/fidelity_fx/atmosphere.gd",
+			"sha256": "a75adafb76589576e3c0a10865de9cd23a775d9df778560a45d99f5a99ae7bf8"
+		},
+		"cloudCompiler": {
+			"path": "res://modules/scene_engine/fidelity_fx/cloud_render_compiler.gd",
+			"sha256": "1f6c2696e59f440e518884fb4fb5e533ae2ebd7eae721fc84298127910909afe"
+		},
+		"cloudLifecycle": {
+			"path": "res://modules/scene_engine/fidelity_fx/world_cloud_lifecycle.gd",
+			"sha256": "6ab32d6b440345909d6b659dd073f022991cb3c8376bd06eb6148ef21efae1a0"
+		},
+		"crew": {
+			"path": "res://game/presentation/crew/crew_view.gd",
+			"sha256": "b10ce10d2a6ba9349d28c6bd34edc4891969e6b0bead8a6bcd8b89123e483b19"
+		},
+		"effects": {
+			"path": "res://game/presentation/combat/combat_effects.gd",
+			"sha256": "5775c69d4c1bc30a4a54eda0543fadac5a78c0423879e4d81c109fbd1714d6bd"
+		},
+		"forest": {
+			"path": "res://modules/scene_engine/fidelity_island/vegetation.gd",
+			"sha256": "36f46af9372f8997c0fa273cde4b952f375aeb70e4c5021b31506232d3a282cb"
+		},
+		"game": {
+			"path": "res://game/scenes/naval_practice/naval_practice.gd",
+			"sha256": "81e8fe468c6be4820c471659a6667cdd6639f309bae39592b19a59f961bfef50"
+		},
+		"interface": {
+			"path": "res://game/ui/naval_practice.gd",
+			"sha256": "19221bec5a02fd0180bf91a38ef67ff2c024d83f00fbf11803ed30df25272503"
+		},
+		"minimap": {
+			"path": "res://game/scenes/common/sea_chart_overlay.gd",
+			"sha256": "feab71604f09eb62546a20042856f124d73fde4e704556b7ebd50503d974e3cd"
+		},
+		"naturalWorld": {
+			"path": "res://modules/scene_engine/terrain/natural_world.gd",
+			"sha256": "f357c0629eef4a05c04e09d7525f330ea640a32e6083873979196c7df60af388"
+		},
+		"ocean": {
+			"path": "res://modules/scene_engine/ocean/projected_ocean.gd",
+			"sha256": "4c84499ae82e432ec7ea845602af906ef36815cafda41ec30ea6a0322e277cae"
+		},
+		"runtime": {
+			"path": "res://game/runtime/naval_practice_runtime.gd",
+			"sha256": "670dff2dfcbabb4178c2e088aa2cf2cfdf23b573bc7d4cdd88f6d75621dec64d"
+		},
+		"sea": {
+			"path": "res://game/presentation/world/naval_world_view.gd",
+			"sha256": "2da2cf011247c9dd3a2f428c1a745dbe0373a32e5cb5c4a580e5811905e0d59f"
+		},
+		"services": {
+			"path": "res://game/scenes/common/sea_services.gd",
+			"sha256": "fd5c19713c27ea42380cede25b9290c8eaeec080fab6540618b1075da5554970"
+		},
+		"ship": {
+			"path": "res://game/presentation/ships/ship_view.gd",
+			"sha256": "156b0941dc068b78b19d5ea1d0e58f09774e9bc2657a89c478f19e876d051c39"
+		},
+		"shore": {
+			"path": "res://modules/scene_engine/terrain/natural_shore_surf.gd",
+			"sha256": "39e8f3a586928a8617fbc9740ebcc89c02725cbac72f3a740d5ba33573a5f915"
+		},
+		"simulation": {
+			"path": "res://game/runtime/sailing_simulation.gd",
+			"sha256": "a5ddc9ff427685233068bfeb6f9119302bd43db55fa7cd46117ec2225cca0110"
+		},
+		"sourceShadow": {
+			"path": "res://modules/scene_engine/fidelity_fx/source_shadow_renderer.gd",
+			"sha256": "563f39ad2128615b9d52cea210b8966be2589de5ecf3560b0b7dc75e283caf10"
+		},
+		"wakes": {
+			"path": "res://game/presentation/water/wake_trails.gd",
+			"sha256": "46f7653fb207ce6e803e79afc9b196ff107a4b35d6555c3c3526bcad19dc0e87"
+		},
+		"world": {
+			"path": "res://modules/scene_engine/world/world_view.gd",
+			"sha256": "f5979b078d296df9292f1d1e00d34aa15770542209a34430f442dadb9b17c989"
+		}
+	},
+	"sourcesUnchanged": true,
+	"stageMs": {}
+}

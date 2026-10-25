@@ -1,5 +1,7 @@
 # 架构基础收敛：海面采样、固定步与显示
 
+2026-10-26续作：[帧预算诊断](../../../docs/research/frame-budget-2026-10-26.md)、[调用内复用记录](../../../docs/research/cloud-billboard-reuse-2026-10-26.md)。静态云层矩阵复用经独立CPU与同载体GPU提交数据验证后接入；局部批次均值下降18.31%，正式入口仍约14.16FPS。全量回归进行中，已发现阴影实验代理输入遗留不一致；不宣称整场显著提速、全套回归通过或游戏目标完成。
+
 - 课题 ID：`architecture-convergence-2026-10-21`。
 - 日期：2026-10-21。类型：前瞻工程研究。状态：研究中，数值CPU和独立Demo的本机GPU捕获/状态合同已验证，完整游戏帧率及最终全套接受项待验。
 - Demo：`res://game/research/demos/architecture_convergence_experiment.gd`，主菜单“实验室”的同名课题。
