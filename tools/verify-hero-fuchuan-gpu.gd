@@ -3,16 +3,25 @@ const Experiment=preload("res://game/research/demos/hero_fuchuan_experiment.gd")
 var output:="res://docs/production/hero-fuchuan-2026-10-25/gpu-independent-v1"
 var continuous:=""
 var model:="hero"
+func _source_hashes()->Dictionary:
+	var hashes:Dictionary={}
+	for path in ["res://tools/verify-hero-fuchuan-gpu.gd","res://game/research/demos/hero_fuchuan_experiment.gd","res://modules/scene_engine/assets/hero_ship_provider.gd","res://tools/blender/build_hero_fuchuan_v3.py"]:hashes[path]=FileAccess.get_sha256(path)
+	return hashes
 func _initialize()->void:run.call_deferred()
 func run()->void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
 		if arg.begins_with("--continuous="):continuous=arg.trim_prefix("--continuous=")
 		if arg.begins_with("--model="):model=arg.trim_prefix("--model=")
+	if DirAccess.dir_exists_absolute(output) or (not continuous.is_empty() and DirAccess.dir_exists_absolute(continuous)):
+		printerr("fresh output directories required");quit(1);return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	if not continuous.is_empty():DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(continuous))
 	root.size=Vector2i(1280,900)
 	var demo:=Experiment.new();root.add_child(demo);demo.configure({"animated":false,"model":model})
+	var hashes:=_source_hashes()
+	var source_path:String=demo._ship.get_model().get_meta("source_path","")
+	var asset_hash:=FileAccess.get_sha256(source_path)
 	var initial:=demo.inspection_snapshot()
 	await process_frame;await process_frame;await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(output.path_join("full-sail.png"))
@@ -58,8 +67,9 @@ func run()->void:
 		damage_frames.append({"image":filename,"snapshot":damage_state,"scope":"controlled intermediate cloth damage"})
 	var reset:=demo.reset_experiment({"animated":false,"paused":false})
 	var reset_ok:bool=reset.ok and demo.inspection_snapshot()==initial
+	var source_ok:bool=hashes==_source_hashes() and asset_hash==FileAccess.get_sha256(source_path)
 	var file:=FileAccess.open(output.path_join("manifest.json"),FileAccess.WRITE)
-	file.store_string(JSON.stringify({"scope":"independent GPU rig; automated snapshot sequence, not native gameplay","model":model,"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"engine":Engine.get_version_info(),"fixedStep":1.0/32.0,"frames":states,"continuousFrames":frame_hashes,"damageFrames":damage_frames,"detailFrames":detail_frames,"pauseUnchanged":pause_ok,"resetInitialSnapshotEqual":reset_ok},"\t"));file.close()
+	file.store_string(JSON.stringify({"scope":"independent GPU rig; automated snapshot sequence, not native gameplay","model":model,"sourcePath":source_path,"assetSha256":asset_hash,"sourceSha256":hashes,"sourcesUnchanged":source_ok,"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"engine":Engine.get_version_info(),"fixedStep":1.0/32.0,"frames":states,"continuousFrames":frame_hashes,"damageFrames":damage_frames,"detailFrames":detail_frames,"pauseUnchanged":pause_ok,"resetInitialSnapshotEqual":reset_ok},"\t"));file.close()
 	demo.dispose();demo.free();await process_frame
-	print("HERO_FUCHUAN_GPU_CHECK frames=257 failures=",0 if pause_ok and reset_ok else 1)
-	quit(0 if pause_ok and reset_ok else 1)
+	print("HERO_FUCHUAN_GPU_CHECK frames=257 failures=",0 if pause_ok and reset_ok and source_ok else 1)
+	quit(0 if pause_ok and reset_ok and source_ok else 1)

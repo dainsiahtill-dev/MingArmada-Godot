@@ -51,7 +51,8 @@ func compose(native:Dictionary,ships:Dictionary,world_light:Vector3,stencil_acti
 			var mesh:=node as MeshInstance3D
 			if not mesh.get_meta("target_rigid_shadow_caster",false) or not mesh.is_visible_in_tree() or mesh.mesh==null:continue
 			var id:="%s:%s"%[ship_id,mesh.name]
-			var geometry:=_mesh_geometry(mesh.mesh)
+			var shadow_geometry:Mesh=mesh.get_meta("target_shadow_geometry",mesh.mesh)
+			var geometry:=_mesh_geometry(shadow_geometry)
 			if geometry.has("error"):_errors.append(id+": "+geometry.error);continue
 			var frame:=mesh.global_transform
 			var direction:Vector3=(frame.basis.inverse()*world_light).normalized()

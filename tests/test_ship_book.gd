@@ -24,7 +24,7 @@ func _run() -> void:
 	for kind in ["fuchuan","fisherman","merchant","voc","patrol","heavy"]:
 		for lod in 3:
 			check(scene.select_ship(kind,lod).ok,"real ship GLB loads: %s LOD%s"%[kind,lod])
-			var expected_path:String="res://assets/models/hero_fuchuan_v2/fuchuan-lod%d.glb"%lod if kind=="fuchuan" else "res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind]
+			var expected_path:String="res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod%d.glb"%lod if kind=="fuchuan" else "res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind]
 			check(scene.snapshot().path==expected_path and scene.snapshot().source_kind==SOURCE_FAMILIES[kind],"ship book shows the same authored or reference family as gameplay")
 			var sails := 0
 			for mesh in scene.ship_model.find_children("sail_*","MeshInstance3D",true,false):

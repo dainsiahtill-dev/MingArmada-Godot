@@ -31,7 +31,7 @@ func compare_sequence(adapter:RefCounted,sequence:Array,label:String)->void:
 func compare_packet(adapter:RefCounted,packet:Dictionary,label:String)->void:
 	for caster:Dictionary in packet.native.sourceShadows.casters:
 		var mesh:MeshInstance3D=packet.actors[caster.actorId]
-		var geometry:Dictionary=adapter._mesh_geometry(mesh.mesh)
+		var geometry:Dictionary=adapter._mesh_geometry(mesh.get_meta("target_shadow_geometry",mesh.mesh))
 		var light:=Vector3(caster.localLight[0],caster.localLight[1],caster.localLight[2])
 		var edges:Array=[];var caps:Array=[]
 		for face:Dictionary in geometry.faces:

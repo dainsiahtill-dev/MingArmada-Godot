@@ -310,7 +310,10 @@ func _make_packet(delta:float,events:Array,observer:Dictionary)->Dictionary:
 	var rgb:Array=light.get("lightColor",[1.0,1.0,1.0])
 	var ambient:Array=light.get("ambient",[.2,.2,.2])
 	var brightness:=clampf((float(rgb[0])+float(rgb[1])+float(rgb[2]))/3.0,.08,1.0)
-	var target:Dictionary={"direction":[float(direction[0]),float(direction[2]),-float(direction[1])],"color":rgb.duplicate(),"energy":clampf(brightness*1.15,.12,1.15),"ambientColor":ambient.duplicate(),"waterColor":[.018*brightness,.12*brightness,.25*brightness]}
+	# Original direction is light travel (target - lamp), in source Z-up.
+	# Target ocean/sky and native sun consume the opposite, toward-the-sun
+	# vector in Y-up. Preserve sourceLightFields verbatim below.
+	var target:Dictionary={"direction":[-float(direction[0]),-float(direction[2]),float(direction[1])],"color":rgb.duplicate(),"energy":clampf(brightness*1.15,.12,1.15),"ambientColor":ambient.duplicate(),"waterColor":[.018*brightness,.12*brightness,.25*brightness]}
 	var fog_clocks:Array=[]
 	for instance:Dictionary in _fog_clocks:
 		var clock:RefCounted=instance.clock

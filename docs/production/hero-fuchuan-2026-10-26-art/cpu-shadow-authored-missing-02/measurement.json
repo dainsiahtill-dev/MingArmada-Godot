@@ -1,0 +1,64 @@
+{
+	"controls": {
+		"lod": 0,
+		"roles": [
+			"hull",
+			"deck",
+			"mast_timber_0",
+			"mast_timber_1",
+			"mast_timber_2"
+		],
+		"samplesPerGroup": 40,
+		"shipCount": 1,
+		"shipPose": "identity",
+		"slowRotationStepRadians": 0.001,
+		"stencilActive": false,
+		"timingBoundary": "TargetRigidShadowCaster.compose only; volume build plus inspection is separate",
+		"warmupPerGroup": 8
+	},
+	"displayServer": "headless",
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"errors": [
+		"hull missing target_shadow_geometry:Mesh",
+		"deck missing target_shadow_geometry:Mesh",
+		"mast_timber_0 missing target_shadow_geometry:Mesh",
+		"mast_timber_1 missing target_shadow_geometry:Mesh",
+		"mast_timber_2 missing target_shadow_geometry:Mesh"
+	],
+	"fixtureGeometry": [],
+	"groups": [],
+	"processor": "Intel(R) Core(TM) Ultra 5 225H",
+	"proxy": "authored",
+	"schemaVersion": 1,
+	"scope": "headless CPU rigid-shadow compose microbenchmark; not GPU time, native gameplay, or game FPS",
+	"sourceSha256After": {
+		"res://assets/models/hero_fuchuan_v3/fuchuan-lod0.glb": "82f12152f93c7416c19d978362822876e0e5cc2b33359c6ed27ce1fceb602dd0",
+		"res://game/presentation/world/target_rigid_shadow_caster.gd": "08f5618580a5277bafde3b9957a0c40ef1558a750adfa81995c7a79aa2be9e74",
+		"res://game/presentation/world/target_shadow_boundary.gd": "9f5474d9883a1cd9ca15912b39157dc906f2d8454fa5456bf1c11448890fc65f",
+		"res://modules/scene_engine/assets/hero_ship_provider.gd": "2ccf0275931728977d737d2248a72d5c89161b7960ff64648d812bfef9d72439",
+		"res://modules/scene_engine/fidelity_fx/prepared_rigid_shadow.gd": "54d410dcef7fe7897f5f733ee5dc36cefc138bcbe7a6875c7dcea0d260fe44f8",
+		"res://tools/blender/build_hero_fuchuan_v3.py": "da90c22aea7777d6250176f02fbb5c48f541b2855066ee8310cd93af2df93929",
+		"res://tools/measure-hero-rigid-shadow.gd": "9b4bfa087bf58026d39e821c6113433c99fb6b1fec6c9865a4ae34fe808ef6cb"
+	},
+	"sourceSha256Before": {
+		"res://assets/models/hero_fuchuan_v3/fuchuan-lod0.glb": "82f12152f93c7416c19d978362822876e0e5cc2b33359c6ed27ce1fceb602dd0",
+		"res://game/presentation/world/target_rigid_shadow_caster.gd": "08f5618580a5277bafde3b9957a0c40ef1558a750adfa81995c7a79aa2be9e74",
+		"res://game/presentation/world/target_shadow_boundary.gd": "9f5474d9883a1cd9ca15912b39157dc906f2d8454fa5456bf1c11448890fc65f",
+		"res://modules/scene_engine/assets/hero_ship_provider.gd": "2ccf0275931728977d737d2248a72d5c89161b7960ff64648d812bfef9d72439",
+		"res://modules/scene_engine/fidelity_fx/prepared_rigid_shadow.gd": "54d410dcef7fe7897f5f733ee5dc36cefc138bcbe7a6875c7dcea0d260fe44f8",
+		"res://tools/blender/build_hero_fuchuan_v3.py": "da90c22aea7777d6250176f02fbb5c48f541b2855066ee8310cd93af2df93929",
+		"res://tools/measure-hero-rigid-shadow.gd": "9b4bfa087bf58026d39e821c6113433c99fb6b1fec6c9865a4ae34fe808ef6cb"
+	},
+	"sourcesChangedDuringMeasurement": false,
+	"status": "failed_or_completed_with_caster_errors"
+}

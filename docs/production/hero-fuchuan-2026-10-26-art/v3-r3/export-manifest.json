@@ -1,0 +1,45 @@
+{
+  "asset": "hero-fuchuan-v3",
+  "tool": "5.4.0 Alpha",
+  "seed": 1650,
+  "basis": "Godot Y-up, +Z bow, meters; Blender source Z-up -Y bow",
+  "nominalPhysics": {
+    "length": 32,
+    "beam": 9,
+    "draft": 2,
+    "gunsPerSide": 4
+  },
+  "provenance": "Original bpy-authored geometry; four built-in image_gen base-color images and retained procedural tar finish",
+  "historicalStatus": "Period-informed game interpretation; not certified historical reconstruction",
+  "lods": [
+    {
+      "lod": 0,
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod0.glb",
+      "sha256": "ec8e3b703ff95543fce5c7c30e564743975669884bf7f30cbbec0f171dc7129e",
+      "bytes": 19123892,
+      "objects": 77,
+      "triangles": 101299,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    },
+    {
+      "lod": 1,
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod1.glb",
+      "sha256": "2f1a7cb11495877e359d8b7d708871425219a849b461a0f7b0716f7e1b91d56f",
+      "bytes": 16740568,
+      "objects": 77,
+      "triangles": 48051,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    },
+    {
+      "lod": 2,
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod2.glb",
+      "sha256": "4bf48b958043d34708d1755db0ab13203f6e0fe9b457fd687f78287aefcda907",
+      "bytes": 15610064,
+      "objects": 77,
+      "triangles": 27291,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    }
+  ],
+  "source": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3.blend",
+  "textureProvenance": "assets/textures/hero_fuchuan_v2/provenance.json"
+}

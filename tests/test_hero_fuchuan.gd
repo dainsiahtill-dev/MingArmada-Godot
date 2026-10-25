@@ -9,13 +9,14 @@ func check(value:bool,reason:String)->void:
 	assertions+=1
 	if not value:failures+=1;printerr("FAIL: ",reason)
 func _initialize()->void:run.call_deferred()
+func make_provider()->RefCounted:return load(PATH).new()
 func finish()->void:
 	print("HERO_FUCHUAN_TESTS assertions=",assertions," failures=",failures)
 	quit(1 if failures else 0)
 func run()->void:
 	check(ResourceLoader.exists(PATH),"dedicated authored ship provider exists")
 	if not ResourceLoader.exists(PATH):finish();return
-	var provider:RefCounted=load(PATH).new()
+	var provider:RefCounted=make_provider()
 	var library:=Library.new()
 	for lod in 3:
 		var model:Node3D=provider.instantiate_ship("fuchuan",lod,library)

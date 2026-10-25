@@ -1,0 +1,686 @@
+{
+	"daylight": "source_corrected",
+	"failures": 0,
+	"fixedStep": 0.03125,
+	"frames": [
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/visible-000.png",
+			"mode": "visible",
+			"sha256": "56cfc7afa6507ab2ffe8fb7578b8c30d5314c5db69f3b63fffe0a16bb835edbc",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 0,
+					"boundaryBuilds": 5,
+					"classifications": 5,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 5
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 11,
+						"error": "",
+						"frames": 1,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 5,
+					"rebuildCount": 5,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "visible"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 0.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"tick": 0
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/visible-032.png",
+			"mode": "visible",
+			"sha256": "bb4c643f9e670ce849e7190a1b27195518460415d6a671b6acbd6035fc5e52c8",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 2,
+					"boundaryBuilds": 127,
+					"classifications": 320,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 127
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 363,
+						"error": "",
+						"frames": 33,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 320,
+					"rebuildCount": 320,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "visible"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 1.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 32,
+				"time": 1.0
+			},
+			"tick": 32
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/visible-064.png",
+			"mode": "visible",
+			"sha256": "c541fda9c5a8e69ec740c841835e4a3e4c841e66c52c3a8685f60696143205bc",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 2,
+					"boundaryBuilds": 390,
+					"classifications": 640,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 390
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 715,
+						"error": "",
+						"frames": 65,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 640,
+					"rebuildCount": 640,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "visible"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 2.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 64,
+				"time": 2.0
+			},
+			"tick": 64
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/visible-reverse.png",
+			"mode": "visible",
+			"sha256": "d7095ef0a122317f51986f5d5f9fc63ad674f4f54bce1b6ed905cca776989260",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 2,
+					"boundaryBuilds": 390,
+					"classifications": 640,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 390
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 748,
+						"error": "",
+						"frames": 68,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 640,
+					"rebuildCount": 640,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "visible"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 2.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 64,
+				"time": 2.0
+			},
+			"tick": 64
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/authored-000.png",
+			"mode": "authored",
+			"sha256": "eb78b42297ecb8f144c71522a223d74f687644c93147605e42bcf0c9af3d7506",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 0,
+					"boundaryBuilds": 5,
+					"classifications": 5,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 5
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 22,
+						"error": "",
+						"frames": 2,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 5,
+					"rebuildCount": 5,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "authored"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 0.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"tick": 0
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/authored-032.png",
+			"mode": "authored",
+			"sha256": "30a4fa07dc5f8e3c3f087c4b89ff50b698fe6820f06c7c7c55c636a783430e01",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 6,
+					"boundaryBuilds": 48,
+					"classifications": 320,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 48
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 374,
+						"error": "",
+						"frames": 34,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 320,
+					"rebuildCount": 320,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "authored"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 1.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 32,
+				"time": 1.0
+			},
+			"tick": 32
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/authored-064.png",
+			"mode": "authored",
+			"sha256": "1ba37c1bb21b7dc5e932a19a479cab4d21483cc68e46b876bd6fa7ddf31b9ef2",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 8,
+					"boundaryBuilds": 112,
+					"classifications": 640,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 112
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 726,
+						"error": "",
+						"frames": 66,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 640,
+					"rebuildCount": 640,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "authored"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 2.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 64,
+				"time": 2.0
+			},
+			"tick": 64
+		},
+		{
+			"image": "res://docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-corrected-sun-a/authored-reverse.png",
+			"mode": "authored",
+			"sha256": "25279f52034197d6a32752ac19bdab50554326f53bb3ce8c0cebe6587c6deffc",
+			"shadow": {
+				"adapter": {
+					"activeCasters": 5,
+					"addedSides": 8,
+					"boundaryBuilds": 112,
+					"classifications": 640,
+					"errors": [],
+					"geometryCache": 5,
+					"policy": "target_rigid_hull_mast",
+					"topologyBuilds": 112
+				},
+				"lightRay": "(-0.502184, -0.698182, -0.510249)",
+				"renderer": {
+					"backend": "rd_two_pass_stencil_sampled_reverse_z",
+					"errors": [],
+					"gpu": {
+						"cachedMeshes": 5,
+						"draws": 759,
+						"error": "",
+						"frames": 69,
+						"initialized": true
+					},
+					"missingOriginalRuntime": "full source caster classification/skinning and original receiver schedule are not recovered",
+					"nativePixelEquivalent": false,
+					"preparedBuilds": 640,
+					"rebuildCount": 640,
+					"targetAdaptation": "private stencil attachment, sampled resolved reverse-Z scene depth, actual per-pass camera; transparent receivers only when they wrote depth",
+					"texturePlaneCount": 0,
+					"twoFaceStencilAPI": true,
+					"volumeCount": 5
+				}
+			},
+			"state": {
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"animated": false,
+					"camera_mode": "follow",
+					"daylight": "source_corrected",
+					"model": "art",
+					"paused": false,
+					"shadows": "authored"
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"ship": 1
+				},
+				"scope": "Fixed authoritative-shaped snapshot sequence; geometry/rig experiment, not gameplay or full-game FPS proof.",
+				"seed": 1650,
+				"snapshot": {
+					"crew": 100,
+					"hull": 100,
+					"id": "hero",
+					"kind": "fuchuan",
+					"rudder": 1.0,
+					"sail": 100,
+					"sailAngle": 0.42,
+					"sailDeployment": 1.0,
+					"time": 2.0,
+					"visual": {
+						"heading": 1.5707963267949,
+						"heel": 0,
+						"pitch": 0,
+						"position": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"velocity": {
+							"x": 0,
+							"z": 0
+						}
+					}
+				},
+				"tick": 64,
+				"time": 2.0
+			},
+			"tick": 64
+		}
+	],
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"renderer": "forward_plus",
+	"resolution": [
+		1280,
+		900
+	],
+	"scope": "Independent GPU hero-fuchuan; exact production stencil seam; 65 consecutive frames per factor plus reverse view, selected unedited captures. Not whole-game FPS."
+}

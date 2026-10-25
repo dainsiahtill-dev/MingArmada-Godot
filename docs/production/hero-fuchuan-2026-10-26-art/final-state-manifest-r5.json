@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 1,
+  "utc": "2026-10-25T19:10:54.061674+00:00",
+  "checkpoint": "d609f5ed246eab7fd0484b30e020cb7c0bf54ee5",
+  "candidate": "hero-fuchuan-v3-r5-corrected-sun",
+  "status": "model candidate available for art review; whole-game performance acceptance NOT passed",
+  "gitScope": "Working files after checkpoint; this script does not commit or push.",
+  "verification": [
+    {
+      "report": "art-v3-r5-model.json",
+      "test": "tests/test_hero_fuchuan.gd",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_TESTS assertions=126 failures=0"
+      ]
+    },
+    {
+      "report": "art-v3-r5-model.json",
+      "test": "tests/test_hero_fuchuan_art.gd",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_ART_TESTS assertions=136 failures=0"
+      ]
+    },
+    {
+      "report": "art-v3-r5-model.json",
+      "test": "tests/test_hero_fuchuan_rig.gd",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_RIG_TESTS assertions=20 failures=0"
+      ]
+    },
+    {
+      "report": "art-v3-r5-model.json",
+      "test": "tests/test_hero_fuchuan_textures.gd",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_TEXTURES_TESTS assertions=40 failures=0"
+      ]
+    },
+    {
+      "report": "art-v3-r5-model.json",
+      "test": "tests/test_hero_fuchuan_water.gd",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_WATER_TESTS assertions=9 failures=0"
+      ]
+    },
+    {
+      "report": "shadow-geometry-matrix-r5.json",
+      "test": "tests/test_hero_shadow_geometry.gd",
+      "passed": true,
+      "completion": [
+        "HERO_SHADOW_GEOMETRY_TESTS assertions=227 failures=0"
+      ]
+    },
+    {
+      "report": "shadow-parity-r5.json",
+      "test": "tests/test_target_rigid_shadow_edges.gd",
+      "passed": true,
+      "completion": [
+        "TARGET_RIGID_SHADOW_EDGES_TESTS assertions=4796 failures=0"
+      ]
+    },
+    {
+      "report": "sun-direction-green.json",
+      "test": "tests/test_weather_sun_direction.gd",
+      "passed": true,
+      "completion": [
+        "WEATHER_SUN_DIRECTION_TESTS assertions=5 failures=0"
+      ]
+    },
+    {
+      "report": "weather-corrected-sun.json",
+      "test": "tests/test_source_weather.gd",
+      "passed": true,
+      "completion": [
+        "SOURCE_WEATHER_TESTS assertions=117 failures=0"
+      ]
+    },
+    {
+      "report": "weather-corrected-sun.json",
+      "test": "tests/test_source_weather_retention.gd",
+      "passed": true,
+      "completion": [
+        "SOURCE_WEATHER_RETENTION_TESTS assertions=22 failures=0"
+      ]
+    },
+    {
+      "report": "source-environment-corrected-sun.json",
+      "test": "tests/test_source_environment_consumers.gd",
+      "passed": true,
+      "completion": [
+        "SOURCE_ENVIRONMENT_CONSUMERS_TESTS assertions=62 failures=0"
+      ]
+    },
+    {
+      "report": "final-paused-laboratory-r5.json",
+      "test": "tests/test_laboratory_host.gd",
+      "passed": true,
+      "completion": [
+        "LABORATORY_HOST_TESTS assertions=37 failures=0"
+      ]
+    },
+    {
+      "report": "final-ordinary-r5.json",
+      "test": "tests/test_ordinary_natural_duel.gd",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_DUEL_TESTS assertions=25 failures=0"
+      ]
+    },
+    {
+      "report": "final-ordinary-r5.json",
+      "test": "tests/test_ordinary_natural_fleet.gd",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_FLEET_TESTS assertions=34 failures=0"
+      ]
+    },
+    {
+      "report": "final-ordinary-r5.json",
+      "test": "tests/test_ordinary_natural_sail.gd",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_SAIL_TESTS assertions=34 failures=0"
+      ]
+    },
+    {
+      "report": "final-ordinary-r5.json",
+      "test": "tests/test_ordinary_natural_trial.gd",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_TRIAL_TESTS assertions=13 failures=0"
+      ]
+    }
+  ],
+  "gpuFailures": 0,
+  "formalPerformance": {
+    "valid": true,
+    "metrics": {
+      "enginePhysicsMonitorMs": {
+        "count": 414,
+        "mean": 4.19768115942029,
+        "median": 4.172,
+        "p95": 5.853,
+        "p99": 5.983,
+        "worst": 5.983
+      },
+      "engineProcessMonitorMs": {
+        "count": 414,
+        "mean": 67.4157777777779,
+        "median": 65.987,
+        "p95": 75.844,
+        "p99": 93.053,
+        "worst": 93.053
+      },
+      "intervalMs": {
+        "count": 414,
+        "mean": 72.4802004830918,
+        "median": 72.0745,
+        "p95": 78.42,
+        "p99": 82.305,
+        "worst": 103.293
+      },
+      "observedFps": 13.7968713294782,
+      "physicsSteps": {
+        "count": 414,
+        "mean": 4.34782608695652,
+        "median": 4.0,
+        "p95": 5,
+        "p99": 5,
+        "worst": 5
+      },
+      "renderSetupCpuMs": {
+        "count": 414,
+        "mean": 1.47184541062802,
+        "median": 1.398,
+        "p95": 1.825,
+        "p99": 1.986,
+        "worst": 2.364
+      },
+      "renderTimes": [
+        {
+          "cpuMs": {
+            "count": 414,
+            "mean": 4.78646134696721,
+            "median": 4.57800006866455,
+            "p95": 6.40399980545044,
+            "p99": 7.05999994277954,
+            "worst": 9.33899974822998
+          },
+          "gpuMs": {
+            "count": 414,
+            "mean": 33.7582512777209,
+            "median": 31.9654998779297,
+            "p95": 43.1240005493164,
+            "p99": 44.9780006408691,
+            "worst": 49.8520011901855
+          },
+          "name": "main",
+          "path": "/root",
+          "role": "main"
+        },
+        {
+          "cpuMs": {
+            "count": 414,
+            "mean": 1.43389371886921,
+            "median": 1.32550001144409,
+            "p95": 2.09800004959106,
+            "p99": 2.5699999332428,
+            "worst": 2.72900009155273
+          },
+          "gpuMs": {
+            "count": 414,
+            "mean": 3.26599758690682,
+            "median": 2.81850004196167,
+            "p95": 5.95900011062622,
+            "p99": 6.95499992370605,
+            "worst": 7.60500001907349
+          },
+          "name": "ReferencePlanarReflection",
+          "path": "/root/@Node@2/@Node3D@350/@Node3D@351/@Node3D@355/Ocean/IntegratedReferenceWater/ReferencePlanarReflection",
+          "role": "reflection"
+        }
+      ]
+    },
+    "acceptedTime": [
+      0.45,
+      40.65
+    ]
+  },
+  "limitations": [
+    "Not a full-suite rerun",
+    "Final manual firing image precedes sun-sign correction; geometry unchanged",
+    "Native E injection not certified",
+    "13.80 FPS remains below smooth-play acceptance",
+    "Sea/island art direction, export package and helm hand IK remain outstanding"
+  ],
+  "files": [
+    {
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod0.glb",
+      "bytes": 19237616,
+      "sha256": "ee4a719f7701537ecfa427928a7b1a70ebcc1de6ac9db6570e99afa47c576536"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod1.glb",
+      "bytes": 16854272,
+      "sha256": "a56242011cf83cdcb2773093948c905f9ca849ec1e4d669fbd7bc2881b2a29c1"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3/fuchuan-lod2.glb",
+      "bytes": 15723764,
+      "sha256": "56c91644d960ff0a4e083fa31d57a40add38bc992fdb76f10277ac03808b0419"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3/manifest.json",
+      "bytes": 1658,
+      "sha256": "8f0f59929b96694481df7ed7ecbe55fd38ec0ad24ea7799d6906cda52a84dfa5"
+    },
+    {
+      "path": "assets/production/hero-fuchuan-blender/README.md",
+      "bytes": 3331,
+      "sha256": "50d79185991a0ec2a683a0f2118f46afc5c311e92f154a547aa8a74fcb9b2e08"
+    },
+    {
+      "path": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3.blend",
+      "bytes": 15330386,
+      "sha256": "c607fedd98e3441c35baaddd19d6c52b49748647c612482839e094c517ba97db"
+    },
+    {
+      "path": "assets/research/papers/hero-fuchuan.md",
+      "bytes": 11218,
+      "sha256": "9f8a09acb04463839d79ee4a38bc61d12cccc9c1f566f7993be4d84217c88f55"
+    },
+    {
+      "path": "assets/research/papers/weather-shadow.md",
+      "bytes": 35556,
+      "sha256": "0e29a4d32019424a541ad777ce1303467752546d61d8608fb3f56925a965490f"
+    },
+    {
+      "path": "assets/textures/hero_fuchuan_v2/aged-forged-iron.png",
+      "bytes": 3700043,
+      "sha256": "8374e9f9dc950cef40bb429bf854ea7dbda97f04f6ba72c0baff1b74db1d8be7"
+    },
+    {
+      "path": "assets/textures/hero_fuchuan_v2/antique-hemp-sail.png",
+      "bytes": 3700564,
+      "sha256": "f0e431fa9db2032a14d0086ac6a7e03af180629adffaf8121eeb0e038bdd9964"
+    },
+    {
+      "path": "assets/textures/hero_fuchuan_v2/provenance.json",
+      "bytes": 1671,
+      "sha256": "60ab6d60613330866f97981975f8052ef3c8e707454b67193e479af185272f07"
+    },
+    {
+      "path": "assets/textures/hero_fuchuan_v2/sunworn-deck-wood.png",
+      "bytes": 3576887,
+      "sha256": "e38b644cfe7d69e91003d9fcac66bfbd8df196fe55d2bf6b33d64f69fa2a8458"
+    },
+    {
+      "path": "assets/textures/hero_fuchuan_v2/weathered-hull-wood.png",
+      "bytes": 3175928,
+      "sha256": "0b46f2ec69d923dc23f5873bdaeae363a29af790385d6ba4fff8133e4ba1e813"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/DELIVERY.md",
+      "bytes": 6784,
+      "sha256": "8f0aa14bf83cf59e845035bf310f52a4c8ec0ec763a9c48aa4ba97ad1b78b2fb"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/cpu-proxy-pairs-01-visible/measurement.json",
+      "bytes": 363402,
+      "sha256": "469579167357caa7b93c97d80579f8916ed64bee860433c5787665b2ad0e19eb"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/cpu-proxy-pairs-02-authored/measurement.json",
+      "bytes": 357856,
+      "sha256": "7c9e9c74a08c8944fcb32716318573ed1f14317e363d88c3889d4aa5a6e247b9"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/cpu-proxy-pairs-03-visible/measurement.json",
+      "bytes": 363407,
+      "sha256": "7e09d1dd8f2f09c5a617d9bbd0fd9b6d44b70687f361bf998025588c69e28a68"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/cpu-proxy-pairs-04-authored/measurement.json",
+      "bytes": 357868,
+      "sha256": "5ffc2950ac40e223895f61aac10bfb24c40d2b33b11ce80a342211b0fda5bc90"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/final-review.md",
+      "bytes": 2844,
+      "sha256": "9e9e52095b9b8174e992b23bd0374b61a606280cfc59c7950dc90586a00322ed"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r4/manifest.json",
+      "bytes": 279045,
+      "sha256": "4d9e41e1466151073013a91e6238ee9f4edc6977ac3ce057a72bbba5052ca238"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/initial-art-review.md",
+      "bytes": 7164,
+      "sha256": "ed05a618652a21aa79a92dd15a9d862e83ebc8611c68a6ad2c56a3e67d3fce05"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/00-main-menu.png",
+      "bytes": 121081,
+      "sha256": "1ebd66e29282bb940263d8c62efbad4c68eac72f08c3954dd3203f7b109ee0f5"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/01-full-sail.png",
+      "bytes": 71428,
+      "sha256": "e147fec2f10ddea8c98d862b115e4900e03bc52584261da486dc1d28667b9d23"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/02-course-change.png",
+      "bytes": 78570,
+      "sha256": "285987133597212f7bc5dc5569d837dfef5ae660aa6fe10f84b88785f331ad33"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/03-reef41.png",
+      "bytes": 61255,
+      "sha256": "b3ff7611418748968f4634d56d1c15827c94fc55d88a691759e5a534644862a1"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/04-stopped.png",
+      "bytes": 60658,
+      "sha256": "0e1abbea7704f2ca4ea115c120be434b22ae4aaa6234a3910d5b18e2f45d5e1f"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/05-r5-duel-loaded.png",
+      "bytes": 74604,
+      "sha256": "3dda86001aa4cecc9fb6674cd7006e1891444006f81c0b4a702fb0643e0dfbe6"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/06-r5-duel-shot.png",
+      "bytes": 72992,
+      "sha256": "44796b43081d57f39deef001dae4c493d821408d1ac0a3cf83cc49feac25889e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/07-r5-duel-fired.png",
+      "bytes": 74175,
+      "sha256": "367d8ed165ad9f215a8a20c4d6d5c96c655dfa220fec63786f9c907ec96fc512"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/08-r5-healthy-shadow-failure.png",
+      "bytes": 72934,
+      "sha256": "a2bef2196265a6be75245e46e203a0c77fa34f7bdca390bc81b7f0d95393618e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/09-final-full-sail.png",
+      "bytes": 67711,
+      "sha256": "16afae69ee0b5cd2e93fdea29dbb177fe8bc622fde872796bd1453a7b68ebf84"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/10-final-course-change.png",
+      "bytes": 79757,
+      "sha256": "4769411b9db9d08d247040ffd1746fc7fcce7627bbb0b6c396f234423df660e2"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/11-final-reef41.png",
+      "bytes": 68138,
+      "sha256": "fd3851c7e88f719562552f710d3da9ec73f2da785f099a9c739d1001856aec79"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/12-final-stopped.png",
+      "bytes": 61980,
+      "sha256": "e79b7165e050660c585af54d0b95fa0ed3ed5dd1bc99b18483120cfb2016e443"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/13-final-paused.png",
+      "bytes": 61800,
+      "sha256": "eef7620fb92849d01d453f709fd5efc5b3f679274e4a99ad33b8d81bff5a925a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/14-final-pause-confirmed.png",
+      "bytes": 61973,
+      "sha256": "fa8d4f9a2cada9f97eb12413227b4004dbe1c2331d9149c2e3854211c1b06d9a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play/observations.json",
+      "bytes": 8073,
+      "sha256": "365e020c664e0058b02dda388760bb2f4ca67e61dad506b07a31dec65fd633d2"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/perf-r4-visible-a/live-observation.json",
+      "bytes": 585737,
+      "sha256": "28ce11c95aa50198406bdcc99954c0e204a5fd7ba41ea355bc1d68806e4af6ce"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/perf-r5-authored-a/live-observation.json",
+      "bytes": 1524107,
+      "sha256": "215cba1c134c6402f69fa01cc9d21ba021830434dc4b435ac5cd7f63b40a3365"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/perf-r5-corrected-sun-a/live-observation.json",
+      "bytes": 1553233,
+      "sha256": "e9dde614c20239f966cf886e2234b1308ba19faef40726a03a37ddfb38415a8b"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/authored-000.png",
+      "bytes": 291503,
+      "sha256": "85da4ec5c4a621e856fe00be7040268996d967eb0c25e0dbe598ba62a5606784"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/authored-032.png",
+      "bytes": 267011,
+      "sha256": "30a4fa07dc5f8e3c3f087c4b89ff50b698fe6820f06c7c7c55c636a783430e01"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/authored-064.png",
+      "bytes": 234465,
+      "sha256": "1ba37c1bb21b7dc5e932a19a479cab4d21483cc68e46b876bd6fa7ddf31b9ef2"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/authored-reverse.png",
+      "bytes": 298694,
+      "sha256": "25279f52034197d6a32752ac19bdab50554326f53bb3ce8c0cebe6587c6deffc"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/manifest.json",
+      "bytes": 17954,
+      "sha256": "835b5c22825563d1c8e6d56484efe73224ea1d08bf343a64ffea4bcf478726a5"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/visible-000.png",
+      "bytes": 300935,
+      "sha256": "be0e079243d962a80561322c79a6db7209470c96cfc1ac93aa650d58d75fe87a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/visible-032.png",
+      "bytes": 275044,
+      "sha256": "bb4c643f9e670ce849e7190a1b27195518460415d6a671b6acbd6035fc5e52c8"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/visible-064.png",
+      "bytes": 240915,
+      "sha256": "c541fda9c5a8e69ec740c841835e4a3e4c841e66c52c3a8685f60696143205bc"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-final-paused-ready/visible-reverse.png",
+      "bytes": 304884,
+      "sha256": "d7095ef0a122317f51986f5d5f9fc63ad674f4f54bce1b6ed905cca776989260"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r2-art-review.md",
+      "bytes": 5959,
+      "sha256": "d7f64d6a63b82006ff7e046d8c5501f93a129bd0180f782b4a68b487d8812df6"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r4-art-review.md",
+      "bytes": 4040,
+      "sha256": "6c802a41517def40509d9d37c8790c32a4c5198d427a3fd82cafb28f9025a1ab"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r4/blender-hero.png",
+      "bytes": 2157166,
+      "sha256": "5b38e3394197fbefd9a79e863c66406f6d15fc518dc3b979d36f2521ca2bac08"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r4/deck-detail.png",
+      "bytes": 2862939,
+      "sha256": "b3635701376251edf22c96d0d61f8727a3c0d5a6928b48741ee6475f644d22ca"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r4/side-profile.png",
+      "bytes": 2199123,
+      "sha256": "163099225b76c1f73b6ebcaad66397464c29ecc4f043ddb2c338330b1c3c633d"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r4/stern-quarter.png",
+      "bytes": 2108961,
+      "sha256": "ca99f8f8f98cc2e8430a7040e29e7d5da5ddadaff6eb6154b60b6fdf1915084c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r5-light-direction-sign-review.md",
+      "bytes": 4476,
+      "sha256": "edec59f8de67c0c9734ed78d40645ddc5851421cbf9bc26efad6aac73c35913c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r5-shadow-proxy-review.md",
+      "bytes": 6249,
+      "sha256": "5841edf46eb44a54165846d6bd489b3d5e85db81b2c8032b57f2b2fdf28af1f8"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/art-v3-r5-model.json",
+      "bytes": 17281,
+      "sha256": "679aafb87363e9ba04519c74c1a68d8f309c9158b5b3da679eac3b0e259cba1d"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/final-ordinary-r5.json",
+      "bytes": 16675,
+      "sha256": "50894d1251a46ecc48f011c67f7c07362bf588fe9ef1e8904bd6fcb5d74d1e78"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/final-paused-laboratory-r5.json",
+      "bytes": 14671,
+      "sha256": "62c4c5b7acbf07db397cbd1290049ca25c387911e7beb6bd3d7ee4ae2ae59837"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/shadow-geometry-matrix-r5.json",
+      "bytes": 14368,
+      "sha256": "e790a48ef99dbe1415c7394f89bf6ef6f264116f4abc8ea1a7852cc8548cd20a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/shadow-parity-r5.json",
+      "bytes": 14474,
+      "sha256": "4d48a4c56ff1517b70e3219a5f09c0c815128a1ba3d8cc991d123a0f1c94775f"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/source-environment-corrected-sun.json",
+      "bytes": 14452,
+      "sha256": "db02287c90f66dc055d9a14285c382cbe21527de4d5e30588c25c068108b08b9"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/sun-direction-green.json",
+      "bytes": 14414,
+      "sha256": "deb15320c39cd85a7771c5874fb17428bd18201b867e19c6a9eeb8ca478639eb"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r5/weather-corrected-sun.json",
+      "bytes": 15266,
+      "sha256": "18b2e0c553e2232b0a06cf395febb469c87c1d540435005f471d7a8d3388499a"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-26-hero-fuchuan-art.md",
+      "bytes": 1754,
+      "sha256": "0fce563ff6f15d54e511083c211fe8db649f52a36979bf6c5088f1153ca4e73e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-26-hero-fuchuan-art.md",
+      "bytes": 2289,
+      "sha256": "d5aeb012a665a06c1181a63f74217136eb1857204dd863741bfdcb92ebb3f6a4"
+    },
+    {
+      "path": "game/presentation/world/target_rigid_shadow_caster.gd",
+      "bytes": 7008,
+      "sha256": "068043972acc22fc4abd855c70eabc6b52d603425698b1fe3f12999369984e48"
+    },
+    {
+      "path": "game/research/demos/hero_fuchuan_experiment.gd",
+      "bytes": 8469,
+      "sha256": "fd85618bccf5d89dd852bf6432530a67926bddcda4909413b9607788627899b6"
+    },
+    {
+      "path": "modules/environment_engine/weather_state.gd",
+      "bytes": 21362,
+      "sha256": "9b72da3a57b5d86699fa456c305e84ec11f0f697705d1dd6b50b4db234a6a959"
+    },
+    {
+      "path": "modules/scene_engine/assets/hero_ship_provider.gd",
+      "bytes": 5372,
+      "sha256": "26eb16f769e73b3c39f6d32210e54607b6942a5e6266db421d13335a283dfd5b"
+    },
+    {
+      "path": "tests/test_hero_fuchuan_art.gd",
+      "bytes": 1568,
+      "sha256": "fc6544353e19ad684223e6bd3915689b296d8ffa232cec5f729d483471bec546"
+    },
+    {
+      "path": "tests/test_hero_shadow_geometry.gd",
+      "bytes": 4560,
+      "sha256": "6b019d0ee701c536da2964ea3c0055489e3657c1f845907f7d4c423318d58d37"
+    },
+    {
+      "path": "tests/test_target_rigid_shadow_edges.gd",
+      "bytes": 6300,
+      "sha256": "15c8a9828ecf0b66bcdcf32d30cc06990858e5de6431b006bd66ddfcad14e07c"
+    },
+    {
+      "path": "tests/test_weather_sun_direction.gd",
+      "bytes": 1565,
+      "sha256": "f831b08e3698e86f908be1600f8e1a4ac38ae2eebf4acbf38a77534e999656bc"
+    },
+    {
+      "path": "tools/blender/build_hero_fuchuan.py",
+      "bytes": 24052,
+      "sha256": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96"
+    },
+    {
+      "path": "tools/blender/build_hero_fuchuan_v3.py",
+      "bytes": 29679,
+      "sha256": "30c87a1c7fa21f7a8905089b663e3f512f40b84924b9e9383424d0265a1d193f"
+    },
+    {
+      "path": "tools/diagnose-hero-native-shadow.gd",
+      "bytes": 2998,
+      "sha256": "0707ba90e9b7e45b9072602a2c4552dc38ed30dc04e26ecbdcef5e16d3be792c"
+    },
+    {
+      "path": "tools/finalize-hero-fuchuan-art.py",
+      "bytes": 5074,
+      "sha256": "29e66a6630e84c80eff1325adb25499aa4f34dbd0779af85484b23e0f15abe65"
+    },
+    {
+      "path": "tools/measure-architecture-live.gd",
+      "bytes": 16490,
+      "sha256": "ac8d6f0d523795de02f0877a9df83fadbb2e47415ba606f59dd1e381ae9ad862"
+    },
+    {
+      "path": "tools/measure-hero-rigid-shadow.gd",
+      "bytes": 9972,
+      "sha256": "1ed3e3794da508c86118bddf60b282dbb4c958fe15b250fc0f7bce8b207617f1"
+    },
+    {
+      "path": "tools/verify-hero-shadow-gpu.gd",
+      "bytes": 3607,
+      "sha256": "5a4d4131ac73de90fa01645f7fe8e8fdaa33cfb97da83cd7fc8680c35e984908"
+    }
+  ]
+}

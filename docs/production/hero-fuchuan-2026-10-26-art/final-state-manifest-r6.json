@@ -1,0 +1,586 @@
+{
+  "schemaVersion": 1,
+  "utc": "2026-10-25T19:56:52.449252+00:00",
+  "candidate": "hero-fuchuan-v3-r6-c",
+  "status": "Integrated model refinement; full-game goal/performance incomplete",
+  "tests": [
+    {
+      "test": "tests/test_hero_fuchuan.gd",
+      "report": "r6-final-model.json",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_TESTS assertions=126 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_hero_fuchuan_art.gd",
+      "report": "r6-final-model.json",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_ART_TESTS assertions=205 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_hero_fuchuan_rig.gd",
+      "report": "r6-final-model.json",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_RIG_TESTS assertions=20 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_hero_fuchuan_textures.gd",
+      "report": "r6-final-model.json",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_TEXTURES_TESTS assertions=40 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_hero_fuchuan_water.gd",
+      "report": "r6-final-model.json",
+      "passed": true,
+      "completion": [
+        "HERO_FUCHUAN_WATER_TESTS assertions=9 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_hero_shadow_geometry.gd",
+      "report": "r6-final-shadow.json",
+      "passed": true,
+      "completion": [
+        "HERO_SHADOW_GEOMETRY_TESTS assertions=227 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_ship_book.gd",
+      "report": "r6-final-ship-book.json",
+      "passed": true,
+      "completion": [
+        "SHIP_BOOK_TESTS assertions=832 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_laboratory_host.gd",
+      "report": "r6-final-laboratory.json",
+      "passed": true,
+      "completion": [
+        "LABORATORY_HOST_TESTS assertions=37 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_ordinary_natural_duel.gd",
+      "report": "r6-final-ordinary.json",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_DUEL_TESTS assertions=25 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_ordinary_natural_fleet.gd",
+      "report": "r6-final-ordinary.json",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_FLEET_TESTS assertions=34 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_ordinary_natural_sail.gd",
+      "report": "r6-final-ordinary.json",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_SAIL_TESTS assertions=34 failures=0"
+      ]
+    },
+    {
+      "test": "tests/test_ordinary_natural_trial.gd",
+      "report": "r6-final-ordinary.json",
+      "passed": true,
+      "completion": [
+        "ORDINARY_NATURAL_TRIAL_TESTS assertions=13 failures=0"
+      ]
+    }
+  ],
+  "gpu": {
+    "controlledFrames": 257,
+    "rawFrameHashesVerified": true,
+    "shadowFailures": 0
+  },
+  "contractScope": "All original frames and undeclared geometry unchanged; deck joints deliberately narrower.",
+  "performance": {
+    "enginePhysicsMonitorMs": {
+      "count": 412,
+      "mean": 4.64464805825242,
+      "median": 4.601,
+      "p95": 6.051,
+      "p99": 6.053,
+      "worst": 6.053
+    },
+    "engineProcessMonitorMs": {
+      "count": 412,
+      "mean": 68.5336019417475,
+      "median": 67.336,
+      "p95": 74.803,
+      "p99": 96.632,
+      "worst": 96.632
+    },
+    "intervalMs": {
+      "count": 412,
+      "mean": 72.9458058252426,
+      "median": 72.268,
+      "p95": 80.101,
+      "p99": 86.032,
+      "worst": 107.993
+    },
+    "observedFps": 13.7088073630404,
+    "physicsSteps": {
+      "count": 412,
+      "mean": 4.37864077669903,
+      "median": 4.0,
+      "p95": 5,
+      "p99": 5,
+      "worst": 5
+    },
+    "renderSetupCpuMs": {
+      "count": 412,
+      "mean": 1.47607766990291,
+      "median": 1.394,
+      "p95": 1.93,
+      "p99": 2.331,
+      "worst": 2.837
+    },
+    "renderTimes": [
+      {
+        "cpuMs": {
+          "count": 412,
+          "mean": 4.84741019681819,
+          "median": 4.59999990463257,
+          "p95": 6.54300022125244,
+          "p99": 7.92199993133545,
+          "worst": 8.16499996185303
+        },
+        "gpuMs": {
+          "count": 412,
+          "mean": 27.40328638299,
+          "median": 27.0900001525879,
+          "p95": 30.3929996490479,
+          "p99": 34.273998260498,
+          "worst": 43.1879997253418
+        },
+        "name": "main",
+        "path": "/root",
+        "role": "main"
+      },
+      {
+        "cpuMs": {
+          "count": 412,
+          "mean": 1.52932281343682,
+          "median": 1.41449999809265,
+          "p95": 2.27699995040894,
+          "p99": 2.48000001907349,
+          "worst": 3.42899990081787
+        },
+        "gpuMs": {
+          "count": 412,
+          "mean": 2.77870387851613,
+          "median": 2.69249999523163,
+          "p95": 4.05499982833862,
+          "p99": 4.92600011825562,
+          "worst": 6.30800008773804
+        },
+        "name": "ReferencePlanarReflection",
+        "path": "/root/@Node@2/@Node3D@350/@Node3D@351/@Node3D@355/Ocean/IntegratedReferenceWater/ReferencePlanarReflection",
+        "role": "reflection"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "assets/models/hero_fuchuan_v3_r6/fuchuan-lod0.glb",
+      "bytes": 19743440,
+      "sha256": "8c3063c2c18a5c0e413cb502bb42e0458ea6ee1209b6bdc6d847e3fe5ee91fc7"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3_r6/fuchuan-lod1.glb",
+      "bytes": 17113548,
+      "sha256": "fc8e9199ef9fa6f5160ebcd190f180fcaf11b3f83db9da3fb621ed9c17e2c62d"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3_r6/fuchuan-lod2.glb",
+      "bytes": 15839596,
+      "sha256": "89d060fcfe05b4db591e0395b1e7a1ae0f211814185e27d3b0ecfcf440e68b52"
+    },
+    {
+      "path": "assets/models/hero_fuchuan_v3_r6/manifest.json",
+      "bytes": 1673,
+      "sha256": "83a88063768594cf40b93f11ae2768d3ead2af515c782c949fb05238164fbeef"
+    },
+    {
+      "path": "assets/production/hero-fuchuan-blender/README.md",
+      "bytes": 3535,
+      "sha256": "3b89fa0405ffc2f788000ce241042434f2be22b76f9017cdbc8eb06e66ced726"
+    },
+    {
+      "path": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r6.blend",
+      "bytes": 15465022,
+      "sha256": "691005a1a4ca8c696c8d7d2f8cb70f4323b38d2cd39c77db985fd4bdec302ff3"
+    },
+    {
+      "path": "assets/research/papers/hero-fuchuan.md",
+      "bytes": 13580,
+      "sha256": "9ea8a7700e06bc0dca5552bb20963483a58d14f7b8538176eb2036c87ecf0d68"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/R6-DELIVERY.md",
+      "bytes": 5322,
+      "sha256": "64683403b35c9f7866063a29ac9c4e3be08d799d000a30d421a4292f1c03b80c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/deck-joints-r6-b/joints-000mm.png",
+      "bytes": 203833,
+      "sha256": "2433460a0d07a52b3e248b63c98112f49edd96334099696f45caf0cd6bf3b09c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/deck-joints-r6-b/joints-004mm.png",
+      "bytes": 204780,
+      "sha256": "d706610bd2347ae13c7ac2a781622e2a07423d95e6418d775433ebbd17776d65"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/deck-joints-r6-b/joints-016mm.png",
+      "bytes": 209156,
+      "sha256": "fa475d4116656c2dcf2ef1483a613b9946da69ceabf4126fc17a41b1b894a54a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/deck-joints-r6-b/manifest.json",
+      "bytes": 680,
+      "sha256": "bf0d3d4fafc3f924dc49541a217840941e64d0979fffc61f2ee2453dd3d1a13f"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/cloth-detail.png",
+      "bytes": 515757,
+      "sha256": "484ff77dabf8d67b554fc64476d5fe7a194d1e2cf84ca3eae935df822ec5d358"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/full-sail.png",
+      "bytes": 282527,
+      "sha256": "f112323de8589824496fc9abb0c6a703370a33d4f21ac89cc842777325efcf6b"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/hull-guns-detail.png",
+      "bytes": 1554871,
+      "sha256": "c838c44cb1e9587abaaaeb5d9360d8f020016e0a57cf5899e604845017dfa6b0"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/manifest.json",
+      "bytes": 292333,
+      "sha256": "5c2b946793c7b909e5cfa4a2025ff7d3a4627a835dd9ae3bf47f77ad7ccc25db"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/reverse-light.png",
+      "bytes": 365822,
+      "sha256": "e8a04abe82fda7d1837c2ba25696b4dcd5379d9f8c7197a2d944c13b86481842"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sail-health-30.png",
+      "bytes": 322905,
+      "sha256": "0a89c9a24fd5f0223a1ae06abebff018cc62658de4e5a3a5a393728829ba3289"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sail-health-60.png",
+      "bytes": 310613,
+      "sha256": "5dfc72e58554a567bc20a00b1d619549a8260e0604847992c4150c01560428cc"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sail-health-80.png",
+      "bytes": 307143,
+      "sha256": "2c6922594ffacfadb19ced13c5ebcfcc51818c83b00d16f1efda134fe1739539"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sequence-000.png",
+      "bytes": 261411,
+      "sha256": "791969868865f4760fde35f9cad09eaac0fc88ee10dee6f13bffc629ebcbb1bf"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sequence-064.png",
+      "bytes": 282967,
+      "sha256": "77853b917b15a9788524133080120bafe59217be0ffc0e04783d665161902cb6"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sequence-128.png",
+      "bytes": 251786,
+      "sha256": "529f513ef0f81eeed0d8688ff4336ca061e504b8d44bb240eb1f65c35e9224f0"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sequence-192.png",
+      "bytes": 203242,
+      "sha256": "41f5b669e82e9c44533bf5b73d9fdda424fc396877195c230c5d139181de979c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/sequence-256.png",
+      "bytes": 281458,
+      "sha256": "38245bf30523b6e41dfc825813052e95c5c4cfb2af0884506a885912bd5f572a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/gpu-r6-c/stern-deck-detail.png",
+      "bytes": 727728,
+      "sha256": "53037549fd8e2a9b3685aca40c75ecb3f46557e0e7ca3f4f47ddecdc8d81dde0"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/hero-rig-v3-r6-c.mp4",
+      "bytes": 2059510,
+      "sha256": "d3fef950edbcd1a22b1ab8fb662e3659a9e5707e2c4537e911b2f3a2ca4b8879"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/00-main-menu.png",
+      "bytes": 121112,
+      "sha256": "61d728c1b29d4cd0ee0dce68d0b510a5d769bf96c9b5ae9b97031bd96949e6d7"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/01-duel-before-fire.png",
+      "bytes": 69269,
+      "sha256": "7b03615a93ffaf09fc28cbcf9209a42d83fcc6fd10298f1ec425f62ad882600f"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/02-duel-fired.png",
+      "bytes": 71032,
+      "sha256": "af23edf18d58be73a31fe4d0c1408912a7a99146d72d6f87f406bdde421415a5"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/03-duel-paused.png",
+      "bytes": 68726,
+      "sha256": "26f3348d8c024d65a8f8afac51e4e89c8baaaffa5019f4e4332681639e4c4c4e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/04-full-sail.png",
+      "bytes": 70675,
+      "sha256": "585b129bb9c69ca06f706e282f50d95af8b9c88ec12d45fb3ee1d7ce1b9aeafd"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/05-course-change.png",
+      "bytes": 75078,
+      "sha256": "6699b2ea23f16c22f5b22f114816305b9f73270ff2ad8202cf667f765fe5ecde"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/06-reef41.png",
+      "bytes": 63955,
+      "sha256": "b85c91337bffc77e66df181da83845d36012ca50017619b2c52835ffc9a26807"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/07-stopped.png",
+      "bytes": 62028,
+      "sha256": "84d2f28515763680752a3437ddde097ff1f97363d218d9d52b6dd3e72fd81757"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/08-pause-confirmed.png",
+      "bytes": 61970,
+      "sha256": "41cd55f786d90dc18a863a4cc29b0f9a498c964653179a14de2756a53c73cb9f"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/native-play-r6/observations.json",
+      "bytes": 4513,
+      "sha256": "8d354d243ea9bbfafdb8fa78fba6ee0988122be4495cfe19705660a30a1e2a11"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/perf-r6-c/live-observation.json",
+      "bytes": 1540229,
+      "sha256": "671c601550f4d314bb9e35a6f9b3340d47a4c6a6cc9001577c7d387d51cb250e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/perf-r6-c/sail-after-observation.png",
+      "bytes": 1468682,
+      "sha256": "243288eeddc5887eb2a1227345d9d6fa049ce1adf92f6289b1ab8bb80d916d06"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-a-art-review.md",
+      "bytes": 3754,
+      "sha256": "adcc792991bfb5a0183f2cbaa8aaa47bffc5d930a7ce184465a0e444fc7600a1"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-art-brief.md",
+      "bytes": 5121,
+      "sha256": "eb057c995d0e7cd5a91c142ca5c5d25807b3e4f914e09358f914c5eb460112fb"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-b-art-review.md",
+      "bytes": 3245,
+      "sha256": "48026381b86601edb0d120d133ae76c22b5e4eb7013624d393f770e31cf0af29"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-c-contract-audit.json",
+      "bytes": 327308,
+      "sha256": "ed48f0e621e1075ba53c37d397031919ebf22382ccb54aba174df73809825547"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-glb-contract-audit.json",
+      "bytes": 327016,
+      "sha256": "02bb16b99b6889cc600de3ba05ecd253f8b5f6f62c386848460092f1ac9427d0"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/r6-technical-review.md",
+      "bytes": 4565,
+      "sha256": "d6965f0552eb84574be2bccc544c5ccee2ff196162ce6028d577f60624945ff7"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/authored-000.png",
+      "bytes": 286751,
+      "sha256": "96dfa997e56f9cc1f26e6f7b7268c2fafff0681ff88cd87255b8cd87cb43a1b4"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/authored-032.png",
+      "bytes": 262142,
+      "sha256": "44e264e25171a6d9959575f827d32720c033778f4144cc8889e137e167c1bbf7"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/authored-064.png",
+      "bytes": 229974,
+      "sha256": "3a19570963b7f3d84f3acee45f6bbedea909f4afbf646f9925415c5b49f59b1c"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/authored-reverse.png",
+      "bytes": 294463,
+      "sha256": "2f939c86f31f94d86c4629ec6de6c962e8799a68f6aff02f5041d1e0b21d8a9e"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/manifest.json",
+      "bytes": 17886,
+      "sha256": "8050c8726229271127cc81b0622b9eab6ee1d75868d4e4409a3caa3e37e9031a"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/visible-000.png",
+      "bytes": 298037,
+      "sha256": "e21582d6331377a2408ac928edb0ca4fa96f5ae69863ebab5c29c6e7e215deca"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/visible-032.png",
+      "bytes": 272770,
+      "sha256": "1cc768360ffaf866bb97ae2bd359003ce17ed2ade2114e9cd770e8a7facbc961"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/visible-064.png",
+      "bytes": 238402,
+      "sha256": "8b1a706c691ddcbd58ff332aaa6b0201f40dba2386a3f99c46f4920c2b01f748"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/shadow-gpu-r6-c/visible-reverse.png",
+      "bytes": 302656,
+      "sha256": "ad0d81dd4f1a87283a0677021a32cec6b842f362dd6fbe1c525b501ea1a5af52"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r6-c/blender-hero.png",
+      "bytes": 2155741,
+      "sha256": "f9254da671db15cbf75cd2abdd5bd65e3b51ea1816c4ebe2b8608ea46d0cb6f3"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r6-c/deck-detail.png",
+      "bytes": 2853079,
+      "sha256": "428782e1aee04e6c33de9927dff74cac170cf81194130860d8731f896ae2a450"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r6-c/side-profile.png",
+      "bytes": 2200873,
+      "sha256": "caa9a3187fedcd129fc4502f3a345421f2cb24ef7d7d47d298cedc954ff8fd75"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/v3-r6-c/stern-quarter.png",
+      "bytes": 2109959,
+      "sha256": "eecfce1b0355aacd02ea53ecfe8cc1c0328d8bdea157ef5bf1a58e7d48c7cc46"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r6/r6-final-laboratory.json",
+      "bytes": 14671,
+      "sha256": "7942c1764a7053e24a5543ba62c60724042c1f9e8903ee260f2074ab473257c7"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r6/r6-final-model.json",
+      "bytes": 17324,
+      "sha256": "f45be1b37c2e46df3062f453822bc34f83d6837c6812c255ad879dc3bc4d003d"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r6/r6-final-ordinary.json",
+      "bytes": 16675,
+      "sha256": "16adb4023f1c87d2d20ceeadbe0d323ead73dbac0685c54183574db96820de45"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r6/r6-final-shadow.json",
+      "bytes": 14412,
+      "sha256": "94c422e200722de00774fa7e6cb02273bd6e278a166e26c84b3a06c01c2df9f8"
+    },
+    {
+      "path": "docs/production/hero-fuchuan-2026-10-26-art/verification-final-r6/r6-final-ship-book.json",
+      "bytes": 14357,
+      "sha256": "1c930dcc422ab4af81cef009549a64ee728a8aba162065535b3c7f948e8577cf"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-26-hero-fuchuan-art.md",
+      "bytes": 3497,
+      "sha256": "37d90501e8c34604b7b7090a0596fd1a2b25afd7cf505c4e628ff9869fb4bcb4"
+    },
+    {
+      "path": "game/research/demos/hero_fuchuan_experiment.gd",
+      "bytes": 8577,
+      "sha256": "54e85dbe872b5b72bf197c97b45fda10dca648cf05581131ebee3cb0273dc07f"
+    },
+    {
+      "path": "modules/scene_engine/assets/hero_ship_provider.gd",
+      "bytes": 5753,
+      "sha256": "4276660db248f37fa473d295ce54d78ebac15a74f39b96dfc59f2b270374662e"
+    },
+    {
+      "path": "tests/test_hero_fuchuan_art.gd",
+      "bytes": 5399,
+      "sha256": "1b8ffd5a244ce18459269cefa8087db04846d756423481078ba074d8fc13a1f1"
+    },
+    {
+      "path": "tests/test_hero_shadow_geometry.gd",
+      "bytes": 4563,
+      "sha256": "dcb2d2675634d0a852df26474f9fdbcc23b9a1c754d0a1aa8a3a448f04bf67b2"
+    },
+    {
+      "path": "tests/test_ship_book.gd",
+      "bytes": 28859,
+      "sha256": "1902c9cbc897ee921a599e7ab2b93fba9d37446d586ec29df74a67e9769069f0"
+    },
+    {
+      "path": "tools/blender/build_hero_fuchuan.py",
+      "bytes": 24052,
+      "sha256": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96"
+    },
+    {
+      "path": "tools/blender/build_hero_fuchuan_v3.py",
+      "bytes": 36083,
+      "sha256": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3"
+    },
+    {
+      "path": "tools/diagnose-hero-deck-joints.gd",
+      "bytes": 2533,
+      "sha256": "3e726ccef2903702ec3474e9458cabccc933f7418341938fb2840b5ac67882c1"
+    },
+    {
+      "path": "tools/finalize-hero-fuchuan-refinement.py",
+      "bytes": 4586,
+      "sha256": "4de23c58904d9cacf6a1f68c8253deafa5ebb245d213aadfb0589b40856e71f2"
+    },
+    {
+      "path": "tools/research/audit_hero_fuchuan_glb.py",
+      "bytes": 8440,
+      "sha256": "aeb310ada8c429838d834047a6ba31e63eb9a4c3cd91fe13fc4ccdb901c6cf5d"
+    },
+    {
+      "path": "tools/verify-hero-fuchuan-gpu.gd",
+      "bytes": 5149,
+      "sha256": "ac89df6aeb48bf82e73e8557626ae48ddbfa4910d9f5a793c8e41ee3b088ff8c"
+    },
+    {
+      "path": "tools/verify-hero-shadow-gpu.gd",
+      "bytes": 3705,
+      "sha256": "aba5368302281073b36a4a73eaa4c194c24bc5f920d262e60c2a43fadf746c08"
+    }
+  ],
+  "limitations": [
+    "Controlled video is not native gameplay recording",
+    "No full-suite rerun",
+    "Aft windows are closed dark panes",
+    "Blade projected area reduced about6.05%; simulation unchanged",
+    "Full game performance, sea/island atmosphere and broader gameplay remain unfinished"
+  ]
+}

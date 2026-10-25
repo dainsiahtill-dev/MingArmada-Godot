@@ -4,8 +4,17 @@ const Library=preload("res://modules/scene_engine/assets/asset_library.gd")
 const Reference=preload("res://modules/scene_engine/assets/ship_model_provider.gd")
 const PATHS=["res://assets/models/hero_fuchuan/fuchuan-lod0.glb","res://assets/models/hero_fuchuan/fuchuan-lod1.glb","res://assets/models/hero_fuchuan/fuchuan-lod2.glb"]
 const VINTAGE_PATHS=["res://assets/models/hero_fuchuan_v2/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v2/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v2/fuchuan-lod2.glb"]
+const ART_PATHS=["res://assets/models/hero_fuchuan_v3/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v3/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v3/fuchuan-lod2.glb"]
+const REFINED_PATHS=["res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod2.glb"]
 var _vintage:=false
-func _init(variant:String="vintage")->void:_vintage=variant=="vintage"
+var _art:=false
+var _refined:=false
+var _authored_shadows:=false
+func _init(variant:String="art_r6",authored_shadows:bool=true)->void:
+	_refined=variant=="art_r6"
+	_art=variant in ["art","art_r6"]
+	_vintage=variant in ["vintage","art","art_r6"]
+	_authored_shadows=authored_shadows
 # Existing fuchuan water-effect coordinate adapter from ships-manifest.json.
 # Mesh/marker units remain metres; the legacy effect history is in source units.
 const WATER_EFFECT_UNIT:=0.021353528480495498
@@ -21,14 +30,15 @@ func instantiate_ship(kind:String,lod:int,library:RefCounted=null)->Node3D:
 		var reference:Node3D=Reference.for_library(owner).instantiate_ship(kind,lod,owner)
 		if owns:owner.dispose()
 		return reference
-	var paths:Array=VINTAGE_PATHS if _vintage else PATHS
+	var paths:Array=REFINED_PATHS if _refined else ART_PATHS if _art else VINTAGE_PATHS if _vintage else PATHS
 	var model:Node3D=owner.instantiate_model(paths[lod])
 	if owns:owner.dispose()
 	if model==null:return null
 	model.set_meta("source_family","hero_fuchuan")
 	model.set_meta("source_kind","hero_fuchuan")
 	model.set_meta("source_path",paths[lod])
-	model.set_meta("texture_style","imagegen_vintage_v2" if _vintage else "procedural_v1")
+	model.set_meta("texture_style","art_v3_imagegen" if _art else "imagegen_vintage_v2" if _vintage else "procedural_v1")
+	if _art:model.set_meta("art_revision",6 if _refined else 5)
 	model.set_meta("model_origin","blender_authored")
 	model.set_meta("game_kind",kind)
 	model.set_meta("lod_policy","authored_geometry_lods")
@@ -36,15 +46,25 @@ func instantiate_ship(kind:String,lod:int,library:RefCounted=null)->Node3D:
 	model.set_meta("source_water_markers",{"sourceToWorld":1.0,"effectSourceToWorld":WATER_EFFECT_UNIT,"sourceResourceName":"hero_fuchuan","wake":{"id":"water_wake","position":[0,15.6,0]},"bow":{"id":"water_bow","position":[0,-15.4,0]}})
 	for node:Node3D in model.find_children("*","Node3D",true,false):
 		var label:=String(node.name)
+		if label.begins_with("shadow_") and node is MeshInstance3D:
+			node.visible=false
+			node.set_meta("hero_shadow_resource",true)
+			continue
 		if label=="deck":node.set_meta("deck_support",true)
 		if label=="hull" or label=="deck" or label.begins_with("mast_timber_"):
 			node.set_meta("target_rigid_shadow_caster",true)
+			if _art and _authored_shadows:
+				var proxy:=node.get_parent().get_node_or_null("shadow_"+label) as MeshInstance3D
+				if proxy!=null and proxy.mesh!=null and proxy.transform.is_equal_approx(node.transform):
+					# Keep visibility, animation frame and native-shadow fallback on
+					# the full component. Only the stencil input resource differs.
+					node.set_meta("target_shadow_geometry",proxy.mesh)
 		if label=="hull":node.set_meta("damage_surface","hull")
 		if label.begins_with("sail_"):
 			node.set_meta("damage_surface","sail")
 			node.set_meta("source_sail_control","authored_blender_morph")
 		if label.begins_with("mast_") and label.trim_prefix("mast_").is_valid_int():node.set_meta("sail_trim_origin",0.0)
-		if label=="sterncastle" or label.begins_with("cargo_hold_"):node.set_meta("deck_obstacle",true)
+		if label in ["sterncastle","stern_transom"] or label.begins_with("cargo_hold_"):node.set_meta("deck_obstacle",true)
 		if label.begins_with("rigging_") and label.trim_prefix("rigging_").is_valid_int():node.set_meta("authored_mast_index",int(label.trim_prefix("rigging_")))
 		if label.begins_with("socket_smoke_"):
 			var frame:=Transform3D.IDENTITY

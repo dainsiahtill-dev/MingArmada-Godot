@@ -1,5 +1,9 @@
 # 天气、云与云影：源状态推进和目标场景适配
 
+2026-10-26 H5（修复前声明）：hero-fuchuan原生验收发现健康帆面被船壳向上投影。`Daylight.light_direction(position,target)` 返回光线传播向量；WeatherState只换轴后将其命名target.direction，而WorldView把该字段视为指向太阳，调用looking_at(-direction)。冻结正式入口实测正午发光方向Y=+0.698182，符号反了。对照保存于docs/production/hero-fuchuan-2026-10-26-art/native-shadow-isolation-r5-a；并非先前代理CPU/正面GPU测试能覆盖的缺陷。修复候选仅在源→目标adapter将方向取负并换轴，原sourceLightFields、天气/RNG/颜色不变。接受项：发光方向与源传播向量换轴后dot>0.999999；海面towardSun与发光方向相反；独立hero-fuchuan实验保留旧方向与修正方向同镜头GPU对照，帆不再受船底向上遮挡；随后普通正式入口回归。依据：[Godot DirectionalLight3D -Z发光约定](https://docs.godotengine.org/en/stable/classes/class_directionallight3d.html)。当前尚未修正或通过。
+
+H5执行结果（2026-10-26）：test_weather_sun_direction先复现3/5失败，修正Weather目标公式[-x,-z,+y]后5/5通过，source_weather与retention、source_environment_consumers以及四个ordinary_natural正式入口定向回归通过。独立hero-fuchuan实验source_legacy/source_corrected保留同源字段，仅反目标符号，GPU旧方向出现船体/索具向上遮帆，新方向正反视角消除异常。冻结实际正式场景修后worldLight=(-.502184,-.698182,-.510249)向下；原生操作最终healthy帆与收放帆也已复验。全部原始图和日志在docs/production/hero-fuchuan-2026-10-26-art/，最终交付记录为DELIVERY.md。本修复未触及源Daylight数学、源天气、RD深度比较或模型winding。
+
 > 2026-10-14 CPU候选（实现前声明）：`profile-world-components.gd`沿普通sail入口，用完整`sea._world_packet(native)`与当前World调用次序测32个新接受时间，headless atmosphere p50 22.712ms、naturalShore16.259ms。旧diagnose工具只传time，走无环境包fallback，不用于本候选归因。独立内部计时40步：TRS compose243481us，scalar sample108779us，minimumZ17851us；包含计时开销，父子不得相加。完整原始数据`Temp/world-components-baseline-20261014.json`及`Temp/world-components-detail-20261014.json`。1704岸浪短片、30云clone/161mesh、6雾/120mesh和3天气实例/45mesh保持。
 >
 > 单因子H5：云层TRS矩阵的9元素GDScript循环重复动态取值/调用；等价展开表达式，并用PackedFloat32Array一次执行同序二进制32位结果存储，可降低CPU而保持每个输出字节。接受：先独立kernel比对旧Compiler及Native，覆盖实际6资源、非单位矩阵/负数/零/极端量级、输出持有和调用者修改隔离；同数据多轮微基准中位数下降，原始样本保留。若不降速或任何位差，不接生产。再通过旧renderer的完整资源/暂停/epoch/rewind/cache回归接线，root复拍GPU。禁止省略任何矩阵项、合并改变舍入次序、减少云/雾/岸浪数量或更新频率。基线hash见`docs/research/evidence/weather-transform/20261014/baseline-hashes.json`。这是CPU候选，不是FPS结论。
