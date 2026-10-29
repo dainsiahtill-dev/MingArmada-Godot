@@ -40,6 +40,8 @@ var _hull_controls: HFlowContainer
 var _step_button: Button
 var _notice: Label
 var _demo_revision := 0
+var _dashboard_presentation := false
+var _compact_clock: Label
 
 func _ready() -> void:
 	_build_ui()
@@ -107,15 +109,18 @@ func start_demo(options: Dictionary = {}) -> Dictionary:
 	if _topic_options.has(_selected): _demo_options = _topic_options[_selected].duplicate(true)
 	elif candidate.has_method("get_default_options"): _demo_options = candidate.get_default_options()
 	else: _demo_options = {"kind":"fuchuan","scenario":"cruise","camera_mode":"side","paused":false,"contact_enabled":true,"carrier_extent":1200.0}
-	_demo_options.merge(options,true)
+	if candidate.has_method("prepare_start_options"): _demo_options = candidate.prepare_start_options(_demo_options,options)
+	else: _demo_options.merge(options,true)
 	var configured: Dictionary = candidate.configure(_demo_options)
 	if not configured.ok: candidate.free(); return _demo_failure(configured.get("reason","实验初始化失败"))
 	_viewport.add_child(candidate)
 	var ready: Dictionary = candidate.inspection_snapshot()
 	if not ready.get("ready",false): candidate.dispose(); candidate.free(); return _demo_failure("实验场景构建失败")
 	_demo = candidate
+	if ready.has("parameters"): _demo_options = ready.parameters.duplicate(true)
 	_demo_revision += 1
 	_reader_body.hide(); _reference_body.hide(); _demo_body.show()
+	_set_demo_presentation(str(ready.get("presentation", "scene")))
 	_demo_body.scroll_vertical = 0
 	_hull_controls.visible = _selected == "hull-contact"
 	_parameter_panel.visible = _selected != "hull-contact"
@@ -151,6 +156,20 @@ func _close_demo() -> void:
 		_demo.dispose(); _demo.free()
 	_demo = null
 	if is_instance_valid(_demo_body): _demo_body.hide()
+	_set_demo_presentation("scene")
+
+func _set_demo_presentation(presentation: String) -> void:
+	# Dashboards already own their reading surface and live metrics. Recover
+	# height by hiding duplicate paper context, without enlarging the viewport
+	# beyond the window or changing the layout of existing 3D experiments.
+	_dashboard_presentation = presentation == "dashboard"
+	if is_instance_valid(_viewport): _viewport.transparent_bg = _dashboard_presentation
+	for control: Control in [_summary, _status, _stats]:
+		if is_instance_valid(control): control.visible = not _dashboard_presentation
+	var principle := find_child("ResearchPrinciple", true, false) as Control
+	if is_instance_valid(principle): principle.visible = not _dashboard_presentation
+	if is_instance_valid(_compact_clock): _compact_clock.visible = _dashboard_presentation
+	if is_instance_valid(_notice): _notice.visible = not _dashboard_presentation or not _notice.text.is_empty()
 
 func _change_case(index: int) -> void:
 	_reset_demo({"scenario":CASES[index]})
@@ -168,6 +187,10 @@ func _reset_demo(overrides: Dictionary = {}) -> void:
 	_demo_options.merge(overrides,true)
 	var state: Dictionary = _demo.inspection_snapshot()
 	if state.has("parameters"): _demo_options = state.parameters.duplicate(true)
+	_set_demo_presentation(str(state.get("presentation", "scene")))
+	var specs: Array = _demo.control_spec() if _demo.has_method("control_spec") else []
+	var rebound: Dictionary = _parameter_panel.bind_specs(specs)
+	if not rebound.ok: _close_demo(); _demo_failure(rebound.reason); return
 	_demo_revision += 1
 	_sync_controls()
 	_update_telemetry()
@@ -190,15 +213,16 @@ func _experiment_step() -> float:
 	var step: Variant = snapshot.get("fixed_step",1.0/32.0)
 	return float(step) if (step is float or step is int) and is_finite(float(step)) and float(step)>0.0 and float(step)<=1.0 else 1.0/32.0
 
-func _change_parameter(id: String,value: Variant) -> void:
-	if _disposed or not is_instance_valid(_demo) or not _demo.has_method("set_parameter"): return
+func _change_parameter(id: String,value: Variant) -> Dictionary:
+	if _disposed or not is_instance_valid(_demo) or not _demo.has_method("set_parameter"): return {"ok":false,"reason":"实验尚未就绪"}
 	var changed: Dictionary = _demo.set_parameter(id,value)
 	if not changed.get("ok",false):
-		_notice.text = "参数未修改："+changed.get("reason","输入无效"); _sync_controls(); return
+		_notice.text = "参数未修改："+changed.get("reason","输入无效"); _sync_controls(); return changed
 	_demo_options[id] = changed.get("value",value)
 	_demo_revision += 1
 	if changed.get("reset_required",false): _reset_demo({id:_demo_options[id]}); _notice.text = "此参数需重建实验，已按相同初态重置。"
 	else: _sync_controls(); _update_telemetry()
+	return changed
 func _toggle_contact(enabled: bool) -> void:
 	_demo_options.contact_enabled = enabled
 	if is_instance_valid(_demo): _demo_revision += 1; _demo.set_contact_enabled(enabled); _update_telemetry()
@@ -212,6 +236,10 @@ func _process(delta: float) -> void:
 func _update_telemetry() -> void:
 	if not is_instance_valid(_demo): return
 	var receipt: Dictionary = _demo.inspection_snapshot()
+	if _dashboard_presentation:
+		_compact_clock.text = "%.1f 秒 · %d 步" % [float(receipt.get("time", 0)), int(receipt.get("tick", 0))]
+		_notice.visible = not _notice.text.is_empty()
+		return
 	if _selected != "hull-contact":
 		_stats.text = "实验时间 %.2f s · 步 %d · %s\n%s\n右键环绕 / 滚轮缩放；暂停后可单步观察。" % [float(receipt.get("time",0)),int(receipt.get("tick",0)),"已暂停" if receipt.get("paused",false) else "运行中",_telemetry_text(receipt)]
 		return
@@ -245,6 +273,8 @@ func _telemetry_text(receipt: Dictionary) -> String:
 
 func _view_input(event: InputEvent) -> void:
 	if not is_instance_valid(_demo): return
+	# Native dashboard controls own scrolling; there is no camera to zoom.
+	if _dashboard_presentation: return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT: _dragging = event.pressed
 		elif event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
@@ -267,7 +297,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func inspection_snapshot() -> Dictionary:
-	return {"startup":startup_receipt.duplicate(true),"topic_count":_catalog.topics().size(),"selected_topic":_selected,"disposed":_disposed,"parameters":_demo_options.duplicate(true),"demo":_demo.inspection_snapshot() if is_instance_valid(_demo) else {},"scope":"Research papers and isolated demonstrations; no campaign save/settings writes."}
+	return {"startup":startup_receipt.duplicate(true),"topic_count":_catalog.topics().size(),"selected_topic":_selected,"disposed":_disposed,"presentation":"dashboard" if _dashboard_presentation else "scene","parameters":_demo_options.duplicate(true),"demo":_demo.inspection_snapshot() if is_instance_valid(_demo) else {},"scope":"Research papers and isolated demonstrations; no campaign save/settings writes."}
 
 func _save_demo() -> void:
 	var saved: Dictionary = await save_experiment_frame()
@@ -358,6 +388,7 @@ func _build_ui() -> void:
 	_step_button = _button(controls,"StepExperiment","单步 1/32 秒"); _step_button.pressed.connect(func(): step_demo())
 	_button(controls,"ResetExperiment","同条件重置").pressed.connect(_reset_demo)
 	_button(controls,"SaveExperiment","保存截图与参数").pressed.connect(_save_demo)
+	_compact_clock = _label(controls,"DashboardClock","",15); _compact_clock.hide()
 	var container := SubViewportContainer.new(); container.name = "ExperimentView"; container.stretch = true
 	container.custom_minimum_size.y = 200; container.mouse_force_pass_scroll_events = false
 	container.size_flags_vertical = Control.SIZE_EXPAND_FILL; container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; demo_content.add_child(container)

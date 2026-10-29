@@ -8,7 +8,7 @@ const LegacyRuntime = preload("res://game/runtime/legacy_runtime.gd")
 const Menu = preload("res://game/ui/menu/main_menu.gd")
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa","ships","laboratory","practice","water-study","fidelity-island","fidelity-source"]
+const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","fire","sail","qa","world-atlas","ships","laboratory","practice","water-study","fidelity-island","fidelity-source"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 var generation := 1
 var mingqi_storage: RefCounted
@@ -142,8 +142,9 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 			if not result.get("ok",false): return result
 			node = result.get("scene")
 		elif result is Node: node = result
-	elif mode in ["duel","fleet","sail","laboratory"]:
-		var resource = load("res://game/research/laboratory.gd" if mode == "laboratory" else "res://game/scenes/naval_practice/naval_practice.gd")
+	elif mode in ["duel","fleet","fire","sail","laboratory","world-atlas"]:
+		var script_path: String = {"laboratory":"res://game/research/laboratory.gd","world-atlas":"res://game/ui/charts/world_atlas.gd"}.get(mode,"res://game/scenes/naval_practice/naval_practice.gd")
+		var resource = load(script_path)
 		if resource is GDScript: node = resource.new()
 	if not node: return _no("entry-resource-unavailable")
 	for property in node.get_property_list():

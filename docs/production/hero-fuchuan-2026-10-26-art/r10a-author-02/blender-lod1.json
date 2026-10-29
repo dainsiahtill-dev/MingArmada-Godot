@@ -1,0 +1,80 @@
+{
+  "scope": "Blender-authored sail-only candidate; raw GLB non-sail components are LOD0, not shippable",
+  "lod": 1,
+  "coefficient": 0.06,
+  "sourceBlend": "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r7c.blend",
+  "baselineSources": {
+    "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r7c.blend": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod0.glb": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod1.glb": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod2.glb": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+    "tools\\blender\\build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "tools\\blender\\build_hero_fuchuan.py": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96",
+    "tools\\blender\\hero_r10_sail_formula.py": "3610911ead7eb0d0b96738c09a08bd040ae27b952bb6ed86bb756cd16bc668d9",
+    "tools\\blender\\build_hero_fuchuan_r10a.py": "4d5b65bcad69f5b8e59f9ba820239acce40625239e87b5e21339dccff08c8b86"
+  },
+  "sourceUnchanged": true,
+  "candidateRaw": "Temp\\hero-fuchuan-r10a\\r10a-author-02\\fuchuan-lod1.glb",
+  "candidateRawSha256": "6d79e1c879a1d97fe3482f62371f91b1b3b65ba3a681114554e0ef899ed65d50",
+  "candidateBlend": null,
+  "candidateBlendSha256": null,
+  "sails": [
+    {
+      "name": "sail_0",
+      "parent": "mast_0",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    },
+    {
+      "name": "sail_1",
+      "parent": "mast_1",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    },
+    {
+      "name": "sail_2",
+      "parent": "mast_2",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    }
+  ],
+  "blenderVersion": "5.4.0 Alpha",
+  "authoringUtc": "2026-10-26T22:27:11.635458+00:00",
+  "limitations": [
+    "No production integration",
+    "No GPU, continuity, visual or performance acceptance"
+  ]
+}

@@ -1,0 +1,734 @@
+{
+	"actionCount": 6,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Value",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "settings-dropdown-1280",
+	"pngSha256": "4c5a17b3d94c89b29befd5ae4345d72719f2782c0f2884c4e00d90b2c2b1580b",
+	"popup": "actual OptionButton PopupMenu",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel",
+				"panelMargins": [
+					18.0,
+					18.0,
+					18.0,
+					18.0
+				],
+				"rect": [
+					70.4000015258789,
+					30.0,
+					438.0,
+					660.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "365d61ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Era",
+				"rect": [
+					88.4000015258789,
+					48.0,
+					398.0,
+					19.0
+				],
+				"text": "海 疆 绘 卷  /  永历四年",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "SimSun",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 58,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Title",
+				"rect": [
+					88.4000015258789,
+					74.0,
+					398.0,
+					59.0
+				],
+				"text": "海上明旗",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Intro",
+				"rect": [
+					88.4000015258789,
+					140.0,
+					398.0,
+					47.0
+				],
+				"text": "一叶福船，万里海疆。\n从厦金潮汐间，写下你的海上生涯。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/CaptainLabel",
+				"rect": [
+					88.4000015258789,
+					194.0,
+					398.0,
+					19.0
+				],
+				"text": "船长姓名",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Captain",
+				"rect": [
+					88.4000015258789,
+					220.0,
+					398.0,
+					44.0
+				],
+				"text": "沈沧海",
+				"type": "LineEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "fff1d3ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 19,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi",
+				"rect": [
+					88.4000015258789,
+					271.0,
+					398.0,
+					72.0
+				],
+				"text": "扬帆启程\n1650 · 厦金护粮",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/mingqi-continue",
+				"rect": [
+					88.4000015258789,
+					350.0,
+					398.0,
+					48.0
+				],
+				"text": "恢复航程 · 1650",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/duel",
+				"rect": [
+					88.4000015258789,
+					405.0,
+					194.0,
+					48.0
+				],
+				"text": "单舰炮战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Battles/fleet",
+				"rect": [
+					292.399993896484,
+					405.0,
+					194.0,
+					48.0
+				],
+				"text": "舰队遭遇",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/sail",
+				"rect": [
+					88.4000015258789,
+					460.0,
+					398.0,
+					48.0
+				],
+				"text": "自由试航",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Exploration/world-atlas",
+				"rect": [
+					88.4000015258789,
+					515.0,
+					194.0,
+					48.0
+				],
+				"text": "世界海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Exploration/ships",
+				"rect": [
+					292.399993896484,
+					515.0,
+					194.0,
+					48.0
+				],
+				"text": "检阅船只",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Studies/laboratory",
+				"rect": [
+					88.4000015258789,
+					570.0,
+					194.0,
+					48.0
+				],
+				"text": "实验室",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Studies/fidelity-island",
+				"rect": [
+					292.399993896484,
+					570.0,
+					194.0,
+					48.0
+				],
+				"text": "海面与海岛验收",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/Settings",
+				"rect": [
+					88.4000015258789,
+					625.0,
+					194.0,
+					38.0
+				],
+				"text": "航海设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Utility/quit",
+				"rect": [
+					292.399993896484,
+					625.0,
+					194.0,
+					38.0
+				],
+				"text": "退出游戏",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "4b5953ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 13,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/MainMenu/MenuPanel/MenuScroll/Content/Footer",
+				"rect": [
+					88.4000015258789,
+					670.0,
+					398.0,
+					18.0
+				],
+				"text": "厦门 · 金门  /  键盘与鼠标",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel",
+				"panelMargins": [
+					24.0,
+					76.0,
+					24.0,
+					24.0
+				],
+				"rect": [
+					330.0,
+					16.0,
+					620.0,
+					688.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/@Label@316",
+				"rect": [
+					354.0,
+					92.0,
+					572.0,
+					29.0
+				],
+				"text": "航海设置",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "c9b58fff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Reason",
+				"rect": [
+					354.0,
+					131.0,
+					572.0,
+					22.0
+				],
+				"text": "首次启动，使用默认设置。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Caption",
+				"rect": [
+					354.0,
+					171.0,
+					274.0,
+					22.0
+				],
+				"text": "操船方式",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Value",
+				"rect": [
+					648.0,
+					163.0,
+					274.0,
+					38.0
+				],
+				"text": "辅助操船",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Caption",
+				"rect": [
+					354.0,
+					219.0,
+					274.0,
+					22.0
+				],
+				"text": "画面质量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Value",
+				"rect": [
+					648.0,
+					211.0,
+					274.0,
+					38.0
+				],
+				"text": "均衡",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/Caption",
+				"rect": [
+					354.0,
+					268.0,
+					274.0,
+					22.0
+				],
+				"text": "航海音效",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/Value",
+				"rect": [
+					648.0,
+					259.0,
+					274.0,
+					40.0
+				],
+				"text": "已关闭",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/soundVolume/Caption",
+				"rect": [
+					354.0,
+					316.0,
+					274.0,
+					22.0
+				],
+				"text": "音效音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/Caption",
+				"rect": [
+					354.0,
+					364.0,
+					274.0,
+					22.0
+				],
+				"text": "背景音乐",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/Value",
+				"rect": [
+					648.0,
+					355.0,
+					274.0,
+					40.0
+				],
+				"text": "已关闭",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/musicVolume/Caption",
+				"rect": [
+					354.0,
+					412.0,
+					274.0,
+					22.0
+				],
+				"text": "音乐音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/Caption",
+				"rect": [
+					354.0,
+					460.0,
+					274.0,
+					22.0
+				],
+				"text": "减少动态效果",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/Value",
+				"rect": [
+					648.0,
+					451.0,
+					274.0,
+					40.0
+				],
+				"text": "已关闭",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraShake/Caption",
+				"rect": [
+					354.0,
+					508.0,
+					274.0,
+					22.0
+				],
+				"text": "镜头晃动",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/Caption",
+				"rect": [
+					354.0,
+					556.0,
+					274.0,
+					22.0
+				],
+				"text": "镜头跟随",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/Value",
+				"rect": [
+					648.0,
+					547.0,
+					274.0,
+					40.0
+				],
+				"text": "已开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Scroll/Fields/horizonStability/Caption",
+				"rect": [
+					354.0,
+					604.0,
+					274.0,
+					22.0
+				],
+				"text": "地平线稳定",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SettingsPanel/Center/Panel/Column/Close",
+				"rect": [
+					354.0,
+					638.0,
+					572.0,
+					42.0
+				],
+				"text": "返回",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 2,
+		"unclippedOverflow": [],
+		"visibleButtons": 18,
+		"visibleControls": 66
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

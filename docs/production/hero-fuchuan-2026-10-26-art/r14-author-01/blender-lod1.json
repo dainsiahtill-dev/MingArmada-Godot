@@ -1,0 +1,56 @@
+{
+  "lod": 1,
+  "baselineSources": {
+    "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r7c.blend": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod0.glb": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod1.glb": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod2.glb": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+    "tools/blender/build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "docs/production/hero-fuchuan-2026-10-26-art/R14-DECK-HATCH-BRIEF.md": "a9b8e01f3b6202f7271d51161da09d9c60f64c84d2e7e7c345e13ad82998e393",
+    "tools/blender/build_hero_fuchuan_r14.py": "912159a9d50578b9a5d94cb88433e3adba24fa18b0bc0a94f4b8976321e05c7d"
+  },
+  "sourceUnchanged": true,
+  "candidateRaw": "Temp/hero-fuchuan-r14/r14-author-01/fuchuan-lod1.glb",
+  "candidateRawSha256": "70f2fe209bad728bbabe904d2c18d919f40d4ddc38ee0a222615539b49e5954a",
+  "candidateBlend": "assets/production/hero-fuchuan-blender/r14-author-01-blends/hero-fuchuan-v3-r14-lod1.blend",
+  "candidateBlendSha256": "aada29dd35690d182fe307392a68704d390954ec0f9872bb417e471bdd747b7f",
+  "newNodes": [
+    {
+      "name": "cargo_hold_coaming_-3.2",
+      "vertices": 32,
+      "faces": 24,
+      "centerZ": -3.2,
+      "outer": [
+        2.2,
+        2.7
+      ],
+      "heightAboveDeck": [
+        0.03,
+        0.55
+      ],
+      "thickness": 0.18,
+      "material": "teak",
+      "deck_obstacle": true
+    },
+    {
+      "name": "cargo_hold_coaming_5.8",
+      "vertices": 32,
+      "faces": 24,
+      "centerZ": 5.8,
+      "outer": [
+        2.2,
+        2.7
+      ],
+      "heightAboveDeck": [
+        0.03,
+        0.55
+      ],
+      "thickness": 0.18,
+      "material": "teak",
+      "deck_obstacle": true
+    }
+  ],
+  "blenderVersion": "5.4.0 Alpha",
+  "scope": "R7c author Blend plus two editable coamings; original geometry is LOD0 in this raw export; not shippable lower LOD",
+  "constraints": "Existing original cargo covers and deck_fittings untouched; no collision/GPU acceptance."
+}

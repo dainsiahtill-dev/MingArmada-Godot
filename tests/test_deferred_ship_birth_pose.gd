@@ -17,6 +17,7 @@ class Probe extends Node3D:
 	func apply_snapshot(_snapshot:Dictionary,_wind_or_consumed:Variant=null,_consumed:float=0.0)->void:calls+=1
 	func begin_snapshot(snapshot:Dictionary,consumed:float=0.0)->void:apply_snapshot(snapshot,consumed)
 	func finish_snapshot()->void:pass
+	func refresh_attached_effects()->void:pass
 	func apply_events(_events:Array)->void:calls+=1
 	func presentation_events(events:Array)->Array:return events.duplicate(true)
 	func set_ship_model(_model:Node3D)->void:calls+=1
@@ -26,8 +27,9 @@ class Probe extends Node3D:
 class ObservedSea extends Sea:
 	# Only replace expensive effects reset in this narrow CPU contract. The real
 		# Sea apply_snapshot still owns epoch reset, view creation and fire bridge.
-	func _reset_fleet()->void:
+	func _reset_fleet()->bool:
 		for id:String in ships.keys():_release_ship(id)
+		return true
 var assertions:=0
 var failures:=0
 func check(value:bool,reason:String)->void:

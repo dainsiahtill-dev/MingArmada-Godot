@@ -1,0 +1,96 @@
+{
+  "scope": "Blender-authored sail-only candidate; raw GLB non-sail components are LOD0, not shippable",
+  "lod": 1,
+  "silhouetteParameters": {
+    "width": [
+      7.4,
+      11.8,
+      6.8
+    ],
+    "k": [
+      0.25,
+      0.4,
+      0.54
+    ],
+    "c": [
+      0.12,
+      0.17,
+      0.09
+    ]
+  },
+  "sourceBlend": "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r7c.blend",
+  "baselineSources": {
+    "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r7c.blend": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod0.glb": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod1.glb": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+    "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod2.glb": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+    "tools\\blender\\build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "tools\\blender\\build_hero_fuchuan.py": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96",
+    "tools\\blender\\hero_r12_sail_formula.py": "ad2b612c6b77317db14bb6a868ca78465d168ece1d8c882b448a443200dca430",
+    "tools\\blender\\build_hero_fuchuan_r12.py": "8da6d07042a12599734bf1595b2d7e3b004aef395c25dc75465f6202ce6df3e4"
+  },
+  "sourceUnchanged": true,
+  "candidateRaw": "Temp\\hero-fuchuan-r12\\r12-author-01\\fuchuan-lod1.glb",
+  "candidateRawSha256": "0b518694950f528c1f9ae481e9a6fe8a7be6888d7e0878e277d6602c6fb0f24f",
+  "candidateBlend": null,
+  "candidateBlendSha256": null,
+  "sails": [
+    {
+      "name": "sail_0",
+      "parent": "mast_0",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    },
+    {
+      "name": "sail_1",
+      "parent": "mast_1",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    },
+    {
+      "name": "sail_2",
+      "parent": "mast_2",
+      "oldLOD0Vertices": 2890,
+      "newVertices": 1450,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ]
+    }
+  ],
+  "blenderVersion": "5.4.0 Alpha",
+  "authoringUtc": "2026-10-27T00:14:51.399018+00:00",
+  "limitations": [
+    "No production integration",
+    "No GPU, continuity, visual or performance acceptance"
+  ]
+}

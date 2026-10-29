@@ -1,0 +1,494 @@
+{
+	"actionCount": 2,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "encounter-duel-1280",
+	"pngSha256": "745ade9ea7b0b2b68c84924ec23d0c62f4f69cef8ee3d490b745c65400197bba",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/practice/practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					250.0,
+					66.0,
+					780.0,
+					638.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/encounter_heading",
+				"rect": [
+					264.0,
+					80.0,
+					752.0,
+					25.0
+				],
+				"text": "船长决斗 · 演练",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "4b5953ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/encounter_context",
+				"rect": [
+					264.0,
+					117.0,
+					752.0,
+					19.0
+				],
+				"text": "难度：标准 · ",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/duel_stats",
+				"rect": [
+					264.0,
+					148.0,
+					752.0,
+					47.0
+				],
+				"text": "船长生命 100 · 对手生命 100 · 体力 100.0\n连击 0 · 收招 0.00 秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/duel_telegraph",
+				"rect": [
+					264.0,
+					207.0,
+					752.0,
+					22.0
+				],
+				"text": "对手起手：尚未起手 · 防守窗口 0.00 秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/duel_guard",
+				"rect": [
+					264.0,
+					241.0,
+					752.0,
+					22.0
+				],
+				"text": "对手守势：下段",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_high",
+				"rect": [
+					264.0,
+					275.0,
+					94.0,
+					38.0
+				],
+				"text": "上段斩 [J]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_low",
+				"rect": [
+					362.0,
+					275.0,
+					98.0,
+					38.0
+				],
+				"text": "下段斩 [K]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_thrust",
+				"rect": [
+					464.0,
+					275.0,
+					80.0,
+					38.0
+				],
+				"text": "突刺 [L]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_guard-high",
+				"rect": [
+					548.0,
+					275.0,
+					116.0,
+					38.0
+				],
+				"text": "上段防守 [U]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_guard-low",
+				"rect": [
+					668.0,
+					275.0,
+					109.0,
+					38.0
+				],
+				"text": "下段防守 [I]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_parry",
+				"rect": [
+					781.0,
+					275.0,
+					117.0,
+					38.0
+				],
+				"text": "招架反击 [O]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@359/duel_dodge",
+				"rect": [
+					264.0,
+					317.0,
+					136.0,
+					38.0
+				],
+				"text": "侧身闪避 [空格]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/feedback",
+				"rect": [
+					264.0,
+					367.0,
+					752.0,
+					22.0
+				],
+				"text": "准备就绪",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/encounter_result",
+				"rect": [
+					264.0,
+					401.0,
+					752.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/settlement_notice",
+				"rect": [
+					264.0,
+					435.0,
+					752.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/encounter_pause",
+				"rect": [
+					264.0,
+					469.0,
+					137.0,
+					38.0
+				],
+				"text": "暂停 / 继续挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/retreat",
+				"rect": [
+					405.0,
+					469.0,
+					88.0,
+					38.0
+				],
+				"text": "退出挑战",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/settle_capture",
+				"rect": [
+					497.0,
+					469.0,
+					88.0,
+					38.0
+				],
+				"text": "俘获敌舰",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/settle_plunder",
+				"rect": [
+					589.0,
+					469.0,
+					88.0,
+					38.0
+				],
+				"text": "掠取货物",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/settle_release",
+				"rect": [
+					681.0,
+					469.0,
+					88.0,
+					38.0
+				],
+				"text": "释放敌舰",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/settle",
+				"rect": [
+					773.0,
+					469.0,
+					120.0,
+					38.0
+				],
+				"text": "确认实际结果",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/retry",
+				"rect": [
+					897.0,
+					469.0,
+					88.0,
+					38.0
+				],
+				"text": "再次演练",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/@Control@339/encounter_panel/@ScrollContainer@358/encounter_content/@HFlowContainer@360/encounter_close",
+				"rect": [
+					264.0,
+					511.0,
+					88.0,
+					38.0
+				],
+				"text": "返回航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/MainMenu",
+				"rect": [
+					12.0,
+					10.0,
+					96.0,
+					40.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/PracticeKind",
+				"rect": [
+					122.0,
+					10.0,
+					116.0,
+					40.0
+				],
+				"text": "接舷决斗",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/Restart",
+				"rect": [
+					252.0,
+					10.0,
+					112.0,
+					40.0
+				],
+				"text": "重新进入练习",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Practice/PracticeHeader/Begin",
+				"rect": [
+					378.0,
+					10.0,
+					80.0,
+					40.0
+				],
+				"text": "开始决斗",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Practice/PracticeHeader/@Label@350",
+				"rect": [
+					472.0,
+					19.0,
+					222.0,
+					22.0
+				],
+				"text": "等待开始 · 阅读操作后点击开始",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 19,
+		"visibleControls": 37
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

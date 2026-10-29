@@ -1,0 +1,26 @@
+extends RefCounted
+## Original candidate gameplay parameters; historical sources do not supply these rates.
+
+const VERSION := "ship-fire-r1"
+const STEP_SECONDS := 1.0 / 60.0
+const MAX_HEAT := 100.0
+const MAX_FUEL_SECONDS := 72.0
+const MAX_FIREFIGHTERS := 128
+const TRANSFER_TICKS := 120
+const MAX_SUPPLIES := 600
+const WORK_SECONDS_PER_SUPPLY := 2.0
+
+const IGNITION_HEAT := 28.0
+const FIRE_BALL_FUEL_SECONDS := 18.0
+const THORN_BALL_FUEL_SECONDS := 36.0
+const WET_IGNITION_HEAT_REDUCTION := 0.60
+const WET_IGNITION_FUEL_REDUCTION := 0.40
+const RAIN_WETNESS_PER_SECOND := 0.10
+const DRYING_PER_SECOND := 0.02
+const HEAT_GROWTH_PER_SECOND := 2.0
+const FLAMMABLE_HEAT_GAIN := 0.75
+const WET_COOLING_PER_SECOND := 6.0
+const FIREFIGHTER_COOLING_PER_SECOND := 1.5
+const HULL_DAMAGE_PER_HEAT_SECOND := 0.00008
+const SAIL_DAMAGE_PER_HEAT_SECOND := 0.00022
+const CREW_DAMAGE_PER_HEAT_SECOND := 0.00008

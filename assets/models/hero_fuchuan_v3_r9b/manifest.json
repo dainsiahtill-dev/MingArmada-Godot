@@ -1,0 +1,42 @@
+{
+  "asset": "hero-fuchuan-v3-r9b",
+  "baseline": "hero-fuchuan-v3-r7c",
+  "authorBlend": "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r9b.blend",
+  "authorBlendSha256": "2961f7f28d31cfc71a16638fbd634b4245912adb1fcf79bc55bfc5d00722d2e8",
+  "sourceBlend": "assets\\production\\hero-fuchuan-blender\\hero-fuchuan-v3-r7c.blend",
+  "sourceBlendSha256": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+  "png": "assets\\textures\\hero_fuchuan_r9\\sunfaded-cinnabar-hemp-sail.png",
+  "pngSha256": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+  "construction": "Blender author blend; R7c GLB packaging appends original image bytes and redirects only canvas image view; not a fresh Blender GLB export",
+  "lods": [
+    {
+      "lod": 0,
+      "source": "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod0.glb",
+      "sourceSha256": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+      "candidate": "assets\\models\\hero_fuchuan_v3_r9b\\fuchuan-lod0.glb",
+      "candidateSha256": "89f3498555d73c981c35f28831330aeb4d3700d8e8838a0617af2867e5bd555e",
+      "canvasImage": 5,
+      "oldImageSha256": "f0e431fa9db2032a14d0086ac6a7e03af180629adffaf8121eeb0e038bdd9964"
+    },
+    {
+      "lod": 1,
+      "source": "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod1.glb",
+      "sourceSha256": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+      "candidate": "assets\\models\\hero_fuchuan_v3_r9b\\fuchuan-lod1.glb",
+      "candidateSha256": "9538ace6fcdd4df672bf5413f015413daadb10786ddb5dc39a014d1fda700032",
+      "canvasImage": 5,
+      "oldImageSha256": "f0e431fa9db2032a14d0086ac6a7e03af180629adffaf8121eeb0e038bdd9964"
+    },
+    {
+      "lod": 2,
+      "source": "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod2.glb",
+      "sourceSha256": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+      "candidate": "assets\\models\\hero_fuchuan_v3_r9b\\fuchuan-lod2.glb",
+      "candidateSha256": "4881423c772747be3a6371e7c572c23eb343ca32290c5c1c6fc8708253e4126b",
+      "canvasImage": 5,
+      "oldImageSha256": "f0e431fa9db2032a14d0086ac6a7e03af180629adffaf8121eeb0e038bdd9964"
+    }
+  ],
+  "formalProviderUnchanged": true,
+  "scope": "candidate CPU provenance only, not art, GPU, performance or gameplay acceptance"
+}

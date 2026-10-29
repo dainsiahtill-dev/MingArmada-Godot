@@ -1,0 +1,945 @@
+{
+  "created": "2026-10-27",
+  "generator": "built-in image_gen.imagegen",
+  "transparent_background": true,
+  "postprocessing": "none; original generated RGBA copied byte-identically",
+  "references": [
+    "assets/ui/ming_maritime/menu-painting.png",
+    "docs/design/2026-10-26-ming-maritime/reference/menu-direction.png"
+  ],
+  "assets": [
+    {
+      "key": "xufu",
+      "path": "assets/ui/ming_maritime/painted/portrait-xufu.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-2154898b-72b3-4dc2-b3a4-8a043dd72e42.png",
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated half-body character portrait sprite, genuine transparent PNG, for a historical Ming maritime game dialogue old-ledger.\nPrimary request: XU FU, an original elderly ordinary sailor on the family ship Chengjiahao in Xiamen, year 1650. An old Fujian Chinese seaman about sixty, wind-weathered sun-browned face, deep smile lines, greying temples, small salt-and-pepper moustache and short beard. His gaze is kind, calm and steadfast, empathetic toward his fellow crew and their unpaid wages; dignified practical working man, not a heroic officer.\nClothes: plain late-Ming common sailor coarse cloth cross-collar jacket, muted brown over faded indigo blue linen, simple cloth waist tie, sleeves a little worn, a modest dark brown headcloth around a period topknot. NO armor, military rank, official hat, court robe, jewellery, dragon insignia, modern clothes or Qing queue. Clothing choices are visual interpretation, not an asserted documented costume.\nPose/composition: centered single man from head through waist/lower torso, shoulders relaxed, slight three-quarter body facing viewer, face mostly toward viewer. Hands naturally in front holding a small CLOSED plain cloth-bound old ledger at waist, entirely blank cover, fingers intact and visible. Portrait about 3:4, head fully inside canvas with breathing room, no cropped head or elbows. Body's lower edge ends naturally in soft dry-ink brush contour; no rectangular clipping, no outer frame, no vignette.\nStyle/medium: exquisite traditional Chinese maritime hand-painted illustration with ink-engraved linework, finely shaded human face, muted mineral blue-green color washes, warm cream highlights, light aged-brush grain. Match a premium Ming naval painted scroll menu, rich but restrained, no photo, no anime, no 3D render.\nBackground: actual transparent alpha outside the man, NO paper field, NO scenery, NO ship background, NO cast shadow, NO checkerboard image.\nText: absolutely no writing, Chinese glyphs, letters, numbers, labels, symbols, captions or watermark. One character only.",
+      "transparent_background": true,
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "source_contract": {
+        "files": [
+          {
+            "path": "game/domain/mingqi/opening_story.gd",
+            "lines": [
+              107,
+              114,
+              156,
+              174,
+              176
+            ],
+            "facts": [
+              "1650 Xiamen old-ledger scene",
+              "Xu Fu is the elderly sailor of Chengjiahao; concerns crew wages and wounded crew",
+              "Chen Ahai is navigator; Lin clerk remains at Kinmen, different from steward"
+            ],
+            "sha256": "65b6b1790e8365bd7ac1f36c056c2d181e9cb60abbf69669b4d2245f3ab40bfe"
+          },
+          {
+            "path": "game/domain/mingqi/second_voyage_aftermath.gd",
+            "lines": [
+              255,
+              256
+            ],
+            "facts": [
+              "second-return speaker is aftermath-ledger / ship ledger, not Xu Fu"
+            ],
+            "sha256": "ed878a22ced050aa11a22c4a874e31a9eb29f3d22812408e1e21304486a26beb"
+          }
+        ],
+        "costume_boundary": "Brown/indigo coarse cloth, headwrap/topknot, weathered face and exact age are user-directed visual interpretation, not costume facts documented in game source."
+      },
+      "visual_review": "Viewed complete generated result: one elderly common sailor in plain brown/indigo cloth, warm steadfast expression, complete head and hands holding blank closed ledger, natural brushed lower edge, no armor/frame/text, transparent exterior.",
+      "limitations": "Static portrait inspection only; current-dialogue GPU composition remains for integration task.",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "5aded8ee3ab9624bb8ca9de06883d14e18cbce2637410d5475edcaad872aedc6",
+      "bytes": 2504947,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 648590,
+        "fully_opaque_pixels": 246,
+        "partial_alpha_pixels": 923692,
+        "nonzero_bbox_xyxy": [
+          0,
+          0,
+          1070,
+          1448
+        ],
+        "opaque_bbox_xyxy": [
+          61,
+          29,
+          1046,
+          1433
+        ],
+        "transparent_fraction": 0.4124505255232339,
+        "center_rgba": [
+          113,
+          124,
+          131,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            19189
+          ],
+          [
+            [
+              127,
+              127,
+              127
+            ],
+            2562
+          ],
+          [
+            [
+              85,
+              85,
+              85
+            ],
+            2179
+          ]
+        ]
+      },
+      "status": "retained character focal artwork"
+    },
+    {
+      "key": "command",
+      "path": "assets/ui/ming_maritime/painted/command-panel.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-3a784b77-2a41-4493-9dbd-bf3f163ad220.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D game UI transparent PNG, one isolated horizontal COMMAND / HELM STATUS PANEL, no text.\nPrimary request: A premium Ming-dynasty maritime painted lacquerwood panel matching a traditional Chinese hand-painted engraved seascape: deep indigo teal lacquer, subdued antique gold carved cloud and rolling-wave border, tiny corner ornaments, refined balanced craft.\nComposition/framing: straight-on flat orthographic 2D ornament, NO perspective, NO cast shadow. About 3:1 panel aspect. Panel fills canvas leaving only 3% transparent outside contour on every edge. Wide softly shaped rectangular silhouette with modest rounded/scalloped corners, not exaggerated. Border is narrow and precise so nine-patch margins around 28px will be usable. Central 84% width and 70% height is an uninterrupted, uniform opaque dark indigo-teal lacquerwood field for live cream text. NO scenery, NO internal illustration.\nStyle/medium: intricate but restrained hand-painted ink-engraving; luxurious late Ming naval scroll atmosphere, not photorealistic and not 3D rendered. Very subtle lacquer grain only in center.\nColor palette: center #14353e with deepest #0e272f; aged gold #b59050; minute blue-green/cream wave and cloud details confined to border. No large white or pale center.\nText: absolutely no text, letters, Chinese glyphs, numbers, symbols, watermark or labels.\nBackground: real transparent alpha outside the carved panel silhouette, NOT a checkerboard image. Panel interior remains opaque.\nAvoid: modern UI, white card, parchment, paper, bevelled plastic, glow, gradients, scene background, mockup, multiple assets, drop shadow, text.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": null,
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "985c09bc6f06ae21eb1810c91b9ef742b2db8d2177ae05335b5270f97dd884ed",
+      "bytes": 2477642,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 278837,
+        "fully_opaque_pixels": 1047,
+        "partial_alpha_pixels": 1292644,
+        "nonzero_bbox_xyxy": [
+          0,
+          28,
+          2172,
+          694
+        ],
+        "opaque_bbox_xyxy": [
+          33,
+          34,
+          2140,
+          672
+        ],
+        "transparent_fraction": 0.17731766938331145,
+        "center_rgba": [
+          6,
+          39,
+          45,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              9,
+              42,
+              47
+            ],
+            9528
+          ],
+          [
+            [
+              8,
+              40,
+              45
+            ],
+            9523
+          ],
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            9414
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/command-panel.png",
+        "sha256": "18bc6dc6e785be52d8a19bc6886b099db99150a6ff6925288e6c0ef6c34e991f",
+        "size": [
+          768,
+          233
+        ],
+        "source_sha256": "985c09bc6f06ae21eb1810c91b9ef742b2db8d2177ae05335b5270f97dd884ed",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          2,
+          32,
+          2171,
+          674
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          0,
+          24,
+          2172,
+          682
+        ],
+        "discarded_nonzero_alpha_pixels": 10,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.35359116022099446,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          7,
+          39,
+          44,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": [
+          90,
+          40,
+          90,
+          62
+        ]
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "folio",
+      "path": "assets/ui/ming_maritime/painted/folio-panel.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-ce8a8c16-fb71-46d8-9c1a-b4339b8f750d.png",
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated 2D game UI PORTRAIT NAVAL JOURNAL / FOLIO PANEL, transparent PNG, text will be live.\nPrimary request: Premium late Ming dynasty maritime painted lacquerwood folio shell: portrait 3:4 aspect, deep indigo-teal dark lacquer interior, narrow antique gold double-rule frame, tiny refined dragon-cloud and sea-wave ornaments at outer top corners.\nComposition: straight-on perfectly flat orthographic 2D. Single portrait folio panel fills canvas with 3% transparent margin. Narrow graceful rectangular frame with modest organic cloud corners. Interior is one opaque uniform deep teal field; central 85% of panel quiet dark blank for cream journal body. Top 20% of interior also quiet, blank and available for live heading. Ornamental detail never crosses text region. No paper, no pages, no binding down center, no scroll rollers.\nStyle/medium: exquisite traditional Chinese hand-painted ink engraving, elegant restrained Ming naval heritage matching aged gold and blue-green seascape ornaments. Dark lacquer grain extremely subtle, nearly uniform for readable text. Not a 3D object, no perspective, no cast shadow.\nPalette: interior #14353e and #0e272f, frame aged gold #b59050, minimal muted blue-green cloud/wave enamel details. No white or beige panel center.\nText: absolutely NO text, letters, numbers, Chinese glyphs, icons, labels or watermark.\nBackground: actual transparent alpha outside silhouette only, interior opaque. Not a checkerboard pattern.\nAvoid: modern UI, white cards, parchment, paper, photorealistic rendering, glow, large dragon illustration, overly thick ornaments, multiple panels, scene background.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": null,
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "sha256": "b23dbd88f6fe5ed2feb7665d72a76d69c352a23c0ec780d12f3b12cd4edb4ee3",
+      "bytes": 2282957,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 204998,
+        "fully_opaque_pixels": 860,
+        "partial_alpha_pixels": 1366670,
+        "nonzero_bbox_xyxy": [
+          0,
+          0,
+          1070,
+          1448
+        ],
+        "opaque_bbox_xyxy": [
+          24,
+          19,
+          1062,
+          1400
+        ],
+        "transparent_fraction": 0.13036206668498113,
+        "center_rgba": [
+          7,
+          39,
+          47,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              8,
+              41,
+              48
+            ],
+            14844
+          ],
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            14698
+          ],
+          [
+            [
+              7,
+              38,
+              44
+            ],
+            14657
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/folio-panel.png",
+        "sha256": "81d7749b114d7fcc8305c46876b662d76a25aae2e65750b27621421ea34b6a79",
+        "size": [
+          512,
+          684
+        ],
+        "source_sha256": "b23dbd88f6fe5ed2feb7665d72a76d69c352a23c0ec780d12f3b12cd4edb4ee3",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          21,
+          10,
+          1065,
+          1411
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          13,
+          2,
+          1073,
+          1419
+        ],
+        "discarded_nonzero_alpha_pixels": 222,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.4830188679245283,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          8,
+          41,
+          47,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": [
+          72,
+          76,
+          72,
+          110
+        ]
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "header",
+      "path": "assets/ui/ming_maritime/painted/header-cartouche.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-0877eb89-d41d-4465-9ce2-7671940db2dd.png",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone horizontal 2D game UI TITLE CARTOUCHE, transparent PNG.\nPrimary request: A luxurious late Ming maritime title plaque, approximately 3:1 aspect, deep vermilion lacquer central field #923a2b, delicate carved antique-gold #b59050 cloud-head contour, small indigo-teal rolling-wave ears at both ends. Same traditional engraved painted craft as an antique Chinese naval scroll.\nComposition: perfect straight-on flat orthographic 2D, no perspective, no cast shadow. Organic cloud-head silhouette, not ordinary rectangular card. Center at least 75% width is a quiet uninterrupted opaque deep vermilion field, freely usable for live Chinese title. Modest thin border, low shoulders and small curling blue-green wave ears; ornaments only at perimeter. Only one plaque fills canvas with 3% transparent outside margin.\nStyle: premium hand-painted ink engraving, refined slightly weathered gold, deep lacquer, intricate small linework. NO 3D render, no shiny bevel.\nText: absolutely no words, no letters, no numbers, no Chinese glyphs, no symbols or watermark.\nBackground: actual transparent alpha outside cartouche silhouette; plaque interior opaque. Do not print checkerboard.\nAvoid: parchment, white center, paper, scene, modern UI, neon, glow, text, big ornaments covering center, mockup.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": null,
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "198fb6c86305cde62671e709ac25e86687074737692a31d9938876081b649371",
+      "bytes": 2101322,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 644372,
+        "fully_opaque_pixels": 380,
+        "partial_alpha_pixels": 927776,
+        "nonzero_bbox_xyxy": [
+          0,
+          41,
+          2172,
+          724
+        ],
+        "opaque_bbox_xyxy": [
+          18,
+          64,
+          2139,
+          622
+        ],
+        "transparent_fraction": 0.40976822034329435,
+        "center_rgba": [
+          134,
+          36,
+          20,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            3609
+          ],
+          [
+            [
+              255,
+              0,
+              0
+            ],
+            2151
+          ],
+          [
+            [
+              136,
+              36,
+              18
+            ],
+            1649
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/header-cartouche.png",
+        "sha256": "ec07fd0a6af96d68a3326d706c5aa6b8d3a36a531a62ace2e3461f80908f8165",
+        "size": [
+          768,
+          206
+        ],
+        "source_sha256": "198fb6c86305cde62671e709ac25e86687074737692a31d9938876081b649371",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          9,
+          57,
+          2163,
+          624
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          1,
+          49,
+          2171,
+          632
+        ],
+        "discarded_nonzero_alpha_pixels": 270,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.35391705069124424,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          141,
+          38,
+          21,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": [
+          130,
+          36,
+          130,
+          36
+        ]
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "normal",
+      "path": "assets/ui/ming_maritime/painted/button-normal.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-bff4b54a-d2c7-454c-94f5-7081fa9904c6.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D game UI NORMAL STATE BUTTON, one isolated transparent PNG.\nPrimary request: A single refined small horizontal long button for a Ming dynasty maritime strategy game, aspect about 3:1. Opaque uniform deep indigo-teal lacquerwood central face #14353e / #0e272f. Very thin antique gold #b59050 carved double line border, tiny understated carved cloud corners; brass/bronze edge with delicate ink-engraved marks. Same family as traditional painted Ming naval cloud-and-wave ornaments.\nComposition: perfectly straight-on flat orthographic 2D, no perspective, no drop shadow, no visible thickness. Low-profile long chamfered rectangle with very modest cloud-shaped corners, symmetric left/right. Button occupies nearly all image with approximately 2% transparent outer margin. Central 86% of width and 66% of height stays completely quiet dark lacquer for live cream text. Low ornamental density, no scallop occupying center. Good for nine-patch / three-slice horizontal resizing.\nStyle/medium: elegant hand-painted engraved lacquer and antique gold, fine subtle texture, luxurious historical Chinese scroll.\nText: no text, Chinese glyphs, numbers, letters, icons, symbols, labels or watermark.\nBackground: genuine transparent alpha outside button contour, opaque interior; not checkerboard.\nAvoid: modern UI, white paper, parchment, round pill, glossy plastic, glow, gradient, 3D render, cast shadow, multiple objects, scene.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": "Visible silhouette is longer than requested 3:1 (around 5:1); use nine-patch horizontal scaling. Selected was a separate edit call referencing normal; contours are similar but not pixel-identical.",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "ad347fc8c7ac59e060600234df375c0f8f607becc856583c1a3b833ce9663145",
+      "bytes": 1484510,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 698097,
+        "fully_opaque_pixels": 39,
+        "partial_alpha_pixels": 874392,
+        "nonzero_bbox_xyxy": [
+          0,
+          22,
+          2161,
+          704
+        ],
+        "opaque_bbox_xyxy": [
+          35,
+          138,
+          2078,
+          531
+        ],
+        "transparent_fraction": 0.44393295381703857,
+        "center_rgba": [
+          10,
+          38,
+          47,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              10,
+              38,
+              47
+            ],
+            13478
+          ],
+          [
+            [
+              11,
+              39,
+              48
+            ],
+            13388
+          ],
+          [
+            [
+              10,
+              39,
+              48
+            ],
+            11619
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/button-normal.png",
+        "sha256": "9b853434c630cbef6c16c08978a1c3b35e9620a3768881ab142b10f2fe49ed80",
+        "size": [
+          512,
+          101
+        ],
+        "source_sha256": "ad347fc8c7ac59e060600234df375c0f8f607becc856583c1a3b833ce9663145",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          15,
+          134,
+          2157,
+          545
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          7,
+          126,
+          2165,
+          553
+        ],
+        "discarded_nonzero_alpha_pixels": 256,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.23725671918443003,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          11,
+          40,
+          49,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": [
+          52,
+          14,
+          52,
+          14
+        ]
+      },
+      "runtime_small": {
+        "path": "assets/ui/ming_maritime/painted/runtime/button-normal-small.png",
+        "size": [
+          128,
+          25
+        ],
+        "sha256": "b0c8653a3ee8a525d3c48fe5f4b560504c231245c82798141ff06b38993487e7",
+        "source_crop_box_xyxy": [
+          7,
+          126,
+          2165,
+          553
+        ],
+        "operation": "same raw crop, proportional LANCZOS resize only",
+        "ninepatch_caps_ltrb_source_pixels": [
+          14,
+          5,
+          14,
+          5
+        ],
+        "target_control_size": [
+          100,
+          36
+        ],
+        "recommendation": "Use the small source for 100x36 controls. The 512px source safe caps sum to 104px, wider than that control."
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "selected",
+      "referenced_image_paths": [
+        "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-bff4b54a-d2c7-454c-94f5-7081fa9904c6.png"
+      ],
+      "path": "assets/ui/ming_maritime/painted/button-selected.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-22309842-d17c-4eee-bfd3-815871643512.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: production 2D game UI SELECTED / PRIMARY STATE BUTTON, isolated transparent PNG.\nInput image 1: exact shape and craft reference. Create the selected state of this same button.\nChange ONLY the dark indigo-teal central lacquer field to deep muted vermilion lacquer #923a2b, and make the thin antique-gold carved edge a small amount brighter. Preserve exactly the same outer contour, same dimensions, same framing, same tiny cloud corners and linework, same orthographic flat 2D viewpoint, same quiet central space. The selected state belongs to the identical Ming maritime family.\nText: no text, Chinese glyphs, letters, numbers, icons, symbols or watermark.\nBackground: preserve genuine transparent alpha outside the silhouette; button interior remains opaque. No glow, no neon, no cast shadow, no perspective, no 3D render, no extra ornaments, no scene, no white paper.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": "Visible silhouette is longer than requested 3:1 (around 5:1); use nine-patch horizontal scaling. Selected was a separate edit call referencing normal; contours are similar but not pixel-identical.",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "4713d2a86539ba55a7feb4901a79a43cd9b1358933053f1757298d36f3ecbd2e",
+      "bytes": 1392062,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 690245,
+        "fully_opaque_pixels": 39,
+        "partial_alpha_pixels": 882244,
+        "nonzero_bbox_xyxy": [
+          0,
+          23,
+          2172,
+          724
+        ],
+        "opaque_bbox_xyxy": [
+          51,
+          132,
+          2124,
+          524
+        ],
+        "transparent_fraction": 0.4389397199922672,
+        "center_rgba": [
+          152,
+          52,
+          31,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              143,
+              45,
+              26
+            ],
+            10369
+          ],
+          [
+            [
+              145,
+              47,
+              27
+            ],
+            9531
+          ],
+          [
+            [
+              144,
+              46,
+              27
+            ],
+            9134
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/button-selected.png",
+        "sha256": "fa35e50add1e4ce63b6c157e660a64c6b8a35d2dd620679049e42e7db1182bff",
+        "size": [
+          512,
+          102
+        ],
+        "source_sha256": "4713d2a86539ba55a7feb4901a79a43cd9b1358933053f1757298d36f3ecbd2e",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          13,
+          130,
+          2162,
+          546
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          5,
+          122,
+          2170,
+          554
+        ],
+        "discarded_nonzero_alpha_pixels": 969,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.23648960739030023,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          146,
+          49,
+          29,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": [
+          52,
+          14,
+          52,
+          14
+        ]
+      },
+      "runtime_small": {
+        "path": "assets/ui/ming_maritime/painted/runtime/button-selected-small.png",
+        "size": [
+          128,
+          26
+        ],
+        "sha256": "4c0768ecc9abb605cc2e88dfb7be98f4c93a2903d8075ebb5a19aae37b40dbab",
+        "source_crop_box_xyxy": [
+          5,
+          122,
+          2170,
+          554
+        ],
+        "operation": "same raw crop, proportional LANCZOS resize only",
+        "ninepatch_caps_ltrb_source_pixels": [
+          14,
+          5,
+          14,
+          5
+        ],
+        "target_control_size": [
+          100,
+          36
+        ],
+        "recommendation": "Use the small source for 100x36 controls. The 512px source safe caps sum to 104px, wider than that control."
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "compass",
+      "path": "assets/ui/ming_maritime/painted/compass-rose.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-f8124893-ebd7-44de-9651-53cfc2c66408.png",
+      "prompt": "Use case: stylized-concept\nAsset type: one square production 2D game UI MARITIME COMPASS ROSE, transparent PNG.\nPrimary request: An exquisite Ming-dynasty Chinese naval compass rose ornament, old gold and deep indigo-teal enamel, eight-direction star with a small pale cyan and warm antique-gold central pointer. Finely engraved concentric rings and restrained cloud-wave motifs around rim, tiny curled cloud ears around circular silhouette. Compact, legible at HUD size, balanced and symmetric.\nComposition: straight-on perfectly flat orthographic two-dimensional compass disk, NO perspective, NO thickness or cast shadow. Centered circle occupies 90% of square image, real alpha transparency outside silhouette. Opaque dark indigo disk with fine gold eight-point star and alternating narrow pale-cyan/antique-gold needle accents. Eight points clearly distinguished; precise crisp silhouette.\nStyle: premium hand-painted Chinese ink engraving, aged lacquer and delicately carved gold, from a refined late Ming maritime illustrated scroll. Fine texture, not photorealism or 3D render.\nPalette: #14353e / #0e272f indigo teal, antique gold #b59050, muted pale cyan and warm cream accent, restrained vermilion pin dot if any.\nText: absolutely no Chinese glyphs, letters, numbers, directional N E S W, labels, symbols resembling text, watermark.\nBackground: genuine transparent alpha outside the compass, not painted checkerboard.\nAvoid: modern compass UI, metallic 3D mockup, plastic, glow, neon, outer square frame, scene, text, pictorial animals, excessive ornaments.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "checked complete generated image: antique gold / deep teal or vermilion painted maritime craft, blank center, no text; no painted checkerboard",
+      "limitations": null,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "58843953e44042f672bc46349ebf0af0efe578e6dbc1222b45fbeb7b1a932754",
+      "bytes": 2726255,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 565811,
+        "fully_opaque_pixels": 548,
+        "partial_alpha_pixels": 1006157,
+        "nonzero_bbox_xyxy": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "opaque_bbox_xyxy": [
+          41,
+          33,
+          1203,
+          1211
+        ],
+        "transparent_fraction": 0.35981255516637034,
+        "center_rgba": [
+          145,
+          197,
+          191,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              255,
+              0,
+              0
+            ],
+            4801
+          ],
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            3168
+          ],
+          [
+            [
+              255,
+              255,
+              0
+            ],
+            1091
+          ]
+        ]
+      },
+      "runtime": {
+        "path": "assets/ui/ming_maritime/painted/runtime/compass-rose.png",
+        "sha256": "97582bc659a525bbeed32485edfec27de5f7e864599a79e985422a9e35af1e23",
+        "size": [
+          256,
+          256
+        ],
+        "source_sha256": "58843953e44042f672bc46349ebf0af0efe578e6dbc1222b45fbeb7b1a932754",
+        "alpha_bbox_threshold_inclusive": 16,
+        "visible_bbox_xyxy": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "padding_original_pixels": 8,
+        "padding_clamped_to_original_canvas": true,
+        "crop_box_xyxy": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "discarded_nonzero_alpha_pixels": 0,
+        "operation": "crop retained RGBA verbatim, then proportional Pillow LANCZOS resize; no alpha/color threshold, keying, matte, painting or other edits",
+        "scale": 0.20414673046251994,
+        "alpha_min_max": [
+          0,
+          255
+        ],
+        "center_rgba": [
+          140,
+          195,
+          190,
+          253
+        ],
+        "ninepatch_caps_ltrb_source_pixels": null
+      },
+      "status": "rejected ornate iteration"
+    },
+    {
+      "key": "normal_v2_alternative",
+      "path": "assets/ui/ming_maritime/painted/button-normal-v2.png",
+      "generation_source": "C:/Users/dains/.codex/generated_images/01a17996-268f-72d2-b60d-a5d6678dba6f/exec-2d4ead5e-be49-44ec-8407-de9d027e2bfb.png",
+      "prompt": "Use case: stylized-concept\nAsset type: ONE isolated game UI normal button, transparent PNG, wide 3:1 canvas.\nPrecise layout requirement: the VISIBLE BUTTON ITSELF must have a 3:1 width-to-height proportion, not a narrow strip in a taller canvas. The gold silhouette's top edge is only 2% below top of image and its bottom edge is only 2% above bottom of image. Left and right only 2% from image edges. Make a full-height broad rectangular face. No big empty transparent band at top or bottom.\nSubject: A deep indigo-teal Ming maritime lacquerwood button, uniform opaque center #14353e / #0e272f, very thin antique gold #b59050 double engraved border and tiny modest cloud corner carvings. Low corner detail, quiet central 84% width and 75% height to hold live cream text. Nearly rectangular outline with tiny step-shaped Chinese cloud corners, not a pill, no large ears. Suitable for nine-patch resizing.\nStyle/medium: refined hand-painted ink engraving from a luxurious traditional Ming naval scroll, subtle dark lacquer grain, crisp delicate old-gold linework. Straight-on flat orthographic 2D, no perspective, no side thickness, no cast shadow, no 3D render.\nText: no text, Chinese glyphs, letters, numbers, icons, symbols, labels or watermark.\nBackground: actual transparent alpha outside the outer contour, NOT a checkerboard pattern. Keep outer transparent margin just 2%, interior opaque.\nAvoid: modern UI, paper, white center, parchment, glow, plastic, scene, multiple buttons, narrow strip.",
+      "crop": {
+        "applied": false,
+        "box": null
+      },
+      "visual_review": "Checked: slightly taller visible button, restrained corners, stronger lacquer grain. Alternative only; selected pair stays v1.",
+      "limitations": "Visible contour still longer than requested 3:1. Not chosen because paired selected button is v1.",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "cf3985990e942a501bde91e32e3330dea748003ba2694ef1cfe936c44a4b3c85",
+      "bytes": 2008266,
+      "source_byte_identical": true,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 388598,
+        "fully_opaque_pixels": 6,
+        "partial_alpha_pixels": 1183924,
+        "nonzero_bbox_xyxy": [
+          14,
+          25,
+          2158,
+          724
+        ],
+        "opaque_bbox_xyxy": [
+          45,
+          80,
+          2148,
+          521
+        ],
+        "transparent_fraction": 0.24711674450311855,
+        "center_rgba": [
+          9,
+          43,
+          49,
+          253
+        ],
+        "has_real_transparency": true,
+        "partial_alpha_top_rgb": [
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            5470
+          ],
+          [
+            [
+              5,
+              36,
+              42
+            ],
+            5065
+          ],
+          [
+            [
+              8,
+              41,
+              47
+            ],
+            5015
+          ]
+        ]
+      },
+      "status": "rejected ornate iteration"
+    }
+  ]
+}

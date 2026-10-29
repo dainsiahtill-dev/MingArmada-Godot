@@ -289,6 +289,9 @@ func _clear() -> void:
 	_splashes.clear()
 	_seen.clear()
 
+func reset_timeline() -> void:
+	_clear(); _time=-1.0
+
 func dispose() -> void:
 	_clear(); _water = Callable(); _surface_filter = Callable(); _reference_camera = null; _time = -1.0
 

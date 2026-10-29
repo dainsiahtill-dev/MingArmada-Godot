@@ -4,7 +4,7 @@ signal command_requested(intent: Dictionary)
 signal view_requested(tactical: bool)
 
 const Chart = preload("res://game/ui/mingqi/mingqi_chart.gd")
-const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 const Gunnery = preload("res://modules/naval_simulation/combat/cannon_system.gd")
 const BUSINESS = ["accept-convoy", "buy", "sell", "depart", "choose-route", "assign-order", "claim-convoy", "dock", "repair", "refit", "start-boarding", "board-action", "allocate-prize", "release-prisoners", "treat-wounded", "take-prize-cargo", "resolve-prize", "sell-prize", "incorporate-prize", "story-choice", "repay-debt"]
 const PANELS = {"ship": "旗舰与操船", "convoy": "船队与海图", "port": "靠港与贸易", "boarding": "接舷与俘获", "tactics": "船队战术", "story": "航海日志"}
@@ -23,6 +23,7 @@ var _selected: Array = []
 var _panel := "ship"
 var _panel_open := true
 var _menu_open := false
+var _manual_open := false
 var _layout_queued := false
 var _signature := ""
 var _generation := ""
@@ -162,10 +163,12 @@ func open_panel(id: String) -> void:
 		if heading: heading.text = PANELS[id]
 	if _operation: _operation.show()
 	for key in _panels: _panels[key].visible = key == id
+	_update_navigation()
 
 func close_panel() -> void:
 	_panel_open = false
 	if _operation: _operation.hide()
+	_update_navigation()
 	if _screen: _screen.get_viewport().gui_release_focus()
 
 func open_menu() -> void:
@@ -200,35 +203,78 @@ func _build() -> void:
 	var hud_theme: Theme = _theme.duplicate()
 	hud_theme.default_font_size = 14
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-		hud_theme.set_stylebox(state, "Button", Parchment.button_style(state, false, 8))
+		hud_theme.set_stylebox(state, "Button", Maritime.button_style(state, false, 8))
 	hud.theme = hud_theme
-	var hud_style: StyleBox = Parchment.panel(12)
+	var hud_style: StyleBox = Maritime.panel(14)
 	hud.add_theme_stylebox_override("panel", hud_style)
-	var head := _column(hud)
+	var hud_scroll := ScrollContainer.new()
+	hud_scroll.name = "hud_scroll"
+	hud_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	hud.add_child(hud_scroll)
+	var head := _column(hud_scroll)
+	head.name = "hud_body"
+	head.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.minimum_size_changed.connect(_queue_layout)
 	head.add_theme_constant_override("separation", 6)
-	_text(head, "title", func(): return "海上明旗  ·  1650", 24, Parchment.CINNABAR)
+	var cartouche := _art_header(head)
+	var title := _text(cartouche, "title", func(): return "海上明旗", 28, Maritime.INK)
+	title.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_text(head, "identity", func():
 		var c: Dictionary = _state().get("calendar", {})
 		var captain: Dictionary = _state().get("captain", {})
-		return "%d年%d月%d日  ·  %s  ·  %d岁" % [c.get("year", 1650), c.get("month", 1), c.get("day", 1), captain.get("name", "船长"), int(c.get("year", 1650)) - int(captain.get("birthYear", 1631))], 14)
-	_text(head, "silver", func(): return "银 %d两   借债 %d两   航程 %.1f秒" % [_state().get("captain", {}).get("silver", 0), _state().get("debt", {}).get("principal", 0), _state().get("simulationSeconds", 0)], 14)
-	_text(head, "navigation", _navigation_text, 14)
+		return "%d年%d月%d日  ·  %s  ·  %d岁" % [c.get("year", 1650), c.get("month", 1), c.get("day", 1), captain.get("name", "船长"), int(c.get("year", 1650)) - int(captain.get("birthYear", 1631))], 16)
+	_text(head, "silver", func(): return "银 %d两   借债 %d两   航程 %.1f秒" % [_state().get("captain", {}).get("silver", 0), _state().get("debt", {}).get("principal", 0), _state().get("simulationSeconds", 0)], 16)
+	_text(head, "navigation", _navigation_text, 16)
 	var broadside := _text(head, "broadside_status", func():
 		var id := str(_state().get("flagshipId",""))
-		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Parchment.MUTED)
-	_watchers.append(func(): broadside.visible = not _native(str(_state().get("flagshipId",""))).is_empty())
-	_text(head, "time_state", func(): return ("航程结束" if _naval().get("status", "") == "defeat" else "已暂停" if _runtime().get("paused", false) else "航行中") + " · 时间速度 %s×" % str(_runtime().get("timeScale", 1)), 14, Parchment.MUTED)
+		return "左舷 Q · %s\n右舷 E · %s" % [Gunnery.broadside_status(_naval(),id,"port",_runtime().get("policy",{})).label,Gunnery.broadside_status(_naval(),id,"starboard",_runtime().get("policy",{})).label], 13, Maritime.MUTED)
+	_watchers.append(func(): broadside.visible = _state().get("currentPortId") == null and not _native(str(_state().get("flagshipId",""))).is_empty())
 	var goal := _row(head)
 	goal.name = "objective_row"
-	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 13, Parchment.CINNABAR)
+	# Keep the live next action on the first page of a compact, scrollable HUD.
+	# At sea the two broadside lines otherwise push it below the clip boundary.
+	head.move_child(goal, 1)
+	_text(goal, "current_objective", func(): return "当前目标 · " + str(_story().get("objective", {}).get("title", "")), 16, Maritime.CINNABAR)
 	var goal_button := _local_button(goal, "objective_open", "查看", func(): open_panel(str(_story().get("objective", {}).get("panel", "story"))))
 	goal_button.custom_minimum_size = Vector2(48, 28)
 	_watchers.append(func():
 		goal.visible = not str(_story().get("objective", {}).get("title", "")).is_empty()
 		goal_button.disabled = not PANELS.has(str(_story().get("objective", {}).get("panel", ""))))
-	var voyage_progress := _text(head, "voyage_progress", _voyage_progress_text, 13, Parchment.MUTED)
+	var voyage_progress := _text(head, "voyage_progress", _voyage_progress_text, 16, Maritime.MUTED)
 	_watchers.append(func(): voyage_progress.visible = not voyage_progress.text.is_empty())
-	var time := _row(head)
+	var notice := _text(head, "notice", func(): return _reason(_runtime().get("notice", _runtime().get("reason", ""))), 14, Maritime.DANGER)
+	_watchers.append(func(): notice.visible = not notice.text.is_empty())
+	var keys := _text(head, "keys", func(): return ("先离港，再左键点海面航行 · 中键停船" if _state().get("currentPortId") != null else "左键点海面持续航行 · 中键停船") + "\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Maritime.MUTED)
+	keys.visible = _manual_open
+	var dock := _box(_screen, "command_dock")
+	dock.add_theme_stylebox_override("panel", Maritime.panel(12))
+	var command_scroll := ScrollContainer.new()
+	command_scroll.name = "command_scroll"
+	command_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	command_scroll.follow_focus = true
+	dock.add_child(command_scroll)
+	var commands := _column(command_scroll)
+	commands.name = "command_body"
+	commands.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	commands.add_theme_constant_override("separation", 5)
+	commands.minimum_size_changed.connect(_queue_layout)
+	var nav := HFlowContainer.new()
+	nav.name = "navigation_tabs"
+	nav.add_theme_constant_override("h_separation", 7)
+	nav.add_theme_constant_override("v_separation", 5)
+	commands.add_child(nav)
+	var nav_names := {"ship": "旗舰", "convoy": "船队海图", "port": "港口贸易", "boarding": "接舷俘获", "tactics": "战术", "story": "航海日志"}
+	for key in PANELS:
+		var button := _local_button(nav, "nav_" + key, nav_names[key], func(): open_panel(key))
+		button.toggle_mode = true
+		button.custom_minimum_size = Vector2(112, 38)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			button.add_theme_stylebox_override(state, Maritime.button_style(state, state == "pressed", 10))
+		button.add_theme_stylebox_override("hover_pressed", Maritime.button_style("pressed", true, 10))
+	var time := _row(commands)
+	time.name = "command_actions"
 	_button(time, "pause", "暂停", func(): return {"type": "pause", "value": not _runtime().get("paused", false)}, func(): return _operational())
 	_watchers.append(func():
 		var pause = _screen.find_child("pause", true, false)
@@ -236,28 +282,23 @@ func _build() -> void:
 	for value in [0.25, 1.0, 8.0]: _button(time, "speed_" + str(value).replace(".", "_"), str(value) + "×", func(): return {"type": "time-scale", "value": value}, func(): return _operational())
 	_local_button(time, "menu_open", "菜单", open_menu)
 	for button in time.get_children(): button.custom_minimum_size = Vector2(60, 32)
-	var nav := HFlowContainer.new()
-	head.add_child(nav)
-	var nav_names := {"ship": "旗舰", "convoy": "船队海图", "port": "港口贸易", "boarding": "接舷俘获", "tactics": "战术", "story": "航海日志"}
-	for key in PANELS:
-		var button := _local_button(nav, "nav_" + key, nav_names[key], func(): open_panel(key))
-		button.custom_minimum_size = Vector2(0, 32)
-	var cameras := _row(head)
-	_local_button(cameras, "camera_captain", "驾驶视角", func(): view_requested.emit(false))
-	_local_button(cameras, "camera_tactical", "高位海图", func(): view_requested.emit(true))
-	_button(cameras, "stop_sailing", "停船", func(): return {"type": "stop-sailing"}, _can_mouse_sail)
-	var notice := _text(head, "notice", func(): return _reason(_runtime().get("notice", _runtime().get("reason", ""))), 14, Parchment.DANGER)
-	_watchers.append(func(): notice.visible = not notice.text.is_empty())
-	_text(head, "keys", func(): return ("先离港，再左键点海面航行 · 中键停船" if _state().get("currentPortId") != null else "左键点海面持续航行 · 中键停船") + "\n按住右键拖动视角 · 滚轮缩放 · F 恢复跟船\nW/S 升降帆 · A/D 转舵 · Q/E 齐射\nR 调帆 · [/] 手动帆角 · 空格 暂停 · Esc 菜单", 13, Parchment.MUTED)
+	_local_button(time, "camera_captain", "驾驶视角", func(): view_requested.emit(false))
+	_local_button(time, "camera_tactical", "高位海图", func(): view_requested.emit(true))
+	_button(time, "stop_sailing", "停船", func(): return {"type": "stop-sailing"}, _can_mouse_sail)
+	var manual := _local_button(time, "sailing_manual", "收起手册" if _manual_open else "操船手册", _toggle_manual)
+	manual.custom_minimum_size = Vector2(80, 32)
+	_text(time, "time_state", func(): return ("航程结束" if _naval().get("status", "") == "defeat" else "已暂停" if _runtime().get("paused", false) else "航行中") + " · %s×" % str(_runtime().get("timeScale", 1)), 14, Maritime.MUTED)
 	_operation = _box(_screen, "operation")
+	_operation.add_theme_stylebox_override("panel", Maritime.panel(20, "folio"))
 	var operation_column := _column(_operation)
 	var heading := _row(operation_column)
-	_text(heading, "panel_heading", func(): return PANELS.get(_panel, "航程操作"), 24, Parchment.CINNABAR)
+	_text(heading, "panel_heading", func(): return PANELS.get(_panel, "航程操作"), 30, Maritime.INK)
 	_local_button(heading, "panel_close", "收起", close_panel)
 	var scroll := ScrollContainer.new()
 	scroll.name = "operation_scroll"
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
 	operation_column.add_child(scroll)
 	var stack := VBoxContainer.new()
 	stack.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -277,6 +318,7 @@ func _build() -> void:
 	_build_menu()
 	for key in _panels: _panels[key].visible = key == _panel
 	_operation.visible = _panel_open
+	_update_navigation()
 	_menu.visible = _menu_open
 	for update in _watchers: update.call()
 	_queue_layout()
@@ -426,11 +468,37 @@ func _repay_reason() -> String:
 func _debt_reason(value) -> String:
 	return "请先靠泊厦门林家商行，再偿还欠款。" if str(value) == "not-in-port" else _reason(value)
 
+func _story_portrait_header(parent: Control, scene_id: String) -> Control:
+	if scene_id != "old-ledger": return parent
+	var path := "res://assets/ui/ming_maritime/painted/portrait-xufu.png"
+	if not ResourceLoader.exists(path): return parent
+	var texture := load(path) as Texture2D
+	if texture == null: return parent
+	var header := HBoxContainer.new()
+	header.name = "story_portrait_header_" + scene_id
+	header.add_theme_constant_override("separation", 14)
+	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(header)
+	var portrait := TextureRect.new()
+	portrait.name = "story_portrait_" + scene_id
+	portrait.texture = texture
+	portrait.custom_minimum_size = Vector2(117, 156)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	portrait.focus_mode = Control.FOCUS_NONE
+	portrait.visible = _story_scene(scene_id).get("status", "locked") == "available" and _story_scene(scene_id).get("npc", {}).get("name", "") == "许福"
+	header.add_child(portrait)
+	_watchers.append(func():
+		var scene := _story_scene(scene_id)
+		portrait.visible = scene.get("status", "locked") == "available" and scene.get("npc", {}).get("name", "") == "许福")
+	return header
+
 func _build_story(parent: Control) -> void:
 	if _story().is_empty():
 		_text(parent, "story_fallback", func(): return "这段航程暂未载入航海日志。旗舰、船队、贸易与接舷仍可照常查看。")
 		return
-	_text(parent, "story_chapter", func(): return _story().get("chapter", {}).get("title", "航海日志"), 22, Parchment.CINNABAR)
+	_text(parent, "story_chapter", func(): return _story().get("chapter", {}).get("title", "航海日志"), 22, Maritime.CINNABAR)
 	_text(parent, "story_premise", func(): return _story().get("chapter", {}).get("summary", ""))
 	_heading(parent, "下一步")
 	_text(parent, "story_objective", func():
@@ -448,12 +516,14 @@ func _build_story(parent: Control) -> void:
 	for source_scene in display_scenes:
 		var scene_id := str(source_scene.get("id", ""))
 		var section := _column(_box(parent, "story_scene_" + scene_id))
-		_text(section, "story_title_" + scene_id, func(): return _story_scene(scene_id).get("title", ""), 20, Parchment.CINNABAR)
-		_text(section, "story_npc_" + scene_id, func():
+		_text(section, "story_title_" + scene_id, func(): return _story_scene(scene_id).get("title", ""), 20, Maritime.CINNABAR)
+		var npc_parent := _story_portrait_header(section, scene_id) if source_scene.get("status", "locked") == "available" else section
+		var npc_label := _text(npc_parent, "story_npc_" + scene_id, func():
 			var npc: Dictionary = _story_scene(scene_id).get("npc", {})
-			return str(npc.get("name", "")) + " · " + str(npc.get("role", "")), 15, Parchment.MUTED)
+			return str(npc.get("name", "")) + " · " + str(npc.get("role", "")), 15, Maritime.MUTED)
+		npc_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		if scene_id == "second-return":
-			_text(section, "story_bill_" + scene_id, func(): return _story_bill(scene_id), 15, Parchment.CINNABAR)
+			_text(section, "story_bill_" + scene_id, func(): return _story_bill(scene_id), 15, Maritime.CINNABAR)
 		match source_scene.get("status", "locked"):
 			"completed":
 				_text(section, "story_outcome_" + scene_id, func():
@@ -463,7 +533,7 @@ func _build_story(parent: Control) -> void:
 			"available":
 				_text(section, "story_dialogue_" + scene_id, func(): return _story_lines(scene_id))
 				var native_label := _text(section, "story_native_" + scene_id, func():
-					return _reason("runtime-unavailable") if not _operational() else (_story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified")) if not _story_native(scene_id).get("ok", false) else ""), 15, Parchment.DANGER)
+					return _reason("runtime-unavailable") if not _operational() else (_story_reason(scene_id, _story_native(scene_id).get("reason", "save-unverified")) if not _story_native(scene_id).get("ok", false) else ""), 15, Maritime.DANGER)
 				_watchers.append(func(): native_label.visible = not native_label.text.is_empty())
 				for source_choice in source_scene.get("choices", []):
 					var choice_id := str(source_choice.get("id", ""))
@@ -475,10 +545,10 @@ func _build_story(parent: Control) -> void:
 					_watchers.append(func():
 						button.text = str(_story_choice(scene_id, choice_id).get("label", "作出决定"))
 						button.tooltip_text = _story_choice_reason(scene_id, choice_id))
-					var reason := _text(choices, "story_choice_reason_" + scene_id + "_" + choice_id, func(): return _story_choice_reason(scene_id, choice_id), 14, Parchment.DANGER)
+					var reason := _text(choices, "story_choice_reason_" + scene_id + "_" + choice_id, func(): return _story_choice_reason(scene_id, choice_id), 14, Maritime.DANGER)
 					_watchers.append(func(): reason.visible = not reason.text.is_empty())
 			_:
-				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Parchment.MUTED)
+				_text(section, "story_locked_" + scene_id, func(): return _story_lines(scene_id, true), 15, Maritime.MUTED)
 	if preparing: _build_voyage_flow(parent)
 	_heading(parent, "账册与债务")
 	_text(parent, "story_debt", func():
@@ -507,9 +577,9 @@ func _build_story(parent: Control) -> void:
 	var captured := _token()
 	quantity.get_line_edit().text_changed.connect(func(_draft):
 		if captured == _token() and not _repay_refreshing: _refresh())
-	_text(parent, "repay_limit", func(): return "当前最多可还%d两；付款只减少这本账册记下的实际欠款。" % _repay_limit(), 14, Parchment.MUTED)
+	_text(parent, "repay_limit", func(): return "当前最多可还%d两；付款只减少这本账册记下的实际欠款。" % _repay_limit(), 14, Maritime.MUTED)
 	_button(parent, "repay_debt", "偿还欠款", func(): return {"type": "repay-debt", "quantity": _debt_quantity()}, _repay_ok)
-	var reason := _text(parent, "repay_debt_reason", _repay_reason, 15, Parchment.DANGER)
+	var reason := _text(parent, "repay_debt_reason", _repay_reason, 15, Maritime.DANGER)
 	_watchers.append(func(): reason.visible = not reason.text.is_empty())
 	_heading(parent, "同行的人")
 	for relation in _story().get("relations", []):
@@ -577,7 +647,7 @@ func _build_voyage_flow(parent: Control) -> void:
 		var active: Dictionary = _voyage_flow().get("active", {})
 		var counts: Dictionary = active.get("counts", {})
 		return _voyage_progress_text() + "\n粮船：在途%d · 到达%d · 损失%d。%s" % [counts.get("underway", 0), counts.get("arrived", 0), counts.get("lost", 0), "首航从开局计时；可先暂停，决定旧账与航路。对白可跳过。" if active.get("contractId") == "convoy-001" and active.get("stage") in ["offered", "loading"] else "按实际交付交差，逾期可能失去奖金。" if active.get("stage") != "closed" else "结算后仍须安全靠港，才能保存船队。"], 15)
-	var bill := _text(section, "voyage_bill", _voyage_bill_text, 15, Parchment.CINNABAR)
+	var bill := _text(section, "voyage_bill", _voyage_bill_text, 15, Maritime.CINNABAR)
 	_watchers.append(func(): bill.visible = not bill.text.is_empty())
 	var decisions := _text(section, "voyage_decisions", func():
 		var entries: PackedStringArray = []
@@ -598,7 +668,7 @@ func _navigation_text() -> String:
 	var visual: Dictionary = ship.get("visual", {})
 	var velocity: Dictionary = visual.get("velocity", {})
 	var speed := Vector2(float(velocity.get("x", 0)), float(velocity.get("z", 0))).length() * 1.943844
-	return "航向 %03d°   航速 %.1f节   风速 %.1fm/s   %s" % [int(fposmod(rad_to_deg(float(visual.get("heading", 0))) + 90, 360)), speed, _naval().get("wind", {}).get("speed", 0), _port_name(_state().get("currentPortId"))]
+	return "航向 %03d°   航速 %.1f节\n风速 %.1f m/s  ·  %s" % [int(fposmod(rad_to_deg(float(visual.get("heading", 0))) + 90, 360)), speed, _naval().get("wind", {}).get("speed", 0), _port_name(_state().get("currentPortId"))]
 
 func _build_ship(parent: Control) -> void:
 	_art(parent, "res://assets/art/characters/zheng-captain-v1.png", 94)
@@ -798,7 +868,7 @@ func _build_port(parent: Control) -> void:
 		for type in ["buy", "sell"]:
 			var fact := _fact(type)
 			if not fact.get("ok", false): reasons.append(("买入：" if type == "buy" else "卖出：") + _reason(fact.get("reason", "save-unverified")))
-		return "\n".join(reasons), 14, Parchment.DANGER)
+		return "\n".join(reasons), 14, Maritime.DANGER)
 	_heading(parent, "船务与治伤")
 	_select(parent, "service_ship", "作业船只", _ship_options(true), str(_state().get("flagshipId", "")))
 	_text(parent, "service_crew", func(): return _crew_text(_vessel(str(_form.get("service_ship", "")))))
@@ -1042,12 +1112,12 @@ func _build_menu() -> void:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", 12)
 	scroll.add_child(body)
-	_heading(body, "海上明旗 · 航程菜单")
+	_heading(body, "海上明旗 · 航程菜单", true)
 	_text(body, "menu_state", func(): return "世界已暂停。" if _runtime().get("paused", false) else "暂停航行后可安心查看账本与存档。")
 	_local_button(body, "menu_resume", "继续航行", func():
 		close_menu()
 		_send({"type": "pause", "value": false}, _token()))
-	_text(body, "save_reason", func(): return "安全条件已核验，可保存航程。" if _runtime().get("canSave", false) == true else _reason(_runtime().get("saveReason", "save-unverified")), 16, Parchment.DANGER)
+	_text(body, "save_reason", func(): return "安全条件已核验，可保存航程。" if _runtime().get("canSave", false) == true else _reason(_runtime().get("saveReason", "save-unverified")), 16, Maritime.DANGER)
 	_button(body, "save", "保存安全航程", func(): return {"type": "save"}, func(): return _runtime().get("canSave", false) == true)
 	_button(body, "save_and_menu", "保存并返回主菜单", func(): return {"type": "save-and-menu"}, func(): return _runtime().get("canSave", false) == true)
 	_local_button(body, "menu_settings", "画面与声音设置", func(): _send({"type":"open-settings"}, _token()))
@@ -1069,7 +1139,7 @@ func _build_menu() -> void:
 	picker.access = FileDialog.ACCESS_FILESYSTEM
 	picker.filters = PackedStringArray(["*.json ; JSON 存档"])
 	_screen.add_child(picker)
-	picker.theme = Parchment.create()
+	picker.theme = Maritime.create()
 	var captured := _token()
 	picker.file_selected.connect(func(path): _send({"type": "import-save", "path": path}, captured))
 	_local_button(body, "import_choose_file", "选择 JSON 存档文件", func():
@@ -1111,7 +1181,7 @@ func _box(parent: Node, id: String) -> PanelContainer:
 	var box := PanelContainer.new()
 	box.name = id
 	if id.begins_with("story_scene_") or id == "voyage_closure":
-		box.add_theme_stylebox_override("panel", Parchment.panel(14, "inset"))
+		box.add_theme_stylebox_override("panel", Maritime.panel(14, "inset"))
 	parent.add_child(box)
 	return box
 func _column(parent: Node) -> VBoxContainer:
@@ -1119,23 +1189,26 @@ func _column(parent: Node) -> VBoxContainer:
 	column.add_theme_constant_override("separation", 9)
 	parent.add_child(column)
 	return column
-func _row(parent: Node) -> HBoxContainer:
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 8)
+func _row(parent: Node) -> HFlowContainer:
+	var row := HFlowContainer.new()
+	row.add_theme_constant_override("h_separation", 8)
+	row.add_theme_constant_override("v_separation", 6)
 	parent.add_child(row)
 	return row
-func _heading(parent: Control, text: String) -> void:
+func _heading(parent: Control, text: String, prominent: bool = false) -> void:
 	var separator := HSeparator.new()
 	parent.add_child(separator)
-	_text(parent, "heading_" + str(parent.get_child_count()), func(): return text, 20, Parchment.CINNABAR)
-func _text(parent: Node, id: String, source: Callable, font_size: int = 16, color: Color = Parchment.INK) -> Label:
+	_text(parent, "heading_" + str(parent.get_child_count()), func(): return text, 30 if prominent else 22, Maritime.INK if prominent else Maritime.CINNABAR)
+func _text(parent: Node, id: String, source: Callable, font_size: int = 18, color: Color = Maritime.INK) -> Label:
 	var label := Label.new()
 	label.name = id
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_constant_override("line_spacing",4 if font_size>=16 and font_size<24 else 0)
 	label.add_theme_color_override("font_color", color)
-	if font_size >= 20: label.add_theme_font_override("font", Parchment.title_font())
+	if font_size >= 20: label.add_theme_font_override("font", Maritime.title_font())
 	parent.add_child(label)
 	_watchers.append(func(): label.text = str(source.call()))
 	return label
@@ -1215,11 +1288,37 @@ func _art(parent: Node, path: String, height: float) -> void:
 	if not ResourceLoader.exists(path): return
 	var art := TextureRect.new()
 	art.texture = load(path)
+	if art.texture == null:
+		art.free()
+		return
 	art.custom_minimum_size = Vector2(0, height)
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(art)
+
+func _art_header(parent: Node) -> Control:
+	var header := Control.new()
+	header.name = "header_composition"
+	header.custom_minimum_size = Vector2(0, 44)
+	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(header)
+	# The live calligraphic title carries this area; the material stays quiet.
+	return header
+
+func _update_navigation() -> void:
+	if not _screen: return
+	for key in PANELS:
+		var tab = _screen.find_child("nav_" + key, true, false)
+		if tab is Button: tab.set_pressed_no_signal(_panel_open and key == _panel)
+
+func _toggle_manual() -> void:
+	_manual_open = not _manual_open
+	var manual = _screen.find_child("sailing_manual", true, false)
+	var keys = _screen.find_child("keys", true, false)
+	if manual: manual.text = "收起手册" if _manual_open else "操船手册"
+	if keys: keys.visible = _manual_open
+	_queue_layout()
 
 func _queue_layout() -> void:
 	if _layout_queued: return
@@ -1233,16 +1332,37 @@ func _flush_layout() -> void:
 func _layout() -> void:
 	if not _screen or not _operation: return
 	var viewport := _screen.get_viewport_rect().size
-	var hud = _screen.find_child("hud", true, false)
-	if hud:
-		hud.position = Vector2(18, 18)
-		hud.size = Vector2(minf(430, viewport.x - 36), hud.get_combined_minimum_size().y)
-	var width := minf(470, viewport.x - 36)
+	var hud: Control = _screen.find_child("hud", true, false)
+	var head: Control = _screen.find_child("hud_body", true, false)
+	var dock: Control = _screen.find_child("command_dock", true, false)
+	var commands: Control = _screen.find_child("command_body", true, false)
+	if not hud or not head or not dock or not commands: return
+	var small := viewport.x < 600
+	if bool(_operation.get_meta("skin_compact",false)) != small:
+		_operation.set_meta("skin_compact",small)
+		# Compact readers omit the cloud head margin but remain independent
+		# windows, with the same generated outer gold line and soft shadow.
+		_operation.add_theme_stylebox_override("panel",Maritime.frame_style(Maritime.panel(16,"inset") as StyleBoxTexture) if small else Maritime.panel(20,"folio"))
+	var available_width := maxf(1, viewport.x - 36)
+	hud.position = Vector2(18, 18)
+	hud.size.x = minf(370, available_width)
+	var hud_style := hud.get_theme_stylebox("panel")
+	var hud_padding := hud_style.get_minimum_size().y
+	dock.size.x = available_width
+	var dock_padding := dock.get_theme_stylebox("panel").get_minimum_size().y
+	var dock_height := 128.0 if small else clampf(commands.get_combined_minimum_size().y + dock_padding, 104, 132)
+	dock.size.y = dock_height
+	dock.position = Vector2(18, maxf(18, viewport.y - dock_height - 18))
+	var preferred_limit := minf(156, viewport.y * 0.325) if small else (430.0 if _manual_open else 310.0)
+	# A short landscape window must retain space between the HUD and command dock.
+	var hud_limit := minf(preferred_limit, maxf(0.0, dock.position.y - hud.position.y - 16.0))
+	hud.size.y = minf(head.get_combined_minimum_size().y + hud_padding, hud_limit)
+	var width := minf(440, available_width)
 	var narrow := viewport.x < 960
-	_operation.position = Vector2(18 if narrow else viewport.x - width - 18, hud.position.y + hud.size.y + 16 if narrow and hud else 18)
-	_operation.size = Vector2(width, maxf(0, viewport.y - _operation.position.y - 18))
+	_operation.position = Vector2(18 if narrow else viewport.x - width - 18, hud.position.y + hud.size.y + 16 if narrow else 18)
+	_operation.size = Vector2(width, maxf(0, dock.position.y - _operation.position.y - 14))
 	_menu.position = Vector2(maxf(18, (viewport.x - 500) / 2), 24)
 	_menu.size = Vector2(minf(500, viewport.x - 36), maxf(220, viewport.y - 48))
 
 func _make_theme() -> Theme:
-	return Parchment.create()
+	return Maritime.create()

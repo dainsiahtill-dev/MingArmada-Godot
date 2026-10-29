@@ -109,7 +109,7 @@ static func broadside_status(native: Dictionary, ship_id: String, side: String, 
 	var ammo: String = ship.get("ammoType","solid")
 	var result := {"phase":"ready","label":"可齐射","rangeMeters":BALLISTICS[ammo].range,"arcDegrees":25.0,"targetId":"","reloadSeconds":ship.get("cooldownSeconds",{}).get(side,0.0)}
 	if ship.get("cannonsPerSide",0) <= 0: result.phase="no-guns"; result.label="未配舰炮"; return result
-	if ship.get("hull",0.0) <= 0 or ship.get("crew",0.0) <= 0: result.phase="not-operational"; result.label="炮组无法作战"; return result
+	if ship.get("hull",0.0) <= 0 or ship.get("availableCrew",ship.get("crew",0.0)) <= 0: result.phase="not-operational"; result.label="炮组无法作战"; return result
 	if result.reloadSeconds > 0.0: result.phase="reloading"; result.label="装填 %.1f秒" % result.reloadSeconds; return result
 	if ship.get("ammo",{}).get(ammo,0) <= 0: result.phase="no-ammo"; result.label="弹药耗尽"; return result
 	# A lean UI projection can show guns/reload/ammunition without physical

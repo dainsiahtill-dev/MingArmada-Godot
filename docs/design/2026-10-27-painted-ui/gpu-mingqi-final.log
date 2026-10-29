@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.325 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) 130T GPU (16GB)
+
+PARCHMENT_UI_GROUP_START mingqi
+PARCHMENT_UI_CAPTURE mingqi-ship-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-convoy-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-port-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-boarding-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-tactics-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-story-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-manual-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-menu-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-file-dialog-1600 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-ship-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-convoy-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-port-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-boarding-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-tactics-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-story-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-manual-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-menu-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-file-dialog-1280 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-narrow-320 overflowCandidates=0
+PARCHMENT_UI_CAPTURE mingqi-story-portrait-1280 overflowCandidates=0
+PARCHMENT_UI_COMPLETE group=mingqi captures=20 assertions=258 failures=0
+SCRIPT ERROR: Cannot call method 'ensure_control_visible' on a previously freed instance.
+   at: mingqi_group (res://tools/capture-painted-ui.gd:418)
+   GDScript backtrace (most recent call first):
+       [0] mingqi_group (res://tools/capture-painted-ui.gd:418)
+       [1] press (res://tools/capture-painted-ui.gd:159)
+       [2] click (res://tools/capture-painted-ui.gd:155)
+       [3] frames (res://tools/capture-painted-ui.gd:110)

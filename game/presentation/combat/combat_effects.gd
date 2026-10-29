@@ -1,13 +1,18 @@
 extends Node3D
 ## Presentation only: source projectiles and deduplicated fire/hit/splash events.
+const Atmosphere = preload("res://game/presentation/combat/ship_fire_view.gd")
 const Splashes = preload("res://game/presentation/water/water_splashes.gd")
 const SourceEffect = preload("res://modules/scene_engine/fidelity_fx/presentation.gd")
+var _atmosphere: Node3D
+var _water_sampler: Callable
 var _balls: Dictionary = {}
 var _puffs: Array = []
 var _seen: Dictionary = {}
 var _velocities: Dictionary = {}
 var _time := 0.0
+var _battle_id := ""
 var _ball_material: StandardMaterial3D
+var _fire_ball_material: StandardMaterial3D
 var _water_splashes: Node3D
 var _surface_filter: Callable
 var _camera: Camera3D
@@ -15,13 +20,23 @@ var _source_fire: Array = []
 var _source_prewarm: Dictionary = {}
 var _pending_snapshot: Dictionary = {}
 var _snapshot_pending := false
+func configure_atmosphere(options: Dictionary = {}, anchor_provider: Callable = Callable()) -> Dictionary:
+	if _atmosphere: _atmosphere.dispose(); _atmosphere.free()
+	_atmosphere=Atmosphere.new(); _atmosphere.name="CombatAtmosphere"; add_child(_atmosphere)
+	return _atmosphere.configure(options,_camera,_water_sampler,anchor_provider)
+func atmosphere_diagnostics() -> Dictionary:
+	return _atmosphere.diagnostics() if _atmosphere else {}
+func refresh_attached_effects() -> void:
+	if _atmosphere: _atmosphere.refresh_anchors()
 func set_camera(camera: Camera3D) -> void:
 	finish_snapshot()
 	_camera = camera
+	if _atmosphere: _atmosphere.set_camera(camera)
 	if _water_splashes: _water_splashes.configure_reference_backend(camera)
 	for effect: Dictionary in _source_fire: effect.node.set_camera(camera)
 func set_water_sampler(sampler: Callable) -> void:
 	finish_snapshot()
+	_water_sampler=sampler
 	if _source_prewarm.is_empty():
 		_source_prewarm = SourceEffect.prewarm_game_sources()
 		if not bool(_source_prewarm.get("ok",false)):
@@ -37,6 +52,8 @@ func set_surface_filter(surface_filter: Callable) -> void:
 	if _water_splashes: _water_splashes.configure_surface_filter(surface_filter)
 func _ready() -> void:
 	_ball_material = StandardMaterial3D.new(); _ball_material.albedo_color = Color("302e26")
+	_fire_ball_material = StandardMaterial3D.new(); _fire_ball_material.albedo_color = Color("8c3e20")
+	_fire_ball_material.emission_enabled=true; _fire_ball_material.emission=Color("d35b23"); _fire_ball_material.emission_energy_multiplier=0.8
 static func _vector(value: Dictionary) -> Vector3: return Vector3(value.get("x",0),value.get("y",0),value.get("z",0))
 func observe_projectiles(native: Dictionary) -> void:
 	for projectile: Dictionary in native.get("projectiles",[]): _velocities[projectile.id] = {"velocity":projectile.velocity.duplicate(),"time":native.time}
@@ -58,8 +75,11 @@ func begin_snapshot(native: Dictionary,_consumed: float = 0.0) -> void:
 	finish_snapshot()
 	var now := float(native.time)
 	if not is_finite(now) or now < 0: return
-	if now < _time: _clear_transients()
+	var next_battle:String=native.get("battleId","")
+	if now < _time or not next_battle.is_empty() and next_battle!=_battle_id: _clear_transients()
+	_battle_id=next_battle
 	_time = now
+	if _atmosphere: _atmosphere.apply_snapshot(native)
 	# This dictionary is borrowed read-only until the matching finish. The Sea
 	# completes the pair in this same frame before handling new events.
 	_pending_snapshot = native
@@ -88,7 +108,7 @@ func finish_snapshot() -> void:
 		present.append(projectile.id)
 		if not _balls.has(projectile.id):
 			var ball := MeshInstance3D.new(); var shape := SphereMesh.new(); shape.radius = 0.18; shape.height = 0.36
-			ball.mesh = shape; ball.material_override = _ball_material; add_child(ball); _balls[projectile.id] = ball
+			ball.mesh = shape; ball.material_override = _fire_ball_material if projectile.get("kind")=="fire-payload" else _ball_material; add_child(ball); _balls[projectile.id] = ball
 		_balls[projectile.id].position = _vector(projectile.position)
 	for id in _balls.keys():
 		if not id in present: _balls[id].queue_free(); _balls.erase(id)
@@ -135,6 +155,7 @@ func _update_puff(puff: Dictionary, age: float) -> void:
 	puff.material.albedo_color.a = (1-age/puff.duration)*puff.alpha
 func apply_events(events: Array) -> void:
 	finish_snapshot()
+	if _atmosphere: _atmosphere.apply_events(events)
 	for event: Dictionary in events:
 		if _seen.has(event.id): continue
 		_seen[event.id] = true
@@ -157,6 +178,10 @@ func apply_events(events: Array) -> void:
 				for i in 6: _puff(point,Color(0.55,0.35,0.15,0.95),0.12,0.9,Vector3(sin(i*2.1)*3,1.5+i*0.3,cos(i*2.1)*3),0.1,born)
 			"splash":
 				if _water_splashes: _water_splashes.add_event(event)
+			"fire-payload-splash":
+				if _water_splashes:
+					var splash:Dictionary=event.duplicate(true);splash.type="splash";splash.scale=0.65
+					_water_splashes.add_event(splash)
 			"mast-break":
 				for i in 8: _puff(point,Color(0.50,0.33,0.17,0.70),0.10,1.2,Vector3(sin(i*2.1)*2.0,1.1+i*.12,cos(i*2.1)*2.0),0.12,born)
 			"destruction-explosion":
@@ -188,11 +213,15 @@ func _clear_transients() -> void:
 		effect.node.dispose(); effect.node.free()
 	_source_fire.clear()
 	_balls.clear(); _puffs.clear(); _seen.clear(); _velocities.clear()
+	if _water_splashes: _water_splashes.reset_timeline()
 
 func dispose() -> void:
 	_clear_transients()
+	if _atmosphere: _atmosphere.dispose(); _atmosphere.free(); _atmosphere=null
+	_water_sampler=Callable()
 	if _water_splashes: _water_splashes.dispose(); _water_splashes.free(); _water_splashes = null
 	_time = 0.0
+	_battle_id = ""
 	_surface_filter = Callable()
 	_camera = null
 	_source_prewarm.clear()

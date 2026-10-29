@@ -178,12 +178,20 @@ func _sync_legacy_zoom() -> void:
 func _sync_view_handles() -> void:
 	world = sea.world; camera = sea.camera; effects = sea.effects
 	library = sea.library; ships = sea.ships; sailors = sea.sailors
+func _present_cargo(native: Dictionary,visual: Dictionary) -> void:
+	var packet: Dictionary=runtime.cargo_presentation()
+	# Official terminal tail may finish a falling package after authority stops.
+	# Menu/player pauses freeze visual.time, so they cannot age debris.
+	packet.time=float(packet.time)+maxf(0.0,float(visual.time)-float(native.time))
+	sea.apply_cargo_snapshot(visual,packet)
+
 func _present_local_fire(consumed: float) -> void:
 	if not world or _disposed or not runtime.simulation: return
 	consumed += _pending_presentation_seconds
 	var native: Dictionary = runtime.simulation.snapshot()
 	var visual: Dictionary = _terminal_presentation.snapshot(native)
 	var events: Array = sea.apply_local_fire(visual,runtime.drain_events(),consumed)
+	_present_cargo(native,visual)
 	_sync_view_handles()
 	services.present(visual,events,consumed,runtime.is_paused())
 func _present(consumed: float) -> void:
@@ -197,6 +205,7 @@ func _present(consumed: float) -> void:
 	_sync_legacy_zoom()
 	sea.tactical = tactical
 	var events: Array = sea.apply_snapshot(visual,runtime.drain_events(),consumed)
+	_present_cargo(native,visual)
 	_sync_view_handles()
 	# Consult current blockers even for a menu command before the next physics
 	# callback. The final accepted tail interval still reaches presentation audio.

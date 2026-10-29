@@ -1,6 +1,8 @@
 extends Node3D
 ## Shared native sea presentation. Authority snapshots and samplers are injected;
 ## this node never advances combat, business state or a separate wave clock.
+signal presentation_failed(receipt: Dictionary)
+const Cargo = preload("res://game/presentation/cargo/cargo_world_view.gd")
 const World = preload("res://modules/scene_engine/world/world_view.gd")
 const Library = preload("res://modules/scene_engine/assets/asset_library.gd")
 const Waves = preload("res://modules/contracts/wave_descriptor.gd")
@@ -17,6 +19,8 @@ const QUALITY := {
 	"low":{"resolution":40,"chunk_radius":2,"shadows":false,"bloom":false},
 	"balanced":{"resolution":64,"chunk_radius":3,"shadows":true,"bloom":false},
 	"high":{"resolution":96,"chunk_radius":4,"shadows":true,"bloom":true}}
+var _cargo: Node3D
+var _presentation_failure: Dictionary = {}
 var world: Node3D
 var camera: Camera3D
 var effects: Node3D
@@ -96,6 +100,7 @@ static func find_ship(native: Dictionary, id: String) -> Dictionary:
 
 func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, native: Dictionary, options: Dictionary = {}) -> bool:
 	dispose()
+	_presentation_failure.clear()
 	if not height_sampler.is_valid() or not water_sampler.is_valid(): return false
 	_disposed = false
 	_height = height_sampler; _water = water_sampler
@@ -122,6 +127,11 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 	effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
 	effects.set_camera(camera)
 	effects.set_surface_filter(_surface_is_water)
+	var atmosphere: Dictionary=_prepare_atmosphere(effects)
+	if not atmosphere.get("ok",false):
+		dispose()
+		_fail_presentation(atmosphere,"configure")
+		return false
 	wakes = Wakes.new(); _own(wakes); _configure_wakes()
 	_configure_interactive_water()
 	source_shadows=ShadowRenderer.new();_shadow_capability=source_shadows.configure(self,camera)
@@ -131,6 +141,47 @@ func configure(height_sampler: Callable, ports: Array, water_sampler: Callable, 
 			dispose()
 			return false
 	return true
+
+func _destruction_anchor(id: String) -> Dictionary:
+	return ships[id].source_destruction_anchor() if ships.has(id) else {}
+
+func _prepare_atmosphere(owner: Node3D) -> Dictionary:
+	return owner.configure_atmosphere({"enabled":bool(_options.get("combat_atmosphere",true)),"quality":_settings.quality},_destruction_anchor)
+
+func _fail_presentation(receipt: Dictionary, phase: String) -> void:
+	_presentation_failure=receipt.duplicate(true)
+	_presentation_failure.ok=false
+	_presentation_failure.reason=str(receipt.get("reason","combat-atmosphere-unavailable"))
+	_presentation_failure.phase=phase
+	presentation_failed.emit(_presentation_failure.duplicate(true))
+
+func presentation_status() -> Dictionary:
+	return {"ready":not _disposed and _presentation_failure.is_empty() and is_instance_valid(effects) and effects.atmosphere_diagnostics().get("ready",false),"failed":not _presentation_failure.is_empty(),"reason":_presentation_failure.get("reason",""),"failure":_presentation_failure.duplicate(true)}
+
+func _cargo_source(id: String) -> Dictionary:
+	if not ships.has(id): return {}
+	var view: Node3D=ships[id]
+	if view.damage_diagnostics().get("ended",false): return {}
+	return {"model":view.source_deck_model(),"kind":_kinds.get(id,"")}
+
+func apply_cargo_snapshot(native: Dictionary, packet: Dictionary) -> Dictionary:
+	if _disposed: return {"ok":false,"reason":"world-disposed"}
+	if not _presentation_failure.is_empty(): return _presentation_failure.duplicate(true)
+	if _cargo==null:
+		_cargo=Cargo.new();_cargo.name="CommittedCargo";_own(_cargo)
+		var prepared: Dictionary=_cargo.configure(_water,_cargo_source)
+		if not prepared.get("ok",false): return prepared
+	var receipt: Dictionary=_cargo.apply_snapshot(native,packet)
+	var splashes: Array=_cargo.drain_splashes()
+	if not splashes.is_empty(): effects.apply_events(splashes)
+	return receipt
+
+func cargo_diagnostics() -> Dictionary:
+	return _cargo.inspection_snapshot() if _cargo else {"ready":false,"decks":{},"floating":[]}
+
+func _release_cargo() -> void:
+	if _cargo:
+		_owned.erase(_cargo);_cargo.dispose();_cargo.free();_cargo=null
 
 func _own(node: Node) -> void:
 	add_child(node); _owned.append(node)
@@ -198,17 +249,28 @@ func remember_authoritative_poses(native:Dictionary,consumed:float=0.0)->void:
 		var pose:Variant=ships[id].remember_authoritative_pose(ship,float(supplied))
 		if pose is Transform3D and sailors.has(id):sailors[id].advance_impacts(float(supplied),consumed,pose)
 
-func _reset_fleet() -> void:
+func _reset_fleet() -> bool:
+	# Prepare required resources before releasing the last usable picture.
+	# A failed replacement is latched and reported to the runtime owner; keep
+	# its camera alive so scene/services can present the failure without nulls.
+	var candidate := Effects.new(); _own(candidate)
+	candidate.set_water_sampler(_water); candidate.set_camera(camera)
+	candidate.set_surface_filter(_surface_is_water)
+	var atmosphere: Dictionary=_prepare_atmosphere(candidate)
+	if not atmosphere.get("ok",false):
+		_owned.erase(candidate); candidate.dispose(); candidate.free()
+		_fail_presentation(atmosphere,"reset")
+		return false
+	_release_cargo()
 	_pending_crew_entries.clear()
 	_local_presentation_seconds.clear()
 	for id: String in ships.keys(): _release_ship(id)
 	if effects:
 		_owned.erase(effects); effects.dispose(); effects.free()
-		effects = Effects.new(); _own(effects); effects.set_water_sampler(_water)
-		effects.set_camera(camera)
-		effects.set_surface_filter(_surface_is_water)
+	effects=candidate
 	if wakes:
 		_configure_wakes()
+	return true
 
 func _configure_wakes() -> void:
 	wakes.configure(_water)
@@ -322,13 +384,13 @@ func _source_fire_events(events: Array) -> Array:
 	return result
 
 func apply_local_fire(native: Dictionary, events: Array, consumed: float = 0.0) -> Array:
-	if _disposed: return []
+	if _disposed or not _presentation_failure.is_empty(): return []
 	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)):
 		_pending_crew_entries.clear(); _local_presentation_seconds.clear()
 	var next_battle := String(native.get("battleId", ""))
 	if next_battle != _battle_id:
 		_local_presentation_seconds.clear()
-		if not _battle_id.is_empty(): _reset_fleet()
+		if not _battle_id.is_empty() and not _reset_fleet(): return []
 	_battle_id = next_battle
 	_snapshot = native.duplicate(true)
 	# Keep exactly the accepted times formerly submitted by immediate fire
@@ -357,15 +419,16 @@ func apply_local_fire(native: Dictionary, events: Array, consumed: float = 0.0) 
 	# every crew owner; only the firing crews received a snapshot above.
 	for crew: Node3D in sailors.values(): crew.apply_events(presented_events)
 	effects.apply_events(presented_events)
+	effects.refresh_attached_effects()
 	_flush_crew_water_entries()
 	return presented_events
 
 func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.0) -> Array:
-	if _disposed: return []
+	if _disposed or not _presentation_failure.is_empty(): return []
 	if float(native.get("time",0.0)) < float(_snapshot.get("time",0.0)):
 		_pending_crew_entries.clear(); _local_presentation_seconds.clear()
 	var next_battle := String(native.get("battleId", ""))
-	if next_battle != _battle_id and not _battle_id.is_empty(): _reset_fleet()
+	if next_battle != _battle_id and not _battle_id.is_empty() and not _reset_fleet(): return []
 	_battle_id = next_battle
 	_snapshot = native.duplicate(true)
 	_update_camera(native, consumed)
@@ -399,6 +462,7 @@ func apply_snapshot(native: Dictionary, events: Array = [], consumed: float = 0.
 	for id: String in ships:
 		ships[id].apply_events(presented_events); sailors[id].apply_events(presented_events)
 	effects.apply_events(presented_events)
+	effects.refresh_attached_effects()
 	_flush_crew_water_entries()
 	wakes.apply_snapshot(WaterPacket.compose(native,ships,camera))
 	world.apply_snapshot(_world_packet(native),consumed)
@@ -463,6 +527,7 @@ func _update_camera(native: Dictionary, consumed: float) -> void:
 
 func dispose() -> void:
 	_disposed = true
+	_release_cargo()
 	if _interactive_water!=null:_interactive_water.dispose()
 	_interactive_water=null;_water_mask_revision=-1;_interactive_ocean_id=0
 	if source_shadows:source_shadows.dispose()

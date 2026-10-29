@@ -1,0 +1,58 @@
+{
+  "lod": 2,
+  "baselineSources": {
+    "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r7c.blend": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod0.glb": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod1.glb": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+    "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod2.glb": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+    "tools/blender/build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "docs/production/hero-fuchuan-2026-10-26-art/R14-DECK-HATCH-BRIEF.md": "b323929fbbf5c2ad6b4dc04d73ccd3d71f51ea83167cc9e9939cb28e2d787ad1",
+    "tools/blender/build_hero_fuchuan_r14b.py": "2f8696ae500b8c22f9d2a55d2c010dc5ffac48dd0e196c55f015f2a7d7a26f72"
+  },
+  "sourceUnchanged": true,
+  "candidateRaw": "Temp/hero-fuchuan-r14b/r14b-author-01/fuchuan-lod2.glb",
+  "candidateRawSha256": "4ad482defa8aa96885a7c8e957f515aae1a69c40f35158d1bda75d674750734a",
+  "candidateBlend": "assets/production/hero-fuchuan-blender/r14b-author-01-blends/hero-fuchuan-v3-r14b-lod2.blend",
+  "candidateBlendSha256": "383dd1ee19f5af3ed0a8f7009a3338221dabd927b4e96a6cecbfbcfc54f38a8b",
+  "newNodes": [
+    {
+      "name": "cargo_hold_coaming_-3.2",
+      "vertices": 32,
+      "faces": 24,
+      "centerZ": -3.2,
+      "outer": [
+        1.85,
+        2.25
+      ],
+      "heightAboveDeck": [
+        0.03,
+        0.34
+      ],
+      "topHeightReference": "deck center",
+      "thickness": 0.18,
+      "material": "teak",
+      "deck_obstacle": true
+    },
+    {
+      "name": "cargo_hold_coaming_5.8",
+      "vertices": 32,
+      "faces": 24,
+      "centerZ": 5.8,
+      "outer": [
+        1.85,
+        2.25
+      ],
+      "heightAboveDeck": [
+        0.03,
+        0.34
+      ],
+      "topHeightReference": "deck center",
+      "thickness": 0.18,
+      "material": "teak",
+      "deck_obstacle": true
+    }
+  ],
+  "blenderVersion": "5.4.0 Alpha",
+  "scope": "R7c author Blend plus two editable coamings; original geometry is LOD0 in this raw export; not shippable lower LOD",
+  "constraints": "Existing original cargo covers and deck_fittings untouched; no collision/GPU acceptance."
+}

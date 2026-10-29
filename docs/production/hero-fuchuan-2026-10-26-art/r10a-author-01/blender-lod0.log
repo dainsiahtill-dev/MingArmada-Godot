@@ -1,0 +1,30 @@
+00:00.750  blend            | Read blend: "C:\Users\dains\Documents\Git\ming-armada\assets\production\hero-fuchuan-blender\hero-fuchuan-v3-r7c.blend"
+Traceback (most recent call last):
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py", line 185, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py", line 181, in main
+    elif args.author and args.lod in (0,1,2) and args.raw and args.receipt: author(args.lod,args.raw,args.blend,args.receipt)
+                                                                            ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py", line 94, in author
+    sail = build_sail_function(env)
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py", line 64, in build_sail_function
+    function = transform.visit(function)
+  File "C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\5.4\python\Lib\ast.py", line 422, in visit
+    return visitor(node)
+  File "C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\5.4\python\Lib\ast.py", line 498, in generic_visit
+    value = self.visit(value)
+  File "C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\5.4\python\Lib\ast.py", line 422, in visit
+    return visitor(node)
+  File "C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\5.4\python\Lib\ast.py", line 498, in generic_visit
+    value = self.visit(value)
+  File "C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\5.4\python\Lib\ast.py", line 422, in visit
+    return visitor(node)
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py", line 58, in visit_Assign
+    raise RuntimeError('original sail width expression changed')
+RuntimeError: original sail width expression changed
+
+Error: script failed, file: 'C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r10a.py', exiting.
+Blender 5.4.0 Alpha (hash fbe82a461016 built 2026-10-21 02:54:59)
+
+Blender quit

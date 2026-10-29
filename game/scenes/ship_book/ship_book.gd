@@ -6,6 +6,7 @@ const ModelProvider = preload("res://modules/scene_engine/assets/hero_ship_provi
 const ShipDamage = preload("res://game/presentation/ships/ship_damage.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
 const ThemeFactory = preload("res://game/ui/legacy/legacy_theme.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 const SHIPS = [
 	{"id":"fuchuan","name":"郑氏福船","role":"水师主力战舰","length":32,"beam":9,"draft":2,"description":"高艉楼、三桅翼帆与舷侧炮位，兼顾火力与近海机动。"},
 	{"id":"fisherman","name":"福建渔舟","role":"沿海捕鱼与探索","length":14,"beam":4.2,"draft":1,"description":"低舷轻船、单桅小帆与尾橹，适于浅水湾与沿岸航行。"},
@@ -102,6 +103,8 @@ func _build_controls() -> void:
 	var qa:=VBoxContainer.new(); qa.name="LODControls"; qa.visible=DevelopmentAccess.host_allows() and (startup_options.get("dev",OS.is_debug_build()) or startup_options.get("qa",false)); content.add_child(qa)
 	_label(qa,"模型距离版本")
 	_lod_choice=OptionButton.new(); _lod_choice.name="ShipLOD"; qa.add_child(_lod_choice)
+	var window_theme:=Maritime.create()
+	for choice: OptionButton in [_ship_choice,_angle_choice,_lod_choice]: choice.get_popup().theme=window_theme
 	for lod in ["近景 LOD0","中景 LOD1","远景 LOD2"]: _lod_choice.add_item(lod)
 	_lod_choice.item_selected.connect(func(index): select_ship(_kind,index))
 	_description=_label(content,""); _description.name="ShipDescription"

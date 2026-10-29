@@ -1,0 +1,16 @@
+{
+  "asset": "cinnabar-hemp-sail.png",
+  "role": "experimental sRGB sailcloth base color; not measured PBR data",
+  "status": "candidate, not production",
+  "generator": "built-in image_gen image edit",
+  "generatedImagePath": "C:/Users/dains/.codex/generated_images/01a172ba-3d47-7490-88ee-52dc41a9c20a/exec-443ca4e0-ed5f-4a74-8ca6-7654c5625c84.png",
+  "sha256": "b4bf04b8f2cd5f5558bf63a2c533e95864d7d1b5c16368db5841540dd6695ce8",
+  "dimensions": [1254, 1254],
+  "processing": "copied byte-for-byte from built-in imagegen output",
+  "inputs": [
+    {"role": "edit target", "path": "assets/textures/hero_fuchuan_v2/antique-hemp-sail.png", "sha256": "f0e431fa9db2032a14d0086ac6a7e03af180629adffaf8121eeb0e038bdd9964"},
+    {"role": "user-provided palette and art reference", "path": "docs/design/2026-10-26-ming-maritime/reference/menu-direction.png", "sha256": "d2f3e87d9eee94c0449605cebff3a69a4f37b89604607b578ede1335787a921f"}
+  ],
+  "prompt": "Use case: style-transfer. Asset: square base-color texture for UV-mapped 3D sailcloth on a Ming-era sailing ship. Image 1 is the editable sailcloth texture; image 2 is a color and period-art reference only. Transform image 1's cream hemp into restrained, sun-faded cinnabar / warm brick-red hemp, matching the old red sails in image 2, with gentle ochre undertones and fine, authentic woven fiber. Preserve image 1's flat, straight-on, evenly lit fabric texture, fine grain, and uniformity across the square so it can tile across the existing sail UVs. It should read as weathered dyed cloth, not bright modern red paint: quiet variation and subtle wear, no large stains, no stripes, no dark seams, no sail battens, no ropes, no folds, no lighting gradients, no image of a ship, no ornament, no text, no border, no watermark. Full-bleed texture only; avoid texture features that visibly repeat.",
+  "limitations": ["not demonstrated seamless", "UV repeat, aliasing, backlight and damage behavior require GPU review", "color is artistic interpretation rather than historical documentation"]
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102e32">
+  <meta name="description" content="海上明旗玩法长卷：探索中国古代海战、船员分工、贸易与双主角故事，查看真实游戏画面与持续更新的开发航志。">
+  <title>海上明旗 · 玩法长卷</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23102e32'/%3E%3Ctext x='24' y='34' text-anchor='middle' font-size='32' fill='%23e3c88d' font-family='serif'%3E明%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./data.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="海上明旗，回到首页"><span class="seal" aria-hidden="true">明</span><span>海上明旗<small>玩法长卷</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">展开目录 <span aria-hidden="true">＋</span></button>
+    <nav id="main-nav" aria-label="主目录">
+      <a href="#prologue">故事梗概</a><a href="#ways">海上玩法</a><a href="#ships">舰船图鉴</a><a href="#gallery">实机图集</a><a href="#journal">开发航志</a>
+    </nav>
+    <span class="header-state"><i aria-hidden="true"></i>持续制作中</span>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <img class="hero-art" src="./assets/sea-frontier.png" width="1664" height="936" alt="青绿海浪、朱红帆舰队与身披红袍的明将" fetchpriority="high">
+      <div class="hero-copy">
+        <p class="hero-intro">中国古代航海 · 海战 · 人物与生涯</p>
+        <h1 id="hero-title">风起海疆<br>由你执舵</h1>
+        <p class="hero-description"><!-- HERO_STORY_LEAD --></p>
+        <div class="hero-actions"><a class="button button-ink" href="#prologue">先读故事梗概 <span aria-hidden="true">↓</span></a><a class="quiet-link" href="#ways">探索海上玩法 <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <span class="hero-caption">项目生成原画 · 非游戏实机</span>
+      <a class="scroll-cue" href="#prologue" aria-label="向下阅读故事梗概"><span aria-hidden="true">↓</span>故事从此起</a>
+    </section>
+
+    <!-- HOME_STORY_OVERVIEW -->
+
+    <aside class="latest-strip" aria-label="最近进展"><span>最近上船</span><p id="latest-update">火攻交锋已有独立入口，有限扑救与真实货损已加入。</p><a href="#journal">读开发航志 <span aria-hidden="true">↗</span></a></aside>
+
+    <section class="section ways-section" id="ways" aria-labelledby="ways-title">
+      <div class="section-heading"><div><h2 id="ways-title">一片海，许多种活法</h2><p id="ways-description">炮火之外，还有要护的船、要养的人，与下一段航路。</p></div><p class="section-note">这里同时收录现有玩法与未来设计。<br>每一项的进度，都写在它的名字旁。</p></div>
+      <div class="explore-toolbar">
+        <div class="filters" role="group" aria-label="按玩法进度筛选"><button type="button" data-status="all" aria-pressed="true">全部玩法</button><button type="button" data-status="playable" aria-pressed="false">已可玩</button><button type="button" data-status="experiment" aria-pressed="false">实验中</button><button type="button" data-status="planned" aria-pressed="false">规划中</button></div>
+        <label class="search-field"><span class="sr-only">搜索玩法</span><span aria-hidden="true">⌕</span><input id="feature-search" type="search" placeholder="找玩法：火攻、贸易、英雄…" autocomplete="off"></label>
+      </div>
+      <p class="result-count" id="result-count" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="explorer"><div class="feature-directory" id="feature-directory" aria-label="玩法列表"></div><article class="feature-detail" id="feature-detail" aria-label="玩法详情"></article></div>
+      <noscript><p class="notice">开启 JavaScript 可筛选玩法与浏览图集。当前已经开放独立火攻交锋、可见货物与粮食买卖；船员职业仍在实验，完整英雄与双主角战役处于设计阶段。</p></noscript>
+    </section>
+
+    <section class="ships-section" id="ships" aria-labelledby="ships-title"><div class="section section-inner">
+      <div class="section-heading"><div><h2 id="ships-title">好船，各有所长</h2><p>船体、兵装与一船人的分工，决定怎样打这一仗。</p></div><span class="inline-note">跨时代借鉴 · 游戏定位以设计为准</span></div>
+      <div class="ship-layout"><figure class="ship-portrait"><button class="image-button" type="button" data-open-image="ship" aria-label="放大福船Blender模型渲染"><img src="./assets/fuchuan-model.png" alt="三桅朱红帆福船的Blender静态渲染" width="1600" height="1000" loading="lazy"><span class="image-expand" aria-hidden="true">查看大图 ↗</span></button><figcaption>福船R9b · 实际模型静态渲染，非游戏光照</figcaption></figure>
+      <div class="ship-info"><div class="ship-filter-line"><label for="ship-category">按战术查船</label><select id="ship-category"></select></div><p id="ship-count" class="inline-note"></p><div class="ship-tabs" id="ship-tabs" role="group" aria-label="选择船型"></div><div id="ship-detail"></div></div></div>
+    </div></section>
+
+    <section class="section story-section" id="story" aria-labelledby="story-title">
+      <div class="story-opening"><div><span class="status status-planned">主线规划</span><h2 id="story-title">一面旗，<br>两代人的海疆</h2><p>先随郑芝龙在海上谋生，再与郑成功面对新的岸与旧的承诺。贸易、护送与征讨，随着故事逐步展开。</p><p class="inline-note">新双主角主线尚未接入游戏。史实骨架与原创情节分别记录。</p></div><figure class="atlas-figure"><button class="image-button" type="button" data-open-image="atlas" aria-label="放大东洋南海舆图"><img src="./assets/eastern-seas-atlas.png" alt="现有东洋南海舆图与厦门港口志界面" width="1600" height="900" loading="lazy"><span class="image-expand" aria-hidden="true">展开海图 ↗</span></button><figcaption>现有海图界面 · 所示地区并未全部开放生涯贸易</figcaption></figure></div>
+      <ol class="chapter-list" id="chapter-list" aria-label="双主角主线设计章节"></ol>
+    </section>
+
+    <section class="gallery-section" id="gallery" aria-labelledby="gallery-title"><div class="section section-inner">
+      <div class="section-heading"><div><h2 id="gallery-title">画面里的进展</h2><p>从原画到模型，再到真正运行的游戏。</p></div><span class="section-note">点击图片，查看原图与来源说明。</span></div><div class="gallery-grid" id="gallery-grid"></div>
+    </div></section>
+
+    <section class="section journal-section" id="journal" aria-labelledby="journal-title"><div class="journal-intro"><h2 id="journal-title">开发航志</h2><p>新玩法上船，新画面入卷。<br>每一段进展，都在这里留下记录。</p><p class="journal-updated">内容更新于 <time id="updated-at" datetime="2026-10-29">2026.10.29</time></p><a class="quiet-link" href="#ways">回到玩法长卷 <span aria-hidden="true">↑</span></a></div><div class="update-list" id="update-list"></div></section>
+  </main>
+
+  <footer class="site-footer"><a class="footer-brand" href="#top">海上明旗<span>一帆入海，自有归途。</span></a><p>本页持续同步项目进展。已可玩、实验与规划分别标注；<br>历史船型与器械跨时代借鉴，原创参数不代表真实历史性能。</p><a href="#top">回到卷首 ↑</a></footer>
+
+  <dialog id="image-viewer" aria-labelledby="viewer-caption"><div class="viewer-toolbar"><span id="viewer-kind"></span><button id="viewer-close" type="button" aria-label="关闭大图">关闭 <span aria-hidden="true">×</span></button></div><figure><img id="viewer-image" alt=""><figcaption id="viewer-caption"></figcaption></figure><div class="viewer-bottom"><button id="viewer-prev" type="button" aria-label="上一张图片">← 上一张</button><span id="viewer-position"></span><button id="viewer-next" type="button" aria-label="下一张图片">下一张 →</button></div></dialog>
+</body>
+</html>

@@ -2,6 +2,150 @@
   "schemaVersion": 1,
   "topics": [
     {
+      "id": "story-campaign-flow",
+      "title": "两代人的全程主线框架",
+      "category": "剧情与玩法编排",
+      "abstract": "24章与30阶段的合成进度、失败恢复、交棒与终章条件；仅为框架合同，真实世界动作、资产交接与整条通关仍待接入。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/story-campaign-flow.md",
+      "demo": "story-campaign-flow",
+      "sources": [
+        "res://assets/data/story_campaign/zheng_family_v1.json",
+        "res://game/domain/story_campaign/catalog.gd",
+        "res://game/domain/story_campaign/progress.gd",
+        "res://game/research/demos/story_campaign_flow_experiment.gd"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/story-campaign-flow/final-regression-01.json",
+        "res://docs/research/evidence/story-campaign-flow/framework-gpu-02/process-result.json"
+      ]
+    },
+    {
+      "id": "ship-fire-control",
+      "title": "火攻与损管取舍",
+      "category": "战术与船员作业",
+      "abstract": "受控点燃、真实实验伤害和有限损管准备份；同初态比较无人处理与调派船员，观察转岗、燃烧、扑救和余烟。正式弹道接线另验。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/ship-fire-control.md",
+      "demo": "ship-fire-control",
+      "sources": [
+        "res://modules/naval_simulation/combat/fire_control.gd",
+        "res://modules/naval_simulation/combat/fire_profile.gd",
+        "res://game/presentation/combat/ship_fire_view.gd",
+        "res://game/research/demos/ship_fire_control_experiment.gd",
+        "res://docs/research/notes/2026-10-29-fire-tactics-sources.md"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/ship-fire-control/kernel-green-02.json",
+        "res://docs/research/evidence/ship-fire-control/view-green-01.json",
+        "res://docs/research/evidence/ship-fire-control/demo-green-02.json"
+      ]
+    },
+    {
+      "id": "cargo-deck-drift",
+      "title": "甲板货物与落水漂流",
+      "category": "船舶与贸易表现",
+      "abstract": "十二类原创货物模型、真实甲板支承与原生实弹命中驱动的货损、翻滚、入水、随波漂流实验。",
+      "status": "integrated",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/cargo-deck-drift.md",
+      "demo": "cargo-deck-drift",
+      "sources": [
+        "res://game/domain/mingqi/cargo_damage.gd",
+        "res://game/presentation/cargo/cargo_world_view.gd",
+        "res://game/presentation/cargo/cargo_drift.gd",
+        "res://game/presentation/cargo/cargo_deck_view.gd",
+        "res://assets/models/cargo_pack/r1/manifest.json"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/cargo-deck-drift/merchant-green-01.json",
+        "res://docs/research/evidence/cargo-deck-drift/campaign-green-01.json",
+        "res://docs/research/evidence/cargo-deck-drift/gpu-03/process-result.json",
+        "res://docs/research/evidence/cargo-fx-production/gpu-03/process-result.json"
+      ]
+    },
+    {
+      "id": "naval-combat-atmosphere",
+      "title": "战火与硝烟层次",
+      "category": "战斗表现",
+      "abstract": "真实炮击与毁船演出驱动原创炮焰、随风残烟与甲板火团；保留原生战斗数值，独立画面对照。",
+      "status": "integrated",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/naval-combat-atmosphere.md",
+      "demo": "naval-combat-atmosphere",
+      "sources": [
+        "res://game/presentation/combat/combat_atmosphere.gd",
+        "res://game/research/demos/naval_combat_atmosphere_experiment.gd",
+        "res://assets/textures/combat_atmosphere/r1/provenance.json"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/naval-combat-atmosphere/gpu-02/process-result.json",
+        "res://docs/research/evidence/naval-combat-atmosphere/pck-green-01.json",
+        "res://docs/research/evidence/naval-combat-atmosphere/failure-audio-green-01.json",
+        "res://docs/research/evidence/cargo-fx-production/gpu-03/process-result.json"
+      ]
+    },
+    {
+      "id": "crew-role-effects",
+      "title": "船员作业与战备取舍",
+      "category": "船员与航海生活",
+      "abstract": "作业基线与同预算实弹对照：真实船损、伤亡、两秒换岗及招聘工资账本。独立实验，正式生涯与整体平衡尚未验收。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/crew-role-effects.md",
+      "demo": "crew-role-effects",
+      "sources": [
+        "res://game/research/demos/crew_role_rules.gd",
+        "res://game/research/demos/crew_role_experiment.gd",
+        "res://game/research/demos/crew_workshop_experiment.gd",
+        "res://game/research/demos/crew_battle_experiment.gd",
+        "res://game/research/demos/crew_battle_trial.gd",
+        "res://game/research/demos/crew_contract.gd",
+        "res://tests/test_crew_role_rules.gd",
+        "res://tests/test_crew_role_experiment.gd",
+        "res://docs/design/2026-10-29-naval-world/crew-professions-and-shipboard-life.md",
+        "res://tools/research/sweep_crew_role_balance.gd",
+        "res://tools/research/sweep_crew_battle_costs.gd",
+        "res://docs/design/2026-10-29-naval-world/balance-principles-and-validation.md"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/crew-role-effects/r3-battle-final-02.json",
+        "res://docs/research/evidence/crew-role-effects/battle-costs-final-02.json",
+        "res://docs/research/evidence/crew-role-effects/battle-gpu-02/process-result.json",
+        "res://docs/research/evidence/crew-role-effects/crew-final-09.json",
+        "res://docs/research/evidence/crew-role-effects/gpu-05/process-result.json",
+        "res://docs/research/evidence/crew-role-effects/balance-baseline-replay-02.json",
+        "res://docs/research/evidence/crew-role-effects/balance-workstations-02.json"
+      ]
+    },
+    {
+      "id": "broadside-receipt-readability",
+      "title": "首航齐射命中回执可读性",
+      "category": "战斗与界面表现",
+      "abstract": "固定事件对照无回执与命中优先的只读提示；固定步 GPU 对照已完成，真实游戏与玩家体验待验证。",
+      "status": "researching",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/broadside-receipt-readability.md",
+      "demo": "broadside-receipt-readability",
+      "sources": [
+        "res://game/research/demos/broadside_receipt_experiment.gd",
+        "res://game/research/demos/broadside_receipt_projection.gd",
+        "res://tests/test_broadside_receipt_research.gd",
+        "res://tests/test_broadside_receipt_native_events.gd",
+        "res://tests/test_laboratory_broadside_receipt.gd",
+        "res://modules/naval_simulation/encounter.gd",
+        "res://game/runtime/mingqi_runtime.gd",
+        "res://game/scenes/mingqi/mingqi_scene.gd"
+      ],
+      "evidence": [
+        "res://docs/research/evidence/broadside-receipt-readability/README.md",
+        "res://docs/research/evidence/broadside-receipt-readability/baseline-01/manifest.json",
+        "res://docs/research/evidence/broadside-receipt-readability/native-01/manifest.json"
+      ]
+    },
+    {
       "id": "hull-contact",
       "title": "船体与海面的接触水沫",
       "category": "船舶表现",
@@ -177,6 +321,28 @@
         "res://assets/models/hero_fuchuan/manifest.json"
       ],
       "evidence": []
+    },
+    {
+      "id": "antique-cartography",
+      "title": "东洋南海古航图",
+      "category": "地理与界面表现",
+      "abstract": "真实经纬海岸、原生中文与纸上墨刻；独立阅览，不把本地游戏米坐标当作跨洋船位。",
+      "status": "integration-ready",
+      "retrospective": false,
+      "paper": "res://assets/research/papers/antique-cartography.md",
+      "demo": "antique-cartography",
+      "sources": [
+        "res://game/ui/charts/world_atlas.gd",
+        "res://game/research/demos/antique_cartography.gd",
+        "res://assets/data/cartography/provenance.json",
+        "res://assets/data/cartography/atlas_places.json"
+      ],
+      "evidence": [
+        "res://docs/design/2026-10-26-ming-maritime/atlas/cpu-final-03/world-atlas.json",
+        "res://docs/design/2026-10-26-ming-maritime/atlas/cpu-final-03/laboratory-catalog.json",
+        "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-final-02/GPU_VERIFY.json",
+        "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-final-02/SEQUENCE_VALIDATION.json"
+      ]
     }
   ]
 }

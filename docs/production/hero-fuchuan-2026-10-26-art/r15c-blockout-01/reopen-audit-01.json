@@ -1,0 +1,58 @@
+{
+  "pass": true,
+  "errors": [],
+  "baselineSha256": "2961f7f28d31cfc71a16638fbd634b4245912adb1fcf79bc55bfc5d00722d2e8",
+  "candidateSha256": "9cfd86e951640c401abec7339e96662d6e1353eba765db3424d4ac613db3c2f4",
+  "existingNonRailObjectsExact": true,
+  "existingCount": 80,
+  "canvasIdentical": true,
+  "canvas": {
+    "packedSha256": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+    "node": "Image Texture",
+    "links": [
+      [
+        "Color Attribute",
+        "Color",
+        "Mix",
+        "B"
+      ],
+      [
+        "Image Texture",
+        "Color",
+        "Mix",
+        "A"
+      ],
+      [
+        "Mapping",
+        "Vector",
+        "Image Texture",
+        "Vector"
+      ],
+      [
+        "Mix",
+        "Result",
+        "Principled BSDF",
+        "Base Color"
+      ],
+      [
+        "Principled BSDF",
+        "BSDF",
+        "Material Output",
+        "Surface"
+      ],
+      [
+        "Texture Coordinate",
+        "UV",
+        "Mapping",
+        "Vector"
+      ]
+    ]
+  },
+  "railTopologyUvMaterialIdentical": true,
+  "movedVertices": 880,
+  "identityChangedVertices": 0,
+  "maximumFieldErrorMeters": 2.379750787540047e-07,
+  "newDegenerateTriangles": 0,
+  "flippedTriangles": 0,
+  "scope": "Reopened static object/mesh/UV/shape keys/canvas audit and formula; no surface joining, Godot, GPU, animation, collision or gameplay acceptance."
+}

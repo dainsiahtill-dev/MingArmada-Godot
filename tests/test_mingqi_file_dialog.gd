@@ -1,7 +1,7 @@
 extends SceneTree
 ## Resolve the actual menu FileDialog theme; opening it must remain presentation-only.
 const Interface = preload("res://game/ui/mingqi/mingqi_interface.gd")
-const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 var assertions := 0
 var failures := 0
 
@@ -36,12 +36,21 @@ func _run() -> void:
 	await process_frame
 	var paper := picker.get_theme_stylebox("panel","AcceptDialog")
 	var texture_paper := paper as StyleBoxTexture
+	if paper.has_method("get_body_style"): texture_paper=paper.call("get_body_style")
 	var button_ink := picker.get_ok_button().get_theme_color("font_color")
 	print("MINGQI_FILE_DIALOG_OBSERVATION ",JSON.stringify({"explicitTheme":picker.theme != null,"panelClass":paper.get_class(),"buttonInk":button_ink.to_html(),"title":picker.title,"confirm":picker.get_ok_button().text,"cancel":picker.get_cancel_button().text}))
 	check(picker.visible,"voyage menu action actually opens the file picker")
 	check(texture_paper != null and texture_paper.texture != null,"file picker resolves a real paper texture instead of default grey dialog panel")
-	check(picker.get_theme_stylebox("embedded_border","Window") is StyleBoxTexture,"embedded title bar resolves paper texture")
-	check(_contrast(button_ink,Parchment.PAPER) >= 4.5,"resolved confirm-button ink remains legible on the paper palette")
+	var border:=picker.get_theme_stylebox("embedded_border","Window")
+	check(border.has_method("get_body_style") and border.call("get_body_style").texture!=null,"embedded title bar resolves a real painted body")
+	check(border.has_method("get_edge_style") and border.call("get_edge_style").texture!=null and not border.call("get_edge_style").draw_center,"embedded title bar keeps a separate generated gold and shadow edge")
+	var button_skin := picker.get_ok_button().get_theme_stylebox("normal") as StyleBoxTexture
+	var button_background: Color=Maritime.PAPER
+	if button_skin != null and button_skin.texture != null:
+		var pixels := button_skin.texture.get_image()
+		if pixels.is_compressed(): pixels.decompress()
+		button_background=pixels.get_pixel(pixels.get_width()/2,pixels.get_height()/2)
+	check(_contrast(button_ink,button_background) >= 4.5,"resolved confirm-button text retains contrast against its actual generated skin")
 	check(picker.title == "导入航程存档","visible picker title is Chinese")
 	check(picker.get_ok_button().text == "导入" and picker.get_cancel_button().text == "取消","visible file actions are Chinese")
 	check(picker.file_mode == FileDialog.FILE_MODE_OPEN_FILE and picker.access == FileDialog.ACCESS_FILESYSTEM,"presentation keeps file mode and filesystem access")

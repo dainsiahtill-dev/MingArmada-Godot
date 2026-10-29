@@ -1,0 +1,356 @@
+{
+	"actionCount": 1,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "aux-qa-1600",
+	"pngSha256": "54a47f07fc5a7fa9a3e059932a6675dcc7d686d80be3e7912e2d72844d4e4ad6",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/visual_qa/visual_qa.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574",
+				"panelMargins": [
+					12.0,
+					12.0,
+					12.0,
+					12.0
+				],
+				"rect": [
+					12.0,
+					12.0,
+					370.0,
+					830.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@Label@579",
+				"rect": [
+					24.0,
+					24.0,
+					342.0,
+					107.0
+				],
+				"text": "QA · fleet · running\n模拟 0.45s · tick 27 · 船体高度 -1.169m\n船体 100.00 · 帆 100.00 · 船员 100.00\n弹药 40/20/20 · 基准 0.0s\n",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/scenario",
+				"rect": [
+					24.0,
+					139.0,
+					342.0,
+					40.0
+				],
+				"text": "六船航行与尾浪",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/playback",
+				"rect": [
+					24.0,
+					187.0,
+					342.0,
+					40.0
+				],
+				"text": "正常速度",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/handling",
+				"rect": [
+					24.0,
+					235.0,
+					342.0,
+					40.0
+				],
+				"text": "真实操船（本次 QA）",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@610/fire_port",
+				"rect": [
+					24.0,
+					315.0,
+					60.0,
+					35.0
+				],
+				"text": "左舷 Q",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@610/fire_starboard",
+				"rect": [
+					88.0,
+					315.0,
+					56.0,
+					35.0
+				],
+				"text": "右舷 E",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@611/solid",
+				"rect": [
+					24.0,
+					358.0,
+					71.0,
+					35.0
+				],
+				"text": "实心弹 1",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@611/chain",
+				"rect": [
+					99.0,
+					358.0,
+					57.0,
+					35.0
+				],
+				"text": "链弹 2",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@611/grape",
+				"rect": [
+					160.0,
+					358.0,
+					71.0,
+					35.0
+				],
+				"text": "葡萄弹 3",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@612/trim",
+				"rect": [
+					24.0,
+					401.0,
+					86.0,
+					35.0
+				],
+				"text": "自动调帆 R",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@612/pause",
+				"rect": [
+					114.0,
+					401.0,
+					44.0,
+					35.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@613/captain_view",
+				"rect": [
+					24.0,
+					444.0,
+					72.0,
+					35.0
+				],
+				"text": "船长视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@613/tactical_view",
+				"rect": [
+					100.0,
+					444.0,
+					72.0,
+					35.0
+				],
+				"text": "高位视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@614/restart",
+				"rect": [
+					24.0,
+					487.0,
+					72.0,
+					35.0
+				],
+				"text": "重新开始",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@614/settings",
+				"rect": [
+					100.0,
+					487.0,
+					44.0,
+					35.0
+				],
+				"text": "设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@HFlowContainer@614/main_menu",
+				"rect": [
+					148.0,
+					487.0,
+					86.0,
+					35.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/export",
+				"rect": [
+					24.0,
+					530.0,
+					342.0,
+					35.0
+				],
+				"text": "导出原始性能 JSON",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/@Label@615",
+				"rect": [
+					24.0,
+					573.0,
+					342.0,
+					129.0
+				],
+				"text": "W/S 升降帆 · A/D 转舵 · [ / ] 帆角\nQ/E 左右舷 · 空格最近目标 · Esc 暂停\n弱炮击：火力 2%，真实 hit 驱动原生受击\n基准：20秒预热，60秒采样，结束自动暂停\nCPU 仿真与海景更新分开；海景内含区块更新。\n渲染提交与 GPU 完成耗时未单独测量。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 11,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/VisualQA/@CanvasLayer@572/@Control@573/@PanelContainer@574/@ScrollContainer@577/@VBoxContainer@578/diagnostics",
+				"rect": [
+					24.0,
+					710.0,
+					342.0,
+					11445.0
+				],
+				"text": "{\n  \"chunks\": {\n    \"builds\": 0,\n    \"center\": {\n      \"x\": -1,\n      \"z\": -1\n    },\n    \"chunks\": 0,\n    \"pendingCreates\": 0,\n    \"pendingDisposes\": 0,\n    \"sc",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 16,
+		"visibleControls": 29
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

@@ -1,7 +1,7 @@
 extends Control
 ## Detached recovery presentation. Owner validates, reads and commits every action.
 signal intent_requested(intent: Dictionary)
-const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Parchment = preload("res://game/ui/shared/maritime_art_theme.gd")
 var _built := false
 var _locked := false
 var _reason: Label
@@ -28,9 +28,9 @@ func build() -> void:
 	_panel.add_theme_stylebox_override("panel",Parchment.panel(20))
 	_scroll = ScrollContainer.new(); _scroll.name = "RecoveryScroll"; _scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _scroll.follow_focus = true; _panel.add_child(_scroll)
 	var body := VBoxContainer.new(); body.size_flags_horizontal = Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",10); _scroll.add_child(body)
-	var title := Label.new(); title.text = "恢复海上明旗 · 1650 航程"; title.add_theme_font_override("font",Parchment.title_font()); title.add_theme_font_size_override("font_size",25); body.add_child(title)
-	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_color_override("font_color",Parchment.CINNABAR); body.add_child(_reason)
-	var hint := Label.new(); hint.text = "可重新读取、使用备份，或导入网页导出的 v2 JSON。导入成功前保留原存档。"; hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; hint.add_theme_color_override("font_color",Parchment.MUTED); body.add_child(hint)
+	var title := Label.new(); title.text = "恢复海上明旗 · 1650 航程"; title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; title.add_theme_font_override("font",Parchment.title_font()); title.add_theme_font_size_override("font_size",28); body.add_child(title)
+	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_font_size_override("font_size",18); _reason.add_theme_color_override("font_color",Parchment.CINNABAR); body.add_child(_reason)
+	var hint := Label.new(); hint.text = "可重新读取、使用备份，或导入网页导出的 v2 JSON。导入成功前保留原存档。"; hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; hint.add_theme_font_size_override("font_size",18); hint.add_theme_color_override("font_color",Parchment.MUTED); body.add_child(hint)
 	_button(body,"Retry","重新读取本地存档","retry")
 	_button(body,"Backup","验证并继续备份航程","read-backup")
 	_button(body,"ExportRaw","复制原始待恢复内容","export-raw")

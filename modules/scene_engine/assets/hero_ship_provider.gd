@@ -6,14 +6,17 @@ const PATHS=["res://assets/models/hero_fuchuan/fuchuan-lod0.glb","res://assets/m
 const VINTAGE_PATHS=["res://assets/models/hero_fuchuan_v2/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v2/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v2/fuchuan-lod2.glb"]
 const ART_PATHS=["res://assets/models/hero_fuchuan_v3/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v3/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v3/fuchuan-lod2.glb"]
 const REFINED_PATHS=["res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod2.glb"]
+const PALETTE_PATHS=["res://assets/models/hero_fuchuan_v3_r7c/fuchuan-lod0.glb","res://assets/models/hero_fuchuan_v3_r7c/fuchuan-lod1.glb","res://assets/models/hero_fuchuan_v3_r7c/fuchuan-lod2.glb"]
 var _vintage:=false
 var _art:=false
 var _refined:=false
+var _palette:=false
 var _authored_shadows:=false
-func _init(variant:String="art_r6",authored_shadows:bool=true)->void:
-	_refined=variant=="art_r6"
-	_art=variant in ["art","art_r6"]
-	_vintage=variant in ["vintage","art","art_r6"]
+func _init(variant:String="art_r7c",authored_shadows:bool=true)->void:
+	_palette=variant=="art_r7c"
+	_refined=variant in ["art_r6","art_r7c"]
+	_art=variant in ["art","art_r6","art_r7c"]
+	_vintage=variant in ["vintage","art","art_r6","art_r7c"]
 	_authored_shadows=authored_shadows
 # Existing fuchuan water-effect coordinate adapter from ships-manifest.json.
 # Mesh/marker units remain metres; the legacy effect history is in source units.
@@ -30,7 +33,7 @@ func instantiate_ship(kind:String,lod:int,library:RefCounted=null)->Node3D:
 		var reference:Node3D=Reference.for_library(owner).instantiate_ship(kind,lod,owner)
 		if owns:owner.dispose()
 		return reference
-	var paths:Array=REFINED_PATHS if _refined else ART_PATHS if _art else VINTAGE_PATHS if _vintage else PATHS
+	var paths:Array=PALETTE_PATHS if _palette else REFINED_PATHS if _refined else ART_PATHS if _art else VINTAGE_PATHS if _vintage else PATHS
 	var model:Node3D=owner.instantiate_model(paths[lod])
 	if owns:owner.dispose()
 	if model==null:return null
@@ -38,7 +41,7 @@ func instantiate_ship(kind:String,lod:int,library:RefCounted=null)->Node3D:
 	model.set_meta("source_kind","hero_fuchuan")
 	model.set_meta("source_path",paths[lod])
 	model.set_meta("texture_style","art_v3_imagegen" if _art else "imagegen_vintage_v2" if _vintage else "procedural_v1")
-	if _art:model.set_meta("art_revision",6 if _refined else 5)
+	if _art:model.set_meta("art_revision",7 if _palette else 6 if _refined else 5)
 	model.set_meta("model_origin","blender_authored")
 	model.set_meta("game_kind",kind)
 	model.set_meta("lod_policy","authored_geometry_lods")

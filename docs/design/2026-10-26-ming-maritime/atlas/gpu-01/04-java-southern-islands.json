@@ -1,0 +1,101 @@
+{
+	"label": "04-java-southern-islands",
+	"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/04-java-southern-islands.png",
+	"recordType": "gpu-capture",
+	"sha256": "61b662d530fab3f96486201f855520b37317fcd1fcc0436a3eca97a886307382",
+	"state": {
+		"atlas": {
+			"data_bounds": {
+				"position": [
+					92.0,
+					-12.0
+				],
+				"size": [
+					56.0,
+					57.0
+				]
+			},
+			"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+			"disposed": false,
+			"engraving": true,
+			"geography_basis": "longitude-latitude",
+			"geometry": {
+				"failed_polygons": 0,
+				"land_polygons": 328,
+				"mesh_builds": 3,
+				"triangles": 3934,
+				"vertices": 4590
+			},
+			"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+			"projection": "equirectangular-standard-parallel-25N",
+			"ready": true,
+			"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+			"selected_port": {
+				"description": "此点定位今雅加达区域，供辨认爪哇岛北岸，不等同某年古港泊位。",
+				"id": "java",
+				"lat": -6.172472,
+				"lon": 106.827492,
+				"name": "爪哇",
+				"precision": "城市区域定位，非古代泊位",
+				"region": "南洋群岛",
+				"source": "Natural Earth 10m populated places",
+				"sourceId": "1159151599",
+				"sourceName": "Jakarta",
+				"subtitle": "岛屿北岸"
+			},
+			"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+			"view_bounds": {
+				"position": [
+					98.0774917602539,
+					-12.0
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			},
+			"zoom": 3.2
+		},
+		"camera": {
+			"mode": "overview",
+			"type": "2D-geographic-view",
+			"view_bounds": {
+				"position": [
+					98.0774917602539,
+					-12.0
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			}
+		},
+		"disposed": false,
+		"fixed_step": 0.03125,
+		"parameters": {
+			"camera_mode": "overview",
+			"engraving": true,
+			"paused": true
+		},
+		"paused": true,
+		"ready": true,
+		"resources": {
+			"atlas": 1
+		},
+		"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+		"seed": 0,
+		"telemetry": {
+			"failed_polygons": 0,
+			"land_polygons": 328,
+			"mesh_builds": 3,
+			"triangles": 3934,
+			"vertices": 4590
+		},
+		"tick": 0,
+		"time": 0.0
+	},
+	"viewport": [
+		1600,
+		1000
+	]
+}

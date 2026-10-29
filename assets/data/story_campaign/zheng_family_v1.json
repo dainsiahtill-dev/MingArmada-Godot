@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "id": "zheng-family-v1",
+  "title": "一片海，两代人",
+  "protagonists": [
+    {"id": "zheng-zhilong", "name": "郑芝龙", "birthYear": 1604},
+    {"id": "zheng-chenggong", "name": "郑成功", "birthYear": 1624}
+  ],
+  "chapters": [
+    {
+      "id": "CH01", "order": 1, "act": 1, "title": "潮水不等人", "protagonistId": "zheng-zhilong", "year": 1623,
+      "regionIds": ["REG-01"],
+      "drama": {
+        "want": "原创入门事件：年轻掌舵人借一条小船送货，想换回今晚的饭钱；不声称史实依教学次序发生。",
+        "conflict": "赶潮加钱诱人，初次同行的水手却要他先认清礁线和回程余粮。",
+        "turn": "真正交到货才拿到运费。老水手愿把下一程的舵交给他，远处拒绝靠岸的商船留下新疑问。"
+      },
+      "teaches": ["按可见礁线操船，将一批货实际送到指定港"], "reuses": [],
+      "difficulty": {"tier": 1, "newRules": 1, "simultaneousObjectives": 1, "pressure": "none"},
+      "stages": [{
+        "id": "CH-01-S1", "mode": "sailing", "title": "近岸第一单", "briefing": "沿领航员指出的宽水道送达金门并交货；外道较慢，内道须等已说明的潮窗。初始预算只作候选，尚未平衡。",
+        "objectives": [{"id": "ch01-deliver", "kind": "deliver", "target": "kinmen", "required": 1, "unit": "shipment"}],
+        "recovery": "受损时先回可达泊处临修；短缺运费通过港内短途承运补足，再带现有船货重试，已付运费不重复领取。", "partialAllowed": true
+      }]
+    },
+    {
+      "id": "CH02", "order": 2, "act": 1, "title": "先认那面旗", "protagonistId": "zheng-zhilong", "year": 1624,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "原创事件：郑芝龙加入一次指向特定武装货船的截船行动，想攒下立足的钱。", "conflict": "两艘近似的帆影分开，同伙催他动手；误认和劫掠会留下追索，不能因主角出场自动正当化。", "turn": "取得的船或货有明确来历、损伤和押船成本，下一步必须决定怎样让它养活船员。"},
+      "teaches": ["识别确认目标后接近并取得真实俘获"], "reuses": ["操船接近", "回程余量"],
+      "difficulty": {"tier": 1, "newRules": 1, "simultaneousObjectives": 1, "pressure": "low"},
+      "stages": [{"id": "CH-02-S1", "mode": "boarding", "title": "认旗再靠舷", "briefing": "由旗样与货记确认约定目标，接舷取得其控制；不把击沉无关商船算作战果。可以撤离，损失与受害者追索照实保留。", "objectives": [{"id": "ch02-capture", "kind": "capture", "target": "ch02-confirmed-prize", "required": 1, "unit": "vessel"}], "recovery": "接舷失败先断开撤回，救治伤员并补齐押船人员；可承接低本金运费单修船，再确认原目标的实际去向。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH03", "order": 3, "act": 1, "title": "一舱货，两种价", "protagonistId": "zheng-zhilong", "year": 1625,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "郑芝龙想用一趟公开买卖换到属于自己的好帆。", "conflict": "买主压价，水手等分成；有争议的旧货必须先处理权属，不能进商店便洗清来历。", "turn": "回港说明买价、卖价和运费后，真正的净收益进入同一本账，客商才愿托付下一艘货船。"},
+      "teaches": ["按成本完成小额买卖并形成可核对净收益"], "reuses": ["近岸航行", "货物权属"],
+      "difficulty": {"tier": 1, "newRules": 1, "simultaneousObjectives": 1, "pressure": "low"},
+      "stages": [{"id": "CH-03-S1", "mode": "trade", "title": "把好帆挣回来", "briefing": "查看近港报价，用有权处分的货完成一次真实交易；目标40银为游戏候选预算，须扣除本批购货与航次成本，不计搬动旧钱。", "objectives": [{"id": "ch03-profit", "kind": "trade-profit", "target": "ch03-public-cargo", "required": 40, "unit": "silver"}], "recovery": "亏损保留原账，缩小货批或接低本金承运，积累可用本金后再交易；旧货与已结算利润不得复制。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH04", "order": 4, "act": 1, "title": "回来时，一艘也要数", "protagonistId": "zheng-zhilong", "year": 1626,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "第一次有人肯为这面旗付护镖钱，郑芝龙想让雇主平安到港。", "conflict": "快帆在狭口挑衅，追敌会把转弯慢的货船留在身后；旧同伙还想劫走雇主的货。", "turn": "归港按实际到达的人货数结算，守约才能换来愿意同旗出海的伙伴。"},
+      "teaches": ["以受托船抵达为护航结果，分清守护与追击"], "reuses": ["操船", "目标识别", "货值与航次成本"],
+      "difficulty": {"tier": 1, "newRules": 1, "simultaneousObjectives": 1, "pressure": "low"},
+      "stages": [{"id": "CH-04-S1", "mode": "escort", "title": "护住慢船", "briefing": "陪同雇主船穿过狭口到达交付港；贴身掩护或分批引航均可，击退敌人不能替代委托船实际抵达。", "objectives": [{"id": "ch04-escort", "kind": "escort-arrived", "target": "ch04-client-convoy", "required": 1, "unit": "convoy"}], "recovery": "遇险先救人并报告剩余货船位置，回港修护后接实际寻回或补运任务；遗失的货不能自动计入交差。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH05", "order": 5, "act": 2, "title": "众帆下的那张桌", "protagonistId": "zheng-zhilong", "year": 1627,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "郑芝龙希望多一位愿共同出海的同伴，而非凭空得到一支舰队。", "conflict": "候选领航员要求工钱和明确分成，自带船的合伙人仍保有退出权。", "turn": "一份有边界的短约让第二面旗升起，来自岸上的使者随后带来改旗的条件。"},
+      "teaches": ["用真实费用和有限职责招募一名自愿同伴"], "reuses": ["贸易本金", "护镖信誉"],
+      "difficulty": {"tier": 2, "newRules": 1, "simultaneousObjectives": 1, "pressure": "low"},
+      "stages": [{"id": "CH-05-S1", "mode": "port", "title": "先把一人的约讲清", "briefing": "在港内谈定一名领航同伴的岗位、报酬与退出条件，实际支付并入队；不要求一次招满全部职业。", "objectives": [{"id": "ch05-recruit", "kind": "recruit", "target": "ch05-willing-navigator", "required": 1, "unit": "person"}], "recovery": "谈崩保留现有船与现金，做一单承运筹足约定报酬；换一位合适候选或重新谈短约，不免费刷新同伴。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH06", "order": 6, "act": 2, "title": "改旗那一天", "protagonistId": "zheng-zhilong", "year": 1628,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "受抚的历史转折中，郑芝龙希望为家人换一个可安身的岸。", "conflict": "旧部不愿丢掉生计，明方要求履行海防责任，商户的旧案也不会随官旗消失；具体对话为原创。", "turn": "一项清楚的海防承诺必须落到真实航次，军务与自家商船从此不能混账。"},
+      "teaches": ["接受有职责边界的军令并完成首项履约"], "reuses": ["招募与分成", "护航", "货物权属"],
+      "difficulty": {"tier": 2, "newRules": 1, "simultaneousObjectives": 2, "pressure": "low"},
+      "stages": [{"id": "CH-06-S1", "mode": "port", "title": "旗后的第一份责任", "briefing": "确认有限海防任约，安排旧部去向，再以同一世界账护送受托补给船抵达；文书与航次分别验收。", "objectives": [{"id": "ch06-charter", "kind": "charter", "target": "ming-coastal-service", "required": 1, "unit": "permit"}, {"id": "ch06-service", "kind": "escort-arrived", "target": "ch06-service-convoy", "required": 1, "unit": "convoy"}], "recovery": "失约进入受限整备，修护并补运未到物资，必要时缩减亲队；任官不清除旧债，也不补送已损失的船。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH07", "order": 7, "act": 2, "title": "火照料罗湾", "protagonistId": "zheng-zhilong", "year": 1633,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "料罗背景下，郑芝龙要保住舰队与立足港口；玩家只负责有界的一支队伍。", "conflict": "荷兰东印度公司敌舰威胁己方运输线，抢缴获与保住接应船争用同一批人。", "turn": "本队实际战果与整体历史结果分列。火攻细节和动画后置，本轮目标不依赖未接线的分区火势。"},
+      "teaches": ["会战中在压制目标与保护友船之间调度预备力量"], "reuses": ["识船", "护航", "有限军令", "已学过的接近与接舷"],
+      "difficulty": {"tier": 2, "newRules": 1, "simultaneousObjectives": 2, "pressure": "medium"},
+      "stages": [{"id": "CH-07-S1", "mode": "naval", "title": "守住湾内接应线", "briefing": "压退已确认的一艘敌方屏护舰，同时保住己方运输船的作业；现成海战可选炮击或俘获，不能用火船文案宣称一击全胜。", "objectives": [{"id": "ch07-neutralize", "kind": "neutralize", "target": "ch07-enemy-screen", "required": 1, "unit": "vessel"}, {"id": "ch07-protect", "kind": "protect", "target": "ch07-friendly-transport", "required": 1, "unit": "vessel"}], "recovery": "支队受挫先救回失能友船并退到可用泊地，修护后接新的湾口任务；不以历史总体胜利覆盖个人损失。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH08", "order": 8, "act": 2, "title": "没有散尽的敌帆", "protagonistId": "zheng-zhilong", "year": 1635,
+      "regionIds": ["REG-01", "REG-04"],
+      "drama": {"want": "刘香相关海上势力的背景下，郑芝龙希望让一段商路重新通航。", "conflict": "线索不全，追击可能分散己方押船人手；不能把陌生船一概视作敌军。", "turn": "确定目标、接收俘获后仍要护住商路，海面变静才有机会开辟更远的来往。"},
+      "teaches": ["由航路线索确认征讨目标并承担接收成本"], "reuses": ["目标识别", "接舷俘获", "护航与预备队"],
+      "difficulty": {"tier": 2, "newRules": 1, "simultaneousObjectives": 2, "pressure": "medium"},
+      "stages": [{"id": "CH-08-S1", "mode": "boarding", "title": "追的是哪一条船", "briefing": "根据可核对的补给活动识别指定武装船，接舷控制目标并留人护住来往航线；这是原创支队任务，不替代史料中的全部征讨经过。", "objectives": [{"id": "ch08-capture", "kind": "capture", "target": "ch08-confirmed-raider", "required": 1, "unit": "vessel"}, {"id": "ch08-protect", "kind": "protect", "target": "ch08-trade-route", "required": 1, "unit": "route"}], "recovery": "失去追踪先接回散队、重开近港护送，再根据目标实际去向补查线索；俘获损伤和押船减员继续保留。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH09", "order": 9, "act": 3, "title": "礼单之外的那条船", "protagonistId": "zheng-zhilong", "year": 1636,
+      "regionIds": ["REG-01", "REG-03"],
+      "drama": {"want": "原创远航委托：船队先救助琉球使船，希望以可交付的帮助取得有限补给和贸易窗口。", "conflict": "空舱要留给高价货还是使船备件与落水者；尚丰王代的王府同意、那霸港务与萨摩相关手续各有边界。", "turn": "通事和王使依据实际救助、到达及货单转达许可。私人会面与任务均属戏剧重建，不主张郑芝龙亲见尚丰。"},
+      "teaches": ["先救助使船、再凭履约取得限定范围的地区许可"], "reuses": ["护航", "救援", "货物权属", "长航余量"],
+      "difficulty": {"tier": 3, "newRules": 1, "simultaneousObjectives": 3, "pressure": "medium"},
+      "stages": [{"id": "CH-09-S1", "mode": "escort", "title": "使船先靠岸", "briefing": "救助后仍须护送同一条使船到那霸接应处，再按货单申领限定许可；救助、抵达与许可分别核对。由通事向尚丰王代王府代表转达，王府文书不能免除其他港务手续。", "objectives": [{"id": "ch09-rescue", "kind": "rescue", "target": "ryukyu-envoy-vessel", "required": 1, "unit": "vessel"}, {"id": "ch09-escort", "kind": "escort-arrived", "target": "ryukyu-envoy-vessel", "required": 1, "unit": "vessel"}, {"id": "ch09-charter", "kind": "charter", "target": "ryukyu-limited-trade-permit", "required": 1, "unit": "permit"}], "recovery": "先安置已救人员，再补交缺货或请担保人复核；许可未取得时可离港改走已准许航线，不伪造许可或扣留使船。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH10", "order": 10, "act": 3, "title": "换旗后的旧凭证", "protagonistId": "zheng-zhilong", "year": 1644,
+      "regionIds": ["REG-01", "REG-06"],
+      "drama": {"want": "1644—1645的原创商栈派遣中，郑芝龙要让海外转口接济岸上骤增的运力需求。", "conflict": "满剌噶自1641年已为荷方控制，葡方旧凭证不能自动通行；柔佛苏丹Abdul Jalil Shah III的王庭担保又不等于满剌噶港务许可。", "turn": "先由虚构王使引见柔佛代表，再与荷方港务分别谈成有范围的转运安排；不杜撰两位主角真实亲访或真实盟约。"},
+      "teaches": ["把邻国担保与殖民港口许可分开履约"], "reuses": ["地区许可", "货单证据", "贸易与远航补给"],
+      "difficulty": {"tier": 3, "newRules": 1, "simultaneousObjectives": 2, "pressure": "medium"},
+      "stages": [{"id": "CH-10-S1", "mode": "port", "title": "两份文书，两处权限", "briefing": "派有权限的商栈代表核对旧货单。分别取得荷方满剌噶限定转运许可与柔佛王庭补给担保；柔佛王使只负责引见，港口控制权不转给苏丹。", "objectives": [{"id": "ch10-malacca-charter", "kind": "charter", "target": "dutch-malacca-transit", "required": 1, "unit": "permit"}, {"id": "ch10-johor-charter", "kind": "charter", "target": "johor-provisioning-agreement", "required": 1, "unit": "agreement"}], "recovery": "被拒后撤回可用锚地，保全已持有的货与钱；重新申报或经柔佛转运补足缺口，接受实际税费、延误与缩小交割量。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH11", "order": 11, "act": 3, "title": "留在码头上的人", "protagonistId": "zheng-zhilong", "year": 1646,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "父子分途前的原创码头事件里，郑芝龙想保住尚未离岸的人船。", "conflict": "修船架缺板、空舱不足，儿子要先带走人，商栈催着装最后一批财物；不把私人争执写作史实动机定论。", "turn": "到场和失散名单按实物形成，下一章能交出的只有真正抵达接应处的人船。"},
+      "teaches": ["在舱位与撤离窗口之间确定先后顺序"], "reuses": ["护航", "临修", "救援", "货物配载"],
+      "difficulty": {"tier": 3, "newRules": 1, "simultaneousObjectives": 2, "pressure": "high"},
+      "stages": [{"id": "CH-11-S1", "mode": "escort", "title": "把最后一班接出来", "briefing": "接出明确名册上的家属并护送撤离船到可达接应泊地；可以舍货保人或自费增租运力，留下者形成后续待救名单。", "objectives": [{"id": "ch11-rescue", "kind": "rescue", "target": "ch11-quay-families", "required": 1, "unit": "group"}, {"id": "ch11-withdraw", "kind": "withdraw", "target": "ch11-evacuation-convoy", "required": 1, "unit": "convoy"}], "recovery": "带余队退到既有泊地，临修可航船并为待救者安排真实下一班；失败保留失散去向，不自动判死或自动上船。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH12", "order": 12, "act": 3, "title": "两条离岸的船", "protagonistId": "zheng-zhilong", "year": 1646,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "郑芝龙要在历史分途前安排可交接的船、人和未了之事，郑成功决定留下。", "conflict": "有人愿随父亲，有人留给儿子，还有人只要领回应得工钱；同一份资产不能同时交给两队。", "turn": "1646是分途而非父亲死亡。仅当真实交接清单形成并完成本章结算，下一章才转由郑成功掌舵，旧伤旧债继续存在。"},
+      "teaches": ["以同一世界账完成一次代际交接"], "reuses": ["自愿人员关系", "资产与货权", "接应泊地", "未完成承诺"],
+      "difficulty": {"tier": 3, "newRules": 1, "simultaneousObjectives": 1, "pressure": "medium"},
+      "stages": [{"id": "CH-12-S1", "mode": "handoff", "title": "点清愿留下的人船", "briefing": "在本章结算前完成可接收人船与未了合同的实际清单；不复制船货、不补血、不清债。清单可以有限，但本次交接必须明确完成一次。", "objectives": [{"id": "ch12-handoff", "kind": "handoff", "target": "zheng-chenggong", "required": 1, "unit": "manifest"}], "recovery": "清单未能成立时先返回可达接应处，核查仍存活、可追索的资产与人员意愿；按实际到场内容重办交接，不创造替补舰队。", "partialAllowed": false}]
+    },
+    {
+      "id": "CH13", "order": 13, "act": 4, "title": "旧船上的新船长", "protagonistId": "zheng-chenggong", "year": 1647,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "1646—1648的原创重组任务中，郑成功要让父亲旧部相信这一次约定也会兑现。", "conflict": "旧船破口和欠账仍在，老水手有人愿再试一次，有人只想拿回工钱归家。", "turn": "送到一船口粮、付清谈好的报酬之后，愿留下的人才重新签约；对父亲的信任不自动成为对儿子的忠诚。"},
+      "teaches": ["带着继承损失重新赢得有限合作"], "reuses": ["交接清单", "护粮", "临修", "招募费用"],
+      "difficulty": {"tier": 4, "newRules": 1, "simultaneousObjectives": 2, "pressure": "low"},
+      "stages": [{"id": "CH-13-S1", "mode": "escort", "title": "先兑现一船口粮", "briefing": "从交棒后的现有船队出发，护送口粮抵达并按谈妥报酬重订一名旧部的短约；基础操船不重考，缺少具名英雄也可与普通合格人员合作。", "objectives": [{"id": "ch13-escort", "kind": "escort-arrived", "target": "ch13-old-retainer-grain", "required": 1, "unit": "convoy"}, {"id": "ch13-recruit", "kind": "recruit", "target": "ch13-renewed-retainer", "required": 1, "unit": "person"}], "recovery": "承认尚欠的报酬，缩小航次并接低风险运单；按现有损伤修船再补送口粮，不因换主角抹掉旧账。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH14", "order": 14, "act": 4, "title": "潮州来的粮船", "protagonistId": "zheng-chenggong", "year": 1649,
+      "regionIds": ["REG-01", "REG-04"],
+      "drama": {"want": "1649年末至1650的背景下，郑成功希望打通一处有限的河口转运点。", "conflict": "岸队与深吃水运输舰互相等候；历史征输和暴力代价仍须呈现，原创交涉任务不能把整段征讨改写成自愿救济。", "turn": "只在取得岸点、运回粮并接出队伍后记本队成果，不把插旗一处写成控制整座城市。"},
+      "teaches": ["将有限岸点控制与水上转运接应组合"], "reuses": ["侦察", "护航", "有边界军令", "撤离"],
+      "difficulty": {"tier": 4, "newRules": 1, "simultaneousObjectives": 3, "pressure": "medium"},
+      "stages": [{"id": "CH-14-S1", "mode": "land", "title": "渡口只够一班船", "briefing": "取得指定转运岸点的实际控制，将约定粮批交给外海运输船，并让接应队撤回；可先交涉或先夺有限岸点，居民利益与历史损失分别保留。", "objectives": [{"id": "ch14-land", "kind": "land-control", "target": "ch14-transshipment-quay", "required": 1, "unit": "position"}, {"id": "ch14-deliver", "kind": "deliver", "target": "ch14-grain-transshipment", "required": 1, "unit": "shipment"}, {"id": "ch14-withdraw", "kind": "withdraw", "target": "ch14-shore-party", "required": 1, "unit": "group"}], "recovery": "岸点失守先接走尚可联系的队伍，退外海补给；只带回人或部分粮按实结算，再用商运恢复运力，不自动取得城市。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH15", "order": 15, "act": 4, "title": "厦门的灯不能灭", "protagonistId": "zheng-chenggong", "year": 1651,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "收到厦门遭袭消息后回师的郑成功要救回受托人员，并恢复一个实际可用的接运泊位。", "conflict": "港区已有的损毁不能抹掉；修护、救人和守备共用有限船艇，不把缺席遭袭写成亲临守城。", "turn": "恢复的灯火以能否继续接粮、安置人和保护修护班为准，替代港仍可能是下一章的起点。"},
+      "teaches": ["受袭后先复开有限泊位并留下持续守备"], "reuses": ["救援", "岸水接应", "修护物资", "护航"],
+      "difficulty": {"tier": 4, "newRules": 1, "simultaneousObjectives": 3, "pressure": "medium"},
+      "stages": [{"id": "CH-15-S1", "mode": "land", "title": "先让一处码头亮起来", "briefing": "从已发生袭击后的局面救出指定人员，重开一处可接运泊位并保护实际修护班；未核史料的守将责任与家眷遭遇不编成现场定论。", "objectives": [{"id": "ch15-rescue", "kind": "rescue", "target": "xiamen-survivors", "required": 1, "unit": "group"}, {"id": "ch15-land", "kind": "land-control", "target": "xiamen-reopened-quay", "required": 1, "unit": "position"}, {"id": "ch15-protect", "kind": "protect", "target": "xiamen-repair-watch", "required": 1, "unit": "watch"}], "recovery": "保住余队退邻近可用泊处，记录失散和待修设施；先送救济与修材再组织下一班接应，未复开的港口不能视作正常补给港。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH16", "order": 16, "act": 4, "title": "货帆也能撑住战旗", "protagonistId": "zheng-chenggong", "year": 1653,
+      "regionIds": ["REG-01", "REG-03", "REG-05", "REG-07"],
+      "drama": {"want": "父亲来书与清廷招降的背景下，郑成功要以独立商路维持自己的选择。", "conflict": "可选联系分别是马尼拉殖民港的商人担保、日本长崎通事网络和爪哇北岸地方商人；他们不共享一张许可证。", "turn": "玩家亲自完成所选航线第一单，旧商信仅提供引见；不声称主角真实到访，也不让平户旧荷兰商馆在1653年继续营业。"},
+      "teaches": ["在地区许可变化下选择一条可持续商路"], "reuses": ["小额交易", "长航补给", "琉球旧信与商人担保", "有权代理"],
+      "difficulty": {"tier": 4, "newRules": 1, "simultaneousObjectives": 2, "pressure": "medium"},
+      "stages": [{"id": "CH-16-S1", "mode": "trade", "title": "先跑成所选的第一单", "briefing": "在马尼拉、日本长崎网络、爪哇北岸三条可选联系中选一条，取得对应有限许可并真实交易。hirado只沿用地理旧信锚点，日本通商不冒称在平户旧商馆办理；目标120银为未平衡候选预算。", "objectives": [{"id": "ch16-charter", "kind": "charter", "target": "ch16-selected-trade-route", "required": 1, "unit": "permit"}, {"id": "ch16-profit", "kind": "trade-profit", "target": "ch16-running-capital", "required": 120, "unit": "silver"}], "recovery": "扣货或亏本先按原货单申领、缩减订单；可改另一条已获准航线或接低本金承运，不靠战争强制刷钱或自动返还被扣货。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH17", "order": 17, "act": 5, "title": "放出去的一面小旗", "protagonistId": "zheng-chenggong", "year": 1656,
+      "regionIds": ["REG-01", "REG-04"],
+      "drama": {"want": "原创分队事件中，郑成功希望相信一个不在眼前的伙伴，让第二条航线真正运转。", "conflict": "借舰范围、可接订单和回报港必须先谈清，伙伴自有船不能被当作玩家随叫随到的资产。", "turn": "亲自护送首段后分航，只有真实行程带回的结果才算返回，不以一张即时弹窗代替远处航次。"},
+      "teaches": ["授予有边界的自主派遣并等待实际返航"], "reuses": ["有限军令", "合伙费用", "护航", "贸易"],
+      "difficulty": {"tier": 5, "newRules": 1, "simultaneousObjectives": 2, "pressure": "medium"},
+      "stages": [{"id": "CH-17-S1", "mode": "escort", "title": "分航以后仍有归处", "briefing": "先护送分队完成首段，再让获有限授权的队伍完成约定航次并返回清单；普通合格领队可承担，不以某位英雄缺席永久锁主线。", "objectives": [{"id": "ch17-escort", "kind": "escort-arrived", "target": "ch17-first-leg", "required": 1, "unit": "convoy"}, {"id": "ch17-dispatch", "kind": "dispatch-returned", "target": "ch17-autonomous-convoy", "required": 1, "unit": "manifest"}], "recovery": "迟归先查最后可靠消息，安排接力补运或实际搜救；失联不直接判叛变，借舰与伙伴私产的损失按权属保留。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH18", "order": 18, "act": 5, "title": "风先打到帆上", "protagonistId": "zheng-chenggong", "year": 1658,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "北上准备与风灾背景中的原创支队任务里，郑成功要保住仍能使用的人和船。", "conflict": "继续进取会失去备港距离，提早避风又错过航期；具体航次月日未定，不将不同北上事件拼成同一天。", "turn": "救回的人员与失去的运力分别记账，暂停有战略代价，教学通过也不等于躲过全部历史灾情。"},
+      "teaches": ["在航况越界时中止航次并执行救援预案"], "reuses": ["长航余量", "拖救", "备港", "护航队形"],
+      "difficulty": {"tier": 5, "newRules": 1, "simultaneousObjectives": 2, "pressure": "high"},
+      "stages": [{"id": "CH-18-S1", "mode": "sailing", "title": "备港仍在身后", "briefing": "依据可见航况减帆，接应一艘失能船，并带可航余队撤回已说明的备港；不靠随机弹窗清空舰队，风况阈值仍待实际验证。", "objectives": [{"id": "ch18-rescue", "kind": "rescue", "target": "ch18-disabled-ship", "required": 1, "unit": "vessel"}, {"id": "ch18-withdraw", "kind": "withdraw", "target": "ch18-storm-convoy", "required": 1, "unit": "convoy"}], "recovery": "按已知位置继续搜救后队，在备港修造并跑补给航次；损失严重时先重建再推进年月，不免费返还风灾损失。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH19", "order": 19, "act": 5, "title": "大江尽头，归帆仍在", "protagonistId": "zheng-chenggong", "year": 1659,
+      "regionIds": ["REG-01"],
+      "drama": {"want": "1659年北伐南京挫折的背景下，郑成功要尽量把队伍带回海上。", "conflict": "接伤员、保主运输线与掩护第二撤离点争用运力；玩家局部任务从开始就是撤救，不强迫犯蠢触发历史失利。", "turn": "保全本队仍记录北伐的战略挫折，失散与遗弃物资按实际结果续写，不宣布历史北伐获胜。"},
+      "teaches": ["在多处撤离请求中设置有退出条件的殿后"], "reuses": ["河口接应", "分队授权", "救援", "伤员舱位"],
+      "difficulty": {"tier": 5, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [{"id": "CH-19-S1", "mode": "land", "title": "把人带回大江之外", "briefing": "接回指定伤员队，保住殿后返航通路并让运输队实际撤出；可以舍弃辎重提早撤离，局部成果不改写北伐终局。", "objectives": [{"id": "ch19-rescue", "kind": "rescue", "target": "ch19-wounded-column", "required": 1, "unit": "group"}, {"id": "ch19-protect", "kind": "protect", "target": "ch19-rearguard-route", "required": 1, "unit": "route"}, {"id": "ch19-withdraw", "kind": "withdraw", "target": "ch19-return-convoy", "required": 1, "unit": "convoy"}], "recovery": "先让余队退至可达泊地，再按最后消息救援、赎回或确认实际损失后重建；不能用惨败字幕覆盖已救回者。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH20", "order": 20, "act": 5, "title": "向东之前，还要一趟买卖", "protagonistId": "zheng-chenggong", "year": 1660,
+      "regionIds": ["REG-01", "REG-03", "REG-06", "REG-07"],
+      "drama": {"want": "1660—1661的远征准备中，郑成功希望把老关系重新变成能到手的粮、水与修材。", "conflict": "琉球已入尚质王代且首里1660年失火，王使自己也求材料；柔佛王庭担保与荷方满剌噶许可仍要分别核验，旧信不等于自动效忠。", "turn": "先由虚构代表重订一条补给约，再实际采购集货。琉球往来通过灾后采购与王使转达表现，不在1661年上演完整旧正殿接见。"},
+      "teaches": ["把既有地区关系兑现为持续远征补给"], "reuses": ["琉球使船旧信", "柔佛担保", "满剌噶许可", "贸易采购", "多船运力"],
+      "difficulty": {"tier": 5, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [{"id": "CH-20-S1", "mode": "trade", "title": "采购单要变成实物", "briefing": "选择既有商路重订限定补给约，实际购得160格粮水与40格修材；这些为未平衡游戏货舱单位，不是真实吨位。已备同批库存由T01继续配载，不再发一次奖励。", "objectives": [{"id": "ch20-charter", "kind": "charter", "target": "regional-supply-renewal", "required": 1, "unit": "agreement"}, {"id": "ch20-grain", "kind": "stockpile", "target": "expedition-grain-water", "required": 160, "unit": "cargo-unit"}, {"id": "ch20-materials", "kind": "stockpile", "target": "expedition-repair-material", "required": 40, "unit": "cargo-unit"}], "recovery": "采购受阻时缩小先遣规模，另跑护运或材料换粮航次，再核对库存；不得等待自动刷满物资或重复计算旧采购。", "partialAllowed": true}]
+    },
+    {
+      "id": "CH21", "order": 21, "act": 6, "title": "海峡另一端", "protagonistId": "zheng-chenggong", "year": 1661,
+      "regionIds": ["REG-01", "REG-02"],
+      "drama": {"want": "让人、船和第一批补给真正渡海并建立可接续的桥头。", "conflict": "抢潮、保运输船和留回程接应互相牵制；岸上已有居民和社群，不能当作无人空地。", "turn": "从已有库存装船，经澎湖整队再到鹿耳门水道与禾寮港集结；现代岸址有异说，关卡地形与具体月日待核。"},
+      "teaches": ["把最终配载、跨海与登陆连成连续投送"], "reuses": ["库存", "潮路", "护航", "岸水接应", "撤回预案"],
+      "difficulty": {"tier": 6, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [
+        {"id": "T01", "mode": "port", "title": "最终配载", "briefing": "核对CH20的同批实物，完成出航配载和可航运输清单；保留食水、修材、工匠与伤员空间，不重新赠货或重复扣费。", "objectives": [{"id": "t01-loading", "kind": "stockpile", "target": "expedition-loading-manifest", "required": 1, "unit": "manifest"}, {"id": "t01-transports", "kind": "protect", "target": "taiwan-ready-transports", "required": 1, "unit": "convoy"}], "recovery": "缺项回本港实际购补、修护或减载后重核；沿用现有库存与损伤，不能以出航确认替代实物。", "partialAllowed": false},
+        {"id": "T02", "mode": "sailing", "title": "渡海与澎湖整队", "briefing": "带运输队实际抵达澎湖中继处，候风、接应掉队并保住可用运力；等待消耗同一份粮水，不直接传送到台湾。", "objectives": [{"id": "t02-arrive", "kind": "arrive", "target": "penghu-staging", "required": 1, "unit": "convoy"}, {"id": "t02-protect", "kind": "protect", "target": "taiwan-crossing-transports", "required": 1, "unit": "convoy"}], "recovery": "越界或失队先退最近可达中继泊地，按最后已知位置救援并修护补给；未归队船不算已抵达。", "partialAllowed": false},
+        {"id": "T03", "mode": "land", "title": "水道、换驳与登陆", "briefing": "踏勘鹿耳门通行窗口后换驳，在禾寮港建立有限集结点，交到首批补给并维持回程接应；不以一船靠岸宣称全军登陆。", "objectives": [{"id": "t03-land", "kind": "land-control", "target": "heliao-bridgehead", "required": 1, "unit": "position"}, {"id": "t03-deliver", "kind": "deliver", "target": "heliao-first-supplies", "required": 1, "unit": "shipment"}, {"id": "t03-protect", "kind": "protect", "target": "heliao-return-lane", "required": 1, "unit": "route"}], "recovery": "投送失败退中继点重整，已上岸者须实际接回或得到补给；桥头、补给和接应三项恢复后再结算。", "partialAllowed": false}
+      ]
+    },
+    {
+      "id": "CH22", "order": 22, "act": 6, "title": "两座城之间", "protagonistId": "zheng-chenggong", "year": 1661,
+      "regionIds": ["REG-02"],
+      "drama": {"want": "保住登陆立足点，并取得普罗民遮范围内的实际交接。", "conflict": "海上与陆上反击争用预备队，岸边居民各有安置需求，不能用一段欢呼代言全部社群。", "turn": "普罗民遮交接后热兰遮仍在抵抗，第一面降旗不等于台湾战役已经结束。"},
+      "teaches": ["在海陆压力下区分击退反击与接收城防"], "reuses": ["会战", "有限岸点", "护补给", "条款与货单"],
+      "difficulty": {"tier": 6, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [
+        {"id": "T04", "mode": "naval", "title": "应对海陆反击", "briefing": "压退明确敌方反击编队，保住已有桥头与运输线；海陆预备力量有实际去处，不以一次击沉代替岸防仍存活。", "objectives": [{"id": "t04-neutralize", "kind": "neutralize", "target": "dutch-counterattack", "required": 1, "unit": "formation"}, {"id": "t04-protect", "kind": "protect", "target": "heliao-established-bridgehead", "required": 1, "unit": "position"}], "recovery": "局部败退先护运输和撤回队伍，重开T03接应补给后再组织反击；失守地点不自动换回己方。", "partialAllowed": false},
+        {"id": "T05", "mode": "port", "title": "普罗民遮的交接", "briefing": "隔离普罗民遮支持线，落实其投降条款与范围内仓区、人员交接；热兰遮是后续独立目标，不随此处结算降旗。", "objectives": [{"id": "t05-terms", "kind": "accept-terms", "target": "provintia-terms", "required": 1, "unit": "agreement"}, {"id": "t05-handover", "kind": "port-handover", "target": "provintia-handover", "required": 1, "unit": "handover"}], "recovery": "交涉或接收中断先保桥头、补足可兑现条件并核查待交清单；没有真实交接便维持围控，不预先取得仓货。", "partialAllowed": false}
+      ]
+    },
+    {
+      "id": "CH23", "order": 23, "act": 6, "title": "城墙外的漫长日子", "protagonistId": "zheng-chenggong", "year": 1661,
+      "regionIds": ["REG-02", "REG-01", "REG-06"],
+      "drama": {"want": "让围军活过长期消耗，并限制外海援助的作用。", "conflict": "热兰遮不能轻取，围军自身需要粮水、医护与修材，商人与各地社群不会无条件供给。", "turn": "围城、实物补给和外线迎击分段验收；荷方部分补给抵达时照实增加围城压力，不反写成自动断援。"},
+      "teaches": ["把围城轮换、持续采购与外线迎击维持在同一资源账"], "reuses": ["贸易与地区关系", "护镖", "救援", "修护", "预备队"],
+      "difficulty": {"tier": 6, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [
+        {"id": "T06", "mode": "land", "title": "热兰遮城下调整围城", "briefing": "认识强攻代价后维持一轮有补给的围控，接回受托伤员；记录已付代价，不以拿下普罗民遮冒充攻克热兰遮。", "objectives": [{"id": "t06-blockade", "kind": "hold-blockade", "target": "zeelandia-siege-line", "required": 1, "unit": "watch"}, {"id": "t06-rescue", "kind": "rescue", "target": "zeelandia-wounded-return", "required": 1, "unit": "group"}], "recovery": "强攻失利先接伤员并收缩可守围线，补给修护后恢复可持续轮班；不能以一次失败自动攻破城防。", "partialAllowed": false},
+        {"id": "T07", "mode": "trade", "title": "让下一船粮真的进营", "briefing": "按当前关系与库存采购并送达围军补给，护送运输船实际抵达；岛内居民、商户与原住民族社群分别协商，不写成统一无条件供军。", "objectives": [{"id": "t07-deliver", "kind": "deliver", "target": "siege-supply-delivery", "required": 1, "unit": "shipment"}, {"id": "t07-escort", "kind": "escort-arrived", "target": "siege-supply-convoy", "required": 1, "unit": "convoy"}], "recovery": "粮路受阻先缩小消耗并改签有库存的采购，另派真实船次接运；不得自动扣本地社群粮食或免费填满营地。", "partialAllowed": false},
+        {"id": "T08", "mode": "naval", "title": "外海援帆", "briefing": "应对荷方援军及海上反攻，限制已确认援助编队作用并保持己方围城线；援军日期、舰数与因果强弱按研究继续核对。", "objectives": [{"id": "t08-neutralize", "kind": "neutralize", "target": "dutch-relief-formation", "required": 1, "unit": "formation"}, {"id": "t08-blockade", "kind": "hold-blockade", "target": "zeelandia-seaward-line", "required": 1, "unit": "watch"}], "recovery": "海战失利先救船、重开T07粮路并修护轮换，已进入守军的补给按实际保留；恢复围控后再承担下一次外线任务。", "partialAllowed": false}
+      ]
+    },
+    {
+      "id": "CH24", "order": 24, "act": 6, "title": "城上最后一面旗", "protagonistId": "zheng-chenggong", "year": 1662,
+      "regionIds": ["REG-02"],
+      "drama": {"want": "郑成功要把军事压力转为能够履行的停战和接收。", "conflict": "守军衡量继续抵抗与投降，己方有人盼报复、有人盼回家；约定必须实际保护撤离并划清交接范围。", "turn": "乌特勒支相关高地压力之后，谈降、撤离与接收全部成立才到终章；不靠一场海战或手动判胜按钮结束战役。"},
+      "teaches": ["将军事进展落实为条款、撤离与接收的完整履约"], "reuses": ["侦察", "岸战协同", "补给", "通事", "实际清单"],
+      "difficulty": {"tier": 6, "newRules": 1, "simultaneousObjectives": 3, "pressure": "high"},
+      "stages": [
+        {"id": "T09", "mode": "land", "title": "乌特勒支相关高地压力", "briefing": "取得相关高地或堡垒的指定阵位并维持对热兰遮的有效压力；不把乌特勒支写成第三座同规模港城，具体地形与阵位待关卡考证。", "objectives": [{"id": "t09-land", "kind": "land-control", "target": "utrecht-pressure-position", "required": 1, "unit": "position"}, {"id": "t09-blockade", "kind": "hold-blockade", "target": "zeelandia-final-pressure", "required": 1, "unit": "watch"}], "recovery": "阵位进攻受挫先撤回可守围线，接回伤员并维持T07补给后重新侦察；不凭剧情让守军自行降服。", "partialAllowed": false},
+        {"id": "T10", "mode": "port", "title": "谈降、撤离与接收", "briefing": "依据实际谈成的条件签约，按约护送撤离人员与物资并完成接收清单。三项原生结果全部成立才结算终章；这份内容配置本身不证明任何执行器已接入。", "objectives": [{"id": "t10-terms", "kind": "accept-terms", "target": "zeelandia-surrender-terms", "required": 1, "unit": "agreement"}, {"id": "t10-evacuation", "kind": "evacuation-complete", "target": "zeelandia-agreed-evacuation", "required": 1, "unit": "manifest"}, {"id": "t10-handover", "kind": "port-handover", "target": "zeelandia-final-handover", "required": 1, "unit": "handover"}], "recovery": "条款未落实则保护停战范围，补足约定运输与安置并核查未交事项；可修复的缺项继续履约，条件不可恢复时明确失败并恢复整份章节检查点，不宣布NPC代赢。", "partialAllowed": false}
+      ]
+    }
+  ]
+}

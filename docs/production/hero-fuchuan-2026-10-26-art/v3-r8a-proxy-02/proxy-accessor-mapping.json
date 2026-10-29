@@ -1,0 +1,1502 @@
+{
+  "scope": "Read-only R7c/R8a hidden-proxy layout comparison; no output asset bytes modified",
+  "mappingRule": "node name -> unique mesh -> same primitive ordinal -> decoded index identity -> same attribute schema/count",
+  "lods": [
+    {
+      "lod": 0,
+      "reference": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod0.glb",
+      "candidate": "assets/models/hero_fuchuan_v3_r8a/fuchuan-lod0.glb",
+      "referenceSHA256": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+      "candidateSHA256": "e81bf4846449b6e62f4adc9fec97a343a11408d5d0ba05c67dc64f53e47397b6",
+      "nodes": [
+        {
+          "name": "shadow_hull",
+          "referenceNode": 75,
+          "candidateNode": 75,
+          "referenceMesh": 45,
+          "candidateMesh": 45,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 442,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 457,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 22587320,
+                  "absoluteEnd": 22595756,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "candidate": {
+                  "accessorIndex": 442,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 457,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 22587320,
+                  "absoluteEnd": 22595756,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 2791,
+                "candidateMin": 0,
+                "candidateMax": 2791
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 440,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 455,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22531480,
+                    "absoluteEnd": 22564984,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "d1fccd8754c578ba7b91650c74e2ece7b0f4be2eead7d1b668e122b023764847"
+                  },
+                  "candidate": {
+                    "accessorIndex": 440,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 455,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22531480,
+                    "absoluteEnd": 22564984,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "580251e573dcc5d18562dc933e9104dd45f4b3027bfd6e237e852a0fe9fd7372"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 439,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 454,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22497976,
+                    "absoluteEnd": 22531480,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "4ac57d4717aa45fe0cd916877f47f3ad3a4064991e7d73a1ed36ead57536bd2d"
+                  },
+                  "candidate": {
+                    "accessorIndex": 439,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 454,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22497976,
+                    "absoluteEnd": 22531480,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ce9b5bbce7746f6b90bc303dc8c6bc8b0dedc8fa1cc282fc30a6750355d9aa53"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 441,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 456,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22564984,
+                    "absoluteEnd": 22587320,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "candidate": {
+                    "accessorIndex": 441,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 456,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22564984,
+                    "absoluteEnd": 22587320,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "shadow_deck",
+          "referenceNode": 74,
+          "candidateNode": 74,
+          "referenceMesh": 44,
+          "candidateMesh": 44,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 438,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 453,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 22497376,
+                  "absoluteEnd": 22497976,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "candidate": {
+                  "accessorIndex": 438,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 453,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 22497376,
+                  "absoluteEnd": 22497976,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 199,
+                "candidateMin": 0,
+                "candidateMax": 199
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 436,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 451,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22493376,
+                    "absoluteEnd": 22495776,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "candidate": {
+                    "accessorIndex": 436,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 451,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22493376,
+                    "absoluteEnd": 22495776,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 435,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 450,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22490976,
+                    "absoluteEnd": 22493376,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ae89086b185f59fee6cc945f59dc89266460b264c855c594c3f5800fd2e061a9"
+                  },
+                  "candidate": {
+                    "accessorIndex": 435,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 450,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22490976,
+                    "absoluteEnd": 22493376,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "9be63cccbda1738ab8c4e92251c2a601ca22dc311f1ed47186923666b4681312"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 437,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 452,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22495776,
+                    "absoluteEnd": 22497376,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "candidate": {
+                    "accessorIndex": 437,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 452,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 22495776,
+                    "absoluteEnd": 22497376,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lod": 1,
+      "reference": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod1.glb",
+      "candidate": "assets/models/hero_fuchuan_v3_r8a/fuchuan-lod1.glb",
+      "referenceSHA256": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+      "candidateSHA256": "2e499d6ea7a57d86bf6a3cc4b7d68070ca6532d89f63b01f4b4a3512a13484af",
+      "nodes": [
+        {
+          "name": "shadow_hull",
+          "referenceNode": 75,
+          "candidateNode": 75,
+          "referenceMesh": 45,
+          "candidateMesh": 45,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 441,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 459,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 19961636,
+                  "absoluteEnd": 19970072,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "candidate": {
+                  "accessorIndex": 441,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 459,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 19961636,
+                  "absoluteEnd": 19970072,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 2791,
+                "candidateMin": 0,
+                "candidateMax": 2791
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 439,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 457,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19905796,
+                    "absoluteEnd": 19939300,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "d1fccd8754c578ba7b91650c74e2ece7b0f4be2eead7d1b668e122b023764847"
+                  },
+                  "candidate": {
+                    "accessorIndex": 439,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 457,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19905796,
+                    "absoluteEnd": 19939300,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "580251e573dcc5d18562dc933e9104dd45f4b3027bfd6e237e852a0fe9fd7372"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 438,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 456,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19872292,
+                    "absoluteEnd": 19905796,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "4ac57d4717aa45fe0cd916877f47f3ad3a4064991e7d73a1ed36ead57536bd2d"
+                  },
+                  "candidate": {
+                    "accessorIndex": 438,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 456,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19872292,
+                    "absoluteEnd": 19905796,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ce9b5bbce7746f6b90bc303dc8c6bc8b0dedc8fa1cc282fc30a6750355d9aa53"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 440,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 458,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19939300,
+                    "absoluteEnd": 19961636,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "candidate": {
+                    "accessorIndex": 440,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 458,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19939300,
+                    "absoluteEnd": 19961636,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "shadow_deck",
+          "referenceNode": 74,
+          "candidateNode": 74,
+          "referenceMesh": 44,
+          "candidateMesh": 44,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 437,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 455,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 19871692,
+                  "absoluteEnd": 19872292,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "candidate": {
+                  "accessorIndex": 437,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 455,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 19871692,
+                  "absoluteEnd": 19872292,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 199,
+                "candidateMin": 0,
+                "candidateMax": 199
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 435,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 453,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19867692,
+                    "absoluteEnd": 19870092,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "candidate": {
+                    "accessorIndex": 435,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 453,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19867692,
+                    "absoluteEnd": 19870092,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 434,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 452,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19865292,
+                    "absoluteEnd": 19867692,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ae89086b185f59fee6cc945f59dc89266460b264c855c594c3f5800fd2e061a9"
+                  },
+                  "candidate": {
+                    "accessorIndex": 434,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 452,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19865292,
+                    "absoluteEnd": 19867692,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "9be63cccbda1738ab8c4e92251c2a601ca22dc311f1ed47186923666b4681312"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 436,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 454,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19870092,
+                    "absoluteEnd": 19871692,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "candidate": {
+                    "accessorIndex": 436,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 454,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 19870092,
+                    "absoluteEnd": 19871692,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lod": 2,
+      "reference": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod2.glb",
+      "candidate": "assets/models/hero_fuchuan_v3_r8a/fuchuan-lod2.glb",
+      "referenceSHA256": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+      "candidateSHA256": "5c6f12967ac6e8772b3fa6ed5674a07c950f9316cc2f6b795bfcda810012a188",
+      "nodes": [
+        {
+          "name": "shadow_hull",
+          "referenceNode": 75,
+          "candidateNode": 75,
+          "referenceMesh": 45,
+          "candidateMesh": 45,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 417,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 435,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 18690180,
+                  "absoluteEnd": 18698616,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "candidate": {
+                  "accessorIndex": 417,
+                  "count": 4218,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 435,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 18690180,
+                  "absoluteEnd": 18698616,
+                  "byteSpan": 8436,
+                  "packedBytes": 8436,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "cbb75e0cf2f51f24630ce3db04d64fc5c34c1e796483865d7a97d24f8b1ac5c3"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 2791,
+                "candidateMin": 0,
+                "candidateMax": 2791
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 415,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 433,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18634340,
+                    "absoluteEnd": 18667844,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "d1fccd8754c578ba7b91650c74e2ece7b0f4be2eead7d1b668e122b023764847"
+                  },
+                  "candidate": {
+                    "accessorIndex": 415,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 433,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18634340,
+                    "absoluteEnd": 18667844,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "580251e573dcc5d18562dc933e9104dd45f4b3027bfd6e237e852a0fe9fd7372"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 414,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 432,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18600836,
+                    "absoluteEnd": 18634340,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "4ac57d4717aa45fe0cd916877f47f3ad3a4064991e7d73a1ed36ead57536bd2d"
+                  },
+                  "candidate": {
+                    "accessorIndex": 414,
+                    "count": 2792,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 432,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18600836,
+                    "absoluteEnd": 18634340,
+                    "byteSpan": 33504,
+                    "packedBytes": 33504,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ce9b5bbce7746f6b90bc303dc8c6bc8b0dedc8fa1cc282fc30a6750355d9aa53"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 416,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 434,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18667844,
+                    "absoluteEnd": 18690180,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "candidate": {
+                    "accessorIndex": 416,
+                    "count": 2792,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 434,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18667844,
+                    "absoluteEnd": 18690180,
+                    "byteSpan": 22336,
+                    "packedBytes": 22336,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "a7f8119ac2da2d712fce2545b6c72ddf1312943d4b110a527d44e7762f1eeb60"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 45,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "shadow_deck",
+          "referenceNode": 74,
+          "candidateNode": 74,
+          "referenceMesh": 44,
+          "candidateMesh": 44,
+          "referencePrimitiveCount": 1,
+          "candidatePrimitiveCount": 1,
+          "primitives": [
+            {
+              "primitiveOrdinal": 0,
+              "referenceMode": 4,
+              "candidateMode": 4,
+              "referenceMaterial": 3,
+              "candidateMaterial": 3,
+              "attributeSetsExact": true,
+              "indices": {
+                "reference": {
+                  "accessorIndex": 413,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 431,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 18600236,
+                  "absoluteEnd": 18600836,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "candidate": {
+                  "accessorIndex": 413,
+                  "count": 300,
+                  "type": "SCALAR",
+                  "componentType": 5123,
+                  "normalized": false,
+                  "bufferView": 431,
+                  "accessorByteOffset": 0,
+                  "absoluteStart": 18600236,
+                  "absoluteEnd": 18600836,
+                  "byteSpan": 600,
+                  "packedBytes": 600,
+                  "stride": 2,
+                  "componentByteOffsets": [
+                    0
+                  ],
+                  "packedSHA256": "c5ad92a3e32b62d5d81954c534e5aa0d1f0d788c6d2d5771404c01e6b26b73d8"
+                },
+                "decodedValuesAndOrderExact": true,
+                "firstDifferentIndex": null,
+                "countExact": true,
+                "referenceMin": 0,
+                "referenceMax": 199,
+                "candidateMin": 0,
+                "candidateMax": 199
+              },
+              "attributes": {
+                "NORMAL": {
+                  "reference": {
+                    "accessorIndex": 411,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 429,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18596236,
+                    "absoluteEnd": 18598636,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "candidate": {
+                    "accessorIndex": 411,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 429,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18596236,
+                    "absoluteEnd": 18598636,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "20dc311da2ef2afa6df00ca7f7c4ef64814adad7c4f69ec4017226c1d0b8d19e"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "NORMAL"
+                    }
+                  ]
+                },
+                "POSITION": {
+                  "reference": {
+                    "accessorIndex": 410,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 428,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18593836,
+                    "absoluteEnd": 18596236,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "ae89086b185f59fee6cc945f59dc89266460b264c855c594c3f5800fd2e061a9"
+                  },
+                  "candidate": {
+                    "accessorIndex": 410,
+                    "count": 200,
+                    "type": "VEC3",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 428,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18593836,
+                    "absoluteEnd": 18596236,
+                    "byteSpan": 2400,
+                    "packedBytes": 2400,
+                    "stride": 12,
+                    "componentByteOffsets": [
+                      0,
+                      4,
+                      8
+                    ],
+                    "packedSHA256": "9be63cccbda1738ab8c4e92251c2a601ca22dc311f1ed47186923666b4681312"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": false,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "POSITION"
+                    }
+                  ]
+                },
+                "TEXCOORD_0": {
+                  "reference": {
+                    "accessorIndex": 412,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 430,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18598636,
+                    "absoluteEnd": 18600236,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "candidate": {
+                    "accessorIndex": 412,
+                    "count": 200,
+                    "type": "VEC2",
+                    "componentType": 5126,
+                    "normalized": false,
+                    "bufferView": 430,
+                    "accessorByteOffset": 0,
+                    "absoluteStart": 18598636,
+                    "absoluteEnd": 18600236,
+                    "byteSpan": 1600,
+                    "packedBytes": 1600,
+                    "stride": 8,
+                    "componentByteOffsets": [
+                      0,
+                      4
+                    ],
+                    "packedSHA256": "3c269f283903dfed19143ec110ac6f4aff2540df828747b5cae0bbaced1fc56b"
+                  },
+                  "schemaExact": true,
+                  "byteSpanSameLength": true,
+                  "packedByteLengthExact": true,
+                  "packedBytesExact": true,
+                  "referenceAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ],
+                  "candidateAccessorReferences": [
+                    {
+                      "meshIndex": 44,
+                      "primitiveIndex": 0,
+                      "attribute": "TEXCOORD_0"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "allProxyPrimitiveCountsExact": true,
+  "allProxyIndicesDecodedExact": true,
+  "allProxyAttributeSchemasExact": true,
+  "allProxyPositionNormalByteSpansSameLength": true,
+  "allProxyUVBytesExact": true
+}

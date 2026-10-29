@@ -2,12 +2,16 @@ extends CanvasLayer
 ## Scene-owned compact view. A click requests the career's existing chart page.
 signal chart_requested
 const Chart = preload("res://game/ui/charts/nautical_chart.gd")
+const Frame = preload("res://game/ui/charts/floating_chart_frame.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 var chart: Control
 var _blocked := false
 var _disposed := false
 func _ready() -> void:
 	layer = 22
 	chart = Chart.new(); chart.name = "minimap"; add_child(chart)
+	var frame := Frame.new(); frame.name = "minimap_frame"; add_child(frame); move_child(frame, chart.get_index())
+	frame.follow(chart, Maritime.window_edge())
 	chart.chart_requested.connect(func(): chart_requested.emit())
 	get_viewport().size_changed.connect(_layout)
 	_layout()

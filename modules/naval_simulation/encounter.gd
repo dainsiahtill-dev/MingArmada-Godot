@@ -5,6 +5,8 @@ const Physics = preload("res://modules/physics_engine/ships/ship_dynamics.gd")
 const Types = preload("res://modules/contracts/physics_types.gd")
 const Ocean = preload("res://modules/naval_simulation/ocean_adapter.gd")
 const Cannon = preload("res://modules/naval_simulation/combat/cannon_system.gd")
+const Fire = preload("res://modules/naval_simulation/combat/fire_control.gd")
+const FireLauncher = preload("res://modules/naval_simulation/combat/fire_launcher.gd")
 const Sweep = preload("res://modules/naval_simulation/combat/projectiles.gd")
 const Orders = preload("res://modules/naval_simulation/tactics/order_controller.gd")
 const Planner = preload("res://modules/naval_simulation/navigation/wet_route_planner.gd")
@@ -88,6 +90,7 @@ func reset(initial: Dictionary = config) -> bool:
 	if not next_player in ids: last_error = "Encounter requires player ship"; return false
 	var next_policy = {"controllableShipIds": initial.get("controllableShipIds", [] if initial.get("mode") == "continuous" else setups.filter(func(s): return s.team == "player").map(func(s): return s.id)), "hostileTargets": initial.get("hostileTargets", {})}
 	if not _valid_policy(next_policy, ids): return false
+	if initial.has("fireEnvironment") and not _valid_fire_environment(initial.fireEnvironment, ids): last_error = "Invalid fire environment"; return false
 	var next_environment := Weather.new()
 	# Unit/cadence/clone scale are target adapters, distinct from ship physics.
 	var weather_options: Dictionary = {"model_scale":10.0}
@@ -144,6 +147,12 @@ func _normalize(setup: Variant) -> Dictionary:
 	if absf(state.rudder) > 1 or absf(state.sailAngle) > PI / 2 or state.sailDeployment < 0 or state.sailDeployment > 1: last_error = "Invalid restored controls"; return {}
 	if not ammo.values().all(func(v): return _finite(v) and v >= 0 and v == floor(v)): last_error = "Invalid initial ammunition"; return {}
 	if setup.has("cooldownSeconds") and (not setup.cooldownSeconds is Dictionary or not [setup.cooldownSeconds.get("port"), setup.cooldownSeconds.get("starboard")].all(func(v): return _finite(v) and v >= 0 and v <= 120)): last_error = "Invalid restored reload"; return {}
+	if setup.has("fireControl"):
+		if not Fire.valid(setup.fireControl): last_error = "Invalid fire control state"; return {}
+		state.fireControl = setup.fireControl.duplicate(true)
+	if setup.has("fireLauncher"):
+		if not FireLauncher.valid(setup.fireLauncher): last_error = "Invalid fire launcher state"; return {}
+		state.fireLauncher = setup.fireLauncher.duplicate(true)
 	return state
 func _create_ship(setup: Dictionary, environment: Dictionary = config, wave_field: RefCounted = ocean, accepted_tick: int = tick) -> Dictionary:
 	var state = _normalize(setup)
@@ -157,7 +166,11 @@ func _create_ship(setup: Dictionary, environment: Dictionary = config, wave_fiel
 	if not core.configure(body, environment.get("sampleTerrainHeight", Callable()), wave_field): last_error = "Invalid ship physics configuration"; return {}
 	var base_rudder = core.get_config().rudderAreaFactor
 	if not core.set_config({"rudderAreaFactor": base_rudder * state.stats.steeringMultiplier}): last_error = "Invalid ship physics configuration"; return {}
-	return {"state": state, "core": core, "baseRudderAreaFactor": base_rudder, "reload": {"port": accepted_tick + int(ceil(setup.get("cooldownSeconds", {}).get("port", 0) * 60)), "starboard": accepted_tick + int(ceil(setup.get("cooldownSeconds", {}).get("starboard", 0) * 60))}, "previous": _visual_core(core), "sunk": state.hull <= 0, "statsInput": setup.get("stats", {}).duplicate(true), "lowSpeedTurn": false, "sailRecovery": 1.0}
+	var ship: Dictionary = {"state": state, "core": core, "baseRudderAreaFactor": base_rudder, "reload": {"port": accepted_tick + int(ceil(setup.get("cooldownSeconds", {}).get("port", 0) * 60)), "starboard": accepted_tick + int(ceil(setup.get("cooldownSeconds", {}).get("starboard", 0) * 60))}, "previous": _visual_core(core), "sunk": state.hull <= 0, "statsInput": setup.get("stats", {}).duplicate(true), "lowSpeedTurn": false, "sailRecovery": 1.0}
+	if state.has("fireLauncher"):
+		ship.launcherTicks = {"ready":accepted_tick + _remaining_ticks(state.fireLauncher.cooldownSeconds), "busy":accepted_tick + _remaining_ticks(state.fireLauncher.operationSeconds)}
+	_clip_fire_team(ship, accepted_tick)
+	return ship
 func _visual_core(core: RefCounted) -> Dictionary:
 	var p = core.get_snapshot()
 	return {"position": p.position, "heading": p.heading, "velocity": p.velocity, "heel": p.heel, "pitch": p.pitch}
@@ -167,6 +180,112 @@ func _ship(id: Variant) -> Dictionary:
 	for ship in ships:
 		if ship.state.id == id: return ship
 	return {}
+func _valid_fire_environment(value: Variant, ids: Array) -> bool:
+	if not value is Dictionary or value.size() != 2 or not value.has_all(["rain01", "flammableLoadByShip"]): return false
+	var rain: Variant = value.rain01
+	var loads: Variant = value.flammableLoadByShip
+	if not _finite(rain) or rain < 0.0 or rain > 1.0 or not loads is Dictionary: return false
+	for id in loads:
+		if not id is String or not id in ids or not _finite(loads[id]) or loads[id] < 0.0 or loads[id] > 1.0: return false
+	return true
+func _remaining_ticks(seconds: float) -> int:
+	# Snapshot seconds are multiples of DT; avoid a new tick from roundoff at restore.
+	return maxi(0, int(ceil(seconds * 60.0 - 0.000000001)))
+func _launcher_snapshot(ship: Dictionary, accepted_tick: int = tick) -> Dictionary:
+	var result: Dictionary = ship.state.fireLauncher.duplicate(true)
+	result.cooldownSeconds = maxi(0, int(ship.launcherTicks.ready) - accepted_tick) * DT
+	result.operationSeconds = maxi(0, int(ship.launcherTicks.busy) - accepted_tick) * DT
+	return result
+func _launcher_operators(ship: Dictionary, accepted_tick: int = tick) -> int:
+	if not ship.state.has("fireLauncher"): return 0
+	return FireLauncher.operators(_launcher_snapshot(ship, accepted_tick), maxi(0, int(floor(ship.state.crew))))
+func _has_fire_extension(ship: Dictionary) -> bool:
+	return ship.state.has("fireControl") or ship.state.has("fireLauncher")
+func _available_crew(ship: Dictionary) -> float:
+	# Untouched source encounters retain fractional crew and exact frozen arithmetic.
+	if not _has_fire_extension(ship): return ship.state.crew
+	var able: int = maxi(0, int(floor(ship.state.crew)))
+	var budget: int = maxi(0, able - _launcher_operators(ship))
+	return float(budget - Fire.reserved_crew(ship.state.fireControl, budget)) if ship.state.has("fireControl") else float(budget)
+func _clip_fire_team(ship: Dictionary, accepted_tick: int = tick) -> void:
+	if not ship.state.has("fireControl"): return
+	var able: int = maxi(0, int(floor(ship.state.crew)))
+	var budget: int = maxi(0, able - _launcher_operators(ship, accepted_tick))
+	ship.state.fireControl.assignedFirefighters = mini(int(ship.state.fireControl.assignedFirefighters), budget)
+	ship.state.fireControl.pendingFirefighters = mini(int(ship.state.fireControl.pendingFirefighters), budget)
+func _assign_fire_control(ship: Dictionary, input: Dictionary) -> Dictionary:
+	if ship.state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
+	var able: int = maxi(0, int(floor(ship.state.crew)))
+	var budget: int = maxi(0, able - _launcher_operators(ship))
+	var current: Dictionary = ship.state.get("fireControl", Fire.initial())
+	var assigned: Dictionary = Fire.assign(current, input.get("crew"), budget)
+	if not assigned.ok: return _no(assigned.reason)
+	ship.state.fireControl = assigned.state
+	ship.state.controlsSequence += 1
+	return _ok()
+func preview_fire_launch(ship_id: String, target_id: String, payload: String) -> Dictionary:
+	var ship: Dictionary = _ship(ship_id)
+	if ship.is_empty() or not _controlled(ship_id): return _no("Ship not authorized")
+	if ship.sunk or status in ["victory", "defeat", "surrendered"]: return _no("Encounter ended")
+	if ship_id in policy.get("disabledMotionShipIds", []): return _no("motion-disabled")
+	if _continuous() and ship_id in policy.get("lockedShipIds", []): return _no("Ship working")
+	var quote: Dictionary = _fire_launch_quote(ship, {"payload":payload, "targetId":target_id})
+	return _ok() if quote.ok else quote
+func _fire_launch_quote(ship: Dictionary, input: Dictionary) -> Dictionary:
+	var state: Dictionary = ship.state
+	if not state.has("fireLauncher"): return _no("No fire launcher")
+	if not input.get("payload") in FireLauncher.PAYLOADS: return _no("Invalid fire payload")
+	var intent: Dictionary = _active_order(state.id).get("intent", {})
+	if intent.get("kind") in ["prepare-boarding", "rally"]: return _no("order-fire-suppressed")
+	var target: Dictionary = _ship(input.get("targetId"))
+	if target.is_empty() or target.sunk or not _enemy(ship, target): return _no("target-unavailable")
+	if _available_crew(ship) < FireLauncher.OPERATOR_COUNT: return _no("Insufficient fire launcher crew")
+	if ship.launcherTicks.ready > tick: return _no("Fire launcher reloading")
+	if state.fireLauncher.ammo[input.payload] <= 0: return _no("Out of fire payloads")
+	if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
+	var solution: Dictionary = FireLauncher.launch_solution(_gunnery_state(ship), _gunnery_state(target))
+	if not solution.ok: return _no(solution.reason)
+	if not Cannon.corridor_clear(solution, _gunnery_protected(ship)): return _no("friendly-fire-blocked")
+	return {"ok":true, "solution":solution, "targetId":target.state.id}
+func _launch_fire_payload(ship: Dictionary, input: Dictionary) -> Dictionary:
+	var quote: Dictionary = _fire_launch_quote(ship, input)
+	if not quote.ok: return quote
+	var solution: Dictionary = quote.solution
+	var state: Dictionary = ship.state
+	# Every rejection above leaves stock, ordinary reload and pending shots untouched.
+	state.controlsSequence += 1
+	state.fireLauncher.ammo[input.payload] -= 1
+	ship.launcherTicks.ready = tick + _remaining_ticks(FireLauncher.COOLDOWN_SECONDS)
+	ship.launcherTicks.busy = tick + _remaining_ticks(FireLauncher.OPERATION_SECONDS)
+	sequence += 1
+	var projectile: Dictionary = {"id":"shot-" + str(sequence), "shipId":state.id, "kind":"fire-payload", "payload":input.payload,
+		"position":solution.position.duplicate(true), "velocity":solution.velocities[0].duplicate(true), "age":0.0, "ttl":solution.ttl}
+	projectiles.append(projectile)
+	_emit({"type":"fire-payload-launched", "shipId":state.id, "targetId":quote.targetId, "payload":input.payload,
+		"projectileId":projectile.id, "position":projectile.position.duplicate(true), "velocity":projectile.velocity.duplicate(true)})
+	return _ok()
+func _apply_damage(ship: Dictionary, damage: Dictionary) -> void:
+	# Callers retain event ordering and then use the original single sink transition.
+	for key in ["hull", "sail", "crew"]:
+		var next: float = maxf(0.0, ship.state[key] - damage[key])
+		ship.state[key] = 0 if next < 1e-8 else next
+	_clip_fire_team(ship)
+func _advance_fire() -> void:
+	var environment: Dictionary = config.get("fireEnvironment", {})
+	var rain: float = environment.get("rain01", 0.0)
+	var loads: Dictionary = environment.get("flammableLoadByShip", {})
+	for ship in ships:
+		if ship.sunk or not ship.state.has("fireControl"): continue
+		_clip_fire_team(ship)
+		# able is total living people, not available workers: operators can also die.
+		var context: Dictionary = {"able":maxi(0, int(floor(ship.state.crew))), "maxHull":ship.state.maxHull,
+			"maxSail":ship.state.maxSail, "maxCrew":int(ship.state.maxCrew), "rain01":rain,
+			"flammableLoad":loads.get(ship.state.id, 0.0)}
+		var result: Dictionary = Fire.step(ship.state.fireControl, context)
+		assert(result.ok, "Validated native fire state must step")
+		ship.state.fireControl = result.state
+		_apply_damage(ship, result.damage)
+		if ship.state.hull <= 0.0: _sink(ship)
 func _continuous() -> bool: return config.get("mode") == "continuous"
 func _finite(v: Variant) -> bool: return Types.finite_number(v)
 func _wrap(v: float) -> float: return atan2(sin(v), cos(v))
@@ -222,6 +341,8 @@ func snapshot() -> Dictionary:
 		var state = ship.state.duplicate(true)
 		state.visual = _visual(ship)
 		state.cooldownSeconds = {"port": maxf(0, ship.reload.port - tick) * DT, "starboard": maxf(0, ship.reload.starboard - tick) * DT}
+		if _has_fire_extension(ship): state.availableCrew = int(_available_crew(ship))
+		if state.has("fireLauncher"): state.fireLauncher = _launcher_snapshot(ship)
 		states.append(state)
 	var result = {"time": tick * DT, "tick": tick, "status": status, "playerId": player_id, "battleId": battle_id, "wind": wind.duplicate(true), "oceanWaves": ocean.waves.duplicate(true), "ships": states, "projectiles": projectiles.duplicate(true)}
 	if _environment: result.environment = _environment.snapshot()
@@ -344,6 +465,8 @@ func _ship_command(input: Dictionary) -> Dictionary:
 	if ship.sunk or ship.state.hull <= 0: return _no("Ship sunk")
 	if status in ["defeat", "victory"]: return _no("Encounter ended")
 	var state = ship.state
+	if input.get("type") == "fire-control": return _assign_fire_control(ship, input)
+	if input.get("type") == "launch-fire": return _launch_fire_payload(ship, input)
 	if input.get("type") == "controls":
 		if not [input.get("rudder"), input.get("sailDeployment")].all(_finite) or absf(input.rudder) > 1 or input.sailDeployment < 0 or input.sailDeployment > 1 or input.has("sailAngle") and (not _finite(input.sailAngle) or absf(input.sailAngle) > PI / 2) or input.has("autoTrim") and not input.autoTrim is bool: return _no("Invalid controls")
 		if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
@@ -367,6 +490,7 @@ func _ship_command(input: Dictionary) -> Dictionary:
 		var target = _ship(intent.targetId)
 		if target.is_empty() or target.sunk or not _enemy(ship, target): return _no("target-unavailable")
 	if state.cannonsPerSide == 0: return _no("No cannons")
+	if _has_fire_extension(ship) and _available_crew(ship) <= 0.0: return _no("Ship not operational")
 	if ship.reload[input.side] > tick: return _no("Reloading")
 	if state.ammo[state.ammoType] <= 0: return _no("Out of ammunition")
 	if state.controlsSequence >= SAFE_INTEGER: return _no("Control sequence exhausted")
@@ -375,14 +499,14 @@ func _ship_command(input: Dictionary) -> Dictionary:
 		for cannon in state.cannonsPerSide:
 			if not _reference_corridor_clear(ship, input.side, state.ammoType, cannon): return _no("friendly-fire-blocked")
 	state.controlsSequence += 1; state.ammo[state.ammoType] -= 1
-	var crew_factor = 1.0 + (1.0 - state.crew / state.maxCrew) * 1.5
-	var reload_seconds: float = Cannon.reload_seconds(state) if config.get("referenceGunnery", false) else 7.0 * crew_factor * state.stats.reloadMultiplier
+	var crew_factor = 1.0 + (1.0 - _available_crew(ship) / state.maxCrew) * 1.5
+	var reload_seconds: float = Cannon.reload_seconds(_gunnery_state(ship)) if config.get("referenceGunnery", false) else 7.0 * crew_factor * state.stats.reloadMultiplier
 	ship.reload[input.side] = tick + int(ceil(reload_seconds * 60.0))
 	var aim = _target(ship, input.side, state.ammoType) if _continuous() else {}
 	var aim_id = aim.get("state", {}).get("id", "")
 	var target_id = intent.targetId if not intent.is_empty() and intent.kind != "protect" and intent.has("targetId") else aim_id
 	_launch(ship, input.side, state.ammoType, 0, aim_id)
-	var interval: int = Cannon.salvo_interval_ticks(state) if config.get("referenceGunnery", false) else 5
+	var interval: int = Cannon.salvo_interval_ticks(_gunnery_state(ship)) if config.get("referenceGunnery", false) else 5
 	for cannon in range(1, state.cannonsPerSide):
 		var volley = {"shipId": id, "side": input.side, "ammo": state.ammoType, "due": tick + cannon * interval, "cannon": cannon}
 		if not target_id.is_empty(): volley.targetId = target_id
@@ -432,6 +556,7 @@ func _target(ship: Dictionary, side: String, ammo: String, constrained: String =
 	return candidates[0] if not candidates.is_empty() else {}
 func _gunnery_state(ship: Dictionary) -> Dictionary:
 	var result: Dictionary = ship.state.duplicate()
+	result.crew = _available_crew(ship)
 	result.visual = _visual(ship)
 	return result
 func _gunnery_protected(ship: Dictionary) -> Array:
@@ -441,6 +566,7 @@ func _reference_corridor_clear(ship: Dictionary, side: String, ammo: String, can
 	var solution: Dictionary = Cannon.launch_solution(_gunnery_state(ship), side, ammo, cannon, _gunnery_state(target) if not target.is_empty() else {})
 	return Cannon.corridor_clear(solution, _gunnery_protected(ship))
 func _launch(ship: Dictionary, side: String, ammo: String, cannon: int, locked: String = "") -> void:
+	if _has_fire_extension(ship) and _available_crew(ship) <= 0.0: return
 	var v = _visual(ship); var spec = Types.ship_spec(ship.state.kind); var ballistic = Cannon.BALLISTICS[ammo]
 	var position = Cannon.muzzle(v, spec, side, cannon)
 	var base_bearing = v.heading + (1 if side == "starboard" else -1) * PI / 2.0
@@ -489,28 +615,45 @@ func _advance_projectiles() -> void:
 				if t != null and t < earliest: earliest = t; target = ship
 		var before = from.y - _height(from.x, from.z); var after = to.y - _height(to.x, to.z)
 		var water_t = (0.0 if before <= 0 else before / (before - after)) if after <= 0 else INF
+		var is_payload: bool = p.get("kind") == "fire-payload"
 		if not target.is_empty() and earliest <= water_t:
 			var position = _lerp_position(from, to, earliest)
-			var damage = projectile_damage.get(p.id, Cannon.BALLISTICS[p.ammo].damage).duplicate(true)
-			if p.ammo == "grape" and p.age * Cannon.BALLISTICS.grape.speed > Cannon.BALLISTICS.grape.range:
-				for key in damage: damage[key] *= 0.15
-			for key in ["hull", "sail", "crew"]:
-				var next = maxf(0, target.state[key] - damage[key]); target.state[key] = 0 if next < 1e-8 else next
-			var shooter = _ship(p.shipId)
-			if not _continuous() and not shooter.is_empty() and shooter.state.team == "player" and target.state.team == "neutral":
-				target.state.team = "hostile"; target.state.erase("navigation"); target.erase("tack")
-				if status != "defeat": status = "active"
-			_emit({"type": "hit", "shipId": p.shipId, "targetId": target.state.id, "ammo": p.ammo, "projectileId": p.id, "position": position, "damage": damage})
+			if is_payload:
+				var fire_state: Dictionary = target.state.get("fireControl", Fire.initial())
+				var ignition: Dictionary = Fire.ignite(fire_state, p.payload, fire_state.wetness)
+				assert(ignition.ok, "Validated payload must ignite a valid fire state")
+				target.state.fireControl = ignition.state
+				_clip_fire_team(target)
+				_emit({"type":"fire-payload-hit", "shipId":p.shipId, "targetId":target.state.id, "payload":p.payload, "projectileId":p.id, "position":position})
+			else:
+				var damage = projectile_damage.get(p.id, Cannon.BALLISTICS[p.ammo].damage).duplicate(true)
+				if p.ammo == "grape" and p.age * Cannon.BALLISTICS.grape.speed > Cannon.BALLISTICS.grape.range:
+					for key in damage: damage[key] *= 0.15
+				_apply_damage(target, damage)
+				var shooter = _ship(p.shipId)
+				if not _continuous() and not shooter.is_empty() and shooter.state.team == "player" and target.state.team == "neutral":
+					target.state.team = "hostile"; target.state.erase("navigation"); target.erase("tack")
+					if status != "defeat": status = "active"
+				_emit({"type": "hit", "shipId": p.shipId, "targetId": target.state.id, "ammo": p.ammo, "projectileId": p.id, "position": position, "damage": damage})
 			projectile_damage.erase(p.id)
 			if target.state.hull <= 0: _sink(target)
 		elif water_t != INF or p.age + DT >= p.ttl:
-			_emit({"type": "splash", "shipId": p.shipId, "ammo": p.ammo, "projectileId": p.id, "position": _lerp_position(from, to, 1.0 if water_t == INF else water_t)})
+			var position = _lerp_position(from, to, 1.0 if water_t == INF else water_t)
+			if is_payload:
+				_emit({"type":"fire-payload-splash", "shipId":p.shipId, "payload":p.payload, "projectileId":p.id, "position":position})
+			else:
+				_emit({"type": "splash", "shipId": p.shipId, "ammo": p.ammo, "projectileId": p.id, "position": position})
 			projectile_damage.erase(p.id)
 		else:
 			p.position = to; p.velocity.y -= GRAVITY * DT; p.age += DT; keep.append(p)
 	projectiles = keep
 func _lerp_position(a: Dictionary, b: Dictionary, t: float) -> Dictionary: return {"x": a.x + (b.x - a.x) * t, "y": a.y + (b.y - a.y) * t, "z": a.z + (b.z - a.z) * t}
 func _sink(ship: Dictionary) -> void:
+	if ship.sunk: return
+	if ship.state.has("fireControl"):
+		ship.state.fireControl.heat = 0.0; ship.state.fireControl.fuelSeconds = 0.0
+		ship.state.fireControl.assignedFirefighters = 0; ship.state.fireControl.pendingFirefighters = 0; ship.state.fireControl.transferTicks = 0
+	if ship.has("launcherTicks"): ship.launcherTicks.busy = tick
 	ship.sunk = true; ship.state.sailDeployment = 0; volleys = volleys.filter(func(v): return v.shipId != ship.state.id)
 	_emit({"type": "sink", "shipId": ship.state.id, "position": _visual(ship).position})
 func _fixed_tick() -> void:
@@ -571,8 +714,8 @@ func _fixed_tick() -> void:
 	for volley in due:
 		var ship = _ship(volley.shipId); var target = _ship(volley.get("targetId", ""))
 		var operational = not ship.is_empty() and not ship.sunk and not ship.state.id in policy.get("disabledMotionShipIds", []) and (not _continuous() or ship.state.crew > 0 and not ship.state.id in policy.get("capturedShipIds", []))
-		if operational and (not volley.has("targetId") or not target.is_empty() and not target.sunk and _enemy(ship, target)): _launch(ship, volley.side, volley.ammo, volley.cannon, volley.get("targetId", ""))
-	_advance_projectiles(); _finish()
+		if operational and (not _has_fire_extension(ship) or _available_crew(ship) > 0.0) and (not volley.has("targetId") or not target.is_empty() and not target.sunk and _enemy(ship, target)): _launch(ship, volley.side, volley.ammo, volley.cannon, volley.get("targetId", ""))
+	_advance_projectiles(); _advance_fire(); _finish()
 	if _environment:
 		var observer: Dictionary = {"epoch":epoch,"route":config.get("environmentRoute","sailing" if _continuous() else "battle")}
 		var focus := _ship(player_id)
@@ -582,6 +725,13 @@ func _fixed_tick() -> void:
 			observer.heading = pose.heading
 		_environment.advance(tick*DT,observer,wind)
 func _ai(ship: Dictionary) -> void:
+	# Only explicitly equipped combatants use this additional tactical layer.
+	# The original no-extension decisions and RNG remain untouched.
+	if ship.state.has("fireControl"):
+		var fire_state: Dictionary = ship.state.fireControl
+		if fire_state.heat > 0.0 and fire_state.supplies > 0 and fire_state.assignedFirefighters == 0 and fire_state.pendingFirefighters == 0 and fire_state.transferTicks == 0:
+			var workers: int = mini(4, maxi(0, int(floor(ship.state.crew)) - _launcher_operators(ship)))
+			if workers > 0: _ship_command({"type":"fire-control", "shipId":ship.state.id, "crew":workers})
 	var target = _ship(player_id)
 	if _continuous():
 		var candidates = ships.filter(func(s): return not s.sunk and _enemy(ship, s))
@@ -592,6 +742,9 @@ func _ai(ship: Dictionary) -> void:
 			return da < db if da != db else _compare_ids(a.state.id, b.state.id) < 0)
 		target = candidates[0] if not candidates.is_empty() else {}
 	if target.is_empty() or target.sunk: return
+	if ship.state.has("fireLauncher"):
+		var payload: String = "fire-ball" if ship.state.fireLauncher.ammo["fire-ball"] > 0 else "thorn-ball"
+		_ship_command({"type":"launch-fire", "shipId":ship.state.id, "targetId":target.state.id, "payload":payload})
 	var v = _visual(ship); var q = _visual(target)
 	var distance = _distance(q.position, v.position)
 	var direction = atan2(q.position.z - v.position.z, q.position.x - v.position.x)
@@ -1102,13 +1255,24 @@ func _finish() -> void:
 	if status in ["defeat", "surrendered"]: return
 	var player = _ship(player_id)
 	if player.sunk: status = "defeat"; _emit({"type": "defeat", "shipId": player_id})
-	elif status == "active" and not ships.any(func(s): return s.state.team == "hostile" and not s.sunk): status = "victory"; _emit({"type": "victory", "shipId": player_id})
+	elif status == "active" and not ships.any(func(s): return s.state.team == "hostile" and not s.sunk) and not _fire_resolution_pending(): status = "victory"; _emit({"type": "victory", "shipId": player_id})
+func _fire_resolution_pending() -> bool:
+	# Do not stop damage control or a real airborne incendiary with a result modal.
+	# Cold standing teams are allowed: otherwise a deliberate standby assignment
+	# would prevent victory forever. Existing unextended terminal battles are exact.
+	if projectiles.any(func(p): return p.get("kind") == "fire-payload"): return true
+	for ship in ships:
+		if ship.sunk or ship.state.team != "player" or not ship.state.has("fireControl"): continue
+		if ship.state.fireControl.heat > 0.0 or ship.state.fireControl.transferTicks > 0: return true
+	return false
 func _validated_update(ship: Dictionary, update: Dictionary) -> Dictionary:
 	if ship.state.controlsSequence >= SAFE_INTEGER: last_error = "Control sequence exhausted"; return {}
 	if update.has("stats") and not update.stats is Dictionary: last_error = "Invalid ship stats"; return {}
 	var state = ship.state
 	var visual = _visual(ship)
 	var setup = {"id": state.id, "name": state.name, "kind": state.kind, "team": state.team, "position": {"x": visual.position.x, "z": visual.position.z}, "hull": state.hull, "sail": state.sail, "crew": state.crew, "sailDeployment": state.sailDeployment, "ammoType": state.ammoType, "rudder": state.rudder, "sailAngle": state.sailAngle, "autoTrim": state.autoTrim}
+	for field in ["fireControl", "fireLauncher"]:
+		if state.has(field): setup[field] = _launcher_snapshot(ship) if field == "fireLauncher" else state[field].duplicate(true)
 	setup.merge(update, true)
 	setup.ammo = state.ammo.duplicate(true)
 	if update.has("ammo") and not update.ammo is Dictionary: last_error = "Invalid initial ammunition"; return {}
@@ -1137,6 +1301,9 @@ func _apply_update(ship: Dictionary, state: Dictionary, update: Dictionary, prep
 	var navigation = ship.state.get("navigation")
 	_copy_physics_state(prepared_physics, ship.core)
 	ship.state = state
+	if state.has("fireLauncher") and not ship.has("launcherTicks"):
+		ship.launcherTicks = {"ready":tick + _remaining_ticks(state.fireLauncher.cooldownSeconds), "busy":tick + _remaining_ticks(state.fireLauncher.operationSeconds)}
+	_clip_fire_team(ship)
 	if navigation != null: state.navigation = navigation
 	ship.statsInput.merge(update.get("stats", {}), true)
 	if state.hull <= 0 and not ship.sunk: _sink(ship)
@@ -1173,6 +1340,7 @@ func reconcile_ships(setups: Variant, next_policy: Variant = null) -> Dictionary
 		prepared.append({"setup": setup, "existing": existing, "state": state, "created": created, "physics": physics})
 	var candidate_policy = policy if next_policy == null else next_policy
 	if next_policy != null and not _valid_policy(next_policy, ids): return _no(last_error)
+	if next_policy != null and next_policy.has("fireEnvironment") and not _valid_fire_environment(next_policy.fireEnvironment, ids): return _no("Invalid fire environment")
 	if not prepared.any(func(p): return p.setup.id == player_id and p.setup.team == "player"): return _no("Batch must retain player ship")
 	var anchors = next_policy.get("anchorShipIds", []) if next_policy != null else []
 	if not anchors.is_empty() and not _continuous(): return _no("Atomic service anchor requires continuous mode")
@@ -1214,6 +1382,7 @@ func reconcile_ships(setups: Variant, next_policy: Variant = null) -> Dictionary
 		else: next_ships.append(entry.created)
 	ships = next_ships
 	policy = candidate_policy.duplicate(true); policy.anchorShipIds = []
+	if next_policy != null and next_policy.has("fireEnvironment"): config.fireEnvironment = next_policy.fireEnvironment.duplicate(true)
 	for ship in ships:
 		if ship.has("terminalStop") and not _terminal_stop_authorized(ship):_clear_terminal_stop(ship)
 	if next_policy != null and next_policy.has("navigation"):

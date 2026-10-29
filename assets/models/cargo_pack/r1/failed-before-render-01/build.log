@@ -1,0 +1,96 @@
+[rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py:37: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m.use_nodes = True
+INFO Draco is available, use library at C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\blender.shared\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Tools\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\blender.shared\bf_intern_meshopt_bridge.dll
+06:54:10 | INFO: Starting glTF 2.0 export
+06:54:10 | INFO: Extracting primitive: Closed grain sack gathered sack.001
+06:54:10 | INFO: Primitives created: 5
+06:54:10 | INFO: Finished glTF 2.0 export in 0.04724860191345215 s
+
+CARGO_EXPORTED grain 5492
+06:54:10 | INFO: Starting glTF 2.0 export
+06:54:10 | INFO: Extracting primitive: Water cask individual stave 0.001
+06:54:10 | INFO: Primitives created: 7
+06:54:10 | INFO: Finished glTF 2.0 export in 0.013664960861206055 s
+
+CARGO_EXPORTED water 3172
+06:54:10 | INFO: Starting glTF 2.0 export
+06:54:10 | INFO: Extracting primitive: Cube.007
+06:54:10 | INFO: Primitives created: 6
+06:54:10 | INFO: Finished glTF 2.0 export in 0.019361019134521484 s
+
+CARGO_EXPORTED wood 8052
+06:54:10 | INFO: Starting glTF 2.0 export
+06:54:10 | INFO: Extracting primitive: Cube.035
+06:54:10 | INFO: Primitives created: 8
+06:54:10 | INFO: Finished glTF 2.0 export in 0.02371835708618164 s
+
+CARGO_EXPORTED iron 5156
+06:54:11 | INFO: Starting glTF 2.0 export
+06:54:11 | INFO: Extracting primitive: Sealed gunpowder keg individual stave 0.001
+06:54:11 | INFO: Primitives created: 8
+06:54:11 | INFO: Finished glTF 2.0 export in 0.01754903793334961 s
+
+CARGO_EXPORTED powder 4932
+06:54:11 | INFO: Starting glTF 2.0 export
+06:54:11 | INFO: Extracting primitive: Coarse cloth lower cream soft cylinder.001
+06:54:11 | INFO: Primitives created: 5
+06:54:11 | INFO: Finished glTF 2.0 export in 0.021142959594726562 s
+
+CARGO_EXPORTED cloth 10896
+06:54:12 | INFO: Starting glTF 2.0 export
+06:54:12 | INFO: Extracting primitive: Cube.095
+06:54:12 | INFO: Primitives created: 10
+06:54:12 | INFO: Finished glTF 2.0 export in 0.0349581241607666 s
+
+CARGO_EXPORTED silk 17068
+06:54:13 | INFO: Starting glTF 2.0 export
+06:54:13 | INFO: Extracting primitive: Cube.149
+06:54:13 | INFO: Primitives created: 8
+06:54:13 | INFO: Finished glTF 2.0 export in 0.025939226150512695 s
+
+CARGO_EXPORTED porcelain 16236
+06:54:13 | INFO: Starting glTF 2.0 export
+06:54:13 | INFO: Extracting primitive: Cube.185
+06:54:13 | INFO: Primitives created: 8
+06:54:13 | INFO: Finished glTF 2.0 export in 0.016909360885620117 s
+
+CARGO_EXPORTED tea 4464
+06:54:14 | INFO: Starting glTF 2.0 export
+06:54:14 | INFO: Extracting primitive: Cube.227
+06:54:14 | INFO: Primitives created: 7
+06:54:14 | INFO: Finished glTF 2.0 export in 0.018934965133666992 s
+
+CARGO_EXPORTED sugar 6072
+06:54:16 | INFO: Starting glTF 2.0 export
+06:54:16 | INFO: Extracting primitive: Salt basket upright.024
+06:54:16 | INFO: Primitives created: 6
+06:54:16 | INFO: Finished glTF 2.0 export in 0.022518157958984375 s
+
+CARGO_EXPORTED salt 11644
+06:54:17 | INFO: Starting glTF 2.0 export
+06:54:17 | INFO: Extracting primitive: Cube.327
+06:54:17 | INFO: Primitives created: 12
+06:54:17 | INFO: Finished glTF 2.0 export in 0.026387691497802734 s
+
+CARGO_EXPORTED spices 8428
+Traceback (most recent call last):
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py", line 585, in <module>
+    if options.build:build()
+                     ~~~~~^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py", line 526, in build
+    render_reviews()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py", line 485, in render_reviews
+    studio();scene=bpy.context.scene
+    ~~~~~~^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py", line 469, in studio
+    scene.world.color=(.32,.32,.32)
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'color' and no __dict__ for setting new attributes
+
+Error: script failed, file: 'C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_cargo_pack_r1.py', exiting.
+Blender 5.4.0 Alpha (hash fbe82a461016 built 2026-10-21 02:54:59)
+
+Blender quit

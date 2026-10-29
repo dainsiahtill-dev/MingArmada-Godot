@@ -13,7 +13,7 @@ func _run() -> void:
 	var receipt: Dictionary = catalog.load_catalog()
 	check(receipt.get("ok",false),"bundled research catalog loads")
 	var topics: Array = catalog.topics()
-	check(topics.size() == 8,"existing subjects plus architecture and authored flagship experiments registered")
+	check(topics.size() == 15,"existing subjects plus whole-mainline progress research registered")
 	var ids: Dictionary = {}
 	for topic: Dictionary in topics:
 		check(not ids.has(topic.id),"unique subject identity")
@@ -23,10 +23,13 @@ func _run() -> void:
 		if paper.get("ok",false):
 			for heading: String in script.PAPER_SECTIONS:
 				check(paper.text.contains("## "+heading),"paper contains research section "+heading+": "+topic.id)
-		check(topic.retrospective == (topic.id not in ["wake-flow","architecture-convergence-2026-10-21","hero-fuchuan"]),"historical and prospective research are distinguished")
+		check(topic.retrospective == (topic.id not in ["wake-flow","architecture-convergence-2026-10-21","hero-fuchuan","antique-cartography","broadside-receipt-readability","crew-role-effects","naval-combat-atmosphere","cargo-deck-drift","ship-fire-control","story-campaign-flow"]),"historical and prospective research are distinguished")
 		check(not catalog.demo_path(topic.id).is_empty(),"all visual subjects have a registered independent demo: "+topic.id)
-	for required: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow","shadow-edges","wake-flow","architecture-convergence-2026-10-21","hero-fuchuan"]:
+	for required: String in ["hull-contact","ocean-surface","shore-surf","weather-shadow","shadow-edges","wake-flow","architecture-convergence-2026-10-21","hero-fuchuan","antique-cartography","broadside-receipt-readability","crew-role-effects","naval-combat-atmosphere","cargo-deck-drift","ship-fire-control"]:
 		check(ids.has(required),"expected visual research subject: "+required)
+	var broadside: Dictionary = catalog.topic("broadside-receipt-readability")
+	check(ids.has("story-campaign-flow") and catalog.topic("story-campaign-flow").get("abstract", "").contains("合成进度"), "mainline preview explicitly distinguishes synthetic progress from real gameplay")
+	check(broadside.get("abstract","").contains("固定步 GPU 对照已完成") and broadside.get("abstract","").contains("真实游戏与玩家体验待验证"),"research summary distinguishes fixed-step GPU from unverified gameplay")
 	check(not catalog.read_paper("not-a-topic").get("ok",true),"unknown topic rejected")
 	check(catalog.demo_path("not-a-topic").is_empty(),"unknown demo cannot load script")
 	check(not catalog.read_reference("C:/Windows/system.ini").get("ok",true),"absolute host path rejected")

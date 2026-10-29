@@ -1,0 +1,16 @@
+{
+  "asset": "sunfaded-cinnabar-hemp-sail.png",
+  "role": "experimental sRGB sailcloth base color; not measured PBR data",
+  "status": "r9b candidate, not production",
+  "generator": "built-in image_gen image edit",
+  "generatedImagePath": "C:/Users/dains/.codex/generated_images/01a172ba-3d47-7490-88ee-52dc41a9c20a/exec-c284c43d-c402-48a2-a20c-1d0c6afe1511.png",
+  "sha256": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+  "dimensions": [1254, 1254],
+  "processing": "copied byte-for-byte from built-in imagegen output",
+  "inputs": [
+    {"role": "edit target", "path": "assets/textures/hero_fuchuan_r9/cinnabar-hemp-sail.png", "sha256": "b4bf04b8f2cd5f5558bf63a2c533e95864d7d1b5c16368db5841540dd6695ce8"},
+    {"role": "user-provided palette and art reference", "path": "docs/design/2026-10-26-ming-maritime/reference/menu-direction.png", "sha256": "d2f3e87d9eee94c0449605cebff3a69a4f37b89604607b578ede1335787a921f"}
+  ],
+  "prompt": "Use case: style-transfer. Asset: UV-repeatable sRGB base-color texture for the cloth of a 3D Ming-era sailing ship. Image 1 is the target fabric; image 2 is a palette reference, not a scene to recreate. Change only the cloth's dye: make image 1 distinctly lighter and more faded, a soft dusty terracotta / sun-bleached warm cinnabar with a little natural ochre and muted beige fiber, roughly centered on sRGB #c77c5f. It must be noticeably lighter and less saturated than image 1, not burgundy, crimson or brown; suitable to remain legible when naturally shaded in a 3D game. Keep the straight-on, evenly illuminated woven hemp surface and subtle fiber character; distribute gentle small-scale tonal variation evenly. Full-bleed square seamless-looking flat texture. No large blotches, no gradients, no lighting, no seams, battens, ropes, folds, symbols, ornament, lettering, ship, border or watermark. No glossy paint or artificial plastic.",
+  "limitations": ["not demonstrated seamless", "UV repeat, aliasing, backlight and damage behavior require GPU review", "color is artistic interpretation rather than historical documentation"]
+}

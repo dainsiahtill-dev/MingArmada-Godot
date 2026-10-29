@@ -1,0 +1,825 @@
+{
+  "source": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r7c.blend",
+  "sha256": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+  "sourceUnchanged": true,
+  "axes": "Godot x transverse,y vertical,z bow-positive; meters",
+  "objects": [
+    {
+      "name": "HeroFuchuan",
+      "type": "EMPTY",
+      "parent": null,
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {
+        "authored_asset": "hero-fuchuan-v3-r7c",
+        "meters_per_unit": 1.0
+      }
+    },
+    {
+      "name": "hull",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -4.627906322479248,
+          -2.1259326934814453,
+          -16.0033016204834
+        ],
+        "max": [
+          4.627906322479248,
+          5.070661544799805,
+          16.160120010375977
+        ],
+        "vertexCount": 20376
+      },
+      "materials": [
+        "tarred",
+        "pitch",
+        "aged_hull_teak",
+        "sunwashed_teak",
+        "teak",
+        "vermilion"
+      ],
+      "custom": {
+        "damage_surface": "hull",
+        "target_rigid_shadow_caster": true
+      }
+    },
+    {
+      "name": "deck",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -4.332763671875,
+          1.885000228881836,
+          -15.725249290466309
+        ],
+        "max": [
+          4.332763671875,
+          4.630000114440918,
+          15.600000381469727
+        ],
+        "vertexCount": 9194
+      },
+      "materials": [
+        "deck",
+        "pitch",
+        "teak"
+      ],
+      "custom": {
+        "deck_support": true,
+        "target_rigid_shadow_caster": true
+      }
+    },
+    {
+      "name": "shadow_hull",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -4.502828121185303,
+          -2.0,
+          -16.0
+        ],
+        "max": [
+          4.502828121185303,
+          4.659999847412109,
+          16.0
+        ],
+        "vertexCount": 849
+      },
+      "materials": [
+        "pitch"
+      ],
+      "custom": {
+        "hero_shadow_resource": true
+      }
+    },
+    {
+      "name": "shadow_deck",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -3.4816391468048096,
+          4.210000038146973,
+          -15.699999809265137
+        ],
+        "max": [
+          3.4816391468048096,
+          4.630000114440918,
+          -6.849999904632568
+        ],
+        "vertexCount": 52
+      },
+      "materials": [
+        "pitch"
+      ],
+      "custom": {
+        "hero_shadow_resource": true
+      }
+    },
+    {
+      "name": "bulwark_rails",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -4.510616302490234,
+          2.7799999713897705,
+          -15.767999649047852
+        ],
+        "max": [
+          4.510616302490234,
+          5.437631130218506,
+          15.767999649047852
+        ],
+        "vertexCount": 4008
+      },
+      "materials": [
+        "teak"
+      ],
+      "custom": {}
+    },
+    {
+      "name": "sterncastle",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -3.2506895065307617,
+          2.0204756259918213,
+          -15.600000381469727
+        ],
+        "max": [
+          3.2506895065307617,
+          4.480000019073486,
+          -9.020000457763672
+        ],
+        "vertexCount": 368
+      },
+      "materials": [
+        "sunwashed_teak"
+      ],
+      "custom": {
+        "deck_obstacle": true
+      }
+    },
+    {
+      "name": "deck_fittings",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -3.478134870529175,
+          0.7139163017272949,
+          -15.74399185180664
+        ],
+        "max": [
+          3.478134870529175,
+          5.1164231300354,
+          13.5
+        ],
+        "vertexCount": 14912
+      },
+      "materials": [
+        "pitch",
+        "aged_hull_teak",
+        "bamboo",
+        "teak",
+        "vermilion",
+        "deck",
+        "hemp",
+        "iron"
+      ],
+      "custom": {}
+    },
+    {
+      "name": "stern_transom",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -2.0000948905944824,
+          2.520881175994873,
+          -15.649999618530273
+        ],
+        "max": [
+          2.0000948905944824,
+          4.574999809265137,
+          -15.239999771118164
+        ],
+        "vertexCount": 18
+      },
+      "materials": [
+        "sunwashed_teak"
+      ],
+      "custom": {
+        "deck_obstacle": true
+      }
+    },
+    {
+      "name": "cargo_hold_-3.2",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.7250000238418579,
+          2.030660390853882,
+          -4.125
+        ],
+        "max": [
+          0.7250000238418579,
+          2.3106603622436523,
+          -2.2750000953674316
+        ],
+        "vertexCount": 8
+      },
+      "materials": [
+        "teak"
+      ],
+      "custom": {
+        "deck_obstacle": true
+      }
+    },
+    {
+      "name": "cargo_hold_5.8",
+      "type": "MESH",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.7250000238418579,
+          2.089993476867676,
+          4.875
+        ],
+        "max": [
+          0.7250000238418579,
+          2.3699936866760254,
+          6.724999904632568
+        ],
+        "vertexCount": 8
+      },
+      "materials": [
+        "teak"
+      ],
+      "custom": {
+        "deck_obstacle": true
+      }
+    },
+    {
+      "name": "rudder_pivot",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        1.899999976158142,
+        -15.600000381469727
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "rudder_blade",
+      "type": "MESH",
+      "parent": "rudder_pivot",
+      "origin": [
+        0.0,
+        1.899999976158142,
+        -15.600000381469727
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.11666666716337204,
+          -1.3300000429153442,
+          -17.389999389648438
+        ],
+        "max": [
+          0.11666666716337204,
+          2.700000047683716,
+          -15.680000305175781
+        ],
+        "vertexCount": 32
+      },
+      "materials": [
+        "teak"
+      ],
+      "custom": {}
+    },
+    {
+      "name": "mast_0",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {
+        "sail_trim_origin": 0.0
+      }
+    },
+    {
+      "name": "mast_timber_0",
+      "type": "MESH",
+      "parent": "mast_0",
+      "origin": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.18000000715255737,
+          2.320026397705078,
+          9.819999694824219
+        ],
+        "max": [
+          0.18000000715255737,
+          17.200000762939453,
+          10.180000305175781
+        ],
+        "vertexCount": 392
+      },
+      "materials": [
+        "teak",
+        "hemp"
+      ],
+      "custom": {
+        "deck_obstacle": true,
+        "target_rigid_shadow_caster": true
+      }
+    },
+    {
+      "name": "sail_0",
+      "type": "MESH",
+      "parent": "mast_0",
+      "origin": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.20965591073036194,
+          4.406593322753906,
+          4.33128547668457
+        ],
+        "max": [
+          0.6989995241165161,
+          16.498384475708008,
+          12.400945663452148
+        ],
+        "vertexCount": 2890
+      },
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "custom": {
+        "damage_surface": "sail",
+        "shape_design": "curved fan surface with common batten parameterization"
+      }
+    },
+    {
+      "name": "mast_1",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        0.6000000238418579
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {
+        "sail_trim_origin": 0.0
+      }
+    },
+    {
+      "name": "mast_timber_1",
+      "type": "MESH",
+      "parent": "mast_1",
+      "origin": [
+        0.0,
+        0.0,
+        0.6000000238418579
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.23999999463558197,
+          1.9200491905212402,
+          0.36000001430511475
+        ],
+        "max": [
+          0.23999999463558197,
+          24.299999237060547,
+          0.8400000333786011
+        ],
+        "vertexCount": 392
+      },
+      "materials": [
+        "teak",
+        "hemp"
+      ],
+      "custom": {
+        "deck_obstacle": true,
+        "target_rigid_shadow_caster": true
+      }
+    },
+    {
+      "name": "sail_1",
+      "type": "MESH",
+      "parent": "mast_1",
+      "origin": [
+        0.0,
+        0.0,
+        0.6000000238418579
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.20965592563152313,
+          3.8566172122955322,
+          -8.23145866394043
+        ],
+        "max": [
+          0.6989997625350952,
+          23.65306282043457,
+          4.338831424713135
+        ],
+        "vertexCount": 2890
+      },
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "custom": {
+        "damage_surface": "sail",
+        "shape_design": "curved fan surface with common batten parameterization"
+      }
+    },
+    {
+      "name": "mast_2",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        0.0,
+        -10.699999809265137
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {
+        "sail_trim_origin": 0.0
+      }
+    },
+    {
+      "name": "mast_timber_2",
+      "type": "MESH",
+      "parent": "mast_2",
+      "origin": [
+        0.0,
+        0.0,
+        -10.699999809265137
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.18000000715255737,
+          2.165914297103882,
+          -10.880000114440918
+        ],
+        "max": [
+          0.18000000715255737,
+          16.299999237060547,
+          -10.519999504089355
+        ],
+        "vertexCount": 392
+      },
+      "materials": [
+        "teak",
+        "hemp"
+      ],
+      "custom": {
+        "deck_obstacle": true,
+        "target_rigid_shadow_caster": true
+      }
+    },
+    {
+      "name": "sail_2",
+      "type": "MESH",
+      "parent": "mast_2",
+      "origin": [
+        0.0,
+        0.0,
+        -10.699999809265137
+      ],
+      "boundsGodotXYZ": {
+        "min": [
+          -0.20965591073036194,
+          5.156606674194336,
+          -15.706745147705078
+        ],
+        "max": [
+          0.6989993453025818,
+          15.75344181060791,
+          -8.579076766967773
+        ],
+        "vertexCount": 2890
+      },
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "custom": {
+        "damage_surface": "sail",
+        "shape_design": "curved fan surface with common batten parameterization"
+      }
+    },
+    {
+      "name": "cannon_port_00",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        3.5114216804504395,
+        2.200000047683716,
+        -4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_port_00",
+      "type": "EMPTY",
+      "parent": "cannon_port_00",
+      "origin": [
+        4.591421604156494,
+        2.200000047683716,
+        -4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_port_01",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        3.683760166168213,
+        2.200000047683716,
+        -1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_port_01",
+      "type": "EMPTY",
+      "parent": "cannon_port_01",
+      "origin": [
+        4.763760089874268,
+        2.200000047683716,
+        -1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_port_02",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        3.683760166168213,
+        2.200000047683716,
+        1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_port_02",
+      "type": "EMPTY",
+      "parent": "cannon_port_02",
+      "origin": [
+        4.763760089874268,
+        2.200000047683716,
+        1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_port_03",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        3.5114216804504395,
+        2.200000047683716,
+        4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_port_03",
+      "type": "EMPTY",
+      "parent": "cannon_port_03",
+      "origin": [
+        4.591421604156494,
+        2.200000047683716,
+        4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_starboard_00",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        -3.5114216804504395,
+        2.200000047683716,
+        -4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_starboard_00",
+      "type": "EMPTY",
+      "parent": "cannon_starboard_00",
+      "origin": [
+        -4.591421604156494,
+        2.200000047683716,
+        -4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_starboard_01",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        -3.683760166168213,
+        2.200000047683716,
+        -1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_starboard_01",
+      "type": "EMPTY",
+      "parent": "cannon_starboard_01",
+      "origin": [
+        -4.763760089874268,
+        2.200000047683716,
+        -1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_starboard_02",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        -3.683760166168213,
+        2.200000047683716,
+        1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_starboard_02",
+      "type": "EMPTY",
+      "parent": "cannon_starboard_02",
+      "origin": [
+        -4.763760089874268,
+        2.200000047683716,
+        1.472000002861023
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "cannon_starboard_03",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        -3.5114216804504395,
+        2.200000047683716,
+        4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "socket_smoke_starboard_03",
+      "type": "EMPTY",
+      "parent": "cannon_starboard_03",
+      "origin": [
+        -4.591421604156494,
+        2.200000047683716,
+        4.415999889373779
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    },
+    {
+      "name": "crew_helm",
+      "type": "EMPTY",
+      "parent": "HeroFuchuan",
+      "origin": [
+        0.0,
+        4.400000095367432,
+        -8.050000190734863
+      ],
+      "boundsGodotXYZ": null,
+      "materials": [],
+      "custom": {}
+    }
+  ],
+  "scope": "Source Blender mesh vertices before modifiers; only static bounding boxes, no collision or rendered acceptance."
+}

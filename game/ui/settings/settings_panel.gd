@@ -3,7 +3,7 @@ extends Control
 signal settings_requested(patch: Dictionary)
 signal close_requested
 const Settings = preload("res://game/persistence/user_settings.gd")
-const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Parchment = preload("res://game/ui/shared/maritime_art_theme.gd")
 var _built := false
 var _applying := false
 var _controls: Dictionary = {}
@@ -12,6 +12,7 @@ var _panel: PanelContainer
 var _scroll: ScrollContainer
 var _first: Control
 var _previous_focus: WeakRef
+var _rows: Array[GridContainer] = []
 
 func _ready() -> void: build()
 
@@ -21,15 +22,15 @@ func build() -> void:
 	name = "SettingsPanel"; set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = Parchment.create()
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var shade := ColorRect.new(); shade.color = Color(Parchment.INK,0.62); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); shade.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(shade)
+	var shade := ColorRect.new(); shade.color = Color(Parchment.PAPER,0.62); shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); shade.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(shade)
 	var center := CenterContainer.new(); center.name = "Center"; center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(center)
 	_panel = PanelContainer.new(); _panel.name = "Panel"; center.add_child(_panel)
-	_panel.add_theme_stylebox_override("panel",Parchment.panel(20))
-	_panel.add_theme_font_size_override("font_size",18)
-	var column := VBoxContainer.new(); column.name = "Column"; column.add_theme_constant_override("separation",12); _panel.add_child(column)
+	_panel.add_theme_stylebox_override("panel",Parchment.panel(16,"folio"))
+	_panel.add_theme_font_size_override("font_size",16)
+	var column := VBoxContainer.new(); column.name = "Column"; column.add_theme_constant_override("separation",10); _panel.add_child(column)
 	var title := Label.new(); title.text = "航海设置"; title.add_theme_font_override("font",Parchment.title_font()); title.add_theme_font_size_override("font_size",28); column.add_child(title)
-	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_color_override("font_color",Parchment.CINNABAR); column.add_child(_reason)
-	_scroll = ScrollContainer.new(); _scroll.name = "Scroll"; _scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _scroll.follow_focus = true; column.add_child(_scroll)
+	_reason = Label.new(); _reason.name = "Reason"; _reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; _reason.add_theme_font_size_override("font_size",16); _reason.add_theme_color_override("font_color",Parchment.CINNABAR); column.add_child(_reason)
+	_scroll = ScrollContainer.new(); _scroll.name = "Scroll"; _scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _scroll.follow_focus = true; _scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; column.add_child(_scroll)
 	var fields := VBoxContainer.new(); fields.name = "Fields"; fields.size_flags_horizontal = Control.SIZE_EXPAND_FILL; fields.add_theme_constant_override("separation",10); _scroll.add_child(fields)
 	_choice(fields,"handling","操船方式",["辅助操船","真实操船"],["assisted","realistic"])
 	_choice(fields,"quality","画面质量",["低","均衡","高"],["low","balanced","high"])
@@ -39,11 +40,11 @@ func build() -> void:
 	_toggle(fields,"cameraFollow","镜头跟随"); _slider(fields,"horizonStability","地平线稳定")
 	var close_button := Button.new(); close_button.name = "Close"; close_button.text = "返回"; close_button.custom_minimum_size.y = 42
 	close_button.pressed.connect(func(): close(); close_requested.emit()); column.add_child(close_button)
-	resized.connect(_resize); _resize(); apply_settings(Settings.defaults()); hide()
+	resized.connect(_resize); get_viewport().size_changed.connect(_resize); _resize(); apply_settings(Settings.defaults()); hide()
 
-func _row(parent: Control,key: String,label: String) -> HBoxContainer:
-	var row := HBoxContainer.new(); row.name = key; row.add_theme_constant_override("separation",14); parent.add_child(row)
-	var text := Label.new(); text.text = label; text.custom_minimum_size.x = 140; text.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(text)
+func _row(parent: Control,key: String,label: String) -> GridContainer:
+	var row := GridContainer.new(); row.name = key; row.columns = 2; row.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_theme_constant_override("h_separation",20); row.add_theme_constant_override("v_separation",4); parent.add_child(row); _rows.append(row)
+	var text := Label.new(); text.name = "Caption"; text.text = label; text.custom_minimum_size.x = 140; text.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(text)
 	return row
 
 func _remember(row: Control,key: String,control: Control) -> void:
@@ -73,8 +74,17 @@ func _slider(parent: Control,key: String,label: String) -> void:
 func _resize() -> void:
 	if not _built: return
 	var viewport := get_viewport_rect().size
-	_panel.custom_minimum_size.x = minf(600,maxf(320,viewport.x-32))
-	_scroll.custom_minimum_size.y = clampf(viewport.y-210,100,500)
+	var narrow := viewport.x < 560
+	for row in _rows:
+		row.columns = 1 if narrow else 2
+		row.get_node("Caption").custom_minimum_size.x = 0 if narrow else 140
+		row.get_node("Value").custom_minimum_size.x = 0 if narrow else 200
+	_panel.custom_minimum_size.x = minf(620,maxf(0,viewport.x-24))
+	# Give the window a bounded height; the expanding scroll area receives the
+	# remainder after the actual wrapped reason, title, Return and art margins.
+	# A fixed scroll minimum otherwise pushes two-line errors beyond 320×480.
+	_panel.custom_minimum_size.y = minf(760,maxf(0,viewport.y-32))
+	_scroll.custom_minimum_size.y = 0
 
 func apply_settings(settings: Dictionary,reason: String = "") -> void:
 	build(); _applying = true
@@ -82,7 +92,9 @@ func apply_settings(settings: Dictionary,reason: String = "") -> void:
 	for key in _controls:
 		var control: Control = _controls[key]
 		if control is OptionButton: control.select(control.get_meta("values").find(actual[key]))
-		elif control is CheckButton: control.set_pressed_no_signal(actual[key])
+		elif control is CheckButton:
+			control.set_pressed_no_signal(actual[key])
+			control.text = "已开启" if actual[key] else "已关闭"
 		elif control is HSlider: control.set_value_no_signal(actual[key]); control.tooltip_text = "%d%%" % roundi(float(actual[key])*100)
 	_reason.text = _reason_text(reason); _applying = false
 

@@ -1,0 +1,886 @@
+{
+	"actionCount": 9,
+	"dialogMode": "actual Godot embedded FileDialog; no file selected",
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/import_choose_file",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "mingqi-file-dialog-1600",
+	"pngSha256": "1c95e60779e65ba156925c689760e501fdbe6d7ef0f198795bedcd4975497f9c",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/mingqi/mingqi_scene.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud",
+				"panelMargins": [
+					24.0,
+					24.0,
+					24.0,
+					28.0
+				],
+				"rect": [
+					18.0,
+					18.0,
+					370.0,
+					270.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/header_composition/title",
+				"rect": [
+					42.0,
+					42.0,
+					318.0,
+					44.0
+				],
+				"text": "海上明旗  ·  1650",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/identity",
+				"rect": [
+					42.0,
+					92.0,
+					318.0,
+					19.0
+				],
+				"text": "1650年1月1日  ·  沈沧海  ·  19岁",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/silver",
+				"rect": [
+					42.0,
+					117.0,
+					318.0,
+					19.0
+				],
+				"text": "银 650两   借债 400两   航程 0.7秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/navigation",
+				"rect": [
+					42.0,
+					142.0,
+					318.0,
+					19.0
+				],
+				"text": "航向 090°   航速 0.0节   风速 12.0m/s   厦门",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c7c2a9ff",
+				"fontSize": 13,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/broadside_status",
+				"rect": [
+					42.0,
+					167.0,
+					318.0,
+					39.0
+				],
+				"text": "左舷 Q · 射界内无敌舰\n右舷 E · 射界内无敌舰",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 13,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/objective_row/current_objective",
+				"rect": [
+					42.0,
+					220.0,
+					262.0,
+					18.0
+				],
+				"text": "当前目标 · 接下护粮委托",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/objective_row/objective_open",
+				"rect": [
+					312.0,
+					212.0,
+					48.0,
+					35.0
+				],
+				"text": "查看",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c7c2a9ff",
+				"fontSize": 13,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/voyage_progress",
+				"rect": [
+					42.0,
+					253.0,
+					318.0,
+					18.0
+				],
+				"text": "首航 · 接单 · 期限 30:00",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock",
+				"panelMargins": [
+					24.0,
+					24.0,
+					24.0,
+					28.0
+				],
+				"rect": [
+					18.0,
+					750.0,
+					1564.0,
+					132.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_ship",
+				"rect": [
+					42.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "旗舰",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_convoy",
+				"rect": [
+					295.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "船队海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_port",
+				"rect": [
+					548.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "港口贸易",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_boarding",
+				"rect": [
+					801.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "接舷俘获",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_tactics",
+				"rect": [
+					1054.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "战术",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_story",
+				"rect": [
+					1307.0,
+					769.0,
+					246.0,
+					42.0
+				],
+				"text": "航海日志",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/pause",
+				"rect": [
+					42.0,
+					816.0,
+					60.0,
+					38.0
+				],
+				"text": "继续",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_0_25",
+				"rect": [
+					110.0,
+					816.0,
+					60.0,
+					38.0
+				],
+				"text": "0.25×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_1_0",
+				"rect": [
+					178.0,
+					816.0,
+					60.0,
+					38.0
+				],
+				"text": "1.0×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_8_0",
+				"rect": [
+					246.0,
+					816.0,
+					60.0,
+					38.0
+				],
+				"text": "8.0×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/menu_open",
+				"rect": [
+					314.0,
+					816.0,
+					60.0,
+					38.0
+				],
+				"text": "菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/camera_captain",
+				"rect": [
+					382.0,
+					816.0,
+					80.0,
+					38.0
+				],
+				"text": "驾驶视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/camera_tactical",
+				"rect": [
+					470.0,
+					816.0,
+					80.0,
+					38.0
+				],
+				"text": "高位海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/stop_sailing",
+				"rect": [
+					558.0,
+					816.0,
+					80.0,
+					38.0
+				],
+				"text": "停船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/sailing_manual",
+				"rect": [
+					646.0,
+					816.0,
+					80.0,
+					38.0
+				],
+				"text": "操船手册",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c7c2a9ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/time_state",
+				"rect": [
+					734.0,
+					825.0,
+					820.0,
+					19.0
+				],
+				"text": "已暂停 · 1.0×",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation",
+				"panelMargins": [
+					32.0,
+					52.0,
+					32.0,
+					44.0
+				],
+				"rect": [
+					1142.0,
+					18.0,
+					440.0,
+					718.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "e5bd74ff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/@HFlowContainer@1195/panel_heading",
+				"rect": [
+					1174.0,
+					76.0,
+					288.0,
+					25.0
+				],
+				"text": "航海日志",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/@HFlowContainer@1195/panel_close",
+				"rect": [
+					1470.0,
+					70.0,
+					80.0,
+					38.0
+				],
+				"text": "收起",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 22,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_chapter",
+				"rect": [
+					1174.0,
+					117.0,
+					372.0,
+					23.0
+				],
+				"text": "旧账新帆",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_premise",
+				"rect": [
+					1174.0,
+					150.0,
+					372.0,
+					47.0
+				],
+				"text": "从厦门的一册旧账出发：护粮、交差、分担损失，再决定怎样养活自己的船。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 20,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/heading_3",
+				"rect": [
+					1174.0,
+					221.0,
+					372.0,
+					21.0
+				],
+				"text": "下一步",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_objective",
+				"rect": [
+					1174.0,
+					252.0,
+					372.0,
+					47.0
+				],
+				"text": "接下护粮委托\n在厦门核对粮船与租费，接受第一趟护航。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_objective_open",
+				"rect": [
+					1174.0,
+					309.0,
+					372.0,
+					38.0
+				],
+				"text": "前往目标页面",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_scene_old-ledger",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					1174.0,
+					357.0,
+					372.0,
+					626.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 20,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_scene_old-ledger/@VBoxContainer@1361/story_title_old-ledger",
+				"rect": [
+					1188.0,
+					371.0,
+					344.0,
+					21.0
+				],
+				"text": "旧账与工钱",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c7c2a9ff",
+				"fontSize": 15,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_scene_old-ledger/@VBoxContainer@1361/story_portrait_header_old-ledger/story_npc_old-ledger",
+				"rect": [
+					1319.0,
+					469.0,
+					213.0,
+					20.0
+				],
+				"text": "许福 · 老水手",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_story/story_scene_old-ledger/@VBoxContainer@1361/story_dialogue_old-ledger",
+				"rect": [
+					1188.0,
+					566.0,
+					344.0,
+					197.0
+				],
+				"text": "厦门，1650年。父亲留下的承家号和旧账册还在；林家商行原有400两本金，现在未偿400两。如今明旗号和快船都是借用，得先做成一趟生意。\n\n承家号的老水手许福翻到欠薪那页：船要修，人也要吃饭。你打算先拿80两安下弟兄的心，还是留住银子防备海上的变故？",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu",
+				"panelMargins": [
+					32.0,
+					52.0,
+					32.0,
+					44.0
+				],
+				"rect": [
+					550.0,
+					24.0,
+					500.0,
+					852.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 20,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/heading_1",
+				"rect": [
+					582.0,
+					92.0,
+					432.0,
+					21.0
+				],
+				"text": "海上明旗 · 航程菜单",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/menu_state",
+				"rect": [
+					582.0,
+					125.0,
+					432.0,
+					22.0
+				],
+				"text": "世界已暂停。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/menu_resume",
+				"rect": [
+					582.0,
+					159.0,
+					432.0,
+					38.0
+				],
+				"text": "继续航行",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "ffb193ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/save_reason",
+				"rect": [
+					582.0,
+					209.0,
+					432.0,
+					22.0
+				],
+				"text": "安全条件已核验，可保存航程。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/save",
+				"rect": [
+					582.0,
+					243.0,
+					432.0,
+					38.0
+				],
+				"text": "保存安全航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/save_and_menu",
+				"rect": [
+					582.0,
+					293.0,
+					432.0,
+					38.0
+				],
+				"text": "保存并返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/menu_settings",
+				"rect": [
+					582.0,
+					343.0,
+					432.0,
+					38.0
+				],
+				"text": "画面与声音设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/export_current",
+				"rect": [
+					582.0,
+					393.0,
+					432.0,
+					38.0
+				],
+				"text": "导出当前安全航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/export_backup",
+				"rect": [
+					582.0,
+					443.0,
+					432.0,
+					38.0
+				],
+				"text": "导出上次安全存档",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/save_status",
+				"rect": [
+					582.0,
+					493.0,
+					432.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "e5bd74ff",
+				"fontSize": 20,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/heading_12",
+				"rect": [
+					582.0,
+					543.0,
+					432.0,
+					21.0
+				],
+				"text": "导入存档",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/import_json",
+				"rect": [
+					582.0,
+					576.0,
+					432.0,
+					125.0
+				],
+				"type": "TextEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/import_save",
+				"rect": [
+					582.0,
+					713.0,
+					432.0,
+					38.0
+				],
+				"text": "验证并导入",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "f4e3bdff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/import_choose_file",
+				"rect": [
+					582.0,
+					763.0,
+					432.0,
+					38.0
+				],
+				"text": "选择 JSON 存档文件",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "f4e3bdff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/voyage_menu/@ScrollContainer@1375/@VBoxContainer@1376/import_note",
+				"rect": [
+					582.0,
+					813.0,
+					432.0,
+					19.0
+				],
+				"text": "导入先核验完整存档。验证失败时保留当前航程；原文件不改动。",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 4,
+		"unclippedOverflow": [],
+		"visibleButtons": 26,
+		"visibleControls": 77
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

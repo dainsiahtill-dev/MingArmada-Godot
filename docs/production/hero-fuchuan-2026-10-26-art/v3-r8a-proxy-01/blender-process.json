@@ -1,0 +1,25 @@
+{
+  "command": [
+    "C:\\Tools\\blender-5.4.0-alpha+main.fbe82a461016-windows.amd64-release\\blender.exe",
+    "--background",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "C:\\Users\\dains\\Documents\\Git\\ming-armada\\tools\\blender\\build_hero_fuchuan_r8_proxy.py",
+    "--",
+    "--review-run=v3-r8a-proxy-01",
+    "--refine-stern",
+    "--export-only"
+  ],
+  "cwd": "C:\\Users\\dains\\Documents\\Git\\ming-armada",
+  "startedUTC": "2026-10-26T00:32:45.712218+00:00",
+  "finishedUTC": "2026-10-26T00:32:47.566286+00:00",
+  "processExitCode": 1,
+  "successMarkerPresent": false,
+  "success": false,
+  "stdoutAndStderr": "docs/production/hero-fuchuan-2026-10-26-art/v3-r8a-proxy-01/blender-build.log",
+  "logSHA256": "cb50d2d1538c1fd600a95bd2423f5be15447b1903ddada6255f80b49508c412e",
+  "blenderExecutableSHA256": "a8ab92ffa0bbf671e411bbd6b6545c04be4ea22079a3937395262f6eecac3ab0",
+  "wrapperSHA256": "e54638e356163914c07d60bf4f9bf021d52e70032fb897e39b56c4cf18a872ec",
+  "scope": "background export only; no Godot/GPU/native acceptance"
+}

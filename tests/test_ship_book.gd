@@ -3,6 +3,7 @@ var failures := 0
 var assertions := 0
 var _sent_button_mask := 0
 const SOURCE_FAMILIES := {"fuchuan":"hero_fuchuan","fisherman":"sloop1","merchant":"ship_merman","voc":"frigate","patrol":"ship_brigantine","heavy":"treasure_galleon"}
+const FRAMED_POPUP_PATH := "res://assets/ui/ming_maritime/painted/quiet/framed/runtime/command-panel.png"
 class FailingLibrary extends "res://modules/scene_engine/assets/asset_library.gd":
 	var fail := true
 	var attempts:Array[String]=[]
@@ -21,10 +22,13 @@ func _run() -> void:
 	root.add_child(scene); await process_frame
 	scene.set_process(false)
 	check(scene.startup_receipt.ok,"ship book loads default source GLB")
+	_verify_popup_windows(scene)
 	for kind in ["fuchuan","fisherman","merchant","voc","patrol","heavy"]:
 		for lod in 3:
 			check(scene.select_ship(kind,lod).ok,"real ship GLB loads: %s LOD%s"%[kind,lod])
-			var expected_path:String="res://assets/models/hero_fuchuan_v3_r6/fuchuan-lod%d.glb"%lod if kind=="fuchuan" else "res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind]
+			# R7c is the documented, accepted production default; retain an explicit
+			# golden so accidental fallback to older model versions is still caught.
+			var expected_path:String="res://assets/models/hero_fuchuan_v3_r7c/fuchuan-lod%d.glb"%lod if kind=="fuchuan" else "res://assets/models/fidelity_naval/%s.glb"%SOURCE_FAMILIES[kind]
 			check(scene.snapshot().path==expected_path and scene.snapshot().source_kind==SOURCE_FAMILIES[kind],"ship book shows the same authored or reference family as gameplay")
 			var sails := 0
 			for mesh in scene.ship_model.find_children("sail_*","MeshInstance3D",true,false):
@@ -95,6 +99,34 @@ func _run() -> void:
 	check(scene.camera.position==left_position and scene._target==left_target,"disposed owner fences input and residual motion")
 	check(scene.get("_held_mouse_buttons")==0,"disposed owner clears all held mouse buttons")
 	scene.queue_free(); await process_frame; _finish()
+
+func _verify_popup_windows(scene: Node) -> void:
+	var initial_assertions:=assertions
+	var initial_failures:=failures
+	var shared_theme: Theme
+	var reference_texture:=load(FRAMED_POPUP_PATH) as Texture2D
+	check(reference_texture!=null,"frozen generated popup PNG loads as an actual Texture2D")
+	if reference_texture==null: return
+	var reference:=reference_texture.get_image()
+	reference.convert(Image.FORMAT_RGBA8)
+	for id: String in ["ShipKind","CameraAngle","ShipLOD"]:
+		var choice:=scene.find_child(id,true,false) as OptionButton
+		check(choice!=null,"native ship-book selector exists: "+id)
+		if choice==null: continue
+		var popup:=choice.get_popup()
+		check(popup.theme!=null,"ship-book popup has an explicit window theme: "+id)
+		if shared_theme==null: shared_theme=popup.theme
+		check(popup.theme!=null and popup.theme==shared_theme,"ship-book popup shares the unified window theme: "+id)
+		var style:=popup.get_theme_stylebox("panel")
+		check(style!=null and style.has_method("get_edge_style"),"ship-book popup resolves a real layered frame: "+id)
+		if style==null or not style.has_method("get_edge_style"): continue
+		var edge:=style.call("get_edge_style") as StyleBoxTexture
+		check(edge!=null and edge.texture!=null,"ship-book popup has a generated edge texture: "+id)
+		if edge==null or edge.texture==null: continue
+		var pixels:=edge.texture.get_image()
+		pixels.convert(Image.FORMAT_RGBA8)
+		check(pixels.get_size()==reference.get_size() and pixels.get_data()==reference.get_data(),"ship-book popup edge retains the actual framed PNG pixels: "+id)
+	print("SHIP_BOOK_POPUP_WINDOW_CHECKS assertions=",assertions-initial_assertions," failures=",failures-initial_failures)
 func _mouse_button(scene, button:int, pressed:bool, modifiers:Dictionary={}) -> void:
 	var event:=InputEventMouseButton.new(); event.button_index=button; event.pressed=pressed; event.position=Vector2(100,100)
 	if button in [MOUSE_BUTTON_LEFT,MOUSE_BUTTON_RIGHT,MOUSE_BUTTON_MIDDLE]:

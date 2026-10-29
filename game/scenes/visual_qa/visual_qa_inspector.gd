@@ -18,7 +18,7 @@ func _ready() -> void:
 	_screen=Control.new(); _screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); _screen.mouse_filter=Control.MOUSE_FILTER_IGNORE; add_child(_screen)
 	var theme:=Parchment.create(); theme.default_font_size=14; _screen.theme=theme
 	_panel=PanelContainer.new(); _panel.position=Vector2(12,12); _screen.add_child(_panel)
-	_panel.add_theme_stylebox_override("panel",Parchment.panel(12))
+	_panel.add_theme_stylebox_override("panel",Parchment.floating_panel(12))
 	var scroll:=ScrollContainer.new(); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; scroll.follow_focus=true; _panel.add_child(scroll)
 	var column:=VBoxContainer.new(); column.size_flags_horizontal=Control.SIZE_EXPAND_FILL; column.add_theme_constant_override("separation",8); scroll.add_child(column)
 	_status=_label(column,"真实引擎画面验收")

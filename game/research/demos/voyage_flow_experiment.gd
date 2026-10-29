@@ -97,7 +97,7 @@ func _build() -> void:
 	paper.theme = Parchment.create()
 	paper.position = Vector2(24,24)
 	paper.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	paper.add_theme_stylebox_override("panel",Parchment.panel(20))
+	paper.add_theme_stylebox_override("panel",Parchment.floating_panel(20))
 	add_child(paper)
 	_label = Label.new()
 	_label.name = "VoyageFlowFixture"

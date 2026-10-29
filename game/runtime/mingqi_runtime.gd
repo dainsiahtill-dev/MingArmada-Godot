@@ -350,6 +350,11 @@ func snapshot() -> Dictionary:
 		var vessel: Dictionary = state.vessels[voyage.vesselId]
 		depart = depart and voyage.status == "loading" and vessel.damage.hull > 0 and vessel.crew.able >= vessel.crew.minimum
 	return {"campaign":state,"naval":native,"story":OpeningStory.project(state),"runtime":{"generation":_generation,"selectedShipId":native.playerId,"orderStatuses":simulation.encounter.orderStatus(),"paused":is_paused(),"pauseReasons":_pauses.keys(),"timeScale":_rate,"canSave":safe.ok,"saveReason":safe.get("reason",""),"status":"error" if _error else "ready","error":_error,"portId":state.currentPortId,"canDock":docks,"canDepart":depart,"departReason":"" if depart else "unsafe-port","eligibility":_eligibility(state,native,policy,docks),"controllableShipIds":policy.controllableShipIds,"policy":policy,"notice":_notice,"noticeRevision":_notice_revision,"acceptedSeconds":_accepted,"rejectedSeconds":_rejected,"handlingMode":_handling_mode,"handlingStatus":simulation.handling_status(),"drafts":_drafts.duplicate(true),"draftResults":_draft_results.duplicate(true)}}
+func cargo_presentation() -> Dictionary:
+	if not campaign or _disposed:return {"epoch":"","time":0.0,"manifests":{},"drops":[]}
+	var projection: Dictionary = campaign.cargo_presentation()
+	projection.epoch=String(projection.epoch)+":runtime:"+str(_generation)
+	return projection
 func render_snapshot() -> Dictionary: return simulation.render_snapshot()
 func requires_immediate_actor_presentation() -> bool:
 	# Reading this buffer does not acknowledge it. The scene presents and

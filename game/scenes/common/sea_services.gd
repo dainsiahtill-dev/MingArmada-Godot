@@ -22,7 +22,10 @@ static func resolve_settings(storage: RefCounted = null) -> RefCounted:
 	return owned
 
 func configure(runtime: RefCounted, sea: Node3D, storage: RefCounted = null) -> void:
+	_disconnect_presentation_failure()
 	_runtime = runtime; _sea = sea
+	if _sea.has_signal("presentation_failed"):
+		_sea.connect("presentation_failed",_on_presentation_failed)
 	settings_storage = resolve_settings(storage)
 	audio = GameAudio.new(); add_child(audio)
 	_layer = CanvasLayer.new(); _layer.layer = 50; add_child(_layer)
@@ -30,6 +33,24 @@ func configure(runtime: RefCounted, sea: Node3D, storage: RefCounted = null) -> 
 	settings_panel.settings_requested.connect(change_settings)
 	settings_panel.close_requested.connect(close_settings)
 	_apply(settings_storage.snapshot())
+
+func _on_presentation_failed(receipt: Dictionary) -> void:
+	if _disposed or _runtime==null: return
+	_runtime.set_pause("error",true)
+	if is_instance_valid(audio): audio.set_paused(true)
+	var message := "画面资源未能载入，航行已暂停。请返回首页重试。（"+str(receipt.get("reason","presentation-unavailable"))+"）"
+	if _runtime.has_method("_notify"):
+		_runtime.call("_notify",message)
+	else:
+		# Practice/legacy expose the existing notice field without a notifier.
+		for property: Dictionary in _runtime.get_property_list():
+			if property.name=="_notice" and _runtime.get("_notice") is String:
+				_runtime.set("_notice",message)
+				break
+
+func _disconnect_presentation_failure() -> void:
+	if is_instance_valid(_sea) and _sea.has_signal("presentation_failed") and _sea.is_connected("presentation_failed",_on_presentation_failed):
+		_sea.disconnect("presentation_failed",_on_presentation_failed)
 
 func _apply(settings: Dictionary) -> void:
 	_runtime.set_handling_mode(settings.handling)
@@ -47,7 +68,8 @@ func change_settings(patch: Dictionary) -> Dictionary:
 func present(native: Dictionary, events: Array, consumed: float, paused: bool) -> void:
 	if _disposed: return
 	audio.set_listener(_sea.camera.global_position)
-	audio.set_paused(paused)
+	var failed: bool=_sea.has_method("presentation_status") and _sea.presentation_status().get("failed",false)
+	audio.set_paused(paused or failed)
 	audio.apply_snapshot(native,consumed); audio.apply_events(events)
 
 func captures_keyboard() -> bool:
@@ -66,6 +88,7 @@ func close_settings() -> void:
 func dispose() -> void:
 	if _disposed: return
 	_disposed = true
+	_disconnect_presentation_failure()
 	if audio: audio.dispose()
 	_runtime = null; _sea = null
 

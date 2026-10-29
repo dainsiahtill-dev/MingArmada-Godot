@@ -1,0 +1,391 @@
+{
+	"actionCount": 28,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "naval-sail-hud-1600",
+	"pngSha256": "6e3a2eaf37fc27bbdf7334d8fa1490231e599425303e26fd9a66fefafb8c94f6",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/naval_practice/naval_practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/NavigationSummary",
+				"panelMargins": [
+					24.0,
+					24.0,
+					24.0,
+					24.0
+				],
+				"rect": [
+					18.0,
+					18.0,
+					430.0,
+					128.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/NavigationSummary/@VBoxContainer@1149/PracticeHeading",
+				"rect": [
+					42.0,
+					42.0,
+					382.0,
+					29.0
+				],
+				"text": "自由试航 · 定海",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/NavigationSummary/@VBoxContainer@1149/NavigationStatus",
+				"rect": [
+					42.0,
+					75.0,
+					382.0,
+					47.0
+				],
+				"text": "航向 000°   航速 0.8 节   风速 14 m/s\n船体 100%   风帆 100%   水手 100",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel",
+				"panelMargins": [
+					24.0,
+					16.0,
+					24.0,
+					16.0
+				],
+				"rect": [
+					290.0,
+					718.0,
+					1020.0,
+					164.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/SailControl/@Label@1153",
+				"rect": [
+					314.0,
+					742.0,
+					32.0,
+					22.0
+				],
+				"text": "帆面",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/SailControl/SailReadout",
+				"rect": [
+					489.0,
+					742.0,
+					43.0,
+					22.0
+				],
+				"text": "100%",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/stop_sailing",
+				"rect": [
+					538.0,
+					734.0,
+					91.0,
+					38.0
+				],
+				"text": "停船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/trim",
+				"rect": [
+					635.0,
+					734.0,
+					107.0,
+					38.0
+				],
+				"text": "调帆 R",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/pause",
+				"rect": [
+					748.0,
+					734.0,
+					91.0,
+					38.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/captain_view",
+				"rect": [
+					845.0,
+					734.0,
+					91.0,
+					38.0
+				],
+				"text": "船长",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/tactical_view",
+				"rect": [
+					942.0,
+					734.0,
+					91.0,
+					38.0
+				],
+				"text": "高位",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/open_chart",
+				"rect": [
+					1039.0,
+					734.0,
+					112.0,
+					38.0
+				],
+				"text": "航图 M",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/HandlingCommands/help",
+				"rect": [
+					1157.0,
+					734.0,
+					123.0,
+					38.0
+				],
+				"text": "操船手册",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryCommands/fire_port",
+				"rect": [
+					314.0,
+					780.0,
+					185.0,
+					38.0
+				],
+				"text": "左舷开炮 Q",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryCommands/fire_starboard",
+				"rect": [
+					505.0,
+					780.0,
+					181.0,
+					38.0
+				],
+				"text": "右舷开炮 E",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryCommands/solid",
+				"rect": [
+					692.0,
+					780.0,
+					198.0,
+					38.0
+				],
+				"text": "实心弹 1 · 40",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryCommands/chain",
+				"rect": [
+					896.0,
+					780.0,
+					182.0,
+					38.0
+				],
+				"text": "链弹 2 · 20",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryCommands/grape",
+				"rect": [
+					1084.0,
+					780.0,
+					198.0,
+					38.0
+				],
+				"text": "葡萄弹 3 · 20",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "bbc3b8ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@897/@CanvasLayer@1148/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@1152/GunneryStatus",
+				"rect": [
+					314.0,
+					826.0,
+					972.0,
+					22.0
+				],
+				"text": "左舷 · 射界内无敌舰   /   右舷 · 射界内无敌舰",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 12,
+		"visibleControls": 29
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

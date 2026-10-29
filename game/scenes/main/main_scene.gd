@@ -18,7 +18,7 @@ var _startup_capture_path := ""
 var _startup_game_capture_path := ""
 var _startup_game_capture_mode := ""
 var _active_scene_request: Dictionary = {}
-const RELEASE_GAME_MODES := ["mingqi","mingqi-continue","sail","duel","fleet"]
+const RELEASE_GAME_MODES := ["mingqi","mingqi-continue","sail","duel","fleet","fire"]
 
 static func startup_flags(arguments: PackedStringArray) -> Dictionary:
 	return DevelopmentAccess.startup_flags(arguments)

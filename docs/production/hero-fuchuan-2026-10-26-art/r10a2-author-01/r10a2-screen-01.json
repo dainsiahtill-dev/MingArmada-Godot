@@ -1,0 +1,46 @@
+{
+  "type": "discrete-form-screen",
+  "timestampUtc": "2026-10-26T23:32:29.171891+00:00",
+  "sourceSha256": {
+    "tools\\blender\\hero_r10a2_screen.py": "8412c700ead32c7d479f5c0cd8e4b85da993ce58e306c66af04d9e4a3fcbcf8a",
+    "tools\\blender\\hero_r10_sail_formula.py": "3610911ead7eb0d0b96738c09a08bd040ae27b952bb6ed86bb756cd16bc668d9",
+    "docs\\production\\hero-fuchuan-2026-10-26-art\\R10-SAIL-FORM-BRIEF.md": "3bc4e65f19c2a244dbaec923af9e7131c05a4e9da9b39e9aa8b771acd31c0cd7"
+  },
+  "results": [
+    {
+      "coefficient": 0.0,
+      "intervalsEachAxis": 128,
+      "sails": 3,
+      "sampleCount": 49923,
+      "allFinite": true,
+      "minimumNormalizedJacobian": 0.5363630805631663,
+      "minimumBreadthOverWidth": 0.6,
+      "worstSample": {
+        "sail": 0,
+        "u": 1.0,
+        "v": 1.0
+      },
+      "maxInverseParameterError": 4.588914767511554e-06,
+      "pass": false,
+      "scope": "uniform discrete UV grid and finite differences only; no continuous proof, morph/clearance, rendering or GPU"
+    },
+    {
+      "coefficient": 0.2,
+      "intervalsEachAxis": 128,
+      "sails": 3,
+      "sampleCount": 49923,
+      "allFinite": true,
+      "minimumNormalizedJacobian": 0.5363639688102179,
+      "minimumBreadthOverWidth": 0.6,
+      "worstSample": {
+        "sail": 0,
+        "u": 1.0,
+        "v": 1.0
+      },
+      "maxInverseParameterError": 3.5300736183074832e-06,
+      "pass": false,
+      "scope": "uniform discrete UV grid and finite differences only; no continuous proof, morph/clearance, rendering or GPU"
+    }
+  ],
+  "pass": false
+}

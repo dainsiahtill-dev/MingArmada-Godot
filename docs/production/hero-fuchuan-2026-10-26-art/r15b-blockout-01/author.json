@@ -1,0 +1,122 @@
+{
+  "baselineSources": {
+    "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r9b.blend": "2961f7f28d31cfc71a16638fbd634b4245912adb1fcf79bc55bfc5d00722d2e8",
+    "tools/blender/build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "tools/blender/build_hero_fuchuan.py": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96",
+    "docs/production/hero-fuchuan-2026-10-26-art/R15B-HULL-INTEGRATION-BRIEF.md": "46d8969a45251c25bbd44367676974509a980985caf7ef13fe69cd13a70dafc1",
+    "assets/textures/hero_fuchuan_r9/sunfaded-cinnabar-hemp-sail.png": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+    "tools/blender/build_hero_fuchuan_r15b_blockout.py": "aad3bd937ba89c4d470df42b1bd8c37f1690af3d2449479b0f1cde987441733d"
+  },
+  "existingNonRailObjectsExact": true,
+  "existingObjectCount": 80,
+  "railChange": {
+    "object": "bulwark_rails",
+    "allowedZ": [
+      10.3,
+      15.7
+    ],
+    "deletedFaceCount": 286,
+    "oldMeshSha256": "8d83e6138eefed2b37cec62b699399d140059b7ac35bd827759e9d7754cb9013",
+    "newMeshSha256": "10da62029247ee0a237096fac247abe45b28542f3e68109482fcdd54e6553a81",
+    "outsideBowOriginalFaceHash": "042f5111fe16f5d5e91777a3803d85c1258a9fbbf72475534269b94ca9685e80",
+    "outsideBowCandidateFaceHash": "042f5111fe16f5d5e91777a3803d85c1258a9fbbf72475534269b94ca9685e80",
+    "outsideFaces": 2624,
+    "scope": "Only faces selected by envelope-overlap criterion; overlap/visual continuity still require checking"
+  },
+  "sternPostJoins": [
+    {
+      "side": "starboard",
+      "sourcePostJoins": [
+        {
+          "z": -14.6333333333,
+          "nearestOriginalRailVertexMeters": 0.0549997982507091
+        },
+        {
+          "z": -13.6666666667,
+          "nearestOriginalRailVertexMeters": 0.054999691642226706
+        },
+        {
+          "z": -12.7,
+          "nearestOriginalRailVertexMeters": 0.05499977353732941
+        },
+        {
+          "z": -11.7333333333,
+          "nearestOriginalRailVertexMeters": 0.05499975091973354
+        },
+        {
+          "z": -10.7666666667,
+          "nearestOriginalRailVertexMeters": 0.0549997074900954
+        }
+      ]
+    },
+    {
+      "side": "port",
+      "sourcePostJoins": [
+        {
+          "z": -14.6333333333,
+          "nearestOriginalRailVertexMeters": 0.0549997982507091
+        },
+        {
+          "z": -13.6666666667,
+          "nearestOriginalRailVertexMeters": 0.054999691642226706
+        },
+        {
+          "z": -12.7,
+          "nearestOriginalRailVertexMeters": 0.05499977353732941
+        },
+        {
+          "z": -11.7333333333,
+          "nearestOriginalRailVertexMeters": 0.05499975091973354
+        },
+        {
+          "z": -10.7666666667,
+          "nearestOriginalRailVertexMeters": 0.0549997074900954
+        }
+      ]
+    }
+  ],
+  "canvasPackedSha256": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+  "addedNodes": [
+    {
+      "name": "r15b_foreworks_starboard",
+      "vertices": 126,
+      "faces": 128,
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15b_wale_starboard",
+      "vertices": 254,
+      "faces": 256,
+      "deck_obstacle": false
+    },
+    {
+      "name": "r15b_sternrail_starboard",
+      "vertices": 464,
+      "faces": 290,
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15b_foreworks_port",
+      "vertices": 126,
+      "faces": 128,
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15b_wale_port",
+      "vertices": 254,
+      "faces": 256,
+      "deck_obstacle": false
+    },
+    {
+      "name": "r15b_sternrail_port",
+      "vertices": 464,
+      "faces": 290,
+      "deck_obstacle": true
+    }
+  ],
+  "scope": "R9b Blender art blockout with local bow rail crop, not GPU, runtime, shadow, collision, LOD or gameplay acceptance.",
+  "candidateBlend": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r15b-blockout-01.blend",
+  "candidateBlendSha256": "a0acd2ee690da1f144642fd5101f34de16a564fdeaef50173a620cd3ebc61129",
+  "blenderVersion": "5.4.0 Alpha",
+  "finishedUTC": "2026-10-27T02:15:23.373006+00:00"
+}

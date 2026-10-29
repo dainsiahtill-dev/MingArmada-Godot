@@ -1,0 +1,3787 @@
+{
+	"assertions": 44,
+	"captures": 37,
+	"controls": {
+		"camera": "2D geographic atlas",
+		"initialPort": "xiamen",
+		"initialView": "overview",
+		"seed": 0,
+		"stepSeconds": 0.03125
+	},
+	"environment": {
+		"display": "Windows",
+		"engine": {
+			"build": "official",
+			"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+			"hex": 263938,
+			"major": 4,
+			"minor": 7,
+			"patch": 2,
+			"status": "stable",
+			"string": "4.7.2-stable (official)",
+			"timestamp": 0
+		},
+		"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+		"renderingMethod": "forward_plus"
+	},
+	"failures": 0,
+	"finishedAtUtc": "2026-10-26T09:21:48",
+	"frames": [
+		{
+			"label": "01-geographic-baseline",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/01-geographic-baseline.png",
+			"recordType": "gpu-capture",
+			"sha256": "28179351950604e99f543dcc1f8bb458cfcd178d48460a57e7ecb85bb22d003f",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": false,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 1,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"zoom": 1.0
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": false,
+					"paused": true
+				},
+				"paused": true,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 1,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "02-engraved-world",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/02-engraved-world.png",
+			"recordType": "gpu-capture",
+			"sha256": "f458a7d3a7c6b90641fb9d02dc66f4e957c7ec5d9ab0255408b493c00e615508",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 1,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"zoom": 1.0
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": true
+				},
+				"paused": true,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 1,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "03-hirado-port-detail",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/03-hirado-port-detail.png",
+			"recordType": "gpu-capture",
+			"sha256": "b3b219acfcd9bd3ee04dff850bd1a00c0da3122da44372ee96540c484b52d86b",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 2,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "九州西北海面上的港湾，与川内浦相邻。此点采用长崎县平户港测站地理坐标。",
+						"id": "hirado",
+						"lat": 33.371389,
+						"lon": 129.555,
+						"name": "平户",
+						"precision": "现代港区测站，非十七世纪泊位",
+						"region": "东洋航路",
+						"source": "长崎県 測定地点一覧表 PDF page 25",
+						"sourceId": "620-1",
+						"sourceName": "平戸港",
+						"subtitle": "九州西岸"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							120.804992675781,
+							24.4651374816895
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							120.804992675781,
+							24.4651374816895
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": true
+				},
+				"paused": true,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 2,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "04-java-southern-islands",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/04-java-southern-islands.png",
+			"recordType": "gpu-capture",
+			"sha256": "61b662d530fab3f96486201f855520b37317fcd1fcc0436a3eca97a886307382",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 3,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "此点定位今雅加达区域，供辨认爪哇岛北岸，不等同某年古港泊位。",
+						"id": "java",
+						"lat": -6.172472,
+						"lon": 106.827492,
+						"name": "爪哇",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "南洋群岛",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159151599",
+						"sourceName": "Jakarta",
+						"subtitle": "岛屿北岸"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							98.0774917602539,
+							-12.0
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							98.0774917602539,
+							-12.0
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": true
+				},
+				"paused": true,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 3,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "05-narrow-world-harbour",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/05-narrow-world-harbour.png",
+			"recordType": "gpu-capture",
+			"sha256": "74a84d8af36adc534f8db17b835ae0dca35472506c8bb9debc187d67ab4d6146",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 4,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "吕宋西岸的港市；北望台湾，西向南海。",
+						"id": "manila",
+						"lat": 14.606105,
+						"lon": 120.980271,
+						"name": "吕宋",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "南海东缘",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159151525",
+						"sourceName": "Manila",
+						"subtitle": "马尼拉"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"zoom": 1.0
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": true
+				},
+				"paused": true,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 4,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 0,
+				"time": 0.0
+			},
+			"viewport": [
+				640,
+				960
+			]
+		},
+		{
+			"label": "sequence-00",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-00.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "afd57356eed9199cb3ab7025c1446e84f907f19a371e1f7cefe8d6dc95d56bdd",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 6,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.364112854004,
+							15.5533103942871
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.364112854004,
+							15.5533103942871
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 6,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 1,
+				"time": 0.03125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-01",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-01.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "48dd085117ceb8db26fd0bc2395970c4d819ce32776f7a96b82d12f4c7440971",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 7,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.40015411377,
+							15.5609321594238
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.40015411377,
+							15.5609321594238
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 7,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 2,
+				"time": 0.0625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-02",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-02.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "5f3819547d87c488bc79a57646c7c640eb8aa9d2a889540186e4e957832389e4",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 8,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.436195373535,
+							15.5685539245605
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.436195373535,
+							15.5685539245605
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 8,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 3,
+				"time": 0.09375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-03",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-03.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "f96a548662697a5dc746ea83f10791313812c162f37c41d0e13698169ca899ed",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 9,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.472236633301,
+							15.5761756896973
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.472236633301,
+							15.5761756896973
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 9,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 4,
+				"time": 0.125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-04",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-04.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "32f890bb2df6f2a8e6c991730eb6e1142471de51c0a8c1b5d40c1195397ce02f",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 10,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.508277893066,
+							15.583797454834
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.508277893066,
+							15.583797454834
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 10,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 5,
+				"time": 0.15625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-05",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-05.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "55a344a566a64f3eac66fdcba664fcfcc70af24032d5d51ab9dd4c7c68ec0cdf",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 11,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.544319152832,
+							15.5914192199707
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.544319152832,
+							15.5914192199707
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 11,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 6,
+				"time": 0.1875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-06",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-06.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "8acb368e58f09dc784afa20683d98b1a2b3c7b93b7d0eb4e02b3ff0d37d9d2b7",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 12,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.580360412598,
+							15.5990409851074
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.580360412598,
+							15.5990409851074
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 12,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 7,
+				"time": 0.21875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-07",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-07.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "64e9964a1743f822e7e62f9708fc8fe10d67d49953446cd8e307cdee2b233b92",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 13,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.616401672363,
+							15.6066627502441
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.616401672363,
+							15.6066627502441
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 13,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 8,
+				"time": 0.25
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-08",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-08.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "b5a8de07af120a3a815bd0c679f08eb1b44e9973f7a0c61c1fe8c35efad1c3c2",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 14,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.652442932129,
+							15.6142845153809
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.652442932129,
+							15.6142845153809
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 14,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 9,
+				"time": 0.28125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-09",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-09.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "b31ea8655c96a520b679b7a67ec65a69ba1d4e47d2e38885207c4d8d6f7279fa",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 15,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.688484191895,
+							15.6219062805176
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.688484191895,
+							15.6219062805176
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 15,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 10,
+				"time": 0.3125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-10",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-10.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "1e0c9bbf3d6f6be890387d5caaa56f00b57b155b40f02efef93c526c138cf9fc",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 16,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.72452545166,
+							15.6295280456543
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.72452545166,
+							15.6295280456543
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 16,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 11,
+				"time": 0.34375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-11",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-11.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "9423c93a392d45929a3a35bb2893e2bcf28a6be54a649ff4bb306aead3fc850e",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 17,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.760566711426,
+							15.637149810791
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.760566711426,
+							15.637149810791
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 17,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 12,
+				"time": 0.375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-12",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-12.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "52eb1035b12b6d8e170dc8bf231c82196535bf7fa5c30e89dd36153859d75b62",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 18,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.796607971191,
+							15.6447715759277
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.796607971191,
+							15.6447715759277
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 18,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 13,
+				"time": 0.40625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-13",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-13.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "b5803c54e39517757507d107c30c721e0120cf88210e161bafe2d06236506046",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 19,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.832649230957,
+							15.6523933410645
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.832649230957,
+							15.6523933410645
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 19,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 14,
+				"time": 0.4375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-14",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-14.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "ded85ef4b8fcc3a90cf07c8cfa87c98551383bc4d16c5ed7c394bb90b56781fa",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 20,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.868690490723,
+							15.6600151062012
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.868690490723,
+							15.6600151062012
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 20,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 15,
+				"time": 0.46875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-15",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-15.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "3aa2660d18e087064b4978f74d32be9dbcdb0616c9d7a8558931f9b73b856a16",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 21,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.904731750488,
+							15.6676368713379
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.904731750488,
+							15.6676368713379
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 21,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 16,
+				"time": 0.5
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-16",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-16.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "1e8f8eaf581fce7c3ea6e9185edf864f1e08e1fe9810e31ab5b1966d6c20c5b1",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 22,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.940773010254,
+							15.6752586364746
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.940773010254,
+							15.6752586364746
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 22,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 17,
+				"time": 0.53125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-17",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-17.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "cc55a9b1f3c62b7d41cc9320f4d8c43c76a96d01a123a50977fa2a104bc3f486",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 23,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							109.97681427002,
+							15.6828804016113
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							109.97681427002,
+							15.6828804016113
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 23,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 18,
+				"time": 0.5625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-18",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-18.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "2ff121952a9f4c0fbbb61cf7298ba338d8d2e2119405579cfb19c13981500727",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 24,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.012855529785,
+							15.690502166748
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.012855529785,
+							15.690502166748
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 24,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 19,
+				"time": 0.59375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-19",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-19.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "0d563a4d6bf5766c6f4284e9bd4d6432eca931479d0216077c5bf34246c97798",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 25,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.048896789551,
+							15.6981239318848
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.048896789551,
+							15.6981239318848
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 25,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 20,
+				"time": 0.625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-20",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-20.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "b4267ac4fae911891e45844643df891302d6752b5e0ff6e7f2db7b570bef5678",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 26,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.084938049316,
+							15.7057456970215
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.084938049316,
+							15.7057456970215
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 26,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 21,
+				"time": 0.65625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-21",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-21.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "bb7e101b241187744dc76d154e90997fb47377bbb1e8c8e021914b5d266bf80f",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 27,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.120979309082,
+							15.7133674621582
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.120979309082,
+							15.7133674621582
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 27,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 22,
+				"time": 0.6875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-22",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-22.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "626dd5b542e91cbe1a83bdf9d7fcb078b1ea67a700f6aee5883d53d1d5fb37f4",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 28,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.157020568848,
+							15.7209892272949
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.157020568848,
+							15.7209892272949
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 28,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 23,
+				"time": 0.71875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-23",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-23.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "838ba93949760e92e7bfbead87012027af97c0493eb237c61abe7a17a61208d1",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 29,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.193061828613,
+							15.7286109924316
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.193061828613,
+							15.7286109924316
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 29,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 24,
+				"time": 0.75
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-24",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-24.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "2db4e20f1f9f9a03f38b4ba391716053b20cec1e3ffa55e207d8623b105e88b9",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 30,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.229103088379,
+							15.7362327575684
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.229103088379,
+							15.7362327575684
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 30,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 25,
+				"time": 0.78125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-25",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-25.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "8b59b5cf24d1754a1b31584b1fa05b23326dd360dd2d9bc62df365018c80b83b",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 31,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.265144348145,
+							15.7438545227051
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.265144348145,
+							15.7438545227051
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 31,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 26,
+				"time": 0.8125
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-26",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-26.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "4f1e64c252a48fd4c4dc99bd2e380a714c0bd6cf532b33c2b70c69085c4125e9",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 32,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.30118560791,
+							15.7514762878418
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.30118560791,
+							15.7514762878418
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 32,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 27,
+				"time": 0.84375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-27",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-27.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "3dd04fa0290dc68a71af70f5f3c38989f8524e294ed755fe83b78cb8a1a322ba",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 33,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.337226867676,
+							15.7590980529785
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.337226867676,
+							15.7590980529785
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 33,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 28,
+				"time": 0.875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-28",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-28.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "a23821e8945cfc91ad883a382fb91536c33bf4888face87a8d38219855685377",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 34,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.373268127441,
+							15.7667198181152
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.373268127441,
+							15.7667198181152
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 34,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 29,
+				"time": 0.90625
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-29",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-29.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "c15cff1252e84cc1c2e73a5fd261e0dd814c74395551523816de34c6c06a47b2",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 35,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.409309387207,
+							15.774341583252
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.409309387207,
+							15.774341583252
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 35,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 30,
+				"time": 0.9375
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-30",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-30.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "7fb01a4f347d5e69935fb5b4b42bf0a88636af6240646a979ef3fab42b61b662",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 36,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.445350646973,
+							15.7819633483887
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.445350646973,
+							15.7819633483887
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 36,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 31,
+				"time": 0.96875
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		},
+		{
+			"label": "sequence-31",
+			"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-01/sequence-31.png",
+			"recordType": "gpu-continuous-sequence",
+			"sha256": "a0181e29b836444e0decb59e33e4969bcd8189599400c40b6cfff70980acdfda",
+			"state": {
+				"atlas": {
+					"data_bounds": {
+						"position": [
+							92.0,
+							-12.0
+						],
+						"size": [
+							56.0,
+							57.0
+						]
+					},
+					"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+					"disposed": false,
+					"engraving": true,
+					"geography_basis": "longitude-latitude",
+					"geometry": {
+						"failed_polygons": 0,
+						"land_polygons": 328,
+						"mesh_builds": 37,
+						"triangles": 3934,
+						"vertices": 4590
+					},
+					"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+					"projection": "equirectangular-standard-parallel-25N",
+					"ready": true,
+					"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+					"selected_port": {
+						"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+						"id": "xiamen",
+						"lat": 24.451938,
+						"lon": 118.078071,
+						"name": "厦门",
+						"precision": "城市区域定位，非古代泊位",
+						"region": "福建沿岸",
+						"source": "Natural Earth 10m populated places",
+						"sourceId": "1159149129",
+						"sourceName": "Xiamen",
+						"subtitle": "中左所"
+					},
+					"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+					"view_bounds": {
+						"position": [
+							110.481391906738,
+							15.7895851135254
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					},
+					"zoom": 3.2
+				},
+				"camera": {
+					"mode": "overview",
+					"type": "2D-geographic-view",
+					"view_bounds": {
+						"position": [
+							110.481391906738,
+							15.7895851135254
+						],
+						"size": [
+							17.5,
+							17.8125
+						]
+					}
+				},
+				"disposed": false,
+				"fixed_step": 0.03125,
+				"parameters": {
+					"camera_mode": "overview",
+					"engraving": true,
+					"paused": false
+				},
+				"paused": false,
+				"ready": true,
+				"resources": {
+					"atlas": 1
+				},
+				"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+				"seed": 0,
+				"telemetry": {
+					"failed_polygons": 0,
+					"land_polygons": 328,
+					"mesh_builds": 37,
+					"triangles": 3934,
+					"vertices": 4590
+				},
+				"tick": 32,
+				"time": 1.0
+			},
+			"viewport": [
+				1600,
+				1000
+			]
+		}
+	],
+	"limitations": [
+		"Independent atlas GPU evidence, not main-menu integration.",
+		"Modern generalized physical coast, not seventeenth-century shoreline or berth reconstruction.",
+		"No game FPS benchmark or transoceanic navigation acceptance."
+	],
+	"recordType": "gpu-capture",
+	"schemaVersion": 1,
+	"scope": "independent-demo",
+	"sources": {
+		"res://assets/data/cartography/atlas_places.json": "e434b77c32d74fe267761259d228872f4b02e9ab15ddbcbbb13a8bb8ff2b7e6c",
+		"res://assets/data/cartography/east_asia_land.json": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+		"res://assets/data/cartography/provenance.json": "2253d67a9a8fe44c41e8349528820a911917015078e2c06f2ff2ace6b1273132",
+		"res://assets/ui/ming_maritime/chart-paper.png": "1819b2358bd12ceaab47d6e5abd066c4412ca43a6b94beafd030364139520aca",
+		"res://game/research/demos/antique_cartography.gd": "7a2c356973cead71cbbbb649f362b44577649a260aace26fb37a81ff43a2589f",
+		"res://game/ui/charts/world_atlas.gd": "75df0b4a260bd6dca75ef4019035319d8f6e883fc8a7df68d3099e0efa836d77",
+		"res://tools/capture-world-atlas.gd": "27d2c6a28658ff91cd7d42520a1942272502656e3a748a7706105e49f7ba073c"
+	},
+	"startedAtUtc": "2026-10-26T09:21:28",
+	"topic": "antique-cartography"
+}

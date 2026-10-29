@@ -1,0 +1,41 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const evidence=path.join(root,'docs/design/2026-10-27-painted-ui/evidence');
+const args=process.argv.slice(2),outputArg=args.find(value=>value.startsWith('--output='));
+const groups=args.filter(value=>!value.startsWith('--output='));
+if(![4,5].includes(groups.length)||new Set(groups).size!==groups.length||groups.some(value=>!/^[a-z0-9-]+$/.test(value))||!outputArg) throw new Error('Four core capture directories, optional shipbook group, and fresh --output=name.json required');
+const target=path.resolve(evidence,outputArg.slice('--output='.length));
+if(path.dirname(target)!==evidence||!target.endsWith('.json')||fs.existsSync(target)) throw new Error('Output must be a fresh JSON in current evidence root');
+const sha=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
+const local=resource=>{
+  if(!resource.startsWith('res://')) throw new Error('Project resource path required');
+  const file=path.resolve(root,resource.slice(6));
+  if(!file.startsWith(root+path.sep)) throw new Error('Resource escaped project');
+  return file;
+};
+const failures=[],runs=[];
+for(const directory of groups){
+  const resultFile=path.join(evidence,directory,'capture-result.json'),result=read(resultFile);
+  const log=path.join(evidence,directory+'.log'),processReceipt=read(log+'.process.json');
+  if(!processReceipt.accepted||processReceipt.exitCode!==0||processReceipt.engineError||processReceipt.processError) failures.push(directory+': process not accepted');
+  if(sha(log)!==processReceipt.logSha256) failures.push(directory+': changed log');
+  if(!processReceipt.runnerUnchanged||sha(path.join(root,'tools/run-maritime-check.mjs'))!==processReceipt.runnerSha256) failures.push(directory+': runner changed');
+  if(result.failures!==0||result.errors.length!==0||!result.originalSlotsUnchanged) failures.push(directory+': capture or save guard failed');
+  const completions=fs.readFileSync(log,'utf8').split(/\r?\n/).filter(line=>line.startsWith('PARCHMENT_UI_COMPLETE '));
+  const expected=`PARCHMENT_UI_COMPLETE group=${result.group} captures=${result.captures.length} assertions=${result.assertions} failures=0`;
+  if(completions.length!==1||completions[0]!==expected) failures.push(directory+': missing or ambiguous completion');
+  for(const [resource,hash] of Object.entries(result.sourceHashes)) if(sha(local(resource))!==hash) failures.push(directory+': source changed '+resource);
+  for(const capture of result.captures) if(sha(local(capture.png))!==capture.sha256) failures.push(directory+': changed PNG '+capture.label);
+  runs.push({directory,group:result.group,captures:result.captures.length,assertions:result.assertions,sourceCount:Object.keys(result.sourceHashes).length,sourceHashes:result.sourceHashes,originalSlotsUnchanged:true,resultSha256:sha(resultFile),processReceiptSha256:sha(log+'.process.json')});
+}
+const expectedGroups=groups.length===5?'atlas,catalog,menu,mingqi,naval':'atlas,menu,mingqi,naval';
+if([...runs.map(run=>run.group)].sort().join(',')!==expectedGroups) failures.push('Required actual UI surfaces not all covered, or an unexpected/duplicate group was supplied');
+const report={createdAtUtc:new Date().toISOString(),scope:'Current painted UI capture groups, PNG/source integrity and original slot guards; no OS-input, continuous gameplay, FPS or whole-game completion claim.',runs,totalCaptures:runs.reduce((n,x)=>n+x.captures,0),totalAssertions:runs.reduce((n,x)=>n+x.assertions,0),failures};
+fs.writeFileSync(target,JSON.stringify(report,null,2)+'\n',{flag:'wx'});
+console.log(`PAINTED_UI_DELIVERY captures=${report.totalCaptures} assertions=${report.totalAssertions} failures=${failures.length} manifest=${target}`);
+for(const failure of failures) console.error(failure);
+process.exitCode=failures.length?1:0;

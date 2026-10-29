@@ -1,0 +1,192 @@
+{
+	"actionCount": 1,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "atlas-main-entry-320",
+	"pngSha256": "8f28e3b7260c746a62b5e454efe2497f4aafe75c7c7cdd9427aff0196c9fbb4b",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/ui/charts/world_atlas.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontSize": 26,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/AtlasTitle",
+				"rect": [
+					28.0,
+					20.0,
+					230.0,
+					42.0
+				],
+				"text": "东洋南海舆图",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ZoomIn",
+				"rect": [
+					39.0,
+					108.0,
+					56.0,
+					38.0
+				],
+				"text": "＋",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ZoomOut",
+				"rect": [
+					101.0,
+					108.0,
+					56.0,
+					38.0
+				],
+				"text": "－",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ResetView",
+				"rect": [
+					163.0,
+					108.0,
+					56.0,
+					38.0
+				],
+				"text": "全图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ReturnFromAtlas",
+				"rect": [
+					225.0,
+					108.0,
+					56.0,
+					38.0
+				],
+				"text": "返回",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/HarbourSelector",
+				"rect": [
+					28.0,
+					64.0,
+					264.0,
+					40.0
+				],
+				"text": "厦门",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourSection",
+				"rect": [
+					28.0,
+					325.0,
+					260.0,
+					22.0
+				],
+				"text": "港 口 志",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontSize": 30,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourName",
+				"rect": [
+					28.0,
+					362.0,
+					260.0,
+					31.0
+				],
+				"text": "厦门",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourRegion",
+				"rect": [
+					28.0,
+					408.0,
+					260.0,
+					22.0
+				],
+				"text": "中左所  ·  福建沿岸",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/AtlasFooter",
+				"rect": [
+					28.0,
+					449.0,
+					264.0,
+					24.0
+				],
+				"text": "东洋南海 · 选港阅图",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 5,
+		"visibleControls": 14
+	},
+	"viewport": [
+		320,
+		480
+	]
+}

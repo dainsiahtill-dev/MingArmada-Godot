@@ -1,18 +1,20 @@
 extends RefCounted
 ## Shared paper/ink presentation only. No business state or input ownership.
-const PAPER := Color("ead3a6")
-const INK := Color("33281d")
-const MUTED := Color("6b513b")
-const OUTLINE := Color("9b7346")
-const CINNABAR := Color("8d3d2b")
-const SEA := Color("315a5a")
+const WindowStyle = preload("res://game/ui/shared/painted_window_style.gd")
+const FRAME_PATH := "res://assets/ui/ming_maritime/painted/quiet/framed/runtime/command-panel.png"
+const PAPER := Color("ead6aa")
+const INK := Color("173c46")
+const MUTED := Color("4b5953")
+const OUTLINE := Color("ab8449")
+const CINNABAR := Color("9f4331")
+const SEA := Color("365d61")
 const SUCCESS := Color("315b3d")
 const DANGER := Color("8d3025")
 const PALE := Color("fff1d3")
-const PANEL_PATH := "res://ming-armada-ui-panel.png"
-const BUTTON_PATH := "res://ming-armada-ui-button.png"
-const PRIMARY_PATH := "res://ming-armada-ui-button-primary.png"
-const BACKGROUNDS := {"menu":"res://ming-armada-ui-background-parchment.png","ledger":"res://ming-armada-ui-background-ledger.png","chart":"res://ming-armada-ui-background-chart.png"}
+const PANEL_PATH := "res://assets/ui/ming_maritime/panel-paper.png"
+const BUTTON_PATH := "res://assets/ui/ming_maritime/secondary-button.png"
+const PRIMARY_PATH := "res://assets/ui/ming_maritime/primary-button.png"
+const BACKGROUNDS := {"menu":"res://assets/ui/ming_maritime/menu-painting.png","ledger":PANEL_PATH,"chart":"res://assets/ui/ming_maritime/chart-paper.png"}
 
 static func title_font() -> Font:
 	var font := SystemFont.new()
@@ -28,31 +30,48 @@ static func _flat(color: Color, border: Color = OUTLINE, margin: float = 6.0) ->
 static func _paper(path: String, margin: float, tint: Color = Color.WHITE) -> StyleBoxTexture:
 	var style := StyleBoxTexture.new()
 	style.texture = load(path) as Texture2D
-	# The generated panel has a transparent outer fringe. Exclude that padding
-	# from the nine-patch region so content margins start at visible paper.
+	# New artwork is opaque edge-to-edge. Protect the corner ornaments for large
+	# panels; short controls use a quiet inner crop so their cap stays small.
 	if style.texture != null:
-		var inset := 32.0 if path == PANEL_PATH else 24.0
-		style.region_rect = Rect2(Vector2(inset,inset),style.texture.get_size()-Vector2(inset*2,inset*2))
-	style.set_texture_margin_all(8.0 if path == PANEL_PATH else 2.0)
+		var inset := Vector2(5,3) if path == BUTTON_PATH else Vector2.ZERO if path == PRIMARY_PATH or margin >= 22.0 else Vector2(64,64)
+		style.region_rect = Rect2(inset,style.texture.get_size()-inset*2)
+	style.set_texture_margin_all(48.0 if margin >= 22.0 and path == PANEL_PATH else 2.0)
 	style.set_content_margin_all(margin)
 	style.modulate_color = tint
 	return style
 
 static func panel(margin: float = 14.0, tone: String = "paper") -> StyleBox:
-	if tone == "dark": return _flat(Color("4c3526"),OUTLINE,margin)
-	var tint: Color = Color("e5d7bd") if tone == "inset" else Color.WHITE
+	if tone == "dark": return _flat(INK,OUTLINE,margin)
+	var tint: Color = Color("e7e9dd") if tone == "inset" else Color.WHITE
 	return _paper(PANEL_PATH,margin,tint)
+
+static func _floating_frame(body: StyleBoxTexture) -> StyleBox:
+	# Reuse the generated transparent frame without depending on Maritime's
+	# factory (which itself builds on this theme).
+	var texture: Texture2D
+	if ResourceLoader.exists(FRAME_PATH): texture = load(FRAME_PATH) as Texture2D
+	elif FileAccess.file_exists(FRAME_PATH):
+		var pixels := Image.load_from_file(FRAME_PATH)
+		if pixels != null and not pixels.is_empty(): texture = ImageTexture.create_from_image(pixels)
+	var edge := WindowStyle.framed_edge(texture)
+	var framed: StyleBox = WindowStyle.compose(body,edge)
+	return framed if framed != null else body
+
+static func floating_panel(margin: float = 14.0) -> StyleBox:
+	return _floating_frame(panel(margin) as StyleBoxTexture)
 
 static func button_style(state: String = "normal", primary: bool = false, margin: float = 12.0) -> StyleBox:
 	if state == "focus":
-		var focus := _flat(Color.TRANSPARENT,SEA if primary else CINNABAR,0)
-		focus.set_border_width_all(3)
+		var focus := _flat(Color.TRANSPARENT,SEA,0)
+		focus.set_border_width_all(2)
 		return focus
 	var tint := Color.WHITE
 	if state == "hover": tint = Color(1.09,1.07,1.02,1)
 	elif state == "pressed": tint = Color(0.84,0.80,0.72,1)
 	elif state == "disabled": tint = Color(0.88,0.85,0.79,0.74)
-	return _paper(PRIMARY_PATH if primary else BUTTON_PATH,margin,tint)
+	var material := _paper(PRIMARY_PATH if primary else BUTTON_PATH,margin,tint)
+	material.set_texture_margin_all(2.0)
+	return material
 
 static func background(parent: Node, variant: String = "ledger", node_name: String = "ParchmentBackground") -> TextureRect:
 	var existing := parent.get_node_or_null(NodePath(node_name)) as TextureRect
@@ -83,7 +102,10 @@ static func create() -> Theme:
 		result.set_color("caret_color",kind,CINNABAR)
 		result.set_color("selection_color",kind,Color("d2b580"))
 	result.set_color("default_color","RichTextLabel",INK)
-	for kind in ["PanelContainer","Panel","PopupPanel","AcceptDialog","FileDialog"]: result.set_stylebox("panel",kind,panel())
+	for kind in ["PanelContainer","Panel"]: result.set_stylebox("panel",kind,panel())
+	result.set_stylebox("panel","PopupPanel",floating_panel())
+	# A dialog's single outer Window border supplies the frame and shadow.
+	for kind in ["AcceptDialog","FileDialog"]: result.set_stylebox("panel",kind,panel())
 	for kind in ["Button","OptionButton","CheckBox","CheckButton"]:
 		for state in ["normal","hover","pressed","disabled","focus"]: result.set_stylebox(state,kind,button_style(state,false,8))
 		result.set_stylebox("hover_pressed",kind,button_style("pressed",false,8))
@@ -119,7 +141,7 @@ static func create() -> Theme:
 		result.set_stylebox(direction+"_background_pressed","SpinBox",_flat(CINNABAR,CINNABAR,0))
 	result.set_constant("buttons_width","SpinBox",16)
 	result.set_color("font_hover_color","PopupMenu",INK)
-	result.set_stylebox("panel","PopupMenu",panel(8))
+	result.set_stylebox("panel","PopupMenu",floating_panel(8))
 	result.set_stylebox("hover","PopupMenu",_flat(Color("d6b781"),OUTLINE,4))
 	result.set_stylebox("separator","PopupMenu",_flat(OUTLINE,OUTLINE,1))
 	result.set_constant("v_separation","PopupMenu",10)
@@ -160,10 +182,10 @@ static func create() -> Theme:
 		window_paper.set_expand_margin(SIDE_TOP,32); window_paper.set_expand_margin(SIDE_LEFT,8)
 		window_paper.set_expand_margin(SIDE_RIGHT,8); window_paper.set_expand_margin(SIDE_BOTTOM,6)
 		window_paper.set_content_margin(SIDE_TOP,28); window_paper.set_content_margin(SIDE_BOTTOM,8)
-		result.set_stylebox(state,"Window",window_paper)
+		result.set_stylebox(state,"Window",_floating_frame(window_paper))
 	result.set_constant("title_height","Window",36)
 	result.set_color("title_color","Window",INK); result.set_color("title_outline_modulate","Window",Color.TRANSPARENT)
 	result.set_icon("close","Window",_icon("close")); result.set_icon("close_pressed","Window",_icon("close"))
 	result.set_color("files_disabled","FileDialog",MUTED); result.set_color("folder_icon_color","FileDialog",OUTLINE); result.set_color("file_icon_color","FileDialog",SEA)
-	result.set_stylebox("panel","TooltipPanel",panel(8)); result.set_color("font_color","TooltipLabel",INK)
+	result.set_stylebox("panel","TooltipPanel",floating_panel(8)); result.set_color("font_color","TooltipLabel",INK)
 	return result

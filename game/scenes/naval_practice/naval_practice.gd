@@ -35,6 +35,9 @@ func _ready() -> void:
 	if not sea.configure(heights.sample_height,Catalog.DATA.PORTS,runtime.sample_water_height,runtime.snapshot().naval): startup_receipt={"ok":false,"reason":"practice-world-failed"}; return
 	services=Services.new(); add_child(services); services.configure(runtime,sea,settings_storage)
 	interface=Interface.new(); add_child(interface); interface.command_requested.connect(_command); interface.view_requested.connect(func(value): sea.tactical=value)
+	interface.owned_popup_focus_changed.connect(func():
+		if interface.is_fire_popup_active():runtime.release_held_controls()
+		call_deferred("_check_popup_focus"))
 	if not interface.configure_chart(Catalog.DATA.PORTS,heights.sample_height): startup_receipt={"ok":false,"reason":"practice-chart-failed"}; return
 	minimap=Chart.new(); add_child(minimap); minimap.configure(Catalog.DATA.PORTS,heights.sample_height)
 	minimap.chart_requested.connect(func(): _command({"type":"chart","value":true}))
@@ -43,7 +46,7 @@ func _ready() -> void:
 func activate_entry() -> void:
 	if not startup_receipt.get("ok",false) or not sea: return
 	Engine.physics_ticks_per_second=60; get_viewport().msaa_3d=Viewport.MSAA_4X
-	get_window().title="海上明旗 · "+{"duel":"单舰炮战","fleet":"舰队遭遇","sail":"自由试航"}[runtime.snapshot().runtime.mode]
+	get_window().title="海上明旗 · "+{"duel":"单舰炮战","fleet":"舰队遭遇","sail":"自由试航","fire":"火攻交锋"}[runtime.snapshot().runtime.mode]
 	runtime.set_pause("loading",false); _present(0)
 func _command(intent: Dictionary) -> void:
 	if sea and intent.get("type") in ["menu", "open-settings", "chart", "main-menu", "begin-surrender", "restart"]: sea.cancel_camera_drag()
@@ -74,7 +77,7 @@ func _physics_process(delta: float) -> void:
 		# Crew losses require their original whole-fleet pose/skin transfer.
 		# Fire keeps its accepted birth and native FX cadence without redrawing
 		# camera, unrelated actors, water, world, HUD or chart on each gun.
-		if Sea.requires_full_event_presentation(runtime.simulation._events): _present(0.0)
+		if runtime.requires_full_actor_presentation() or Sea.requires_full_event_presentation(runtime.simulation._events): _present(0.0)
 		else: _present_local_fire(0.0)
 func _process(_delta: float) -> void:
 	if interface and not _disposed: _present(0.0)
@@ -178,8 +181,17 @@ func _notification(what: int) -> void:
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT:
 		_mouse_course.cancel_gesture()
 		if sea: sea.cancel_camera_drag()
-		runtime.set_pause("blur",true)
-		if interface: _present(0)
+		# Windows may move focus from the root window to its own native popup.
+		# Check after that transition; a real switch away still requires Continue.
+		if interface and interface.is_fire_popup_active():call_deferred("_check_popup_focus")
+		else:_pause_for_blur()
+func _check_popup_focus()->void:
+	if _disposed or not runtime or runtime._disposed:return
+	if get_window().has_focus() or interface and interface.fire_popup_has_focus():return
+	_pause_for_blur()
+func _pause_for_blur()->void:
+	runtime.set_pause("blur",true)
+	if interface:_present(0)
 func _exit_tree() -> void:
 	if _disposed: return
 	_disposed=true

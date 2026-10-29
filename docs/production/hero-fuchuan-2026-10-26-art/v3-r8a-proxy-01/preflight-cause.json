@@ -1,0 +1,7 @@
+{
+  "failedWrapperSHA256": "e54638e356163914c07d60bf4f9bf021d52e70032fb897e39b56c4cf18a872ec",
+  "cause": "Incorrectly required current R7 wrapper SHA to equal historical build receipt SHA; metadata-only followup is recorded in authoritative post-build audit. No R6 import or candidate asset creation occurred.",
+  "currentRecipeAudit": "docs/research/evidence/hero-fuchuan/r7c-palette-20261026/final-audit-01/post-build-audit.json",
+  "recipeFollowup": "Builder now records canonicalizer SHA for future builds. Existing palette-build.json remains unchanged; current helper/wrapper hashes below were measured after this metadata-only update, not during the old build.",
+  "continuation": "Preserve -01 failure and use -02; bind current wrapper and canonicalizer to post-build audit, retain before==after guard."
+}

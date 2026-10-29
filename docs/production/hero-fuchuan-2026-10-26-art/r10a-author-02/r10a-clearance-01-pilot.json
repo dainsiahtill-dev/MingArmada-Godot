@@ -1,0 +1,84 @@
+{
+  "type": "discrete-near-contact-observation",
+  "startedUtc": "2026-10-26T23:24:26.500186+00:00",
+  "sourceSha256": {
+    "tools\\research\\verify_hero_r10_clearance.py": "9bfda7c9951be8b89d0997cd0a3f30959b37206c99d9fdc1e9dd4b47ef6f48ec",
+    "tools\\research\\hero_r10_triangle_distance.py": "09fe929be6b59a237f637b6465b3f0017721df42aeae1fda59c9f12bd274a708",
+    "tools\\research\\verify_hero_palette_delta.py": "0704d1e3cd540532b2c7eee1f9278f99fcf1d9eaf3e23e47aa89e279313fe1af",
+    "game\\presentation\\ships\\ship_view.gd": "156b0941dc068b78b19d5ea1d0e58f09774e9bc2657a89c478f19e876d051c39"
+  },
+  "toleranceMeters": 1e-07,
+  "limitations": [
+    "Floating point, not exact predicates or certified collision proof",
+    "near pair includes touches and crossings; not a penetration classification",
+    "discrete sampled morph states only; no continuous motion or all geometry",
+    "canvas includes repair patch; mast includes teak and hemp bindings",
+    "common mast yaw preserves these pairwise distances; no hull or other mast tested"
+  ],
+  "lods": [
+    {
+      "lod": 2,
+      "files": [
+        {
+          "path": "assets\\models\\hero_fuchuan_v3_r7c\\fuchuan-lod2.glb",
+          "sha256": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d"
+        },
+        {
+          "path": "assets\\models\\hero_fuchuan_v3_r10a\\fuchuan-lod2.glb",
+          "sha256": "2be0551a8aae163fb57d5b18c663dc59ca63a83661d547d69d29e552fee78f77"
+        }
+      ],
+      "records": [
+        {
+          "lod": 2,
+          "mast": 1,
+          "deployment": 1.0,
+          "furl": 0.0,
+          "inflate": 0.0,
+          "pairs": {
+            "canvas_mast": {
+              "baseline": {
+                "minimumMeters": 0.09171844048215984,
+                "nearToleranceMeters": 1e-07,
+                "narrowPhasePairs": 906,
+                "vertexUpperBoundMeters": 0.2997906173456083,
+                "nearPairCount": 0
+              },
+              "candidate": {
+                "minimumMeters": 0.09171844048215984,
+                "nearToleranceMeters": 1e-07,
+                "narrowPhasePairs": 916,
+                "vertexUpperBoundMeters": 0.2997906173456083,
+                "nearPairCount": 0
+              },
+              "candidateMinusBaselineMinimumMeters": 0.0,
+              "newNearPairCount": 0,
+              "removedNearPairCount": 0,
+              "newNearPairsFirst20": []
+            },
+            "canvas_bamboo": {
+              "baseline": {
+                "minimumMeters": 0.0,
+                "nearToleranceMeters": 1e-07,
+                "narrowPhasePairs": 3433,
+                "vertexUpperBoundMeters": 0.009000003539969964,
+                "nearPairCount": 84
+              },
+              "candidate": {
+                "minimumMeters": 0.0,
+                "nearToleranceMeters": 1e-07,
+                "narrowPhasePairs": 3434,
+                "vertexUpperBoundMeters": 0.009000003539969964,
+                "nearPairCount": 84
+              },
+              "candidateMinusBaselineMinimumMeters": 0.0,
+              "newNearPairCount": 0,
+              "removedNearPairCount": 0,
+              "newNearPairsFirst20": []
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

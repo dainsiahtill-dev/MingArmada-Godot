@@ -1,0 +1,101 @@
+{
+	"label": "03-hirado-port-detail",
+	"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-final/03-hirado-port-detail.png",
+	"recordType": "gpu-capture",
+	"sha256": "737cf265dc7747c4ead65bfb2f072742d2996c65502046db919ef2abe9a579e5",
+	"state": {
+		"atlas": {
+			"data_bounds": {
+				"position": [
+					92.0,
+					-12.0
+				],
+				"size": [
+					56.0,
+					57.0
+				]
+			},
+			"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+			"disposed": false,
+			"engraving": true,
+			"geography_basis": "longitude-latitude",
+			"geometry": {
+				"failed_polygons": 0,
+				"land_polygons": 328,
+				"mesh_builds": 2,
+				"triangles": 3934,
+				"vertices": 4590
+			},
+			"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+			"projection": "equirectangular-standard-parallel-25N",
+			"ready": true,
+			"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+			"selected_port": {
+				"description": "九州西北海面上的港湾，与川内浦相邻。此点采用长崎县平户港测站地理坐标。",
+				"id": "hirado",
+				"lat": 33.371389,
+				"lon": 129.555,
+				"name": "平户",
+				"precision": "现代港区测站，非十七世纪泊位",
+				"region": "东洋航路",
+				"source": "长崎県 測定地点一覧表 PDF page 25",
+				"sourceId": "620-1",
+				"sourceName": "平戸港",
+				"subtitle": "九州西岸"
+			},
+			"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+			"view_bounds": {
+				"position": [
+					120.804992675781,
+					24.4651374816895
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			},
+			"zoom": 3.2
+		},
+		"camera": {
+			"mode": "overview",
+			"type": "2D-geographic-view",
+			"view_bounds": {
+				"position": [
+					120.804992675781,
+					24.4651374816895
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			}
+		},
+		"disposed": false,
+		"fixed_step": 0.03125,
+		"parameters": {
+			"camera_mode": "overview",
+			"engraving": true,
+			"paused": true
+		},
+		"paused": true,
+		"ready": true,
+		"resources": {
+			"atlas": 1
+		},
+		"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+		"seed": 0,
+		"telemetry": {
+			"failed_polygons": 0,
+			"land_polygons": 328,
+			"mesh_builds": 2,
+			"triangles": 3934,
+			"vertices": 4590
+		},
+		"tick": 0,
+		"time": 0.0
+	},
+	"viewport": [
+		1600,
+		1000
+	]
+}

@@ -1,0 +1,125 @@
+{
+  "pass": true,
+  "errors": [],
+  "images": [
+    {
+      "variant": "baseline",
+      "checks": {
+        "exit0": true,
+        "processValid": true,
+        "reportHash": true,
+        "sourceHash": true,
+        "sourceUnchanged": true,
+        "rendererCPU": true,
+        "threeImages": true,
+        "image-hero": true,
+        "image-stern": true,
+        "image-hull-detail": true
+      },
+      "processSha256": "aaa6309531afbb37fbb032a092258dea1626dd8365d9498b9e3ea3b03bdad25a",
+      "logSha256": "f91d0a65c8161f4374f47db2651074c54de645481154465a13d834c14184354b",
+      "sourceSha256": "2961f7f28d31cfc71a16638fbd634b4245912adb1fcf79bc55bfc5d00722d2e8",
+      "cameras": [
+        {
+          "eye": [
+            34,
+            22,
+            39
+          ],
+          "target": [
+            0,
+            10,
+            0
+          ],
+          "orthoScale": 60
+        },
+        {
+          "eye": [
+            -31,
+            19,
+            -36
+          ],
+          "target": [
+            0,
+            10,
+            0
+          ],
+          "orthoScale": 58
+        },
+        {
+          "eye": [
+            27,
+            7,
+            1
+          ],
+          "target": [
+            0,
+            2,
+            1
+          ],
+          "orthoScale": 24
+        }
+      ]
+    },
+    {
+      "variant": "candidate",
+      "checks": {
+        "exit0": true,
+        "processValid": true,
+        "reportHash": true,
+        "sourceHash": true,
+        "sourceUnchanged": true,
+        "rendererCPU": true,
+        "threeImages": true,
+        "image-hero": true,
+        "image-stern": true,
+        "image-hull-detail": true
+      },
+      "processSha256": "313c6b3f255459aedab5a85a674348a0c9340fee8a2d45e6912de695f47763a0",
+      "logSha256": "bc130f8cf3cd1478c1ee76450b98bb8cf8ac4fdc53fca75bc594e76a8fd2d663",
+      "sourceSha256": "34f1d34439648632942c1309ea25837ffd0e5cb0f0b8bf391ba5bf6bf36956dc",
+      "cameras": [
+        {
+          "eye": [
+            34,
+            22,
+            39
+          ],
+          "target": [
+            0,
+            10,
+            0
+          ],
+          "orthoScale": 60
+        },
+        {
+          "eye": [
+            -31,
+            19,
+            -36
+          ],
+          "target": [
+            0,
+            10,
+            0
+          ],
+          "orthoScale": 58
+        },
+        {
+          "eye": [
+            27,
+            7,
+            1
+          ],
+          "target": [
+            0,
+            2,
+            1
+          ],
+          "orthoScale": 24
+        }
+      ]
+    }
+  ],
+  "scope": "Two same-camera same-script CPU Blender static reviews. Not a Godot render, animated play or collision acceptance."
+}

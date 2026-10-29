@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "task_date": "2026-10-29",
+  "intended_use": "Original Godot scene VFX billboard textures for restrained historical Chinese naval fire and gunpowder smoke.",
+  "generation_tool": "image_gen.imagegen (built-in)",
+  "generation_model": "not exposed by tool",
+  "transparent_background_requested": true,
+  "external_reference_images": [],
+  "postprocessing": "None. Selected native PNG results copied byte-for-byte; generated alpha preserved. Pillow used only for inspection.",
+  "provenance_boundary": "AI-generated visual assets, not historical primary-source imagery. No third-party texture, image or external licensing claim is asserted.",
+  "assets": [
+    {
+      "file": "smoke-puff.png",
+      "sha256": "01403c42ea740eb115f86fab00ddc2fb762527354e7464e6a2c6301a5a2d0d19",
+      "selected_native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-16cda09f-9a5d-468a-8524-5f413c63d7f7.png",
+      "generation_steps": [
+        {
+          "operation": "generate",
+          "prompt": "Use case: stylized-concept\nAsset type: original realtime Godot naval combat VFX billboard particle texture, single isolated raster asset, square canvas at least 1024 x 1024.\nPrimary request: One single soft volumetric gunpowder smoke puff, centered and fully isolated on a genuinely transparent background. Irregular billowing edges and very fine semi-transparent wisps. Visually rich but restrained realistic smoke for an antique Chinese naval battle scene; not a painting scene or marketing artwork.\nComposition/framing: Single connected smoke puff fills roughly 70 percent of square canvas, generous transparent padding on every edge, no cut off wisps, gentle uneven asymmetry useful for rotating particle billboards.\nLighting/mood: Very softly lit from upper left, readable soft internal volume without sharp contrast or hard highlights.\nColor palette: Neutral desaturated warm gray, slightly denser gray core and translucent perimeter.\nMaterials/textures: Delicate turbulent curls, diffusion and fine wisps; preserve continuous partial alpha through the wisps.\nConstraints: Actual transparent alpha, no scenery, no ground, no base, no cast shadow, no text, no watermark, no border, no checkerboard painted in image, no solid background. No circular icon, no cotton ball or stylized cloud outline. Render just one smoke puff, never a sheet of multiple assets or a montage.",
+          "native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-2952aa5e-6b2c-4cff-b9d0-81796e19eaaa.png"
+        },
+        {
+          "operation": "edit",
+          "prompt": "Edit only the smoke boundary and framing of the reference smoke particle texture. Keep its neutral gray volumetric turbulent smoke interior and soft upper-left lighting. Make the overall puff fit inside the central 65 percent of the square image with at least 15 percent fully transparent padding on all sides, including all wisps. Replace every sharp or saturated yellow/red-looking fringe with soft diffuse semitransparent neutral warm-gray smoke wisps, continuously fading to zero alpha. The smoke must have no colored light or color fringing anywhere. Avoid hard cutout edges and cotton-like lobes; favor gentle gas diffusion. It is a single rotating Godot smoke billboard particle asset. Actual transparent background, no ground, shadows, icons, text, border, painted checkerboard or new objects. Preserve natural smoke volume. Square at least 1024 x 1024.",
+          "reference": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-2952aa5e-6b2c-4cff-b9d0-81796e19eaaa.png",
+          "native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-16cda09f-9a5d-468a-8524-5f413c63d7f7.png"
+        }
+      ],
+      "inspection": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alpha_min": 0,
+        "alpha_max": 254,
+        "alpha_nonzero_bounds": [
+          0,
+          0,
+          1250,
+          1254
+        ],
+        "alpha_gt_8_bounds": [
+          103,
+          102,
+          1181,
+          1156
+        ],
+        "fully_transparent_pixels": 745698,
+        "partial_alpha_pixels": 826818,
+        "visible_saturated_red_yellow_pixels": 0,
+        "visible_color_measure": "Count where alpha > 8, red > 180 and red-blue > 70.",
+        "visual_review": "Single irregular volumetric gray smoke puff; upper-left soft light; no scene, fuel, ground, text or painted checkerboard."
+      },
+      "limitations": [
+        "Very low alpha residual pixels extend beyond visible puff bounds, including the canvas edge; no cleanup was applied.",
+        "Visible alpha > 8 padding is approximately 6 to 8 percent, less than the 15 percent requested in the revision prompt.",
+        "Runtime billboard motion, blending and particle accumulation require Godot scene validation."
+      ]
+    },
+    {
+      "file": "flame.png",
+      "sha256": "334b8cc322afee32254a6c17eac71eac91a423ab95f708221d2975e6f3467412",
+      "selected_native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-1a3571d6-4c89-43d7-9849-8eb41b26d350.png",
+      "generation_steps": [
+        {
+          "operation": "generate",
+          "prompt": "Use case: stylized-concept\nAsset type: original realtime Godot naval combat VFX billboard particle texture, one isolated raster asset on a square canvas at least 1024 x 1024.\nPrimary request: One single compact irregular sheet of realistic amber-orange flames. Pale hot interior, amber tongues curling upward with dark-red lower wisps. Fire is visually rich and natural but restrained, suitable for historical Chinese naval warfare and gunpowder atmosphere.\nComposition/framing: Single connected compact flame cluster, centered base toward the lower middle, flame fills roughly 65 percent of the square canvas, generous completely transparent padding on all four sides, fully visible tips and base. Broad irregular bottom and several slender unequal curling flame tongues rather than a triangular symbol.\nLighting/mood: Natural luminous flames with fine flowing structure, warm amber and orange, pale yellow-white hottest core, subdued dark-red lower wisps.\nMaterials/textures: Wispy layered gas combustion, continuous soft semi-transparent edges with no hard outline; no neon glow ring.\nConstraints: Genuine transparent alpha background. No logs, fuel, smoke, ground, cast shadows, scenery, sparks detached beyond the padding, no text, no watermark, no border, no checkerboard painted in image, no solid background. No icon, no cartoon silhouette, no neon colors. Render one single flame texture, never a grid, sprite sheet, montage or multiple objects.",
+          "native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-69515649-6f4f-4c72-bf4e-ddfb34664ecd.png"
+        },
+        {
+          "operation": "edit",
+          "prompt": "Change only framing of this isolated flame texture: zoom out to place the whole exact fire shape inside the central 60 percent of a square transparent canvas, with at least 18 percent completely transparent margin at both top and bottom, and 15 percent on left and right. Keep the same naturally detailed amber-orange curled gas flames, pale hot center and dark-red lower gas wisps. All tips and entire base must be comfortably inside the image, never cut off. Do not add glow, smoke, sparks, logs, fuel, ground, cast shadow, text, checkerboard or backdrop. Preserve genuine alpha and soft semitransparent edges. One compact realistic game particle flame asset, square at least 1024 x 1024.",
+          "reference": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-69515649-6f4f-4c72-bf4e-ddfb34664ecd.png",
+          "native_output": "C:/Users/dains/.codex/generated_images/01a184a7-e34a-7f01-aeed-661c84a7a480/exec-1a3571d6-4c89-43d7-9849-8eb41b26d350.png"
+        }
+      ],
+      "inspection": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_nonzero_bounds": [
+          0,
+          37,
+          1238,
+          1231
+        ],
+        "alpha_gt_8_bounds": [
+          246,
+          130,
+          1047,
+          1108
+        ],
+        "fully_transparent_pixels": 1100179,
+        "partial_alpha_pixels": 472307,
+        "visual_review": "Single irregular connected amber-orange flame sheet with pale hot center and darker red lower wisps; full base and tips visible; no fuel, smoke, ground, text or painted checkerboard."
+      },
+      "limitations": [
+        "Very low alpha residual pixels extend beyond visible flame bounds; no cleanup was applied.",
+        "Visible alpha > 8 top and bottom padding is approximately 10 to 12 percent, less than the 18 percent requested in the revision prompt.",
+        "Runtime billboard motion, blending, emission and particle accumulation require Godot scene validation."
+      ]
+    }
+  ],
+  "validation": {
+    "visual_inspection_tool": "view_image",
+    "pixel_inspection": "Pillow read-only",
+    "source_destination_sha256_match": true,
+    "game_runtime_verified": false
+  }
+}

@@ -39,7 +39,7 @@ func _action(action,token:String):
 func _label(id:String,watch:Callable)->Label:
 	var label=Label.new();label.name=id;label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	if id=="encounter_heading":
-		label.add_theme_font_override("font",Parchment.title_font());label.add_theme_font_size_override("font_size",24);label.add_theme_color_override("font_color",Parchment.CINNABAR)
+		label.add_theme_font_override("font",Parchment.title_font());label.add_theme_font_size_override("font_size",24);label.add_theme_color_override("font_color",Parchment.INK)
 	elif id=="encounter_context":
 		label.add_theme_font_size_override("font_size",14);label.add_theme_color_override("font_color",Parchment.MUTED)
 	_content.add_child(label);_bindings.append(func():label.text=Text.display_text(str(watch.call())));return label
@@ -50,7 +50,7 @@ func _button(parent,id:String,title:String,callback:Callable,enabled:Callable)->
 func _build():
 	_bindings.clear()
 	if _panel:remove_child(_panel);_panel.queue_free()
-	_panel=PanelContainer.new();_panel.name="encounter_panel";add_child(_panel)
+	_panel=PanelContainer.new();_panel.name="encounter_panel";add_child(_panel);_panel.add_theme_stylebox_override("panel",Parchment.floating_panel())
 	var scroll=ScrollContainer.new();scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;_panel.add_child(scroll)
 	_content=VBoxContainer.new();_content.name="encounter_content";_content.size_flags_horizontal=Control.SIZE_EXPAND_FILL;_content.add_theme_constant_override("separation",12);scroll.add_child(_content)
 	_label("encounter_heading",func():return TITLES.get(_kind,"挑战")+" · "+("演练" if _packet.get("practice",false) else "生涯挑战"))

@@ -2,6 +2,7 @@ extends RefCounted
 ## Current 1650 opening slice. All state is detached JSON data; no scene/time globals.
 const Catalog = preload("res://game/domain/mingqi/catalog.gd")
 const SaveCodec = preload("res://game/domain/persistence/save_codec.gd")
+const CargoDamage = preload("res://game/domain/mingqi/cargo_damage.gd")
 const OpeningStory = preload("res://game/domain/mingqi/opening_story.gd")
 const SecondVoyageAftermath = preload("res://game/domain/mingqi/second_voyage_aftermath.gd")
 const MAX_SAFE = 9007199254740991
@@ -20,6 +21,24 @@ func _init(seed: int = 1650, captain_name: String = "林船长", campaign_id: St
 	_state = _initial(seed, captain_name, campaign_id)
 
 func snapshot() -> Dictionary: return _state.duplicate(true)
+func cargo_presentation() -> Dictionary:
+	var now := float(_state.get("simulationSeconds",0.0))
+	var manifests: Dictionary = {}
+	for id: String in _state.get("vessels",{}):
+		manifests[id] = _state.vessels[id].cargo.duplicate(true)
+	var drops: Array = []
+	var history: Array = _state.get("chronicle",[])
+	# Chronicle order is accepted-time order. Inspect only the visible tail;
+	# quantities changing through trade or unloading never imply a dropped lot.
+	for index in range(history.size()-1,-1,-1):
+		var event: Dictionary = history[index]
+		if now-float(event.simTime) >= 40.0: break
+		if event.kind != "cargo-loss": continue
+		var details: Dictionary = _state.settlements[event.id].get("details",{})
+		if details.get("kind") == "cargo-drop" and details.get("hasImpact") == true and float(details.campaignTime) <= now:
+			drops.append(details.duplicate(true))
+	drops.reverse()
+	return {"epoch":_state.get("campaignId",""),"time":now,"manifests":manifests,"drops":drops}
 func current_port_id() -> Variant: return _state.get("currentPortId")
 func serialize(now_utc: String = "2026-10-11T00:00:00.000Z") -> String:
 	return SaveCodec.encode(_state, now_utc)
@@ -700,9 +719,18 @@ func _sync(s: Dictionary,snap: Dictionary,events: Array,arrival_controls: Array=
 			if not _require(s.vessels.has(e.get("targetId")) and e.get("ammo") in ["solid","chain","grape"] and e.get("damage") is Dictionary,"invalid-near-hit"):return
 			for field in ["hull","sail","crew"]:
 				if not _require(_finite(e.damage.get(field)) and e.damage[field]>=0,"invalid-near-hit"):return
-			var v=s.vessels[e.targetId];var loss=min(5,v.cargo.get("grain",0)) if e.ammo=="solid" else 0
-			if loss>0:v.cargo.grain-=loss;v.revision+=1
-			_record(s,id,"cargo-loss" if loss else "near-hit",v.name+"中弹，损失"+str(int(loss))+"粮。",[e.shipId,e.targetId,e.id])
+			var v=s.vessels[e.targetId]
+			var cargo_context={"id":e.id,"campaignId":s.campaignId,"battleId":snap.battleId,"nativeTick":snap.tick,"eventTime":e.time,"nativeTime":snap.time,"campaignTime":s.simulationSeconds,"vesselId":v.id,"sourceShipId":e.shipId,"ammo":e.ammo,"pose":v.pose}
+			if e.has("position"):cargo_context.position=e.position
+			var cargo_loss: Dictionary = CargoDamage.plan(v.cargo,cargo_context)
+			if not _require(cargo_loss.ok,cargo_loss.get("reason","invalid-near-cargo")):return
+			var loss: int = int(cargo_loss.loss)
+			if loss>0:v.cargo=cargo_loss.afterCargo;v.revision+=1
+			var label: String = {"grain":"粮","water":"淡水","wood":"木材","iron":"铁料","powder":"火药","cloth":"布匹","silk":"丝绸","porcelain":"瓷器","tea":"茶","sugar":"糖","salt":"盐","spices":"香料"}.get(cargo_loss.goodId,"粮")
+			# Old unlocated hit fixtures retain their original receipt shape.
+			# Only an actual impact position can authorize a visual dropped lot.
+			var details: Variant = cargo_loss.details if loss>0 and e.has("position") else null
+			_record(s,id,"cargo-loss" if loss else "near-hit",v.name+"中弹，损失"+str(loss)+label+"。",[e.shipId,e.targetId,e.id],details)
 		else:_record(s,id,"near-"+e.type,s.vessels[e.shipId].name+"："+e.type+"。",[e.shipId,e.id])
 	for id in ids:effective_draft(s.vessels[id]);_inspect(s,s.vessels[id],id in arrival_controls,id in explicit_controls)
 	for person in s.people.values():

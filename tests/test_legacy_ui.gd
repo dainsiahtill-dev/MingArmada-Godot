@@ -24,6 +24,9 @@ func run():
 	var packet = {"adventure":session.snapshot(),"naval":{"ships":[]},"runtime":{"generation":1,"revision":1,"paused":false,"canSave":true}}
 	var original = packet.duplicate(true)
 	ui.apply_snapshot(packet)
+	for window_name in ["hud", "operation", "menu_panel", "result_panel"]:
+		var floating: PanelContainer = ui.find_child(window_name,true,false)
+		check(floating != null and floating.get_theme_stylebox("panel").has_method("get_edge_style"), "legacy floating window has generated frame: "+window_name)
 	for page in ["market","shipyard","recruit","officers","quests","people","fleet","factions","chart","log","save","settings"]:
 		ui.open_panel(page)
 		check(ui.find_child("panel_"+page,true,false) is Control, "real page "+page)

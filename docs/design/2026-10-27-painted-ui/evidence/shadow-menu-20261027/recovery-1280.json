@@ -1,0 +1,272 @@
+{
+	"actionCount": 13,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/Retry",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "recovery-1280",
+	"pngSha256": "5b786731330fc5bad27d0bb49367aa21d5e1175e1fc153d36812b4f97642326a",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel",
+				"panelMargins": [
+					24.0,
+					24.0,
+					24.0,
+					24.0
+				],
+				"rect": [
+					290.0,
+					16.0,
+					700.0,
+					688.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/@Label@11",
+				"rect": [
+					314.0,
+					40.0,
+					648.0,
+					29.0
+				],
+				"text": "恢复海上明旗 · 1650 航程",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c9b58fff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/Reason",
+				"rect": [
+					314.0,
+					79.0,
+					648.0,
+					25.0
+				],
+				"text": "本地航程校验未通过；原始内容仍保留。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "bbc3b8ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/@Label@12",
+				"rect": [
+					314.0,
+					114.0,
+					648.0,
+					25.0
+				],
+				"text": "可重新读取、使用备份，或导入网页导出的 v2 JSON。导入成功前保留原存档。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/Retry",
+				"rect": [
+					314.0,
+					149.0,
+					648.0,
+					42.0
+				],
+				"text": "重新读取本地存档",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/Backup",
+				"rect": [
+					314.0,
+					201.0,
+					648.0,
+					42.0
+				],
+				"text": "验证并继续备份航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ExportRaw",
+				"rect": [
+					314.0,
+					253.0,
+					648.0,
+					42.0
+				],
+				"text": "复制原始待恢复内容",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ExportBackup",
+				"rect": [
+					314.0,
+					305.0,
+					648.0,
+					42.0
+				],
+				"text": "复制已验证备份",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ExportFile",
+				"rect": [
+					314.0,
+					357.0,
+					648.0,
+					42.0
+				],
+				"text": "将原始内容另存为文件",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ImportJSON",
+				"rect": [
+					314.0,
+					409.0,
+					648.0,
+					130.0
+				],
+				"type": "TextEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ImportJSONButton",
+				"rect": [
+					314.0,
+					549.0,
+					648.0,
+					42.0
+				],
+				"text": "验证并导入 JSON",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/ImportFile",
+				"rect": [
+					314.0,
+					601.0,
+					648.0,
+					42.0
+				],
+				"text": "选择 JSON 文件导入",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/EntryUI/SaveRecovery/@CenterContainer@7/RecoveryPanel/RecoveryScroll/@VBoxContainer@10/Back",
+				"rect": [
+					314.0,
+					653.0,
+					648.0,
+					42.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 8,
+		"visibleControls": 18
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

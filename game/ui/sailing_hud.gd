@@ -11,7 +11,7 @@ func _ready() -> void:
 	var panel := PanelContainer.new()
 	panel.theme = Parchment.create()
 	panel.position = Vector2(24, 24)
-	var style: StyleBox = Parchment.panel(18)
+	var style: StyleBox = Parchment.floating_panel(18)
 	panel.add_theme_stylebox_override("panel", style)
 	add_child(panel)
 	var column := VBoxContainer.new()

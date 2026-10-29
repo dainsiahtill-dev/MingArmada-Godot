@@ -1,0 +1,101 @@
+{
+	"label": "sequence-17",
+	"path": "res://docs/design/2026-10-26-ming-maritime/atlas/gpu-final/sequence-17.png",
+	"recordType": "gpu-continuous-sequence",
+	"sha256": "ddc402278627ddee8ba3c039c7fe51e09dc79c4f339b629d8799f2137862d3d3",
+	"state": {
+		"atlas": {
+			"data_bounds": {
+				"position": [
+					92.0,
+					-12.0
+				],
+				"size": [
+					56.0,
+					57.0
+				]
+			},
+			"data_sha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c",
+			"disposed": false,
+			"engraving": true,
+			"geography_basis": "longitude-latitude",
+			"geometry": {
+				"failed_polygons": 0,
+				"land_polygons": 328,
+				"mesh_builds": 23,
+				"triangles": 3934,
+				"vertices": 4590
+			},
+			"paper": "res://assets/ui/ming_maritime/chart-paper.png",
+			"projection": "equirectangular-standard-parallel-25N",
+			"ready": true,
+			"scope": "Read-only geographic atlas; no campaign navigation, fleet pose, save or settings writes.",
+			"selected_port": {
+				"description": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+				"id": "xiamen",
+				"lat": 24.451938,
+				"lon": 118.078071,
+				"name": "厦门",
+				"precision": "城市区域定位，非古代泊位",
+				"region": "福建沿岸",
+				"source": "Natural Earth 10m populated places",
+				"sourceId": "1159149129",
+				"sourceName": "Xiamen",
+				"subtitle": "中左所"
+			},
+			"source_sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+			"view_bounds": {
+				"position": [
+					109.97681427002,
+					15.6828804016113
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			},
+			"zoom": 3.2
+		},
+		"camera": {
+			"mode": "overview",
+			"type": "2D-geographic-view",
+			"view_bounds": {
+				"position": [
+					109.97681427002,
+					15.6828804016113
+				],
+				"size": [
+					17.5,
+					17.8125
+				]
+			}
+		},
+		"disposed": false,
+		"fixed_step": 0.03125,
+		"parameters": {
+			"camera_mode": "overview",
+			"engraving": true,
+			"paused": false
+		},
+		"paused": false,
+		"ready": true,
+		"resources": {
+			"atlas": 1
+		},
+		"scope": "Independent geographic reading atlas; no session, campaign, game clock, save, settings or network access.",
+		"seed": 0,
+		"telemetry": {
+			"failed_polygons": 0,
+			"land_polygons": 328,
+			"mesh_builds": 23,
+			"triangles": 3934,
+			"vertices": 4590
+		},
+		"tick": 18,
+		"time": 0.5625
+	},
+	"viewport": [
+		1600,
+		1000
+	]
+}

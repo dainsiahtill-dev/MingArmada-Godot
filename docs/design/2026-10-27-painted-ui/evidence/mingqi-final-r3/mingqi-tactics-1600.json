@@ -1,0 +1,815 @@
+{
+	"actionCount": 6,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_tactics",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "mingqi-tactics-1600",
+	"pngSha256": "0d18884d3d668ce783fd5dafaf4c8312cc7bfc8db8d94c6e0235c47395d515a1",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/mingqi/mingqi_scene.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud",
+				"panelMargins": [
+					24.0,
+					24.0,
+					24.0,
+					24.0
+				],
+				"rect": [
+					18.0,
+					18.0,
+					370.0,
+					270.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/header_composition/title",
+				"rect": [
+					42.0,
+					42.0,
+					318.0,
+					44.0
+				],
+				"text": "海上明旗",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/identity",
+				"rect": [
+					42.0,
+					92.0,
+					318.0,
+					22.0
+				],
+				"text": "1650年1月1日  ·  沈沧海  ·  19岁",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/silver",
+				"rect": [
+					42.0,
+					120.0,
+					318.0,
+					22.0
+				],
+				"text": "银 650两   借债 400两   航程 0.0秒",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/navigation",
+				"rect": [
+					42.0,
+					148.0,
+					318.0,
+					48.0
+				],
+				"text": "航向 090°   航速 0.0节\n风速 12.0 m/s  ·  厦门",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c9b58fff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/objective_row/current_objective",
+				"rect": [
+					42.0,
+					208.0,
+					262.0,
+					22.0
+				],
+				"text": "当前目标 · 接下护粮委托",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/objective_row/objective_open",
+				"rect": [
+					312.0,
+					202.0,
+					48.0,
+					35.0
+				],
+				"text": "查看",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "bbc3b8ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/hud/hud_scroll/hud_body/voyage_progress",
+				"rect": [
+					42.0,
+					243.0,
+					318.0,
+					22.0
+				],
+				"text": "首航 · 接单 · 期限 30:00",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock",
+				"panelMargins": [
+					24.0,
+					16.0,
+					24.0,
+					16.0
+				],
+				"rect": [
+					18.0,
+					765.0,
+					1564.0,
+					117.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_ship",
+				"rect": [
+					42.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "旗舰",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_convoy",
+				"rect": [
+					295.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "船队海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_port",
+				"rect": [
+					548.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "港口贸易",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_boarding",
+				"rect": [
+					801.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "接舷俘获",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_tactics",
+				"rect": [
+					1054.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "战术",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/navigation_tabs/nav_story",
+				"rect": [
+					1307.0,
+					781.0,
+					246.0,
+					42.0
+				],
+				"text": "航海日志",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/pause",
+				"rect": [
+					42.0,
+					828.0,
+					60.0,
+					38.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_0_25",
+				"rect": [
+					110.0,
+					828.0,
+					60.0,
+					38.0
+				],
+				"text": "0.25×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_1_0",
+				"rect": [
+					178.0,
+					828.0,
+					60.0,
+					38.0
+				],
+				"text": "1.0×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/speed_8_0",
+				"rect": [
+					246.0,
+					828.0,
+					60.0,
+					38.0
+				],
+				"text": "8.0×",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/menu_open",
+				"rect": [
+					314.0,
+					828.0,
+					60.0,
+					38.0
+				],
+				"text": "菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/camera_captain",
+				"rect": [
+					382.0,
+					828.0,
+					80.0,
+					38.0
+				],
+				"text": "驾驶视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/camera_tactical",
+				"rect": [
+					470.0,
+					828.0,
+					80.0,
+					38.0
+				],
+				"text": "高位海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/stop_sailing",
+				"rect": [
+					558.0,
+					828.0,
+					80.0,
+					38.0
+				],
+				"text": "停船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/sailing_manual",
+				"rect": [
+					646.0,
+					828.0,
+					80.0,
+					38.0
+				],
+				"text": "操船手册",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "bbc3b8ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/command_dock/command_scroll/command_body/command_actions/time_state",
+				"rect": [
+					734.0,
+					837.0,
+					824.0,
+					19.0
+				],
+				"text": "航行中 · 1.0×",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation",
+				"panelMargins": [
+					24.0,
+					76.0,
+					24.0,
+					24.0
+				],
+				"rect": [
+					1142.0,
+					18.0,
+					440.0,
+					733.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 30,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/@HFlowContainer@1195/panel_heading",
+				"rect": [
+					1166.0,
+					97.0,
+					304.0,
+					31.0
+				],
+				"text": "船队战术",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/@HFlowContainer@1195/panel_close",
+				"rect": [
+					1478.0,
+					94.0,
+					80.0,
+					38.0
+				],
+				"text": "收起",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c9b58fff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 22,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/heading_1",
+				"rect": [
+					1166.0,
+					155.0,
+					388.0,
+					23.0
+				],
+				"text": "受指挥船只",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_ship_mingqi-1650-heritage",
+				"rect": [
+					1166.0,
+					188.0,
+					388.0,
+					40.0
+				],
+				"text": "继承商船承家号",
+				"type": "CheckBox"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_kind_label",
+				"rect": [
+					1166.0,
+					238.0,
+					388.0,
+					25.0
+				],
+				"text": "战术指令",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_kind",
+				"rect": [
+					1166.0,
+					273.0,
+					388.0,
+					38.0
+				],
+				"text": "护航",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_target_label",
+				"rect": [
+					1166.0,
+					321.0,
+					388.0,
+					25.0
+				],
+				"text": "明确目标",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_target",
+				"rect": [
+					1166.0,
+					356.0,
+					388.0,
+					38.0
+				],
+				"text": "借用福船明旗号",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/@HFlowContainer@1350/tactics_range_label",
+				"rect": [
+					1166.0,
+					410.0,
+					250.0,
+					25.0
+				],
+				"text": "保持距离（米）",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/@HFlowContainer@1353/point_x_label",
+				"rect": [
+					1166.0,
+					458.0,
+					250.0,
+					25.0
+				],
+				"text": "集结 / 航位 X",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/@HFlowContainer@1356/point_z_label",
+				"rect": [
+					1166.0,
+					506.0,
+					250.0,
+					25.0
+				],
+				"text": "集结 / 航位 Z",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_target_text",
+				"rect": [
+					1166.0,
+					548.0,
+					388.0,
+					25.0
+				],
+				"text": "当前目标：借用福船明旗号",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_submit",
+				"rect": [
+					1166.0,
+					583.0,
+					388.0,
+					38.0
+				],
+				"text": "下达战术指令",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/navigate",
+				"rect": [
+					1166.0,
+					631.0,
+					388.0,
+					38.0
+				],
+				"text": "旗舰驶向指定航位",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "eadfcaff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/tactics_pause_note",
+				"rect": [
+					1166.0,
+					679.0,
+					388.0,
+					19.0
+				],
+				"text": "指令按真实船况与目标检查；手动操船接管旗舰。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "c9b58fff",
+				"fontFamily": "KaiTi",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 22,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/MingqiAdventure/@CanvasLayer@535/MingqiScreen/operation/@VBoxContainer@1194/operation_scroll/@VBoxContainer@1198/panel_tactics/heading_15",
+				"rect": [
+					1166.0,
+					722.0,
+					388.0,
+					23.0
+				],
+				"text": "实际指令与草案",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 3,
+		"unclippedOverflow": [],
+		"visibleButtons": 22,
+		"visibleControls": 64
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

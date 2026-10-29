@@ -48,4 +48,30 @@ median使用排序中间值、偶数时两值均分；p95/p99为nearest-rank。�
 
 最终全量`full-suite-final-02.json`已于2026-10-25 22:33:58 UTC结束（进程退出1）：303个测试文件全部运行，301通过、2失败，`passedAll=false`。`test_visual_qa_clock.gd`与`test_visual_qa_scene.gd`均在60秒超时、退出1且完成标记为0；后者仅记录startup=33101ms、quality=55961ms，未产生完成回执，根因尚未诊断。未发现Godot ERROR行。对`integration-progress-02.json.currentGameModuleHashes`记录的264项逐一复核，当前SHA256全部匹配；摘要见`full-suite-final-02-summary.json`。上述定向GREEN只证明对应修复，整套仍失败；本轮未重启或补跑测试。
 
-下一美术对照见`docs/production/hero-fuchuan-2026-10-26-art/NEXT-MAIN-CAMERA-LIGHT.md`：先复现正式照明，再独立比较环境补光，保留米白帆/浅甲板/赤褐船壳/深水线层次。当前候选未运行，不把计划写成艺术验收。
+检查点后的美术对照见`docs/production/hero-fuchuan-2026-10-26-art/NEXT-MAIN-CAMERA-LIGHT.md`：A/B/C/D已取得真实GPU原帧，但轻微提亮不足以解决暗舷，尚未接受或接入正式游戏。AA另有独立对照与失败方法记录，不把工具执行成功写成艺术验收。
+
+## 两项视觉QA超时的定点诊断（checkpoint之后）
+
+本节补充`b21e2a52c5e39dc14d1cc8353105361f1c4e5545`之后的只读诊断。最终全量仍为**303项、301通过、2项严格超时失败，passedAll=false**；未重跑整套，也未修改产品、两个测试的原脚本/断言、演员、画质或runner的60秒上限。
+
+先按clock→scene顺序各运行一次原strict runner。`visual-qa-clock-repro-01.json`在60643ms超时，`visual-qa-scene-repro-01.json`在60610ms超时；两者均退出1、没有完成标记，没有FAIL断言或Godot ERROR行。scene本次仅到`startup elapsed_ms=34149`。因此两项严格超时都能复现，仍须保留失败结论。
+
+与主线程GPU检查错开后，再按相同顺序用外部120秒watchdog直接执行未改动的原`--script`。`visual-qa-clock-external-01.process.json`及同名前缀stdout/stderr保存clock的29断言/0失败；`visual-qa-scene-external-01.process.json`保存scene的17断言/0失败。两者退出0、未触发120秒watchdog、无Godot错误，运行前后原测试及QA/World路径SHA256相同。外部完成只证明原逻辑能完整执行，不能替换原来的60秒strict失败或全量301/303结果。
+
+scene自身原有`Time.get_ticks_msec()`阶段日志如下，单位秒：
+
+| 脚本累计阶段 | 先前full-suite-final-01 | 本次external-01 | 本次自上一阶段增加 |
+| --- | ---: | ---: | ---: |
+| startup完成 | 18.918 | 37.718 | 37.718 |
+| quality完成 | 31.591 | 61.354 | 23.636 |
+| restart完成 | 45.983 | **85.772** | 24.418 |
+
+当前scene的质量切换完成时已经超过严格预算，随后还需约24.4秒完成真实重启。调用路径为`VisualQA._ready→NavalWorldView.configure→_configure_world`；质量变化经`Services._apply→NavalWorldView.apply_settings→_configure_world`；restart在generation变化后再次调用`NavalWorldView.configure`，释放并重建真实世界。`WorldView.configure`同步构建自然岛屿、植被、岸线与高度纹理等资源。现有阶段证据定位到构建/重建累计成本，尚未把这些内部子阶段逐项计时。clock同样包含启动和restart路径，但原脚本没有上述阶段日志，不把scene的分段数值套给clock。
+
+外部诊断第一版工具的`elapsedProcessWallMs`字段还包含Godot退出后的最后一次系统采样，clock为61749ms、scene为88495ms；**这两个字段不能标为精确Godot进程耗时**。scene的85.772秒来自原脚本内部阶段日志，不受该尾采样限制。`visual-qa-diagnostic-measurement-notes-01.json`明确保存此解释，原始回执未覆盖；Temp工具随后增加独立process-close时间字段，未为此补跑或补造旧数据。
+
+`visual-qa-source-readback-01.json`保留旧checkpoint `94003ac`与当前源码的逐文件哈希。clock旧/现SHA256均为`446f9d302f73d43aa8a75e099ab77c26089fa6e8071e9cc6db5b1f703d8282f4`；scene、QA owner、NavalWorldView与WorldView内容也相同。生产云编译器的旧/现差异仍是本报告已记载的调用内复用，不能仅凭耗时倍率把超时归因给它。先前full-suite-final-01没有逐文件运行内哈希，保留这一历史证据边界。
+
+系统采样显示clock期间总CPU为11–52%、Godot约每10秒累计9.5–10个CPU秒、工作集峰约420MiB；scene期间总CPU为6–23%、工作集峰约527MiB，可用物理内存最低约8.9GiB。未观察到内存耗尽或进程完全等待。只读电源检查为AC在线、电池100%且不充放电、平衡方案；瞬时WMI频率1700MHz、Perf计数器频率1328MHz、performance233%、maximum-frequency99%。缺少先前运行的同类同步测量，**这些机器状态不能确定温度、供电或后台进程的因果**，也不构成性能改进结论。
+
+下一项具体可选工作是独立分段测量真正的world构建成本，保持原源输入、演员、质量、seed和失败基线，先测自然地形/植被、岸线高度纹理、模型与重启释放各段，再决定是否研究复用不随质量变化的只读资源。本轮优先继续模型美术对照，暂不扩大这项repair范围；严格回归仍有两项超时未通过。

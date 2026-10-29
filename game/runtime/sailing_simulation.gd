@@ -127,10 +127,14 @@ func set_held(code: String, down: bool) -> void:
 	if code in ["KeyA","KeyD","ArrowLeft","ArrowRight"]: _owned_helm = true
 	if code in ["KeyA","KeyD","KeyS","ArrowLeft","ArrowRight","ArrowDown","BracketLeft","BracketRight"]:
 		_assist.cancel(); encounter.setManualHandling(_current.playerId,null)
+func release_held_controls() -> void:
+	# A modal native popup can consume key-up. Release via the same per-key
+	# path as normal input, retaining queued attacks and persistent course orders.
+	for code: String in _held.keys(): set_held(code,false)
 func action(command: Dictionary) -> void:
 	if _paused: return
 	var owned: Dictionary = command.duplicate(true)
-	if owned.get("type") in ["controls","fire","select-ammo"] and not owned.has("shipId"): owned.shipId = _current.playerId
+	if owned.get("type") in ["controls","fire","select-ammo","launch-fire","fire-control"] and not owned.has("shipId"): owned.shipId = _current.playerId
 	_queued.append(owned)
 func _consume_actions() -> bool:
 	var adopted_rudder := false

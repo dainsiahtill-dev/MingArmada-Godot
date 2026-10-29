@@ -1,0 +1,827 @@
+{
+	"actionCount": 7,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Value",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "naval-settings-1280",
+	"pngSha256": "420b9c2b154ae37fe6e33b556d7a368a69c24427fd0c65989c64748e52bcf5e3",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/naval_practice/naval_practice.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel",
+				"panelMargins": [
+					16.0,
+					16.0,
+					16.0,
+					16.0
+				],
+				"rect": [
+					330.0,
+					44.0,
+					620.0,
+					632.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/@Label@560",
+				"rect": [
+					346.0,
+					60.0,
+					588.0,
+					29.0
+				],
+				"text": "航海设置",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "9f4331ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Reason",
+				"rect": [
+					346.0,
+					99.0,
+					588.0,
+					19.0
+				],
+				"text": "设置更改将保存到本机。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Caption",
+				"rect": [
+					346.0,
+					137.0,
+					284.0,
+					22.0
+				],
+				"text": "操船方式",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/handling/Value",
+				"rect": [
+					650.0,
+					128.0,
+					284.0,
+					40.0
+				],
+				"text": "辅助操船",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Caption",
+				"rect": [
+					346.0,
+					187.0,
+					284.0,
+					22.0
+				],
+				"text": "画面质量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/quality/Value",
+				"rect": [
+					650.0,
+					178.0,
+					284.0,
+					40.0
+				],
+				"text": "均衡",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/Caption",
+				"rect": [
+					346.0,
+					237.0,
+					284.0,
+					22.0
+				],
+				"text": "航海音效",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/sound/Value",
+				"rect": [
+					650.0,
+					228.0,
+					284.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/soundVolume/Caption",
+				"rect": [
+					346.0,
+					285.0,
+					284.0,
+					22.0
+				],
+				"text": "音效音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/Caption",
+				"rect": [
+					346.0,
+					333.0,
+					284.0,
+					22.0
+				],
+				"text": "背景音乐",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/music/Value",
+				"rect": [
+					650.0,
+					324.0,
+					284.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/musicVolume/Caption",
+				"rect": [
+					346.0,
+					381.0,
+					284.0,
+					22.0
+				],
+				"text": "音乐音量",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/Caption",
+				"rect": [
+					346.0,
+					429.0,
+					284.0,
+					22.0
+				],
+				"text": "减少动态效果",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/reducedMotion/Value",
+				"rect": [
+					650.0,
+					420.0,
+					284.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraShake/Caption",
+				"rect": [
+					346.0,
+					477.0,
+					284.0,
+					22.0
+				],
+				"text": "镜头晃动",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/Caption",
+				"rect": [
+					346.0,
+					525.0,
+					284.0,
+					22.0
+				],
+				"text": "镜头跟随",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/cameraFollow/Value",
+				"rect": [
+					650.0,
+					516.0,
+					284.0,
+					40.0
+				],
+				"text": "开启",
+				"type": "CheckButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Scroll/Fields/horizonStability/Caption",
+				"rect": [
+					346.0,
+					573.0,
+					284.0,
+					22.0
+				],
+				"text": "地平线稳定",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@Node@555/@CanvasLayer@557/SettingsPanel/Center/Panel/Column/Close",
+				"rect": [
+					346.0,
+					618.0,
+					588.0,
+					42.0
+				],
+				"text": "返回",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/NavigationSummary",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					18.0,
+					18.0,
+					430.0,
+					96.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 22,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/NavigationSummary/@VBoxContainer@584/PracticeHeading",
+				"rect": [
+					32.0,
+					32.0,
+					402.0,
+					23.0
+				],
+				"text": "单舰炮战 · 逐浪号",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/NavigationSummary/@VBoxContainer@584/NavigationStatus",
+				"rect": [
+					32.0,
+					59.0,
+					402.0,
+					41.0
+				],
+				"text": "航向 000°   航速 1.1 节   风速 14 m/s\n船体 100%   风帆 100%   水手 100",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel",
+				"panelMargins": [
+					12.0,
+					12.0,
+					12.0,
+					12.0
+				],
+				"rect": [
+					130.0,
+					538.0,
+					1020.0,
+					164.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/SailControl/@Label@588",
+				"rect": [
+					142.0,
+					559.0,
+					28.0,
+					19.0
+				],
+				"text": "帆面",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/SailControl/SailReadout",
+				"rect": [
+					320.0,
+					559.0,
+					40.0,
+					19.0
+				],
+				"text": "100%",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/stop_sailing",
+				"rect": [
+					366.0,
+					550.0,
+					95.0,
+					38.0
+				],
+				"text": "停船",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/trim",
+				"rect": [
+					467.0,
+					550.0,
+					111.0,
+					38.0
+				],
+				"text": "调帆 R",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/pause",
+				"rect": [
+					584.0,
+					550.0,
+					95.0,
+					38.0
+				],
+				"text": "暂停",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/captain_view",
+				"rect": [
+					685.0,
+					550.0,
+					95.0,
+					38.0
+				],
+				"text": "船长",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/tactical_view",
+				"rect": [
+					786.0,
+					550.0,
+					95.0,
+					38.0
+				],
+				"text": "高位",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/open_chart",
+				"rect": [
+					887.0,
+					550.0,
+					116.0,
+					38.0
+				],
+				"text": "航图 M",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/HandlingCommands/help",
+				"rect": [
+					1009.0,
+					550.0,
+					127.0,
+					38.0
+				],
+				"text": "收起手册",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryCommands/fire_port",
+				"rect": [
+					142.0,
+					596.0,
+					190.0,
+					38.0
+				],
+				"text": "左舷开炮 Q",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryCommands/fire_starboard",
+				"rect": [
+					338.0,
+					596.0,
+					186.0,
+					38.0
+				],
+				"text": "右舷开炮 E",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryCommands/solid",
+				"rect": [
+					530.0,
+					596.0,
+					203.0,
+					38.0
+				],
+				"text": "实心弹 1 · 40",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryCommands/chain",
+				"rect": [
+					739.0,
+					596.0,
+					187.0,
+					38.0
+				],
+				"text": "链弹 2 · 20",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryCommands/grape",
+				"rect": [
+					932.0,
+					596.0,
+					203.0,
+					38.0
+				],
+				"text": "葡萄弹 3 · 20",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "4b5953ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/CommandPanel/CommandScroll/@VBoxContainer@587/GunneryStatus",
+				"rect": [
+					142.0,
+					642.0,
+					996.0,
+					19.0
+				],
+				"text": "左舷 · 转船使敌舰进入舷侧 ±25°   /   右舷 · 可齐射 · VOC武装商船",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual",
+				"panelMargins": [
+					16.0,
+					16.0,
+					16.0,
+					16.0
+				],
+				"rect": [
+					882.0,
+					18.0,
+					380.0,
+					320.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 22,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual/@ScrollContainer@591/@VBoxContainer@592/@Label@593",
+				"rect": [
+					898.0,
+					34.0,
+					348.0,
+					23.0
+				],
+				"text": "操船手册",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 15,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual/@ScrollContainer@591/@VBoxContainer@592/MouseSailingHint",
+				"rect": [
+					898.0,
+					67.0,
+					348.0,
+					135.0
+				],
+				"text": "左键点海面持续航行 · 中键停船\n按住右键拖动视角 · 滚轮缩放\nF 恢复跟船 · W / S 升帆与收帆\nA / D 转舵 · [ / ] 调整帆角\n空格 朝最近敌舰开炮 · M 航图\nEsc 打开航行菜单",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual/@ScrollContainer@591/@VBoxContainer@592/@HFlowContainer@594/settings",
+				"rect": [
+					898.0,
+					212.0,
+					172.0,
+					38.0
+				],
+				"text": "航海设置",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual/@ScrollContainer@591/@VBoxContainer@592/@HFlowContainer@594/surrender",
+				"rect": [
+					1074.0,
+					212.0,
+					172.0,
+					38.0
+				],
+				"text": "降旗投降",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/SailingManual/@ScrollContainer@591/@VBoxContainer@592/close_help",
+				"rect": [
+					898.0,
+					260.0,
+					348.0,
+					38.0
+				],
+				"text": "收起手册",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/PracticeModal",
+				"panelMargins": [
+					16.0,
+					16.0,
+					16.0,
+					16.0
+				],
+				"rect": [
+					460.0,
+					205.0,
+					360.0,
+					310.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "9f4331ff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/PracticeModal/@VBoxContainer@595/@Label@596",
+				"rect": [
+					476.0,
+					221.0,
+					328.0,
+					25.0
+				],
+				"text": "航行暂停",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/PracticeModal/@VBoxContainer@595/resume",
+				"rect": [
+					476.0,
+					258.0,
+					328.0,
+					38.0
+				],
+				"text": "继续航行",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/PracticeModal/@VBoxContainer@595/restart",
+				"rect": [
+					476.0,
+					308.0,
+					328.0,
+					38.0
+				],
+				"text": "重新开始",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Node3D@339/@CanvasLayer@583/PracticeScreen/PracticeModal/@VBoxContainer@595/main_menu",
+				"rect": [
+					476.0,
+					358.0,
+					328.0,
+					38.0
+				],
+				"text": "返回主菜单",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 3,
+		"unclippedOverflow": [],
+		"visibleButtons": 25,
+		"visibleControls": 82
+	},
+	"viewport": [
+		1280,
+		720
+	]
+}

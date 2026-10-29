@@ -1,0 +1,198 @@
+{
+  "asset": "hero-fuchuan-v3-r11",
+  "baseline": "hero-fuchuan-v3-r9b",
+  "sourceBlend": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r9b.blend",
+  "sourceBlendSha256": "2961f7f28d31cfc71a16638fbd634b4245912adb1fcf79bc55bfc5d00722d2e8",
+  "authorBlend": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r11.blend",
+  "authorBlendSha256": "a0f08653e31cefb9d0bc9a4513e63c0361f8f2849b42149a1999a55158717727",
+  "png": "assets/textures/hero_fuchuan_r9/sunfaded-cinnabar-hemp-sail.png",
+  "pngSha256": "f89da712948d0b3f3f72506f1375fbe27c8fabee6d816c5ea055ced67b491970",
+  "briefSha256BeforeBuild": "ea7f219c7919849821d55f581f027a8be9d03a9364e50007965a9dfff5c14f28",
+  "builderSha256": "dd3d4e21e439da7489cc2cdc5fc338157ce34be55189fa27f349135180bc53ec",
+  "checkerSha256": "20dfaada95968ef249a38bd53297d6289d431582d1de94133e47e6736bf2b330",
+  "coefficients": [
+    [
+      0.94,
+      1.02,
+      0.92,
+      0.99,
+      0.95,
+      1.03,
+      0.93,
+      1.0,
+      0.95
+    ],
+    [
+      0.96,
+      1.04,
+      0.94,
+      1.0,
+      0.91,
+      1.02,
+      0.95,
+      0.99,
+      0.94
+    ],
+    [
+      0.92,
+      1.0,
+      0.96,
+      1.03,
+      0.94,
+      0.99,
+      0.91,
+      1.02,
+      0.95
+    ]
+  ],
+  "interpolation": "smoothstep between nine nominal-UV height knots; linear RGB clamped to 0..1",
+  "construction": "Blender authoring file with canvas POINT SailAge edits; GLBs are original R9b bytes with only exclusive canvas COLOR_0 float32 values changed",
+  "lods": [
+    {
+      "lod": 0,
+      "source": "assets/models/hero_fuchuan_v3_r9b/fuchuan-lod0.glb",
+      "sourceSha256": "89f3498555d73c981c35f28831330aeb4d3700d8e8838a0617af2867e5bd555e",
+      "candidate": "assets/models/hero_fuchuan_v3_r11/fuchuan-lod0.glb",
+      "candidateSha256": "410fd9760bf49e0b486bee9cd4bee29f65bc85dd7883a71fc6bea93e967680b8",
+      "canvas": [
+        {
+          "sail": 0,
+          "vertices": 676,
+          "changedVertices": 657,
+          "accessor": 252,
+          "view": 257,
+          "span": [
+            17638412,
+            17646524
+          ],
+          "minimumActualGain": 0.9199999650088468,
+          "maximumActualGain": 1.0300000333489332
+        },
+        {
+          "sail": 1,
+          "vertices": 676,
+          "changedVertices": 638,
+          "accessor": 305,
+          "view": 314,
+          "span": [
+            21699656,
+            21707768
+          ],
+          "minimumActualGain": 0.9099999663651867,
+          "maximumActualGain": 1.04000003595979
+        },
+        {
+          "sail": 2,
+          "vertices": 676,
+          "changedVertices": 657,
+          "accessor": 349,
+          "view": 361,
+          "span": [
+            22027716,
+            22035828
+          ],
+          "minimumActualGain": 0.9099999676289,
+          "maximumActualGain": 1.030000036459561
+        }
+      ]
+    },
+    {
+      "lod": 1,
+      "source": "assets/models/hero_fuchuan_v3_r9b/fuchuan-lod1.glb",
+      "sourceSha256": "9538ace6fcdd4df672bf5413f015413daadb10786ddb5dc39a014d1fda700032",
+      "candidate": "assets/models/hero_fuchuan_v3_r11/fuchuan-lod1.glb",
+      "candidateSha256": "73ae5b037fd0d7e7af81e20bf30b723f8bff8247afd7f7643ebd528a5c571a02",
+      "canvas": [
+        {
+          "sail": 0,
+          "vertices": 350,
+          "changedVertices": 337,
+          "accessor": 251,
+          "view": 256,
+          "span": [
+            15450324,
+            15454524
+          ],
+          "minimumActualGain": 0.9199999650088468,
+          "maximumActualGain": 1.0300000344062055
+        },
+        {
+          "sail": 1,
+          "vertices": 350,
+          "changedVertices": 337,
+          "accessor": 304,
+          "view": 314,
+          "span": [
+            19354136,
+            19358336
+          ],
+          "minimumActualGain": 0.9099999694674679,
+          "maximumActualGain": 1.04000003595979
+        },
+        {
+          "sail": 2,
+          "vertices": 350,
+          "changedVertices": 337,
+          "accessor": 348,
+          "view": 362,
+          "span": [
+            19541312,
+            19545512
+          ],
+          "minimumActualGain": 0.9099999676289,
+          "maximumActualGain": 1.030000036459561
+        }
+      ]
+    },
+    {
+      "lod": 2,
+      "source": "assets/models/hero_fuchuan_v3_r9b/fuchuan-lod2.glb",
+      "sourceSha256": "4881423c772747be3a6371e7c572c23eb343ca32290c5c1c6fc8708253e4126b",
+      "candidate": "assets/models/hero_fuchuan_v3_r11/fuchuan-lod2.glb",
+      "candidateSha256": "38f5631e17f43fdd731a7bb3592b5d91a4e84e3dd9bafb15d8bbf3d17d32cbea",
+      "canvas": [
+        {
+          "sail": 0,
+          "vertices": 178,
+          "changedVertices": 169,
+          "accessor": 251,
+          "view": 256,
+          "span": [
+            14372568,
+            14374704
+          ],
+          "minimumActualGain": 0.9199999650088468,
+          "maximumActualGain": 1.0300000344062055
+        },
+        {
+          "sail": 1,
+          "vertices": 178,
+          "changedVertices": 160,
+          "accessor": 304,
+          "view": 314,
+          "span": [
+            18220192,
+            18222328
+          ],
+          "minimumActualGain": 0.9099999668103508,
+          "maximumActualGain": 1.04000003595979
+        },
+        {
+          "sail": 2,
+          "vertices": 178,
+          "changedVertices": 169,
+          "accessor": 348,
+          "view": 362,
+          "span": [
+            18356664,
+            18358800
+          ],
+          "minimumActualGain": 0.9099999676289,
+          "maximumActualGain": 1.030000036459561
+        }
+      ]
+    }
+  ],
+  "formalProviderUnchanged": true,
+  "scope": "CPU provenance candidate; no GPU, performance or gameplay acceptance"
+}

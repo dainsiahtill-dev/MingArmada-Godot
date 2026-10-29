@@ -1,0 +1,85 @@
+{
+  "asset": "hero-fuchuan-v3-r7c",
+  "tool": "5.4.0 Alpha",
+  "seed": 1650,
+  "basis": "Godot Y-up, +Z bow, meters; Blender source Z-up -Y bow",
+  "nominalPhysics": {
+    "length": 32,
+    "beam": 9,
+    "draft": 2,
+    "gunsPerSide": 4
+  },
+  "provenance": "Original R6 geometry with partitioned materials; retained four image_gen base colors plus one new image_gen sunwashed wood and retained procedural tar",
+  "historicalStatus": "Period-informed game interpretation; not certified historical reconstruction",
+  "lods": [
+    {
+      "lod": 0,
+      "path": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod0.glb",
+      "sha256": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+      "bytes": 22618932,
+      "objects": 81,
+      "triangles": 110793,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    },
+    {
+      "lod": 1,
+      "path": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod1.glb",
+      "sha256": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+      "bytes": 19989024,
+      "objects": 81,
+      "triangles": 53653,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    },
+    {
+      "lod": 2,
+      "path": "assets/models/hero_fuchuan_v3_r7c/fuchuan-lod2.glb",
+      "sha256": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+      "bytes": 18715072,
+      "objects": 81,
+      "triangles": 31057,
+      "triangleCountSource": "exported GLB index accessors, after modifiers"
+    }
+  ],
+  "source": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r7c.blend",
+  "textureProvenance": "assets/textures/hero_fuchuan_r7/provenance.json",
+  "retainedTextureProvenance": "assets/textures/hero_fuchuan_v2/provenance.json",
+  "paletteVariant": "r7c",
+  "rudderUVCanonicalization": [
+    {
+      "node": "rudder_blade",
+      "changed_components": 4,
+      "changed_vertices": 4,
+      "max_abs_delta": 1.4901161193847656e-08,
+      "candidate_sha256_before": "4050892d2cb1baae61dd5b151dc493089a63d8626a590e38d2be87346bbd3c16",
+      "candidate_sha256_after": "b87af112855cb6883faf97ec02a5eeb5fd61a5d504f204d3b3a573e73735d02d",
+      "reference_sha256": "8c3063c2c18a5c0e413cb502bb42e0458ea6ee1209b6bdc6d847e3fe5ee91fc7",
+      "byte_length": 22618932,
+      "no_op": false,
+      "lod": 0
+    },
+    {
+      "node": "rudder_blade",
+      "changed_components": 0,
+      "changed_vertices": 0,
+      "max_abs_delta": 0.0,
+      "candidate_sha256_before": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+      "candidate_sha256_after": "db9f01b8968f66f2a1c27c689e9a9e0cdd7f03ea27d86a9b6f2bb911872e461a",
+      "reference_sha256": "fc8e9199ef9fa6f5160ebcd190f180fcaf11b3f83db9da3fb621ed9c17e2c62d",
+      "byte_length": 19989024,
+      "no_op": true,
+      "lod": 1
+    },
+    {
+      "node": "rudder_blade",
+      "changed_components": 0,
+      "changed_vertices": 0,
+      "max_abs_delta": 0.0,
+      "candidate_sha256_before": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+      "candidate_sha256_after": "16aa79cb89074879354d82402540f478e9ad5279085d2c53d7f92d579aa2291d",
+      "reference_sha256": "89d060fcfe05b4db591e0395b1e7a1ae0f211814185e27d3b0ecfcf440e68b52",
+      "byte_length": 18715072,
+      "no_op": true,
+      "lod": 2
+    }
+  ]
+}

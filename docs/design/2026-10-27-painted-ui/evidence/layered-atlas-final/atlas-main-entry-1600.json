@@ -1,0 +1,313 @@
+{
+	"actionCount": 1,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "atlas-main-entry-1600",
+	"pngSha256": "6075929401075448776b8fb847c23b7c32571452eb4572fa0fa4fc872d907608",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/ui/charts/world_atlas.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "SimSun",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 32,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/AtlasTitle",
+				"rect": [
+					28.0,
+					20.0,
+					1250.0,
+					42.0
+				],
+				"text": "东洋南海舆图",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/AtlasSubtitle",
+				"rect": [
+					30.0,
+					67.0,
+					1540.0,
+					247.0
+				],
+				"text": "山海相望，帆路相通",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ZoomIn",
+				"rect": [
+					1324.0,
+					24.0,
+					56.0,
+					38.0
+				],
+				"text": "＋",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ZoomOut",
+				"rect": [
+					1386.0,
+					24.0,
+					56.0,
+					38.0
+				],
+				"text": "－",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ResetView",
+				"rect": [
+					1448.0,
+					24.0,
+					56.0,
+					38.0
+				],
+				"text": "全图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/ReturnFromAtlas",
+				"rect": [
+					1510.0,
+					24.0,
+					56.0,
+					38.0
+				],
+				"text": "返回",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/HarbourSelector",
+				"rect": [
+					28.0,
+					93.0,
+					218.0,
+					40.0
+				],
+				"text": "厦门",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourSection",
+				"rect": [
+					1010.65637207031,
+					145.0,
+					310.0,
+					22.0
+				],
+				"text": "港 口 志",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "SimSun",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 30,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourName",
+				"rect": [
+					1010.65637207031,
+					182.0,
+					310.0,
+					31.0
+				],
+				"text": "厦门",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourRegion",
+				"rect": [
+					1010.65637207031,
+					228.0,
+					310.0,
+					22.0
+				],
+				"text": "中左所  ·  福建沿岸",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 18,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourDescription",
+				"rect": [
+					1010.65637207031,
+					265.0,
+					310.0,
+					53.0
+				],
+				"text": "面对金门的福建港湾；近海岛屿、湾口和外洋彼此相接。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/HarbourCoordinates",
+				"rect": [
+					1010.65637207031,
+					333.0,
+					310.0,
+					19.0
+				],
+				"text": "东经 118.08°  ·  北纬 24.45°",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/FocusHarbour",
+				"rect": [
+					1010.65637207031,
+					367.0,
+					310.0,
+					42.0
+				],
+				"text": "放大这片海域",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/HarbourDetails/@VBoxContainer@352/AtlasReadingHint",
+				"rect": [
+					1010.65637207031,
+					424.0,
+					310.0,
+					41.0
+				],
+				"text": "点击港口看图志\n拖动图面 · 滚轮缩放",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "463e2cff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/@Control@339/AtlasFooter",
+				"rect": [
+					28.0,
+					869.0,
+					1544.0,
+					415.0
+				],
+				"text": "东至日本，南至爪哇  ·  一卷阅尽东洋南海",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 6,
+		"visibleControls": 20
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

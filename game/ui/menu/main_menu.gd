@@ -4,8 +4,9 @@ signal intent_requested(intent: Dictionary)
 signal settings_requested
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 const DEFAULT_NAME := "沈沧海"
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","sail","qa"]
+const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","fire","sail","qa"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 const PAPER := Parchment.PAPER
 const INK := Parchment.INK
@@ -104,7 +105,7 @@ func _request(entry: String) -> void:
 	if _phase != "menu" or _generation < 0: return
 	if entry == "continue" and _model.get("hasLegacySave",false) != true: return
 	if entry in DEVELOPMENT_MODES and not _qa_enabled(): return
-	if entry not in MODES and entry not in ["ships","laboratory","practice","water-study","fidelity-island","fidelity-source","quit"]: return
+	if entry not in MODES and entry not in ["world-atlas","ships","laboratory","practice","water-study","fidelity-island","fidelity-source","quit"]: return
 	var payload: Dictionary = {"type":"start" if entry in MODES else entry,"name":_draft_name}
 	if entry in MODES:
 		if entry == "mingqi" and _qa_enabled():
@@ -154,19 +155,31 @@ func _render() -> void:
 	_retry.visible = _phase == "error"; _back.visible = not idle
 	_buttons["continue"].text = "继续旧版航程\n"+("载入旧版本地航程" if _model.get("hasLegacySave",false) == true else "尚无旧版存档")
 	_slot_hint.text = {"present":"载入本地安全存档","unreadable":"读取受阻 · 重试或导入存档","missing":"导入存档或恢复航程"}.get(_model.get("mingqiSlot","missing"),"导入存档或恢复航程")
-	_buttons["mingqi-continue"].text = "继续海上明旗 · 1650\n"+_slot_hint.text
+	_buttons["mingqi-continue"].text = "继续航程 · 1650" if _model.get("mingqiSlot","missing") == "present" else "恢复航程 · 1650"
+	_buttons["mingqi-continue"].tooltip_text = _slot_hint.text
 
 func _theme() -> Theme:
-	return Parchment.create()
+	var result:=Parchment.create()
+	var floating:=Maritime.create()
+	# The title painting keeps its original reading palette. Detached hints and
+	# native editing menus share the same framed floating material as gameplay.
+	for kind: String in ["PopupMenu","TooltipPanel","TooltipLabel"]:
+		for key: String in floating.get_stylebox_list(kind): result.set_stylebox(key,kind,floating.get_stylebox(key,kind))
+		for key: String in floating.get_color_list(kind): result.set_color(key,kind,floating.get_color(key,kind))
+		for key: String in floating.get_font_list(kind): result.set_font(key,kind,floating.get_font(key,kind))
+		for key: String in floating.get_font_size_list(kind): result.set_font_size(key,kind,floating.get_font_size(key,kind))
+		for key: String in floating.get_icon_list(kind): result.set_icon(key,kind,floating.get_icon(key,kind))
+		for key: String in floating.get_constant_list(kind): result.set_constant(key,kind,floating.get_constant(key,kind))
+	return result
 
 func _label(parent: Node, id: String, text: String, font_size: int = 17) -> Label:
 	var label := Label.new(); label.name = id; label.text = text; label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL; label.add_theme_font_size_override("font_size",font_size); parent.add_child(label); return label
 
 func _entry(parent: Node, id: String, title: String, subtitle: String, primary: bool = false) -> Button:
-	var button := Button.new(); button.name = id; button.text = title+"\n"+subtitle
+	var button := Button.new(); button.name = id; button.text = title+"\n"+subtitle if primary else title
 	button.tooltip_text = title+" · "+subtitle; button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; button.custom_minimum_size.y = 64 if primary else 56
+	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; button.custom_minimum_size.y = 60 if primary else 48
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL; button.add_theme_font_size_override("font_size",19 if primary else 16)
 	if primary:
 		button.theme_type_variation = "PrimaryButton"
@@ -180,15 +193,19 @@ func build() -> void:
 	_built = true; name = "MainMenu"; set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP; theme = _theme()
 	Parchment.background(self,"menu","Harbor")
-	_panel = PanelContainer.new(); _panel.name = "MenuPanel"; _panel.add_theme_stylebox_override("panel",Parchment.panel(22)); add_child(_panel)
+	_panel = PanelContainer.new(); _panel.name = "MenuPanel"
+	# The original painting supplies the quiet paper field. Keep the composition
+	# open instead of covering the illustration with another full-height box.
+	var menu_space := StyleBoxEmpty.new(); menu_space.set_content_margin_all(18)
+	_panel.add_theme_stylebox_override("panel",menu_space); add_child(_panel)
 	_scroll = ScrollContainer.new(); _scroll.name = "MenuScroll"; _scroll.follow_focus = true
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; _panel.add_child(_scroll)
 	var column := VBoxContainer.new(); column.name = "Content"; column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	column.add_theme_constant_override("separation",8); _scroll.add_child(column)
-	_label(column,"Era","南明 · 永历四年 · 1650",15).add_theme_color_override("font_color",Parchment.MUTED)
-	var title := _label(column,"Title","海上明旗",48)
+	column.add_theme_constant_override("separation",7); _scroll.add_child(column)
+	_label(column,"Era","海 疆 绘 卷  /  永历四年",14).add_theme_color_override("font_color",Parchment.SEA)
+	var title := _label(column,"Title","海上明旗",58)
 	title.add_theme_font_override("font",Parchment.title_font())
-	_label(column,"Intro","一叶福船，万里海疆。\n乘风起航，在炮火与商路间写下你的海上生涯。",16)
+	_label(column,"Intro","一叶福船，万里海疆。\n从厦金潮汐间，写下你的海上生涯。",16)
 	_label(column,"CaptainLabel","船长姓名",14)
 	_captain = LineEdit.new(); _captain.name = "Captain"; _captain.text = DEFAULT_NAME; _captain.placeholder_text = DEFAULT_NAME
 	_captain.custom_minimum_size.y = 44; _captain.size_flags_horizontal = Control.SIZE_EXPAND_FILL; column.add_child(_captain)
@@ -205,15 +222,19 @@ func build() -> void:
 	var recovery := HBoxContainer.new(); recovery.add_theme_constant_override("separation",10); _status_box.add_child(recovery)
 	_retry = Button.new(); _retry.name = "Retry"; _retry.text = "重新加载"; _retry.size_flags_horizontal = Control.SIZE_EXPAND_FILL; recovery.add_child(_retry); _retry.pressed.connect(_retry_request)
 	_back = Button.new(); _back.name = "Back"; _back.text = "返回菜单"; _back.size_flags_horizontal = Control.SIZE_EXPAND_FILL; recovery.add_child(_back); _back.pressed.connect(_back_request)
-	_entry(column,"mingqi","海上明旗新生涯","1650 · 厦金护粮",true)
+	_entry(column,"mingqi","扬帆启程","1650 · 厦金护粮",true)
 	_entry(column,"mingqi-continue","继续海上明旗 · 1650","导入存档或恢复航程")
 	_slot_hint = _label(column,"SlotHint","",12); _slot_hint.hide()
-	var battles := HBoxContainer.new(); battles.name = "Battles"; battles.add_theme_constant_override("separation",10); column.add_child(battles)
+	var battles := GridContainer.new(); battles.name = "Battles"; battles.columns = 2; battles.add_theme_constant_override("h_separation",10); battles.add_theme_constant_override("v_separation",7); column.add_child(battles)
 	_entry(battles,"duel","单舰炮战","一对一交锋"); _entry(battles,"fleet","舰队遭遇","一对二挑战")
+	_entry(column,"fire","火攻交锋","短程投送 · 水手调配 · 有限损管")
 	_entry(column,"sail","自由试航","练习风帆与操舵")
-	_entry(column,"laboratory","实验室","研究报告 · 独立可复现实验")
-	_entry(column,"fidelity-island","海面与海岛验收","正式航海世界 · 海水、海岛与动态岸浪")
-	_entry(column,"ships","检阅船只","福船、渔舟与远洋商船")
+	var exploration := GridContainer.new(); exploration.name = "Exploration"; exploration.columns = 2; exploration.add_theme_constant_override("h_separation",10); exploration.add_theme_constant_override("v_separation",7); column.add_child(exploration)
+	_entry(exploration,"world-atlas","世界海图","东洋南海 · 港口图志")
+	_entry(exploration,"ships","检阅船只","福船与远洋商船")
+	var studies := GridContainer.new(); studies.name = "Studies"; studies.columns = 2; studies.add_theme_constant_override("h_separation",10); studies.add_theme_constant_override("v_separation",7); column.add_child(studies)
+	_entry(studies,"laboratory","实验室","海疆技艺与研究")
+	_entry(studies,"fidelity-island","海面与海岛验收","海水与动态岸浪")
 	_development = VBoxContainer.new(); _development.name = "DevelopmentEntries"; _development.add_theme_constant_override("separation",10); column.add_child(_development)
 	_label(_development,"DevelopmentTitle","开发工具与兼容航程",16)
 	_entry(_development,"career","旧版航程 · 1661","开始旧版生涯")
@@ -222,10 +243,10 @@ func build() -> void:
 	_entry(_development,"fidelity-source","参考海岛对照","来源海面与岸浪的独立校验画面")
 	_entry(_development,"qa","画面验收","真实引擎 · 可重复场景")
 	_entry(_development,"practice","玩法验收","决斗、陆战、寻宝与宴会")
-	var utility := HBoxContainer.new(); utility.name = "Utility"; utility.add_theme_constant_override("separation",10); column.add_child(utility)
+	var utility := GridContainer.new(); utility.name = "Utility"; utility.columns = 2; utility.add_theme_constant_override("h_separation",10); utility.add_theme_constant_override("v_separation",7); column.add_child(utility)
 	_settings = Button.new(); _settings.name = "Settings"; _settings.text = "航海设置"; _settings.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(_settings); _settings.pressed.connect(_settings_request)
 	var exit := Button.new(); exit.name = "quit"; exit.text = "退出游戏"; exit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; utility.add_child(exit); _buttons.quit = exit; exit.pressed.connect(func():_request("quit"))
-	_label(column,"Footer","1650 · 厦门至金门\n键盘 / 鼠标 · 单人航海",12).add_theme_color_override("font_color",Parchment.MUTED)
+	_label(column,"Footer","厦门 · 金门  /  键盘与鼠标",13).add_theme_color_override("font_color",Parchment.MUTED)
 	resized.connect(_layout); _layout(); _render()
 	tree_exiting.connect(_cancel_initial_focus)
 	_focus_after_layout()
@@ -248,7 +269,15 @@ func _layout() -> void:
 	var bounds := size
 	if bounds.x <= 0 or bounds.y <= 0: bounds = get_viewport_rect().size
 	var narrow := bounds.x < 760
-	var margin_x := 12.0 if narrow else clampf(bounds.x*0.065,28,100)
-	var margin_y := 12.0 if bounds.y < 600 else 28.0
+	var margin_x := 10.0 if narrow else clampf(bounds.x*0.055,28,106)
+	var margin_y := 10.0 if bounds.y < 700 else 30.0
 	_panel.position = Vector2(margin_x,margin_y)
-	_panel.size = Vector2(minf(480,bounds.x-margin_x*2),maxf(0,bounds.y-margin_y*2))
+	_panel.size = Vector2(minf(438,bounds.x-margin_x*2),maxf(0,bounds.y-margin_y*2))
+	for row: String in ["Battles","Exploration","Studies","Utility"]:
+		var grid := find_child(row,true,false) as GridContainer
+		if grid: grid.columns = 1 if bounds.x < 460 else 2
+	# Tight portrait windows use an opaque reading sheet over the cropped art.
+	if narrow: _panel.add_theme_stylebox_override("panel",Maritime.frame_style(Parchment.panel(14) as StyleBoxTexture))
+	else:
+		var menu_space := StyleBoxEmpty.new(); menu_space.set_content_margin_all(18)
+		_panel.add_theme_stylebox_override("panel",menu_space)

@@ -1,0 +1,352 @@
+{
+	"actionCount": 4,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/CameraAngle",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "shipbook-camera-angle-popup-1600",
+	"pngSha256": "113a41e24b7285f08ad54b1e054109df7826cdbd554ddb43605d2834983124bd",
+	"popup": "actual OptionButton PopupMenu",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/ship_book/ship_book.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"selector": "CameraAngle",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					0.0,
+					0.0,
+					300.0,
+					900.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/MainMenu",
+				"rect": [
+					30.0,
+					30.0,
+					236.0,
+					38.0
+				],
+				"text": "‹ 返回主菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "SimSun",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 28,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@347",
+				"rect": [
+					30.0,
+					78.0,
+					236.0,
+					29.0
+				],
+				"text": "船坞检阅",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@348",
+				"rect": [
+					30.0,
+					117.0,
+					236.0,
+					22.0
+				],
+				"text": "观其形，知其用。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@349",
+				"rect": [
+					30.0,
+					149.0,
+					236.0,
+					22.0
+				],
+				"text": "选择船型",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/ShipKind",
+				"rect": [
+					30.0,
+					181.0,
+					236.0,
+					40.0
+				],
+				"text": "郑氏福船",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@360",
+				"rect": [
+					30.0,
+					231.0,
+					236.0,
+					22.0
+				],
+				"text": "观察角度",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/CameraAngle",
+				"rect": [
+					30.0,
+					263.0,
+					236.0,
+					40.0
+				],
+				"text": "全貌",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/LODControls/@Label@371",
+				"rect": [
+					30.0,
+					313.0,
+					236.0,
+					22.0
+				],
+				"text": "模型距离版本",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/LODControls/ShipLOD",
+				"rect": [
+					30.0,
+					339.0,
+					236.0,
+					40.0
+				],
+				"text": "近景 LOD0",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/ShipDescription",
+				"rect": [
+					30.0,
+					389.0,
+					236.0,
+					172.0
+				],
+				"text": "郑氏福船\n水师主力战舰\n三桅硬帆、独立舵叶与长舵柄，每舷四炮。\n操船、火炮与船员沿用当前船型参数。\n船长 32 m · 船宽 9 m · 吃水 2 m",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@383",
+				"rect": [
+					30.0,
+					571.0,
+					236.0,
+					22.0
+				],
+				"text": "帆面部署 100%",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/TurnShip",
+				"rect": [
+					30.0,
+					637.0,
+					236.0,
+					38.0
+				],
+				"text": "换个方向观察",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/CannonRecoil",
+				"rect": [
+					30.0,
+					685.0,
+					236.0,
+					38.0
+				],
+				"text": "试验火炮后座",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/@Label@384",
+				"rect": [
+					30.0,
+					733.0,
+					236.0,
+					72.0
+				],
+				"text": "拖动环视 · 滚轮缩放\n舵与帆可活动，船壳包含水下部分。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/LoadStatus",
+				"rect": [
+					30.0,
+					815.0,
+					236.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontFamily": "Microsoft YaHei",
+				"fontOutlineColor": "ffffff00",
+				"fontShadowColor": "ffffff00",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ShipBook/ShipBookPanel/@MarginContainer@342/@ScrollContainer@345/@VBoxContainer@346/RetryModel",
+				"rect": [
+					30.0,
+					847.0,
+					236.0,
+					38.0
+				],
+				"text": "重试载入",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 7,
+		"visibleControls": 24
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

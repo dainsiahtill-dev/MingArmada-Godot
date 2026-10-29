@@ -153,6 +153,16 @@ func apply_snapshot(ship: Dictionary, wind: Dictionary = {}, consumed: float = 0
 		presentation_event.emit(event)
 	set_lod_distance([0.0, 220.0, 650.0][_lod])
 
+func source_deck_model() -> Node3D:
+	if _disposed or _models.is_empty() or not is_inside_tree(): return null
+	return _models[0]
+func source_destruction_anchor() -> Dictionary:
+	var model := source_deck_model()
+	if model==null or not _destruction_support is Vector3 or _damage.diagnostics().get("ended",true): return {}
+	var point: Vector3=model.global_transform*_destruction_support
+	if not point.is_finite(): return {}
+	return {"position":point,"time":_time,"shipId":str(_snapshot.get("id",""))}
+
 func remember_authoritative_pose(ship:Dictionary,accepted_time:float)->Variant:
 	# A physics observation records the exact transform that Node3D's normal
 	# position/rotation setters would draw. It never changes the drawn node,

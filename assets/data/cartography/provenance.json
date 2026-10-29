@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "retrievedDate": "2026-10-26",
+  "license": "Public domain (Natural Earth)",
+  "terms": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "land": {
+    "page": "https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-land/",
+    "rawUrl": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_land.geojson",
+    "rawSha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+    "rawBytes": 1636166,
+    "retainedSource": "ne_50m_land.geojson.gz",
+    "outputSha256": "474c5d866cd171bb2e321778f776a3a88f73c07a1a6b6ecc3095a0755631877c"
+  },
+  "places": {
+    "page": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/",
+    "rawUrl": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_populated_places_simple.geojson",
+    "rawSha256": "fd3fa867a320cbd5c5b6bb5bc550afeec2939fb2cef688e508007282a55ac42f",
+    "retainedSubset": "selected_natural_earth_places.json",
+    "positionField": "geometry.coordinates",
+    "note": "Some latitude/longitude properties differ from geometry. The actual GeoJSON Point geometry is retained."
+  },
+  "hirado": {
+    "url": "https://www.pref.nagasaki.jp/uploads/2022/03/1646357182.pdf",
+    "pdfPage": 25,
+    "printedPage": 21,
+    "station": "620-1 平戸港",
+    "latitudeDms": "33 22 17.0 N",
+    "longitudeDms": "129 33 18.0 E",
+    "datum": "世界測地系",
+    "note": "Geographic point fact used; government PDF artwork/text not redistributed."
+  },
+  "pipeline": {
+    "tool": "Shapely",
+    "version": "2.1.2",
+    "clip": [
+      92.0,
+      -12.0,
+      148.0,
+      45.0
+    ],
+    "simplifyDegrees": 0.025,
+    "preserveTopology": true,
+    "minimumAreaDegreesSquared": 0.002,
+    "roundDecimals": 6,
+    "polygonCount": 328,
+    "vertices": 4590
+  },
+  "limits": [
+    "Modern generalized physical coastline, not a Ming shoreline survey.",
+    "Historical names are narrative labels, not borders or territorial claims.",
+    "City/port area locators are not historical berths.",
+    "Inland-water holes and very small islands are omitted.",
+    "No relationship between longitude/latitude and local gameplay x/z metres is inferred."
+  ]
+}

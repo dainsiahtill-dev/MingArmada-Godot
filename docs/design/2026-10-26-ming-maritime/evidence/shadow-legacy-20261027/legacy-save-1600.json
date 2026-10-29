@@ -1,0 +1,604 @@
+{
+	"actionCount": 3,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_save",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "legacy-save-1600",
+	"pngSha256": "7374efa7d69aa0678d28e1e88cd6e50e4875bc9a02c46c020569e741ba38b6b1",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/legacy/legacy_scene.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					12.0,
+					12.0,
+					430.0,
+					380.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/identity",
+				"rect": [
+					26.0,
+					26.0,
+					398.0,
+					22.0
+				],
+				"text": "沈沧海 · 第 1 日 · 厦门",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/balances",
+				"rect": [
+					26.0,
+					57.0,
+					398.0,
+					47.0
+				],
+				"text": "银两 650 · 士气 100 · 粮食 30\n名望 2 · 日耗粮 2.0 / 薪银 2.0",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/notice",
+				"rect": [
+					26.0,
+					113.0,
+					398.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/broadside_status",
+				"rect": [
+					26.0,
+					144.0,
+					398.0,
+					47.0
+				],
+				"text": "左舷 Q · 射界内无敌舰\n右舷 E · 射界内无敌舰",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/open_quests",
+				"rect": [
+					26.0,
+					200.0,
+					77.0,
+					38.0
+				],
+				"text": "委托 [I]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/open_chart",
+				"rect": [
+					107.0,
+					200.0,
+					88.0,
+					38.0
+				],
+				"text": "海图 [M]",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/open_fleet",
+				"rect": [
+					199.0,
+					200.0,
+					76.0,
+					38.0
+				],
+				"text": "舰队",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/menu",
+				"rect": [
+					279.0,
+					200.0,
+					76.0,
+					38.0
+				],
+				"text": "菜单",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/pause_group/pause",
+				"rect": [
+					26.0,
+					242.0,
+					105.0,
+					38.0
+				],
+				"text": "暂停 / 继续",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/@HFlowContainer@850/depart_group/depart",
+				"rect": [
+					135.0,
+					242.0,
+					88.0,
+					38.0
+				],
+				"text": "扬帆离港",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/hud/hud_scroll/hud_content/ship_controls/ship_stats",
+				"rect": [
+					26.0,
+					289.0,
+					398.0,
+					47.0
+				],
+				"text": "船体 100.0/100 · 帆装 100.0/100 · 船员 48.0/100\n航速 0.0 米/秒 · 每舷火炮 4 · 调帆 自动",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation",
+				"panelMargins": [
+					14.0,
+					14.0,
+					14.0,
+					14.0
+				],
+				"rect": [
+					938.0,
+					12.0,
+					650.0,
+					876.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 24,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_heading",
+				"rect": [
+					952.0,
+					26.0,
+					622.0,
+					25.0
+				],
+				"text": "航程存档",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/close_panel",
+				"rect": [
+					952.0,
+					60.0,
+					622.0,
+					38.0
+				],
+				"text": "返回航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_market",
+				"rect": [
+					952.0,
+					107.0,
+					88.0,
+					38.0
+				],
+				"text": "港口市场",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_shipyard",
+				"rect": [
+					1044.0,
+					107.0,
+					104.0,
+					38.0
+				],
+				"text": "修船与船坞",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_recruit",
+				"rect": [
+					1152.0,
+					107.0,
+					104.0,
+					38.0
+				],
+				"text": "船员与军需",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_officers",
+				"rect": [
+					1260.0,
+					107.0,
+					88.0,
+					38.0
+				],
+				"text": "舰队军官",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_quests",
+				"rect": [
+					1352.0,
+					107.0,
+					76.0,
+					38.0
+				],
+				"text": "委托簿",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_people",
+				"rect": [
+					1432.0,
+					107.0,
+					88.0,
+					38.0
+				],
+				"text": "港口人物",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_fleet",
+				"rect": [
+					952.0,
+					149.0,
+					88.0,
+					38.0
+				],
+				"text": "我的舰队",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_factions",
+				"rect": [
+					1044.0,
+					149.0,
+					88.0,
+					38.0
+				],
+				"text": "势力关系",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_chart",
+				"rect": [
+					1136.0,
+					149.0,
+					88.0,
+					38.0
+				],
+				"text": "六港海图",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_log",
+				"rect": [
+					1228.0,
+					149.0,
+					88.0,
+					38.0
+				],
+				"text": "航海日志",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_save",
+				"rect": [
+					1320.0,
+					149.0,
+					88.0,
+					38.0
+				],
+				"text": "航程存档",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_tabs/tab_settings",
+				"rect": [
+					1412.0,
+					149.0,
+					104.0,
+					38.0
+				],
+				"text": "设置与归航",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/save_intro",
+				"rect": [
+					952.0,
+					196.0,
+					622.0,
+					22.0
+				],
+				"text": "导入前核验完整航程，核验失败保留当前航程。备份仅导出已核验的检查点。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/save",
+				"rect": [
+					952.0,
+					227.0,
+					622.0,
+					38.0
+				],
+				"text": "保存当前航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/save_reason",
+				"rect": [
+					952.0,
+					274.0,
+					622.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/save_status",
+				"rect": [
+					952.0,
+					305.0,
+					622.0,
+					22.0
+				],
+				"text": "",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/export_current",
+				"rect": [
+					952.0,
+					336.0,
+					622.0,
+					38.0
+				],
+				"text": "导出当前航程",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/export_backup",
+				"rect": [
+					952.0,
+					383.0,
+					622.0,
+					38.0
+				],
+				"text": "导出已核验备份",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/import_file",
+				"rect": [
+					952.0,
+					430.0,
+					622.0,
+					38.0
+				],
+				"text": "导入 JSON 文件",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/import_json",
+				"rect": [
+					952.0,
+					477.0,
+					622.0,
+					130.0
+				],
+				"type": "TextEdit"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/Legacy1661/@CanvasLayer@559/legacy_screen/operation/operation_content/panel_scroll/all_pages/panel_save/import_paste",
+				"rect": [
+					952.0,
+					616.0,
+					622.0,
+					38.0
+				],
+				"text": "核验并载入此航程",
+				"type": "Button"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 2,
+		"unclippedOverflow": [],
+		"visibleButtons": 24,
+		"visibleControls": 49
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}

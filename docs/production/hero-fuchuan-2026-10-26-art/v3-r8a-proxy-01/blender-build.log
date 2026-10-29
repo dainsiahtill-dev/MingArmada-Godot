@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r8_proxy.py", line 328, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r8_proxy.py", line 153, in main
+    assert old_recipe['wrapperSHA256'] == sha256(watched[2]), 'R7 palette recipe no longer matches its receipt'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: R7 palette recipe no longer matches its receipt
+HERO_FUCHUAN_R8_TUPLE_TEST_OK
+
+Error: script failed, file: 'C:\Users\dains\Documents\Git\ming-armada\tools\blender\build_hero_fuchuan_r8_proxy.py', exiting.
+Blender 5.4.0 Alpha (hash fbe82a461016 built 2026-10-21 02:54:59)
+
+Blender quit

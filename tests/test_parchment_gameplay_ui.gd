@@ -1,5 +1,7 @@
 extends SceneTree
 ## Actual gameplay consumers must retain paper assets, readable ink and input contracts.
+const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
+const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 var assertions := 0
 var failures := 0
 
@@ -14,15 +16,19 @@ func _initialize() -> void:
 
 func _paper(panel: Control, description: String) -> void:
 	var style := panel.get_theme_stylebox("panel")
-	check(style is StyleBoxTexture and style.texture != null, description + " draws the generated paper resource")
-	if style is StyleBoxTexture and style.texture:
-		check(style.texture.get_width() > 32 and style.texture.get_height() > 32, description + " texture has usable source pixels")
+	var surface:=style as StyleBoxTexture
+	if style.has_method("get_body_style"): surface=style.call("get_body_style")
+	check(surface!=null and surface.texture != null, description + " draws the generated paper resource")
+	if surface!=null and surface.texture:
+		check(surface.texture.get_width() > 32 and surface.texture.get_height() > 32, description + " texture has usable source pixels")
 
-func _ink(label: Label, description: String) -> void:
+func _ink(label: Label, description: String, background: Color = Parchment.PAPER) -> void:
 	var color := label.get_theme_color("font_color")
 	var linear := color.srgb_to_linear()
 	var luminance := linear.r * 0.2126 + linear.g * 0.7152 + linear.b * 0.0722
-	check(luminance < 0.24 and color.a >= 0.9, description + " uses opaque readable ink on pale paper")
+	var back_luminance := background.srgb_to_linear().get_luminance()
+	var contrast := (maxf(luminance,back_luminance)+0.05)/(minf(luminance,back_luminance)+0.05)
+	check(contrast >= 4.5 and color.a >= 0.9, description + " retains readable text contrast on its actual theme palette")
 
 func _decorations_ignore(node: Node) -> bool:
 	if node is TextureRect and node.mouse_filter != Control.MOUSE_FILTER_IGNORE:
@@ -37,10 +43,10 @@ func _run() -> void:
 	await process_frame
 	_paper(career.find_child("hud", true, false), "career HUD")
 	_paper(career.find_child("operation", true, false), "career operation folio")
-	_ink(career.find_child("title", true, false), "career title")
-	_ink(career.find_child("identity", true, false), "career body")
-	_ink(career.find_child("keys", true, false), "career secondary text")
-	_ink(career.find_child("notice", true, false), "career notice")
+	_ink(career.find_child("title", true, false), "career title",Maritime.PAPER)
+	_ink(career.find_child("identity", true, false), "career body",Maritime.PAPER)
+	_ink(career.find_child("keys", true, false), "career secondary text",Maritime.PAPER)
+	_ink(career.find_child("notice", true, false), "career notice",Maritime.PAPER)
 	check(career.find_child("MingqiScreen", true, false).mouse_filter == Control.MOUSE_FILTER_IGNORE, "career fullscreen root leaves sea input available")
 	check(_decorations_ignore(career), "career decorative textures do not intercept sea or form input")
 	career.free()
@@ -50,8 +56,8 @@ func _run() -> void:
 	await process_frame
 	_paper(practice.get("_panel"), "practice HUD")
 	_paper(practice.get("_modal"), "practice result and pause folio")
-	_ink(practice.get("_status"), "practice status")
-	_ink(practice.get("_notice"), "practice notice")
+	_ink(practice.get("_status"), "practice status",Maritime.PAPER)
+	_ink(practice.get("_notice"), "practice notice",Maritime.PAPER)
 	check(practice.get("_screen").mouse_filter == Control.MOUSE_FILTER_IGNORE, "practice fullscreen root leaves sea input available")
 	var intents: Array = []
 	practice.command_requested.connect(func(intent): intents.append(intent))

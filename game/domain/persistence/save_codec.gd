@@ -274,6 +274,13 @@ func _detail_schemas() -> Dictionary:
 		"repay-debt":{"kind":["one",["repay-debt"]],"portId":["one",["xiamen"]],"amount":"positive","beforePrincipal":"debtPrincipal","afterPrincipal":"debtPrincipal","creditAward":"count"},
 		"crew-transition":{"kind":["one",["crew-transition"]],"reason":["one",["boarding-attrition","boarding-victory","allocation","release-prisoners","treatment","prize-release","prize-rescue","prize-sale"]],"causeId":"id","changes":["array",{"shipId":"id","before":bucket,"after":bucket},2,1]},
 		"battle-ended":{"kind":["one",["battle-ended"]],"battleId":"id","episodeId":"id","outcome":["one",["victory","defeat","disengaged"]],"reason":"text"},
+		"cargo-drop":{
+			"kind":["one",["cargo-drop"]],"battleId":"id","sourceEventId":"id","shipId":"id","sourceShipId":"id",
+			"goodId":["one",GOODS],"quantity":"positive","nativeTick":"count","eventTime":"time","nativeTime":"time","campaignTime":"time",
+			"originPose":{"position":{"x":"finite","z":"finite"},"heading":"finite","speed":["range",0,1.7976931348623157e308]},
+			"impactPosition":{"x":"finite","y":"finite","z":"finite"},"hasImpact":"bool",
+			"originKind":["one",["event-position","vessel-pose"]],"dropId":"id","policy":["one",["grain-first-5-v1"]]
+		},
 		"shipment-arrived":{"kind":["one",["shipment-arrived"]],"voyageId":"id","vesselId":"id","destinationId":"id","grain":"count","arrivedAt":"time"},
 		"convoy-load":{"kind":["one",["convoy-load"]],"contractId":"id","loaded":"count","leasePaid":"count","ships":["array",{"shipId":"id","able":"count","wounded":"count"},128]},
 		"convoy":{"kind":["one",["convoy"]],"contractId":"id","loaded":"count","delivered":"count","pending":"count","lost":"count","baseReward":"count","bonus":"count","leasePaid":"count","ships":["array",{"shipId":"id","wounded":"count","dead":"count","transferred":"count","hull":["range",0,100],"sail":["range",0,100]},128],"people":["array",{"personId":"id","alive":"bool"},128]},
@@ -286,6 +293,19 @@ func _detail_schemas() -> Dictionary:
 		"prize-port":{"kind":["one",["prize-port"]],"shipId":"id","portId":"id","action":["one",["sell","incorporate"]],"silver":"count","crewToShipId":["null","id"],"movedAble":"count","movedWounded":"count","movedPrisoners":"count"},
 		"casualty":{"kind":["one",["casualty"]],"battleId":"id","tick":"count","controlsSequence":"sequence","shipId":"id","ableBefore":"count","ableAfter":"count","woundedBefore":"count","woundedAfter":"count","prisonersBefore":"count","prisonersAfter":"count","dead":"count","sunk":"bool","ordinalBefore":"count","ordinalAfter":"count"}
 	}
+func _cargo_drop_relations(s: Dictionary,r: Dictionary,d: Dictionary) -> bool:
+	var epoch: String = s.campaignId+":"+d.battleId
+	var expected: String = epoch+":"+d.sourceEventId
+	if not _check(r.kind=="cargo-loss" and r.id==expected and r.commandId==expected and d.dropId==expected+":cargo","cargo-drop-identity"):return false
+	if not _check(s.vessels.has(d.shipId) and s.vessels.has(d.sourceShipId) and d.quantity<=5,"cargo-drop-quantity-or-ship"):return false
+	if not _check(s.nearTicks.has(epoch) and d.nativeTick<=s.nearTicks[epoch] and d.eventTime<=d.nativeTime,"cargo-drop-native-cause"):return false
+	if not _check(d.hasImpact==(d.originKind=="event-position"),"cargo-drop-origin"):return false
+	if not d.hasImpact and not _check(_equal(d.impactPosition,{"x":d.originPose.position.x,"y":0,"z":d.originPose.position.z}),"cargo-drop-fallback"):return false
+	for event: Dictionary in s.chronicle:
+		if event.id==r.id:
+			return _check(event.simTime==d.campaignTime and event.causeIds==[d.sourceShipId,d.shipId,d.sourceEventId],"cargo-drop-chronicle")
+	return _check(false,"cargo-drop-chronicle")
+
 func _aftermath_schema() -> Dictionary:
 	var schema=_detail_schemas()["story-choice"].duplicate(true)
 	schema.sceneId=["one",[SecondVoyageAftermath.SCENE_ID]]
@@ -410,8 +430,10 @@ func _receipt_relations(s: Dictionary,r: Dictionary) -> bool:
 	if r.kind=="work-completed" and not _check(d.get("kind") in ["work","treatment"],"receipt-details"):return false
 	if d.is_empty():return true
 	var allowed={"story-choice":["story-choice"],"repay-debt":["repay-debt"],"crew-transition":["crew-transition"],"battle-ended":["near-battle-ended"],"shipment-arrived":["shipment-arrived"],"convoy-load":["accept-convoy"],"convoy":["claim-convoy"],"prize":["allocate-prize"],"boarding":["board-action","boarding-won","boarding-lost","boarding-cut"],"work":["repair","refit","work-completed"],"treatment":["treat-wounded","work-completed"],"prize-cargo":["take-prize-cargo"],"prize-resolution":["resolve-prize"],"prize-port":["sell-prize","incorporate-prize"],"casualty":["near-casualties"]}
+	allowed["cargo-drop"]=["cargo-loss"]
 	if not _check(r.kind in allowed[d.kind],"receipt-detail-kind-mismatch"):return false
 	match d.kind:
+		"cargo-drop":return _cargo_drop_relations(s,r,d)
 		"story-choice":return _story_receipt(s,r,d)
 		"repay-debt":return _check(d.beforePrincipal>0 and d.amount<=d.beforePrincipal and d.afterPrincipal==d.beforePrincipal-d.amount and d.creditAward==(6 if d.afterPrincipal==0 else 0),"debt-payment-definition")
 		"shipment-arrived":

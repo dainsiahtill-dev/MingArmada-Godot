@@ -1,0 +1,146 @@
+{
+  "baselineSources": {
+    "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r7c.blend": "ac057d349395a5e0547ec20e382188c34ed2c6481778b5142a99c4d920045fb3",
+    "tools/blender/build_hero_fuchuan_v3.py": "ab3f80f9d0b0834b35a408c1451ec4ad090db8d7b2523e7d5e38888c6bfd0cd3",
+    "tools/blender/build_hero_fuchuan.py": "06bc0904eb049253bc83f79b135276519a7541b4ac1e20a1286c9b98dbc3da96",
+    "tools/blender/build_hero_fuchuan_r12.py": "8da6d07042a12599734bf1595b2d7e3b004aef395c25dc75465f6202ce6df3e4",
+    "tools/blender/hero_r15_sail_formula.py": "335d03455d8724f1803dd46bc985dda11d1d64bf05b46089904624834e14cbd9",
+    "assets/textures/hero_fuchuan_r13/weathered-cinnabar-hemp.png": "0a25b0a8833eb81e8b03708f113e6e10238fec03c3adeb4b72143333917c8c3b",
+    "docs/production/hero-fuchuan-2026-10-26-art/R15-WHOLE-SHIP-BLOCKOUT-BRIEF.md": "f0e66ccd8914d6466fb1f029fc41ffcca3bbc37997242479522a32874fdd0a30",
+    "docs/production/hero-fuchuan-2026-10-26-art/r15-baseline-measure-01/BASELINE-MEASURE.json": "9a99d42c61c8982f5600ffffd987c60e98bf4a14f2c79bc9031630cbc297dc30",
+    "tools/blender/build_hero_fuchuan_r15_blockout.py": "7beaed32596bd9686fb69de1451ae4a4f49480603dfa2064c802dfbb279be7b4"
+  },
+  "existingNonSailObjectsExact": true,
+  "existingNonSailCount": 78,
+  "sailChanges": [
+    {
+      "name": "sail_0",
+      "parent": "mast_0",
+      "vertices": 2890,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ],
+      "parameters": [
+        10.3,
+        7.2,
+        4.6,
+        0.18,
+        0.1
+      ]
+    },
+    {
+      "name": "sail_1",
+      "parent": "mast_1",
+      "vertices": 2890,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ],
+      "parameters": [
+        17.0,
+        12.2,
+        4.05,
+        0.3,
+        0.17
+      ]
+    },
+    {
+      "name": "sail_2",
+      "parent": "mast_2",
+      "vertices": 2890,
+      "materials": [
+        "canvas",
+        "bamboo",
+        "canvas_seam",
+        "hemp"
+      ],
+      "shapeKeys": [
+        "Basis",
+        "furl",
+        "inflate"
+      ],
+      "parameters": [
+        9.0,
+        6.2,
+        5.35,
+        0.5,
+        0.08
+      ]
+    }
+  ],
+  "canvas": {
+    "previousImage": "antique-hemp-sail.png",
+    "packedSha256": "0a25b0a8833eb81e8b03708f113e6e10238fec03c3adeb4b72143333917c8c3b",
+    "nodeLinksUnchanged": true
+  },
+  "addedNodes": [
+    {
+      "name": "r15_foreworks_starboard",
+      "vertices": 52,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15_wale_starboard",
+      "vertices": 196,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": false
+    },
+    {
+      "name": "r15_sternworks_starboard",
+      "vertices": 136,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15_foreworks_port",
+      "vertices": 52,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": true
+    },
+    {
+      "name": "r15_wale_port",
+      "vertices": 196,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": false
+    },
+    {
+      "name": "r15_sternworks_port",
+      "vertices": 136,
+      "materials": [
+        "teak"
+      ],
+      "deck_obstacle": true
+    }
+  ],
+  "scope": "Blender static art blockout; original hull/deck and waterline unchanged. No LOD, GPU, collision, animation, shadow integration or gameplay acceptance.",
+  "candidateBlend": "assets/production/hero-fuchuan-blender/hero-fuchuan-v3-r15-blockout-01.blend",
+  "candidateBlendSha256": "7fdb2f32e0fa2569143c94464b1f88dc04eb2123290d5b288fc96e70bb786f9e",
+  "blenderVersion": "5.4.0 Alpha",
+  "finishedUTC": "2026-10-27T01:51:29.152386+00:00"
+}

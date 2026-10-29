@@ -27,6 +27,8 @@ func run():
 		var model=models[kind]
 		var packet={"id":kind,"generation":1,"kind":kind,"state":model.snapshot(),"practice":false,"settled":false}
 		ui.apply_snapshot(packet,9);check(ui.visible,"actual encounter panel visible")
+		var panel: PanelContainer = ui.find_child("encounter_panel",true,false)
+		check(panel != null and panel.get_theme_stylebox("panel").has_method("get_edge_style"),kind+" encounter has generated outer frame")
 		if kind=="duel":
 			for action in ["high","low","thrust","guard-high","guard-low","parry","dodge"]:
 				press(ui,"duel_"+action);check(emitted.back().action==action,"original duel action "+action)

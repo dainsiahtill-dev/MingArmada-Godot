@@ -1,0 +1,349 @@
+{
+	"actionCount": 3,
+	"display": "Windows",
+	"embeddedSubwindows": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"focus": "",
+	"gpu": "Intel(R) Arc(TM) 130T GPU (16GB)",
+	"label": "aux-water-study-1600",
+	"pngSha256": "3494dc43481431d6c5dcc33a59b10f4a9bb83c443e37c3a57d80f304177e10be",
+	"renderingMethod": "forward_plus",
+	"route": "actual MainScene menu and native viewport input",
+	"scene": "res://game/scenes/reference_island_water/reference_island_water.gd",
+	"scope": "Actual native GPU UI state. Scene simulation frozen for layout inspection where supported. Not continuous sea, animation, full voyage, performance, or exported EXE acceptance.",
+	"structure": {
+		"controls": [
+			{
+				"clippedByAncestor": false,
+				"fontColor": "9f4331ff",
+				"fontSize": 30,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@827/@Label@828",
+				"rect": [
+					24.0,
+					29.0,
+					1418.0,
+					31.0
+				],
+				"text": "海岛与海面 · 晴天",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@827/WaterBack",
+				"rect": [
+					1446.0,
+					24.0,
+					130.0,
+					42.0
+				],
+				"text": "返回主菜单  Esc",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": false,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830",
+				"panelMargins": [
+					20.0,
+					20.0,
+					20.0,
+					20.0
+				],
+				"rect": [
+					1286.0,
+					82.0,
+					290.0,
+					759.0
+				],
+				"type": "PanelContainer"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "9f4331ff",
+				"fontSize": 20,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@Label@835",
+				"rect": [
+					1306.0,
+					102.0,
+					246.0,
+					21.0
+				],
+				"text": "Cat Island · 效果预览",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/WaterPreset",
+				"rect": [
+					1306.0,
+					137.0,
+					246.0,
+					40.0
+				],
+				"text": "晴天",
+				"type": "OptionButton"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@846/@Label@847",
+				"rect": [
+					1306.0,
+					191.0,
+					209.0,
+					22.0
+				],
+				"text": "海浪强度",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@846/@Label@848",
+				"rect": [
+					1519.0,
+					191.0,
+					33.0,
+					22.0
+				],
+				"text": "1.00",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@849/@Label@850",
+				"rect": [
+					1306.0,
+					267.0,
+					219.0,
+					22.0
+				],
+				"text": "潮位",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@849/@Label@851",
+				"rect": [
+					1529.0,
+					267.0,
+					23.0,
+					22.0
+				],
+				"text": "0.0",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@852/@Label@853",
+				"rect": [
+					1306.0,
+					343.0,
+					219.0,
+					22.0
+				],
+				"text": "泡沫覆盖",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@HBoxContainer@852/@Label@854",
+				"rect": [
+					1529.0,
+					343.0,
+					23.0,
+					22.0
+				],
+				"text": "1.5",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/Water_waves",
+				"rect": [
+					1306.0,
+					419.0,
+					246.0,
+					40.0
+				],
+				"text": "三维波浪",
+				"type": "CheckBox"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/Water_reflection",
+				"rect": [
+					1306.0,
+					473.0,
+					246.0,
+					40.0
+				],
+				"text": "海岛反射",
+				"type": "CheckBox"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/Water_foam",
+				"rect": [
+					1306.0,
+					527.0,
+					246.0,
+					40.0
+				],
+				"text": "岸边泡沫",
+				"type": "CheckBox"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/Water_caustics",
+				"rect": [
+					1306.0,
+					581.0,
+					246.0,
+					40.0
+				],
+				"text": "浅滩焦散",
+				"type": "CheckBox"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/WaterPause",
+				"rect": [
+					1306.0,
+					635.0,
+					246.0,
+					42.0
+				],
+				"text": "暂停波浪  Space",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/WaterReset",
+				"rect": [
+					1306.0,
+					691.0,
+					246.0,
+					42.0
+				],
+				"text": "重置视角",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"disabled": false,
+				"fontColor": "173c46ff",
+				"fontSize": 16,
+				"mouseFilter": 0,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/WaterSave",
+				"rect": [
+					1306.0,
+					747.0,
+					246.0,
+					42.0
+				],
+				"text": "保存画面 PNG",
+				"type": "Button"
+			},
+			{
+				"clippedByAncestor": true,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@HBoxContainer@829/@PanelContainer@830/@ScrollContainer@833/@VBoxContainer@834/@Label@855",
+				"rect": [
+					1306.0,
+					803.0,
+					246.0,
+					41.0
+				],
+				"text": "拖动旋转，滚轮拉近。\n改变潮位，观察岸线移动。",
+				"type": "Label"
+			},
+			{
+				"clippedByAncestor": false,
+				"fontColor": "173c46ff",
+				"fontSize": 14,
+				"mouseFilter": 2,
+				"node": "/root/MainScene/ReferenceIslandWater/@MarginContainer@825/@VBoxContainer@826/@Label@856",
+				"rect": [
+					24.0,
+					857.0,
+					1552.0,
+					19.0
+				],
+				"text": "已就绪 · 拖动旋转 / 滚轮缩放",
+				"type": "Label"
+			}
+		],
+		"decorations": [],
+		"scrollContainers": 1,
+		"unclippedOverflow": [],
+		"visibleButtons": 9,
+		"visibleControls": 35
+	},
+	"viewport": [
+		1600,
+		900
+	]
+}
