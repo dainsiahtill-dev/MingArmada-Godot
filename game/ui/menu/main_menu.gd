@@ -6,7 +6,7 @@ const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const Parchment = preload("res://game/ui/shared/parchment_theme.gd")
 const Maritime = preload("res://game/ui/shared/maritime_art_theme.gd")
 const DEFAULT_NAME := "沈沧海"
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","fire","sail","qa"]
+const MODES := ["mingqi","mingqi-continue","story","story-continue","career","continue","duel","fleet","fire","sail","qa"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 const PAPER := Parchment.PAPER
 const INK := Parchment.INK
@@ -104,6 +104,7 @@ func _seed_value() -> Dictionary:
 func _request(entry: String) -> void:
 	if _phase != "menu" or _generation < 0: return
 	if entry == "continue" and _model.get("hasLegacySave",false) != true: return
+	if entry == "story-continue" and _model.get("hasStorySave",false) != true: return
 	if entry in DEVELOPMENT_MODES and not _qa_enabled(): return
 	if entry not in MODES and entry not in ["world-atlas","ships","laboratory","practice","water-study","fidelity-island","fidelity-source","quit"]: return
 	var payload: Dictionary = {"type":"start" if entry in MODES else entry,"name":_draft_name}
@@ -146,7 +147,7 @@ func _render() -> void:
 	var idle := _phase == "menu"
 	for entry in _buttons:
 		var button: Button = _buttons[entry]
-		button.disabled = not idle or (entry == "continue" and _model.get("hasLegacySave",false) != true)
+		button.disabled = not idle or (entry == "continue" and _model.get("hasLegacySave",false) != true) or (entry == "story-continue" and _model.get("hasStorySave",false) != true)
 		if entry in DEVELOPMENT_MODES: button.visible = _qa_enabled()
 	_development.visible = _qa_enabled()
 	_seed_row.visible = _qa_enabled(); _captain.editable = idle; _seed.editable = idle
@@ -154,6 +155,8 @@ func _render() -> void:
 	_status_box.visible = not idle; _progress.visible = _phase in ["pending","loading","complete"]
 	_retry.visible = _phase == "error"; _back.visible = not idle
 	_buttons["continue"].text = "继续旧版航程\n"+("载入旧版本地航程" if _model.get("hasLegacySave",false) == true else "尚无旧版存档")
+	if _buttons.has("story-continue"):
+		_buttons["story-continue"].text = "继续主线航程" + (" · 有存档" if _model.get("hasStorySave",false) == true else " · 尚无存档")
 	_slot_hint.text = {"present":"载入本地安全存档","unreadable":"读取受阻 · 重试或导入存档","missing":"导入存档或恢复航程"}.get(_model.get("mingqiSlot","missing"),"导入存档或恢复航程")
 	_buttons["mingqi-continue"].text = "继续航程 · 1650" if _model.get("mingqiSlot","missing") == "present" else "恢复航程 · 1650"
 	_buttons["mingqi-continue"].tooltip_text = _slot_hint.text
@@ -227,12 +230,14 @@ func build() -> void:
 	_slot_hint = _label(column,"SlotHint","",12); _slot_hint.hide()
 	var battles := GridContainer.new(); battles.name = "Battles"; battles.columns = 2; battles.add_theme_constant_override("h_separation",10); battles.add_theme_constant_override("v_separation",7); column.add_child(battles)
 	_entry(battles,"duel","单舰炮战","一对一交锋"); _entry(battles,"fleet","舰队遭遇","一对二挑战")
-	_entry(column,"fire","火攻交锋","短程投送 · 水手调配 · 有限损管")
-	_entry(column,"sail","自由试航","练习风帆与操舵")
+	_entry(battles,"fire","火攻交锋","短程投送 · 水手调配 · 有限损管")
+	_entry(battles,"sail","自由试航","练习风帆与操舵")
 	var exploration := GridContainer.new(); exploration.name = "Exploration"; exploration.columns = 2; exploration.add_theme_constant_override("h_separation",10); exploration.add_theme_constant_override("v_separation",7); column.add_child(exploration)
 	_entry(exploration,"world-atlas","世界海图","东洋南海 · 港口图志")
 	_entry(exploration,"ships","检阅船只","福船与远洋商船")
 	var studies := GridContainer.new(); studies.name = "Studies"; studies.columns = 2; studies.add_theme_constant_override("h_separation",10); studies.add_theme_constant_override("v_separation",7); column.add_child(studies)
+	_entry(studies,"story","主线航程","两代人的海上事业")
+	_entry(studies,"story-continue","继续主线航程","尚无主线存档")
 	_entry(studies,"laboratory","实验室","海疆技艺与研究")
 	_entry(studies,"fidelity-island","海面与海岛验收","海水与动态岸浪")
 	_development = VBoxContainer.new(); _development.name = "DevelopmentEntries"; _development.add_theme_constant_override("separation",10); column.add_child(_development)

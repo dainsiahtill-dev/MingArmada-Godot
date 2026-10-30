@@ -74,7 +74,7 @@ function snapshotTree(directory) {
   visit(directory); return result;
 }
 
-const SOURCES = ["project.godot", "game/scenes/main/main_scene.tscn", "game/scenes/main/main_scene.gd", "game/runtime/game_router.gd", "game/ui/menu/main_menu.gd", "game/research/laboratory.gd", "game/research/catalog.gd", "assets/research/catalog.json", "assets/data/story_campaign/zheng_family_v1.json", "game/domain/story_campaign/catalog.gd", "game/domain/story_campaign/progress.gd", "game/research/demos/story_campaign_flow_experiment.gd", "game/ui/shared/maritime_art_theme.gd", "tools/research/capture_story_campaign_gpu.gd", "tools/research/capture_story_campaign_gpu.gd", "tools/research/run_story_campaign_gpu.mjs", "tools/research/run_crew_battle_gpu.mjs"];
+const SOURCES = ["project.godot", "game/scenes/main/main_scene.tscn", "game/scenes/main/main_scene.gd", "game/runtime/game_router.gd", "game/ui/menu/main_menu.gd", "game/research/laboratory.gd", "game/research/catalog.gd", "assets/research/catalog.json", "game/domain/story_campaign/data/zheng_family_v1.json", "game/domain/story_campaign/catalog.gd", "game/domain/story_campaign/progress.gd", "game/research/demos/story_campaign_flow_experiment.gd", "game/ui/shared/maritime_art_theme.gd", "tools/research/capture_story_campaign_gpu.gd", "tools/research/capture_story_campaign_gpu.gd", "tools/research/run_story_campaign_gpu.mjs", "tools/research/run_crew_battle_gpu.mjs"];
 SOURCES.push('tools/research/capture_ship_fire_gpu.gd');
 const OPTIONAL_SOURCES = [];
 const sourceSnapshot = () => Object.fromEntries([...SOURCES.map(file => [file, hash(file)]), ...OPTIONAL_SOURCES.map(file => [file, existsSync(file) ? hash(file) : null])]);

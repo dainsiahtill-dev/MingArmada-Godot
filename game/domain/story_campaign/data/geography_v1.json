@@ -1,0 +1,736 @@
+{
+  "schemaVersion": 1,
+  "id": "zheng-family-geography-v1",
+  "scaleNote": "示意压缩地理：航段按可操作尺度压缩，港名与分区对应 REG-01..07，不声明为古港精确复原。",
+  "ports": [
+    {
+      "id": "xiamen",
+      "name": "厦门",
+      "region": "REG-01",
+      "displayKind": "schematic-anchorage",
+      "islandX": -520,
+      "islandZ": -60,
+      "radius": 170,
+      "peak": 52,
+      "x": -360,
+      "z": -20,
+      "tax": 0.05,
+      "faction": "zheng",
+      "services": [
+        "trade",
+        "repair",
+        "recruit",
+        "shipyard",
+        "banquet",
+        "intel"
+      ],
+      "prices": {
+        "grain": 4,
+        "wood": 8,
+        "iron": 14,
+        "silk": 32,
+        "porcelain": 30,
+        "spices": 26
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "kinmen",
+      "name": "金门",
+      "region": "REG-01",
+      "displayKind": "schematic-anchorage",
+      "islandX": -260,
+      "islandZ": 120,
+      "radius": 120,
+      "peak": 38,
+      "x": -160,
+      "z": 160,
+      "tax": 0.05,
+      "faction": "zheng",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 8,
+        "wood": 11,
+        "iron": 19,
+        "silk": 40,
+        "porcelain": 38,
+        "spices": 33
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "quanzhou",
+      "name": "泉州",
+      "region": "REG-01",
+      "displayKind": "schematic-anchorage",
+      "islandX": -680,
+      "islandZ": 180,
+      "radius": 150,
+      "peak": 44,
+      "x": -520,
+      "z": 210,
+      "tax": 0.05,
+      "faction": "zheng",
+      "services": [
+        "trade",
+        "repair",
+        "intel"
+      ],
+      "prices": {
+        "grain": 5,
+        "wood": 7,
+        "iron": 13,
+        "silk": 28,
+        "porcelain": 26,
+        "spices": 24
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "penghu",
+      "name": "澎湖",
+      "region": "REG-01",
+      "displayKind": "schematic-anchorage",
+      "islandX": 180,
+      "islandZ": -320,
+      "radius": 160,
+      "peak": 40,
+      "x": 280,
+      "z": -280,
+      "tax": 0.06,
+      "faction": "zheng",
+      "services": [
+        "trade",
+        "repair",
+        "intel"
+      ],
+      "prices": {
+        "grain": 7,
+        "wood": 10,
+        "iron": 16,
+        "silk": 38,
+        "porcelain": 36,
+        "spices": 30
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "dongshan",
+      "name": "东山",
+      "region": "REG-01",
+      "displayKind": "schematic-anchorage",
+      "islandX": -320,
+      "islandZ": -460,
+      "radius": 130,
+      "peak": 36,
+      "x": -220,
+      "z": -420,
+      "tax": 0.06,
+      "faction": "zheng",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 6,
+        "wood": 9,
+        "iron": 15,
+        "silk": 34,
+        "porcelain": 32,
+        "spices": 28
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "luermen",
+      "name": "鹿耳门",
+      "region": "REG-02",
+      "displayKind": "schematic-anchorage",
+      "islandX": 560,
+      "islandZ": 300,
+      "radius": 90,
+      "peak": 22,
+      "x": 640,
+      "z": 260,
+      "tax": 0.09,
+      "faction": "voc",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 10,
+        "wood": 12,
+        "iron": 18,
+        "silk": 44,
+        "porcelain": 42,
+        "spices": 36
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "heliao",
+      "name": "荷寮登陆场",
+      "region": "REG-02",
+      "displayKind": "schematic-anchorage",
+      "islandX": 700,
+      "islandZ": 140,
+      "radius": 80,
+      "peak": 18,
+      "x": 760,
+      "z": 160,
+      "tax": 0.08,
+      "faction": "voc",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 9,
+        "wood": 12,
+        "iron": 18,
+        "silk": 45,
+        "porcelain": 43,
+        "spices": 38
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "provintia",
+      "name": "普罗民遮",
+      "region": "REG-02",
+      "displayKind": "schematic-anchorage",
+      "islandX": 620,
+      "islandZ": 380,
+      "radius": 70,
+      "peak": 26,
+      "x": 680,
+      "z": 360,
+      "tax": 0.09,
+      "faction": "voc",
+      "services": [
+        "trade",
+        "repair"
+      ],
+      "prices": {
+        "grain": 11,
+        "wood": 13,
+        "iron": 20,
+        "silk": 48,
+        "porcelain": 46,
+        "spices": 40
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "zeelandia",
+      "name": "热兰遮",
+      "region": "REG-02",
+      "displayKind": "schematic-anchorage",
+      "islandX": 540,
+      "islandZ": 420,
+      "radius": 90,
+      "peak": 30,
+      "x": 590,
+      "z": 460,
+      "tax": 0.1,
+      "faction": "voc",
+      "services": [
+        "trade",
+        "repair"
+      ],
+      "prices": {
+        "grain": 12,
+        "wood": 14,
+        "iron": 21,
+        "silk": 50,
+        "porcelain": 48,
+        "spices": 42
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "utrecht",
+      "name": "乌特勒支棱堡",
+      "region": "REG-02",
+      "displayKind": "schematic-anchorage",
+      "islandX": 560,
+      "islandZ": 500,
+      "radius": 50,
+      "peak": 34,
+      "x": 610,
+      "z": 520,
+      "tax": 0.1,
+      "faction": "voc",
+      "services": [],
+      "prices": {
+        "grain": 12,
+        "wood": 15,
+        "iron": 22,
+        "silk": 52,
+        "porcelain": 50,
+        "spices": 44
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "naha",
+      "name": "那霸",
+      "region": "REG-03",
+      "displayKind": "schematic-anchorage",
+      "islandX": 1150,
+      "islandZ": -520,
+      "radius": 150,
+      "peak": 46,
+      "x": 1280,
+      "z": -470,
+      "tax": 0.07,
+      "faction": "ryukyu",
+      "services": [
+        "trade",
+        "repair",
+        "banquet"
+      ],
+      "prices": {
+        "grain": 7,
+        "wood": 10,
+        "iron": 16,
+        "silk": 30,
+        "porcelain": 34,
+        "spices": 32
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "hirado",
+      "name": "平户",
+      "region": "REG-03",
+      "displayKind": "schematic-anchorage",
+      "islandX": 1320,
+      "islandZ": -320,
+      "radius": 130,
+      "peak": 42,
+      "x": 1420,
+      "z": -270,
+      "tax": 0.07,
+      "faction": "japan",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 6,
+        "wood": 9,
+        "iron": 15,
+        "silk": 26,
+        "porcelain": 30,
+        "spices": 34
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "manila",
+      "name": "马尼拉",
+      "region": "REG-05",
+      "displayKind": "schematic-anchorage",
+      "islandX": 1180,
+      "islandZ": 720,
+      "radius": 160,
+      "peak": 48,
+      "x": 1310,
+      "z": 680,
+      "tax": 0.08,
+      "faction": "spain",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 8,
+        "wood": 11,
+        "iron": 17,
+        "silk": 36,
+        "porcelain": 34,
+        "spices": 22
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "malacca",
+      "name": "满剌噶",
+      "region": "REG-06",
+      "displayKind": "schematic-anchorage",
+      "islandX": -1180,
+      "islandZ": 660,
+      "radius": 170,
+      "peak": 44,
+      "x": -1040,
+      "z": 620,
+      "tax": 0.09,
+      "faction": "voc",
+      "services": [
+        "trade",
+        "repair",
+        "banquet",
+        "intel"
+      ],
+      "prices": {
+        "grain": 9,
+        "wood": 12,
+        "iron": 18,
+        "silk": 42,
+        "porcelain": 40,
+        "spices": 12
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "johor",
+      "name": "柔佛",
+      "region": "REG-06",
+      "displayKind": "schematic-anchorage",
+      "islandX": -980,
+      "islandZ": 520,
+      "radius": 140,
+      "peak": 40,
+      "x": -860,
+      "z": 480,
+      "tax": 0.08,
+      "faction": "johor",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 8,
+        "wood": 11,
+        "iron": 17,
+        "silk": 40,
+        "porcelain": 38,
+        "spices": 14
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "siam",
+      "name": "暹罗",
+      "region": "REG-07",
+      "displayKind": "schematic-anchorage",
+      "islandX": -1120,
+      "islandZ": -320,
+      "radius": 160,
+      "peak": 50,
+      "x": -980,
+      "z": -280,
+      "tax": 0.07,
+      "faction": "siam",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 5,
+        "wood": 8,
+        "iron": 12,
+        "silk": 30,
+        "porcelain": 28,
+        "spices": 18
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    },
+    {
+      "id": "java",
+      "name": "爪哇北岸",
+      "region": "REG-07",
+      "displayKind": "schematic-anchorage",
+      "islandX": -1260,
+      "islandZ": 60,
+      "radius": 150,
+      "peak": 38,
+      "x": -1120,
+      "z": 90,
+      "tax": 0.08,
+      "faction": "java",
+      "services": [
+        "trade"
+      ],
+      "prices": {
+        "grain": 6,
+        "wood": 9,
+        "iron": 13,
+        "silk": 32,
+        "porcelain": 30,
+        "spices": 10
+      },
+      "stockCaps": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      },
+      "stock": {
+        "grain": 200,
+        "wood": 200,
+        "iron": 200,
+        "silk": 120,
+        "porcelain": 120,
+        "spices": 120
+      }
+    }
+  ],
+  "tradeRoutes": [
+    [
+      "xiamen",
+      "kinmen"
+    ],
+    [
+      "quanzhou",
+      "penghu"
+    ],
+    [
+      "malacca",
+      "johor"
+    ],
+    [
+      "naha",
+      "hirado"
+    ]
+  ]
+}

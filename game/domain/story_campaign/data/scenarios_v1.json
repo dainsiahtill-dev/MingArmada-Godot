@@ -1,0 +1,1547 @@
+{
+  "schemaVersion": 1,
+  "id": "zheng-family-scenarios-v1",
+  "opening": {
+    "silver": 650,
+    "day": 1,
+    "yearMarker": 1623,
+    "homePort": "xiamen",
+    "relations": {
+      "zheng": 0,
+      "voc": 0,
+      "ryukyu": 0,
+      "japan": 0,
+      "spain": 0,
+      "johor": 0,
+      "siam": 0,
+      "java": 0
+    },
+    "fleet": [
+      {
+        "id": "player",
+        "kind": "fuchuan",
+        "name": "定海号",
+        "crew": 48,
+        "cargo": {
+          "grain": 30
+        }
+      }
+    ],
+    "log": "1623年，借来的帆从厦门起航。"
+  },
+  "stages": {
+    "CH-01-S1": {
+      "mode": "sailing",
+      "transition": {
+        "yearMarker": 1623,
+        "to": "xiamen",
+        "note": "近岸第一单"
+      },
+      "entities": [],
+      "settlements": {
+        "ch01-deliver": {
+          "kind": "deliver",
+          "portId": "kinmen",
+          "good": "grain",
+          "quantity": 30
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "CH-02-S1": {
+      "mode": "boarding",
+      "transition": {
+        "yearMarker": 1623,
+        "to": "kinmen",
+        "note": "认旗再靠舷"
+      },
+      "entities": [
+        {
+          "id": "ch02-confirmed-prize",
+          "kind": "merchant",
+          "team": "hostile",
+          "name": "约定武装货船",
+          "identity": {
+            "flag": "lead-seal-blue",
+            "cargoMark": "lead-seal"
+          },
+          "spawn": {
+            "point": {
+              "x": -160,
+              "z": 340
+            },
+            "heading": 1.2
+          },
+          "setup": {
+            "hull": 65,
+            "crew": 28
+          },
+          "teachingWindow": true
+        },
+        {
+          "id": "ch02-decoy-merchant",
+          "kind": "merchant",
+          "team": "hostile",
+          "name": "盐货商船",
+          "identity": {
+            "flag": "red-ensign",
+            "cargoMark": "salt"
+          },
+          "spawn": {
+            "point": {
+              "x": -60,
+              "z": 320
+            }
+          },
+          "setup": {
+            "hull": 90,
+            "crew": 40
+          }
+        }
+      ],
+      "settlements": {
+        "ch02-capture": {
+          "kind": "capture",
+          "targetId": "ch02-confirmed-prize"
+        }
+      },
+      "misstepPolicy": {
+        "wrongTargetId": "ch02-decoy-merchant",
+        "consequence": "claim-relations-penalty",
+        "objectiveCredit": false
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "CH-03-S1": {
+      "mode": "trade",
+      "transition": {
+        "yearMarker": 1624,
+        "to": "kinmen",
+        "note": "小额买卖学价差"
+      },
+      "entities": [],
+      "settlements": {
+        "ch03-profit": {
+          "kind": "trade-profit",
+          "contractId": "ch03-public-cargo"
+        }
+      },
+      "limits": {
+        "maxTicks": 8000
+      }
+    },
+    "CH-04-S1": {
+      "mode": "escort",
+      "transition": {
+        "yearMarker": 1624,
+        "to": "xiamen",
+        "note": "首次护镖"
+      },
+      "entities": [
+        {
+          "id": "ch04-client-convoy",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "受托商船",
+          "spawn": {
+            "point": {
+              "x": -230,
+              "z": 105
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 20
+          }
+        }
+      ],
+      "settlements": {
+        "ch04-escort": {
+          "kind": "escort-arrived",
+          "targetId": "ch04-client-convoy",
+          "destinationPortId": "kinmen"
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "CH-05-S1": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1625,
+        "to": "xiamen",
+        "note": "同伴入队"
+      },
+      "entities": [],
+      "settlements": {
+        "ch05-recruit": {
+          "kind": "recruit",
+          "personId": "ch05-willing-navigator",
+          "name": "陈引水",
+          "role": "navigator",
+          "cost": 60,
+          "wage": 6
+        }
+      },
+      "limits": {
+        "maxTicks": 8000
+      }
+    },
+    "CH-06-S1": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1626,
+        "to": "xiamen",
+        "note": "有限受命"
+      },
+      "entities": [
+        {
+          "id": "ch06-service-convoy",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "受护船队",
+          "spawn": {
+            "point": {
+              "x": -570,
+              "z": 170
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 16
+          }
+        },
+        {
+          "id": "ch06-raider",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "航路袭扰者",
+          "identity": {
+            "flag": "grey-rag",
+            "cargoMark": "none"
+          },
+          "spawn": {
+            "point": {
+              "x": -430,
+              "z": 300
+            }
+          },
+          "setup": {
+            "hull": 60,
+            "crew": 24
+          }
+        }
+      ],
+      "settlements": {
+        "ch06-charter": {
+          "kind": "charter",
+          "permitId": "ming-coastal-service",
+          "scope": "coastal-escort",
+          "issuer": "ming-coast",
+          "cost": 120,
+          "conditions": [
+            "仅限沿岸护送"
+          ],
+          "options": [
+            {
+              "id": "ch06-full-coastal",
+              "label": "沿岸护送全项（120两）",
+              "cost": 120,
+              "conditions": [
+                "仅限沿岸护送"
+              ]
+            },
+            {
+              "id": "ch06-limited-lanes",
+              "label": "限定航区（90两）",
+              "cost": 90,
+              "conditions": [
+                "仅限指定航区",
+                "不得转包"
+              ]
+            }
+          ]
+        },
+        "ch06-service": {
+          "kind": "escort-arrived",
+          "targetId": "ch06-service-convoy",
+          "destinationPortId": "quanzhou"
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "CH-07-S1": {
+      "mode": "naval",
+      "transition": {
+        "yearMarker": 1627,
+        "to": "quanzhou",
+        "note": "压退敌船保运输"
+      },
+      "entities": [
+        {
+          "id": "ch07-enemy-screen",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "敌方屏卫船",
+          "spawn": {
+            "point": {
+              "x": -380,
+              "z": 330
+            }
+          },
+          "setup": {
+            "hull": 70,
+            "crew": 24
+          }
+        },
+        {
+          "id": "ch07-friendly-transport",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "友方运输船",
+          "spawn": {
+            "point": {
+              "x": -430,
+              "z": 280
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 18
+          }
+        }
+      ],
+      "settlements": {
+        "ch07-neutralize": {
+          "kind": "neutralize",
+          "targetIds": [
+            "ch07-enemy-screen"
+          ]
+        },
+        "ch07-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "ch07-friendly-transport"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "CH-08-S1": {
+      "mode": "boarding",
+      "transition": {
+        "yearMarker": 1628,
+        "to": "kinmen",
+        "note": "猎赏核认首领"
+      },
+      "entities": [
+        {
+          "id": "ch08-confirmed-raider",
+          "kind": "fuchuan",
+          "team": "hostile",
+          "name": "劫船首领",
+          "identity": {
+            "flag": "black-pennant",
+            "cargoMark": "lead-seal"
+          },
+          "spawn": {
+            "point": {
+              "x": -40,
+              "z": 240
+            }
+          },
+          "setup": {
+            "hull": 60,
+            "crew": 30
+          },
+          "teachingWindow": true
+        },
+        {
+          "id": "ch08-decoy-raider",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "跟风小盗",
+          "identity": {
+            "flag": "grey-rag",
+            "cargoMark": "salt"
+          },
+          "spawn": {
+            "point": {
+              "x": 40,
+              "z": 260
+            }
+          },
+          "setup": {
+            "hull": 80,
+            "crew": 20
+          }
+        },
+        {
+          "id": "ch08-trade-route",
+          "kind": "route",
+          "team": "neutral",
+          "name": "金门商路"
+        }
+      ],
+      "settlements": {
+        "ch08-capture": {
+          "kind": "capture",
+          "targetId": "ch08-confirmed-raider"
+        },
+        "ch08-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "ch08-trade-route"
+          ]
+        }
+      },
+      "misstepPolicy": {
+        "wrongTargetId": "ch08-decoy-raider",
+        "consequence": "claim-relations-penalty",
+        "objectiveCredit": false
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "CH-09-S1": {
+      "mode": "escort",
+      "transition": {
+        "yearMarker": 1629,
+        "to": "naha",
+        "note": "使船遇险",
+        "meeting": "王府通事在岸上核对货单：『先履约，后通商。』（原创戏剧重建，非史料对白）"
+      },
+      "entities": [
+        {
+          "id": "ryukyu-envoy-vessel",
+          "kind": "fisherman",
+          "team": "neutral",
+          "name": "琉球进贡使船",
+          "identity": {
+            "flag": "ryukyu-envoy",
+            "cargoMark": "tribute"
+          },
+          "spawn": {
+            "point": {
+              "x": 1225,
+              "z": -425
+            }
+          },
+          "setup": {
+            "hull": 45,
+            "crew": 12
+          }
+        }
+      ],
+      "settlements": {
+        "ch09-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "ryukyu-envoy-vessel"
+          ]
+        },
+        "ch09-escort": {
+          "kind": "escort-arrived",
+          "targetId": "ryukyu-envoy-vessel",
+          "destinationPortId": "naha"
+        },
+        "ch09-charter": {
+          "kind": "charter",
+          "permitId": "ryukyu-limited-trade-permit",
+          "scope": "limited-trade",
+          "issuer": "ryukyu-court",
+          "cost": 80,
+          "conditions": [
+            "按货单申领"
+          ],
+          "options": [
+            {
+              "id": "ch09-by-manifest",
+              "label": "按货单申领（80两）",
+              "cost": 80,
+              "conditions": [
+                "按货单申领"
+              ]
+            },
+            {
+              "id": "ch09-by-service",
+              "label": "以护航记录申领（50两，先履约）",
+              "cost": 50,
+              "conditions": [
+                "先护送使船",
+                "按货单申领"
+              ]
+            }
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 24000
+      }
+    },
+    "CH-10-S1": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1631,
+        "to": "malacca",
+        "note": "换旗后的旧凭证",
+        "meeting": "港务与王使各有说法：『旧凭证要按新章核。』（原创戏剧重建，非史料对白）"
+      },
+      "entities": [],
+      "settlements": {
+        "ch10-malacca-charter": {
+          "kind": "charter",
+          "permitId": "dutch-malacca-transit",
+          "scope": "transit",
+          "issuer": "voc-malacca",
+          "cost": 150,
+          "conditions": [
+            "仅限转口"
+          ],
+          "options": [
+            {
+              "id": "ch10-transit-full",
+              "label": "转口许可（150两）",
+              "cost": 150,
+              "conditions": [
+                "仅限转口"
+              ]
+            },
+            {
+              "id": "ch10-staged-transfer",
+              "label": "分段转运（120两，两靠港）",
+              "cost": 120,
+              "conditions": [
+                "仅限转口",
+                "分段转运两靠港"
+              ]
+            },
+            {
+              "id": "ch10-reroute-johor",
+              "label": "改线柔佛（80两）",
+              "cost": 80,
+              "conditions": [
+                "仅限转口",
+                "放弃满剌噶靠泊"
+              ]
+            }
+          ]
+        },
+        "ch10-johor-charter": {
+          "kind": "charter",
+          "permitId": "johor-provisioning-agreement",
+          "scope": "provisioning",
+          "issuer": "johor-court",
+          "cost": 100,
+          "conditions": [
+            "运力担保"
+          ],
+          "options": [
+            {
+              "id": "ch10-guarantee-full",
+              "label": "运力担保（100两）",
+              "cost": 100,
+              "conditions": [
+                "运力担保"
+              ]
+            },
+            {
+              "id": "ch10-guarantee-grain",
+              "label": "仅担保粮水（60两）",
+              "cost": 60,
+              "conditions": [
+                "仅担保粮水"
+              ]
+            }
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 8000
+      }
+    },
+    "CH-11-S1": {
+      "mode": "escort",
+      "transition": {
+        "yearMarker": 1633,
+        "to": "malacca",
+        "note": "接回码头人员并撤离",
+        "meeting": "码头家属围着账房：『带人走，也要把名单对上。』（原创戏剧重建，非史料对白）"
+      },
+      "entities": [
+        {
+          "id": "ch11-quay-families",
+          "kind": "group",
+          "team": "neutral",
+          "name": "码头家属队",
+          "people": 40
+        }
+      ],
+      "settlements": {
+        "ch11-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "ch11-quay-families"
+          ]
+        },
+        "ch11-withdraw": {
+          "kind": "withdraw",
+          "groupId": "ch11-evacuation-convoy",
+          "rendezvousPortId": "malacca",
+          "people": 40
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "CH-12-S1": {
+      "mode": "handoff",
+      "transition": {
+        "yearMarker": 1646,
+        "to": "xiamen",
+        "note": "父子分途"
+      },
+      "entities": [],
+      "settlements": {
+        "ch12-handoff": {
+          "kind": "handoff"
+        }
+      },
+      "limits": {
+        "maxTicks": 8000
+      }
+    },
+    "CH-13-S1": {
+      "mode": "escort",
+      "transition": {
+        "yearMarker": 1646,
+        "to": "xiamen",
+        "note": "旧船护粮",
+        "meeting": "两本名册对不上：货约上有人要留下，名册上有人必须走。（原创戏剧重建，非史料对白）"
+      },
+      "entities": [
+        {
+          "id": "ch13-old-retainer-grain",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "旧部粮船",
+          "spawn": {
+            "point": {
+              "x": -225,
+              "z": 130
+            }
+          },
+          "setup": {
+            "hull": 90,
+            "crew": 14,
+            "cargo": {
+              "grain": 60
+            }
+          }
+        },
+        {
+          "id": "ch13-raider",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "趁乱劫粮者",
+          "identity": {
+            "flag": "black-rag",
+            "cargoMark": "salt"
+          },
+          "spawn": {
+            "point": {
+              "x": -60,
+              "z": 240
+            }
+          },
+          "setup": {
+            "hull": 65,
+            "crew": 26
+          }
+        }
+      ],
+      "settlements": {
+        "ch13-escort": {
+          "kind": "escort-arrived",
+          "targetId": "ch13-old-retainer-grain",
+          "destinationPortId": "kinmen"
+        },
+        "ch13-recruit": {
+          "kind": "recruit",
+          "personId": "ch13-renewed-retainer",
+          "name": "林老管",
+          "role": "purser",
+          "cost": 50,
+          "wage": 5
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "CH-14-S1": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1647,
+        "to": "penghu",
+        "note": "岸点与转运"
+      },
+      "entities": [
+        {
+          "id": "ch14-transshipment-quay",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "岸上转运栈",
+          "inventory": {
+            "grain": 40
+          }
+        }
+      ],
+      "settlements": {
+        "ch14-land": {
+          "kind": "land-control",
+          "siteId": "ch14-transshipment-quay"
+        },
+        "ch14-deliver": {
+          "kind": "deliver",
+          "portId": "penghu",
+          "good": "grain",
+          "quantity": 40
+        },
+        "ch14-withdraw": {
+          "kind": "withdraw",
+          "groupId": "ch14-shore-party",
+          "rendezvousPortId": "penghu",
+          "people": 12
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "CH-15-S1": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1648,
+        "to": "xiamen",
+        "note": "风灾后复开码头"
+      },
+      "entities": [
+        {
+          "id": "xiamen-survivors",
+          "kind": "group",
+          "team": "neutral",
+          "name": "岸上受困者",
+          "people": 30
+        },
+        {
+          "id": "xiamen-reopened-quay",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "重开码头",
+          "inventory": {}
+        },
+        {
+          "id": "xiamen-repair-watch",
+          "kind": "watch",
+          "team": "neutral",
+          "name": "修护警戒线"
+        }
+      ],
+      "settlements": {
+        "ch15-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "xiamen-survivors"
+          ]
+        },
+        "ch15-land": {
+          "kind": "land-control",
+          "siteId": "xiamen-reopened-quay"
+        },
+        "ch15-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "xiamen-repair-watch"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "CH-16-S1": {
+      "mode": "trade",
+      "transition": {
+        "yearMarker": 1650,
+        "to": "xiamen",
+        "note": "经营有许可的贸易线",
+        "meeting": "暹罗来使寻访失踪王船：『大船在或不在，先查名册。』（原创戏剧重建，非史料对白）"
+      },
+      "entities": [],
+      "settlements": {
+        "ch16-charter": {
+          "kind": "charter",
+          "permitId": "ch16-selected-trade-route",
+          "scope": "trade-route",
+          "issuer": "ming-coast",
+          "cost": 100,
+          "conditions": [
+            "按线经营"
+          ],
+          "options": [
+            {
+              "id": "ch16-all-lines",
+              "label": "全线经营（100两）",
+              "cost": 100,
+              "conditions": [
+                "按线经营"
+              ]
+            },
+            {
+              "id": "ch16-single-line",
+              "label": "单线经营（70两）",
+              "cost": 70,
+              "conditions": [
+                "按线经营",
+                "限一条线"
+              ]
+            },
+            {
+              "id": "ch16-siam-investigation",
+              "label": "暹罗查船与工艺采购（100两）",
+              "cost": 100,
+              "conditions": [
+                "按线经营",
+                "查访失踪王船",
+                "工艺采购优先"
+              ]
+            }
+          ]
+        },
+        "ch16-profit": {
+          "kind": "trade-profit",
+          "contractId": "ch16-running-capital"
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "CH-17-S1": {
+      "mode": "escort",
+      "transition": {
+        "yearMarker": 1656,
+        "to": "xiamen",
+        "note": "分队远出与归来"
+      },
+      "entities": [
+        {
+          "id": "ch17-first-leg",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "首段护航船团",
+          "spawn": {
+            "point": {
+              "x": 230,
+              "z": -200
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 16
+          }
+        }
+      ],
+      "settlements": {
+        "ch17-escort": {
+          "kind": "escort-arrived",
+          "targetId": "ch17-first-leg",
+          "destinationPortId": "penghu"
+        },
+        "ch17-dispatch": {
+          "kind": "dispatch-returned",
+          "dispatchId": "ch17-autonomous-convoy",
+          "route": "xiamen-penghu"
+        }
+      },
+      "limits": {
+        "maxTicks": 24000
+      }
+    },
+    "CH-18-S1": {
+      "mode": "sailing",
+      "transition": {
+        "yearMarker": 1657,
+        "to": "xiamen",
+        "note": "风灾救援"
+      },
+      "entities": [
+        {
+          "id": "ch18-disabled-ship",
+          "kind": "fisherman",
+          "team": "neutral",
+          "name": "断桅伤船",
+          "spawn": {
+            "point": {
+              "x": -300,
+              "z": -120
+            }
+          },
+          "setup": {
+            "hull": 30,
+            "crew": 10
+          }
+        }
+      ],
+      "settlements": {
+        "ch18-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "ch18-disabled-ship"
+          ]
+        },
+        "ch18-withdraw": {
+          "kind": "withdraw",
+          "groupId": "ch18-storm-convoy",
+          "rendezvousPortId": "xiamen",
+          "people": 10
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      },
+      "weather": "storm"
+    },
+    "CH-19-S1": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1658,
+        "to": "xiamen",
+        "note": "北伐撤退"
+      },
+      "entities": [
+        {
+          "id": "ch19-wounded-column",
+          "kind": "group",
+          "team": "neutral",
+          "name": "伤员纵队",
+          "people": 25
+        },
+        {
+          "id": "ch19-rearguard-route",
+          "kind": "route",
+          "team": "neutral",
+          "name": "后卫退路"
+        },
+        {
+          "id": "ch19-pursuer",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "追兵前锋",
+          "identity": {
+            "flag": "grey-rag",
+            "cargoMark": "none"
+          },
+          "spawn": {
+            "point": {
+              "x": -520,
+              "z": -120
+            }
+          },
+          "setup": {
+            "hull": 70,
+            "crew": 28
+          }
+        }
+      ],
+      "settlements": {
+        "ch19-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "ch19-wounded-column"
+          ]
+        },
+        "ch19-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "ch19-rearguard-route"
+          ]
+        },
+        "ch19-withdraw": {
+          "kind": "withdraw",
+          "groupId": "ch19-return-convoy",
+          "rendezvousPortId": "xiamen",
+          "people": 25
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      },
+      "weather": "storm"
+    },
+    "CH-20-S1": {
+      "mode": "trade",
+      "transition": {
+        "yearMarker": 1659,
+        "to": "xiamen",
+        "note": "渡海筹备"
+      },
+      "entities": [],
+      "settlements": {
+        "ch20-charter": {
+          "kind": "charter",
+          "permitId": "regional-supply-renewal",
+          "scope": "expedition-supply",
+          "issuer": "ming-coast",
+          "cost": 120,
+          "conditions": [
+            "续订粮水与修材"
+          ],
+          "options": [
+            {
+              "id": "ch20-renew-all",
+              "label": "全续订（120两）",
+              "cost": 120,
+              "conditions": [
+                "续订粮水与修材"
+              ]
+            },
+            {
+              "id": "ch20-renew-grain",
+              "label": "只续粮水（90两）",
+              "cost": 90,
+              "conditions": [
+                "续订粮水"
+              ]
+            }
+          ]
+        },
+        "ch20-grain": {
+          "kind": "stockpile",
+          "good": "grain",
+          "quantity": 160
+        },
+        "ch20-materials": {
+          "kind": "stockpile",
+          "good": "wood",
+          "quantity": 40
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "T01": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "xiamen",
+        "note": "配载出征"
+      },
+      "entities": [
+        {
+          "id": "taiwan-expedition-depot",
+          "kind": "depot",
+          "team": "neutral",
+          "name": "出征积储",
+          "inventory": {
+            "grain": 120,
+            "wood": 60
+          },
+          "people": 0
+        },
+        {
+          "id": "taiwan-ready-transports",
+          "kind": "watch",
+          "team": "neutral",
+          "name": "待发运输船团"
+        }
+      ],
+      "settlements": {
+        "t01-loading": {
+          "kind": "stockpile",
+          "via": "load-manifest",
+          "manifestId": "expedition-loading-manifest",
+          "fromId": "taiwan-expedition-depot",
+          "people": 0,
+          "cargo": {
+            "grain": 120,
+            "wood": 60
+          }
+        },
+        "t01-transports": {
+          "kind": "protect",
+          "targetIds": [
+            "taiwan-ready-transports"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "T02": {
+      "mode": "sailing",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "xiamen",
+        "note": "渡海至澎湖"
+      },
+      "entities": [
+        {
+          "id": "taiwan-crossing-transports",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "渡海运输船",
+          "spawn": {
+            "point": {
+              "x": -330,
+              "z": -80
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 18
+          }
+        }
+      ],
+      "settlements": {
+        "t02-arrive": {
+          "kind": "arrive",
+          "portId": "penghu"
+        },
+        "t02-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "taiwan-crossing-transports"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 24000
+      },
+      "weather": "storm"
+    },
+    "T03": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "heliao",
+        "note": "登陆与首批补给"
+      },
+      "entities": [
+        {
+          "id": "heliao-bridgehead",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "登陆场",
+          "inventory": {}
+        },
+        {
+          "id": "heliao-return-lane",
+          "kind": "route",
+          "team": "neutral",
+          "name": "回运航道"
+        }
+      ],
+      "settlements": {
+        "t03-land": {
+          "kind": "land-control",
+          "siteId": "heliao-bridgehead"
+        },
+        "t03-deliver": {
+          "kind": "deliver",
+          "portId": "heliao",
+          "good": "grain",
+          "quantity": 40
+        },
+        "t03-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "heliao-return-lane"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    },
+    "T04": {
+      "mode": "naval",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "heliao",
+        "note": "抵御反击"
+      },
+      "entities": [
+        {
+          "id": "dutch-counterattack-1",
+          "kind": "voc",
+          "team": "hostile",
+          "name": "反击舰一",
+          "spawn": {
+            "point": {
+              "x": 840,
+              "z": 120
+            }
+          },
+          "setup": {
+            "hull": 80,
+            "crew": 40
+          }
+        },
+        {
+          "id": "dutch-counterattack-2",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "反击舰二",
+          "spawn": {
+            "point": {
+              "x": 860,
+              "z": 180
+            }
+          },
+          "setup": {
+            "hull": 70,
+            "crew": 24
+          }
+        },
+        {
+          "id": "heliao-established-bridgehead",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "已立登陆场",
+          "inventory": {}
+        }
+      ],
+      "settlements": {
+        "t04-neutralize": {
+          "kind": "neutralize",
+          "targetIds": [
+            "dutch-counterattack-1",
+            "dutch-counterattack-2"
+          ]
+        },
+        "t04-protect": {
+          "kind": "protect",
+          "targetIds": [
+            "heliao-established-bridgehead"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "T05": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "provintia",
+        "note": "普罗民遮条件与接收"
+      },
+      "entities": [
+        {
+          "id": "provintia-garrison",
+          "kind": "garrison",
+          "team": "neutral",
+          "name": "普罗民遮守军",
+          "inventory": {
+            "grain": 60,
+            "iron": 24
+          },
+          "people": 60
+        }
+      ],
+      "settlements": {
+        "t05-terms": {
+          "kind": "accept-terms",
+          "agreementId": "provintia-terms",
+          "termsTemplate": "conditional-surrender-v1"
+        },
+        "t05-handover": {
+          "kind": "port-handover",
+          "handoverId": "provintia-handover",
+          "facilityId": "provintia-garrison",
+          "portId": "provintia"
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "T06": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "zeelandia",
+        "note": "围线与伤员"
+      },
+      "entities": [
+        {
+          "id": "zeelandia-wounded-return",
+          "kind": "group",
+          "team": "neutral",
+          "name": "伤员回运队",
+          "people": 20
+        }
+      ],
+      "settlements": {
+        "t06-blockade": {
+          "kind": "hold-blockade",
+          "watchId": "zeelandia-siege-line"
+        },
+        "t06-rescue": {
+          "kind": "rescue",
+          "targetIds": [
+            "zeelandia-wounded-return"
+          ]
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "T07": {
+      "mode": "trade",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "zeelandia",
+        "note": "围城补给"
+      },
+      "entities": [
+        {
+          "id": "siege-supply-convoy",
+          "kind": "merchant",
+          "team": "neutral",
+          "name": "补给船团",
+          "spawn": {
+            "point": {
+              "x": 555,
+              "z": 425
+            }
+          },
+          "setup": {
+            "hull": 100,
+            "crew": 16
+          }
+        },
+        {
+          "id": "siege-raider",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "截粮快船",
+          "identity": {
+            "flag": "black-rag",
+            "cargoMark": "none"
+          },
+          "spawn": {
+            "point": {
+              "x": 690,
+              "z": 520
+            }
+          },
+          "setup": {
+            "hull": 60,
+            "crew": 22
+          }
+        }
+      ],
+      "settlements": {
+        "t07-deliver": {
+          "kind": "deliver",
+          "portId": "zeelandia",
+          "good": "grain",
+          "quantity": 60
+        },
+        "t07-escort": {
+          "kind": "escort-arrived",
+          "targetId": "siege-supply-convoy",
+          "destinationPortId": "zeelandia"
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      },
+      "weather": "breeze"
+    },
+    "T08": {
+      "mode": "naval",
+      "transition": {
+        "yearMarker": 1661,
+        "to": "zeelandia",
+        "note": "援军与海侧围线"
+      },
+      "entities": [
+        {
+          "id": "dutch-relief-1",
+          "kind": "voc",
+          "team": "hostile",
+          "name": "援军舰一",
+          "spawn": {
+            "point": {
+              "x": 700,
+              "z": 560
+            }
+          },
+          "setup": {
+            "hull": 80,
+            "crew": 40
+          }
+        },
+        {
+          "id": "dutch-relief-2",
+          "kind": "heavy",
+          "team": "hostile",
+          "name": "援军舰二",
+          "spawn": {
+            "point": {
+              "x": 740,
+              "z": 600
+            }
+          },
+          "setup": {
+            "hull": 90,
+            "crew": 50
+          }
+        }
+      ],
+      "settlements": {
+        "t08-neutralize": {
+          "kind": "neutralize",
+          "targetIds": [
+            "dutch-relief-1",
+            "dutch-relief-2"
+          ]
+        },
+        "t08-blockade": {
+          "kind": "hold-blockade",
+          "watchId": "zeelandia-seaward-line"
+        }
+      },
+      "limits": {
+        "maxTicks": 20000
+      }
+    },
+    "T09": {
+      "mode": "land",
+      "transition": {
+        "yearMarker": 1662,
+        "to": "utrecht",
+        "note": "棱堡压力"
+      },
+      "entities": [
+        {
+          "id": "utrecht-pressure-position",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "棱堡压力阵地",
+          "inventory": {}
+        },
+        {
+          "id": "t09-relief-raider",
+          "kind": "patrol",
+          "team": "hostile",
+          "name": "棱堡援扰快船",
+          "identity": {
+            "flag": "black-rag",
+            "cargoMark": "none"
+          },
+          "spawn": {
+            "point": {
+              "x": 700,
+              "z": 610
+            }
+          },
+          "setup": {
+            "hull": 75,
+            "crew": 30
+          }
+        }
+      ],
+      "settlements": {
+        "t09-land": {
+          "kind": "land-control",
+          "siteId": "utrecht-pressure-position"
+        },
+        "t09-blockade": {
+          "kind": "hold-blockade",
+          "watchId": "zeelandia-final-pressure"
+        }
+      },
+      "limits": {
+        "maxTicks": 12000
+      }
+    },
+    "T10": {
+      "mode": "port",
+      "transition": {
+        "yearMarker": 1662,
+        "to": "zeelandia",
+        "note": "谈降、撤离与接收"
+      },
+      "entities": [
+        {
+          "id": "zeelandia-garrison",
+          "kind": "garrison",
+          "team": "neutral",
+          "name": "热兰遮守军",
+          "inventory": {
+            "grain": 80,
+            "iron": 24
+          },
+          "people": 120
+        },
+        {
+          "id": "zeelandia-facilities",
+          "kind": "facility",
+          "team": "neutral",
+          "name": "热兰遮城设施",
+          "inventory": {
+            "grain": 60,
+            "wood": 20
+          }
+        }
+      ],
+      "settlements": {
+        "t10-terms": {
+          "kind": "accept-terms",
+          "agreementId": "zeelandia-surrender-terms",
+          "termsTemplate": "capitulation-v1"
+        },
+        "t10-evacuation": {
+          "kind": "evacuation-complete",
+          "manifestId": "zeelandia-agreed-evacuation",
+          "fromId": "zeelandia-garrison",
+          "people": 120,
+          "cargo": {
+            "grain": 80,
+            "iron": 24
+          },
+          "thenDepartTo": "departure-boundary"
+        },
+        "t10-handover": {
+          "kind": "port-handover",
+          "handoverId": "zeelandia-final-handover",
+          "facilityId": "zeelandia-facilities",
+          "portId": "zeelandia"
+        }
+      },
+      "limits": {
+        "maxTicks": 16000
+      }
+    }
+  }
+}

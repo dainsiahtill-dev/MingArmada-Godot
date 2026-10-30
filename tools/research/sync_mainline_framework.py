@@ -23,7 +23,7 @@ def update():
         "abstract": "24章与30阶段的合成进度、失败恢复、交棒与终章条件；仅为框架合同，真实世界动作、资产交接与整条通关仍待接入。",
         "status": "researching", "retrospective": False,
         "paper": "res://assets/research/papers/story-campaign-flow.md", "demo": "story-campaign-flow",
-        "sources": ["res://assets/data/story_campaign/zheng_family_v1.json", "res://game/domain/story_campaign/catalog.gd", "res://game/domain/story_campaign/progress.gd", "res://game/research/demos/story_campaign_flow_experiment.gd"],
+        "sources": ["res://game/domain/story_campaign/data/zheng_family_v1.json", "res://game/domain/story_campaign/catalog.gd", "res://game/domain/story_campaign/progress.gd", "res://game/research/demos/story_campaign_flow_experiment.gd"],
         "evidence": ["res://docs/research/evidence/story-campaign-flow/final-regression-01.json", "res://docs/research/evidence/story-campaign-flow/framework-gpu-02/process-result.json"],
     })
     write("assets/research/catalog.json", catalog)

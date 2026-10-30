@@ -18,7 +18,7 @@ func _run() -> void:
 	for entry: String in menu._buttons:
 		if menu._buttons[entry].is_visible_in_tree(): visible.append(entry)
 	visible.sort()
-	check(visible == ["duel","fidelity-island","fire","fleet","laboratory","mingqi","mingqi-continue","quit","sail","ships","world-atlas"],"ordinary menu exposes gameplay, fire skirmish, geographic atlas, laboratory and one shared-world visual acceptance entry")
+	check(visible == ["duel","fidelity-island","fire","fleet","laboratory","mingqi","mingqi-continue","quit","sail","ships","story","story-continue","world-atlas"],"ordinary menu exposes gameplay, fire skirmish, geographic atlas, laboratory, mainline entries and one shared-world visual acceptance entry")
 	var emitted: Array = []
 	menu.intent_requested.connect(func(request: Dictionary): emitted.append(request))
 	for internal: String in ["career","continue","water-study","fidelity-source","qa","practice"]:

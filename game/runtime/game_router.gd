@@ -5,14 +5,16 @@ const Settings = preload("res://game/persistence/user_settings.gd")
 const Codec = preload("res://game/domain/persistence/save_codec.gd")
 const MingqiRuntime = preload("res://game/runtime/mingqi_runtime.gd")
 const LegacyRuntime = preload("res://game/runtime/legacy_runtime.gd")
+const StoryRuntime = preload("res://game/runtime/story_runtime.gd")
 const Menu = preload("res://game/ui/menu/main_menu.gd")
 const Text = preload("res://game/domain/legacy/utf16_text.gd")
 const DevelopmentAccess = preload("res://game/runtime/development_access.gd")
-const MODES := ["mingqi","mingqi-continue","career","continue","duel","fleet","fire","sail","qa","world-atlas","ships","laboratory","practice","water-study","fidelity-island","fidelity-source"]
+const MODES := ["mingqi","mingqi-continue","story","story-continue","career","continue","duel","fleet","fire","sail","qa","world-atlas","ships","laboratory","practice","water-study","fidelity-island","fidelity-source"]
 const DEVELOPMENT_MODES := ["career","continue","qa","practice","water-study","fidelity-source"]
 var generation := 1
 var mingqi_storage: RefCounted
 var legacy_storage: RefCounted
+var story_storage: RefCounted
 var settings_storage: RefCounted
 var entry_factory: Callable
 var dev := false
@@ -26,6 +28,7 @@ var _recovery: Dictionary = {}
 func _init(dependencies: Dictionary = {}) -> void:
 	mingqi_storage = dependencies.get("mingqi_storage",Storage.new("user://saves/mingqi-v2.json"))
 	legacy_storage = dependencies.get("legacy_storage",Storage.new("user://saves/legacy-v1.json",LegacyRuntime.validate_save))
+	story_storage = dependencies.get("story_storage",Storage.new("user://saves/story-v1.json",StoryRuntime.validate_save))
 	settings_storage = dependencies.get("settings_storage",Settings.new())
 	entry_factory = dependencies.get("entry_factory",Callable())
 	dev = DevelopmentAccess.host_allows() and bool(dependencies.get("dev",false))
@@ -36,7 +39,9 @@ func view_model() -> Dictionary:
 	var v2: Dictionary = mingqi_storage.read_checkpoint()
 	var v1: Dictionary = legacy_storage.read_checkpoint()
 	var v1_valid: bool = v1.get("ok",false) and LegacyRuntime.validate_save(v1.get("json","")).ok
-	return {"settings":settings_storage.snapshot(),"hasLegacySave":v1_valid,"mingqiSlot":"present" if v2.get("ok",false) else "missing" if v2.get("reason") == "save-not-found" else "unreadable","dev":dev,"qa":qa}
+	var story: Dictionary = story_storage.read_checkpoint()
+	var story_valid: bool = story.get("ok",false) and StoryRuntime.validate_save(story.get("json","")).ok
+	return {"settings":settings_storage.snapshot(),"hasLegacySave":v1_valid,"hasStorySave":story_valid,"mingqiSlot":"present" if v2.get("ok",false) else "missing" if v2.get("reason") == "save-not-found" else "unreadable","dev":dev,"qa":qa}
 
 func is_current(candidate: Dictionary) -> bool:
 	return not _active.is_empty() and candidate.get("generation",-1) == generation and candidate.get("nonce",-1) == _active.nonce and candidate.get("operation",-1) == _operation
@@ -60,11 +65,13 @@ func prepare_entry(request: Dictionary) -> Dictionary:
 	if not seed is int or seed < 0 or seed > 4294967295: return _stamp(_no("entry-invalid-seed"))
 	var options := {"mode":mode,"captainName":Menu.normalized_name(request.get("name",Menu.DEFAULT_NAME)),"seed":seed,"handlingMode":settings_storage.snapshot().handling,"dev":dev,"qa":qa}
 	if mode == "mingqi-continue": return _restore(mingqi_storage.read_checkpoint(),"mingqi",options,true)
+	if mode == "story-continue": return _restore(story_storage.read_checkpoint(),"story",options,true)
 	if mode == "continue": return _restore(legacy_storage.read_checkpoint(),"career",options,false)
 	return _stamp({"ok":true,"mode":mode,"options":options,"initial_save":"","explicit_import":false,"persist_name":type == "start" and mode != "laboratory"})
 
 func _validate(raw: String, mode: String) -> Dictionary:
 	if mode == "career": return LegacyRuntime.validate_save(raw)
+	if mode == "story": return StoryRuntime.validate_save(raw)
 	var decoded: Dictionary = Codec.decode(raw)
 	if not decoded.ok: return decoded
 	var candidate := MingqiRuntime.new()
@@ -142,8 +149,8 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 			if not result.get("ok",false): return result
 			node = result.get("scene")
 		elif result is Node: node = result
-	elif mode in ["duel","fleet","fire","sail","laboratory","world-atlas"]:
-		var script_path: String = {"laboratory":"res://game/research/laboratory.gd","world-atlas":"res://game/ui/charts/world_atlas.gd"}.get(mode,"res://game/scenes/naval_practice/naval_practice.gd")
+	elif mode in ["duel","fleet","fire","sail","laboratory","world-atlas","story"]:
+		var script_path: String = {"laboratory":"res://game/research/laboratory.gd","world-atlas":"res://game/ui/charts/world_atlas.gd","story":"res://game/scenes/story/story_scene.gd"}.get(mode,"res://game/scenes/naval_practice/naval_practice.gd")
 		var resource = load(script_path)
 		if resource is GDScript: node = resource.new()
 	if not node: return _no("entry-resource-unavailable")
@@ -155,7 +162,7 @@ func create_scene(candidate: Dictionary) -> Dictionary:
 				if mode == "mingqi": options.captainName = native_captain_name(options.captainName)
 				node.set("startup_options",options)
 			"initial_save": node.set("initial_save",candidate.initial_save)
-			"storage": node.set("storage",mingqi_storage if mode == "mingqi" else legacy_storage)
+			"storage": node.set("storage",mingqi_storage if mode == "mingqi" else story_storage if mode == "story" else legacy_storage)
 			"settings_storage": node.set("settings_storage",settings_storage)
 	return {"ok":true,"scene":node}
 

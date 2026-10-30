@@ -1,7 +1,7 @@
 extends RefCounted
 ## Authored goal definitions. Loading this catalog grants no world assets or victories.
 
-const CONTENT_PATH := "res://assets/data/story_campaign/zheng_family_v1.json"
+const CONTENT_PATH := "res://game/domain/story_campaign/data/zheng_family_v1.json"
 const PROTAGONISTS := ["zheng-zhilong", "zheng-chenggong"]
 const REGIONS := ["REG-01", "REG-02", "REG-03", "REG-04", "REG-05", "REG-06", "REG-07"]
 const MODES := ["sailing", "trade", "escort", "naval", "boarding", "land", "port", "handoff"]
